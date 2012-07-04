@@ -1,0 +1,95 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="Site.master.cs" Inherits="SiteMaster" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head runat="server">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <script type="text/javascript" src="Scripts/jquery-1.4.1.min.js"></script>
+    <script type="text/javascript" src="Scripts/jquery.formatCurrency-1.4.0.min.js"></script>
+    <script type="text/javascript" src="Scripts/jquery.calculation.min.js"></script>
+    <script type="text/javascript" src="FusionChartLib/FusionCharts.js"></script>
+    <title></title>
+    <link href="~/Styles/Site.css" rel="stylesheet" type="text/css" />
+    <asp:ContentPlaceHolder ID="HeadContent" runat="server">
+        <style type="text/css">
+            
+        </style>
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form runat="server" id="formMain">
+    <div class="page">
+        <div class="header">
+            <div class="title">
+            </div>
+            <div class="loginDisplay" style="display: none">
+                <asp:LoginView ID="HeadLoginView" runat="server" EnableViewState="false">
+                    <AnonymousTemplate>
+                        <!--[ <a href="~/Account/Login.aspx" id="HeadLoginStatus" runat="server">Log In</a>
+                        ]-->
+                    </AnonymousTemplate>
+                    <LoggedInTemplate>
+                        Welcome <span class="bold">
+                            <asp:LoginName ID="HeadLoginName" runat="server" />
+                        </span>! [
+                        <asp:LoginStatus ID="HeadLoginStatus" runat="server" LogoutAction="Redirect" LogoutText="Log Out"
+                            LogoutPageUrl="~/" />
+                        ]
+                    </LoggedInTemplate>
+                </asp:LoginView>
+            </div>
+            <div class="clear hideSkiplink">
+                <table border=1>
+                    <tr>
+                        <td>
+                            <asp:Image ImageUrl="~/images/header_logo.png" runat="server" ID="imgLogo" />
+                        </td>
+                        <td>
+                            <asp:HyperLink CssClass="menuLink" ID="lnkDashboard" runat="server" NavigateUrl="~/Default.aspx"
+                                Text="DASHBOARD"></asp:HyperLink>
+                        </td>
+                        <td>
+                            <asp:HyperLink CssClass="menuLink" ID="lnkReports" runat="server" NavigateUrl="~/Reports.aspx"
+                                Text="REPORTS"></asp:HyperLink>
+                        </td>
+                        <td>
+                            <asp:HyperLink CssClass="menuLink" ID="lnkCRM" runat="server" NavigateUrl="~/CRM/CRMContacts.aspx"
+                                Text="CRM"></asp:HyperLink>
+                        </td>
+                        <td>
+                            <asp:HyperLink CssClass="menuLink" ID="lnkIndustrialAvgBenchmark" runat="server"
+                                NavigateUrl="~/IndAverageBenchmarks.aspx" Text="BENCHMARKS"></asp:HyperLink>
+                        </td>
+                        <td>
+                            <asp:HyperLink CssClass="menuLink" ID="lnkProducts" runat="server" NavigateUrl="~/Products.aspx"
+                                Text="PRODUCTS"></asp:HyperLink>
+                        </td>
+                        <td>
+                            <asp:HyperLink CssClass="menuLink" ID="lnkLogout" runat="server" NavigateUrl="~/Logout.aspx"
+                                Text="LOGOUT"></asp:HyperLink>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="main">
+            <asp:ContentPlaceHolder ID="MainContent" runat="server" />
+        </div>
+        <div class="clear">
+        </div>
+        <div class="footer">
+            <table width="100%">
+                <tr>
+                    <td align="left">
+                        Powered by Mined Systems, Inc. ®
+                    </td>
+                    <td align="right">
+                        Copyright© 2011 Mined Systems Metrics Intelligence. All rights reserved.
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    </form>
+</body>
+</html>

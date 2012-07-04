@@ -1,0 +1,114 @@
+1)Function getCoordinates_Value(oButton)
+   msgbox oButton.GetROProperty("abs_x")
+End Function
+
+RegisterUserFunc "WebButton","getCoordinates_Value","getCoordinates_Value"
+
+ Browser("Google").Page("Google").WebButton("Google Search").getCoordinates_Value
+
+UnregisterUserFunc "WebButton","getCoordinates_Value"
+
+2)Ic=Browser("Sudhakar's Quick Test").Page("Sudhakar's Quick Test").WebList("select").GetROProperty ("Items Count")
+
+For i=1 to ic
+print Browser("Sudhakar's Quick Test").Page("Sudhakar's Quick Test").WebList("select").GetItem(i)
+Next
+ 
+3)Function fnWebEdit(strOperation,strParent,BrowserIndex,propframe,PropWebText,val2Set,PropertyName)
+
+Select Case lcase(strOperation)
+   Case "set"
+   
+     Select Case lcase(strParent)
+        Case "frame"
+         Browser("micClass:=Browser","creationtime:="&BrowserIndex).Page("micClass:=Page").Frame(propframe).WebEdit(PropWebText).Set val2Set
+        Case "page"
+         Browser("micClass:=Browser","creationtime:="&BrowserIndex).Page("micClass:=Page").WebEdit(PropWebText).Set val2Set
+        Case "window"
+         Browser("micClass:=Browser","creationtime:="&BrowserIndex).Window("text:=Popup Host -- Web Page Dialog").Page("micclass:=Page").Frame(propframe).WebEdit(PropWebText).Set val2Set
+     End Select
+  
+  Case "exist"
+
+     Select Case lcase(strParent)
+       Case "frame"
+       blnWebEdit=Browser("micClass:=Browser","creationtime:="&BrowserIndex).Page("micClass:=Page").Frame(propframe).WebEdit(PropWebText).Exist
+       fnWebEdit=blnWebEdit
+       Case "page"
+       blnWebEdit=Browser("micClass:=Browser","creationtime:="&BrowserIndex).Page("micClass:=Page").WebEdit(PropWebText).Exist
+       fnWebEdit=blnWebEdit
+       Case "window"
+       blnWebEdit=Browser("micClass:=Browser","creationtime:="&BrowserIndex).Window("text:=Popup Host -- Web Page Dialog").Page("micclass:=Page").Frame(propframe).WebEdit(PropWebText).Exist
+       fnWebRadio=blnWebEdit
+     End Select
+
+  Case "get"
+
+    Select Case lcase(strParent)
+       Case "frame"
+       strPropValue=Browser("micClass:=Browser","creationtime:="&BrowserIndex).Page("micClass:=Page").Frame(propframe).WebEdit(PropWebText).GetRoProperty(PropertyName)
+       fnWebEdit=strPropValue
+       Case "page"
+       strPropValue=Browser("micClass:=Browser","creationtime:="&BrowserIndex).Page("micClass:=Page").WebEdit(PropWebText).GetRoProperty(PropertyName)
+       fnWebEdit=strPropValue
+       Case "window"
+       strPropValue=Browser("micClass:=Browser","creationtime:="&BrowserIndex).Window("text:=Popup Host -- Web Page Dialog").Page("micclass:=Page").Frame(propframe).WebEdit(PropWebText).GetRoProperty(PropertyName)    
+       fnWebEdit=strPropValue
+    
+    End Select  
+
+End Select 
+
+End Function
+
+'Call fnWebEdit("set","page",0,"","name:=q","qtp","")
+
+Call
+
+4)Function fnSetWebEdit(oDlgProperties,oEditProperties,Val2Set)
+
+On error resume next
+err.clear
+
+Dialog(oDlgProperties).Winedit(oEditProperties).Set Val2Set
+
+    If err.description<>"" Then
+     Call RecoveryFunction(oDlgProperties,err.description)
+     Call fnSetWebEdit (oDlgProperties,oEditProperties,Val2Set)
+    End If
+
+End Function
+
+Function RecoveryFunction(oParentObjectProperties,ErrDescription)
+
+   Select Case ErrDescription
+     Case "Object is disabled"
+
+     Set oDescription=Description.Create
+     oDescription.Add "micclass","Dialog"
+
+     Set objlist=Dialog(oParentObjectProperties).ChildObjects(oDescription)
+     If objlist.count<>0 Then
+      objlist(0).close
+     End If
+   End Select
+   
+End Function
+
+call fnSetWebEdit("text:=Login","attached text:=Agent Name:","test")
+
+5)ClickLinkDirect "The Graduate Management" ,"The Graduate Management","Log In"
+'ClickLink(Browser("The Graduate Management").Page("The Graduate Management").Link("Log In").Object)
+'Browser("The Graduate Management").Page("The Graduate Management").Link("Log In").Click
+
+ Login "sthakkar@gmac.com", "rujvi123", "The Graduate Management","GMAC.COM Site Login Page","txtEMail","txtPwd","Submit"
+ 
+'Browser("The Graduate Management").Page("GMAC.COM Site Login Page").WebEdit("txtEMail").Set "sthakkar@gmac.com"
+'Browser("The Graduate Management").Page("GMAC.COM Site Login Page").WebEdit("txtPwd").SetSecure "4b14f223ee271f3e903f71e66d48ef2a3948064bdc68"
+'Browser("The Graduate Management").Page("GMAC.COM Site Login Page").WebButton("Submit").Click
+'Browser("The Graduate Management").Dialog("Security Alert").Move 84,369
+'Browser("The Graduate Management").Dialog("Security Alert").WinButton("Yes").Click
+Browser("The Graduate Management").Page("The Graduate Management_2").Sync
+Browser("The Graduate Management").Close
+
+6)

@@ -1,0 +1,8 @@
+<chart caption='Sales Cycle Time' canvasBgColor='FFFFFF' canvasBgAlpha='100' pieRadius='100' showLegend='1' enableRotation='1' showLabels='0' numberSuffix='%'>
+  <set label='Up to 3 Months' value='21' color='FF0000' link='SCTDrill01.aspx'/>
+  <set label='3 to 6 Months' value='15' color='00FF00' link='SCTDrill02.aspx'/>
+  <set label='6 to 12 Months' value='18' color='FF00FF' link='SCTDrill03.aspx'/>
+  <set label='12 to 18 Months' value='14' color='0000FF' link='SCTDrill04.aspx'/>
+  <set label='18 to 24 Months' value='20' color='F7d358' link='SCTDrill05.aspx'/>
+  <set label='24+ Months' value='12' color='009966' link='SCTDrill06.aspx'/>
+</chart>

@@ -1,0 +1,53 @@
+<chart caption='Cost of Sale by Product' bgColor='FFFFFF' bgAlpha='100' canvasBgColor='FFFFFF' canvasBgAlpha='100'>   
+
+<categories>
+
+    	<category label='Leadership' /> 
+    	<category label='Sales' />
+	<category label='Sandler Online' />
+	<category label='Negotiations' /> 
+    	<category label='Strategic Customer Care' />
+	<category label='Consulting' />
+	<category label='Coaching' /> 
+    	<category label='Assessments' />
+	<category label='Networking Works' />
+	<category label='Strategic Alliances' /> 
+    	<category label='Corporate/Global Training' />
+	
+</categories >
+
+
+
+<dataset seriesName="Cost" color='8A4B08' >        
+
+	<set  value='60' link='COSDrill01.html' />        
+	<set  value='72' link='COSDrill02.html'/>        
+	<set  value='74' link='COSDrill03.html'/>        
+	<set  value='60' link='COSDrill04.html'/>        
+	<set  value='72' link='COSDrill05.html'/>        
+	<set  value='74' link='COSDrill06.html'/> 
+	<set  value='60' link='COSDrill07.html'/>        
+	<set  value='72' link='COSDrill08.html'/>        
+	<set  value='74' link='COSDrill09.html'/> 
+	<set  value='60' link='COSDrill10.html'/>        
+	<set  value='72' link='COSDrill11.html'/>        
+	 
+</dataset>
+
+<dataset seriesName="Profit" color='0000FF' >       
+
+	<set  value='-9' link='COSDrill01.html' />        
+	<set  value='-10' link='COSDrill02.html' />
+	<set  value='8' link='COSDrill03.html' />        
+    	<set  value='5' link='COSDrill04.html' />        
+	<set  value='-5' link='COSDrill05.html' />
+	<set  value='8' link='COSDrill06.html' />  
+	<set  value='5' link='COSDrill07.html' />        
+	<set  value='2' link='COSDrill08.html' />
+	<set  value='8' link='COSDrill09.html' />  
+	<set  value='5' link='COSDrill10.html' />        
+	<set  value='2' link='COSDrill11.html' />
+	
+</dataset>   
+
+</chart>

@@ -1,0 +1,8 @@
+<chart caption='Prospecting Results' canvasBgColor='FFFFFF' canvasBgAlpha='100'
+    yAxisName='Clients' > 
+    <set label='New Conver/Week' value='15' color='009966' link='ProspectDrill01.html' /> 
+    <set label='Call-to-Mtg Qty' value='26' color='9966FF' link='ProspectDrill01.html' /> 
+    <set label='Partners on Call Qty' value='23' color='8A4B08' link='ProspectDrill01.html' /> 
+    <set label='Free Talk Qty' value='6' color='58FADO' link='ProspectDrill01.html' />
+    <set label='Referral Qty' value='18' color='0000FF' link='ProspectDrill01.html' />
+</chart>

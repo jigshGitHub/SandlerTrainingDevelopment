@@ -1,0 +1,26 @@
+﻿<chart caption='Gap Analysis' numberSuffix='%' canvasBgColor='FFFFFF' canvasBgAlpha='100'>
+  <categories>
+    <category label='Sales Cycle Time' />
+    <category label='Sales Efficiency' />
+    <category label='Sales Qualification' />
+    <category label='Trng Cost Savings' />
+    <category label='Quota Achievement' />
+    <category label='Estimated Benifits Gained' />
+  </categories>
+  <dataset seriesName='As-Is' color='0000FF'>
+    <set  value='10' link='GapDrill01.html' />
+    <set  value='100' link='GapDrill01.html' />
+    <set  value='10' link='GapDrill01.html'  />
+    <set  value='5' link='GapDrill01.html' />
+    <set  value='10' link='GapDrill01.html' />
+    <set  value='5' link='GapDrill01.html' />
+  </dataset>
+  <dataset seriesName='To-Be' color='8A4B08'>
+    <set  value='75' link='GapDrill01.html' />
+    <set  value='75' link='GapDrill01.html' />
+    <set  value='40' link='GapDrill01.html'  />
+    <set  value='5' link='GapDrill01.html' />
+    <set  value='110' link='GapDrill01.html' />
+    <set  value='110' link='GapDrill01.html' />
+  </dataset>
+</chart>

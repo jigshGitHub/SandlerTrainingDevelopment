@@ -1,0 +1,1972 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Sandler.Models.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="SandlerModelsStoreContainer">
+          <EntitySet Name="(Gap_Analysis_Est_Benefits_Gained)" EntityType="Sandler.Models.Store.(Gap_Analysis_Est_Benefits_Gained)" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="(Gap_Analysis_Quota_Achievement)" EntityType="Sandler.Models.Store.(Gap_Analysis_Quota_Achievement)" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="(Gap_Analysis_Sales_Cycle_Time)" EntityType="Sandler.Models.Store.(Gap_Analysis_Sales_Cycle_Time)" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="(Gap_Analysis_Sales_Efficiency)" EntityType="Sandler.Models.Store.(Gap_Analysis_Sales_Efficiency)" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="(Gap_Analysis_Sales_Qualification)" EntityType="Sandler.Models.Store.(Gap_Analysis_Sales_Qualification)" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="(Gap_Analysis_Training_Cost_Savings)" EntityType="Sandler.Models.Store.(Gap_Analysis_Training_Cost_Savings)" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Gap_Analysis" EntityType="Sandler.Models.Store.Gap_Analysis" store:Type="Tables" store:Schema="dbo" store:Name="Gap_Analysis">
+            <DefiningQuery>SELECT 
+      [Gap_Analysis].[ID] AS [ID], 
+      [Gap_Analysis].[ProductID] AS [ProductID], 
+      [Gap_Analysis].[FranchiseeID] AS [FranchiseeID], 
+      [Gap_Analysis].[ClientID] AS [ClientID], 
+      [Gap_Analysis].[RepID] AS [RepID], 
+      [Gap_Analysis].[AsIs_SalesCycleTime] AS [AsIs_SalesCycleTime], 
+      [Gap_Analysis].[AsIs_SalesEfficiency] AS [AsIs_SalesEfficiency], 
+      [Gap_Analysis].[AsIs_SalesQualification] AS [AsIs_SalesQualification], 
+      [Gap_Analysis].[AsIs_TrngCostSavings] AS [AsIs_TrngCostSavings], 
+      [Gap_Analysis].[AsIs_QuotaAchievement] AS [AsIs_QuotaAchievement], 
+      [Gap_Analysis].[AsIs_EstBenefitsGained] AS [AsIs_EstBenefitsGained], 
+      [Gap_Analysis].[AsIs_SalesCycleTimeofIndustryAve] AS [AsIs_SalesCycleTimeofIndustryAve], 
+      [Gap_Analysis].[AsIs_SalesEfficiencyofIndustryAve] AS [AsIs_SalesEfficiencyofIndustryAve], 
+      [Gap_Analysis].[AsIs_SalesQualificationofIndustryAve] AS [AsIs_SalesQualificationofIndustryAve], 
+      [Gap_Analysis].[AsIs_TrngCostSavingsofIndustryAve] AS [AsIs_TrngCostSavingsofIndustryAve], 
+      [Gap_Analysis].[AsIs_QuotaAchievementofIndustryAve] AS [AsIs_QuotaAchievementofIndustryAve], 
+      [Gap_Analysis].[AsIs_EstBenefitsGainedofIndustryAve] AS [AsIs_EstBenefitsGainedofIndustryAve], 
+      [Gap_Analysis].[ToBe_SalesCycleTime] AS [ToBe_SalesCycleTime], 
+      [Gap_Analysis].[ToBe_SalesEfficiency] AS [ToBe_SalesEfficiency], 
+      [Gap_Analysis].[ToBe_SalesQualification] AS [ToBe_SalesQualification], 
+      [Gap_Analysis].[ToBe_TrngCostSavings] AS [ToBe_TrngCostSavings], 
+      [Gap_Analysis].[ToBe_QuotaAchievement] AS [ToBe_QuotaAchievement], 
+      [Gap_Analysis].[ToBe_EstBenefitsGained] AS [ToBe_EstBenefitsGained], 
+      [Gap_Analysis].[ToBe_SalesCycleTimeofIndustryAve] AS [ToBe_SalesCycleTimeofIndustryAve], 
+      [Gap_Analysis].[ToBe_SalesEfficiencyofIndustryAve] AS [ToBe_SalesEfficiencyofIndustryAve], 
+      [Gap_Analysis].[ToBe_SalesQualificationofIndustryAve] AS [ToBe_SalesQualificationofIndustryAve], 
+      [Gap_Analysis].[ToBe_TrngCostSavingsofIndustryAve] AS [ToBe_TrngCostSavingsofIndustryAve], 
+      [Gap_Analysis].[ToBe_QuotaAchievementofIndustryAve] AS [ToBe_QuotaAchievementofIndustryAve], 
+      [Gap_Analysis].[ToBe_EstBenefitsGainedofIndustryAve] AS [ToBe_EstBenefitsGainedofIndustryAve]
+      FROM [dbo].[Gap_Analysis] AS [Gap_Analysis]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Return_on_Trng_Investment" EntityType="Sandler.Models.Store.Return_on_Trng_Investment" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="TBL_ASSESSMENTS" EntityType="Sandler.Models.Store.TBL_ASSESSMENTS" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="TBL_CHART" EntityType="Sandler.Models.Store.TBL_CHART" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="TBL_COACHING" EntityType="Sandler.Models.Store.TBL_COACHING" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="TBL_COMPANY" EntityType="Sandler.Models.Store.TBL_COMPANY" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="TBL_CONSULTING" EntityType="Sandler.Models.Store.TBL_CONSULTING" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="TBL_CONTACT" EntityType="Sandler.Models.Store.TBL_CONTACT" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="TBL_CORPGLOBALTRAINING" EntityType="Sandler.Models.Store.TBL_CORPGLOBALTRAINING" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="TBL_COSTOFSALE_DRILL" EntityType="Sandler.Models.Store.TBL_COSTOFSALE_DRILL" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="TBL_COSTOFSALE_MAIN" EntityType="Sandler.Models.Store.TBL_COSTOFSALE_MAIN" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="TBL_DOCUMENTS" EntityType="Sandler.Models.Store.TBL_DOCUMENTS" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="TBL_FORECAST" EntityType="Sandler.Models.Store.TBL_FORECAST" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="TBL_IND_AVERAGES" EntityType="Sandler.Models.Store.TBL_IND_AVERAGES" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="TBL_LEADERSHIP" EntityType="Sandler.Models.Store.TBL_LEADERSHIP" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="TBL_NEGOTIATIONS" EntityType="Sandler.Models.Store.TBL_NEGOTIATIONS" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="TBL_NETWORKINGWORKS" EntityType="Sandler.Models.Store.TBL_NETWORKINGWORKS" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="TBL_OPPORTUNITY" EntityType="Sandler.Models.Store.TBL_OPPORTUNITY" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="TBL_PIPELINE_POST" EntityType="Sandler.Models.Store.TBL_PIPELINE_POST" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="TBL_PRDSALES_BYACT" EntityType="Sandler.Models.Store.TBL_PRDSALES_BYACT" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="TBL_PRODSOLD_AS_SALE" EntityType="Sandler.Models.Store.TBL_PRODSOLD_AS_SALE" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="TBL_PRODSOLD_BYCOMP" EntityType="Sandler.Models.Store.TBL_PRODSOLD_BYCOMP" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="TBL_PRODSOLD_BYREP" EntityType="Sandler.Models.Store.TBL_PRODSOLD_BYREP" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="TBL_PRODUCT_MARGIN" EntityType="Sandler.Models.Store.TBL_PRODUCT_MARGIN" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="TBL_PROSPECTING" EntityType="Sandler.Models.Store.TBL_PROSPECTING" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="TBL_RETENTION_RATE" EntityType="Sandler.Models.Store.TBL_RETENTION_RATE" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="TBL_REVBYSOURCE" EntityType="Sandler.Models.Store.TBL_REVBYSOURCE" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="TBL_SALES" EntityType="Sandler.Models.Store.TBL_SALES" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="TBL_SALESCYCLETIME_DRILL" EntityType="Sandler.Models.Store.TBL_SALESCYCLETIME_DRILL" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="TBL_SALESCYCLETIME_MAIN" EntityType="Sandler.Models.Store.TBL_SALESCYCLETIME_MAIN" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="TBL_SALESTOTALBYMONTH" EntityType="Sandler.Models.Store.TBL_SALESTOTALBYMONTH" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="TBL_SANDLERONLINE" EntityType="Sandler.Models.Store.TBL_SANDLERONLINE" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="TBL_STRATEGICALLIANCIES" EntityType="Sandler.Models.Store.TBL_STRATEGICALLIANCIES" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="TBL_STRATEGICCUSTCARE" EntityType="Sandler.Models.Store.TBL_STRATEGICCUSTCARE" store:Type="Tables" Schema="dbo" />
+        </EntityContainer>
+        <EntityType Name="(Gap_Analysis_Est_Benefits_Gained)">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="EstBenefitsGained" Type="nvarchar" MaxLength="255" />
+          <Property Name="PercentofIndustryAve" Type="int" />
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="(Gap_Analysis_Quota_Achievement)">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="QuotaAchievement" Type="nvarchar" MaxLength="255" />
+          <Property Name="PercentofIndustryAve" Type="int" />
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="(Gap_Analysis_Sales_Cycle_Time)">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="SalesCycleTime" Type="nvarchar" MaxLength="255" />
+          <Property Name="PercentofIndustryAve" Type="int" />
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="(Gap_Analysis_Sales_Efficiency)">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="SalesEfficiency" Type="nvarchar" MaxLength="255" />
+          <Property Name="PercentofIndustryAve" Type="int" />
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="(Gap_Analysis_Sales_Qualification)">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="SalesQualification" Type="nvarchar" MaxLength="255" />
+          <Property Name="PercentofIndustryAve" Type="int" />
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="(Gap_Analysis_Training_Cost_Savings)">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="TrngCostSavings" Type="nvarchar" MaxLength="255" />
+          <Property Name="PercentofIndustryAve" Type="int" />
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'SandlerDB.dbo.Gap_Analysis' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+        <EntityType Name="Gap_Analysis">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="ProductID" Type="int" />
+          <Property Name="FranchiseeID" Type="int" />
+          <Property Name="ClientID" Type="int" />
+          <Property Name="RepID" Type="int" />
+          <Property Name="AsIs_SalesCycleTime" Type="nvarchar" MaxLength="255" />
+          <Property Name="AsIs_SalesEfficiency" Type="nvarchar" MaxLength="255" />
+          <Property Name="AsIs_SalesQualification" Type="nvarchar" MaxLength="255" />
+          <Property Name="AsIs_TrngCostSavings" Type="nvarchar" MaxLength="255" />
+          <Property Name="AsIs_QuotaAchievement" Type="nvarchar" MaxLength="255" />
+          <Property Name="AsIs_EstBenefitsGained" Type="nvarchar" MaxLength="255" />
+          <Property Name="AsIs_SalesCycleTimeofIndustryAve" Type="int" />
+          <Property Name="AsIs_SalesEfficiencyofIndustryAve" Type="int" />
+          <Property Name="AsIs_SalesQualificationofIndustryAve" Type="int" />
+          <Property Name="AsIs_TrngCostSavingsofIndustryAve" Type="int" />
+          <Property Name="AsIs_QuotaAchievementofIndustryAve" Type="int" />
+          <Property Name="AsIs_EstBenefitsGainedofIndustryAve" Type="int" />
+          <Property Name="ToBe_SalesCycleTime" Type="nvarchar" MaxLength="255" />
+          <Property Name="ToBe_SalesEfficiency" Type="nvarchar" MaxLength="255" />
+          <Property Name="ToBe_SalesQualification" Type="nvarchar" MaxLength="255" />
+          <Property Name="ToBe_TrngCostSavings" Type="nvarchar" MaxLength="255" />
+          <Property Name="ToBe_QuotaAchievement" Type="nvarchar" MaxLength="255" />
+          <Property Name="ToBe_EstBenefitsGained" Type="nvarchar" MaxLength="255" />
+          <Property Name="ToBe_SalesCycleTimeofIndustryAve" Type="int" />
+          <Property Name="ToBe_SalesEfficiencyofIndustryAve" Type="int" />
+          <Property Name="ToBe_SalesQualificationofIndustryAve" Type="int" />
+          <Property Name="ToBe_TrngCostSavingsofIndustryAve" Type="int" />
+          <Property Name="ToBe_QuotaAchievementofIndustryAve" Type="int" />
+          <Property Name="ToBe_EstBenefitsGainedofIndustryAve" Type="int" />
+        </EntityType>
+        <EntityType Name="Return_on_Trng_Investment">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="ProductID" Type="int" />
+          <Property Name="FranchiseeID" Type="int" />
+          <Property Name="ClientID" Type="int" />
+          <Property Name="RepID" Type="int" />
+          <Property Name="PeriodYear" Type="int" />
+          <Property Name="YearDesignation" Type="int" />
+          <Property Name="InitialTrngInvestment" Type="money" />
+          <Property Name="ImplementationCost" Type="money" />
+          <Property Name="TrainingInvestment" Type="money" />
+          <Property Name="CostReductionSalesCycleTime" Type="money" />
+          <Property Name="CostReductionSalesEfficiency" Type="money" />
+          <Property Name="IncreasedQualifiedSales" Type="money" />
+          <Property Name="SavingsonRetainedSalesReps" Type="money" />
+          <Property Name="IncreasedQuotaAchievement" Type="money" />
+          <Property Name="TotalAnnualBenefits" Type="money" />
+          <Property Name="EstimatedBenefitsGained" Type="int" />
+          <Property Name="TotalBenefitsRealized" Type="money" />
+          <Property Name="TotalCost" Type="money" />
+          <Property Name="AnnualBenefitFlow" Type="money" />
+          <Property Name="CumBenefitFlow" Type="money" />
+          <Property Name="DiscountedCosts" Type="money" />
+          <Property Name="DiscountedBenefits" Type="money" />
+          <Property Name="TotalDiscountBenefitFlow" Type="money" />
+          <Property Name="TotalCumDiscountedBenefitFlow" Type="money" />
+          <Property Name="CostofCapital" Type="int" />
+          <Property Name="NetPresentValue" Type="money" />
+          <Property Name="Yr1ROI" Type="int" />
+          <Property Name="Yr2ROI" Type="int" />
+          <Property Name="Yr3ROI" Type="int" />
+          <Property Name="Payback" Type="nvarchar" MaxLength="255" />
+          <Property Name="OngoingSupportCosts" Type="money" />
+          <Property Name="IsOriginalVersion" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TBL_ASSESSMENTS">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Label_Name" Type="varchar" MaxLength="50" />
+          <Property Name="P1_Value" Type="int" />
+          <Property Name="P2_Value" Type="int" />
+          <Property Name="P3_Value" Type="int" />
+          <Property Name="P1_Qty" Type="int" />
+          <Property Name="P2_Qty" Type="int" />
+          <Property Name="P3_Qty" Type="int" />
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="TBL_CHART">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="TypeOfChart" Type="varchar" Nullable="false" MaxLength="100" />
+          <Property Name="Caption" Type="varchar" Nullable="false" MaxLength="500" />
+          <Property Name="SWFile" Type="varchar" Nullable="false" MaxLength="500" />
+          <Property Name="ChartID" Type="varchar" Nullable="false" MaxLength="500" />
+          <Property Name="NumberSuffix" Type="char" MaxLength="1" />
+          <Property Name="SNumberSuffix" Type="char" MaxLength="1" />
+          <Property Name="XaxisName" Type="varchar" MaxLength="500" />
+          <Property Name="YaxisName" Type="varchar" MaxLength="500" />
+          <Property Name="CanvasBgColor" Type="char" MaxLength="6" />
+          <Property Name="BgColor" Type="char" MaxLength="6" />
+          <Property Name="CanvasBgAlpha" Type="varchar" MaxLength="10" />
+          <Property Name="BgAlpha" Type="varchar" MaxLength="10" />
+          <Property Name="PieRadius" Type="varchar" MaxLength="10" />
+          <Property Name="EnableRotation" Type="char" MaxLength="1" />
+          <Property Name="ShowLegend" Type="char" MaxLength="1" />
+          <Property Name="ShowLabels" Type="char" MaxLength="1" />
+          <Property Name="PlotGradientColor" Type="char" MaxLength="6" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="LastUpdatedDate" Type="datetime" />
+          <Property Name="LastCreatedDate" Type="datetime" />
+          <Property Name="LastUpdatedBy" Type="uniqueidentifier" />
+          <Property Name="LastCreatedBy" Type="uniqueidentifier" />
+        </EntityType>
+        <EntityType Name="TBL_COACHING">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Label_Name" Type="varchar" MaxLength="50" />
+          <Property Name="P1_Value" Type="int" />
+          <Property Name="P2_Value" Type="int" />
+          <Property Name="P3_Value" Type="int" />
+          <Property Name="P1_Qty" Type="int" />
+          <Property Name="P2_Qty" Type="int" />
+          <Property Name="P3_Qty" Type="int" />
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="TBL_COMPANY">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="COMPANY_NAME" Type="varchar(max)" />
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="PRODUCT" Type="varchar" MaxLength="50" />
+          <Property Name="ACCOUNT_NAME" Type="varchar" MaxLength="50" />
+          <Property Name="ACCOUNT_VALUE" Type="int" />
+          <Property Name="LAST_CONTACT_DATE" Type="datetime" />
+          <Property Name="NEXT_CONTACT_DATE" Type="datetime" />
+          <Property Name="COMMENT" Type="varchar(max)" />
+          <Property Name="ACTION_STEP" Type="varchar" MaxLength="50" />
+          <Property Name="SALES_REP" Type="varchar" MaxLength="50" />
+          <Property Name="RegionId" Type="int" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="Notes" Type="varchar(max)" />
+          <Property Name="LastUpdatedDate" Type="datetime" />
+          <Property Name="LastUpdatedBy" Type="varchar" MaxLength="50" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" StoreGeneratedPattern="Computed" />
+          <Property Name="CreatedBy" Type="varchar" MaxLength="80" />
+          <Property Name="ProductId" Type="int" />
+          <Property Name="IndustryId" Type="int" />
+        </EntityType>
+        <EntityType Name="TBL_CONSULTING">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Label_Name" Type="varchar" MaxLength="50" />
+          <Property Name="P1_Value" Type="int" />
+          <Property Name="P2_Value" Type="int" />
+          <Property Name="P3_Value" Type="int" />
+          <Property Name="P1_Qty" Type="int" />
+          <Property Name="P2_Qty" Type="int" />
+          <Property Name="P3_Qty" Type="int" />
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="TBL_CONTACT">
+          <Key>
+            <PropertyRef Name="CONTACT_ID" />
+          </Key>
+          <Property Name="FULL_NAME" Type="varchar" MaxLength="50" />
+          <Property Name="PHONE" Type="varchar" MaxLength="50" />
+          <Property Name="EMAIL" Type="varchar" MaxLength="50" />
+          <Property Name="COMPANY_ID" Type="int" />
+          <Property Name="CONTACT_ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="TOTAL_ACT_VALUE" Type="int" />
+          <Property Name="LAST_CONTACT_DATE" Type="datetime" />
+          <Property Name="NEXT_CONTACT_DATE" Type="datetime" />
+          <Property Name="ACTION_STEP" Type="varchar" MaxLength="50" />
+          <Property Name="COMMENT" Type="varchar(max)" />
+          <Property Name="ApptSourceId" Type="int" />
+          <Property Name="ApptDate" Type="datetime" />
+          <Property Name="Notes" Type="varchar(max)" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="LastUpdatedDate" Type="datetime" />
+          <Property Name="LastUpdatedBy" Type="varchar" MaxLength="50" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" StoreGeneratedPattern="Computed" />
+          <Property Name="CreatedBy" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="TBL_CORPGLOBALTRAINING">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Label_Name" Type="varchar" MaxLength="50" />
+          <Property Name="P1_Value" Type="int" />
+          <Property Name="P2_Value" Type="int" />
+          <Property Name="P3_Value" Type="int" />
+          <Property Name="P1_Qty" Type="int" />
+          <Property Name="P2_Qty" Type="int" />
+          <Property Name="P3_Qty" Type="int" />
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="TBL_COSTOFSALE_DRILL">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Category_Name" Type="varchar" MaxLength="50" />
+          <Property Name="Cost" Type="int" />
+          <Property Name="Profit" Type="int" />
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="TBL_COSTOFSALE_MAIN">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Category_Name" Type="varchar" MaxLength="50" />
+          <Property Name="Cost" Type="int" />
+          <Property Name="Profit" Type="int" />
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="TBL_DOCUMENTS">
+          <Key>
+            <PropertyRef Name="DOC_ID" />
+          </Key>
+          <Property Name="DOC_ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="DOC_NAME" Type="varchar" MaxLength="50" />
+          <Property Name="OPP_ID" Type="int" />
+          <Property Name="LAST_MODIFY_DATE" Type="datetime" />
+          <Property Name="DOCUMENT_STATUS" Type="varchar" MaxLength="50" />
+          <Property Name="DOCUMENT_LOADED" Type="varchar" MaxLength="50" />
+          <Property Name="LastModifyBy" Type="varchar" MaxLength="80" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" StoreGeneratedPattern="Computed" />
+          <Property Name="CreatedBy" Type="varchar" MaxLength="80" />
+          <Property Name="IsActive" Type="bit" />
+        </EntityType>
+        <EntityType Name="TBL_FORECAST">
+          <Key>
+            <PropertyRef Name="FORECAST_ID" />
+          </Key>
+          <Property Name="FORECAST_ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="COMP_ID" Type="int" />
+          <Property Name="Q2TOTAL" Type="int" />
+          <Property Name="Q3TOTAL" Type="int" />
+          <Property Name="Q4TOTAL" Type="int" />
+          <Property Name="YEAR" Type="int" />
+          <Property Name="SEASON_INDEX" Type="varchar" MaxLength="50" />
+          <Property Name="GROWTH_INDEX" Type="varchar" MaxLength="50" />
+          <Property Name="TRAINED_REPS" Type="varchar" MaxLength="50" />
+          <Property Name="SALES_CYCLE_TIME" Type="varchar" MaxLength="50" />
+          <Property Name="QuotaTotal" Type="int" />
+          <Property Name="BestCaseTotal" Type="int" />
+          <Property Name="SalesPLTotal" Type="int" />
+          <Property Name="Q2Quota" Type="bigint" />
+          <Property Name="Q2BestCase" Type="bigint" />
+          <Property Name="Q2SalesPL" Type="bigint" />
+          <Property Name="Q3Quota" Type="bigint" />
+          <Property Name="Q3BestCase" Type="bigint" />
+          <Property Name="Q3SalesPL" Type="bigint" />
+          <Property Name="Q4Quota" Type="bigint" />
+          <Property Name="Q4BestCase" Type="bigint" />
+          <Property Name="Q4SalesPL" Type="bigint" />
+        </EntityType>
+        <EntityType Name="TBL_IND_AVERAGES">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Category_Name" Type="varchar" MaxLength="50" />
+          <Property Name="Best_In_Class_Value" Type="int" />
+          <Property Name="Mass_Mutual_Value" Type="int" />
+          <Property Name="Ind_Avg_Value" Type="int" />
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="TBL_LEADERSHIP">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Label_Name" Type="varchar" MaxLength="50" />
+          <Property Name="P1_Value" Type="int" />
+          <Property Name="P2_Value" Type="int" />
+          <Property Name="P3_Value" Type="int" />
+          <Property Name="P1_Qty" Type="int" />
+          <Property Name="P2_Qty" Type="int" />
+          <Property Name="P3_Qty" Type="int" />
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="TBL_NEGOTIATIONS">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Label_Name" Type="varchar" MaxLength="50" />
+          <Property Name="P1_Value" Type="int" />
+          <Property Name="P2_Value" Type="int" />
+          <Property Name="P3_Value" Type="int" />
+          <Property Name="P1_Qty" Type="int" />
+          <Property Name="P2_Qty" Type="int" />
+          <Property Name="P3_Qty" Type="int" />
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="TBL_NETWORKINGWORKS">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Label_Name" Type="varchar" MaxLength="50" />
+          <Property Name="P1_Value" Type="int" />
+          <Property Name="P2_Value" Type="int" />
+          <Property Name="P3_Value" Type="int" />
+          <Property Name="P1_Qty" Type="int" />
+          <Property Name="P2_Qty" Type="int" />
+          <Property Name="P3_Qty" Type="int" />
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="TBL_OPPORTUNITY">
+          <Key>
+            <PropertyRef Name="OPP_ID" />
+          </Key>
+          <Property Name="OPP_ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="COMPANY_ID" Type="int" />
+          <Property Name="OPP_NAME" Type="varchar" MaxLength="50" />
+          <Property Name="WEIGHTED_VALUE" Type="int" />
+          <Property Name="WIN_PROBABILITY" Type="varchar" MaxLength="50" />
+          <Property Name="TOTAL_VALUE" Type="int" />
+          <Property Name="CLOSE_DATE" Type="datetime" />
+          <Property Name="ACCT_OPP_STATUS" Type="varchar(max)" />
+          <Property Name="ACCT_ID" Type="int" />
+          <Property Name="SALES_REP" Type="varchar" MaxLength="50" />
+          <Property Name="REP_PHONE" Type="varchar" MaxLength="50" />
+          <Property Name="COMP_CONTACT" Type="varchar" MaxLength="50" />
+          <Property Name="COMP_PHONE" Type="varchar" MaxLength="50" />
+          <Property Name="EMAIL" Type="varchar" MaxLength="50" />
+          <Property Name="LastUpdatedDate" Type="datetime" />
+          <Property Name="LastUpdatedBy" Type="varchar" MaxLength="80" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" StoreGeneratedPattern="Computed" />
+          <Property Name="CreatedBy" Type="varchar" MaxLength="80" />
+          <Property Name="IsActive" Type="bit" />
+        </EntityType>
+        <EntityType Name="TBL_PIPELINE_POST">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Category_Name" Type="varchar" MaxLength="50" />
+          <Property Name="Before_Value" Type="int" />
+          <Property Name="After_Value" Type="int" />
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="TBL_PRDSALES_BYACT">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Category_Name" Type="varchar" MaxLength="50" />
+          <Property Name="Value_2010" Type="int" />
+          <Property Name="Value_2011" Type="int" />
+          <Property Name="Value_2012" Type="int" />
+          <Property Name="Qty_2010" Type="int" />
+          <Property Name="Qty_2011" Type="int" />
+          <Property Name="Qty_2012" Type="int" />
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="TBL_PRODSOLD_AS_SALE">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Category_Name" Type="varchar" MaxLength="50" />
+          <Property Name="Value_2010" Type="int" />
+          <Property Name="Value_2011" Type="int" />
+          <Property Name="Value_2012" Type="int" />
+          <Property Name="Qty_2010" Type="int" />
+          <Property Name="Qty_2011" Type="int" />
+          <Property Name="Qty_2012" Type="int" />
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="TBL_PRODSOLD_BYCOMP">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Category_Name" Type="varchar" MaxLength="50" />
+          <Property Name="Value" Type="int" />
+          <Property Name="Quantity" Type="int" />
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Color" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="TBL_PRODSOLD_BYREP">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Rep_Name" Type="varchar" MaxLength="50" />
+          <Property Name="Value_2010" Type="int" />
+          <Property Name="Value_2011" Type="int" />
+          <Property Name="Value_2012" Type="int" />
+          <Property Name="Qty_2010" Type="int" />
+          <Property Name="Qty_2011" Type="int" />
+          <Property Name="Qty_2012" Type="int" />
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="TBL_PRODUCT_MARGIN">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Category_Name" Type="varchar" MaxLength="50" />
+          <Property Name="Value_2010" Type="int" />
+          <Property Name="Value_2011" Type="int" />
+          <Property Name="Value_2012" Type="int" />
+          <Property Name="Qty_2010" Type="int" />
+          <Property Name="Qty_2011" Type="int" />
+          <Property Name="Qty_2012" Type="int" />
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="TBL_PROSPECTING">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="FirstLevel_Name" Type="varchar" MaxLength="50" />
+          <Property Name="FirstLevel_Qty" Type="int" />
+          <Property Name="SecondLevel_Name" Type="varchar" MaxLength="50" />
+          <Property Name="SecondLevel_Qty" Type="int" />
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Color" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="TBL_RETENTION_RATE">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Year" Type="int" />
+          <Property Name="Growth_Comp_Exp" Type="int" />
+          <Property Name="Mass_Mutual_Exp" Type="int" />
+          <Property Name="Marginal_Comp_Exp" Type="int" />
+          <Property Name="Growth_Comp_Effect" Type="int" />
+          <Property Name="Mass_Mutual_Effect" Type="int" />
+          <Property Name="Marginal_Comp_Effect" Type="int" />
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="TBL_REVBYSOURCE">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Category_Name" Type="varchar" MaxLength="50" />
+          <Property Name="Value_2010" Type="int" />
+          <Property Name="Value_2011" Type="int" />
+          <Property Name="Value_2012" Type="int" />
+          <Property Name="Qty_2010" Type="int" />
+          <Property Name="Qty_2011" Type="int" />
+          <Property Name="Qty_2012" Type="int" />
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="TBL_SALES">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Label_Name" Type="varchar" MaxLength="50" />
+          <Property Name="P1_Value" Type="int" />
+          <Property Name="P2_Value" Type="int" />
+          <Property Name="P3_Value" Type="int" />
+          <Property Name="P1_Qty" Type="int" />
+          <Property Name="P2_Qty" Type="int" />
+          <Property Name="P3_Qty" Type="int" />
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Color" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="TBL_SALESCYCLETIME_DRILL">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Category_Name" Type="varchar" MaxLength="50" />
+          <Property Name="Value_DL1" Type="int" />
+          <Property Name="Value_DL2" Type="int" />
+          <Property Name="Value_DL3" Type="int" />
+          <Property Name="Value_DL4" Type="int" />
+          <Property Name="Value_DL5" Type="int" />
+          <Property Name="Value_DL6" Type="int" />
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Color" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="TBL_SALESCYCLETIME_MAIN">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Category_Name" Type="varchar" MaxLength="50" />
+          <Property Name="Value" Type="int" />
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Color" Type="varchar" MaxLength="50" />
+          <Property Name="Link" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="TBL_SALESTOTALBYMONTH">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Month_Name" Type="varchar" MaxLength="50" />
+          <Property Name="Value_2010" Type="int" />
+          <Property Name="Value_2011" Type="int" />
+          <Property Name="Value_2012" Type="int" />
+          <Property Name="Qty_2010" Type="int" />
+          <Property Name="Qty_2011" Type="int" />
+          <Property Name="Qty_2012" Type="int" />
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="TBL_SANDLERONLINE">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Label_Name" Type="varchar" MaxLength="50" />
+          <Property Name="P1_Value" Type="int" />
+          <Property Name="P2_Value" Type="int" />
+          <Property Name="P3_Value" Type="int" />
+          <Property Name="P1_Qty" Type="int" />
+          <Property Name="P2_Qty" Type="int" />
+          <Property Name="P3_Qty" Type="int" />
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="TBL_STRATEGICALLIANCIES">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Label_Name" Type="varchar" MaxLength="50" />
+          <Property Name="P1_Value" Type="int" />
+          <Property Name="P2_Value" Type="int" />
+          <Property Name="P3_Value" Type="int" />
+          <Property Name="P1_Qty" Type="int" />
+          <Property Name="P2_Qty" Type="int" />
+          <Property Name="P3_Qty" Type="int" />
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="TBL_STRATEGICCUSTCARE">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Label_Name" Type="varchar" MaxLength="50" />
+          <Property Name="P1_Value" Type="int" />
+          <Property Name="P2_Value" Type="int" />
+          <Property Name="P3_Value" Type="int" />
+          <Property Name="P1_Qty" Type="int" />
+          <Property Name="P2_Qty" Type="int" />
+          <Property Name="P3_Qty" Type="int" />
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+        </EntityType>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Sandler.Models" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="SandlerDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Gap_Analysis" EntityType="Sandler.Models.Gap_Analysis" />
+          <EntitySet Name="TBL_COMPANY" EntityType="Sandler.Models.TBL_COMPANY" />
+          <EntitySet Name="TBL_CONTACT" EntityType="Sandler.Models.TBL_CONTACT" />
+          <EntitySet Name="TBL_DOCUMENTS" EntityType="Sandler.Models.TBL_DOCUMENTS" />
+          <EntitySet Name="TBL_OPPORTUNITY" EntityType="Sandler.Models.TBL_OPPORTUNITY" />
+          <EntitySet Name="C_Gap_Analysis_Est_Benefits_Gained_" EntityType="Sandler.Models.C_Gap_Analysis_Est_Benefits_Gained_" />
+          <EntitySet Name="C_Gap_Analysis_Quota_Achievement_" EntityType="Sandler.Models.C_Gap_Analysis_Quota_Achievement_" />
+          <EntitySet Name="C_Gap_Analysis_Sales_Cycle_Time_" EntityType="Sandler.Models.C_Gap_Analysis_Sales_Cycle_Time_" />
+          <EntitySet Name="C_Gap_Analysis_Sales_Efficiency_" EntityType="Sandler.Models.C_Gap_Analysis_Sales_Efficiency_" />
+          <EntitySet Name="C_Gap_Analysis_Sales_Qualification_" EntityType="Sandler.Models.C_Gap_Analysis_Sales_Qualification_" />
+          <EntitySet Name="C_Gap_Analysis_Training_Cost_Savings_" EntityType="Sandler.Models.C_Gap_Analysis_Training_Cost_Savings_" />
+          <EntitySet Name="TBL_FORECAST" EntityType="Sandler.Models.TBL_FORECAST" />
+          <EntitySet Name="TBL_ASSESSMENTS" EntityType="Sandler.Models.TBL_ASSESSMENTS" />
+          <EntitySet Name="TBL_COACHING" EntityType="Sandler.Models.TBL_COACHING" />
+          <EntitySet Name="TBL_CONSULTING" EntityType="Sandler.Models.TBL_CONSULTING" />
+          <EntitySet Name="TBL_CORPGLOBALTRAINING" EntityType="Sandler.Models.TBL_CORPGLOBALTRAINING" />
+          <EntitySet Name="TBL_COSTOFSALE_DRILL" EntityType="Sandler.Models.TBL_COSTOFSALE_DRILL" />
+          <EntitySet Name="TBL_COSTOFSALE_MAIN" EntityType="Sandler.Models.TBL_COSTOFSALE_MAIN" />
+          <EntitySet Name="TBL_IND_AVERAGES" EntityType="Sandler.Models.TBL_IND_AVERAGES" />
+          <EntitySet Name="TBL_LEADERSHIP" EntityType="Sandler.Models.TBL_LEADERSHIP" />
+          <EntitySet Name="TBL_NEGOTIATIONS" EntityType="Sandler.Models.TBL_NEGOTIATIONS" />
+          <EntitySet Name="TBL_NETWORKINGWORKS" EntityType="Sandler.Models.TBL_NETWORKINGWORKS" />
+          <EntitySet Name="TBL_PIPELINE_POST" EntityType="Sandler.Models.TBL_PIPELINE_POST" />
+          <EntitySet Name="TBL_PRDSALES_BYACT" EntityType="Sandler.Models.TBL_PRDSALES_BYACT" />
+          <EntitySet Name="TBL_PRODSOLD_AS_SALE" EntityType="Sandler.Models.TBL_PRODSOLD_AS_SALE" />
+          <EntitySet Name="TBL_PRODSOLD_BYCOMP" EntityType="Sandler.Models.TBL_PRODSOLD_BYCOMP" />
+          <EntitySet Name="TBL_PRODSOLD_BYREP" EntityType="Sandler.Models.TBL_PRODSOLD_BYREP" />
+          <EntitySet Name="TBL_PRODUCT_MARGIN" EntityType="Sandler.Models.TBL_PRODUCT_MARGIN" />
+          <EntitySet Name="TBL_PROSPECTING" EntityType="Sandler.Models.TBL_PROSPECTING" />
+          <EntitySet Name="TBL_RETENTION_RATE" EntityType="Sandler.Models.TBL_RETENTION_RATE" />
+          <EntitySet Name="TBL_REVBYSOURCE" EntityType="Sandler.Models.TBL_REVBYSOURCE" />
+          <EntitySet Name="TBL_SALES" EntityType="Sandler.Models.TBL_SALES" />
+          <EntitySet Name="TBL_SALESCYCLETIME_DRILL" EntityType="Sandler.Models.TBL_SALESCYCLETIME_DRILL" />
+          <EntitySet Name="TBL_SALESCYCLETIME_MAIN" EntityType="Sandler.Models.TBL_SALESCYCLETIME_MAIN" />
+          <EntitySet Name="TBL_SALESTOTALBYMONTH" EntityType="Sandler.Models.TBL_SALESTOTALBYMONTH" />
+          <EntitySet Name="TBL_SANDLERONLINE" EntityType="Sandler.Models.TBL_SANDLERONLINE" />
+          <EntitySet Name="TBL_STRATEGICALLIANCIES" EntityType="Sandler.Models.TBL_STRATEGICALLIANCIES" />
+          <EntitySet Name="TBL_STRATEGICCUSTCARE" EntityType="Sandler.Models.TBL_STRATEGICCUSTCARE" />
+          <EntitySet Name="Return_on_Trng_Investment" EntityType="Sandler.Models.Return_on_Trng_Investment" />
+          <EntitySet Name="TBL_CHART" EntityType="Sandler.Models.TBL_CHART" />
+        </EntityContainer>
+        <EntityType Name="Gap_Analysis">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="ProductID" Type="Int32" />
+          <Property Name="FranchiseeID" Type="Int32" />
+          <Property Name="ClientID" Type="Int32" />
+          <Property Name="RepID" Type="Int32" />
+          <Property Name="AsIs_SalesCycleTime" Type="String" MaxLength="255" Unicode="true" FixedLength="false" />
+          <Property Name="AsIs_SalesEfficiency" Type="String" MaxLength="255" Unicode="true" FixedLength="false" />
+          <Property Name="AsIs_SalesQualification" Type="String" MaxLength="255" Unicode="true" FixedLength="false" />
+          <Property Name="AsIs_TrngCostSavings" Type="String" MaxLength="255" Unicode="true" FixedLength="false" />
+          <Property Name="AsIs_QuotaAchievement" Type="String" MaxLength="255" Unicode="true" FixedLength="false" />
+          <Property Name="AsIs_EstBenefitsGained" Type="String" MaxLength="255" Unicode="true" FixedLength="false" />
+          <Property Name="AsIs_SalesCycleTimeofIndustryAve" Type="Int32" />
+          <Property Name="AsIs_SalesEfficiencyofIndustryAve" Type="Int32" />
+          <Property Name="AsIs_SalesQualificationofIndustryAve" Type="Int32" />
+          <Property Name="AsIs_TrngCostSavingsofIndustryAve" Type="Int32" />
+          <Property Name="AsIs_QuotaAchievementofIndustryAve" Type="Int32" />
+          <Property Name="AsIs_EstBenefitsGainedofIndustryAve" Type="Int32" />
+          <Property Name="ToBe_SalesCycleTime" Type="String" MaxLength="255" Unicode="true" FixedLength="false" />
+          <Property Name="ToBe_SalesEfficiency" Type="String" MaxLength="255" Unicode="true" FixedLength="false" />
+          <Property Name="ToBe_SalesQualification" Type="String" MaxLength="255" Unicode="true" FixedLength="false" />
+          <Property Name="ToBe_TrngCostSavings" Type="String" MaxLength="255" Unicode="true" FixedLength="false" />
+          <Property Name="ToBe_QuotaAchievement" Type="String" MaxLength="255" Unicode="true" FixedLength="false" />
+          <Property Name="ToBe_EstBenefitsGained" Type="String" MaxLength="255" Unicode="true" FixedLength="false" />
+          <Property Name="ToBe_SalesCycleTimeofIndustryAve" Type="Int32" />
+          <Property Name="ToBe_SalesEfficiencyofIndustryAve" Type="Int32" />
+          <Property Name="ToBe_SalesQualificationofIndustryAve" Type="Int32" />
+          <Property Name="ToBe_TrngCostSavingsofIndustryAve" Type="Int32" />
+          <Property Name="ToBe_QuotaAchievementofIndustryAve" Type="Int32" />
+          <Property Name="ToBe_EstBenefitsGainedofIndustryAve" Type="Int32" />
+        </EntityType>
+        <EntityType Name="TBL_COMPANY">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="String" Name="COMPANY_NAME" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="PRODUCT" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="ACCOUNT_NAME" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="ACCOUNT_VALUE" />
+          <Property Type="DateTime" Name="LAST_CONTACT_DATE" />
+          <Property Type="DateTime" Name="NEXT_CONTACT_DATE" />
+          <Property Type="String" Name="COMMENT" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="ACTION_STEP" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="SALES_REP" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="RegionId" />
+          <Property Type="Boolean" Name="IsActive" />
+          <Property Type="String" Name="Notes" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="LastUpdatedDate" />
+          <Property Type="String" Name="LastUpdatedBy" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="CreatedDate" Nullable="false" annotation:StoreGeneratedPattern="Computed" />
+          <Property Type="String" Name="CreatedBy" MaxLength="80" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="ProductId" />
+          <Property Type="Int32" Name="IndustryId" />
+        </EntityType>
+        <EntityType Name="TBL_CONTACT">
+          <Key>
+            <PropertyRef Name="CONTACT_ID" />
+          </Key>
+          <Property Type="String" Name="FULL_NAME" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="PHONE" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="EMAIL" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="COMPANY_ID" />
+          <Property Type="Int32" Name="CONTACT_ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="TOTAL_ACT_VALUE" />
+          <Property Type="DateTime" Name="LAST_CONTACT_DATE" />
+          <Property Type="DateTime" Name="NEXT_CONTACT_DATE" />
+          <Property Type="String" Name="ACTION_STEP" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="COMMENT" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="ApptSourceId" />
+          <Property Type="DateTime" Name="ApptDate" />
+          <Property Type="String" Name="Notes" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="Boolean" Name="IsActive" />
+          <Property Type="DateTime" Name="LastUpdatedDate" />
+          <Property Type="String" Name="LastUpdatedBy" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="CreatedDate" Nullable="false" annotation:StoreGeneratedPattern="Computed" />
+          <Property Type="String" Name="CreatedBy" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="TBL_DOCUMENTS">
+          <Key>
+            <PropertyRef Name="DOC_ID" />
+          </Key>
+          <Property Type="Int32" Name="DOC_ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="DOC_NAME" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="OPP_ID" />
+          <Property Type="DateTime" Name="LAST_MODIFY_DATE" />
+          <Property Type="String" Name="DOCUMENT_STATUS" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="DOCUMENT_LOADED" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="LastModifyBy" MaxLength="80" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="CreatedDate" Nullable="false" annotation:StoreGeneratedPattern="Computed" />
+          <Property Type="String" Name="CreatedBy" MaxLength="80" FixedLength="false" Unicode="false" />
+          <Property Type="Boolean" Name="IsActive" />
+        </EntityType>
+        <EntityType Name="TBL_OPPORTUNITY">
+          <Key>
+            <PropertyRef Name="OPP_ID" />
+          </Key>
+          <Property Type="Int32" Name="OPP_ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="COMPANY_ID" />
+          <Property Type="String" Name="OPP_NAME" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="WEIGHTED_VALUE" />
+          <Property Type="String" Name="WIN_PROBABILITY" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="TOTAL_VALUE" />
+          <Property Type="DateTime" Name="CLOSE_DATE" />
+          <Property Type="String" Name="ACCT_OPP_STATUS" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="ACCT_ID" />
+          <Property Type="String" Name="SALES_REP" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="REP_PHONE" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="COMP_CONTACT" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="COMP_PHONE" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="EMAIL" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="LastUpdatedDate" />
+          <Property Type="String" Name="LastUpdatedBy" MaxLength="80" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="CreatedDate" Nullable="false" annotation:StoreGeneratedPattern="Computed" />
+          <Property Type="String" Name="CreatedBy" MaxLength="80" FixedLength="false" Unicode="false" />
+          <Property Type="Boolean" Name="IsActive" />
+        </EntityType>
+        <EntityType Name="C_Gap_Analysis_Est_Benefits_Gained_">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="String" Name="EstBenefitsGained" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="PercentofIndustryAve" />
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="C_Gap_Analysis_Quota_Achievement_">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="String" Name="QuotaAchievement" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="PercentofIndustryAve" />
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="C_Gap_Analysis_Sales_Cycle_Time_">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="String" Name="SalesCycleTime" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="PercentofIndustryAve" />
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="C_Gap_Analysis_Sales_Efficiency_">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="String" Name="SalesEfficiency" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="PercentofIndustryAve" />
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="C_Gap_Analysis_Sales_Qualification_">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="String" Name="SalesQualification" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="PercentofIndustryAve" />
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="C_Gap_Analysis_Training_Cost_Savings_">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="String" Name="TrngCostSavings" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="PercentofIndustryAve" />
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="TBL_FORECAST">
+          <Key>
+            <PropertyRef Name="FORECAST_ID" />
+          </Key>
+          <Property Type="Int32" Name="FORECAST_ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="COMP_ID" />
+          <Property Type="Int32" Name="Q2TOTAL" />
+          <Property Type="Int32" Name="Q3TOTAL" />
+          <Property Type="Int32" Name="Q4TOTAL" />
+          <Property Type="Int32" Name="YEAR" />
+          <Property Type="String" Name="SEASON_INDEX" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="GROWTH_INDEX" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="TRAINED_REPS" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="SALES_CYCLE_TIME" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="QuotaTotal" />
+          <Property Type="Int32" Name="BestCaseTotal" />
+          <Property Type="Int32" Name="SalesPLTotal" />
+          <Property Type="Int64" Name="Q2Quota" />
+          <Property Type="Int64" Name="Q2BestCase" />
+          <Property Type="Int64" Name="Q2SalesPL" />
+          <Property Type="Int64" Name="Q3Quota" />
+          <Property Type="Int64" Name="Q3BestCase" />
+          <Property Type="Int64" Name="Q3SalesPL" />
+          <Property Type="Int64" Name="Q4Quota" />
+          <Property Type="Int64" Name="Q4BestCase" />
+          <Property Type="Int64" Name="Q4SalesPL" />
+        </EntityType>
+        <EntityType Name="TBL_ASSESSMENTS">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="String" Name="Label_Name" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="P1_Value" />
+          <Property Type="Int32" Name="P2_Value" />
+          <Property Type="Int32" Name="P3_Value" />
+          <Property Type="Int32" Name="P1_Qty" />
+          <Property Type="Int32" Name="P2_Qty" />
+          <Property Type="Int32" Name="P3_Qty" />
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="TBL_COACHING">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="String" Name="Label_Name" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="P1_Value" />
+          <Property Type="Int32" Name="P2_Value" />
+          <Property Type="Int32" Name="P3_Value" />
+          <Property Type="Int32" Name="P1_Qty" />
+          <Property Type="Int32" Name="P2_Qty" />
+          <Property Type="Int32" Name="P3_Qty" />
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="TBL_CONSULTING">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="String" Name="Label_Name" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="P1_Value" />
+          <Property Type="Int32" Name="P2_Value" />
+          <Property Type="Int32" Name="P3_Value" />
+          <Property Type="Int32" Name="P1_Qty" />
+          <Property Type="Int32" Name="P2_Qty" />
+          <Property Type="Int32" Name="P3_Qty" />
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="TBL_CORPGLOBALTRAINING">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="String" Name="Label_Name" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="P1_Value" />
+          <Property Type="Int32" Name="P2_Value" />
+          <Property Type="Int32" Name="P3_Value" />
+          <Property Type="Int32" Name="P1_Qty" />
+          <Property Type="Int32" Name="P2_Qty" />
+          <Property Type="Int32" Name="P3_Qty" />
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="TBL_COSTOFSALE_DRILL">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="String" Name="Category_Name" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="Cost" />
+          <Property Type="Int32" Name="Profit" />
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="TBL_COSTOFSALE_MAIN">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="String" Name="Category_Name" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="Cost" />
+          <Property Type="Int32" Name="Profit" />
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="TBL_IND_AVERAGES">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="String" Name="Category_Name" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="Best_In_Class_Value" />
+          <Property Type="Int32" Name="Mass_Mutual_Value" />
+          <Property Type="Int32" Name="Ind_Avg_Value" />
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="TBL_LEADERSHIP">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="String" Name="Label_Name" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="P1_Value" />
+          <Property Type="Int32" Name="P2_Value" />
+          <Property Type="Int32" Name="P3_Value" />
+          <Property Type="Int32" Name="P1_Qty" />
+          <Property Type="Int32" Name="P2_Qty" />
+          <Property Type="Int32" Name="P3_Qty" />
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="TBL_NEGOTIATIONS">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="String" Name="Label_Name" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="P1_Value" />
+          <Property Type="Int32" Name="P2_Value" />
+          <Property Type="Int32" Name="P3_Value" />
+          <Property Type="Int32" Name="P1_Qty" />
+          <Property Type="Int32" Name="P2_Qty" />
+          <Property Type="Int32" Name="P3_Qty" />
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="TBL_NETWORKINGWORKS">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="String" Name="Label_Name" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="P1_Value" />
+          <Property Type="Int32" Name="P2_Value" />
+          <Property Type="Int32" Name="P3_Value" />
+          <Property Type="Int32" Name="P1_Qty" />
+          <Property Type="Int32" Name="P2_Qty" />
+          <Property Type="Int32" Name="P3_Qty" />
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="TBL_PIPELINE_POST">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="String" Name="Category_Name" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="Before_Value" />
+          <Property Type="Int32" Name="After_Value" />
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="TBL_PRDSALES_BYACT">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="String" Name="Category_Name" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="Value_2010" />
+          <Property Type="Int32" Name="Value_2011" />
+          <Property Type="Int32" Name="Value_2012" />
+          <Property Type="Int32" Name="Qty_2010" />
+          <Property Type="Int32" Name="Qty_2011" />
+          <Property Type="Int32" Name="Qty_2012" />
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="TBL_PRODSOLD_AS_SALE">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="String" Name="Category_Name" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="Value_2010" />
+          <Property Type="Int32" Name="Value_2011" />
+          <Property Type="Int32" Name="Value_2012" />
+          <Property Type="Int32" Name="Qty_2010" />
+          <Property Type="Int32" Name="Qty_2011" />
+          <Property Type="Int32" Name="Qty_2012" />
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="TBL_PRODSOLD_BYCOMP">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="String" Name="Category_Name" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="Value" />
+          <Property Type="Int32" Name="Quantity" />
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Color" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="TBL_PRODSOLD_BYREP">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="String" Name="Rep_Name" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="Value_2010" />
+          <Property Type="Int32" Name="Value_2011" />
+          <Property Type="Int32" Name="Value_2012" />
+          <Property Type="Int32" Name="Qty_2010" />
+          <Property Type="Int32" Name="Qty_2011" />
+          <Property Type="Int32" Name="Qty_2012" />
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="TBL_PRODUCT_MARGIN">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="String" Name="Category_Name" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="Value_2010" />
+          <Property Type="Int32" Name="Value_2011" />
+          <Property Type="Int32" Name="Value_2012" />
+          <Property Type="Int32" Name="Qty_2010" />
+          <Property Type="Int32" Name="Qty_2011" />
+          <Property Type="Int32" Name="Qty_2012" />
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="TBL_PROSPECTING">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="String" Name="FirstLevel_Name" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="FirstLevel_Qty" />
+          <Property Type="String" Name="SecondLevel_Name" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="SecondLevel_Qty" />
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Color" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="TBL_RETENTION_RATE">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Year" />
+          <Property Type="Int32" Name="Growth_Comp_Exp" />
+          <Property Type="Int32" Name="Mass_Mutual_Exp" />
+          <Property Type="Int32" Name="Marginal_Comp_Exp" />
+          <Property Type="Int32" Name="Growth_Comp_Effect" />
+          <Property Type="Int32" Name="Mass_Mutual_Effect" />
+          <Property Type="Int32" Name="Marginal_Comp_Effect" />
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="TBL_REVBYSOURCE">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="String" Name="Category_Name" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="Value_2010" />
+          <Property Type="Int32" Name="Value_2011" />
+          <Property Type="Int32" Name="Value_2012" />
+          <Property Type="Int32" Name="Qty_2010" />
+          <Property Type="Int32" Name="Qty_2011" />
+          <Property Type="Int32" Name="Qty_2012" />
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="TBL_SALES">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="String" Name="Label_Name" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="P1_Value" />
+          <Property Type="Int32" Name="P2_Value" />
+          <Property Type="Int32" Name="P3_Value" />
+          <Property Type="Int32" Name="P1_Qty" />
+          <Property Type="Int32" Name="P2_Qty" />
+          <Property Type="Int32" Name="P3_Qty" />
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Color" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="TBL_SALESCYCLETIME_DRILL">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="String" Name="Category_Name" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="Value_DL1" />
+          <Property Type="Int32" Name="Value_DL2" />
+          <Property Type="Int32" Name="Value_DL3" />
+          <Property Type="Int32" Name="Value_DL4" />
+          <Property Type="Int32" Name="Value_DL5" />
+          <Property Type="Int32" Name="Value_DL6" />
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Color" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="TBL_SALESCYCLETIME_MAIN">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="String" Name="Category_Name" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="Value" />
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Color" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Link" MaxLength="100" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="TBL_SALESTOTALBYMONTH">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="String" Name="Month_Name" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="Value_2010" />
+          <Property Type="Int32" Name="Value_2011" />
+          <Property Type="Int32" Name="Value_2012" />
+          <Property Type="Int32" Name="Qty_2010" />
+          <Property Type="Int32" Name="Qty_2011" />
+          <Property Type="Int32" Name="Qty_2012" />
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="TBL_SANDLERONLINE">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="String" Name="Label_Name" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="P1_Value" />
+          <Property Type="Int32" Name="P2_Value" />
+          <Property Type="Int32" Name="P3_Value" />
+          <Property Type="Int32" Name="P1_Qty" />
+          <Property Type="Int32" Name="P2_Qty" />
+          <Property Type="Int32" Name="P3_Qty" />
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="TBL_STRATEGICALLIANCIES">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="String" Name="Label_Name" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="P1_Value" />
+          <Property Type="Int32" Name="P2_Value" />
+          <Property Type="Int32" Name="P3_Value" />
+          <Property Type="Int32" Name="P1_Qty" />
+          <Property Type="Int32" Name="P2_Qty" />
+          <Property Type="Int32" Name="P3_Qty" />
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="TBL_STRATEGICCUSTCARE">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="String" Name="Label_Name" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="P1_Value" />
+          <Property Type="Int32" Name="P2_Value" />
+          <Property Type="Int32" Name="P3_Value" />
+          <Property Type="Int32" Name="P1_Qty" />
+          <Property Type="Int32" Name="P2_Qty" />
+          <Property Type="Int32" Name="P3_Qty" />
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="Return_on_Trng_Investment">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="Int32" Name="ProductID" />
+          <Property Type="Int32" Name="FranchiseeID" />
+          <Property Type="Int32" Name="ClientID" />
+          <Property Type="Int32" Name="RepID" />
+          <Property Type="Int32" Name="PeriodYear" />
+          <Property Type="Int32" Name="YearDesignation" />
+          <Property Type="Decimal" Name="InitialTrngInvestment" Precision="19" Scale="4" />
+          <Property Type="Decimal" Name="ImplementationCost" Precision="19" Scale="4" />
+          <Property Type="Decimal" Name="TrainingInvestment" Precision="19" Scale="4" />
+          <Property Type="Decimal" Name="CostReductionSalesCycleTime" Precision="19" Scale="4" />
+          <Property Type="Decimal" Name="CostReductionSalesEfficiency" Precision="19" Scale="4" />
+          <Property Type="Decimal" Name="IncreasedQualifiedSales" Precision="19" Scale="4" />
+          <Property Type="Decimal" Name="SavingsonRetainedSalesReps" Precision="19" Scale="4" />
+          <Property Type="Decimal" Name="IncreasedQuotaAchievement" Precision="19" Scale="4" />
+          <Property Type="Decimal" Name="TotalAnnualBenefits" Precision="19" Scale="4" />
+          <Property Type="Int32" Name="EstimatedBenefitsGained" />
+          <Property Type="Decimal" Name="TotalBenefitsRealized" Precision="19" Scale="4" />
+          <Property Type="Decimal" Name="TotalCost" Precision="19" Scale="4" />
+          <Property Type="Decimal" Name="AnnualBenefitFlow" Precision="19" Scale="4" />
+          <Property Type="Decimal" Name="CumBenefitFlow" Precision="19" Scale="4" />
+          <Property Type="Decimal" Name="DiscountedCosts" Precision="19" Scale="4" />
+          <Property Type="Decimal" Name="DiscountedBenefits" Precision="19" Scale="4" />
+          <Property Type="Decimal" Name="TotalDiscountBenefitFlow" Precision="19" Scale="4" />
+          <Property Type="Decimal" Name="TotalCumDiscountedBenefitFlow" Precision="19" Scale="4" />
+          <Property Type="Int32" Name="CostofCapital" />
+          <Property Type="Decimal" Name="NetPresentValue" Precision="19" Scale="4" />
+          <Property Type="Int32" Name="Yr1ROI" />
+          <Property Type="Int32" Name="Yr2ROI" />
+          <Property Type="Int32" Name="Yr3ROI" />
+          <Property Type="String" Name="Payback" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="Decimal" Name="OngoingSupportCosts" Precision="19" Scale="4" />
+          <Property Type="Boolean" Name="IsOriginalVersion" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TBL_CHART">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="TypeOfChart" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Caption" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="NumberSuffix" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Type="String" Name="SNumberSuffix" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Type="String" Name="XaxisName" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="YaxisName" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="CanvasBgColor" MaxLength="6" FixedLength="true" Unicode="false" />
+          <Property Type="String" Name="BgColor" MaxLength="6" FixedLength="true" Unicode="false" />
+          <Property Type="String" Name="CanvasBgAlpha" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="BgAlpha" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="PieRadius" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="EnableRotation" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Type="String" Name="ShowLegend" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Type="String" Name="ShowLabels" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Type="String" Name="PlotGradientColor" MaxLength="6" FixedLength="true" Unicode="false" />
+          <Property Type="Boolean" Name="IsActive" />
+          <Property Type="DateTime" Name="LastUpdatedDate" />
+          <Property Type="DateTime" Name="LastCreatedDate" />
+          <Property Type="Guid" Name="LastUpdatedBy" />
+          <Property Type="Guid" Name="LastCreatedBy" />
+          <Property Type="String" Name="SWFile" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="ChartID" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="SandlerModelsStoreContainer" CdmEntityContainer="SandlerDBEntities">
+          <EntitySetMapping Name="Gap_Analysis"><EntityTypeMapping TypeName="Sandler.Models.Gap_Analysis"><MappingFragment StoreEntitySet="Gap_Analysis">
+            <ScalarProperty Name="ID" ColumnName="ID" />
+            <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+            <ScalarProperty Name="FranchiseeID" ColumnName="FranchiseeID" />
+            <ScalarProperty Name="ClientID" ColumnName="ClientID" />
+            <ScalarProperty Name="RepID" ColumnName="RepID" />
+            <ScalarProperty Name="AsIs_SalesCycleTime" ColumnName="AsIs_SalesCycleTime" />
+            <ScalarProperty Name="AsIs_SalesEfficiency" ColumnName="AsIs_SalesEfficiency" />
+            <ScalarProperty Name="AsIs_SalesQualification" ColumnName="AsIs_SalesQualification" />
+            <ScalarProperty Name="AsIs_TrngCostSavings" ColumnName="AsIs_TrngCostSavings" />
+            <ScalarProperty Name="AsIs_QuotaAchievement" ColumnName="AsIs_QuotaAchievement" />
+            <ScalarProperty Name="AsIs_EstBenefitsGained" ColumnName="AsIs_EstBenefitsGained" />
+            <ScalarProperty Name="AsIs_SalesCycleTimeofIndustryAve" ColumnName="AsIs_SalesCycleTimeofIndustryAve" />
+            <ScalarProperty Name="AsIs_SalesEfficiencyofIndustryAve" ColumnName="AsIs_SalesEfficiencyofIndustryAve" />
+            <ScalarProperty Name="AsIs_SalesQualificationofIndustryAve" ColumnName="AsIs_SalesQualificationofIndustryAve" />
+            <ScalarProperty Name="AsIs_TrngCostSavingsofIndustryAve" ColumnName="AsIs_TrngCostSavingsofIndustryAve" />
+            <ScalarProperty Name="AsIs_QuotaAchievementofIndustryAve" ColumnName="AsIs_QuotaAchievementofIndustryAve" />
+            <ScalarProperty Name="AsIs_EstBenefitsGainedofIndustryAve" ColumnName="AsIs_EstBenefitsGainedofIndustryAve" />
+            <ScalarProperty Name="ToBe_SalesCycleTime" ColumnName="ToBe_SalesCycleTime" />
+            <ScalarProperty Name="ToBe_SalesEfficiency" ColumnName="ToBe_SalesEfficiency" />
+            <ScalarProperty Name="ToBe_SalesQualification" ColumnName="ToBe_SalesQualification" />
+            <ScalarProperty Name="ToBe_TrngCostSavings" ColumnName="ToBe_TrngCostSavings" />
+            <ScalarProperty Name="ToBe_QuotaAchievement" ColumnName="ToBe_QuotaAchievement" />
+            <ScalarProperty Name="ToBe_EstBenefitsGained" ColumnName="ToBe_EstBenefitsGained" />
+            <ScalarProperty Name="ToBe_SalesCycleTimeofIndustryAve" ColumnName="ToBe_SalesCycleTimeofIndustryAve" />
+            <ScalarProperty Name="ToBe_SalesEfficiencyofIndustryAve" ColumnName="ToBe_SalesEfficiencyofIndustryAve" />
+            <ScalarProperty Name="ToBe_SalesQualificationofIndustryAve" ColumnName="ToBe_SalesQualificationofIndustryAve" />
+            <ScalarProperty Name="ToBe_TrngCostSavingsofIndustryAve" ColumnName="ToBe_TrngCostSavingsofIndustryAve" />
+            <ScalarProperty Name="ToBe_QuotaAchievementofIndustryAve" ColumnName="ToBe_QuotaAchievementofIndustryAve" />
+            <ScalarProperty Name="ToBe_EstBenefitsGainedofIndustryAve" ColumnName="ToBe_EstBenefitsGainedofIndustryAve" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="TBL_COMPANY">
+            <EntityTypeMapping TypeName="Sandler.Models.TBL_COMPANY">
+              <MappingFragment StoreEntitySet="TBL_COMPANY">
+                <ScalarProperty Name="IndustryId" ColumnName="IndustryId" />
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="LastUpdatedBy" ColumnName="LastUpdatedBy" />
+                <ScalarProperty Name="LastUpdatedDate" ColumnName="LastUpdatedDate" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="RegionId" ColumnName="RegionId" />
+                <ScalarProperty Name="SALES_REP" ColumnName="SALES_REP" />
+                <ScalarProperty Name="ACTION_STEP" ColumnName="ACTION_STEP" />
+                <ScalarProperty Name="COMMENT" ColumnName="COMMENT" />
+                <ScalarProperty Name="NEXT_CONTACT_DATE" ColumnName="NEXT_CONTACT_DATE" />
+                <ScalarProperty Name="LAST_CONTACT_DATE" ColumnName="LAST_CONTACT_DATE" />
+                <ScalarProperty Name="ACCOUNT_VALUE" ColumnName="ACCOUNT_VALUE" />
+                <ScalarProperty Name="ACCOUNT_NAME" ColumnName="ACCOUNT_NAME" />
+                <ScalarProperty Name="PRODUCT" ColumnName="PRODUCT" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="COMPANY_NAME" ColumnName="COMPANY_NAME" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_CONTACT">
+            <EntityTypeMapping TypeName="Sandler.Models.TBL_CONTACT">
+              <MappingFragment StoreEntitySet="TBL_CONTACT">
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="LastUpdatedBy" ColumnName="LastUpdatedBy" />
+                <ScalarProperty Name="LastUpdatedDate" ColumnName="LastUpdatedDate" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+                <ScalarProperty Name="ApptDate" ColumnName="ApptDate" />
+                <ScalarProperty Name="ApptSourceId" ColumnName="ApptSourceId" />
+                <ScalarProperty Name="COMMENT" ColumnName="COMMENT" />
+                <ScalarProperty Name="ACTION_STEP" ColumnName="ACTION_STEP" />
+                <ScalarProperty Name="NEXT_CONTACT_DATE" ColumnName="NEXT_CONTACT_DATE" />
+                <ScalarProperty Name="LAST_CONTACT_DATE" ColumnName="LAST_CONTACT_DATE" />
+                <ScalarProperty Name="TOTAL_ACT_VALUE" ColumnName="TOTAL_ACT_VALUE" />
+                <ScalarProperty Name="CONTACT_ID" ColumnName="CONTACT_ID" />
+                <ScalarProperty Name="COMPANY_ID" ColumnName="COMPANY_ID" />
+                <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
+                <ScalarProperty Name="PHONE" ColumnName="PHONE" />
+                <ScalarProperty Name="FULL_NAME" ColumnName="FULL_NAME" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_DOCUMENTS">
+            <EntityTypeMapping TypeName="Sandler.Models.TBL_DOCUMENTS">
+              <MappingFragment StoreEntitySet="TBL_DOCUMENTS">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="LastModifyBy" ColumnName="LastModifyBy" />
+                <ScalarProperty Name="DOCUMENT_LOADED" ColumnName="DOCUMENT_LOADED" />
+                <ScalarProperty Name="DOCUMENT_STATUS" ColumnName="DOCUMENT_STATUS" />
+                <ScalarProperty Name="LAST_MODIFY_DATE" ColumnName="LAST_MODIFY_DATE" />
+                <ScalarProperty Name="OPP_ID" ColumnName="OPP_ID" />
+                <ScalarProperty Name="DOC_NAME" ColumnName="DOC_NAME" />
+                <ScalarProperty Name="DOC_ID" ColumnName="DOC_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_OPPORTUNITY">
+            <EntityTypeMapping TypeName="Sandler.Models.TBL_OPPORTUNITY">
+              <MappingFragment StoreEntitySet="TBL_OPPORTUNITY">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="LastUpdatedBy" ColumnName="LastUpdatedBy" />
+                <ScalarProperty Name="LastUpdatedDate" ColumnName="LastUpdatedDate" />
+                <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
+                <ScalarProperty Name="COMP_PHONE" ColumnName="COMP_PHONE" />
+                <ScalarProperty Name="COMP_CONTACT" ColumnName="COMP_CONTACT" />
+                <ScalarProperty Name="REP_PHONE" ColumnName="REP_PHONE" />
+                <ScalarProperty Name="SALES_REP" ColumnName="SALES_REP" />
+                <ScalarProperty Name="ACCT_ID" ColumnName="ACCT_ID" />
+                <ScalarProperty Name="ACCT_OPP_STATUS" ColumnName="ACCT_OPP_STATUS" />
+                <ScalarProperty Name="CLOSE_DATE" ColumnName="CLOSE_DATE" />
+                <ScalarProperty Name="TOTAL_VALUE" ColumnName="TOTAL_VALUE" />
+                <ScalarProperty Name="WIN_PROBABILITY" ColumnName="WIN_PROBABILITY" />
+                <ScalarProperty Name="WEIGHTED_VALUE" ColumnName="WEIGHTED_VALUE" />
+                <ScalarProperty Name="OPP_NAME" ColumnName="OPP_NAME" />
+                <ScalarProperty Name="COMPANY_ID" ColumnName="COMPANY_ID" />
+                <ScalarProperty Name="OPP_ID" ColumnName="OPP_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="C_Gap_Analysis_Est_Benefits_Gained_">
+            <EntityTypeMapping TypeName="Sandler.Models.C_Gap_Analysis_Est_Benefits_Gained_">
+              <MappingFragment StoreEntitySet="(Gap_Analysis_Est_Benefits_Gained)">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="PercentofIndustryAve" ColumnName="PercentofIndustryAve" />
+                <ScalarProperty Name="EstBenefitsGained" ColumnName="EstBenefitsGained" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="C_Gap_Analysis_Quota_Achievement_">
+            <EntityTypeMapping TypeName="Sandler.Models.C_Gap_Analysis_Quota_Achievement_">
+              <MappingFragment StoreEntitySet="(Gap_Analysis_Quota_Achievement)">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="PercentofIndustryAve" ColumnName="PercentofIndustryAve" />
+                <ScalarProperty Name="QuotaAchievement" ColumnName="QuotaAchievement" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="C_Gap_Analysis_Sales_Cycle_Time_">
+            <EntityTypeMapping TypeName="Sandler.Models.C_Gap_Analysis_Sales_Cycle_Time_">
+              <MappingFragment StoreEntitySet="(Gap_Analysis_Sales_Cycle_Time)">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="PercentofIndustryAve" ColumnName="PercentofIndustryAve" />
+                <ScalarProperty Name="SalesCycleTime" ColumnName="SalesCycleTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="C_Gap_Analysis_Sales_Efficiency_">
+            <EntityTypeMapping TypeName="Sandler.Models.C_Gap_Analysis_Sales_Efficiency_">
+              <MappingFragment StoreEntitySet="(Gap_Analysis_Sales_Efficiency)">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="PercentofIndustryAve" ColumnName="PercentofIndustryAve" />
+                <ScalarProperty Name="SalesEfficiency" ColumnName="SalesEfficiency" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="C_Gap_Analysis_Sales_Qualification_">
+            <EntityTypeMapping TypeName="Sandler.Models.C_Gap_Analysis_Sales_Qualification_">
+              <MappingFragment StoreEntitySet="(Gap_Analysis_Sales_Qualification)">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="PercentofIndustryAve" ColumnName="PercentofIndustryAve" />
+                <ScalarProperty Name="SalesQualification" ColumnName="SalesQualification" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="C_Gap_Analysis_Training_Cost_Savings_">
+            <EntityTypeMapping TypeName="Sandler.Models.C_Gap_Analysis_Training_Cost_Savings_">
+              <MappingFragment StoreEntitySet="(Gap_Analysis_Training_Cost_Savings)">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="PercentofIndustryAve" ColumnName="PercentofIndustryAve" />
+                <ScalarProperty Name="TrngCostSavings" ColumnName="TrngCostSavings" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_FORECAST">
+            <EntityTypeMapping TypeName="Sandler.Models.TBL_FORECAST">
+              <MappingFragment StoreEntitySet="TBL_FORECAST">
+                <ScalarProperty Name="Q4SalesPL" ColumnName="Q4SalesPL" />
+                <ScalarProperty Name="Q4BestCase" ColumnName="Q4BestCase" />
+                <ScalarProperty Name="Q4Quota" ColumnName="Q4Quota" />
+                <ScalarProperty Name="Q3SalesPL" ColumnName="Q3SalesPL" />
+                <ScalarProperty Name="Q3BestCase" ColumnName="Q3BestCase" />
+                <ScalarProperty Name="Q3Quota" ColumnName="Q3Quota" />
+                <ScalarProperty Name="Q2SalesPL" ColumnName="Q2SalesPL" />
+                <ScalarProperty Name="Q2BestCase" ColumnName="Q2BestCase" />
+                <ScalarProperty Name="Q2Quota" ColumnName="Q2Quota" />
+                <ScalarProperty Name="SalesPLTotal" ColumnName="SalesPLTotal" />
+                <ScalarProperty Name="BestCaseTotal" ColumnName="BestCaseTotal" />
+                <ScalarProperty Name="QuotaTotal" ColumnName="QuotaTotal" />
+                <ScalarProperty Name="SALES_CYCLE_TIME" ColumnName="SALES_CYCLE_TIME" />
+                <ScalarProperty Name="TRAINED_REPS" ColumnName="TRAINED_REPS" />
+                <ScalarProperty Name="GROWTH_INDEX" ColumnName="GROWTH_INDEX" />
+                <ScalarProperty Name="SEASON_INDEX" ColumnName="SEASON_INDEX" />
+                <ScalarProperty Name="YEAR" ColumnName="YEAR" />
+                <ScalarProperty Name="Q4TOTAL" ColumnName="Q4TOTAL" />
+                <ScalarProperty Name="Q3TOTAL" ColumnName="Q3TOTAL" />
+                <ScalarProperty Name="Q2TOTAL" ColumnName="Q2TOTAL" />
+                <ScalarProperty Name="COMP_ID" ColumnName="COMP_ID" />
+                <ScalarProperty Name="FORECAST_ID" ColumnName="FORECAST_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_ASSESSMENTS">
+            <EntityTypeMapping TypeName="Sandler.Models.TBL_ASSESSMENTS">
+              <MappingFragment StoreEntitySet="TBL_ASSESSMENTS">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="P3_Qty" ColumnName="P3_Qty" />
+                <ScalarProperty Name="P2_Qty" ColumnName="P2_Qty" />
+                <ScalarProperty Name="P1_Qty" ColumnName="P1_Qty" />
+                <ScalarProperty Name="P3_Value" ColumnName="P3_Value" />
+                <ScalarProperty Name="P2_Value" ColumnName="P2_Value" />
+                <ScalarProperty Name="P1_Value" ColumnName="P1_Value" />
+                <ScalarProperty Name="Label_Name" ColumnName="Label_Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_COACHING">
+            <EntityTypeMapping TypeName="Sandler.Models.TBL_COACHING">
+              <MappingFragment StoreEntitySet="TBL_COACHING">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="P3_Qty" ColumnName="P3_Qty" />
+                <ScalarProperty Name="P2_Qty" ColumnName="P2_Qty" />
+                <ScalarProperty Name="P1_Qty" ColumnName="P1_Qty" />
+                <ScalarProperty Name="P3_Value" ColumnName="P3_Value" />
+                <ScalarProperty Name="P2_Value" ColumnName="P2_Value" />
+                <ScalarProperty Name="P1_Value" ColumnName="P1_Value" />
+                <ScalarProperty Name="Label_Name" ColumnName="Label_Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_CONSULTING">
+            <EntityTypeMapping TypeName="Sandler.Models.TBL_CONSULTING">
+              <MappingFragment StoreEntitySet="TBL_CONSULTING">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="P3_Qty" ColumnName="P3_Qty" />
+                <ScalarProperty Name="P2_Qty" ColumnName="P2_Qty" />
+                <ScalarProperty Name="P1_Qty" ColumnName="P1_Qty" />
+                <ScalarProperty Name="P3_Value" ColumnName="P3_Value" />
+                <ScalarProperty Name="P2_Value" ColumnName="P2_Value" />
+                <ScalarProperty Name="P1_Value" ColumnName="P1_Value" />
+                <ScalarProperty Name="Label_Name" ColumnName="Label_Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_CORPGLOBALTRAINING">
+            <EntityTypeMapping TypeName="Sandler.Models.TBL_CORPGLOBALTRAINING">
+              <MappingFragment StoreEntitySet="TBL_CORPGLOBALTRAINING">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="P3_Qty" ColumnName="P3_Qty" />
+                <ScalarProperty Name="P2_Qty" ColumnName="P2_Qty" />
+                <ScalarProperty Name="P1_Qty" ColumnName="P1_Qty" />
+                <ScalarProperty Name="P3_Value" ColumnName="P3_Value" />
+                <ScalarProperty Name="P2_Value" ColumnName="P2_Value" />
+                <ScalarProperty Name="P1_Value" ColumnName="P1_Value" />
+                <ScalarProperty Name="Label_Name" ColumnName="Label_Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_COSTOFSALE_DRILL">
+            <EntityTypeMapping TypeName="Sandler.Models.TBL_COSTOFSALE_DRILL">
+              <MappingFragment StoreEntitySet="TBL_COSTOFSALE_DRILL">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Profit" ColumnName="Profit" />
+                <ScalarProperty Name="Cost" ColumnName="Cost" />
+                <ScalarProperty Name="Category_Name" ColumnName="Category_Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_COSTOFSALE_MAIN">
+            <EntityTypeMapping TypeName="Sandler.Models.TBL_COSTOFSALE_MAIN">
+              <MappingFragment StoreEntitySet="TBL_COSTOFSALE_MAIN">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Profit" ColumnName="Profit" />
+                <ScalarProperty Name="Cost" ColumnName="Cost" />
+                <ScalarProperty Name="Category_Name" ColumnName="Category_Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_IND_AVERAGES">
+            <EntityTypeMapping TypeName="Sandler.Models.TBL_IND_AVERAGES">
+              <MappingFragment StoreEntitySet="TBL_IND_AVERAGES">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Ind_Avg_Value" ColumnName="Ind_Avg_Value" />
+                <ScalarProperty Name="Mass_Mutual_Value" ColumnName="Mass_Mutual_Value" />
+                <ScalarProperty Name="Best_In_Class_Value" ColumnName="Best_In_Class_Value" />
+                <ScalarProperty Name="Category_Name" ColumnName="Category_Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_LEADERSHIP">
+            <EntityTypeMapping TypeName="Sandler.Models.TBL_LEADERSHIP">
+              <MappingFragment StoreEntitySet="TBL_LEADERSHIP">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="P3_Qty" ColumnName="P3_Qty" />
+                <ScalarProperty Name="P2_Qty" ColumnName="P2_Qty" />
+                <ScalarProperty Name="P1_Qty" ColumnName="P1_Qty" />
+                <ScalarProperty Name="P3_Value" ColumnName="P3_Value" />
+                <ScalarProperty Name="P2_Value" ColumnName="P2_Value" />
+                <ScalarProperty Name="P1_Value" ColumnName="P1_Value" />
+                <ScalarProperty Name="Label_Name" ColumnName="Label_Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_NEGOTIATIONS">
+            <EntityTypeMapping TypeName="Sandler.Models.TBL_NEGOTIATIONS">
+              <MappingFragment StoreEntitySet="TBL_NEGOTIATIONS">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="P3_Qty" ColumnName="P3_Qty" />
+                <ScalarProperty Name="P2_Qty" ColumnName="P2_Qty" />
+                <ScalarProperty Name="P1_Qty" ColumnName="P1_Qty" />
+                <ScalarProperty Name="P3_Value" ColumnName="P3_Value" />
+                <ScalarProperty Name="P2_Value" ColumnName="P2_Value" />
+                <ScalarProperty Name="P1_Value" ColumnName="P1_Value" />
+                <ScalarProperty Name="Label_Name" ColumnName="Label_Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_NETWORKINGWORKS">
+            <EntityTypeMapping TypeName="Sandler.Models.TBL_NETWORKINGWORKS">
+              <MappingFragment StoreEntitySet="TBL_NETWORKINGWORKS">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="P3_Qty" ColumnName="P3_Qty" />
+                <ScalarProperty Name="P2_Qty" ColumnName="P2_Qty" />
+                <ScalarProperty Name="P1_Qty" ColumnName="P1_Qty" />
+                <ScalarProperty Name="P3_Value" ColumnName="P3_Value" />
+                <ScalarProperty Name="P2_Value" ColumnName="P2_Value" />
+                <ScalarProperty Name="P1_Value" ColumnName="P1_Value" />
+                <ScalarProperty Name="Label_Name" ColumnName="Label_Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_PIPELINE_POST">
+            <EntityTypeMapping TypeName="Sandler.Models.TBL_PIPELINE_POST">
+              <MappingFragment StoreEntitySet="TBL_PIPELINE_POST">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="After_Value" ColumnName="After_Value" />
+                <ScalarProperty Name="Before_Value" ColumnName="Before_Value" />
+                <ScalarProperty Name="Category_Name" ColumnName="Category_Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_PRDSALES_BYACT">
+            <EntityTypeMapping TypeName="Sandler.Models.TBL_PRDSALES_BYACT">
+              <MappingFragment StoreEntitySet="TBL_PRDSALES_BYACT">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Qty_2012" ColumnName="Qty_2012" />
+                <ScalarProperty Name="Qty_2011" ColumnName="Qty_2011" />
+                <ScalarProperty Name="Qty_2010" ColumnName="Qty_2010" />
+                <ScalarProperty Name="Value_2012" ColumnName="Value_2012" />
+                <ScalarProperty Name="Value_2011" ColumnName="Value_2011" />
+                <ScalarProperty Name="Value_2010" ColumnName="Value_2010" />
+                <ScalarProperty Name="Category_Name" ColumnName="Category_Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_PRODSOLD_AS_SALE">
+            <EntityTypeMapping TypeName="Sandler.Models.TBL_PRODSOLD_AS_SALE">
+              <MappingFragment StoreEntitySet="TBL_PRODSOLD_AS_SALE">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Qty_2012" ColumnName="Qty_2012" />
+                <ScalarProperty Name="Qty_2011" ColumnName="Qty_2011" />
+                <ScalarProperty Name="Qty_2010" ColumnName="Qty_2010" />
+                <ScalarProperty Name="Value_2012" ColumnName="Value_2012" />
+                <ScalarProperty Name="Value_2011" ColumnName="Value_2011" />
+                <ScalarProperty Name="Value_2010" ColumnName="Value_2010" />
+                <ScalarProperty Name="Category_Name" ColumnName="Category_Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_PRODSOLD_BYCOMP">
+            <EntityTypeMapping TypeName="Sandler.Models.TBL_PRODSOLD_BYCOMP">
+              <MappingFragment StoreEntitySet="TBL_PRODSOLD_BYCOMP">
+                <ScalarProperty Name="Color" ColumnName="Color" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="Category_Name" ColumnName="Category_Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_PRODSOLD_BYREP">
+            <EntityTypeMapping TypeName="Sandler.Models.TBL_PRODSOLD_BYREP">
+              <MappingFragment StoreEntitySet="TBL_PRODSOLD_BYREP">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Qty_2012" ColumnName="Qty_2012" />
+                <ScalarProperty Name="Qty_2011" ColumnName="Qty_2011" />
+                <ScalarProperty Name="Qty_2010" ColumnName="Qty_2010" />
+                <ScalarProperty Name="Value_2012" ColumnName="Value_2012" />
+                <ScalarProperty Name="Value_2011" ColumnName="Value_2011" />
+                <ScalarProperty Name="Value_2010" ColumnName="Value_2010" />
+                <ScalarProperty Name="Rep_Name" ColumnName="Rep_Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_PRODUCT_MARGIN">
+            <EntityTypeMapping TypeName="Sandler.Models.TBL_PRODUCT_MARGIN">
+              <MappingFragment StoreEntitySet="TBL_PRODUCT_MARGIN">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Qty_2012" ColumnName="Qty_2012" />
+                <ScalarProperty Name="Qty_2011" ColumnName="Qty_2011" />
+                <ScalarProperty Name="Qty_2010" ColumnName="Qty_2010" />
+                <ScalarProperty Name="Value_2012" ColumnName="Value_2012" />
+                <ScalarProperty Name="Value_2011" ColumnName="Value_2011" />
+                <ScalarProperty Name="Value_2010" ColumnName="Value_2010" />
+                <ScalarProperty Name="Category_Name" ColumnName="Category_Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_PROSPECTING">
+            <EntityTypeMapping TypeName="Sandler.Models.TBL_PROSPECTING">
+              <MappingFragment StoreEntitySet="TBL_PROSPECTING">
+                <ScalarProperty Name="Color" ColumnName="Color" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="SecondLevel_Qty" ColumnName="SecondLevel_Qty" />
+                <ScalarProperty Name="SecondLevel_Name" ColumnName="SecondLevel_Name" />
+                <ScalarProperty Name="FirstLevel_Qty" ColumnName="FirstLevel_Qty" />
+                <ScalarProperty Name="FirstLevel_Name" ColumnName="FirstLevel_Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_RETENTION_RATE">
+            <EntityTypeMapping TypeName="Sandler.Models.TBL_RETENTION_RATE">
+              <MappingFragment StoreEntitySet="TBL_RETENTION_RATE">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Marginal_Comp_Effect" ColumnName="Marginal_Comp_Effect" />
+                <ScalarProperty Name="Mass_Mutual_Effect" ColumnName="Mass_Mutual_Effect" />
+                <ScalarProperty Name="Growth_Comp_Effect" ColumnName="Growth_Comp_Effect" />
+                <ScalarProperty Name="Marginal_Comp_Exp" ColumnName="Marginal_Comp_Exp" />
+                <ScalarProperty Name="Mass_Mutual_Exp" ColumnName="Mass_Mutual_Exp" />
+                <ScalarProperty Name="Growth_Comp_Exp" ColumnName="Growth_Comp_Exp" />
+                <ScalarProperty Name="Year" ColumnName="Year" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_REVBYSOURCE">
+            <EntityTypeMapping TypeName="Sandler.Models.TBL_REVBYSOURCE">
+              <MappingFragment StoreEntitySet="TBL_REVBYSOURCE">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Qty_2012" ColumnName="Qty_2012" />
+                <ScalarProperty Name="Qty_2011" ColumnName="Qty_2011" />
+                <ScalarProperty Name="Qty_2010" ColumnName="Qty_2010" />
+                <ScalarProperty Name="Value_2012" ColumnName="Value_2012" />
+                <ScalarProperty Name="Value_2011" ColumnName="Value_2011" />
+                <ScalarProperty Name="Value_2010" ColumnName="Value_2010" />
+                <ScalarProperty Name="Category_Name" ColumnName="Category_Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_SALES">
+            <EntityTypeMapping TypeName="Sandler.Models.TBL_SALES">
+              <MappingFragment StoreEntitySet="TBL_SALES">
+                <ScalarProperty Name="Color" ColumnName="Color" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="P3_Qty" ColumnName="P3_Qty" />
+                <ScalarProperty Name="P2_Qty" ColumnName="P2_Qty" />
+                <ScalarProperty Name="P1_Qty" ColumnName="P1_Qty" />
+                <ScalarProperty Name="P3_Value" ColumnName="P3_Value" />
+                <ScalarProperty Name="P2_Value" ColumnName="P2_Value" />
+                <ScalarProperty Name="P1_Value" ColumnName="P1_Value" />
+                <ScalarProperty Name="Label_Name" ColumnName="Label_Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_SALESCYCLETIME_DRILL">
+            <EntityTypeMapping TypeName="Sandler.Models.TBL_SALESCYCLETIME_DRILL">
+              <MappingFragment StoreEntitySet="TBL_SALESCYCLETIME_DRILL">
+                <ScalarProperty Name="Color" ColumnName="Color" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Value_DL6" ColumnName="Value_DL6" />
+                <ScalarProperty Name="Value_DL5" ColumnName="Value_DL5" />
+                <ScalarProperty Name="Value_DL4" ColumnName="Value_DL4" />
+                <ScalarProperty Name="Value_DL3" ColumnName="Value_DL3" />
+                <ScalarProperty Name="Value_DL2" ColumnName="Value_DL2" />
+                <ScalarProperty Name="Value_DL1" ColumnName="Value_DL1" />
+                <ScalarProperty Name="Category_Name" ColumnName="Category_Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_SALESCYCLETIME_MAIN">
+            <EntityTypeMapping TypeName="Sandler.Models.TBL_SALESCYCLETIME_MAIN">
+              <MappingFragment StoreEntitySet="TBL_SALESCYCLETIME_MAIN">
+                <ScalarProperty Name="Link" ColumnName="Link" />
+                <ScalarProperty Name="Color" ColumnName="Color" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="Category_Name" ColumnName="Category_Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_SALESTOTALBYMONTH">
+            <EntityTypeMapping TypeName="Sandler.Models.TBL_SALESTOTALBYMONTH">
+              <MappingFragment StoreEntitySet="TBL_SALESTOTALBYMONTH">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Qty_2012" ColumnName="Qty_2012" />
+                <ScalarProperty Name="Qty_2011" ColumnName="Qty_2011" />
+                <ScalarProperty Name="Qty_2010" ColumnName="Qty_2010" />
+                <ScalarProperty Name="Value_2012" ColumnName="Value_2012" />
+                <ScalarProperty Name="Value_2011" ColumnName="Value_2011" />
+                <ScalarProperty Name="Value_2010" ColumnName="Value_2010" />
+                <ScalarProperty Name="Month_Name" ColumnName="Month_Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_SANDLERONLINE">
+            <EntityTypeMapping TypeName="Sandler.Models.TBL_SANDLERONLINE">
+              <MappingFragment StoreEntitySet="TBL_SANDLERONLINE">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="P3_Qty" ColumnName="P3_Qty" />
+                <ScalarProperty Name="P2_Qty" ColumnName="P2_Qty" />
+                <ScalarProperty Name="P1_Qty" ColumnName="P1_Qty" />
+                <ScalarProperty Name="P3_Value" ColumnName="P3_Value" />
+                <ScalarProperty Name="P2_Value" ColumnName="P2_Value" />
+                <ScalarProperty Name="P1_Value" ColumnName="P1_Value" />
+                <ScalarProperty Name="Label_Name" ColumnName="Label_Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_STRATEGICALLIANCIES">
+            <EntityTypeMapping TypeName="Sandler.Models.TBL_STRATEGICALLIANCIES">
+              <MappingFragment StoreEntitySet="TBL_STRATEGICALLIANCIES">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="P3_Qty" ColumnName="P3_Qty" />
+                <ScalarProperty Name="P2_Qty" ColumnName="P2_Qty" />
+                <ScalarProperty Name="P1_Qty" ColumnName="P1_Qty" />
+                <ScalarProperty Name="P3_Value" ColumnName="P3_Value" />
+                <ScalarProperty Name="P2_Value" ColumnName="P2_Value" />
+                <ScalarProperty Name="P1_Value" ColumnName="P1_Value" />
+                <ScalarProperty Name="Label_Name" ColumnName="Label_Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_STRATEGICCUSTCARE">
+            <EntityTypeMapping TypeName="Sandler.Models.TBL_STRATEGICCUSTCARE">
+              <MappingFragment StoreEntitySet="TBL_STRATEGICCUSTCARE">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="P3_Qty" ColumnName="P3_Qty" />
+                <ScalarProperty Name="P2_Qty" ColumnName="P2_Qty" />
+                <ScalarProperty Name="P1_Qty" ColumnName="P1_Qty" />
+                <ScalarProperty Name="P3_Value" ColumnName="P3_Value" />
+                <ScalarProperty Name="P2_Value" ColumnName="P2_Value" />
+                <ScalarProperty Name="P1_Value" ColumnName="P1_Value" />
+                <ScalarProperty Name="Label_Name" ColumnName="Label_Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Return_on_Trng_Investment">
+            <EntityTypeMapping TypeName="Sandler.Models.Return_on_Trng_Investment">
+              <MappingFragment StoreEntitySet="Return_on_Trng_Investment">
+                <ScalarProperty Name="IsOriginalVersion" ColumnName="IsOriginalVersion" />
+                <ScalarProperty Name="OngoingSupportCosts" ColumnName="OngoingSupportCosts" />
+                <ScalarProperty Name="Payback" ColumnName="Payback" />
+                <ScalarProperty Name="Yr3ROI" ColumnName="Yr3ROI" />
+                <ScalarProperty Name="Yr2ROI" ColumnName="Yr2ROI" />
+                <ScalarProperty Name="Yr1ROI" ColumnName="Yr1ROI" />
+                <ScalarProperty Name="NetPresentValue" ColumnName="NetPresentValue" />
+                <ScalarProperty Name="CostofCapital" ColumnName="CostofCapital" />
+                <ScalarProperty Name="TotalCumDiscountedBenefitFlow" ColumnName="TotalCumDiscountedBenefitFlow" />
+                <ScalarProperty Name="TotalDiscountBenefitFlow" ColumnName="TotalDiscountBenefitFlow" />
+                <ScalarProperty Name="DiscountedBenefits" ColumnName="DiscountedBenefits" />
+                <ScalarProperty Name="DiscountedCosts" ColumnName="DiscountedCosts" />
+                <ScalarProperty Name="CumBenefitFlow" ColumnName="CumBenefitFlow" />
+                <ScalarProperty Name="AnnualBenefitFlow" ColumnName="AnnualBenefitFlow" />
+                <ScalarProperty Name="TotalCost" ColumnName="TotalCost" />
+                <ScalarProperty Name="TotalBenefitsRealized" ColumnName="TotalBenefitsRealized" />
+                <ScalarProperty Name="EstimatedBenefitsGained" ColumnName="EstimatedBenefitsGained" />
+                <ScalarProperty Name="TotalAnnualBenefits" ColumnName="TotalAnnualBenefits" />
+                <ScalarProperty Name="IncreasedQuotaAchievement" ColumnName="IncreasedQuotaAchievement" />
+                <ScalarProperty Name="SavingsonRetainedSalesReps" ColumnName="SavingsonRetainedSalesReps" />
+                <ScalarProperty Name="IncreasedQualifiedSales" ColumnName="IncreasedQualifiedSales" />
+                <ScalarProperty Name="CostReductionSalesEfficiency" ColumnName="CostReductionSalesEfficiency" />
+                <ScalarProperty Name="CostReductionSalesCycleTime" ColumnName="CostReductionSalesCycleTime" />
+                <ScalarProperty Name="TrainingInvestment" ColumnName="TrainingInvestment" />
+                <ScalarProperty Name="ImplementationCost" ColumnName="ImplementationCost" />
+                <ScalarProperty Name="InitialTrngInvestment" ColumnName="InitialTrngInvestment" />
+                <ScalarProperty Name="YearDesignation" ColumnName="YearDesignation" />
+                <ScalarProperty Name="PeriodYear" ColumnName="PeriodYear" />
+                <ScalarProperty Name="RepID" ColumnName="RepID" />
+                <ScalarProperty Name="ClientID" ColumnName="ClientID" />
+                <ScalarProperty Name="FranchiseeID" ColumnName="FranchiseeID" />
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_CHART">
+            <EntityTypeMapping TypeName="Sandler.Models.TBL_CHART">
+              <MappingFragment StoreEntitySet="TBL_CHART">
+                <ScalarProperty Name="ChartID" ColumnName="ChartID" />
+                <ScalarProperty Name="SWFile" ColumnName="SWFile" />
+                <ScalarProperty Name="LastCreatedBy" ColumnName="LastCreatedBy" />
+                <ScalarProperty Name="LastUpdatedBy" ColumnName="LastUpdatedBy" />
+                <ScalarProperty Name="LastCreatedDate" ColumnName="LastCreatedDate" />
+                <ScalarProperty Name="LastUpdatedDate" ColumnName="LastUpdatedDate" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="PlotGradientColor" ColumnName="PlotGradientColor" />
+                <ScalarProperty Name="ShowLabels" ColumnName="ShowLabels" />
+                <ScalarProperty Name="ShowLegend" ColumnName="ShowLegend" />
+                <ScalarProperty Name="EnableRotation" ColumnName="EnableRotation" />
+                <ScalarProperty Name="PieRadius" ColumnName="PieRadius" />
+                <ScalarProperty Name="BgAlpha" ColumnName="BgAlpha" />
+                <ScalarProperty Name="CanvasBgAlpha" ColumnName="CanvasBgAlpha" />
+                <ScalarProperty Name="BgColor" ColumnName="BgColor" />
+                <ScalarProperty Name="CanvasBgColor" ColumnName="CanvasBgColor" />
+                <ScalarProperty Name="YaxisName" ColumnName="YaxisName" />
+                <ScalarProperty Name="XaxisName" ColumnName="XaxisName" />
+                <ScalarProperty Name="SNumberSuffix" ColumnName="SNumberSuffix" />
+                <ScalarProperty Name="NumberSuffix" ColumnName="NumberSuffix" />
+                <ScalarProperty Name="Caption" ColumnName="Caption" />
+                <ScalarProperty Name="TypeOfChart" ColumnName="TypeOfChart" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams>
+      <Diagram Name="SandlerEDM" ZoomLevel="32">
+        <EntityTypeShape EntityType="Sandler.Models.Gap_Analysis" Width="10.875" PointX="0.75" PointY="0.75" Height="6.5955208333333317" IsExpanded="true" />
+        <EntityTypeShape EntityType="Sandler.Models.TBL_COMPANY" Width="1.5" PointX="0.75" PointY="8.75" Height="2.9417936197916674" />
+        <EntityTypeShape EntityType="Sandler.Models.TBL_CONTACT" Width="1.5" PointX="2.75" PointY="8.75" Height="2.9417936197916674" />
+        <EntityTypeShape EntityType="Sandler.Models.TBL_DOCUMENTS" Width="1.5" PointX="4.75" PointY="8.75" Height="2.1725878906249996" />
+        <EntityTypeShape EntityType="Sandler.Models.TBL_OPPORTUNITY" Width="1.5" PointX="6.75" PointY="8.75" Height="3.7109993489583317" />
+        <EntityTypeShape EntityType="Sandler.Models.C_Gap_Analysis_Est_Benefits_Gained_" Width="1.5" PointX="9.375" PointY="8.75" Height="1.5956835937499996" />
+        <EntityTypeShape EntityType="Sandler.Models.C_Gap_Analysis_Quota_Achievement_" Width="1.5" PointX="11.75" PointY="8.75" Height="1.5956835937499996" />
+        <EntityTypeShape EntityType="Sandler.Models.C_Gap_Analysis_Sales_Cycle_Time_" Width="1.5" PointX="9.75" PointY="11.75" Height="1.5956835937499996" />
+        <EntityTypeShape EntityType="Sandler.Models.C_Gap_Analysis_Sales_Efficiency_" Width="1.5" PointX="11.75" PointY="11.75" Height="1.5956835937499996" />
+        <EntityTypeShape EntityType="Sandler.Models.C_Gap_Analysis_Sales_Qualification_" Width="1.5" PointX="12.75" PointY="0.75" Height="1.5956835937499996" />
+        <EntityTypeShape EntityType="Sandler.Models.C_Gap_Analysis_Training_Cost_Savings_" Width="1.5" PointX="0.75" PointY="12.75" Height="1.5956835937500031" />
+        <EntityTypeShape EntityType="Sandler.Models.TBL_FORECAST" Width="1.5" PointX="3.375" PointY="12.75" Height="5.2494108072916674" />
+        <EntityTypeShape EntityType="Sandler.Models.TBL_ASSESSMENTS" Width="1.5" PointX="12.75" PointY="3.75" Height="2.5571907552083388" />
+        <EntityTypeShape EntityType="Sandler.Models.TBL_COACHING" Width="1.5" PointX="5.75" PointY="13.75" Height="2.5571907552083388" />
+        <EntityTypeShape EntityType="Sandler.Models.TBL_CONSULTING" Width="1.5" PointX="14.75" PointY="3.75" Height="2.5571907552083388" />
+        <EntityTypeShape EntityType="Sandler.Models.TBL_CORPGLOBALTRAINING" Width="1.5" PointX="14.75" PointY="7.75" Height="2.5571907552083388" />
+        <EntityTypeShape EntityType="Sandler.Models.TBL_COSTOFSALE_DRILL" Width="1.5" PointX="7.75" PointY="14.75" Height="1.7879850260416674" />
+        <EntityTypeShape EntityType="Sandler.Models.TBL_COSTOFSALE_MAIN" Width="1.5" PointX="9.75" PointY="14.75" Height="1.7879850260416674" />
+        <EntityTypeShape EntityType="Sandler.Models.TBL_IND_AVERAGES" Width="1.5" PointX="14.75" PointY="11.75" Height="1.9802864583333388" />
+        <EntityTypeShape EntityType="Sandler.Models.TBL_LEADERSHIP" Width="1.5" PointX="11.75" PointY="14.75" Height="2.5571907552083388" />
+        <EntityTypeShape EntityType="Sandler.Models.TBL_NEGOTIATIONS" Width="1.5" PointX="13.75" PointY="14.75" Height="2.5571907552083317" />
+        <EntityTypeShape EntityType="Sandler.Models.TBL_NETWORKINGWORKS" Width="1.5" PointX="0.75" PointY="15.75" Height="2.5571907552083264" />
+        <EntityTypeShape EntityType="Sandler.Models.TBL_PIPELINE_POST" Width="1.5" PointX="15.75" PointY="0.75" Height="1.7879850260416674" />
+        <EntityTypeShape EntityType="Sandler.Models.TBL_PRDSALES_BYACT" Width="1.5" PointX="15.75" PointY="14.75" Height="2.5571907552083246" />
+        <EntityTypeShape EntityType="Sandler.Models.TBL_PRODSOLD_AS_SALE" Width="1.5" PointX="16.75" PointY="3.75" Height="2.5571907552083246" />
+        <EntityTypeShape EntityType="Sandler.Models.TBL_PRODSOLD_BYCOMP" Width="1.5" PointX="16.75" PointY="7.75" Height="1.7879850260416674" />
+        <EntityTypeShape EntityType="Sandler.Models.TBL_PRODSOLD_BYREP" Width="1.5" PointX="16.75" PointY="10.75" Height="2.5571907552083246" />
+        <EntityTypeShape EntityType="Sandler.Models.TBL_PRODUCT_MARGIN" Width="1.5" PointX="5.75" PointY="17.75" Height="2.5571907552083246" />
+        <EntityTypeShape EntityType="Sandler.Models.TBL_PROSPECTING" Width="1.5" PointX="17.75" PointY="0.75" Height="1.9802864583333246" />
+        <EntityTypeShape EntityType="Sandler.Models.TBL_RETENTION_RATE" Width="1.5" PointX="7.75" PointY="17.75" Height="2.5571907552083246" />
+        <EntityTypeShape EntityType="Sandler.Models.TBL_REVBYSOURCE" Width="1.5" PointX="17.75" PointY="14.75" Height="2.5571907552083246" />
+        <EntityTypeShape EntityType="Sandler.Models.TBL_SALES" Width="1.5" PointX="2.75" PointY="18.75" Height="2.5571907552083246" />
+        <EntityTypeShape EntityType="Sandler.Models.TBL_SALESCYCLETIME_DRILL" Width="1.5" PointX="18.75" PointY="3.75" Height="2.5571907552083246" />
+        <EntityTypeShape EntityType="Sandler.Models.TBL_SALESCYCLETIME_MAIN" Width="1.5" PointX="18.75" PointY="7.75" Height="1.5956835937500102" />
+        <EntityTypeShape EntityType="Sandler.Models.TBL_SALESTOTALBYMONTH" Width="1.5" PointX="9.75" PointY="18.75" Height="2.5571907552083246" />
+        <EntityTypeShape EntityType="Sandler.Models.TBL_SANDLERONLINE" Width="1.5" PointX="18.75" PointY="10.75" Height="2.5571907552083246" />
+        <EntityTypeShape EntityType="Sandler.Models.TBL_STRATEGICALLIANCIES" Width="1.5" PointX="11.75" PointY="18.75" Height="2.5571907552083246" />
+        <EntityTypeShape EntityType="Sandler.Models.TBL_STRATEGICCUSTCARE" Width="1.5" PointX="13.75" PointY="18.75" Height="2.5571907552083246" />
+        <EntityTypeShape EntityType="Sandler.Models.Return_on_Trng_Investment" Width="1.5" PointX="16.375" PointY="18.75" Height="7.364726562499996" />
+        <EntityTypeShape EntityType="Sandler.Models.TBL_CHART" Width="1.5" PointX="18.375" PointY="18.75" Height="5.057109374999996" />
+      </Diagram>
+    </Diagrams>
+  </Designer>
+</edmx:Edmx>

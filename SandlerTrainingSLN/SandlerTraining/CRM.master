@@ -1,0 +1,112 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="CRM.master.cs" Inherits="CRM" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <script type="text/javascript" src="FusionChartLib/FusionCharts.js"></script>
+    <script type="text/javascript" src="Scripts/jquery-1.4.1.min.js"></script>
+    <script type="text/javascript" src="Scripts/External.js"></script>
+    <title></title>
+    <link href="~/Styles/CRMSite.css" rel="stylesheet" type="text/css" />
+    <asp:ContentPlaceHolder ID="HeadContent" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form id="Form1" runat="server">
+    <div class="page">
+        <div class="header">
+            <div class="clear hideSkiplink">
+                <table>
+                    <tr>
+                        <td>
+                            <asp:Image runat="server" ImageUrl="~/images/header_logo.png" ToolTip="Sandler Logo" />                            
+                        </td>
+                        <td>
+                            <button type="button" id="btnDashboard" runat="server" class="menuButton" onclick="window.open('Default.aspx','_self')">
+                                DASHBOARD
+                            </button>
+                        </td>
+                        <td>
+                            <button type="button" id="btnReports" runat="server" class="menuButton" onclick="window.open('Reports.aspx','_self')">
+                                REPORTS
+                            </button>
+                        </td>
+                        <td>
+                            <button type="button" id="btnCRM" runat="server" class="menuButton" onclick="window.open('CRMContacts.aspx','_self')">
+                                CRM
+                            </button>
+                        </td>
+                        <td>
+                            <button type="button" id="btnIndustrialAvgBenchmark" runat="server" class="menuButton"
+                                onclick="window.open('IndAverageBenchmarks.aspx','_self')">
+                                BENCHMARKS
+                            </button>
+                        </td>
+                        <td>
+                            <button type="button" id="btnProducts" runat="server" class="menuButton" onclick="window.open('Products.aspx','_self')">
+                                PRODUCTS
+                            </button>
+                        </td>
+                        <td>
+                            <button type="button" class="menuButton" onclick="window.open('Logout.aspx','_self')">
+                                LOGOUT
+                            </button>
+                        </td>
+                    </tr>
+                </table>
+                <table style="background-color: white; width: 100%">
+                    <tr>
+                        <td align="center">
+                            <asp:LinkButton ID="linkContacts" Font-Size="Large" runat="server" CausesValidation="false"
+                                OnClick="linkContacts_Click" ForeColor="blue">Contacts</asp:LinkButton>
+                        </td>
+                        <td align="center">
+                            <asp:LinkButton ID="linkSalesPipeLine" Font-Size="Large" runat="server" CausesValidation="false"
+                                OnClick="linkSalesPipeLine_Click" ForeColor="blue">Sales Pipeline</asp:LinkButton>
+                        </td>
+                        <td align="center">
+                            <asp:LinkButton ID="linkForCasting" Font-Size="Large" runat="server" CausesValidation="false"
+                                OnClick="linkForCasting_Click" ForeColor="blue">Forecasting</asp:LinkButton>
+                        </td>
+                        <td align="center">
+                            <asp:LinkButton ID="linkAccounts" Font-Size="Large" runat="server" CausesValidation="false"
+                                OnClick="linkAccounts_Click" ForeColor="blue">Accounts</asp:LinkButton>
+                        </td>
+                        <td align="center">
+                            <asp:LinkButton ID="linkDocuments" Font-Size="Large" runat="server" CausesValidation="false"
+                                OnClick="linkDocuments_Click" ForeColor="blue">Documents</asp:LinkButton>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="main" style="background-color: White">
+            <asp:ContentPlaceHolder ID="MainContent" runat="server" />
+        </div>
+        <div class="footer">
+            <table width="100%">
+                <tr>
+                    <td align="left">
+                        Powered by Mined Systems, Inc. ®
+                    </td>
+                    <td align="right">
+                        Copyright© 2011 Mined Systems Metrics Intelligence. All rights reserved.
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <script type="text/javascript" language="javascript">
+        $(document).ready(function () {
+            $('#btnDashboard').click(function () {
+                window.open('Default.aspx', '_self');
+            });
+
+            $('#btnCRM').click(function () {
+                window.open('CRMContacts.aspx', '_self');
+            });
+        });
+    </script>
+    </form>
+</body>
+</html>

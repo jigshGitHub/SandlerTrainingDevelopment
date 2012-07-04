@@ -1,0 +1,100 @@
+BEGIN TRANSACTION
+SET QUOTED_IDENTIFIER ON
+SET ARITHABORT ON
+SET NUMERIC_ROUNDABORT OFF
+SET CONCAT_NULL_YIELDS_NULL ON
+SET ANSI_NULLS ON
+SET ANSI_PADDING ON
+SET ANSI_WARNINGS ON
+COMMIT
+BEGIN TRANSACTION
+GO
+
+USE [SANDLERDB]
+GO
+
+ALTER Table Return_on_Trng_Investment ADD OngoingSupportCosts Money Null;
+GO
+
+ALTER TABLE dbo.[(Gap_Analysis_Est_Benefits_Gained)] ADD
+	Id int NOT NULL IDENTITY (1, 1)
+GO
+ALTER TABLE dbo.[(Gap_Analysis_Est_Benefits_Gained)] ADD CONSTRAINT
+	[PK_(Gap_Analysis_Est_Benefits_Gained)] PRIMARY KEY CLUSTERED 
+	(
+	Id
+	) WITH( STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+
+GO
+ALTER TABLE dbo.[(Gap_Analysis_Est_Benefits_Gained)] SET (LOCK_ESCALATION = TABLE)
+GO
+
+
+ALTER TABLE dbo.[(Gap_Analysis_Quota_Achievement)] ADD
+	Id int NOT NULL IDENTITY (1, 1)
+GO
+ALTER TABLE dbo.[(Gap_Analysis_Quota_Achievement)] ADD CONSTRAINT
+	[PK_(Gap_Analysis_Quota_Achievement)] PRIMARY KEY CLUSTERED 
+	(
+	Id
+	) WITH( STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+
+GO
+ALTER TABLE dbo.[(Gap_Analysis_Quota_Achievement)] SET (LOCK_ESCALATION = TABLE)
+GO
+
+ALTER TABLE dbo.[(Gap_Analysis_Sales_Cycle_Time)] ADD
+	Id int NOT NULL IDENTITY (1, 1)
+GO
+ALTER TABLE dbo.[(Gap_Analysis_Sales_Cycle_Time)] ADD CONSTRAINT
+	[PK_(Gap_Analysis_Sales_Cycle_Time)] PRIMARY KEY CLUSTERED 
+	(
+	Id
+	) WITH( STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+
+GO
+ALTER TABLE dbo.[(Gap_Analysis_Sales_Cycle_Time)] SET (LOCK_ESCALATION = TABLE)
+GO
+
+
+ALTER TABLE dbo.[(Gap_Analysis_Sales_Efficiency)] ADD
+	Id int NOT NULL IDENTITY (1, 1)
+GO
+ALTER TABLE dbo.[(Gap_Analysis_Sales_Efficiency)] ADD CONSTRAINT
+	[PK_(Gap_Analysis_Sales_Efficiency)] PRIMARY KEY CLUSTERED 
+	(
+	Id
+	) WITH( STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+
+GO
+ALTER TABLE dbo.[(Gap_Analysis_Sales_Efficiency)] SET (LOCK_ESCALATION = TABLE)
+GO
+
+ALTER TABLE dbo.[(Gap_Analysis_Sales_Qualification)] ADD
+	Id int NOT NULL IDENTITY (1, 1)
+GO
+ALTER TABLE dbo.[(Gap_Analysis_Sales_Qualification)] ADD CONSTRAINT
+	[PK_(Gap_Analysis_Sales_Qualification)] PRIMARY KEY CLUSTERED 
+	(
+	Id
+	) WITH( STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+
+GO
+ALTER TABLE dbo.[(Gap_Analysis_Sales_Qualification)] SET (LOCK_ESCALATION = TABLE)
+GO
+
+
+ALTER TABLE dbo.[(Gap_Analysis_Training_Cost_Savings)] ADD
+	Id int NOT NULL IDENTITY (1, 1)
+GO
+ALTER TABLE dbo.[(Gap_Analysis_Training_Cost_Savings)] ADD CONSTRAINT
+	[PK_(Gap_Analysis_Training_Cost_Savings)] PRIMARY KEY CLUSTERED 
+	(
+	Id
+	) WITH( STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+
+GO
+ALTER TABLE dbo.[(Gap_Analysis_Training_Cost_Savings)] SET (LOCK_ESCALATION = TABLE)
+GO
+
+COMMIT

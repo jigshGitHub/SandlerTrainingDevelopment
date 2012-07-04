@@ -1,0 +1,116 @@
+Contact Customer Service
+For questions regarding products, order delivery, or returns, please contact Adorama Camera Customer Service:
+Contact this seller Phone:800-815-0702 
+
+
+For questions about a charge that has been made to your credit card, please contact Amazon. For questions about how to place an order, search Amazon Help. 
+
+============================================================
+Add objects dynamically in the OR
+
+http://forums11.itrc.hp.com/service/forums/questionanswer.do?admit=109447626+1251078693312+28353475&threadId=1323270
+
+
+==============
+
+Call-in details
+Conference Dial-in Number:               (218) 339-4300         (218) 339-4300
+Participant Access Code: 917162#
+Time: 9:15 pm
+
+===============================================================
+
+
+
+Function fnWebEdit(strOperation,strParent,BrowserIndex,propframe,PropWebText,val2Set,PropertyName)
+
+Select Case lcase(strOperation)
+   Case "set"
+   
+     Select Case lcase(strParent)
+        Case "frame"
+         Browser("micClass:=Browser","creationtime:="&BrowserIndex).Page("micClass:=Page").Frame(propframe).WebEdit(PropWebText).Set val2Set
+        Case "page"
+         Browser("micClass:=Browser","creationtime:="&BrowserIndex).Page("micClass:=Page").WebEdit(PropWebText).Set val2Set
+        Case "window"
+         Browser("micClass:=Browser","creationtime:="&BrowserIndex).Window("text:=Popup Host -- Web Page Dialog").Page("micclass:=Page").Frame(propframe).WebEdit(PropWebText).Set val2Set
+     End Select
+  
+  Case "exist"
+
+     Select Case lcase(strParent)
+       Case "frame"
+       blnWebEdit=Browser("micClass:=Browser","creationtime:="&BrowserIndex).Page("micClass:=Page").Frame(propframe).WebEdit(PropWebText).Exist
+       fnWebEdit=blnWebEdit
+       Case "page"
+       blnWebEdit=Browser("micClass:=Browser","creationtime:="&BrowserIndex).Page("micClass:=Page").WebEdit(PropWebText).Exist
+       fnWebEdit=blnWebEdit
+       Case "window"
+       blnWebEdit=Browser("micClass:=Browser","creationtime:="&BrowserIndex).Window("text:=Popup Host -- Web Page Dialog").Page("micclass:=Page").Frame(propframe).WebEdit(PropWebText).Exist
+       fnWebRadio=blnWebEdit
+     End Select
+
+  Case "get"
+
+    Select Case lcase(strParent)
+       Case "frame"
+       strPropValue=Browser("micClass:=Browser","creationtime:="&BrowserIndex).Page("micClass:=Page").Frame(propframe).WebEdit(PropWebText).GetRoProperty(PropertyName)
+       fnWebEdit=strPropValue
+       Case "page"
+       strPropValue=Browser("micClass:=Browser","creationtime:="&BrowserIndex).Page("micClass:=Page").WebEdit(PropWebText).GetRoProperty(PropertyName)
+       fnWebEdit=strPropValue
+       Case "window"
+       strPropValue=Browser("micClass:=Browser","creationtime:="&BrowserIndex).Window("text:=Popup Host -- Web Page Dialog").Page("micclass:=Page").Frame(propframe).WebEdit(PropWebText).GetRoProperty(PropertyName)    
+       fnWebEdit=strPropValue
+    
+    End Select  
+
+End Select 
+
+End Function
+
+'Call fnWebEdit("set","page",0,"","name:=q","qtp","")
+
+Call
+
+==================================================================
+
+1A20-0100-0000-2381-5519-1685
+
+========================================================
+
+<tr><td colspan="3">
+<asp:Panel ID="UserNamePnl"  Width="100%" runat="server">
+<table width="100%"><tr><td><b>Trainee Information :</b></td></tr>
+
+<tr  style="background-color:#DCDCDC">
+            <td valign="top" style="height: 24px">
+                <label for="FileUpload1">Upload Document :</label></td>
+            <td align="left" colspan="5" valign="top" style="height: 24px">
+                <asp:FileUpload ID="FileUpload1"  EnableViewState="true"  runat="server" Width="500px" />
+                <asp:CustomValidator ID="CustomValidator" runat="server" OnServerValidate="CustomValidator_ServerValidate" ErrorMessage="Image size shoule be less than 1000 KB."
+                    Width="1px">*</asp:CustomValidator></td>
+        </tr>
+        </table> 
+        </asp:Panel> 
+        </td>
+        </tr>  
+
+====================================
+
+protected void CustomValidator_ServerValidate(object source, System.Web.UI.WebControls.ServerValidateEventArgs args)
+    {
+        if (FileUpload1.HasFile)
+        {
+            if (FileUpload1.PostedFile.ContentType != "image/jpg")
+            {
+                args.IsValid = false;
+                CustomValidator.ErrorMessage = "Please Enter only MS Office Files.";
+            }
+            else if (FileUpload1.PostedFile.ContentLength > 1024000)
+            {
+                args.IsValid = false;
+                CustomValidator.ErrorMessage = "Image size shoule be less than 1000KB.";
+            }
+        }
+    }
