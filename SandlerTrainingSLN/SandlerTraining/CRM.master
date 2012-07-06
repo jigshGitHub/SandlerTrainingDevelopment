@@ -34,12 +34,13 @@
                                 Text="CRM"></asp:HyperLink>
                         </td>
                         <td>
-                            <asp:Button CssClass="disableLink" ID="lnkIndustrialAvgBenchmark" runat="server" Text="BENCHMARKS">
-                            </asp:Button>
+                            <asp:HyperLink CssClass="disableLink" ID="lnkIndustrialAvgBenchmark" runat="server"
+                                NavigateUrl="~/IndAverageBenchmarks.aspx" Text="BENCHMARKS" Enabled="false">
+                            </asp:HyperLink>
                         </td>
                         <td>
-                            <asp:HyperLink CssClass="menuLink" ID="lnkProducts" runat="server" NavigateUrl="~/Products.aspx"
-                                Text="PRODUCTS"></asp:HyperLink>
+                            <asp:HyperLink CssClass="disableLink" ID="lnkProducts" runat="server" NavigateUrl="~/Products.aspx"
+                                Text="PRODUCTS" Enabled="false"></asp:HyperLink>
                         </td>
                         <td>
                             <asp:HyperLink CssClass="menuLink" ID="lnkLogout" runat="server" NavigateUrl="~/Logout.aspx"
