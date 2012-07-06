@@ -8,7 +8,7 @@ using InfoSoftGlobal;
 using SandlerRepositories;
 using SandlerModels;
 using System.Data.SqlClient;
-using Sandler.Data;
+
 namespace Sandler.UI.ChartStructure
 {
     public interface IChart
@@ -446,7 +446,7 @@ namespace Sandler.UI.ChartStructure
                         this.DataSetCollection.Add(new ChartDataSet { Color = "0000FF", SeriesName = "As-Is" });
                         this.DataSetCollection.Add(new ChartDataSet { Color = "8A4B08", SeriesName = "To-Be" });
 
-                        reader = gaData.GetSalesRepresentativeData("1");
+                        reader = gaData.GetByRepId("1");
                         while (reader.Read())
                         {
                             this.DataSetCollection[0].SetsCollection.Add(new SetValue { Value = reader.GetValue(5).ToString(), Link = "GapAnalysisCreate.aspx" });

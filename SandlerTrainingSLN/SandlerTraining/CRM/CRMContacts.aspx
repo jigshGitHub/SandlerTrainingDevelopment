@@ -1,6 +1,7 @@
 ﻿<%@ Page Title="CRM" Language="C#" MasterPageFile="~/CRM.master" AutoEventWireup="true"
     CodeFile="CRMContacts.aspx.cs" Inherits="CRMContacts" %>
 
+<%@ Import Namespace="SandlerRepositories" %>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="Server">
     <table id="tblMain" width="100%">
         <tr>
@@ -27,16 +28,16 @@
                     <PagerStyle BackColor="#999999" ForeColor="Blue" HorizontalAlign="Center" />
                     <Columns>
                         <asp:BoundField DataField="Contact_ID" Visible="False" />
-                        <asp:BoundField ItemStyle-HorizontalAlign="Center" DataField="Full_Name" HeaderText="Name"  HeaderStyle-ForeColor="Blue"
-                            SortExpression="Full_Name" />
-                        <asp:BoundField ItemStyle-HorizontalAlign="Center" DataField="Phone" HeaderText="Phone"  HeaderStyle-ForeColor="Blue"
-                            SortExpression="Phone" />
-                        <asp:BoundField ItemStyle-HorizontalAlign="Center" DataField="Email" HeaderText="E-mail"  HeaderStyle-ForeColor="Blue"
-                            SortExpression="Email" />
-                        <asp:BoundField ItemStyle-HorizontalAlign="Center" DataField="Company_Name" HeaderText="Company"  HeaderStyle-ForeColor="Blue"
-                            SortExpression="Company_Name" />
-                        <asp:BoundField ItemStyle-HorizontalAlign="Center" DataField="Total_ACT_Value" HeaderText="Total Account Value"  HeaderStyle-ForeColor="Blue"
-                            SortExpression="Total_ACT_Value" DataFormatString="{0:C}" />
+                        <asp:BoundField ItemStyle-HorizontalAlign="Center" DataField="Full_Name" HeaderText="Name"
+                            HeaderStyle-ForeColor="Blue" SortExpression="Full_Name" />
+                        <asp:BoundField ItemStyle-HorizontalAlign="Center" DataField="Phone" HeaderText="Phone"
+                            HeaderStyle-ForeColor="Blue" SortExpression="Phone" />
+                        <asp:BoundField ItemStyle-HorizontalAlign="Center" DataField="Email" HeaderText="E-mail"
+                            HeaderStyle-ForeColor="Blue" SortExpression="Email" />
+                        <asp:BoundField ItemStyle-HorizontalAlign="Center" DataField="Company_Name" HeaderText="Company"
+                            HeaderStyle-ForeColor="Blue" SortExpression="Company_Name" />
+                        <asp:BoundField ItemStyle-HorizontalAlign="Center" DataField="Total_ACT_Value" HeaderText="Total Account Value"
+                            HeaderStyle-ForeColor="Blue" SortExpression="Total_ACT_Value" DataFormatString="{0:C}" />
                         <asp:TemplateField ShowHeader="False">
                             <ControlStyle ForeColor="Maroon" />
                             <ItemTemplate>
@@ -55,9 +56,11 @@
         </tr>
         <tr>
             <td colspan="2">
-                <asp:ObjectDataSource ID="CompanyDS" runat="server" TypeName="ContactsDAL" SelectMethod="GetAllCompanies">
+                <asp:ObjectDataSource ID="CompanyDS" runat="server" 
+                    TypeName="SandlerRepositories.ContactsRepository" 
+                    SelectMethod="GetAllCompanies">
                 </asp:ObjectDataSource>
-                <asp:ObjectDataSource ID="ContactDS" runat="server" TypeName="ContactsDAL" SelectMethod="GetAllContacts">
+                <asp:ObjectDataSource ID="ContactDS" runat="server" TypeName="SandlerRepositories.ContactsRepository" SelectMethod="GetAll">
                     <SelectParameters>
                         <asp:ControlParameter ControlID="ddlCompany" Name="ID" Type="Int32" />
                     </SelectParameters>

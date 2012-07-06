@@ -39,7 +39,7 @@
                 </asp:LoginView>
             </div>
             <div class="clear hideSkiplink">
-                <table border=1>
+                <table>
                     <tr>
                         <td>
                             <asp:Image ImageUrl="~/images/header_logo.png" runat="server" ID="imgLogo" />
@@ -57,8 +57,8 @@
                                 Text="CRM"></asp:HyperLink>
                         </td>
                         <td>
-                            <asp:HyperLink CssClass="menuLink" ID="lnkIndustrialAvgBenchmark" runat="server"
-                                NavigateUrl="~/IndAverageBenchmarks.aspx" Text="BENCHMARKS"></asp:HyperLink>
+                            <asp:Button CssClass="disableLink" ID="lnkIndustrialAvgBenchmark" runat="server" Text="BENCHMARKS">
+                            </asp:Button>
                         </td>
                         <td>
                             <asp:HyperLink CssClass="menuLink" ID="lnkProducts" runat="server" NavigateUrl="~/Products.aspx"

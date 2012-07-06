@@ -5,14 +5,14 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Data.SqlClient;
-using Sandler.Data;
+
 using System.Text;
 using InfoSoftGlobal;
 using Sandler.UI.ChartStructure;
 
 public partial class Reports : System.Web.UI.Page
 {
-    IGapAnalysis gaData;
+    SandlerRepositories.IGapAnalysis gaData;
     string gapAnalysisXML;
     string roiXML;
     Chart ROIChart;
@@ -23,7 +23,7 @@ public partial class Reports : System.Web.UI.Page
     PieChart sCTChart;
     public Reports()
     {
-        gaData = new GapAnalysis();
+        gaData = new SandlerRepositories.GapAnalysis();
 
         ROIChart = new Chart();
         ROIChart.Id = ChartID.ReturnOnTrainingInvestment;
@@ -151,7 +151,7 @@ public partial class Reports : System.Web.UI.Page
             gaXML.Append("<category label='Quota Achievement' />");
             gaXML.Append("<category label='Estimated Benifits Gained' />");
             gaXML.Append("</categories>");
-            reader = gaData.GetSalesRepresentativeData(repId);
+            reader = gaData.GetByRepId(repId);
             while (reader.Read())
             {
                 gaXML.Append("<dataset seriesName='As-Is' color='0000FF'>");

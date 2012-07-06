@@ -4,12 +4,12 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using Sandler.Data.Utility;
+
 using System.Data.SqlClient;
 using System.Data;
 public partial class CRMViewDocument : System.Web.UI.Page
 {
-    DBUtility db = new DBUtility();
+    
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!Page.IsPostBack)
@@ -25,7 +25,7 @@ public partial class CRMViewDocument : System.Web.UI.Page
     public void GetDocumentDetails()
     {
         //Now get the details
-        System.Data.DataSet ds = db.ExecuteDataset("sp_GetDocumentDetails", "DocumentByID", new SqlParameter("@DocID", Convert.ToInt32(hidDocumentID.Value)));
+        System.Data.DataSet ds = new SandlerRepositories.DocumentsRepository().GetDetailsById(Convert.ToInt32(hidDocumentID.Value));
         DocumentDW.DataSource = ds;
         DocumentDW.DataBind();
     }
@@ -100,12 +100,12 @@ public partial class CRMViewDocument : System.Web.UI.Page
                         
         }
         //Now update the table
-        db.ExecuteNonQuery("sp_UpdateDocumentDetails", 
-            new SqlParameter("@DocID", Convert.ToInt32(hidDocumentID.Value)),
-            new SqlParameter("@DocStatus", DocStatus), 
-            new SqlParameter("@DocName", DocName),
-            new SqlParameter("@LastModifyDate", LastModifyDate));
-          
+        //db.ExecuteNonQuery("sp_UpdateDocumentDetails", 
+        //    new SqlParameter("@DocID", Convert.ToInt32(hidDocumentID.Value)),
+        //    new SqlParameter("@DocStatus", DocStatus), 
+        //    new SqlParameter("@DocName", DocName),
+        //    new SqlParameter("@LastModifyDate", LastModifyDate));
 
+        new SandlerRepositories.DocumentsRepository().Update(Convert.ToInt32(hidDocumentID.Value), DocStatus, DocName, LastModifyDate);
     }
 }

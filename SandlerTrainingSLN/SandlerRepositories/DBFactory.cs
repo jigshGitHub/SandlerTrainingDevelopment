@@ -1,24 +1,58 @@
-﻿using Microsoft.VisualBasic;
-using System;
-using System.Collections;
+﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Linq.Expressions;
 using System.Data;
-using System.Diagnostics;
-
-
-
-
+using System.Data.Entity;
+using SandlerModels;
 using System.Data.SqlClient;
 using System.Configuration;
-namespace Sandler.Data.Utility
+namespace SandlerRepositories
 {
-    public class DBUtility
+    public class Disposable : IDisposable
     {
-        public DBUtility()
+        private bool isDisposed;
+
+        ~Disposable()
+        {
+            Dispose(false);
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+        private void Dispose(bool disposing)
+        {
+            if (!isDisposed && disposing)
+            {
+                DisposeCore();
+            }
+
+            isDisposed = true;
+        }
+
+        protected virtual void DisposeCore()
+        {
+        }
+    }
+
+    public interface IDatabaseFactory : IDisposable
+    {
+        DbContext Get();
+    }
+
+    public class DBFactory : IDatabaseFactory
+    {
+        private SandlerDBEntities dbContext;
+
+        public DBFactory()
         {
         }
         private string mCN;
-        public DBUtility(string ConnectionString)
+        public DBFactory(string ConnectionString)
         {
             //Allows us to use a CN String Other then the Default
             mCN = ConnectionString;
@@ -189,7 +223,7 @@ namespace Sandler.Data.Utility
             }
             return rowCount;
         }
-        
+
         public long ExecuteNonQuery(string strSP, params SqlParameter[] commandParameters)
         {
 
@@ -362,5 +396,14 @@ namespace Sandler.Data.Utility
             return rowCount;
         }
 
+        public System.Data.Entity.DbContext Get()
+        {
+            return dbContext ?? (dbContext = new SandlerDBEntities());
+        }
+
+        public void Dispose()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

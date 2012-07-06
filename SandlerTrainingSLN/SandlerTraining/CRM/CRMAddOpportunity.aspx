@@ -1,6 +1,6 @@
 ﻿<%@ Page Title="CRM" Language="C#" MasterPageFile="~/CRM.master" AutoEventWireup="true" CodeFile="CRMAddOpportunity.aspx.cs" Inherits="CRMAddOpportunity" %>
 <%@Register TagPrefix="ew"  Namespace="eWorld.UI" Assembly="eWorld.UI, Version=1.9.0.0, Culture=neutral, PublicKeyToken=24d65337282035f2" %>
-
+<%@ Import Namespace="SandlerRepositories" %>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" Runat="Server">
 
 <table>
@@ -230,8 +230,8 @@ Font-Names="Verdana,Helvetica,Tahoma,Arial" Font-Size="XX-Small"
     </td></tr>
     <tr><td style="width: 280px">
     <asp:Label ID="lblResult" runat="server" ForeColor="Red"></asp:Label><br />
-    <asp:ObjectDataSource ID="CompanyDS" Runat="server" TypeName="ContactsDAL" SelectMethod="GetAllCompanies"></asp:ObjectDataSource>
-    <asp:ObjectDataSource ID="OpportunityDataSource" runat="server" InsertMethod="InsertOpportunity" TypeName="OpportunityDAL">
+    <asp:ObjectDataSource ID="CompanyDS" Runat="server" TypeName="SandlerRepositories.ContactsRepository" SelectMethod="GetAllCompanies"></asp:ObjectDataSource>
+    <asp:ObjectDataSource ID="OpportunityDataSource" runat="server" InsertMethod="Insert" TypeName="SandlerRepositories.OpportunityRepository">
         <InsertParameters>
             <asp:ControlParameter ControlID="dvOpportunity" Name="ID" PropertyName="SelectedValue" />
             <asp:ControlParameter ControlID="dvOpportunity" Name="Acct_ID" PropertyName="SelectedValue" />

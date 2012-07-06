@@ -4,13 +4,13 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using Sandler.Data.Utility;
+
 using System.Data.SqlClient;
 using System.Data;
 
 public partial class CRMAdjustForecast : System.Web.UI.Page
 {
-    DBUtility db = new DBUtility();
+    
     protected void Page_Load(object sender, EventArgs e)
     {
 
@@ -27,15 +27,9 @@ public partial class CRMAdjustForecast : System.Web.UI.Page
         int SalesPLTotal = Convert.ToInt32(txtq2Sales.Text) + Convert.ToInt32(txtq3Sales.Text) + Convert.ToInt32(txtq4Sales.Text);
         
         //Now Update
-        db.ExecuteNonQuery("sp_CreateForeCast", new SqlParameter("@CompanyID", ddlCompany.SelectedIndex),
-            new SqlParameter("@Q2Total", Q2Total), new SqlParameter("@Q3Total", Q3Total), new SqlParameter("@Q4Total", Q4Total),
-            new SqlParameter("@Year", 2012), new SqlParameter("@QuotaTotal", QuotaTotal), new SqlParameter("@BestCaseTotal", BestCaseTotal), new SqlParameter("@SalesPLTotal", SalesPLTotal),
-            new SqlParameter("@Q2Quota", Convert.ToInt64(txtq2quota.Text)), new SqlParameter("@Q2BestCase", Convert.ToInt64(txtq2Bestcase.Text)), new SqlParameter("@Q2SalesPL", Convert.ToInt64(txtq2Sales.Text)),
-            new SqlParameter("@Q3Quota", Convert.ToInt64(txtq3quota.Text)), new SqlParameter("@Q3BestCase", Convert.ToInt64(txtq3Bestcase.Text)), new SqlParameter("@Q3SalesPL", Convert.ToInt64(txtq3Sales.Text)),
-            new SqlParameter("@Q4Quota", Convert.ToInt64(txtq4quota.Text)), new SqlParameter("@Q4BestCase", Convert.ToInt64(txtq4Bestcase.Text)), new SqlParameter("@Q4SalesPL", Convert.ToInt64(txtq4Sales.Text)),
-            new SqlParameter("@SeasonIndex", txtSeasonalityIndex.Text), new SqlParameter("@GrowthIndex", txtGrowthIndex.Text),
-            new SqlParameter("@Trained_Reps", txtTrainedSalesRep.Text), new SqlParameter("@SalesCycle", txtSalesCycleTime.Text));
 
+
+        new SandlerRepositories.ForcastingRepository().Insert(ddlCompany.SelectedIndex, Q2Total, Q3Total, Q4Total, 2012, QuotaTotal, BestCaseTotal, SalesPLTotal, int.Parse(txtq2quota.Text), int.Parse(txtq2Bestcase.Text),int.Parse(txtq2Sales.Text), int.Parse(txtq3quota.Text), int.Parse(txtq3Bestcase.Text), int.Parse(txtq3Sales.Text), int.Parse(txtq4quota.Text), int.Parse(txtq4Bestcase.Text), int.Parse(txtq4Sales.Text),txtSeasonalityIndex.Text,txtGrowthIndex.Text, txtTrainedSalesRep.Text, txtSalesCycleTime.Text);
         GetData();
         
         //Update Status
@@ -54,7 +48,7 @@ public partial class CRMAdjustForecast : System.Web.UI.Page
     public void GetData()
     {
         DataSet ds;
-        ds = db.ExecuteDataset("sp_GetForecastDetails", "ForeCastDetails", new SqlParameter("@CompID", ddlCompany.SelectedIndex));
+        ds = new SandlerRepositories.ForcastingRepository().GetById(ddlCompany.SelectedIndex);
         if (ds.Tables[0].Rows.Count > 0)
         {
                         

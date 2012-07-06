@@ -6,16 +6,16 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Data;
 using System.Data.SqlClient;
-using Sandler.Data;
+
 using Sandler.UI.ChartStructure;
 using InfoSoftGlobal;
 public partial class GapAnalysisCreate : System.Web.UI.Page
 {
-    private IGapAnalysis gaData;
+    private SandlerRepositories.IGapAnalysis gaData;
 
     public GapAnalysisCreate()
     {
-        gaData = new GapAnalysis();
+        gaData = new SandlerRepositories.GapAnalysis();
     }
 
     protected void Page_Load(object sender, EventArgs e)
@@ -49,7 +49,7 @@ public partial class GapAnalysisCreate : System.Web.UI.Page
 
     private void PopulateData()
     {
-        DataSet data = gaData.GetData();
+        DataSet data = gaData.GetAll();
         if (data != null)
         {
             drpListSCTAsIs.DataSource = data.Tables[0];
@@ -120,7 +120,7 @@ public partial class GapAnalysisCreate : System.Web.UI.Page
         SqlDataReader reader = null;
         try
         {
-            reader = gaData.GetSalesRepresentativeData("1");
+            reader = gaData.GetByRepId("1");
             while(reader.Read())
             {
                 drpListSCTAsIs.SelectedValue = reader.GetValue(5).ToString();
@@ -152,7 +152,7 @@ public partial class GapAnalysisCreate : System.Web.UI.Page
 
     private void UpdateSalesRepresentativeData()
     {
-        gaData.UpdateSalesRepresentativeData("1", drpListSCTAsIs.SelectedItem.Text, drpListSEAsIs.SelectedItem.Text, drpListSQAsIs.SelectedItem.Text, drpListTCSAsIs.SelectedItem.Text, drpListQAAsIs.SelectedItem.Text, drpListEBGAsIS.SelectedItem.Text, drpListSCTAsIs.SelectedItem.Value, drpListSEAsIs.SelectedItem.Value, drpListSQAsIs.SelectedItem.Value, drpListTCSAsIs.SelectedItem.Value, drpListQAAsIs.SelectedItem.Value, drpListEBGAsIS.SelectedItem.Value, drpListSCTToBe.SelectedItem.Text, drpListSEToBe.SelectedItem.Text, drpListSQToBe.SelectedItem.Text, drpListTCSToBe.SelectedItem.Text, drpListQAToBe.SelectedItem.Text, drpListEBGToBe.SelectedItem.Text, drpListSCTToBe.SelectedItem.Value, drpListSEToBe.SelectedItem.Value, drpListSQToBe.SelectedItem.Value, drpListTCSToBe.SelectedItem.Value, drpListQAToBe.SelectedItem.Value, drpListEBGToBe.SelectedItem.Value);
+        gaData.Update("1", drpListSCTAsIs.SelectedItem.Text, drpListSEAsIs.SelectedItem.Text, drpListSQAsIs.SelectedItem.Text, drpListTCSAsIs.SelectedItem.Text, drpListQAAsIs.SelectedItem.Text, drpListEBGAsIS.SelectedItem.Text, drpListSCTAsIs.SelectedItem.Value, drpListSEAsIs.SelectedItem.Value, drpListSQAsIs.SelectedItem.Value, drpListTCSAsIs.SelectedItem.Value, drpListQAAsIs.SelectedItem.Value, drpListEBGAsIS.SelectedItem.Value, drpListSCTToBe.SelectedItem.Text, drpListSEToBe.SelectedItem.Text, drpListSQToBe.SelectedItem.Text, drpListTCSToBe.SelectedItem.Text, drpListQAToBe.SelectedItem.Text, drpListEBGToBe.SelectedItem.Text, drpListSCTToBe.SelectedItem.Value, drpListSEToBe.SelectedItem.Value, drpListSQToBe.SelectedItem.Value, drpListTCSToBe.SelectedItem.Value, drpListQAToBe.SelectedItem.Value, drpListEBGToBe.SelectedItem.Value);
     }
 
     

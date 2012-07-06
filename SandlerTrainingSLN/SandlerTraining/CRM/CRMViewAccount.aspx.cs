@@ -4,14 +4,12 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using Sandler.Data.Utility;
 using System.Data.SqlClient;
 using System.Data;
 
 public partial class CRMViewAccount : System.Web.UI.Page
 {
-    DBUtility db = new DBUtility();
-    protected void Page_Load(object sender, EventArgs e)
+   protected void Page_Load(object sender, EventArgs e)
     {
         if (!Page.IsPostBack)
         {
@@ -30,7 +28,8 @@ public partial class CRMViewAccount : System.Web.UI.Page
     public void GetAccountDetails()
     {
         //Now get the details
-        System.Data.DataSet ds = db.ExecuteDataset("sp_GetAccountDetails", "AccountByID", new SqlParameter("@AccountID", Convert.ToInt32(hidAccountID.Value)));
+        SandlerRepositories.AccountsRepository accountRepository = new SandlerRepositories.AccountsRepository();
+        System.Data.DataSet ds = accountRepository.GetById(Convert.ToInt32(hidAccountID.Value));
         AccountDW.DataSource = ds;
         AccountDW.DataBind();
     }
@@ -167,13 +166,9 @@ public partial class CRMViewAccount : System.Web.UI.Page
         {
             AccountValue = "";
         }
-        if (NextDate.ToString() == "1/1/0001 12:00:00 AM")
-        {
-            db.ExecuteNonQuery("sp_UpdateAccountDetailsSpecial", new SqlParameter("@AccountID", Convert.ToInt32(hidAccountID.Value)), new SqlParameter("@CompanyName", CompanyName), new SqlParameter("@AccountName", AccountName), new SqlParameter("@Product", Product), new SqlParameter("@LastDate", LastDate), new SqlParameter("@Comment", Comment), new SqlParameter("@ActionStep", ActionStep), new SqlParameter("@ActValue", AccountValue),new SqlParameter("@SalesRep", SalesRep));
-        }
-        else
-        {
-            db.ExecuteNonQuery("sp_UpdateAccountDetails", new SqlParameter("@AccountID", Convert.ToInt32(hidAccountID.Value)), new SqlParameter("@CompanyName", CompanyName), new SqlParameter("@AccountName", AccountName), new SqlParameter("@Product", Product), new SqlParameter("@LastDate", LastDate), new SqlParameter("@NextDate", NextDate),new SqlParameter("@Comment", Comment), new SqlParameter("@ActionStep", ActionStep), new SqlParameter("@ActValue", AccountValue),new SqlParameter("@SalesRep", SalesRep));        }
+        
+        SandlerRepositories.AccountsRepository accountRepository = new SandlerRepositories.AccountsRepository();
+        accountRepository.Update(Convert.ToInt32(hidAccountID.Value), CompanyName, AccountName, SalesRep, AccountValue, Comment, ActionStep, LastDate, NextDate, Product);
         LblStatus.Text = "Account updated successfully!";
         
 

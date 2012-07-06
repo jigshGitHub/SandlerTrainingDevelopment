@@ -1,5 +1,5 @@
 ﻿<%@ Page Title="CRM" Language="C#" MasterPageFile="~/CRM.master" AutoEventWireup="true" CodeFile="CRMAccounts.aspx.cs" Inherits="CRMAccounts" %>
-
+<%@ Import Namespace="SandlerRepositories" %>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" Runat="Server">
 <table id="tblMain" width="100%">
 <tr>
@@ -39,7 +39,7 @@ DataKeyNames="ID" AllowSorting="true" AllowPaging="true" PageSize="20"
 <tr><td  colspan="2"><asp:Label  ForeColor="Red" ID="LblStatus" runat="server"></asp:Label></td></tr>
 <tr>
 <td colspan="2">
-<asp:ObjectDataSource ID="AccountDS" Runat="server" TypeName="AccountsDAL" SelectMethod="GetAllAccounts"></asp:ObjectDataSource>
+<asp:ObjectDataSource ID="AccountDS" Runat="server" TypeName="SandlerRepositories.AccountsRepository" SelectMethod="GetAll"></asp:ObjectDataSource>
 <asp:HiddenField ID="hidAccountID" runat="server" /> 
 </td>
 </tr>

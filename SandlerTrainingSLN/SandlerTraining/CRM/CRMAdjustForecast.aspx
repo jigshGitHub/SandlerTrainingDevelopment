@@ -30,7 +30,7 @@ Select Company Name:
         ondatabound="ddlCompany_DataBound" onselectedindexchanged="ddlCompany_SelectedIndexChanged">
 
 </asp:DropDownList>
-<asp:ObjectDataSource ID="CompanyDS" Runat="server" TypeName="ContactsDAL" SelectMethod="GetAllCompanies"></asp:ObjectDataSource>
+<asp:ObjectDataSource ID="CompanyDS" Runat="server" TypeName="SandlerRepositories.ContactsRepository" SelectMethod="GetAllCompanies"></asp:ObjectDataSource>
 </td>
 </tr>
 <tr><td><asp:Label ID="lblStatus" runat="server" ForeColor="Red"></asp:Label> </td></tr>

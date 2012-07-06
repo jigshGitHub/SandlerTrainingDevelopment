@@ -1,6 +1,6 @@
 ﻿<%@ Page Title="CRM" Language="C#" MasterPageFile="~/CRM.master" AutoEventWireup="true"
     CodeFile="CRMSalesPipeLine.aspx.cs" Inherits="CRMSalesPipeLine" %>
-
+    <%@ Import Namespace="SandlerRepositories" %>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="Server">
     <table id="tblMain" width="100%">
         <tr>
@@ -62,10 +62,10 @@
         </tr>
         <tr>
             <td colspan="2">
-                <asp:ObjectDataSource ID="CompanyDS" runat="server" TypeName="ContactsDAL" SelectMethod="GetAllCompanies">
+                <asp:ObjectDataSource ID="CompanyDS" runat="server" TypeName="SandlerRepositories.ContactsRepository" SelectMethod="GetAllCompanies">
                 </asp:ObjectDataSource>
-                <asp:ObjectDataSource ID="OpportunityDS" runat="server" TypeName="OpportunityDAL"
-                    SelectMethod="GetAllOpportunities">
+                <asp:ObjectDataSource ID="OpportunityDS" runat="server" TypeName="SandlerRepositories.OpportunityRepository"
+                    SelectMethod="GetAll">
                     <SelectParameters>
                         <asp:ControlParameter ControlID="ddlCompany" Name="ID" Type="Int32" />
                     </SelectParameters>

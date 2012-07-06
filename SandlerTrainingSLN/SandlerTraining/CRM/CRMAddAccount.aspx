@@ -1,5 +1,6 @@
 ﻿<%@ Page Title="CRM" Language="C#" MasterPageFile="~/CRM.master" AutoEventWireup="true" CodeFile="CRMAddAccount.aspx.cs" Inherits="CRMAddAccount" %>
 <%@Register TagPrefix="ew"  Namespace="eWorld.UI" Assembly="eWorld.UI, Version=1.9.0.0, Culture=neutral, PublicKeyToken=24d65337282035f2" %>
+<%@ Import Namespace="SandlerRepositories" %>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" Runat="Server">
 <table>
 <tr><th class="tdTC" style="width: 280px" align="left">Add Account :</th></tr>
@@ -239,7 +240,7 @@ Font-Names="Verdana,Helvetica,Tahoma,Arial" Font-Size="XX-Small"
     </td></tr>
     <tr><td style="width: 280px">
     <asp:Label ID="lblResult" runat="server" ForeColor="Red"></asp:Label><br />
-    <asp:ObjectDataSource ID="AccountDataSource" runat="server" InsertMethod="InsertAccount" TypeName="AccountsDAL">
+    <asp:ObjectDataSource ID="AccountDataSource" runat="server" InsertMethod="Insert" TypeName="AccountsRepository">
         <InsertParameters>
             <asp:ControlParameter ControlID="dvAccount" Name="Company_Name" PropertyName="SelectedValue" />
             <asp:ControlParameter ControlID="dvAccount" Name="Account_Name" PropertyName="SelectedValue" />

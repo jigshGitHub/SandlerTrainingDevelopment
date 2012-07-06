@@ -82,6 +82,7 @@
     <Compile Include="Return_on_Trng_Investment.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="ROIModel.cs" />
     <Compile Include="SandlerEDM.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

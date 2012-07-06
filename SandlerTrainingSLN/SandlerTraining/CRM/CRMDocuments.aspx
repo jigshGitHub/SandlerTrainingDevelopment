@@ -1,5 +1,5 @@
 ﻿<%@ Page Title="CRM" Language="C#" MasterPageFile="~/CRM.master" AutoEventWireup="true" CodeFile="CRMDocuments.aspx.cs" Inherits="CRMDocuments" %>
-
+<%@ Import Namespace="SandlerRepositories" %>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" Runat="Server">
 
 <table>
@@ -87,8 +87,8 @@ DataKeyNames="Doc_ID" AllowSorting="True" AllowPaging="True" PageSize="20"
 <tr><td colspan="3"><asp:Label  ForeColor="Red" ID="LblStatus" runat="server"></asp:Label></td></tr>
 
 <tr><td colspan="3">
-<asp:ObjectDataSource ID="CompanyDS" Runat="server" TypeName="ContactsDAL" SelectMethod="GetAllCompanies"></asp:ObjectDataSource>
-<asp:ObjectDataSource ID="DocumentsDS" Runat="server" TypeName="DocumentsDAL" SelectMethod="GetDocumentsById">
+<asp:ObjectDataSource ID="CompanyDS" Runat="server" TypeName="SandlerRepositories.ContactsRepository" SelectMethod="GetAllCompanies"></asp:ObjectDataSource>
+<asp:ObjectDataSource ID="DocumentsDS" Runat="server" TypeName="SandlerRepositories.DocumentsRepository" SelectMethod="GetById">
    <SelectParameters>
           <asp:ControlParameter ControlID ="ddlOpportunity" Name="Opp_ID" Type="Int32" />
    </SelectParameters>
@@ -96,7 +96,7 @@ DataKeyNames="Doc_ID" AllowSorting="True" AllowPaging="True" PageSize="20"
 
 </td></tr>
 <tr><td colspan="3">
-<asp:ObjectDataSource ID="OpprtunityDS" Runat="server" TypeName="OpportunityDAL" SelectMethod="GetOpportunitiesById">
+<asp:ObjectDataSource ID="OpprtunityDS" Runat="server" TypeName="SandlerRepositories.OpportunityRepository" SelectMethod="GetById">
    <SelectParameters>
           <asp:ControlParameter ControlID ="ddlCompany" Name="ID" Type="Int32" />
    </SelectParameters>

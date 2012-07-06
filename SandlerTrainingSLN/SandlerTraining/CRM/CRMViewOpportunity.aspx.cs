@@ -4,13 +4,13 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using Sandler.Data.Utility;
+
 using System.Data.SqlClient;
 using System.Data;
 
 public partial class CRMViewOpportunity : System.Web.UI.Page
 {
-    DBUtility db = new DBUtility();
+    
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!Page.IsPostBack)
@@ -213,28 +213,9 @@ public partial class CRMViewOpportunity : System.Web.UI.Page
         }
 
         
-        if (CloseDate.ToString() == "1/1/0001 12:00:00 AM")
-        {
-            
-            db.ExecuteNonQuery("sp_UpdateOpportunityDetailsSpecial", new SqlParameter("@OppId", Convert.ToInt32(hidOpprtunityID.Value)), new SqlParameter("@CompanyID", CompanyID), 
-                new SqlParameter("@OppName", OppName), new SqlParameter("@SalesPhone", SalesRepPhone), 
-                new SqlParameter("@SalesRep", SalesRep), new SqlParameter("@CompContact", CompContact),
-                new SqlParameter("@CompPhone", CompPhone), new SqlParameter("@CompEmail", CompEmailAdrs), 
-                new SqlParameter("@WeightedValue", WeightedValue), new SqlParameter("@WinProbability", WinProbability),
-                new SqlParameter("@AcctOppStatus", AcctOppStatus), new SqlParameter("@AcctID", AcctID),
-                new SqlParameter("@TotalActValue", TotalValue));
-        }
-        else
-        {
-            db.ExecuteNonQuery("sp_UpdateOpportunityDetails", new SqlParameter("@OppId", Convert.ToInt32(hidOpprtunityID.Value)), new SqlParameter("@CompanyID", CompanyID), 
-                new SqlParameter("@OppName", OppName), new SqlParameter("@SalesPhone", SalesRepPhone), 
-                new SqlParameter("@SalesRep", SalesRep), new SqlParameter("@CompContact", CompContact),
-                new SqlParameter("@CompPhone", CompPhone), new SqlParameter("@CompEmail", CompEmailAdrs), 
-                new SqlParameter("@WeightedValue", WeightedValue), new SqlParameter("@WinProbability", WinProbability),
-                new SqlParameter("@AcctOppStatus", AcctOppStatus), new SqlParameter("@AcctID", AcctID),
-                new SqlParameter("@CloseDate", CloseDate), new SqlParameter("@TotalActValue", TotalValue));
+        SandlerRepositories.OpportunityRepository repository = new SandlerRepositories.OpportunityRepository();
+        repository.Update(Convert.ToInt32(hidOpprtunityID.Value), CompanyID, OppName, SalesRep, SalesRepPhone, CompContact, CompPhone, CompEmailAdrs, AcctOppStatus, TotalValue, WeightedValue, WinProbability, CloseDate);
 
-        }
         LblStatus.Text = "Opportunity updated successfully!";
 
 
@@ -243,8 +224,9 @@ public partial class CRMViewOpportunity : System.Web.UI.Page
     public void GetOpportunityDetails()
     {
         //Now get the details
-        System.Data.DataSet ds = db.ExecuteDataset("sp_GetOpportunityDetails", "OppByID", new SqlParameter("@OppID", Convert.ToInt32(hidOpprtunityID.Value)));
-        OpportunityDW.DataSource = ds;
+        SandlerRepositories.OpportunityRepository opportunityRepository = new SandlerRepositories.OpportunityRepository();
+
+        OpportunityDW.DataSource = opportunityRepository.GetDetailsById( Convert.ToInt32(hidOpprtunityID.Value)); ;
         OpportunityDW.DataBind();
     }
     protected void OpportunityDW_ItemUpdating(object sender, DetailsViewUpdateEventArgs e)

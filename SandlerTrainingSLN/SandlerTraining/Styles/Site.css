@@ -476,3 +476,15 @@ a.menuLinkActive:visited
     color: #FFFFFF;
 	padding-right: 10px; 
 }
+.disableLink
+{
+    background-color: #6699FF;
+    color: #FFFFFF;
+    border-style: solid;
+	border-width: .1em;
+	border-color: #FFFFFF #808080 #808080 #FFFFFF;
+	padding-top: 0.1em;
+	padding-left: 0.3em;
+	padding-right: 0.3em;
+	padding-bottom: 0.1em;
+}

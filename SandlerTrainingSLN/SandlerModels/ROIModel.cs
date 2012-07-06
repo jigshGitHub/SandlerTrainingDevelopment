@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace Sandler.Models
+namespace SandlerModels
 {
     public interface IROIModel
     {

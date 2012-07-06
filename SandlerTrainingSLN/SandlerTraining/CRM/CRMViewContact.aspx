@@ -248,7 +248,7 @@ Font-Names="Verdana,Helvetica,Tahoma,Arial" Font-Size="XX-Small"
         Text="Go Back to All Contacts" onclick="Cancel_Click" /></td></tr>
 <tr><td colspan="2"><asp:Label  CssClass="resultLabel" ID="LblStatus"  ForeColor="Red" runat="server"></asp:Label></td></tr>
 <tr><td colspan="2"><asp:ValidationSummary ID="ValidationSummary1" runat="server" ShowMessageBox="True" /></td></tr>
-<tr><td colspan="2"> <asp:ObjectDataSource ID="CompanyDS" Runat="server" TypeName="ContactsDAL" SelectMethod="GetAllCompanies"></asp:ObjectDataSource></td></tr>
+<tr><td colspan="2"> <asp:ObjectDataSource ID="CompanyDS" Runat="server" TypeName="SandlerRepositories.ContactsRepository" SelectMethod="GetAllCompanies"></asp:ObjectDataSource></td></tr>
 <tr><td colspan="2"><asp:HiddenField ID="hidContactID" runat="server" /> </td></tr>     
     
 </table> 

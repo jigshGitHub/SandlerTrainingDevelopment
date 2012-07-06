@@ -4,8 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using Sandler.Data.Models;
-using Sandler.Models;
+using SandlerData.Models;
+using SandlerModels;
 using System.Text;
 using System.Web.Services;
 using Sandler.UI.ChartStructure;
@@ -332,7 +332,7 @@ public partial class ROI : System.Web.UI.Page
                 roiModels.Add(roiModel);
             }
 
-            roiDataModel.UpdateROI(repId, roiModels);
+            roiDataModel.Update(repId, roiModels);
             SetReadOnlyTextBoxes();
 
 

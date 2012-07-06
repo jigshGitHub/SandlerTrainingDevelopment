@@ -3,14 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Data;
-using Sandler.Models;
-using Sandler.Data;
-namespace Sandler.Data.Models
+using SandlerModels;
+using SandlerRepositories;
+
+namespace SandlerData.Models
 {
     public interface IROIDataModel
     {
         List<ROIModel> GetROIModel(int repId);
-        void UpdateROI(int repId, List<ROIModel> roiModels);
+        void Update(int repId, List<ROIModel> roiModels);
     }
 
     public class ROIDataModel : IROIDataModel
@@ -18,7 +19,7 @@ namespace Sandler.Data.Models
         IROI roiData;
         public ROIDataModel()
         {
-            roiData = new ROI();
+            roiData = new ROIRepository();
         }
         public List<ROIModel> GetROIModel(int repId)
         {
@@ -27,7 +28,7 @@ namespace Sandler.Data.Models
             DataSet dsROI = null;
             try
             {
-                dsROI = roiData.GetROIData(repId);
+                dsROI = roiData.GetByRepId(repId);
 
                 if (dsROI != null)
                 {
@@ -86,7 +87,7 @@ namespace Sandler.Data.Models
             return lstROIModels;
         }
 
-        public void UpdateROI(int repId, List<ROIModel> roiModels)
+        public void Update(int repId, List<ROIModel> roiModels)
         {
             DataTable tblROI;
             DataRow dr;
@@ -165,7 +166,7 @@ namespace Sandler.Data.Models
 
                     tblROI.Rows.Add(dr);
                 }
-                roiData.UpdateROI(repId, tblROI);
+                roiData.Update(repId, tblROI);
             }
             catch (Exception ex)
             {

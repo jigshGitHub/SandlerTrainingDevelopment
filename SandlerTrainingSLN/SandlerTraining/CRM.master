@@ -19,38 +19,31 @@
                 <table>
                     <tr>
                         <td>
-                            <asp:Image runat="server" ImageUrl="~/images/header_logo.png" ToolTip="Sandler Logo" />                            
+                            <asp:Image runat="server" ImageUrl="~/images/header_logo.png" ToolTip="Sandler Logo" />
                         </td>
                         <td>
-                            <button type="button" id="btnDashboard" runat="server" class="menuButton" onclick="window.open('Default.aspx','_self')">
-                                DASHBOARD
-                            </button>
+                            <asp:HyperLink CssClass="menuLink" ID="lnkDashboard" runat="server" NavigateUrl="~/Default.aspx"
+                                Text="DASHBOARD"></asp:HyperLink>
                         </td>
                         <td>
-                            <button type="button" id="btnReports" runat="server" class="menuButton" onclick="window.open('Reports.aspx','_self')">
-                                REPORTS
-                            </button>
+                            <asp:HyperLink CssClass="menuLink" ID="lnkReports" runat="server" NavigateUrl="~/Reports.aspx"
+                                Text="REPORTS"></asp:HyperLink>
                         </td>
                         <td>
-                            <button type="button" id="btnCRM" runat="server" class="menuButton" onclick="window.open('CRMContacts.aspx','_self')">
-                                CRM
-                            </button>
+                            <asp:HyperLink CssClass="menuLink" ID="lnkCRM" runat="server" NavigateUrl="~/CRM/CRMContacts.aspx"
+                                Text="CRM"></asp:HyperLink>
                         </td>
                         <td>
-                            <button type="button" id="btnIndustrialAvgBenchmark" runat="server" class="menuButton"
-                                onclick="window.open('IndAverageBenchmarks.aspx','_self')">
-                                BENCHMARKS
-                            </button>
+                            <asp:Button CssClass="disableLink" ID="lnkIndustrialAvgBenchmark" runat="server" Text="BENCHMARKS">
+                            </asp:Button>
                         </td>
                         <td>
-                            <button type="button" id="btnProducts" runat="server" class="menuButton" onclick="window.open('Products.aspx','_self')">
-                                PRODUCTS
-                            </button>
+                            <asp:HyperLink CssClass="menuLink" ID="lnkProducts" runat="server" NavigateUrl="~/Products.aspx"
+                                Text="PRODUCTS"></asp:HyperLink>
                         </td>
                         <td>
-                            <button type="button" class="menuButton" onclick="window.open('Logout.aspx','_self')">
-                                LOGOUT
-                            </button>
+                            <asp:HyperLink CssClass="menuLink" ID="lnkLogout" runat="server" NavigateUrl="~/Logout.aspx"
+                                Text="LOGOUT"></asp:HyperLink>
                         </td>
                     </tr>
                 </table>

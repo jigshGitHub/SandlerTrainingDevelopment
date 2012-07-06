@@ -36,6 +36,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.Xml.Linq" />
@@ -45,6 +46,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AccountsRepository.cs" />
+    <Compile Include="ContactsRepository.cs" />
+    <Compile Include="ForcastingRepository.cs" />
+    <Compile Include="DBFactory.cs" />
+    <Compile Include="DocumentsRepository.cs" />
+    <Compile Include="OpportunityRepository.cs" />
     <Compile Include="Repositories.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -53,10 +60,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SandlerData\SandlerData.csproj">
-      <Project>{2A1D302E-BCC9-486C-974D-D849328781AA}</Project>
-      <Name>SandlerData</Name>
-    </ProjectReference>
     <ProjectReference Include="..\SandlerModels\SandlerModels.csproj">
       <Project>{53C1515D-FA71-43B1-B75C-A3E447584FA3}</Project>
       <Name>SandlerModels</Name>

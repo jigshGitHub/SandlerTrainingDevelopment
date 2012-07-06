@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Data.SqlClient;
-using Sandler.Data;
+
 using System.Text;
 using InfoSoftGlobal;
 using Sandler.UI.ChartStructure;

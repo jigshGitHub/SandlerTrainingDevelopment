@@ -4,14 +4,14 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using Sandler.Data;
-using Sandler.Data.Utility;
+
+
 using System.Data;
 using System.Data.SqlClient; 
 
 public partial class CRMAddDocument : System.Web.UI.Page
 {
-    DBUtility db = new DBUtility();
+    
     protected void Page_Load(object sender, EventArgs e)
     {
 
@@ -87,11 +87,11 @@ public partial class CRMAddDocument : System.Web.UI.Page
         }
 
         //now save the reocord
-        db.ExecuteNonQuery("sp_AttachDocument", new SqlParameter("@OppID", OppID),
-            new SqlParameter("@Document_Name", DocName),
-            new SqlParameter("@Document_Status", DocStatus),
-            new SqlParameter("@Document_Loaded", DocumentLoaded), new SqlParameter("@LastModifyDate", LastModifyDate));
-
+        //db.ExecuteNonQuery("sp_AttachDocument", new SqlParameter("@OppID", OppID),
+        //    new SqlParameter("@Document_Name", DocName),
+        //    new SqlParameter("@Document_Status", DocStatus),
+        //    new SqlParameter("@Document_Loaded", DocumentLoaded), new SqlParameter("@LastModifyDate", LastModifyDate));
+        new SandlerRepositories.DocumentsRepository().Insert(OppID, DocStatus, DocName, DocumentLoaded, LastModifyDate);
         lblResult.Text = "Document attached Successfully!";
     
 

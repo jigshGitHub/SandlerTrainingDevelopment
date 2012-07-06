@@ -4,13 +4,13 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using Sandler.Data.Utility;
+
 using System.Data.SqlClient;
 using System.Data;
 
 public partial class CRMViewContact : System.Web.UI.Page
 {
-    DBUtility db = new DBUtility();
+    
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!Page.IsPostBack)
@@ -172,15 +172,8 @@ public partial class CRMViewContact : System.Web.UI.Page
             TotalAccountValue = "";
         }
 
-        if (NextDate.ToString() == "1/1/0001 12:00:00 AM")
-        {
-            db.ExecuteNonQuery("sp_UpdateContactDetailsSpecial", new SqlParameter("@ContactID", Convert.ToInt32(hidContactID.Value)), new SqlParameter("@FullName", FullName), new SqlParameter("@Phone", PhoneNumber), new SqlParameter("@Email", EmailAdrs), new SqlParameter("@LastDate", LastDate), new SqlParameter("@CompanyID", CompanyID), new SqlParameter("@Comment", Comment), new SqlParameter("@ActionStep", ActionStep), new SqlParameter("@TotalActValue", TotalAccountValue));
-        }
-        else
-        {
-            db.ExecuteNonQuery("sp_UpdateContactDetails", new SqlParameter("@ContactID", Convert.ToInt32(hidContactID.Value)), new SqlParameter("@FullName", FullName), new SqlParameter("@Phone", PhoneNumber), new SqlParameter("@Email", EmailAdrs), new SqlParameter("@LastDate", LastDate), new SqlParameter("@NextDate", NextDate), new SqlParameter("@CompanyID", CompanyID), new SqlParameter("@Comment", Comment), new SqlParameter("@ActionStep", ActionStep), new SqlParameter("@TotalActValue", TotalAccountValue));
-
-        }
+        SandlerRepositories.ContactsRepository contactRepository = new SandlerRepositories.ContactsRepository();
+        contactRepository.Update(Convert.ToInt32(hidContactID.Value), FullName, PhoneNumber, EmailAdrs, TotalAccountValue, Comment, ActionStep, LastDate, CompanyID.ToString(), NextDate);
         LblStatus.Text = "Contact updated successfully!";
                       
                 
@@ -188,7 +181,7 @@ public partial class CRMViewContact : System.Web.UI.Page
     public void GetContactDetails()
     {
         //Now get the details
-        System.Data.DataSet ds = db.ExecuteDataset("sp_GetContactDetails", "ContactByID", new SqlParameter("@ContactID", Convert.ToInt32(hidContactID.Value)));
+        System.Data.DataSet ds = new SandlerRepositories.ContactsRepository().GetById(Convert.ToInt32(hidContactID.Value));
         ContactDW.DataSource = ds;
         ContactDW.DataBind();
     }

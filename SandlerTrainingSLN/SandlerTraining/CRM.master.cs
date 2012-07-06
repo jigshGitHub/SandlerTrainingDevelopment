@@ -15,6 +15,9 @@ public partial class CRM : System.Web.UI.MasterPage
             HtmlButton activeButton = (HtmlButton)Page.Master.FindControl("btn" + Page.Title);
             if(activeButton != null)
                 activeButton.Attributes.Add("class", "menuButtonActive");
+            HyperLink activeLink = (HyperLink)Page.Master.FindControl("lnk" + Page.Title);
+            if (activeLink != null)
+                activeLink.CssClass = "menuLinkActive";
         }
     }
     

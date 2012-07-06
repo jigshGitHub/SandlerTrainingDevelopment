@@ -4,13 +4,13 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using Sandler.Data.Utility;
+
 using System.Data.SqlClient;
 using System.Data;
 
 public partial class CRMForCasting : System.Web.UI.Page
 {
-    DBUtility db = new DBUtility();
+    
     protected void Page_Load(object sender, EventArgs e)
     {
 
@@ -32,8 +32,8 @@ public partial class CRMForCasting : System.Web.UI.Page
     {
         if (!(ddlCompany.SelectedIndex == 0))
         {
-            DataSet ds;
-            ds = db.ExecuteDataset("sp_GetForecastDetails","ForeCastDetails", new SqlParameter("@CompID", ddlCompany.SelectedIndex));
+            DataSet ds;            
+            ds = new SandlerRepositories.ForcastingRepository().GetById(ddlCompany.SelectedIndex);
             if (ds.Tables[0].Rows.Count > 0)
             {
                 tblMain.Style.Add("display", "block");

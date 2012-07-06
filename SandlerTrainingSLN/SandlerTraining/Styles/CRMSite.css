@@ -304,3 +304,86 @@ div.accountInfo
     text-align: center;
     line-height: normal;
 }
+a.menuLink
+{
+	border-style: solid;
+	border-width: .15em;
+	border-color: #FFFFFF #808080 #808080 #FFFFFF;
+	background-color: blue;
+	color: #FFFFFF;
+	padding-top: 0.1em;
+	padding-left: 0.3em;
+	padding-right: 0.3em;
+	padding-bottom: 0.1em;
+	text-decoration: none;
+}
+a.menuLink:link
+{
+	border-style: solid;
+	border-width: .15em;
+	border-color: #FFFFFF #808080 #808080 #FFFFFF;
+	background-color: blue;
+	color: #FFFFFF;
+	padding-top: 0.1em;
+	padding-left: 0.3em;
+	padding-right: 0.3em;
+	padding-bottom: 0.1em;
+	text-decoration: none;
+}
+a.menuLink:visited
+{
+	border-style: solid;
+	border-width: .15em;
+	border-color: #FFFFFF #808080 #808080 #FFFFFF;
+	background-color: blue;
+	color: #FFFFFF;
+	padding-top: 0.1em;
+	padding-left: 0.3em;
+	padding-right: 0.3em;
+	padding-bottom: 0.1em;
+	text-decoration: none;
+}
+a.menuLinkActive
+{
+	border-style: solid;
+	border-width: .15em;
+	border-color: #FFFFFF #808080 #808080 #FFFFFF;
+	background-color: #ff800d;
+	color: #FFFFFF;
+	padding-top: 0.1em;
+	padding-left: 0.3em;
+	padding-right: 0.3em;
+	padding-bottom: 0.1em;
+	text-decoration: none;
+}
+a.menuLinkActive:link
+{
+	border-style: solid;
+	border-width: .15em;
+	border-color: #FFFFFF #808080 #808080 #FFFFFF;
+	background-color: #ff800d;
+	color: #FFFFFF;
+	padding-top: 0.1em;
+	padding-left: 0.3em;
+	padding-right: 0.3em;
+	padding-bottom: 0.1em;
+	text-decoration: none;
+}
+a.menuLinkActive:visited
+{
+	border-style: solid;
+	border-width: .15em;
+	border-color: #FFFFFF #808080 #808080 #FFFFFF;
+	background-color: #ff800d;
+	color: #FFFFFF;
+	padding-top: 0.1em;
+	padding-left: 0.3em;
+	padding-right: 0.3em;
+	padding-bottom: 0.1em;
+	text-decoration: none;
+}
+.disableLink
+{
+    background-color: #6699FF;
+    color: #FFFFFF;
+}
