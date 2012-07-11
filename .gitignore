@@ -5,10 +5,9 @@
 *.pydevproject
 .project
 .metadata
-bin/
 tmp/
 *.tmp
-*.bak
+*.pdd
 *.swp
 *~.nib
 local.properties
