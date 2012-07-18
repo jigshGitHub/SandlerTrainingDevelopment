@@ -10,7 +10,7 @@ namespace SandlerTrainingMVC.Models
 
     public class ChangePasswordModel
     {
-        [Required]
+        [Required()]
         [DataType(DataType.Password)]
         [Display(Name = "Current password")]
         public string OldPassword { get; set; }
@@ -29,7 +29,7 @@ namespace SandlerTrainingMVC.Models
 
     public class LoginModel
     {
-        [Required]
+        [Required(ErrorMessage = "Username is required")]
         [Display(Name = "User name")]
         public string UserName { get; set; }
 

@@ -53,12 +53,34 @@ BEGIN CATCH
           ', Line ' + CONVERT(varchar(5), ERROR_LINE());
     PRINT ERROR_MESSAGE();
 	
-	 -- Roll back any active or uncommittable transactions before
-    -- inserting information in the ErrorLog.
-    IF XACT_STATE() <> 0
+	-- Execute error retrieval routine.
+    EXECUTE sp_LogError;
+
+    -- Test XACT_STATE:
+        -- If 1, the transaction is committable.
+        -- If -1, the transaction is uncommittable and should 
+        --     be rolled back.
+        -- XACT_STATE = 0 means that there is no transaction and
+        --     a commit or rollback operation would generate an error.
+
+    -- Test whether the transaction is uncommittable.
+    IF (XACT_STATE()) = -1
     BEGIN
+        PRINT
+            N'The transaction is in an uncommittable state.' +
+            'Rolling back transaction.'
         ROLLBACK TRANSACTION;
-    END
+    END;
+
+    -- Test whether the transaction is committable.
+    IF (XACT_STATE()) = 1
+    BEGIN
+        PRINT
+            N'The transaction is committable.' +
+            'Committing transaction.'
+        COMMIT TRANSACTION;   
+    END;
+
 
 
 END CATCH

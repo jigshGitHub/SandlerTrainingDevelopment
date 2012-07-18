@@ -7,7 +7,7 @@
     <ProductVersion>
     </ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{EA751CD6-502D-4DF0-98DC-A8C7D83F8BE0}</ProjectGuid>
+    <ProjectGuid>{41F0F778-6A64-433C-97D2-C36AC25750BA}</ProjectGuid>
     <ProjectTypeGuids>{E3E379DF-F4C6-4180-9B81-6769533ABE47};{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -35,6 +35,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=4.4.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\SandlerTraining\Bin\EntityFramework.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -55,9 +59,6 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
-    <Reference Include="EntityFramework">
-      <HintPath>..\packages\EntityFramework.5.0.0-rc\lib\net40\EntityFramework.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
@@ -126,16 +127,17 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\Chart.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="CustomFilters\LogonAuthorize.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountModels.cs" />
-    <Compile Include="Models\ChartModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ViewModels\DashBoardVM.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\SandlerSite.css" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
@@ -164,12 +166,78 @@
     <Content Include="Content\themes\base\jquery.ui.tabs.css" />
     <Content Include="Content\themes\base\jquery.ui.theme.css" />
     <Content Include="favicon.ico" />
+    <Content Include="FusionChartLib\Area2D.swf" />
+    <Content Include="FusionChartLib\Bar2D.swf" />
+    <Content Include="FusionChartLib\Bubble.swf" />
+    <Content Include="FusionChartLib\Column2D.swf" />
+    <Content Include="FusionChartLib\Column3D.swf" />
+    <Content Include="FusionChartLib\CostOfSale.xml" />
+    <Content Include="FusionChartLib\Doughnut2D.swf" />
+    <Content Include="FusionChartLib\Doughnut3D.swf" />
+    <Content Include="FusionChartLib\FCExporter.swf" />
+    <Content Include="FusionChartLib\firebug-lite.js" />
+    <Content Include="FusionChartLib\FusionCharts.HC.Charts.js" />
+    <Content Include="FusionChartLib\FusionCharts.HC.js" />
+    <Content Include="FusionChartLib\FusionCharts.jqueryplugin.js" />
+    <Content Include="FusionChartLib\FusionCharts.js" />
+    <Content Include="FusionChartLib\FusionChartsExportComponent.js" />
+    <Content Include="FusionChartLib\GapAnalysis.xml" />
+    <Content Include="FusionChartLib\jquery.min.js" />
+    <Content Include="FusionChartLib\Line.swf" />
+    <Content Include="FusionChartLib\Marimekko.swf" />
+    <Content Include="FusionChartLib\MSArea.swf" />
+    <Content Include="FusionChartLib\MSBar2D.swf" />
+    <Content Include="FusionChartLib\MSBar3D.swf" />
+    <Content Include="FusionChartLib\MSColumn2D.swf" />
+    <Content Include="FusionChartLib\MSColumn3D.swf" />
+    <Content Include="FusionChartLib\MSColumn3DLineDY.swf" />
+    <Content Include="FusionChartLib\MSColumnLine3D.swf" />
+    <Content Include="FusionChartLib\MSCombi2D.swf" />
+    <Content Include="FusionChartLib\MSCombi3D.swf" />
+    <Content Include="FusionChartLib\MSCombiDY2D.swf" />
+    <Content Include="FusionChartLib\MSLine.swf" />
+    <Content Include="FusionChartLib\MSStackedColumn2D.swf" />
+    <Content Include="FusionChartLib\MSStackedColumn2DLineDY.swf" />
+    <Content Include="FusionChartLib\Pareto2D.swf" />
+    <Content Include="FusionChartLib\Pareto3D.swf" />
+    <Content Include="FusionChartLib\Pie2D.swf" />
+    <Content Include="FusionChartLib\Pie3D.swf" />
+    <Content Include="FusionChartLib\Prospecting.xml" />
+    <Content Include="FusionChartLib\RetentionRate.xml" />
+    <Content Include="FusionChartLib\Retention_Rate_Effectiveness.xml" />
+    <Content Include="FusionChartLib\ReturnOnTrainingInvestment.xml" />
+    <Content Include="FusionChartLib\SalesCycleTime.xml" />
+    <Content Include="FusionChartLib\Scatter.swf" />
+    <Content Include="FusionChartLib\ScrollArea2D.swf" />
+    <Content Include="FusionChartLib\ScrollColumn2D.swf" />
+    <Content Include="FusionChartLib\ScrollCombi2D.swf" />
+    <Content Include="FusionChartLib\ScrollCombiDY2D.swf" />
+    <Content Include="FusionChartLib\ScrollLine2D.swf" />
+    <Content Include="FusionChartLib\ScrollStackedColumn2D.swf" />
+    <Content Include="FusionChartLib\SSGrid.swf" />
+    <Content Include="FusionChartLib\StackedArea2D.swf" />
+    <Content Include="FusionChartLib\StackedBar2D.swf" />
+    <Content Include="FusionChartLib\StackedBar3D.swf" />
+    <Content Include="FusionChartLib\StackedColumn2D.swf" />
+    <Content Include="FusionChartLib\StackedColumn2DLine.swf" />
+    <Content Include="FusionChartLib\StackedColumn3D.swf" />
+    <Content Include="FusionChartLib\StackedColumn3DLine.swf" />
+    <Content Include="FusionChartLib\StackedColumn3DLineDY.swf" />
+    <Content Include="FusionChartLib\ZoomLine.swf" />
     <Content Include="Global.asax" />
+    <Content Include="Images\Landing_page_v2.png" />
+    <Content Include="Scripts\firebug-lite.js" />
+    <Content Include="Scripts\FusionCharts.HC.Charts.js" />
+    <Content Include="Scripts\FusionCharts.HC.js" />
+    <Content Include="Scripts\FusionCharts.jqueryplugin.js" />
+    <Content Include="Scripts\FusionCharts.js" />
+    <Content Include="Scripts\FusionChartsExportComponent.js" />
     <Content Include="Scripts\jquery-1.6.2-vsdoc.js" />
     <Content Include="Scripts\jquery-1.6.2.js" />
     <Content Include="Scripts\jquery-1.6.2.min.js" />
     <Content Include="Scripts\jquery-ui-1.8.11.js" />
     <Content Include="Scripts\jquery-ui-1.8.11.min.js" />
+    <Content Include="Scripts\jquery.min.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate-vsdoc.js" />
@@ -230,6 +298,9 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Views\Account\LoginNew.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\SandlerModels\SandlerModels.csproj">
       <Project>{53C1515D-FA71-43B1-B75C-A3E447584FA3}</Project>
       <Name>SandlerModels</Name>
@@ -255,7 +326,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>49961</DevelopmentServerPort>
+          <DevelopmentServerPort>2180</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>
