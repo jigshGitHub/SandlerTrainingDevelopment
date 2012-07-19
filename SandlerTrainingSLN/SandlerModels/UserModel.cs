@@ -7,20 +7,31 @@ using System.Web.Security;
 
 namespace SandlerModels
 {
+    public enum SandlerRoles
+    {
+        Coach,
+        FranchiseeOwner,
+        FranchiseeUser,
+        SiteAdmin,
+        Anonymous
+    }
     public class UserModel
     {
         private MembershipUser currentUser;
         private int franchiseeId;
-
-        public string Role
+        private int regionId;
+        private int coachId;
+        public SandlerRoles Role
         {
-            get{
+            get
+            {
                 foreach (string role in Roles.GetAllRoles())
                 {
                     if (Roles.IsUserInRole(role))
-                        return role;
+                        return (SandlerRoles)Enum.Parse(typeof(SandlerRoles), role, true);
+                        //return role;
                 }
-                return "";
+                return SandlerRoles.Anonymous;
             }
 
         }
@@ -33,11 +44,11 @@ namespace SandlerModels
             }
         }
 
-        public Guid  UserId
+        public Guid UserId
         {
             get
             {
-                return (Guid)currentUser.ProviderUserKey ;
+                return (Guid)currentUser.ProviderUserKey;
             }
         }
 
@@ -45,17 +56,39 @@ namespace SandlerModels
         {
             get
             {
-                return franchiseeId; 
+                return franchiseeId;
             }
             set
             {
                 franchiseeId = value;
             }
         }
+        public int CoachID
+        {
+            get
+            {
+                return coachId;
+            }
+            set
+            {
+                coachId = value;
+            }
+        }
+        public int RegionID
+        {
+            get
+            {
+                return regionId;
+            }
+            set
+            {
+                regionId = value;
+            }
+        }
 
         public UserModel()
         {
-            currentUser = Membership.GetUser(HttpContext.Current.User.Identity.Name); 
+            currentUser = Membership.GetUser(HttpContext.Current.User.Identity.Name);
         }
     }
 }

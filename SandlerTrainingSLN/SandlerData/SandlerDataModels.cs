@@ -134,7 +134,7 @@ namespace SandlerData.Models
                 foreach (ROIModel roiModel in roiModels)
                 {
                     dr = tblROI.NewRow();
-                
+
                     dr["ID"] = (roiModel.ID.HasValue) ? roiModel.ID : null;
                     dr["ProductID"] = (roiModel.ProductID.HasValue) ? roiModel.ProductID : null;
                     dr["FranchiseeID"] = (roiModel.FranchiseeID.HasValue) ? roiModel.FranchiseeID : null;
@@ -183,17 +183,47 @@ namespace SandlerData.Models
     public class UserDataModel : IUserDataModel
     {
         public FranchiseeUsersRepository franchiseeUsersRepository;
+        public FranchiseeRepository franchiseeRepository;
+        public CoachRepository coachRepository;
+        public RegionRepository regionRepository;
         public UserDataModel()
         {
             franchiseeUsersRepository = new FranchiseeUsersRepository();
+            franchiseeRepository = new FranchiseeRepository();
+            coachRepository = new CoachRepository();
+            regionRepository = new RegionRepository();
         }
         #region IUserDataModel Members
 
         public void Load(UserModel user)
         {
-            user.FranchiseeID = franchiseeUsersRepository.GetAll().Where(r => r.UserID == user.UserId).SingleOrDefault().FranchiseeID;
+            switch (user.Role)
+            {
+                case SandlerRoles.Coach:
+                    user.CoachID = coachRepository.GetAll().Where(r => r.UserID == user.UserId).SingleOrDefault().ID;
+                    user.RegionID = coachRepository.GetRegion(user.CoachID).ID;
+                    break;
+                case SandlerRoles.FranchiseeOwner:
+                case SandlerRoles.FranchiseeUser:
+                    
+                    user.FranchiseeID = franchiseeUsersRepository.GetAll().Where(r => r.UserID == user.UserId).SingleOrDefault().FranchiseeID;
+                    user.CoachID = franchiseeRepository.GetCoach(user.FranchiseeID).ID;
+                    user.RegionID = coachRepository.GetRegion(user.CoachID).ID;
+                    break;
+                case SandlerRoles.SiteAdmin:
+                    break;
+                default:
+                    break;
+            }
         }
 
+        ~ UserDataModel()
+        {
+            franchiseeUsersRepository = null;
+            franchiseeRepository = null;
+            coachRepository = null;
+            regionRepository = null;
+        }
         #endregion
     }
 }

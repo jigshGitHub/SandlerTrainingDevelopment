@@ -500,6 +500,7 @@ a.menuLinkActive:visited
 	padding-left: 0.3em;
 	padding-right: 0.3em;
 	padding-bottom: 0.1em;
+	cursor:text;
 }
 
 .disableLink:visited
@@ -526,4 +527,5 @@ a.menuLinkActive:visited
 	padding-left: 0.3em;
 	padding-right: 0.3em;
 	padding-bottom: 0.1em;
+	cursor:text;
 }

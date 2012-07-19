@@ -8,8 +8,13 @@
     <script type="text/javascript" src="<%= Page.ResolveClientUrl("~/Scripts/jquery.formatCurrency-1.4.0.min.js") %>"></script>
     <script type="text/javascript" src="<%= Page.ResolveClientUrl("~/Scripts/jquery.calculation.min.js") %>"></script>
     <script type="text/javascript" src="<%= Page.ResolveClientUrl("~/FusionChartLib/FusionCharts.js") %>"></script>
+    <script type="text/javascript" language="javascript" src="<%= Page.ResolveClientUrl("~/Scripts/jquery.dropdownPlain.js") %>"></script>
     <title></title>
     <link href="~/Styles/Site.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="~/Styles/Menu/style.css" type="text/css" media="screen, projection" />
+    <!--[if lte IE 7]>
+        <link rel="stylesheet" type="text/css" href="~/Styles/Menu/ie.css" media="screen" />
+    <![endif]-->
     <asp:ContentPlaceHolder ID="HeadContent" runat="server">
         <style type="text/css">
             
@@ -39,7 +44,7 @@
                 </asp:LoginView>
             </div>
             <div class="clear hideSkiplink">
-                <table>
+                <table style="display: none">
                     <tr>
                         <td>
                             <asp:Image ImageUrl="~/images/header_logo.png" runat="server" ID="imgLogo" />
@@ -71,6 +76,34 @@
                         </td>
                     </tr>
                 </table>
+                <table border="0">
+                    <tr>
+                        <td>
+                            <asp:Image ImageUrl="~/images/header_logo.png" runat="server" ID="Image1" />
+                        </td>
+                        <td style="padding-top: 2.5em">
+                            <ul class="dropdown">
+                                <li><a id="anchorDASHBOARD" runat="server" href="Default.aspx">DASHBOARD</a></li>
+                                <li><a id="anchorCHART" runat="server" href="#">REPORTS</a><ul class="sub_menu">
+                                    <li><a href="ChartPage.aspx?chartId=NewAppointmentsBySourceMonth">New Appointments By
+                                        Source (By Month)</a></li>
+                                    <li><a href="ChartPage.aspx?chartId=NewClientsByProductTypeMonth">New Clients By Product
+                                        Type (By Month)</a></li>
+                                    <li><a href="ChartPage.aspx?chartId=NewClientQuantityAverageContractPriceByMonth">New
+                                        Client Quantity & Average Contract Price (By Month)</a></li>
+                                    <li><a href="ChartPage.aspx?chartId=ClassHeadcountByCourseIndustryMonth">Class Headcount
+                                        By Course & Industry (By Month)</a></li>
+                                    <li><a href="ChartPage.aspx?chartId=AverageLengthTimeActiveClientsByIndustry">Average
+                                        Length of Time for Active Clients (By Industry)</a></li></ul>
+                                </li>
+                                <li><a href="CRM/CRMContacts.aspx">CRM</a> </li>
+                                <li><a href="#" class="disableLink">BENCHMARKS</a> </li>
+                                <li><a href="#" class="disableLink">PRODUCTS</a> </li>
+                                <li><a href="Logout.aspx">LOGOUT</a> </li>
+                            </ul>
+                        </td>
+                    </tr>
+                </table>
             </div>
         </div>
         <div class="main">
@@ -95,9 +128,12 @@
                 left: 405px; top: 40px;">
                 <option value="NewAppointmentsBySourceMonth">New Appointments By Source (By Month)</option>
                 <option value="NewClientsByProductTypeMonth">New Clients By Product Type (By Month)</option>
-                <option value="NewClientQuantityAverageContractPriceByMonth">New Client Quantity & Average Contract Price (By Month)</option>
-                <option value="ClassHeadcountByCourseIndustryMonth">Class Headcount By Course & Industry (By Month)</option>
-                <option value="AverageLengthTimeActiveClientsByIndustry">Average Length of Time for Active Clients (By Industry)</option>
+                <option value="NewClientQuantityAverageContractPriceByMonth">New Client Quantity & Average
+                    Contract Price (By Month)</option>
+                <option value="ClassHeadcountByCourseIndustryMonth">Class Headcount By Course & Industry
+                    (By Month)</option>
+                <option value="AverageLengthTimeActiveClientsByIndustry">Average Length of Time for
+                    Active Clients (By Industry)</option>
             </select>
         </div>
     </div>
@@ -117,6 +153,14 @@
             });
             $('#reports').change(function () {
                 window.location = "ChartPage.aspx?chartId=" + $(this).val();
+            });
+
+            $("ul.dropdown li a").click(function () {
+                //alert($(this).text()); 
+
+                $('ul.dropdown li').each(function (i) {
+                    //alert($(this).find("a").text());
+                });
             });
         });
     </script>

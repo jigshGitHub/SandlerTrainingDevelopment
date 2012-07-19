@@ -274,7 +274,7 @@ BEGIN TRY
 
 		DECLARE @User_Id uniqueidentifier
 		DECLARE @CurrentTime DATETIME
-		DECLARE @region_Id INT
+		DECLARE @coach_Id INT
 		
 		SET @CurrentTime = GetDate();
 				
@@ -282,9 +282,10 @@ BEGIN TRY
 		
 		EXEC [dbo].[aspnet_UsersInRoles_AddUsersToRoles] @ApplicationName = @application_Name, @UserNames = @user_Name, @RoleNames = @franchisee_Role, @CurrentTimeUtc = NULL;
 		
-		SELECT @region_Id = ID FROM Tbl_Region WHERE Name = @region_Name AND IsActive = 1;
+		SELECT @coach_Id = c.ID FROM Tbl_Region r INNER JOIN TBL_COACH c ON r.ID = c.RegionID
+		WHERE r.Name = @region_Name AND r.IsActive = 1;
 		
-		Insert Into TBL_FRANCHISEE (Name, RegionID) VALUES(@_name, @region_Id);
+		Insert Into TBL_FRANCHISEE (Name, CoachID) VALUES(@_name, @coach_Id);
 		SELECT @franchisee_Id = @@IDENTITY;
 		
 		Insert Into TBL_FRANCHISEE_USERS(FranchiseeID, UserID) VALUES(@franchisee_Id, @User_Id);

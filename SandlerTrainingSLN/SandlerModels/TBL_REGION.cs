@@ -17,7 +17,6 @@ namespace SandlerModels
         public TBL_REGION()
         {
             this.TBL_COACH = new HashSet<TBL_COACH>();
-            this.TBL_FRANCHISEE = new HashSet<TBL_FRANCHISEE>();
         }
     
         public int ID { get; set; }
@@ -29,7 +28,6 @@ namespace SandlerModels
         public Nullable<System.Guid> LastCreatedBy { get; set; }
     
         public virtual ICollection<TBL_COACH> TBL_COACH { get; set; }
-        public virtual ICollection<TBL_FRANCHISEE> TBL_FRANCHISEE { get; set; }
     }
     
 }

@@ -12,9 +12,13 @@ public partial class SiteMaster : System.Web.UI.MasterPage
     {
         if (!Page.IsPostBack)
         {
-            HyperLink activeLink = (HyperLink)Page.Master.FindControl("lnk" + Page.Title);
+            //HyperLink activeLink = (HyperLink)Page.Master.FindControl("lnk" + Page.Title);
+            //if (activeLink != null)
+            //    activeLink.CssClass = "menuLinkActive";
+
+            HtmlAnchor activeLink = (HtmlAnchor)Page.Master.FindControl("anchor" + Page.Title);
             if (activeLink != null)
-                activeLink.CssClass = "menuLinkActive";
+                activeLink.Attributes.Add("class","menuLinkActive");
         }
     }
    

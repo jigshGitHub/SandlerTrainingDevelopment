@@ -48,18 +48,7 @@
           <EntitySet Name="Return_on_Trng_Investment" EntityType="Sandler.Models.Store.Return_on_Trng_Investment" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="TBL_ASSESSMENTS" EntityType="Sandler.Models.Store.TBL_ASSESSMENTS" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="TBL_CHART" EntityType="Sandler.Models.Store.TBL_CHART" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="TBL_COACH" EntityType="Sandler.Models.Store.TBL_COACH" store:Type="Tables" store:Schema="dbo" store:Name="TBL_COACH">
-            <DefiningQuery>SELECT 
-      [TBL_COACH].[ID] AS [ID], 
-      [TBL_COACH].[UserID] AS [UserID], 
-      [TBL_COACH].[RegionID] AS [RegionID], 
-      [TBL_COACH].[IsActive] AS [IsActive], 
-      [TBL_COACH].[LastCreatedDate] AS [LastCreatedDate], 
-      [TBL_COACH].[LastUpdatedBy] AS [LastUpdatedBy], 
-      [TBL_COACH].[CreatedDate] AS [CreatedDate], 
-      [TBL_COACH].[CreatedBy] AS [CreatedBy]
-      FROM [dbo].[TBL_COACH] AS [TBL_COACH]</DefiningQuery>
-          </EntitySet>
+          <EntitySet Name="TBL_COACH" EntityType="Sandler.Models.Store.TBL_COACH" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="TBL_COACHING" EntityType="Sandler.Models.Store.TBL_COACHING" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="TBL_COMPANY" EntityType="Sandler.Models.Store.TBL_COMPANY" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="TBL_CONSULTING" EntityType="Sandler.Models.Store.TBL_CONSULTING" store:Type="Tables" Schema="dbo" />
@@ -102,8 +91,8 @@
             <End Role="TBL_REGION" EntitySet="TBL_REGION" />
             <End Role="TBL_COACH" EntitySet="TBL_COACH" />
           </AssociationSet>
-          <AssociationSet Name="FK_TBL_FRANCHISEE_TBL_REGION" Association="Sandler.Models.Store.FK_TBL_FRANCHISEE_TBL_REGION">
-            <End Role="TBL_REGION" EntitySet="TBL_REGION" />
+          <AssociationSet Name="FK_TBL_FRANCHISEE_TBL_COACH" Association="Sandler.Models.Store.FK_TBL_FRANCHISEE_TBL_COACH">
+            <End Role="TBL_COACH" EntitySet="TBL_COACH" />
             <End Role="TBL_FRANCHISEE" EntitySet="TBL_FRANCHISEE" />
           </AssociationSet>
           <AssociationSet Name="FK_TBL_FRANCHISEE_USERS_TBL_FRANCHISEE" Association="Sandler.Models.Store.FK_TBL_FRANCHISEE_USERS_TBL_FRANCHISEE">
@@ -277,15 +266,9 @@
           <Property Name="LastUpdatedBy" Type="uniqueidentifier" />
           <Property Name="LastCreatedBy" Type="uniqueidentifier" />
         </EntityType>
-        <!--Errors Found During Generation:
-      warning 6002: The table/view 'SandlerDB.dbo.TBL_COACH' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
-      -->
         <EntityType Name="TBL_COACH">
           <Key>
             <PropertyRef Name="ID" />
-            <PropertyRef Name="UserID" />
-            <PropertyRef Name="RegionID" />
-            <PropertyRef Name="IsActive" />
           </Key>
           <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="UserID" Type="uniqueidentifier" Nullable="false" />
@@ -448,7 +431,7 @@
           </Key>
           <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="varchar" Nullable="false" MaxLength="500" />
-          <Property Name="RegionID" Type="int" Nullable="false" />
+          <Property Name="CoachID" Type="int" Nullable="false" />
           <Property Name="IsActive" Type="bit" />
           <Property Name="LastCreatedDate" Type="datetime" />
           <Property Name="LastUpdatedBy" Type="uniqueidentifier" />
@@ -761,15 +744,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_TBL_FRANCHISEE_TBL_REGION">
-          <End Role="TBL_REGION" Type="Sandler.Models.Store.TBL_REGION" Multiplicity="1" />
+        <Association Name="FK_TBL_FRANCHISEE_TBL_COACH">
+          <End Role="TBL_COACH" Type="Sandler.Models.Store.TBL_COACH" Multiplicity="1" />
           <End Role="TBL_FRANCHISEE" Type="Sandler.Models.Store.TBL_FRANCHISEE" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="TBL_REGION">
+            <Principal Role="TBL_COACH">
               <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="TBL_FRANCHISEE">
-              <PropertyRef Name="RegionID" />
+              <PropertyRef Name="CoachID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -830,16 +813,16 @@
           <EntitySet Name="TBL_STRATEGICCUSTCARE" EntityType="Sandler.Models.TBL_STRATEGICCUSTCARE" />
           <EntitySet Name="Return_on_Trng_Investment" EntityType="Sandler.Models.Return_on_Trng_Investment" />
           <EntitySet Name="TBL_CHART" EntityType="Sandler.Models.TBL_CHART" />
+          <EntitySet Name="TBL_REGION" EntityType="Sandler.Models.TBL_REGION" />
           <EntitySet Name="TBL_COACH" EntityType="Sandler.Models.TBL_COACH" />
           <EntitySet Name="TBL_FRANCHISEE" EntityType="Sandler.Models.TBL_FRANCHISEE" />
           <EntitySet Name="TBL_FRANCHISEE_USERS" EntityType="Sandler.Models.TBL_FRANCHISEE_USERS" />
-          <EntitySet Name="TBL_REGION" EntityType="Sandler.Models.TBL_REGION" />
           <AssociationSet Name="FK_TBL_COACH_TBL_REGION" Association="Sandler.Models.FK_TBL_COACH_TBL_REGION">
             <End Role="TBL_REGION" EntitySet="TBL_REGION" />
             <End Role="TBL_COACH" EntitySet="TBL_COACH" />
           </AssociationSet>
-          <AssociationSet Name="FK_TBL_FRANCHISEE_TBL_REGION" Association="Sandler.Models.FK_TBL_FRANCHISEE_TBL_REGION">
-            <End Role="TBL_REGION" EntitySet="TBL_REGION" />
+          <AssociationSet Name="FK_TBL_FRANCHISEE_TBL_COACH" Association="Sandler.Models.FK_TBL_FRANCHISEE_TBL_COACH">
+            <End Role="TBL_COACH" EntitySet="TBL_COACH" />
             <End Role="TBL_FRANCHISEE" EntitySet="TBL_FRANCHISEE" />
           </AssociationSet>
           <AssociationSet Name="FK_TBL_FRANCHISEE_USERS_TBL_FRANCHISEE" Association="Sandler.Models.FK_TBL_FRANCHISEE_USERS_TBL_FRANCHISEE">
@@ -1427,47 +1410,6 @@
           <Property Type="Int32" Name="DrillLevel" />
           <Property Type="String" Name="DrillBy" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
-        <EntityType Name="TBL_COACH">
-          <Key>
-            <PropertyRef Name="ID" />
-            <PropertyRef Name="UserID" />
-            <PropertyRef Name="RegionID" />
-            <PropertyRef Name="IsActive" />
-          </Key>
-          <Property Type="Int32" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="Guid" Name="UserID" Nullable="false" />
-          <Property Type="Int32" Name="RegionID" Nullable="false" />
-          <Property Type="Boolean" Name="IsActive" Nullable="false" />
-          <Property Type="DateTime" Name="LastCreatedDate" />
-          <Property Type="Guid" Name="LastUpdatedBy" />
-          <Property Type="DateTime" Name="CreatedDate" />
-          <Property Type="Guid" Name="CreatedBy" />
-          <NavigationProperty Name="TBL_REGION" Relationship="Sandler.Models.FK_TBL_COACH_TBL_REGION" FromRole="TBL_COACH" ToRole="TBL_REGION" />
-        </EntityType>
-        <EntityType Name="TBL_FRANCHISEE">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Type="Int32" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="String" Name="Name" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Type="Int32" Name="RegionID" Nullable="false" />
-          <Property Type="Boolean" Name="IsActive" />
-          <Property Type="DateTime" Name="LastCreatedDate" />
-          <Property Type="Guid" Name="LastUpdatedBy" />
-          <Property Type="DateTime" Name="CreatedDate" />
-          <Property Type="Guid" Name="CreatedBy" />
-          <NavigationProperty Name="TBL_REGION" Relationship="Sandler.Models.FK_TBL_FRANCHISEE_TBL_REGION" FromRole="TBL_FRANCHISEE" ToRole="TBL_REGION" />
-          <NavigationProperty Name="TBL_FRANCHISEE_USERS" Relationship="Sandler.Models.FK_TBL_FRANCHISEE_USERS_TBL_FRANCHISEE" FromRole="TBL_FRANCHISEE" ToRole="TBL_FRANCHISEE_USERS" />
-        </EntityType>
-        <EntityType Name="TBL_FRANCHISEE_USERS">
-          <Key>
-            <PropertyRef Name="FranchiseeID" />
-            <PropertyRef Name="UserID" />
-          </Key>
-          <Property Type="Int32" Name="FranchiseeID" Nullable="false" />
-          <Property Type="Guid" Name="UserID" Nullable="false" />
-          <NavigationProperty Name="TBL_FRANCHISEE" Relationship="Sandler.Models.FK_TBL_FRANCHISEE_USERS_TBL_FRANCHISEE" FromRole="TBL_FRANCHISEE_USERS" ToRole="TBL_FRANCHISEE" />
-        </EntityType>
         <EntityType Name="TBL_REGION">
           <Key>
             <PropertyRef Name="ID" />
@@ -1480,7 +1422,45 @@
           <Property Type="DateTime" Name="LastCreatedDate" />
           <Property Type="Guid" Name="LastCreatedBy" />
           <NavigationProperty Name="TBL_COACH" Relationship="Sandler.Models.FK_TBL_COACH_TBL_REGION" FromRole="TBL_REGION" ToRole="TBL_COACH" />
-          <NavigationProperty Name="TBL_FRANCHISEE" Relationship="Sandler.Models.FK_TBL_FRANCHISEE_TBL_REGION" FromRole="TBL_REGION" ToRole="TBL_FRANCHISEE" />
+        </EntityType>
+        <EntityType Name="TBL_COACH">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Int32" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Guid" Name="UserID" Nullable="false" />
+          <Property Type="Int32" Name="RegionID" Nullable="false" />
+          <Property Type="Boolean" Name="IsActive" Nullable="false" />
+          <Property Type="DateTime" Name="LastCreatedDate" />
+          <Property Type="Guid" Name="LastUpdatedBy" />
+          <Property Type="DateTime" Name="CreatedDate" />
+          <Property Type="Guid" Name="CreatedBy" />
+          <NavigationProperty Name="TBL_REGION" Relationship="Sandler.Models.FK_TBL_COACH_TBL_REGION" FromRole="TBL_COACH" ToRole="TBL_REGION" />
+          <NavigationProperty Name="TBL_FRANCHISEE" Relationship="Sandler.Models.FK_TBL_FRANCHISEE_TBL_COACH" FromRole="TBL_COACH" ToRole="TBL_FRANCHISEE" />
+        </EntityType>
+        <EntityType Name="TBL_FRANCHISEE">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Int32" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="CoachID" Nullable="false" />
+          <Property Type="Boolean" Name="IsActive" />
+          <Property Type="DateTime" Name="LastCreatedDate" />
+          <Property Type="Guid" Name="LastUpdatedBy" />
+          <Property Type="DateTime" Name="CreatedDate" />
+          <Property Type="Guid" Name="CreatedBy" />
+          <NavigationProperty Name="TBL_COACH" Relationship="Sandler.Models.FK_TBL_FRANCHISEE_TBL_COACH" FromRole="TBL_FRANCHISEE" ToRole="TBL_COACH" />
+          <NavigationProperty Name="TBL_FRANCHISEE_USERS" Relationship="Sandler.Models.FK_TBL_FRANCHISEE_USERS_TBL_FRANCHISEE" FromRole="TBL_FRANCHISEE" ToRole="TBL_FRANCHISEE_USERS" />
+        </EntityType>
+        <EntityType Name="TBL_FRANCHISEE_USERS">
+          <Key>
+            <PropertyRef Name="FranchiseeID" />
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Type="Int32" Name="FranchiseeID" Nullable="false" />
+          <Property Type="Guid" Name="UserID" Nullable="false" />
+          <NavigationProperty Name="TBL_FRANCHISEE" Relationship="Sandler.Models.FK_TBL_FRANCHISEE_USERS_TBL_FRANCHISEE" FromRole="TBL_FRANCHISEE_USERS" ToRole="TBL_FRANCHISEE" />
         </EntityType>
         <Association Name="FK_TBL_COACH_TBL_REGION">
           <End Type="Sandler.Models.TBL_REGION" Role="TBL_REGION" Multiplicity="1" />
@@ -1494,15 +1474,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_TBL_FRANCHISEE_TBL_REGION">
-          <End Type="Sandler.Models.TBL_REGION" Role="TBL_REGION" Multiplicity="1" />
+        <Association Name="FK_TBL_FRANCHISEE_TBL_COACH">
+          <End Type="Sandler.Models.TBL_COACH" Role="TBL_COACH" Multiplicity="1" />
           <End Type="Sandler.Models.TBL_FRANCHISEE" Role="TBL_FRANCHISEE" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="TBL_REGION">
+            <Principal Role="TBL_COACH">
               <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="TBL_FRANCHISEE">
-              <PropertyRef Name="RegionID" />
+              <PropertyRef Name="CoachID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2140,6 +2120,19 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="TBL_REGION">
+            <EntityTypeMapping TypeName="Sandler.Models.TBL_REGION">
+              <MappingFragment StoreEntitySet="TBL_REGION">
+                <ScalarProperty Name="LastCreatedBy" ColumnName="LastCreatedBy" />
+                <ScalarProperty Name="LastCreatedDate" ColumnName="LastCreatedDate" />
+                <ScalarProperty Name="LastUpdatedBy" ColumnName="LastUpdatedBy" />
+                <ScalarProperty Name="LastUpdatedDate" ColumnName="LastUpdatedDate" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="TBL_COACH">
             <EntityTypeMapping TypeName="Sandler.Models.TBL_COACH">
               <MappingFragment StoreEntitySet="TBL_COACH">
@@ -2162,7 +2155,7 @@
                 <ScalarProperty Name="LastUpdatedBy" ColumnName="LastUpdatedBy" />
                 <ScalarProperty Name="LastCreatedDate" ColumnName="LastCreatedDate" />
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-                <ScalarProperty Name="RegionID" ColumnName="RegionID" />
+                <ScalarProperty Name="CoachID" ColumnName="CoachID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
@@ -2173,19 +2166,6 @@
               <MappingFragment StoreEntitySet="TBL_FRANCHISEE_USERS">
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
                 <ScalarProperty Name="FranchiseeID" ColumnName="FranchiseeID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="TBL_REGION">
-            <EntityTypeMapping TypeName="Sandler.Models.TBL_REGION">
-              <MappingFragment StoreEntitySet="TBL_REGION">
-                <ScalarProperty Name="LastCreatedBy" ColumnName="LastCreatedBy" />
-                <ScalarProperty Name="LastCreatedDate" ColumnName="LastCreatedDate" />
-                <ScalarProperty Name="LastUpdatedBy" ColumnName="LastUpdatedBy" />
-                <ScalarProperty Name="LastUpdatedDate" ColumnName="LastUpdatedDate" />
-                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -2210,7 +2190,7 @@
     </Options>
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
-      <Diagram Name="SandlerEDM" ZoomLevel="32">
+      <Diagram Name="SandlerEDM" ZoomLevel="93">
         <EntityTypeShape EntityType="Sandler.Models.Gap_Analysis" Width="10.875" PointX="0.75" PointY="0.75" Height="6.5955208333333317" IsExpanded="true" />
         <EntityTypeShape EntityType="Sandler.Models.TBL_COMPANY" Width="1.5" PointX="0.75" PointY="8.75" Height="2.9417936197916674" />
         <EntityTypeShape EntityType="Sandler.Models.TBL_CONTACT" Width="1.5" PointX="2.75" PointY="8.75" Height="2.9417936197916674" />
@@ -2251,21 +2231,21 @@
         <EntityTypeShape EntityType="Sandler.Models.TBL_STRATEGICCUSTCARE" Width="1.5" PointX="13.75" PointY="18.75" Height="2.5571907552083246" />
         <EntityTypeShape EntityType="Sandler.Models.Return_on_Trng_Investment" Width="1.5" PointX="16.375" PointY="18.75" Height="7.364726562499996" />
         <EntityTypeShape EntityType="Sandler.Models.TBL_CHART" Width="1.5" PointX="18.375" PointY="18.75" Height="5.057109374999996" />
-        <EntityTypeShape EntityType="Sandler.Models.TBL_COACH" Width="1.5" PointX="22.625" PointY="15.125" Height="2.749492187499996" />
-        <EntityTypeShape EntityType="Sandler.Models.TBL_FRANCHISEE" Width="1.5" PointX="22.625" PointY="18.625" Height="2.9417936197916532" />
-        <EntityTypeShape EntityType="Sandler.Models.TBL_FRANCHISEE_USERS" Width="1.5" PointX="24.875" PointY="19.375" Height="1.595683593749996" />
         <EntityTypeShape EntityType="Sandler.Models.TBL_REGION" Width="1.5" PointX="20.375" PointY="17" Height="2.7494921875000102" />
+        <EntityTypeShape EntityType="Sandler.Models.TBL_COACH" Width="1.5" PointX="22.625" PointY="16.875" Height="2.5783902994791674" />
+        <EntityTypeShape EntityType="Sandler.Models.TBL_FRANCHISEE" Width="1.5" PointX="24.875" PointY="16.875" Height="2.5783902994791674" />
+        <EntityTypeShape EntityType="Sandler.Models.TBL_FRANCHISEE_USERS" Width="1.5" PointX="27.125" PointY="17.375" Height="1.4279589843749818" />
         <AssociationConnector Association="Sandler.Models.FK_TBL_COACH_TBL_REGION" >
-          <ConnectorPoint PointX="21.875" PointY="17.437246093749998" />
-          <ConnectorPoint PointX="22.625" PointY="17.437246093749998" />
+          <ConnectorPoint PointX="21.875" PointY="18.124847819010419" />
+          <ConnectorPoint PointX="22.625" PointY="18.124847819010419" />
         </AssociationConnector>
-        <AssociationConnector Association="Sandler.Models.FK_TBL_FRANCHISEE_TBL_REGION" >
-          <ConnectorPoint PointX="21.875" PointY="19.187246093750005" />
-          <ConnectorPoint PointX="22.625" PointY="19.187246093750005" />
+        <AssociationConnector Association="Sandler.Models.FK_TBL_FRANCHISEE_TBL_COACH" >
+          <ConnectorPoint PointX="24.125" PointY="18.164195149739584" />
+          <ConnectorPoint PointX="24.875" PointY="18.164195149739584" />
         </AssociationConnector>
         <AssociationConnector Association="Sandler.Models.FK_TBL_FRANCHISEE_USERS_TBL_FRANCHISEE" >
-          <ConnectorPoint PointX="24.125" PointY="20.172841796874998" />
-          <ConnectorPoint PointX="24.875" PointY="20.172841796874998" />
+          <ConnectorPoint PointX="26.375" PointY="18.088979492187491" />
+          <ConnectorPoint PointX="27.125" PointY="18.088979492187491" />
         </AssociationConnector>
       </Diagram>
     </Diagrams>

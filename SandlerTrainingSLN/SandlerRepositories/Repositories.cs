@@ -501,5 +501,64 @@ namespace SandlerRepositories
             : base(new DBFactory())
         {
         }
+
+        public TBL_FRANCHISEE GetFranchisee(Guid userId)
+        {
+            TBL_FRANCHISEE_USERS franchiseeUser = this.GetAll().Where(r => r.UserID == userId).SingleOrDefault();
+
+            FranchiseeRepository franchiseeRepository = new FranchiseeRepository();
+            return franchiseeRepository.GetById(franchiseeUser.FranchiseeID);
+        }
+    }
+    public class FranchiseeRepository : RepositoryBase<TBL_FRANCHISEE>
+    {
+        public FranchiseeRepository(IDatabaseFactory dbFactory)
+            : base(dbFactory)
+        {
+        }
+        public FranchiseeRepository()
+            : base(new DBFactory())
+        {
+        }
+
+        public TBL_COACH GetCoach(int franchiseeID)
+        {
+            TBL_FRANCHISEE franchisee = this.GetById(franchiseeID);
+
+            CoachRepository coachRepository = new CoachRepository();
+            return coachRepository.GetById(franchisee.CoachID);
+        }
+    }
+
+    public class RegionRepository : RepositoryBase<TBL_REGION>
+    {
+        public RegionRepository(IDatabaseFactory dbFactory)
+            : base(dbFactory)
+        {
+        }
+        public RegionRepository()
+            : base(new DBFactory())
+        {
+        }
+    }
+
+    public class CoachRepository : RepositoryBase<TBL_COACH>
+    {
+        public CoachRepository(IDatabaseFactory dbFactory)
+            : base(dbFactory)
+        {
+        }
+        public CoachRepository()
+            : base(new DBFactory())
+        {
+        }
+
+        public TBL_REGION GetRegion(int coachId)
+        {
+            TBL_COACH coach = this.GetById(coachId);
+
+            RegionRepository regionRepository = new RegionRepository();
+            return regionRepository.GetById(coach.RegionID);
+        }
     }
 }

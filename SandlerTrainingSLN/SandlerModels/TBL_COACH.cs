@@ -14,6 +14,11 @@ namespace SandlerModels
 {
     public partial class TBL_COACH
     {
+        public TBL_COACH()
+        {
+            this.TBL_FRANCHISEE = new HashSet<TBL_FRANCHISEE>();
+        }
+    
         public int ID { get; set; }
         public System.Guid UserID { get; set; }
         public int RegionID { get; set; }
@@ -24,6 +29,7 @@ namespace SandlerModels
         public Nullable<System.Guid> CreatedBy { get; set; }
     
         public virtual TBL_REGION TBL_REGION { get; set; }
+        public virtual ICollection<TBL_FRANCHISEE> TBL_FRANCHISEE { get; set; }
     }
     
 }
