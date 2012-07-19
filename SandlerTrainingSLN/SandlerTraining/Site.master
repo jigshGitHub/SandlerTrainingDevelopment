@@ -93,21 +93,11 @@
         <div id="reportsSelection" style='display: none'>
             <select id="reports" name="reports" size="15" multiple="multiple" style="position: absolute;
                 left: 405px; top: 40px;">
-                <option value="Cost_of_Sale">Cost of Sale</option>
-                <option value="Gap_Analysis">Gap Analysis</option>
-                <option value="IndustryAve">Industry Averages - Benchmark</option>
-                <option value="Pipeline_Post_Training">Pipeline Post Training</option>
-                <option value="Product_Margin_Contribution">Product Margin Contribution</option>
-                <option value="Product_Sales_by_Activity">Product Sales by Activity</option>
-                <option value="Prod_Sold_As_Sale">Product Sold as a 1st Sale</option>
-                <option value="Prod_Sold_By_Company">Products Sold by Company</option>
-                <option value="Prod_Sold_By_Rep">Products Sold by Rep</option>
-                <option value="Prospecting">Prospecting Results</option>
-                <option value="Revenue_By_Source">Revenue by Source</option>
-                <option value="Retention_Rate">Retention Rate</option>
-                <option value="Return_On_Trng_Invest">Return on Training Investment</option>
-                <option value="Sales_Cycle_Time">Sales Cycle Time</option>
-                <option value="Sales_Total_By_Month">Sales Totals by Month</option>
+                <option value="NewAppointmentsBySourceMonth">New Appointments By Source (By Month)</option>
+                <option value="NewClientsByProductTypeMonth">New Clients By Product Type (By Month)</option>
+                <option value="NewClientQuantityAverageContractPriceByMonth">New Client Quantity & Average Contract Price (By Month)</option>
+                <option value="ClassHeadcountByCourseIndustryMonth">Class Headcount By Course & Industry (By Month)</option>
+                <option value="AverageLengthTimeActiveClientsByIndustry">Average Length of Time for Active Clients (By Industry)</option>
             </select>
         </div>
     </div>
@@ -126,7 +116,7 @@
                 return false;
             });
             $('#reports').change(function () {
-                window.location = $(this).val() + ".aspx";
+                window.location = "ChartPage.aspx?chartId=" + $(this).val();
             });
         });
     </script>

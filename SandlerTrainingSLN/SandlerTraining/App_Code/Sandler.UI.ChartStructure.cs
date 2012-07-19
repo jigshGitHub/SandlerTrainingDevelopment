@@ -21,6 +21,18 @@ namespace Sandler.UI.ChartStructure
 
     public enum ChartID
     {
+        NewAppointmentsBySourceMonth,
+        NewAppointmentsBySourceDrill1,
+        NewClientsByProductTypeMonth,
+        NewClientByProductTypeDrill1,
+        NewClientQuantityAverageContractPriceByMonth,
+        NewClientQuantityDrill1,
+        ContractPriceDrill1,
+        ClassHeadcountByCourseIndustryMonth,
+        HeadcountByCourseDrill1,
+        HeadcountByIndustryDrill1,
+        ActualDollarsBookedComparisonGoal,
+        AverageLengthTimeActiveClientsByIndustry,
         CostOfSale,
         IndustryAveBenchmarks,
         PipelinePostTraining,
@@ -56,7 +68,7 @@ namespace Sandler.UI.ChartStructure
         SalesCycleTimeDrill3,
         SalesCycleTimeDrill4,
         SalesCycleTimeDrill5,
-        SalesCycleTimeDrill6, 
+        SalesCycleTimeDrill6,
         IndustryAve
     }
 
@@ -145,6 +157,119 @@ namespace Sandler.UI.ChartStructure
             {
                 switch ((ChartID)Enum.Parse(typeof(ChartID), this.Id.ToString(), true))
                 {
+                    case ChartID.NewAppointmentsBySourceMonth:
+
+                        this.Categories.Add(new Category { Label = "Referral" });
+                        this.Categories.Add(new Category { Label = "Network" });
+                        this.Categories.Add(new Category { Label = "Talk" });
+                        this.Categories.Add(new Category { Label = "Cold Call" });
+                        this.Categories.Add(new Category { Label = "Follow On" });
+
+                        this.DataSetCollection.Add(new ChartDataSet { Color = "3300ff", SeriesName = "Mar" });
+                        this.DataSetCollection.Add(new ChartDataSet { Color = "ff6600", SeriesName = "Apr" });
+                        this.DataSetCollection.Add(new ChartDataSet { Color = "32df00", SeriesName = "May" });
+
+                        this.DataSetCollection[0].SetsCollection.Add(new SetValue { Value = "3", Link = "ChartPage.aspx?" });
+                        this.DataSetCollection[0].SetsCollection.Add(new SetValue { Value = "4", Link = "ChartPage.aspx?" });
+                        this.DataSetCollection[0].SetsCollection.Add(new SetValue { Value = "7", Link = "ChartPage.aspx?" });
+                        this.DataSetCollection[0].SetsCollection.Add(new SetValue { Value = "6", Link = "ChartPage.aspx?" });
+                        this.DataSetCollection[0].SetsCollection.Add(new SetValue { Value = "4", Link = "ChartPage.aspx?" });
+
+                        this.DataSetCollection[1].SetsCollection.Add(new SetValue { Value = "4", Link = "ChartPage.aspx?" });
+                        this.DataSetCollection[1].SetsCollection.Add(new SetValue { Value = "6", Link = "ChartPage.aspx?" });
+                        this.DataSetCollection[1].SetsCollection.Add(new SetValue { Value = "5", Link = "ChartPage.aspx?" });
+                        this.DataSetCollection[1].SetsCollection.Add(new SetValue { Value = "8", Link = "ChartPage.aspx?" });
+                        this.DataSetCollection[1].SetsCollection.Add(new SetValue { Value = "5", Link = "ChartPage.aspx?" });
+
+                        this.DataSetCollection[2].SetsCollection.Add(new SetValue { Value = "6", Link = "ChartPage.aspx?" });
+                        this.DataSetCollection[2].SetsCollection.Add(new SetValue { Value = "8", Link = "ChartPage.aspx?" });
+                        this.DataSetCollection[2].SetsCollection.Add(new SetValue { Value = "7", Link = "ChartPage.aspx?" });
+                        this.DataSetCollection[2].SetsCollection.Add(new SetValue { Value = "9", Link = "ChartPage.aspx?" });
+                        this.DataSetCollection[2].SetsCollection.Add(new SetValue { Value = "10", Link = "ChartPage.aspx?" });
+                        break;
+
+                    case ChartID.NewClientsByProductTypeMonth:
+
+                        this.Categories.Add(new Category { Label = "Assessment" });
+                        this.Categories.Add(new Category { Label = "PC" });
+                        this.Categories.Add(new Category { Label = "Consulting" });
+                        this.Categories.Add(new Category { Label = "Training" });
+                        this.Categories.Add(new Category { Label = "Leadership" });
+                        this.Categories.Add(new Category { Label = "Coaching" });
+
+                        this.DataSetCollection.Add(new ChartDataSet { Color = "8A4B08", SeriesName = "Mar" });
+                        this.DataSetCollection.Add(new ChartDataSet { Color = "0000FF", SeriesName = "Apr" });
+                        this.DataSetCollection.Add(new ChartDataSet { Color = "ff9966", SeriesName = "May" });
+
+                        this.DataSetCollection[0].SetsCollection.Add(new SetValue { Value = "25", Link = "ChartPage.aspx?" });
+                        this.DataSetCollection[0].SetsCollection.Add(new SetValue { Value = "35", Link = "ChartPage.aspx?" });
+                        this.DataSetCollection[0].SetsCollection.Add(new SetValue { Value = "37", Link = "ChartPage.aspx?" });
+                        this.DataSetCollection[0].SetsCollection.Add(new SetValue { Value = "38", Link = "ChartPage.aspx?" });
+                        this.DataSetCollection[0].SetsCollection.Add(new SetValue { Value = "37", Link = "ChartPage.aspx?" });
+                        this.DataSetCollection[0].SetsCollection.Add(new SetValue { Value = "38", Link = "ChartPage.aspx?" });
+
+                        this.DataSetCollection[1].SetsCollection.Add(new SetValue { Value = "23", Link = "ChartPage.aspx?" });
+                        this.DataSetCollection[1].SetsCollection.Add(new SetValue { Value = "26", Link = "ChartPage.aspx?" });
+                        this.DataSetCollection[1].SetsCollection.Add(new SetValue { Value = "28", Link = "ChartPage.aspx?" });
+                        this.DataSetCollection[1].SetsCollection.Add(new SetValue { Value = "29", Link = "ChartPage.aspx?" });
+                        this.DataSetCollection[1].SetsCollection.Add(new SetValue { Value = "28", Link = "ChartPage.aspx?" });
+                        this.DataSetCollection[1].SetsCollection.Add(new SetValue { Value = "29", Link = "ChartPage.aspx?" });
+
+                        this.DataSetCollection[2].SetsCollection.Add(new SetValue { Value = "10", Link = "ChartPage.aspx?" });
+                        this.DataSetCollection[2].SetsCollection.Add(new SetValue { Value = "15", Link = "ChartPage.aspx?" });
+                        this.DataSetCollection[2].SetsCollection.Add(new SetValue { Value = "20", Link = "ChartPage.aspx?" });
+                        this.DataSetCollection[2].SetsCollection.Add(new SetValue { Value = "15", Link = "ChartPage.aspx?" });
+                        this.DataSetCollection[2].SetsCollection.Add(new SetValue { Value = "20", Link = "ChartPage.aspx?" });
+                        this.DataSetCollection[2].SetsCollection.Add(new SetValue { Value = "15", Link = "ChartPage.aspx?" });
+                        break;
+                    case ChartID.NewClientQuantityAverageContractPriceByMonth:
+                        this.Categories.Add(new Category { Label = "Mar" });
+                        this.Categories.Add(new Category { Label = "Apr" });
+                        this.Categories.Add(new Category { Label = "May" });
+
+                        this.DataSetCollection.Add(new ChartDataSet { Color = "0000FF", SeriesName = "New Clients" });
+                        this.DataSetCollection.Add(new ChartDataSet { Color = "ff6600", SeriesName = "Ave Contract Price" });
+
+                        this.DataSetCollection[0].SetsCollection.Add(new SetValue { Value = "18", Link = "ChartPage.aspx?" });
+                        this.DataSetCollection[0].SetsCollection.Add(new SetValue { Value = "25", Link = "ChartPage.aspx?" });
+                        this.DataSetCollection[0].SetsCollection.Add(new SetValue { Value = "31", Link = "ChartPage.aspx?" });
+
+                        this.DataSetCollection[1].SetsCollection.Add(new SetValue { Value = "13", Link = "ChartPage.aspx?" });
+                        this.DataSetCollection[1].SetsCollection.Add(new SetValue { Value = "19", Link = "ChartPage.aspx?" });
+                        this.DataSetCollection[1].SetsCollection.Add(new SetValue { Value = "23", Link = "ChartPage.aspx?" });
+                        break;
+                    case ChartID.ClassHeadcountByCourseIndustryMonth:
+                        this.Categories.Add(new Category { Label = "Mar" });
+                        this.Categories.Add(new Category { Label = "Apr" });
+                        this.Categories.Add(new Category { Label = "May" });
+
+                        this.DataSetCollection.Add(new ChartDataSet { Color = "ff6600", SeriesName = "Course" });
+                        this.DataSetCollection.Add(new ChartDataSet { Color = "32df00", SeriesName = "Industry" });
+
+                        this.DataSetCollection[0].SetsCollection.Add(new SetValue { Value = "24", Link = "ChartPage.aspx?" });
+                        this.DataSetCollection[0].SetsCollection.Add(new SetValue { Value = "30", Link = "ChartPage.aspx?" });
+                        this.DataSetCollection[0].SetsCollection.Add(new SetValue { Value = "31", Link = "ChartPage.aspx?" });
+
+                        this.DataSetCollection[1].SetsCollection.Add(new SetValue { Value = "22", Link = "ChartPage.aspx?" });
+                        this.DataSetCollection[1].SetsCollection.Add(new SetValue { Value = "24", Link = "ChartPage.aspx?" });
+                        this.DataSetCollection[1].SetsCollection.Add(new SetValue { Value = "20", Link = "ChartPage.aspx?" });
+                        break;
+                    case ChartID.ActualDollarsBookedComparisonGoal:
+                        this.Categories.Add(new Category { Label = "Mar" });
+                        this.Categories.Add(new Category { Label = "Apr" });
+                        this.Categories.Add(new Category { Label = "May" });
+
+                        this.DataSetCollection.Add(new ChartDataSet { Color = "blue", SeriesName = "$$Booked" });
+                        this.DataSetCollection.Add(new ChartDataSet { Color = "yellow", SeriesName = "% of Goal" });
+
+                        this.DataSetCollection[0].SetsCollection.Add(new SetValue { Value = "2200", Link = "ChartPage.aspx?" });
+                        this.DataSetCollection[0].SetsCollection.Add(new SetValue { Value = "4500", Link = "ChartPage.aspx?" });
+                        this.DataSetCollection[0].SetsCollection.Add(new SetValue { Value = "5500", Link = "ChartPage.aspx?" });
+
+                        this.DataSetCollection[1].SetsCollection.Add(new SetValue { Value = "40", Link = "ChartPage.aspx?" });
+                        this.DataSetCollection[1].SetsCollection.Add(new SetValue { Value = "66", Link = "ChartPage.aspx?" });
+                        this.DataSetCollection[1].SetsCollection.Add(new SetValue { Value = "90", Link = "ChartPage.aspx?" });
+                        break;
                     case ChartID.CostOfSale:
                         if (this.DrillLevel == 0)
                         {
@@ -576,6 +701,13 @@ namespace Sandler.UI.ChartStructure
             {
                 switch (this.Id)
                 {
+                    case ChartID.AverageLengthTimeActiveClientsByIndustry:
+                        this.SetsCollection.Add(new SetValue { Value = "11", Color = "009999", Label = "Proffesional Svcs", Link = "ChartPage.aspx" });
+                        this.SetsCollection.Add(new SetValue { Value = "50", Color = "CC99FF", Label = "Service Industry", Link = "ChartPage.aspx" });
+                        this.SetsCollection.Add(new SetValue { Value = "32", Color = "FFFF99", Label = "Manufacturing", Link = "ChartPage.aspx" });
+                        this.SetsCollection.Add(new SetValue { Value = "22", Color = "009900", Label = "Software", Link = "ChartPage.aspx" });
+                        this.SetsCollection.Add(new SetValue { Value = "10", Color = "0066FF", Label = "Consulting", Link = "ChartPage.aspx" });
+                        break;
                     case ChartID.ProspectingResults:
                         prosRepository = new ProspectingRepository();
                         prosData = prosRepository.GetAll();

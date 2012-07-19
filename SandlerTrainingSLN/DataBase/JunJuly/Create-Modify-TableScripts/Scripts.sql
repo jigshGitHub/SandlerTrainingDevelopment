@@ -51,6 +51,8 @@ CREATE TABLE [dbo].[TBL_CHART](
 	[ShowLegend] [char](1) NULL,
 	[ShowLabels] [char](1) NULL,
 	[PlotGradientColor] [char](6) NULL,
+	[DrillLevel] [int] NULL,
+	[DrillBy] [varchar] (50) NULL,
 	[IsActive] [bit] NULL,
 	[LastUpdatedDate] [datetime] NULL,
 	[LastCreatedDate] [datetime] NULL,

@@ -8,30 +8,34 @@
     <table width="100%">
         <tr>
             <td width="33%">
-                <SandlerChart:ChartLiteral ID="CostOfSale" runat="server" Width="100%" Height="250"></SandlerChart:ChartLiteral>
+                <SandlerChart:ChartLiteral ID="NewAppointmentsBySourceMonth" runat="server" Width="100%"
+                    Height="250"></SandlerChart:ChartLiteral>
             </td>
             <td width="34%">
-                <SandlerChart:ChartLiteral ID="IndustryAveBenchmarks" runat="server" Width="100%"
+                <SandlerChart:ChartLiteral ID="NewClientsByProductTypeMonth" runat="server" Width="100%"
                     Height="250">
                 </SandlerChart:ChartLiteral>
+            </td>
             <td width="33%">
-                <SandlerChart:ChartLiteral ID="PipelinePostTraining" runat="server" Width="100%"
-                    Height="250">
+                <SandlerChart:ChartLiteral ID="NewClientQuantityAverageContractPriceByMonth" runat="server"
+                    Width="100%" Height="250">
                 </SandlerChart:ChartLiteral>
             </td>
         </tr>
         <tr>
             <td width="33%">
-                <SandlerChart:ChartLiteral ID="SalesCycleTimeMain" runat="server" Width="100%" Height="250">
+                <SandlerChart:ChartLiteral ID="ClassHeadcountByCourseIndustryMonth" runat="server"
+                    Width="100%" Height="250">
                 </SandlerChart:ChartLiteral>
             </td>
-            <td width="34%">
-                <SandlerChart:ChartLiteral ID="ProspectingResults" runat="server" Width="100%" Height="250">
-                </SandlerChart:ChartLiteral>
             <td width="33%">
-                <SandlerChart:ChartLiteral ID="SalesTotalsByMonthValue" runat="server" Width="100%"
-                    Height="250">
+                <SandlerChart:ChartLiteral ID="AverageLengthTimeActiveClientsByIndustry" runat="server"
+                    Width="100%" Height="250">
                 </SandlerChart:ChartLiteral>
+            </td>
+            
+            <td width="34%">
+                
             </td>
         </tr>
     </table>

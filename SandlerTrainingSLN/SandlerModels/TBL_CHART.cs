@@ -37,6 +37,8 @@ namespace SandlerModels
         public Nullable<System.Guid> LastCreatedBy { get; set; }
         public string SWFile { get; set; }
         public string ChartID { get; set; }
+        public Nullable<int> DrillLevel { get; set; }
+        public string DrillBy { get; set; }
     }
     
 }

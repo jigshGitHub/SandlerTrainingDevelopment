@@ -269,6 +269,8 @@
           <Property Name="ShowLegend" Type="char" MaxLength="1" />
           <Property Name="ShowLabels" Type="char" MaxLength="1" />
           <Property Name="PlotGradientColor" Type="char" MaxLength="6" />
+          <Property Name="DrillLevel" Type="int" />
+          <Property Name="DrillBy" Type="varchar" MaxLength="50" />
           <Property Name="IsActive" Type="bit" />
           <Property Name="LastUpdatedDate" Type="datetime" />
           <Property Name="LastCreatedDate" Type="datetime" />
@@ -1422,6 +1424,8 @@
           <Property Type="Guid" Name="LastCreatedBy" />
           <Property Type="String" Name="SWFile" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="ChartID" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="DrillLevel" />
+          <Property Type="String" Name="DrillBy" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="TBL_COACH">
           <Key>
@@ -2108,6 +2112,8 @@
           <EntitySetMapping Name="TBL_CHART">
             <EntityTypeMapping TypeName="Sandler.Models.TBL_CHART">
               <MappingFragment StoreEntitySet="TBL_CHART">
+                <ScalarProperty Name="DrillBy" ColumnName="DrillBy" />
+                <ScalarProperty Name="DrillLevel" ColumnName="DrillLevel" />
                 <ScalarProperty Name="ChartID" ColumnName="ChartID" />
                 <ScalarProperty Name="SWFile" ColumnName="SWFile" />
                 <ScalarProperty Name="LastCreatedBy" ColumnName="LastCreatedBy" />
