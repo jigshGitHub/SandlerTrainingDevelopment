@@ -14,6 +14,10 @@ namespace SandlerData.Models
         void Update(int repId, List<ROIModel> roiModels);
     }
 
+    public interface IUserDataModel
+    {
+        void Load(UserModel user);
+    }
     public class ROIDataModel : IROIDataModel
     {
         IROI roiData;
@@ -174,5 +178,22 @@ namespace SandlerData.Models
             }
         }
 
+    }
+
+    public class UserDataModel : IUserDataModel
+    {
+        public FranchiseeUsersRepository franchiseeUsersRepository;
+        public UserDataModel()
+        {
+            franchiseeUsersRepository = new FranchiseeUsersRepository();
+        }
+        #region IUserDataModel Members
+
+        public void Load(UserModel user)
+        {
+            user.FranchiseeID = franchiseeUsersRepository.GetAll().Where(r => r.UserID == user.UserId).SingleOrDefault().FranchiseeID;
+        }
+
+        #endregion
     }
 }

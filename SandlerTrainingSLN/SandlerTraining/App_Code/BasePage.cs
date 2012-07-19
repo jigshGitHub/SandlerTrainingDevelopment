@@ -3,25 +3,41 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Security;
+using SandlerModels;
+using SandlerData.Models;
 /// <summary>
 /// Summary description for BasePage
 /// </summary>
 
 public abstract class BasePage : System.Web.UI.Page
 {
-    protected MembershipUser CurrentUser
+    public BasePage()
+    {
+    }
+    public UserModel CurrentUser
     {
         get
         {
-            return Membership.GetUser(HttpContext.Current.User.Identity.Name); ;
+            UserModel user = Session["CurrentUser"]  as UserModel;
+            if (user == null)
+            {
+                user = new UserModel();
+                new UserDataModel().Load(user);
+
+                Session["CurrentUser"] = user;
+            }
+            return user; 
         }
     }
     
     protected override void OnPreInit(EventArgs e)
     {
         base.OnPreInit(e);
-        if (CurrentUser.CreationDate == CurrentUser.LastPasswordChangedDate)
+        if (CurrentUser.RequirePasswordChange)
+        {
+            Session["CurrentUser"] = null;
             Response.Redirect("~/Account/ChangePassword.aspx");
+        }
     }
 
 

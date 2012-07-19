@@ -490,4 +490,16 @@ namespace SandlerRepositories
         {
         }
     }
+
+    public class FranchiseeUsersRepository : RepositoryBase<TBL_FRANCHISEE_USERS>
+    {
+        public FranchiseeUsersRepository(IDatabaseFactory dbFactory)
+            : base(dbFactory)
+        {
+        }
+        public FranchiseeUsersRepository()
+            : base(new DBFactory())
+        {
+        }
+    }
 }

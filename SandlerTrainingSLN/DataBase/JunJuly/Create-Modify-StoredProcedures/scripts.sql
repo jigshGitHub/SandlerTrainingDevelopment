@@ -1,6 +1,3 @@
-USE [SandlerDB]
-GO
-
 /****** Object:  StoredProcedure [dbo].[aspnet_Users_CreateUser]    Script Date: 06/28/2012 20:01:30 ******/
 IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[sp_LogError]') AND type in (N'P', N'PC'))
 DROP PROCEDURE [dbo].[sp_LogError]
@@ -69,13 +66,13 @@ BEGIN
 END; 
 
 
-USE [SandlerDB]
+
 GO
 IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[sp_CreateRegion]') AND type in (N'P', N'PC'))
 DROP PROCEDURE [dbo].[sp_CreateRegion]
 GO
 
-USE [SandlerDB]
+
 GO
 
 /****** Object:  StoredProcedure [dbo].[sp_CreateRegion]    Script Date: 07/18/2012 11:55:18 ******/
@@ -146,13 +143,13 @@ GO
 
 
 
-USE [SandlerDB]
+
 GO
 IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[sp_CreateCoach]') AND type in (N'P', N'PC'))
 DROP PROCEDURE [dbo].[sp_CreateCoach]
 GO
 
-USE [SandlerDB]
+
 GO
 
 /****** Object:  StoredProcedure [dbo].[sp_CreateCoach]    Script Date: 07/18/2012 11:27:59 ******/
@@ -239,13 +236,13 @@ BEGIN CATCH
 END CATCH
 GO
 
-USE [SandlerDB]
+
 GO
 IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[sp_CreateFranchisee]') AND type in (N'P', N'PC'))
 DROP PROCEDURE [dbo].[sp_CreateFranchisee]
 GO
 
-USE [SandlerDB]
+
 GO
 
 /****** Object:  StoredProcedure [dbo].[sp_CreateFranchisee]    Script Date: 07/18/2012 11:27:59 ******/
@@ -335,13 +332,13 @@ BEGIN CATCH
 END CATCH
 GO
 
-USE [SandlerDB]
+
 GO
 IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[sp_CreateFranchisee_User]') AND type in (N'P', N'PC'))
 DROP PROCEDURE [dbo].[sp_CreateFranchisee_User]
 GO
 
-USE [SandlerDB]
+
 GO
 
 /****** Object:  StoredProcedure [dbo].[sp_CreateFranchisee_User]    Script Date: 07/18/2012 11:27:59 ******/

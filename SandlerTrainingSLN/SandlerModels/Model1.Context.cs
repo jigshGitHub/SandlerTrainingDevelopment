@@ -65,5 +65,9 @@ namespace SandlerModels
         public DbSet<TBL_STRATEGICCUSTCARE> TBL_STRATEGICCUSTCARE { get; set; }
         public DbSet<Return_on_Trng_Investment> Return_on_Trng_Investment { get; set; }
         public DbSet<TBL_CHART> TBL_CHART { get; set; }
+        public DbSet<TBL_COACH> TBL_COACH { get; set; }
+        public DbSet<TBL_FRANCHISEE> TBL_FRANCHISEE { get; set; }
+        public DbSet<TBL_FRANCHISEE_USERS> TBL_FRANCHISEE_USERS { get; set; }
+        public DbSet<TBL_REGION> TBL_REGION { get; set; }
     }
 }
