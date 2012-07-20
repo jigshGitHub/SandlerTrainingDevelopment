@@ -13,8 +13,7 @@ using System.Configuration;
 
 public abstract class BasePage : System.Web.UI.Page
 {
-    protected  string QUERYSTRINGPARAMCHARTIDS = ConfigurationManager.AppSettings["QueryStringParamChartIDs"];
-    protected  string QUERYSTRINGPARAMDRILLLVL = ConfigurationManager.AppSettings["QueryStringParamDrillLevel"];
+    protected  string QUERYSTRINGPARAMDRILLCHARTIDS = ConfigurationManager.AppSettings["QueryStringParamDrillChartIDs"];
     protected  string QUERYSTRINGPARAMDRILLBY = ConfigurationManager.AppSettings["QueryStringParamDrillBy"];
     protected  string GENERICCHARTLITERALWIDTH = ConfigurationManager.AppSettings["GenericChartLiteralWidth"];
     protected string GENERICCHARTLITERALHEIGHT = ConfigurationManager.AppSettings["GenericChartLiteralHeight"];

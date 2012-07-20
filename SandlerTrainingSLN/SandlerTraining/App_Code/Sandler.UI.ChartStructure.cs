@@ -16,9 +16,9 @@ namespace Sandler.UI.ChartStructure
     {
         const string CHARTPAGE = "ChartPage.aspx";
 
-        public static string GeneratePageLink(string drillLevel, string drillBy, string drillChartIds)
+        public static string GeneratePageLink(string drillBy, string drillChartIds)
         {
-            return string.Format("{0}?{1}={2}&{3}={4}&{5}={6}",CHARTPAGE,ConfigurationManager.AppSettings["QueryStringParamChartIDs"],drillChartIds,ConfigurationManager.AppSettings["QueryStringParamDrillLevel"],drillLevel,ConfigurationManager.AppSettings["QueryStringParamDrillBy"],drillBy);
+            return string.Format("{0}?{1}={2}&{3}={4}",CHARTPAGE,ConfigurationManager.AppSettings["QueryStringParamDrillChartIDs"],drillChartIds,ConfigurationManager.AppSettings["QueryStringParamDrillBy"],drillBy);
         }
     }
     public interface IChart
@@ -106,7 +106,7 @@ namespace Sandler.UI.ChartStructure
         public string DrillProduct { get; set; }
         public List<Category> Categories { get; set; }
         public List<ChartDataSet> DataSetCollection { get; set; }
-
+        public bool DrillOverride { get; set; }
 
         public string SWF { get; set; }
         public string ChartXML { get; set; }
@@ -124,6 +124,7 @@ namespace Sandler.UI.ChartStructure
         {
             this.Categories = new List<Category>();
             this.DataSetCollection = new List<ChartDataSet>();
+            this.DrillOverride = true;
         }
 
         public void LoadChart()
@@ -166,10 +167,10 @@ namespace Sandler.UI.ChartStructure
 
             try
             {
+                this.DrillChartIds = (this.DrillOverride) ? this.Id.ToString() : this.DrillChartIds;
                 switch ((ChartID)Enum.Parse(typeof(ChartID), this.Id.ToString(), true))
                 {
-                    case ChartID.NewAppointmentsBySourceMonth:
-
+                    case ChartID.NewAppointmentsBySourceMonth:                        
                         this.Categories.Add(new Category { Label = "Referral" });
                         this.Categories.Add(new Category { Label = "Network" });
                         this.Categories.Add(new Category { Label = "Talk" });
@@ -178,28 +179,28 @@ namespace Sandler.UI.ChartStructure
 
                         this.DataSetCollection.Add(new ChartDataSet { Color = "3300ff", SeriesName = "Mar" });
 
-                        this.DataSetCollection[0].SetsCollection.Add(new SetValue { Value = "3", Link = ChartHelper.GeneratePageLink(this.DrillLevel.ToString(), this.DataSetCollection[0].SeriesName, this.DrillChartIds) });
-                        this.DataSetCollection[0].SetsCollection.Add(new SetValue { Value = "4", Link = ChartHelper.GeneratePageLink(this.DrillLevel.ToString(), this.DataSetCollection[0].SeriesName, this.DrillChartIds) });
-                        this.DataSetCollection[0].SetsCollection.Add(new SetValue { Value = "7", Link = ChartHelper.GeneratePageLink(this.DrillLevel.ToString(), this.DataSetCollection[0].SeriesName, this.DrillChartIds) });
-                        this.DataSetCollection[0].SetsCollection.Add(new SetValue { Value = "6", Link = ChartHelper.GeneratePageLink(this.DrillLevel.ToString(), this.DataSetCollection[0].SeriesName, this.DrillChartIds) });
-                        this.DataSetCollection[0].SetsCollection.Add(new SetValue { Value = "4", Link = ChartHelper.GeneratePageLink(this.DrillLevel.ToString(), this.DataSetCollection[0].SeriesName, this.DrillChartIds) });
+                        this.DataSetCollection[0].SetsCollection.Add(new SetValue { Value = "3", Link = ChartHelper.GeneratePageLink(this.DataSetCollection[0].SeriesName, this.DrillChartIds) });
+                        this.DataSetCollection[0].SetsCollection.Add(new SetValue { Value = "4", Link = ChartHelper.GeneratePageLink(this.DataSetCollection[0].SeriesName, this.DrillChartIds) });
+                        this.DataSetCollection[0].SetsCollection.Add(new SetValue { Value = "7", Link = ChartHelper.GeneratePageLink(this.DataSetCollection[0].SeriesName, this.DrillChartIds) });
+                        this.DataSetCollection[0].SetsCollection.Add(new SetValue { Value = "6", Link = ChartHelper.GeneratePageLink(this.DataSetCollection[0].SeriesName, this.DrillChartIds) });
+                        this.DataSetCollection[0].SetsCollection.Add(new SetValue { Value = "4", Link = ChartHelper.GeneratePageLink(this.DataSetCollection[0].SeriesName, this.DrillChartIds) });
 
                         this.DataSetCollection.Add(new ChartDataSet { Color = "ff6600", SeriesName = "Apr" });
                         
-                        this.DataSetCollection[1].SetsCollection.Add(new SetValue { Value = "4", Link = ChartHelper.GeneratePageLink(this.DrillLevel.ToString(), this.DataSetCollection[1].SeriesName, this.DrillChartIds) });
-                        this.DataSetCollection[1].SetsCollection.Add(new SetValue { Value = "6", Link = ChartHelper.GeneratePageLink(this.DrillLevel.ToString(), this.DataSetCollection[1].SeriesName, this.DrillChartIds) });
-                        this.DataSetCollection[1].SetsCollection.Add(new SetValue { Value = "5", Link = ChartHelper.GeneratePageLink(this.DrillLevel.ToString(), this.DataSetCollection[1].SeriesName, this.DrillChartIds) });
-                        this.DataSetCollection[1].SetsCollection.Add(new SetValue { Value = "8", Link = ChartHelper.GeneratePageLink(this.DrillLevel.ToString(), this.DataSetCollection[1].SeriesName, this.DrillChartIds) });
-                        this.DataSetCollection[1].SetsCollection.Add(new SetValue { Value = "5", Link = ChartHelper.GeneratePageLink(this.DrillLevel.ToString(), this.DataSetCollection[1].SeriesName, this.DrillChartIds) });
+                        this.DataSetCollection[1].SetsCollection.Add(new SetValue { Value = "4", Link = ChartHelper.GeneratePageLink(this.DataSetCollection[1].SeriesName, this.DrillChartIds) });
+                        this.DataSetCollection[1].SetsCollection.Add(new SetValue { Value = "6", Link = ChartHelper.GeneratePageLink(this.DataSetCollection[1].SeriesName, this.DrillChartIds) });
+                        this.DataSetCollection[1].SetsCollection.Add(new SetValue { Value = "5", Link = ChartHelper.GeneratePageLink(this.DataSetCollection[1].SeriesName, this.DrillChartIds) });
+                        this.DataSetCollection[1].SetsCollection.Add(new SetValue { Value = "8", Link = ChartHelper.GeneratePageLink(this.DataSetCollection[1].SeriesName, this.DrillChartIds) });
+                        this.DataSetCollection[1].SetsCollection.Add(new SetValue { Value = "5", Link = ChartHelper.GeneratePageLink(this.DataSetCollection[1].SeriesName, this.DrillChartIds) });
 
                         this.DataSetCollection.Add(new ChartDataSet { Color = "32df00", SeriesName = "May" });                      
 
 
-                        this.DataSetCollection[2].SetsCollection.Add(new SetValue { Value = "6", Link = ChartHelper.GeneratePageLink(this.DrillLevel.ToString(), this.DataSetCollection[2].SeriesName, this.DrillChartIds) });
-                        this.DataSetCollection[2].SetsCollection.Add(new SetValue { Value = "8", Link = ChartHelper.GeneratePageLink(this.DrillLevel.ToString(), this.DataSetCollection[2].SeriesName, this.DrillChartIds) });
-                        this.DataSetCollection[2].SetsCollection.Add(new SetValue { Value = "7", Link = ChartHelper.GeneratePageLink(this.DrillLevel.ToString(), this.DataSetCollection[2].SeriesName, this.DrillChartIds) });
-                        this.DataSetCollection[2].SetsCollection.Add(new SetValue { Value = "9", Link = ChartHelper.GeneratePageLink(this.DrillLevel.ToString(), this.DataSetCollection[2].SeriesName, this.DrillChartIds) });
-                        this.DataSetCollection[2].SetsCollection.Add(new SetValue { Value = "10", Link = ChartHelper.GeneratePageLink(this.DrillLevel.ToString(), this.DataSetCollection[2].SeriesName, this.DrillChartIds) });
+                        this.DataSetCollection[2].SetsCollection.Add(new SetValue { Value = "6", Link = ChartHelper.GeneratePageLink(this.DataSetCollection[2].SeriesName, this.DrillChartIds) });
+                        this.DataSetCollection[2].SetsCollection.Add(new SetValue { Value = "8", Link = ChartHelper.GeneratePageLink(this.DataSetCollection[2].SeriesName, this.DrillChartIds) });
+                        this.DataSetCollection[2].SetsCollection.Add(new SetValue { Value = "7", Link = ChartHelper.GeneratePageLink(this.DataSetCollection[2].SeriesName, this.DrillChartIds) });
+                        this.DataSetCollection[2].SetsCollection.Add(new SetValue { Value = "9", Link = ChartHelper.GeneratePageLink(this.DataSetCollection[2].SeriesName, this.DrillChartIds) });
+                        this.DataSetCollection[2].SetsCollection.Add(new SetValue { Value = "10", Link = ChartHelper.GeneratePageLink(this.DataSetCollection[2].SeriesName, this.DrillChartIds) });
                         break;
 
                     case ChartID.NewClientsByProductTypeMonth:
@@ -215,26 +216,26 @@ namespace Sandler.UI.ChartStructure
                         this.DataSetCollection.Add(new ChartDataSet { Color = "0000FF", SeriesName = "Apr" });
                         this.DataSetCollection.Add(new ChartDataSet { Color = "ff9966", SeriesName = "May" });
 
-                        this.DataSetCollection[0].SetsCollection.Add(new SetValue { Value = "25", Link = ChartHelper.GeneratePageLink(this.DrillLevel.ToString(), this.DataSetCollection[0].SeriesName, this.DrillChartIds) });
-                        this.DataSetCollection[0].SetsCollection.Add(new SetValue { Value = "35", Link = ChartHelper.GeneratePageLink(this.DrillLevel.ToString(), this.DataSetCollection[0].SeriesName, this.DrillChartIds) });
-                        this.DataSetCollection[0].SetsCollection.Add(new SetValue { Value = "37", Link = ChartHelper.GeneratePageLink(this.DrillLevel.ToString(), this.DataSetCollection[0].SeriesName, this.DrillChartIds) });
-                        this.DataSetCollection[0].SetsCollection.Add(new SetValue { Value = "38", Link = ChartHelper.GeneratePageLink(this.DrillLevel.ToString(), this.DataSetCollection[0].SeriesName, this.DrillChartIds) });
-                        this.DataSetCollection[0].SetsCollection.Add(new SetValue { Value = "37", Link = ChartHelper.GeneratePageLink(this.DrillLevel.ToString(), this.DataSetCollection[0].SeriesName, this.DrillChartIds) });
-                        this.DataSetCollection[0].SetsCollection.Add(new SetValue { Value = "38", Link = ChartHelper.GeneratePageLink(this.DrillLevel.ToString(), this.DataSetCollection[0].SeriesName, this.DrillChartIds) });
+                        this.DataSetCollection[0].SetsCollection.Add(new SetValue { Value = "25", Link = ChartHelper.GeneratePageLink(this.DataSetCollection[0].SeriesName, this.DrillChartIds) });
+                        this.DataSetCollection[0].SetsCollection.Add(new SetValue { Value = "35", Link = ChartHelper.GeneratePageLink(this.DataSetCollection[0].SeriesName, this.DrillChartIds) });
+                        this.DataSetCollection[0].SetsCollection.Add(new SetValue { Value = "37", Link = ChartHelper.GeneratePageLink(this.DataSetCollection[0].SeriesName, this.DrillChartIds) });
+                        this.DataSetCollection[0].SetsCollection.Add(new SetValue { Value = "38", Link = ChartHelper.GeneratePageLink(this.DataSetCollection[0].SeriesName, this.DrillChartIds) });
+                        this.DataSetCollection[0].SetsCollection.Add(new SetValue { Value = "37", Link = ChartHelper.GeneratePageLink(this.DataSetCollection[0].SeriesName, this.DrillChartIds) });
+                        this.DataSetCollection[0].SetsCollection.Add(new SetValue { Value = "38", Link = ChartHelper.GeneratePageLink(this.DataSetCollection[0].SeriesName, this.DrillChartIds) });
 
-                        this.DataSetCollection[1].SetsCollection.Add(new SetValue { Value = "23", Link = ChartHelper.GeneratePageLink(this.DrillLevel.ToString(), this.DataSetCollection[1].SeriesName, this.DrillChartIds) });
-                        this.DataSetCollection[1].SetsCollection.Add(new SetValue { Value = "26", Link = ChartHelper.GeneratePageLink(this.DrillLevel.ToString(), this.DataSetCollection[1].SeriesName, this.DrillChartIds) });
-                        this.DataSetCollection[1].SetsCollection.Add(new SetValue { Value = "28", Link = ChartHelper.GeneratePageLink(this.DrillLevel.ToString(), this.DataSetCollection[1].SeriesName, this.DrillChartIds) });
-                        this.DataSetCollection[1].SetsCollection.Add(new SetValue { Value = "29", Link = ChartHelper.GeneratePageLink(this.DrillLevel.ToString(), this.DataSetCollection[1].SeriesName, this.DrillChartIds) });
-                        this.DataSetCollection[1].SetsCollection.Add(new SetValue { Value = "28", Link = ChartHelper.GeneratePageLink(this.DrillLevel.ToString(), this.DataSetCollection[1].SeriesName, this.DrillChartIds) });
-                        this.DataSetCollection[1].SetsCollection.Add(new SetValue { Value = "29", Link = ChartHelper.GeneratePageLink(this.DrillLevel.ToString(), this.DataSetCollection[1].SeriesName, this.DrillChartIds) });
+                        this.DataSetCollection[1].SetsCollection.Add(new SetValue { Value = "23", Link = ChartHelper.GeneratePageLink(this.DataSetCollection[1].SeriesName, this.DrillChartIds) });
+                        this.DataSetCollection[1].SetsCollection.Add(new SetValue { Value = "26", Link = ChartHelper.GeneratePageLink(this.DataSetCollection[1].SeriesName, this.DrillChartIds) });
+                        this.DataSetCollection[1].SetsCollection.Add(new SetValue { Value = "28", Link = ChartHelper.GeneratePageLink(this.DataSetCollection[1].SeriesName, this.DrillChartIds) });
+                        this.DataSetCollection[1].SetsCollection.Add(new SetValue { Value = "29", Link = ChartHelper.GeneratePageLink(this.DataSetCollection[1].SeriesName, this.DrillChartIds) });
+                        this.DataSetCollection[1].SetsCollection.Add(new SetValue { Value = "28", Link = ChartHelper.GeneratePageLink(this.DataSetCollection[1].SeriesName, this.DrillChartIds) });
+                        this.DataSetCollection[1].SetsCollection.Add(new SetValue { Value = "29", Link = ChartHelper.GeneratePageLink(this.DataSetCollection[1].SeriesName, this.DrillChartIds) });
 
-                        this.DataSetCollection[2].SetsCollection.Add(new SetValue { Value = "10", Link = ChartHelper.GeneratePageLink(this.DrillLevel.ToString(), this.DataSetCollection[2].SeriesName, this.DrillChartIds) });
-                        this.DataSetCollection[2].SetsCollection.Add(new SetValue { Value = "15", Link = ChartHelper.GeneratePageLink(this.DrillLevel.ToString(), this.DataSetCollection[2].SeriesName, this.DrillChartIds) });
-                        this.DataSetCollection[2].SetsCollection.Add(new SetValue { Value = "20", Link = ChartHelper.GeneratePageLink(this.DrillLevel.ToString(), this.DataSetCollection[2].SeriesName, this.DrillChartIds) });
-                        this.DataSetCollection[2].SetsCollection.Add(new SetValue { Value = "15", Link = ChartHelper.GeneratePageLink(this.DrillLevel.ToString(), this.DataSetCollection[2].SeriesName, this.DrillChartIds) });
-                        this.DataSetCollection[2].SetsCollection.Add(new SetValue { Value = "20", Link = ChartHelper.GeneratePageLink(this.DrillLevel.ToString(), this.DataSetCollection[2].SeriesName, this.DrillChartIds) });
-                        this.DataSetCollection[2].SetsCollection.Add(new SetValue { Value = "15", Link = ChartHelper.GeneratePageLink(this.DrillLevel.ToString(), this.DataSetCollection[2].SeriesName, this.DrillChartIds) });
+                        this.DataSetCollection[2].SetsCollection.Add(new SetValue { Value = "10", Link = ChartHelper.GeneratePageLink(this.DataSetCollection[2].SeriesName, this.DrillChartIds) });
+                        this.DataSetCollection[2].SetsCollection.Add(new SetValue { Value = "15", Link = ChartHelper.GeneratePageLink(this.DataSetCollection[2].SeriesName, this.DrillChartIds) });
+                        this.DataSetCollection[2].SetsCollection.Add(new SetValue { Value = "20", Link = ChartHelper.GeneratePageLink(this.DataSetCollection[2].SeriesName, this.DrillChartIds) });
+                        this.DataSetCollection[2].SetsCollection.Add(new SetValue { Value = "15", Link = ChartHelper.GeneratePageLink(this.DataSetCollection[2].SeriesName, this.DrillChartIds) });
+                        this.DataSetCollection[2].SetsCollection.Add(new SetValue { Value = "20", Link = ChartHelper.GeneratePageLink(this.DataSetCollection[2].SeriesName, this.DrillChartIds) });
+                        this.DataSetCollection[2].SetsCollection.Add(new SetValue { Value = "15", Link = ChartHelper.GeneratePageLink(this.DataSetCollection[2].SeriesName, this.DrillChartIds) });
                         break;
                     case ChartID.NewClientQuantityAverageContractPriceByMonth:
                         this.Categories.Add(new Category { Label = "Mar" });
@@ -244,13 +245,13 @@ namespace Sandler.UI.ChartStructure
                         this.DataSetCollection.Add(new ChartDataSet { Color = "0000FF", SeriesName = "New Clients" });
                         this.DataSetCollection.Add(new ChartDataSet { Color = "ff6600", SeriesName = "Ave Contract Price" });
 
-                        this.DataSetCollection[0].SetsCollection.Add(new SetValue { Value = "18", Link = ChartHelper.GeneratePageLink(this.DrillLevel.ToString(), this.Categories[0].Label, this.DrillChartIds) });
-                        this.DataSetCollection[0].SetsCollection.Add(new SetValue { Value = "25", Link = ChartHelper.GeneratePageLink(this.DrillLevel.ToString(), this.Categories[1].Label, this.DrillChartIds) });
-                        this.DataSetCollection[0].SetsCollection.Add(new SetValue { Value = "31", Link = ChartHelper.GeneratePageLink(this.DrillLevel.ToString(), this.Categories[2].Label, this.DrillChartIds) });
+                        this.DataSetCollection[0].SetsCollection.Add(new SetValue { Value = "18", Link = ChartHelper.GeneratePageLink(this.Categories[0].Label, this.DrillChartIds) });
+                        this.DataSetCollection[0].SetsCollection.Add(new SetValue { Value = "25", Link = ChartHelper.GeneratePageLink(this.Categories[1].Label, this.DrillChartIds) });
+                        this.DataSetCollection[0].SetsCollection.Add(new SetValue { Value = "31", Link = ChartHelper.GeneratePageLink(this.Categories[2].Label, this.DrillChartIds) });
 
-                        this.DataSetCollection[1].SetsCollection.Add(new SetValue { Value = "13", Link = ChartHelper.GeneratePageLink(this.DrillLevel.ToString(), this.Categories[0].Label, this.DrillChartIds) });
-                        this.DataSetCollection[1].SetsCollection.Add(new SetValue { Value = "19", Link = ChartHelper.GeneratePageLink(this.DrillLevel.ToString(), this.Categories[1].Label, this.DrillChartIds) });
-                        this.DataSetCollection[1].SetsCollection.Add(new SetValue { Value = "23", Link = ChartHelper.GeneratePageLink(this.DrillLevel.ToString(), this.Categories[2].Label, this.DrillChartIds) });
+                        this.DataSetCollection[1].SetsCollection.Add(new SetValue { Value = "13", Link = ChartHelper.GeneratePageLink(this.Categories[0].Label, this.DrillChartIds) });
+                        this.DataSetCollection[1].SetsCollection.Add(new SetValue { Value = "19", Link = ChartHelper.GeneratePageLink(this.Categories[1].Label, this.DrillChartIds) });
+                        this.DataSetCollection[1].SetsCollection.Add(new SetValue { Value = "23", Link = ChartHelper.GeneratePageLink(this.Categories[2].Label, this.DrillChartIds) });
                         break;
                     case ChartID.ClassHeadcountByCourseIndustryMonth:
                         this.Categories.Add(new Category { Label = "Mar" });
@@ -260,13 +261,13 @@ namespace Sandler.UI.ChartStructure
                         this.DataSetCollection.Add(new ChartDataSet { Color = "ff6600", SeriesName = "Course" });
                         this.DataSetCollection.Add(new ChartDataSet { Color = "32df00", SeriesName = "Industry" });
 
-                        this.DataSetCollection[0].SetsCollection.Add(new SetValue { Value = "24", Link = ChartHelper.GeneratePageLink(this.DrillLevel.ToString(), this.Categories[0].Label, this.DrillChartIds) });
-                        this.DataSetCollection[0].SetsCollection.Add(new SetValue { Value = "30", Link = ChartHelper.GeneratePageLink(this.DrillLevel.ToString(), this.Categories[1].Label, this.DrillChartIds) });
-                        this.DataSetCollection[0].SetsCollection.Add(new SetValue { Value = "31", Link = ChartHelper.GeneratePageLink(this.DrillLevel.ToString(), this.Categories[2].Label, this.DrillChartIds) });
+                        this.DataSetCollection[0].SetsCollection.Add(new SetValue { Value = "24", Link = ChartHelper.GeneratePageLink(this.Categories[0].Label, this.DrillChartIds) });
+                        this.DataSetCollection[0].SetsCollection.Add(new SetValue { Value = "30", Link = ChartHelper.GeneratePageLink(this.Categories[1].Label, this.DrillChartIds) });
+                        this.DataSetCollection[0].SetsCollection.Add(new SetValue { Value = "31", Link = ChartHelper.GeneratePageLink(this.Categories[2].Label, this.DrillChartIds) });
 
-                        this.DataSetCollection[1].SetsCollection.Add(new SetValue { Value = "22", Link = ChartHelper.GeneratePageLink(this.DrillLevel.ToString(), this.Categories[0].Label, this.DrillChartIds) });
-                        this.DataSetCollection[1].SetsCollection.Add(new SetValue { Value = "24", Link = ChartHelper.GeneratePageLink(this.DrillLevel.ToString(), this.Categories[1].Label, this.DrillChartIds) });
-                        this.DataSetCollection[1].SetsCollection.Add(new SetValue { Value = "20", Link = ChartHelper.GeneratePageLink(this.DrillLevel.ToString(), this.Categories[2].Label, this.DrillChartIds) });
+                        this.DataSetCollection[1].SetsCollection.Add(new SetValue { Value = "22", Link = ChartHelper.GeneratePageLink(this.Categories[0].Label, this.DrillChartIds) });
+                        this.DataSetCollection[1].SetsCollection.Add(new SetValue { Value = "24", Link = ChartHelper.GeneratePageLink(this.Categories[1].Label, this.DrillChartIds) });
+                        this.DataSetCollection[1].SetsCollection.Add(new SetValue { Value = "20", Link = ChartHelper.GeneratePageLink(this.Categories[2].Label, this.DrillChartIds) });
                         break;
                     case ChartID.ActualDollarsBookedComparisonGoal:
                         this.Categories.Add(new Category { Label = "Mar" });
@@ -276,13 +277,13 @@ namespace Sandler.UI.ChartStructure
                         this.DataSetCollection.Add(new ChartDataSet { Color = "blue", SeriesName = "$$Booked" });
                         this.DataSetCollection.Add(new ChartDataSet { Color = "yellow", SeriesName = "% of Goal" });
 
-                        this.DataSetCollection[0].SetsCollection.Add(new SetValue { Value = "2200", Link = ChartHelper.GeneratePageLink(this.DrillLevel.ToString(), this.Categories[0].Label, this.DrillChartIds) });
-                        this.DataSetCollection[0].SetsCollection.Add(new SetValue { Value = "4500", Link = ChartHelper.GeneratePageLink(this.DrillLevel.ToString(), this.Categories[1].Label, this.DrillChartIds) });
-                        this.DataSetCollection[0].SetsCollection.Add(new SetValue { Value = "5500", Link = ChartHelper.GeneratePageLink(this.DrillLevel.ToString(), this.Categories[2].Label, this.DrillChartIds) });
+                        this.DataSetCollection[0].SetsCollection.Add(new SetValue { Value = "2200", Link = ChartHelper.GeneratePageLink(this.Categories[0].Label, this.DrillChartIds) });
+                        this.DataSetCollection[0].SetsCollection.Add(new SetValue { Value = "4500", Link = ChartHelper.GeneratePageLink(this.Categories[1].Label, this.DrillChartIds) });
+                        this.DataSetCollection[0].SetsCollection.Add(new SetValue { Value = "5500", Link = ChartHelper.GeneratePageLink(this.Categories[2].Label, this.DrillChartIds) });
 
-                        this.DataSetCollection[1].SetsCollection.Add(new SetValue { Value = "40", Link = ChartHelper.GeneratePageLink(this.DrillLevel.ToString(), this.Categories[0].Label, this.DrillChartIds) });
-                        this.DataSetCollection[1].SetsCollection.Add(new SetValue { Value = "66", Link = ChartHelper.GeneratePageLink(this.DrillLevel.ToString(), this.Categories[1].Label, this.DrillChartIds) });
-                        this.DataSetCollection[1].SetsCollection.Add(new SetValue { Value = "90", Link = ChartHelper.GeneratePageLink(this.DrillLevel.ToString(), this.Categories[2].Label, this.DrillChartIds) });
+                        this.DataSetCollection[1].SetsCollection.Add(new SetValue { Value = "40", Link = ChartHelper.GeneratePageLink(this.Categories[0].Label, this.DrillChartIds) });
+                        this.DataSetCollection[1].SetsCollection.Add(new SetValue { Value = "66", Link = ChartHelper.GeneratePageLink(this.Categories[1].Label, this.DrillChartIds) });
+                        this.DataSetCollection[1].SetsCollection.Add(new SetValue { Value = "90", Link = ChartHelper.GeneratePageLink(this.Categories[2].Label, this.DrillChartIds) });
                         break;
                     case ChartID.CostOfSale:
                         if (this.DrillLevel == 0)
@@ -713,14 +714,15 @@ namespace Sandler.UI.ChartStructure
             IEnumerable<TBL_SALES> prosalesData;
             try
             {
+                this.DrillChartIds = (this.DrillOverride) ? this.Id.ToString() : this.DrillChartIds;
                 switch (this.Id)
                 {
                     case ChartID.AverageLengthTimeActiveClientsByIndustry:
-                        this.SetsCollection.Add(new SetValue { Value = "11", Color = "009999", Label = "Proffesional Svcs", Link = ChartHelper.GeneratePageLink(this.DrillLevel.ToString(), this.DrillBy, this.DrillChartIds) });
-                        this.SetsCollection.Add(new SetValue { Value = "50", Color = "CC99FF", Label = "Service Industry", Link = ChartHelper.GeneratePageLink(this.DrillLevel.ToString(), this.DrillBy, this.DrillChartIds) });
-                        this.SetsCollection.Add(new SetValue { Value = "32", Color = "FFFF99", Label = "Manufacturing", Link = ChartHelper.GeneratePageLink(this.DrillLevel.ToString(), this.DrillBy, this.DrillChartIds) });
-                        this.SetsCollection.Add(new SetValue { Value = "22", Color = "009900", Label = "Software", Link = ChartHelper.GeneratePageLink(this.DrillLevel.ToString(), this.DrillBy, this.DrillChartIds) });
-                        this.SetsCollection.Add(new SetValue { Value = "10", Color = "0066FF", Label = "Consulting", Link = ChartHelper.GeneratePageLink(this.DrillLevel.ToString(), this.DrillBy, this.DrillChartIds) });
+                        this.SetsCollection.Add(new SetValue { Value = "11", Color = "009999", Label = "Proffesional Svcs", Link = ChartHelper.GeneratePageLink(this.DrillBy, this.DrillChartIds) });
+                        this.SetsCollection.Add(new SetValue { Value = "50", Color = "CC99FF", Label = "Service Industry", Link = ChartHelper.GeneratePageLink(this.DrillBy, this.DrillChartIds) });
+                        this.SetsCollection.Add(new SetValue { Value = "32", Color = "FFFF99", Label = "Manufacturing", Link = ChartHelper.GeneratePageLink(this.DrillBy, this.DrillChartIds) });
+                        this.SetsCollection.Add(new SetValue { Value = "22", Color = "009900", Label = "Software", Link = ChartHelper.GeneratePageLink(this.DrillBy, this.DrillChartIds) });
+                        this.SetsCollection.Add(new SetValue { Value = "10", Color = "0066FF", Label = "Consulting", Link = ChartHelper.GeneratePageLink(this.DrillBy, this.DrillChartIds) });
                         break;
                     case ChartID.ProspectingResults:
                         prosRepository = new ProspectingRepository();
@@ -887,6 +889,7 @@ namespace Sandler.UI.ChartStructure
 
             try
             {
+                this.DrillChartIds = (this.DrillOverride) ? this.Id.ToString() : this.DrillChartIds;
                 switch (this.Id)
                 {
                     case ChartID.NewAppointmentsBySource:
