@@ -1,5 +1,5 @@
 ﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="Site.master.cs" Inherits="SiteMaster" %>
-
+<%@ Import Namespace="Sandler.UI.ChartStructure" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
 <head runat="server">
@@ -85,15 +85,15 @@
                             <ul class="dropdown">
                                 <li><a id="anchorDASHBOARD" runat="server" href="Default.aspx">DASHBOARD</a></li>
                                 <li><a id="anchorCHART" runat="server" href="#">REPORTS</a><ul class="sub_menu">
-                                    <li><a href="ChartPage.aspx?chartId=NewAppointmentsBySourceMonth">New Appointments By
+                                    <li><a href="<%=  ChartHelper.GeneratePageLink("0","","NewAppointmentsBySourceMonth")  %>">New Appointments By
                                         Source (By Month)</a></li>
-                                    <li><a href="ChartPage.aspx?chartId=NewClientsByProductTypeMonth">New Clients By Product
+                                    <li><a href="<%=  ChartHelper.GeneratePageLink("0","","NewClientsByProductTypeMonth")  %>">New Clients By Product
                                         Type (By Month)</a></li>
-                                    <li><a href="ChartPage.aspx?chartId=NewClientQuantityAverageContractPriceByMonth">New
+                                    <li><a href="<%=  ChartHelper.GeneratePageLink("0","","NewClientQuantityAverageContractPriceByMonth")  %>">New
                                         Client Quantity & Average Contract Price (By Month)</a></li>
-                                    <li><a href="ChartPage.aspx?chartId=ClassHeadcountByCourseIndustryMonth">Class Headcount
+                                    <li><a href="<%=  ChartHelper.GeneratePageLink("0","","ClassHeadcountByCourseIndustryMonth")  %>">Class Headcount
                                         By Course & Industry (By Month)</a></li>
-                                    <li><a href="ChartPage.aspx?chartId=AverageLengthTimeActiveClientsByIndustry">Average
+                                    <li><a href="<%=  ChartHelper.GeneratePageLink("0","","AverageLengthTimeActiveClientsByIndustry")  %>">Average
                                         Length of Time for Active Clients (By Industry)</a></li></ul>
                                 </li>
                                 <li><a href="CRM/CRMContacts.aspx">CRM</a> </li>

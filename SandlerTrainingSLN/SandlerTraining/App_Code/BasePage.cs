@@ -5,15 +5,24 @@ using System.Web;
 using System.Web.Security;
 using SandlerModels;
 using SandlerData.Models;
+using System.Configuration;
+
 /// <summary>
 /// Summary description for BasePage
 /// </summary>
 
 public abstract class BasePage : System.Web.UI.Page
 {
+    protected  string QUERYSTRINGPARAMCHARTIDS = ConfigurationManager.AppSettings["QueryStringParamChartIDs"];
+    protected  string QUERYSTRINGPARAMDRILLLVL = ConfigurationManager.AppSettings["QueryStringParamDrillLevel"];
+    protected  string QUERYSTRINGPARAMDRILLBY = ConfigurationManager.AppSettings["QueryStringParamDrillBy"];
+    protected  string GENERICCHARTLITERALWIDTH = ConfigurationManager.AppSettings["GenericChartLiteralWidth"];
+    protected string GENERICCHARTLITERALHEIGHT = ConfigurationManager.AppSettings["GenericChartLiteralHeight"];
+
     public BasePage()
     {
     }
+
     public UserModel CurrentUser
     {
         get

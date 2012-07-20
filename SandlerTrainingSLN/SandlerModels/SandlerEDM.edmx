@@ -258,8 +258,7 @@
           <Property Name="ShowLegend" Type="char" MaxLength="1" />
           <Property Name="ShowLabels" Type="char" MaxLength="1" />
           <Property Name="PlotGradientColor" Type="char" MaxLength="6" />
-          <Property Name="DrillLevel" Type="int" />
-          <Property Name="DrillBy" Type="varchar" MaxLength="50" />
+          <Property Name="DrillLevelChartIDs" Type="varchar(max)" />
           <Property Name="IsActive" Type="bit" />
           <Property Name="LastUpdatedDate" Type="datetime" />
           <Property Name="LastCreatedDate" Type="datetime" />
@@ -812,7 +811,6 @@
           <EntitySet Name="TBL_STRATEGICALLIANCIES" EntityType="Sandler.Models.TBL_STRATEGICALLIANCIES" />
           <EntitySet Name="TBL_STRATEGICCUSTCARE" EntityType="Sandler.Models.TBL_STRATEGICCUSTCARE" />
           <EntitySet Name="Return_on_Trng_Investment" EntityType="Sandler.Models.Return_on_Trng_Investment" />
-          <EntitySet Name="TBL_CHART" EntityType="Sandler.Models.TBL_CHART" />
           <EntitySet Name="TBL_REGION" EntityType="Sandler.Models.TBL_REGION" />
           <EntitySet Name="TBL_COACH" EntityType="Sandler.Models.TBL_COACH" />
           <EntitySet Name="TBL_FRANCHISEE" EntityType="Sandler.Models.TBL_FRANCHISEE" />
@@ -829,6 +827,7 @@
             <End Role="TBL_FRANCHISEE" EntitySet="TBL_FRANCHISEE" />
             <End Role="TBL_FRANCHISEE_USERS" EntitySet="TBL_FRANCHISEE_USERS" />
           </AssociationSet>
+          <EntitySet Name="TBL_CHART" EntityType="Sandler.Models.TBL_CHART" />
         </EntityContainer>
         <EntityType Name="Gap_Analysis">
           <Key>
@@ -1380,36 +1379,6 @@
           <Property Type="Decimal" Name="OngoingSupportCosts" Precision="19" Scale="4" />
           <Property Type="Boolean" Name="IsOriginalVersion" Nullable="false" />
         </EntityType>
-        <EntityType Name="TBL_CHART">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="String" Name="TypeOfChart" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="Caption" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="NumberSuffix" MaxLength="1" FixedLength="true" Unicode="false" />
-          <Property Type="String" Name="SNumberSuffix" MaxLength="1" FixedLength="true" Unicode="false" />
-          <Property Type="String" Name="XaxisName" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="YaxisName" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="CanvasBgColor" MaxLength="6" FixedLength="true" Unicode="false" />
-          <Property Type="String" Name="BgColor" MaxLength="6" FixedLength="true" Unicode="false" />
-          <Property Type="String" Name="CanvasBgAlpha" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="BgAlpha" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="PieRadius" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="EnableRotation" MaxLength="1" FixedLength="true" Unicode="false" />
-          <Property Type="String" Name="ShowLegend" MaxLength="1" FixedLength="true" Unicode="false" />
-          <Property Type="String" Name="ShowLabels" MaxLength="1" FixedLength="true" Unicode="false" />
-          <Property Type="String" Name="PlotGradientColor" MaxLength="6" FixedLength="true" Unicode="false" />
-          <Property Type="Boolean" Name="IsActive" />
-          <Property Type="DateTime" Name="LastUpdatedDate" />
-          <Property Type="DateTime" Name="LastCreatedDate" />
-          <Property Type="Guid" Name="LastUpdatedBy" />
-          <Property Type="Guid" Name="LastCreatedBy" />
-          <Property Type="String" Name="SWFile" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="ChartID" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Type="Int32" Name="DrillLevel" />
-          <Property Type="String" Name="DrillBy" MaxLength="50" FixedLength="false" Unicode="false" />
-        </EntityType>
         <EntityType Name="TBL_REGION">
           <Key>
             <PropertyRef Name="ID" />
@@ -1498,6 +1467,35 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="TBL_CHART">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="TypeOfChart" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Caption" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="SWFile" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="ChartID" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="NumberSuffix" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Type="String" Name="SNumberSuffix" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Type="String" Name="XaxisName" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="YaxisName" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="CanvasBgColor" MaxLength="6" FixedLength="true" Unicode="false" />
+          <Property Type="String" Name="BgColor" MaxLength="6" FixedLength="true" Unicode="false" />
+          <Property Type="String" Name="CanvasBgAlpha" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="BgAlpha" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="PieRadius" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="EnableRotation" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Type="String" Name="ShowLegend" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Type="String" Name="ShowLabels" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Type="String" Name="PlotGradientColor" MaxLength="6" FixedLength="true" Unicode="false" />
+          <Property Type="String" Name="DrillLevelChartIDs" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="Boolean" Name="IsActive" />
+          <Property Type="DateTime" Name="LastUpdatedDate" />
+          <Property Type="DateTime" Name="LastCreatedDate" />
+          <Property Type="Guid" Name="LastUpdatedBy" />
+          <Property Type="Guid" Name="LastCreatedBy" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2089,37 +2087,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="TBL_CHART">
-            <EntityTypeMapping TypeName="Sandler.Models.TBL_CHART">
-              <MappingFragment StoreEntitySet="TBL_CHART">
-                <ScalarProperty Name="DrillBy" ColumnName="DrillBy" />
-                <ScalarProperty Name="DrillLevel" ColumnName="DrillLevel" />
-                <ScalarProperty Name="ChartID" ColumnName="ChartID" />
-                <ScalarProperty Name="SWFile" ColumnName="SWFile" />
-                <ScalarProperty Name="LastCreatedBy" ColumnName="LastCreatedBy" />
-                <ScalarProperty Name="LastUpdatedBy" ColumnName="LastUpdatedBy" />
-                <ScalarProperty Name="LastCreatedDate" ColumnName="LastCreatedDate" />
-                <ScalarProperty Name="LastUpdatedDate" ColumnName="LastUpdatedDate" />
-                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-                <ScalarProperty Name="PlotGradientColor" ColumnName="PlotGradientColor" />
-                <ScalarProperty Name="ShowLabels" ColumnName="ShowLabels" />
-                <ScalarProperty Name="ShowLegend" ColumnName="ShowLegend" />
-                <ScalarProperty Name="EnableRotation" ColumnName="EnableRotation" />
-                <ScalarProperty Name="PieRadius" ColumnName="PieRadius" />
-                <ScalarProperty Name="BgAlpha" ColumnName="BgAlpha" />
-                <ScalarProperty Name="CanvasBgAlpha" ColumnName="CanvasBgAlpha" />
-                <ScalarProperty Name="BgColor" ColumnName="BgColor" />
-                <ScalarProperty Name="CanvasBgColor" ColumnName="CanvasBgColor" />
-                <ScalarProperty Name="YaxisName" ColumnName="YaxisName" />
-                <ScalarProperty Name="XaxisName" ColumnName="XaxisName" />
-                <ScalarProperty Name="SNumberSuffix" ColumnName="SNumberSuffix" />
-                <ScalarProperty Name="NumberSuffix" ColumnName="NumberSuffix" />
-                <ScalarProperty Name="Caption" ColumnName="Caption" />
-                <ScalarProperty Name="TypeOfChart" ColumnName="TypeOfChart" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="TBL_REGION">
             <EntityTypeMapping TypeName="Sandler.Models.TBL_REGION">
               <MappingFragment StoreEntitySet="TBL_REGION">
@@ -2166,6 +2133,36 @@
               <MappingFragment StoreEntitySet="TBL_FRANCHISEE_USERS">
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
                 <ScalarProperty Name="FranchiseeID" ColumnName="FranchiseeID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_CHART">
+            <EntityTypeMapping TypeName="Sandler.Models.TBL_CHART">
+              <MappingFragment StoreEntitySet="TBL_CHART">
+                <ScalarProperty Name="LastCreatedBy" ColumnName="LastCreatedBy" />
+                <ScalarProperty Name="LastUpdatedBy" ColumnName="LastUpdatedBy" />
+                <ScalarProperty Name="LastCreatedDate" ColumnName="LastCreatedDate" />
+                <ScalarProperty Name="LastUpdatedDate" ColumnName="LastUpdatedDate" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="DrillLevelChartIDs" ColumnName="DrillLevelChartIDs" />
+                <ScalarProperty Name="PlotGradientColor" ColumnName="PlotGradientColor" />
+                <ScalarProperty Name="ShowLabels" ColumnName="ShowLabels" />
+                <ScalarProperty Name="ShowLegend" ColumnName="ShowLegend" />
+                <ScalarProperty Name="EnableRotation" ColumnName="EnableRotation" />
+                <ScalarProperty Name="PieRadius" ColumnName="PieRadius" />
+                <ScalarProperty Name="BgAlpha" ColumnName="BgAlpha" />
+                <ScalarProperty Name="CanvasBgAlpha" ColumnName="CanvasBgAlpha" />
+                <ScalarProperty Name="BgColor" ColumnName="BgColor" />
+                <ScalarProperty Name="CanvasBgColor" ColumnName="CanvasBgColor" />
+                <ScalarProperty Name="YaxisName" ColumnName="YaxisName" />
+                <ScalarProperty Name="XaxisName" ColumnName="XaxisName" />
+                <ScalarProperty Name="SNumberSuffix" ColumnName="SNumberSuffix" />
+                <ScalarProperty Name="NumberSuffix" ColumnName="NumberSuffix" />
+                <ScalarProperty Name="ChartID" ColumnName="ChartID" />
+                <ScalarProperty Name="SWFile" ColumnName="SWFile" />
+                <ScalarProperty Name="Caption" ColumnName="Caption" />
+                <ScalarProperty Name="TypeOfChart" ColumnName="TypeOfChart" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -2230,7 +2227,6 @@
         <EntityTypeShape EntityType="Sandler.Models.TBL_STRATEGICALLIANCIES" Width="1.5" PointX="11.75" PointY="18.75" Height="2.5571907552083246" />
         <EntityTypeShape EntityType="Sandler.Models.TBL_STRATEGICCUSTCARE" Width="1.5" PointX="13.75" PointY="18.75" Height="2.5571907552083246" />
         <EntityTypeShape EntityType="Sandler.Models.Return_on_Trng_Investment" Width="1.5" PointX="16.375" PointY="18.75" Height="7.364726562499996" />
-        <EntityTypeShape EntityType="Sandler.Models.TBL_CHART" Width="1.5" PointX="18.375" PointY="18.75" Height="5.057109374999996" />
         <EntityTypeShape EntityType="Sandler.Models.TBL_REGION" Width="1.5" PointX="20.375" PointY="17" Height="2.7494921875000102" />
         <EntityTypeShape EntityType="Sandler.Models.TBL_COACH" Width="1.5" PointX="22.625" PointY="16.875" Height="2.5783902994791674" />
         <EntityTypeShape EntityType="Sandler.Models.TBL_FRANCHISEE" Width="1.5" PointX="24.875" PointY="16.875" Height="2.5783902994791674" />
@@ -2247,6 +2243,7 @@
           <ConnectorPoint PointX="26.375" PointY="18.088979492187491" />
           <ConnectorPoint PointX="27.125" PointY="18.088979492187491" />
         </AssociationConnector>
+        <EntityTypeShape EntityType="Sandler.Models.TBL_CHART" Width="1.5" PointX="18.375" PointY="20.75" Height="5.63401367187501" />
       </Diagram>
     </Diagrams>
   </Designer>

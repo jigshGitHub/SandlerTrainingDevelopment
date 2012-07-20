@@ -5,12 +5,6 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="Server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="Server">
-    <table width="100%">
-        <tr>
-            <td width="100%" align="center">
-                <SandlerChart:ChartLiteral ID="genericChartLiteral" runat="server" Width="70%"
-                    Height="450"></SandlerChart:ChartLiteral>
-            </td>
-        </tr>
-    </table>
+    <asp:Panel ID="chartPanel" runat="server" HorizontalAlign="Center" Width="100%">
+    </asp:Panel>
 </asp:Content>

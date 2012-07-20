@@ -17,6 +17,8 @@ namespace SandlerModels
         public int Id { get; set; }
         public string TypeOfChart { get; set; }
         public string Caption { get; set; }
+        public string SWFile { get; set; }
+        public string ChartID { get; set; }
         public string NumberSuffix { get; set; }
         public string SNumberSuffix { get; set; }
         public string XaxisName { get; set; }
@@ -30,15 +32,12 @@ namespace SandlerModels
         public string ShowLegend { get; set; }
         public string ShowLabels { get; set; }
         public string PlotGradientColor { get; set; }
+        public string DrillLevelChartIDs { get; set; }
         public Nullable<bool> IsActive { get; set; }
         public Nullable<System.DateTime> LastUpdatedDate { get; set; }
         public Nullable<System.DateTime> LastCreatedDate { get; set; }
         public Nullable<System.Guid> LastUpdatedBy { get; set; }
         public Nullable<System.Guid> LastCreatedBy { get; set; }
-        public string SWFile { get; set; }
-        public string ChartID { get; set; }
-        public Nullable<int> DrillLevel { get; set; }
-        public string DrillBy { get; set; }
     }
     
 }
