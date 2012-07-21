@@ -15,6 +15,7 @@ namespace SandlerModels
         SiteAdmin,
         Anonymous
     }
+      [Serializable]
     public class UserModel
     {
         private MembershipUser currentUser;

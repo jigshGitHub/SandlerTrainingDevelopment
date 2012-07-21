@@ -302,13 +302,13 @@ CREATE TABLE [dbo].[Tbl_YesNoOptions](
 	[id] ASC
 )WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
 ) ON [PRIMARY]
-
 GO
 
 SET IDENTITY_INSERT [dbo].[Tbl_YesNoOptions] ON
 INSERT [dbo].[Tbl_YesNoOptions] ([id], [Description], [Value]) VALUES (1, N'No', 0)
 INSERT [dbo].[Tbl_YesNoOptions] ([id], [Description], [Value]) VALUES (2, N'Yes', 1)
 SET IDENTITY_INSERT [dbo].[Tbl_YesNoOptions] OFF
+GO
 
 IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Tbl_ProductType]') AND type in (N'U'))
 DROP TABLE [dbo].[Tbl_ProductType]
@@ -327,7 +327,6 @@ CREATE TABLE [dbo].[Tbl_ProductType](
 	[Id] ASC
 )WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
 ) ON [PRIMARY]
-
 GO
 
 SET IDENTITY_INSERT [dbo].[Tbl_ProductType] ON
@@ -338,7 +337,7 @@ INSERT [dbo].[Tbl_ProductType] ([Id], [ProductTypeName], [IsActive], [LastUpdate
 INSERT [dbo].[Tbl_ProductType] ([Id], [ProductTypeName], [IsActive], [LastUpdatedDate], [LastUpdatedBy], [CreatedBy]) VALUES (5, N'Leadership ', 1, NULL, NULL, N'System')
 INSERT [dbo].[Tbl_ProductType] ([Id], [ProductTypeName], [IsActive], [LastUpdatedDate], [LastUpdatedBy], [CreatedBy]) VALUES (6, N'Coaching', 1, NULL, NULL, N'System')
 SET IDENTITY_INSERT [dbo].[Tbl_ProductType] OFF
-
+GO
 IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[TBL_OPPORTUNITIES]') AND type in (N'U'))
 DROP TABLE [dbo].[TBL_OPPORTUNITIES]
 GO
@@ -370,6 +369,11 @@ CREATE TABLE [dbo].[TBL_OPPORTUNITIES](
 ) ON [PRIMARY]
 GO
 
+SET IDENTITY_INSERT [dbo].[TBL_OPPORTUNITIES] ON
+INSERT [dbo].[TBL_OPPORTUNITIES] ([OPPSID], [OPPORTUNITYID], [COMPANYID], [CONTACTID], [OPPNAME], [SALESREPLASTNAME], [SALESREPFIRSTNAME], [SALESREPPHONE], [PRODUCTID], [OPPSTATUS], [OPPVALUE], [WINPROBABILITY], [WEIGHTEDVALUE], [CLOSEDATE], [IsActive], [UpdatedDate], [UpdatedBy], [CreatedBy]) VALUES (1, 1000, 1, 1, N'MSRetail', N'Thakkar', N'Bhavesh', N'7032989300', 1, NULL, 123456, N'50', 3456, NULL, NULL, NULL, NULL, NULL)
+SET IDENTITY_INSERT [dbo].[TBL_OPPORTUNITIES] OFF
+GO
+
 IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Tbl_IndustryType]') AND type in (N'U'))
 DROP TABLE [dbo].[Tbl_IndustryType]
 GO
@@ -396,6 +400,7 @@ INSERT [dbo].[Tbl_IndustryType] ([IndId], [IndustryTypeName], [IsActive], [LastU
 INSERT [dbo].[Tbl_IndustryType] ([IndId], [IndustryTypeName], [IsActive], [LastUpdatedDate], [LastUpdatedBy], [CreatedBy]) VALUES (4, N'Software ', 1, NULL, NULL, N'System')
 INSERT [dbo].[Tbl_IndustryType] ([IndId], [IndustryTypeName], [IsActive], [LastUpdatedDate], [LastUpdatedBy], [CreatedBy]) VALUES (5, N'Consulting', 1, NULL, NULL, N'System')
 SET IDENTITY_INSERT [dbo].[Tbl_IndustryType] OFF
+GO
 
 IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[TBL_DOCS]') AND type in (N'U'))
 DROP TABLE [dbo].[TBL_DOCS]
@@ -449,7 +454,6 @@ CREATE TABLE [dbo].[TBL_CONTACTS](
 	[CONTACTSID] ASC
 )WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
 ) ON [PRIMARY]
-
 GO
 
 IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[TBL_COMPANIES]') AND type in (N'U'))
@@ -481,10 +485,19 @@ CREATE TABLE [dbo].[TBL_COMPANIES](
 	[CreatedBy] [varchar](80) NULL,
 	[UpdatedDate] [datetime] NULL,
 	[UpdatedBy] [varchar](80) NULL,
+	[ProductId] [int] NULL,
+	[Address] [varchar](150) NULL,
  CONSTRAINT [PK_TBL_COMPANIES] PRIMARY KEY CLUSTERED 
 (
 	[COMPANIESID] ASC
 )WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
+SET ANSI_PADDING OFF
+GO
+SET IDENTITY_INSERT [dbo].[TBL_COMPANIES] ON
+INSERT [dbo].[TBL_COMPANIES] ([COMPANIESID], [COMPANYNAME], [CITY], [STATE], [ZIP], [POCLastName], [POCFirstName], [POCPhone], [IsNewCompany], [COMPANYVALUEGOAL], [IndustryId], [RepLastName], [RepFirstName], [DiscussionTopic], [ACTIONSTEP], [LASTCONTACT_DATE], [NEXTCONTACT_DATE], [CreationDate], [FranchiseeId], [IsActive], [CreatedBy], [UpdatedDate], [UpdatedBy], [ProductId], [Address]) VALUES (1, N'Microsoft', N'Reston', N'VA', 20190, N'Thakkar', N'Bhavesh', N'7032989300', 1, 123890, 1, N'Thakkar', N'Rishav', N'TBD', N'TBD', NULL, NULL, NULL, 1, 1, NULL, NULL, NULL, 1, N'Test Address')
+INSERT [dbo].[TBL_COMPANIES] ([COMPANIESID], [COMPANYNAME], [CITY], [STATE], [ZIP], [POCLastName], [POCFirstName], [POCPhone], [IsNewCompany], [COMPANYVALUEGOAL], [IndustryId], [RepLastName], [RepFirstName], [DiscussionTopic], [ACTIONSTEP], [LASTCONTACT_DATE], [NEXTCONTACT_DATE], [CreationDate], [FranchiseeId], [IsActive], [CreatedBy], [UpdatedDate], [UpdatedBy], [ProductId], [Address]) VALUES (2, N'IBM', N'Reston', N'VA', 20190, N'Thakkar', N'Sonalben', N'1234567890', 0, 123456, 3, N'Thakkar', N'Sonal', N'TBD', N'TBD', CAST(0x0000A08500000000 AS DateTime), CAST(0x0000A08300000000 AS DateTime), CAST(0x0000A09A00000000 AS DateTime), 1, 1, NULL, NULL, NULL, 1, N'1234 Reston Parkway')
+INSERT [dbo].[TBL_COMPANIES] ([COMPANIESID], [COMPANYNAME], [CITY], [STATE], [ZIP], [POCLastName], [POCFirstName], [POCPhone], [IsNewCompany], [COMPANYVALUEGOAL], [IndustryId], [RepLastName], [RepFirstName], [DiscussionTopic], [ACTIONSTEP], [LASTCONTACT_DATE], [NEXTCONTACT_DATE], [CreationDate], [FranchiseeId], [IsActive], [CreatedBy], [UpdatedDate], [UpdatedBy], [ProductId], [Address]) VALUES (3, N'Cisco Update', N'Dallas', N'Texas', 76132, N'Thakkar', N'Aarav', N'1234567890', 1, 1234445, 3, N'Thakkar', N'Tithi', N'TBD', N'TBD', CAST(0x0000A08C00000000 AS DateTime), CAST(0x0000A09900000000 AS DateTime), CAST(0x0000A09F00000000 AS DateTime), 1, 1, N'F039E760-E849-4A6F-8F75-1926FB3643F1', CAST(0x0000A0940110B561 AS DateTime), N'f039e760-e849-4a6f-8f75-1926fb3643f1', 3, N'123 Texas Road Update')
+SET IDENTITY_INSERT [dbo].[TBL_COMPANIES] OFF
 

@@ -3,8 +3,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head id="Head1" runat="server">
-    <script type="text/javascript" src="FusionChartLib/FusionCharts.js"></script>
-    <script type="text/javascript" src="Scripts/jquery-1.4.1.min.js"></script>
+    <script type="text/javascript" src="../FusionChartLib/FusionCharts.js"></script>
+    <script type="text/javascript" src="../Scripts/jquery-1.4.1.min.js"></script>
     <title></title>
     <link href="~/Styles/CRMSite.css" rel="stylesheet" type="text/css" />
 </head>
@@ -34,7 +34,7 @@
                 <table>
                     <tr>
                         <td>
-                            <img src="images/header_logo_crm.png" alt="Sandler Logo" />
+                            <img src="../images/header_logo_crm_test.png" alt="Sandler Logo" />
                         </td>
                         <td>
                             <button type="button" class="menuButtonActive" id="btnDashboard">
@@ -77,7 +77,7 @@
     </div>
     <div class="footer">
     </div>
-    <script language="javascript">
+    <%--<script language="javascript">
         $(document).ready(function () {
             $('#btnDashboard').click(function () {
                 window.open('Default.aspx', '_self');
@@ -87,7 +87,7 @@
                 window.open('CRM.aspx', '_self');
             });
         });
-    </script>
+    </script>--%>
     </form>
 </body>
 </html>

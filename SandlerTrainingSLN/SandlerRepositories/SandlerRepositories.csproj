@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AccountsRepository.cs" />
+    <Compile Include="CompaniesRepository.cs" />
     <Compile Include="ContactsRepository.cs" />
     <Compile Include="ForcastingRepository.cs" />
     <Compile Include="DBFactory.cs" />

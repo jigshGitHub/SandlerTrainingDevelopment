@@ -424,5 +424,167 @@ BEGIN CATCH
 END CATCH
 GO
 
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[sp_UpdateCompanyDetails]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[sp_UpdateCompanyDetails]
+GO
+
+CREATE PROCEDURE [dbo].[sp_UpdateCompanyDetails]
+	(
+		@COMPANIESID int,@CompanyName varchar(50), @Address varchar(150),
+		@City varchar(50), @State varchar(50), @Zip varchar(50),
+		@POCLastName varchar(50), @POCFirstName varchar(50),
+		@POCPhone varchar(50), @Value int, @COMPANYVALUEGOAL int,
+		@Id int, @IndId int,
+		@RepLastName varchar(50),@RepFirstName varchar(50),
+		@DiscussionTopic varchar(50), @ActionStep varchar(50),
+		@LastContact_Date datetime,@NextContact_Date datetime, 
+		@CreationDate datetime, @UpdatedBy varchar(50)
+		
+	)
+AS
+	
+	Update tbl_companies
+
+	Set 
+	CompanyName = @CompanyName,
+	Address = @Address,
+	City = @City,
+	State = @State,
+	Zip = @Zip,
+	POCLastName = @POCLastName,
+	POCFirstName = @POCFirstName,
+	POCPhone = @POCPhone,
+	COMPANYVALUEGOAL = @COMPANYVALUEGOAL,
+	RepLastName = @RepLastName,
+	RepFirstName = @RepFirstName,
+	DiscussionTopic = @DiscussionTopic,
+	ActionStep = @ActionStep,
+	LastContact_Date = @LastContact_Date, 
+	NextContact_Date = @NextContact_Date,
+	CreationDate = @CreationDate,
+	ProductId = @Id,
+	IndustryId = @IndId,
+	IsNewCompany = @Value,
+	UpdatedBy = @UpdatedBy,
+	UPdatedDate = GETDATE()
+	where COMPANIESID = @COMPANIESID
 
 
+	RETURN
+GO
+
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[sp_InsertCompany]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[sp_InsertCompany]
+GO
+
+CREATE PROCEDURE [dbo].[sp_InsertCompany]
+	
+	(	
+		@CompanyName varchar(50), @Address varchar(150),
+		@City varchar(50), @State varchar(50), @Zip varchar(50),
+		@POCLastName varchar(50), @POCFirstName varchar(50),
+		@POCPhone varchar(50), @Value int, @COMPANYVALUEGOAL int,
+		@Id int, @IndId int,
+		@RepLastName varchar(50),@RepFirstName varchar(50),
+		@DiscussionTopic varchar(50), @ActionStep varchar(50),
+		@LastContact_Date datetime,@NextContact_Date datetime, 
+		@CreationDate datetime, @CreatedBy varchar(50),
+		@FranchiseeId int
+	 )
+AS
+	Insert into tbl_Companies
+	(CompanyName, Address,City, State, Zip,POCLastName,POCFirstName,
+	 POCPhone,IsNewCompany, COMPANYVALUEGOAL,ProductId,IndustryId,
+	 RepLastName,RepFirstName,DiscussionTopic,ActionStep,
+	 LastContact_Date,NextContact_Date,CreationDate, CreatedBy, FranchiseeId,IsActive)
+	values
+	(@CompanyName, @Address,@City, @State, @Zip,@POCLastName,@POCFirstName,
+		@POCPhone , @Value, @COMPANYVALUEGOAL,@Id ,@IndId ,@RepLastName ,@RepLastName,
+		@DiscussionTopic , @ActionStep,	@LastContact_Date,
+	 @NextContact_Date,@CreationDate,@CreatedBy,@FranchiseeId,1)
+	
+	/* SET NOCOUNT ON */
+	RETURN
+GO
+
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[sp_GetCompanyDetails]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[sp_GetCompanyDetails]
+GO
+
+CREATE  PROCEDURE [dbo].[sp_GetCompanyDetails]
+	(
+	@COMPANIESID int 
+	)
+AS
+	select 
+	c.COMPANIESID,c.CompanyName, c.Address,c.City, c.State, c.Zip,c.POCLastName,c.POCFirstName,
+	c.POCPhone,c.COMPANYVALUEGOAL,
+	c.RepLastName,c.RepFirstName,c.DiscussionTopic,c.ActionStep,
+	c.LastContact_Date,c.NextContact_Date,c.CreationDate,c.FranchiseeId,
+	p.ProductTypeName as Product,p.id as ID,
+	i.IndustryTypeName as Industry,i.IndId as IndId,
+	y.Description as Description, y.Value as Value
+	from tbl_companies c 
+	left join Tbl_ProductType p on c.ProductId = p.Id 
+	left join Tbl_IndustryType i on c.IndustryId = i.IndId
+	left join tbl_YesNoOptions y on c.IsNewCompany = y.Value
+	where c.COMPANIESID = @COMPANIESID
+
+	RETURN
+GO
+
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[sp_GetAllCompaniesByRegionId]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[sp_GetAllCompaniesByRegionId]
+GO
+
+create PROCEDURE [dbo].[sp_GetAllCompaniesByRegionId]
+	
+	(
+		@CoachId int
+	)
+	
+AS
+		
+	SELECT cp.COMPANIESID,cp.COMPANYNAME,
+	cp.RepLastName+', '+ cp.RepFirstName as Representative,
+	p.ProductTypeName as Product,
+	i.IndustryTypeName as Industry,
+	dbo.GetTotalCompanyValue(COMPANIESID) as TotalCompanyValue
+	FROM TBL_COMPANIES cp 
+	inner join Tbl_ProductType p on cp.ProductId = p.Id 
+	inner join Tbl_IndustryType i on cp.IndustryId = i.IndId
+	where cp.FranchiseeId in (Select id from Tbl_Franchisee  where CoachID = @CoachId) 
+	ORDER BY COMPANYNAME
+	
+	
+	
+	RETURN
+GO
+
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[sp_GetAllCompaniesByFrId]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[sp_GetAllCompaniesByFrId]
+GO
+
+create PROCEDURE [dbo].[sp_GetAllCompaniesByFrId]
+	
+	(
+		@FranchiseeId int
+	)
+	
+AS
+		
+	SELECT cp.COMPANIESID,cp.COMPANYNAME,
+	cp.RepLastName+', '+ cp.RepFirstName as Representative,
+	p.ProductTypeName as Product,
+	i.IndustryTypeName as Industry,
+	dbo.GetTotalCompanyValue(COMPANIESID) as TotalCompanyValue
+	FROM TBL_COMPANIES cp 
+	inner join Tbl_ProductType p on cp.ProductId = p.Id 
+	inner join Tbl_IndustryType i on cp.IndustryId = i.IndId
+	where cp.FranchiseeId = @FranchiseeId 
+	ORDER BY COMPANYNAME
+	
+	
+	
+	RETURN
+GO

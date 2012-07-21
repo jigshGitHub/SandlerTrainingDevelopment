@@ -19,7 +19,7 @@
                 <table>
                     <tr>
                         <td>
-                            <asp:Image runat="server" ImageUrl="~/images/header_logo.png" ToolTip="Sandler Logo" />
+                            <asp:Image runat="server" ImageUrl="~/images/header_logo_test.png" ToolTip="Sandler Logo" />
                         </td>
                         <td>
                             <asp:HyperLink CssClass="menuLink" ID="lnkDashboard" runat="server" NavigateUrl="~/Default.aspx"
@@ -51,21 +51,19 @@
                 <table style="background-color: white; width: 100%">
                     <tr>
                         <td align="center">
+                            <asp:LinkButton ID="linkCompanies" Font-Size="Large" runat="server" CausesValidation="false"
+                                OnClick="linkCompanies_Click" ForeColor="blue">Companies</asp:LinkButton>
+                        </td>
+                        <td align="center">
                             <asp:LinkButton ID="linkContacts" Font-Size="Large" runat="server" CausesValidation="false"
                                 OnClick="linkContacts_Click" ForeColor="blue">Contacts</asp:LinkButton>
                         </td>
+                        
                         <td align="center">
-                            <asp:LinkButton ID="linkSalesPipeLine" Font-Size="Large" runat="server" CausesValidation="false"
-                                OnClick="linkSalesPipeLine_Click" ForeColor="blue">Sales Pipeline</asp:LinkButton>
+                            <asp:LinkButton ID="linkForOpps" Font-Size="Large" runat="server" CausesValidation="false"
+                                OnClick="linkForOpps_Click" ForeColor="blue">Opportunities</asp:LinkButton>
                         </td>
-                        <td align="center">
-                            <asp:LinkButton ID="linkForCasting" Font-Size="Large" runat="server" CausesValidation="false"
-                                OnClick="linkForCasting_Click" ForeColor="blue">Forecasting</asp:LinkButton>
-                        </td>
-                        <td align="center">
-                            <asp:LinkButton ID="linkAccounts" Font-Size="Large" runat="server" CausesValidation="false"
-                                OnClick="linkAccounts_Click" ForeColor="blue">Accounts</asp:LinkButton>
-                        </td>
+                        
                         <td align="center">
                             <asp:LinkButton ID="linkDocuments" Font-Size="Large" runat="server" CausesValidation="false"
                                 OnClick="linkDocuments_Click" ForeColor="blue">Documents</asp:LinkButton>
@@ -90,7 +88,7 @@
             </table>
         </div>
     </div>
-    <script type="text/javascript" language="javascript">
+    <%--<script type="text/javascript" language="javascript">
         $(document).ready(function () {
             $('#btnDashboard').click(function () {
                 window.open('Default.aspx', '_self');
@@ -100,7 +98,7 @@
                 window.open('CRMContacts.aspx', '_self');
             });
         });
-    </script>
+    </script>--%>
     </form>
 </body>
 </html>

@@ -25,20 +25,18 @@ public partial class CRM : System.Web.UI.MasterPage
     {
         Response.Redirect("CRMContacts.aspx");
     }
-    protected void linkSalesPipeLine_Click(object sender, EventArgs e)
+    protected void linkCompanies_Click(object sender, EventArgs e)
     {
-        Response.Redirect("CRMSalesPipeLine.aspx");
-    }
-    protected void linkForCasting_Click(object sender, EventArgs e)
-    {
-        Response.Redirect("CRMForCasting.aspx");
-    }
-    protected void linkAccounts_Click(object sender, EventArgs e)
-    {
-        Response.Redirect("CRMAccounts.aspx");
+        Response.Redirect("CRMCompanies.aspx");
     }
     protected void linkDocuments_Click(object sender, EventArgs e)
     {
         Response.Redirect("CRMDocuments.aspx");
     }
+    protected void linkForOpps_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("CRMOpportunities.aspx");
+    }
+
+    
 }
