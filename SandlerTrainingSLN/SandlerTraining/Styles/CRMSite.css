@@ -1,7 +1,4 @@
-﻿/* DEFAULTS
-----------------------------------------------------------*/
-
-body
+﻿body
 {
     background: #8EB4E6;
     font-size: .80em;
@@ -432,4 +429,14 @@ a.menuLinkActive:visited
 	padding-left: 0.3em;
 	padding-right: 0.3em;
 	padding-bottom: 0.1em;
+}
+
+.CRMSubMenus{
+    background-color: white;
+}
+.CRMSubMenus a:link
+{
+    color: #0000FF;
+    font-size: large;
+    text-decoration: none;
 }

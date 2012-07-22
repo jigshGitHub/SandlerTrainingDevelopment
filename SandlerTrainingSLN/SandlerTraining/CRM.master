@@ -1,13 +1,17 @@
 ﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="CRM.master.cs" Inherits="CRM" %>
 
+<%@ Import Namespace="Sandler.UI.ChartStructure" %>
+<%@ Register Src="Menu.ascx" TagName="Menu" TagPrefix="uc1" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <script type="text/javascript" src="<%= Page.ResolveClientUrl("~/FusionChartLib/FusionCharts.js") %>"></script>
     <script type="text/javascript" src="<%= Page.ResolveClientUrl("~/Scripts/jquery-1.4.1.min.js") %>"></script>
     <script type="text/javascript" src="<%= Page.ResolveClientUrl("~/Scripts/External.js") %>"></script>
+    <script type="text/javascript" language="javascript" src="<%= Page.ResolveClientUrl("~/Scripts/jquery.dropdownPlain.js") %>"></script>
     <title></title>
     <link href="~/Styles/CRMSite.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="~/Styles/Menu/style.css" type="text/css" media="screen, projection" />
     <asp:ContentPlaceHolder ID="HeadContent" runat="server">
     </asp:ContentPlaceHolder>
 </head>
@@ -16,57 +20,20 @@
     <div class="page">
         <div class="header">
             <div class="clear hideSkiplink">
-                <table>
-                    <tr>
-                        <td>
-                            <asp:Image runat="server" ImageUrl="~/images/header_logo_test.png" ToolTip="Sandler Logo" />
-                        </td>
-                        <td>
-                            <asp:HyperLink CssClass="menuLink" ID="lnkDashboard" runat="server" NavigateUrl="~/Default.aspx"
-                                Text="DASHBOARD"></asp:HyperLink>
-                        </td>
-                        <td>
-                            <asp:HyperLink CssClass="menuLink" ID="lnkReports" runat="server" NavigateUrl="~/Reports.aspx"
-                                Text="REPORTS"></asp:HyperLink>
-                        </td>
-                        <td>
-                            <asp:HyperLink CssClass="menuLink" ID="lnkCRM" runat="server" NavigateUrl="~/CRM/CRMContacts.aspx"
-                                Text="CRM"></asp:HyperLink>
-                        </td>
-                        <td>
-                            <asp:HyperLink CssClass="disableLink" ID="lnkIndustrialAvgBenchmark" runat="server"
-                                NavigateUrl="~/IndAverageBenchmarks.aspx" Text="BENCHMARKS" Enabled="false">
-                            </asp:HyperLink>
-                        </td>
-                        <td>
-                            <asp:HyperLink CssClass="disableLink" ID="lnkProducts" runat="server" NavigateUrl="~/Products.aspx"
-                                Text="PRODUCTS" Enabled="false"></asp:HyperLink>
-                        </td>
-                        <td>
-                            <asp:HyperLink CssClass="menuLink" ID="lnkLogout" runat="server" NavigateUrl="~/Logout.aspx"
-                                Text="LOGOUT"></asp:HyperLink>
-                        </td>
-                    </tr>
-                </table>
-                <table style="background-color: white; width: 100%">
+                <uc1:Menu ID="Menu1" runat="server" />
+                <table class="CRMSubMenus" width="100%">
                     <tr>
                         <td align="center">
-                            <asp:LinkButton ID="linkCompanies" Font-Size="Large" runat="server" CausesValidation="false"
-                                OnClick="linkCompanies_Click" ForeColor="blue">Companies</asp:LinkButton>
+                            <asp:LinkButton ID="linkCompanies" runat="server" CausesValidation="false" OnClick="linkCompanies_Click">Companies</asp:LinkButton>
                         </td>
                         <td align="center">
-                            <asp:LinkButton ID="linkContacts" Font-Size="Large" runat="server" CausesValidation="false"
-                                OnClick="linkContacts_Click" ForeColor="blue">Contacts</asp:LinkButton>
+                            <asp:LinkButton ID="linkContacts" runat="server" CausesValidation="false" OnClick="linkContacts_Click">Contacts</asp:LinkButton>
                         </td>
-                        
                         <td align="center">
-                            <asp:LinkButton ID="linkForOpps" Font-Size="Large" runat="server" CausesValidation="false"
-                                OnClick="linkForOpps_Click" ForeColor="blue">Opportunities</asp:LinkButton>
+                            <asp:LinkButton ID="linkForOpps" runat="server" CausesValidation="false" OnClick="linkForOpps_Click">Opportunities</asp:LinkButton>
                         </td>
-                        
                         <td align="center">
-                            <asp:LinkButton ID="linkDocuments" Font-Size="Large" runat="server" CausesValidation="false"
-                                OnClick="linkDocuments_Click" ForeColor="blue">Documents</asp:LinkButton>
+                            <asp:LinkButton ID="linkDocuments" runat="server" CausesValidation="false" OnClick="linkDocuments_Click">Documents</asp:LinkButton>
                         </td>
                     </tr>
                 </table>

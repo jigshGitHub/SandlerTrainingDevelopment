@@ -6,12 +6,13 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using SandlerModels;
 
-public partial class UpdatedCRM_CRMViewCompany : System.Web.UI.Page
+public partial class UpdatedCRM_CRMViewCompany : BasePage
 {
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!Page.IsPostBack)
         {
+            lblModuleActionHeading.Text = (IsUserReadOnly(SandlerUserActions.Edit, SandlerEntities.Company)) ? "View Company:" : "View/Edit Comnpany:";
             if ((PreviousPage != null))
             {
                 //Find out CompanyID selected by the User
@@ -268,10 +269,9 @@ public partial class UpdatedCRM_CRMViewCompany : System.Web.UI.Page
             }
         }
         //Get the User Session
-        UserModel _user = (UserModel)Session["CurrentUser"];
         SandlerRepositories.CompaniesRepository companiesRepository = new SandlerRepositories.CompaniesRepository();
         //Update Company Information
-        companiesRepository.Update(Convert.ToInt32(hidCompanyID.Value), COMPANYNAME, Address, City, State, Zip,POCLastName, POCFirstName, POCPhone, NewItemID, COMPANYVALUEGOAL, ProductID, IndustryID, RepLastName, RepFirstName, DiscussionTopic, ACTIONSTEP, LastDate, NextDate, CreationDate, _user.UserId.ToString());
+        companiesRepository.Update(Convert.ToInt32(hidCompanyID.Value), COMPANYNAME, Address, City, State, Zip,POCLastName, POCFirstName, POCPhone, NewItemID, COMPANYVALUEGOAL, ProductID, IndustryID, RepLastName, RepFirstName, DiscussionTopic, ACTIONSTEP, LastDate, NextDate, CreationDate, CurrentUser.UserId.ToString());
         //Inform the Message
         LblStatus.Text = "Company informaton updated successfully!";
 
@@ -281,5 +281,12 @@ public partial class UpdatedCRM_CRMViewCompany : System.Web.UI.Page
         //wE COME HERE AFTER UPDATE IS DONE NOW NOW AGAIN CHANGEMODE AND GET DETAILS
         CompanyDW.ChangeMode(DetailsViewMode.ReadOnly);
         GetCompanyDetails();
+    }
+    protected void CompanyDW_ItemCreated(object sender, EventArgs e)
+    {
+        DetailsView dv = sender as DetailsView;
+        if (dv.CurrentMode == DetailsViewMode.ReadOnly)
+            if(dv.FindControl("LinkButton1")!= null)
+                (dv.FindControl("LinkButton1")as LinkButton).Visible = !IsUserReadOnly(SandlerUserActions.Edit, SandlerEntities.Company);
     }
 }

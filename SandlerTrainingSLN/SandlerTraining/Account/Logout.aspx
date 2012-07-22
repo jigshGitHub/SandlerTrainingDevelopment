@@ -10,7 +10,7 @@
     <div>
         <asp:Button ID="btnLogin" runat="server" Style="position: absolute; left: 592px;
             top: 316px; color: #FFFFFF; background-color: #336699" Text="LOGIN" Font-Bold="true" OnClientClick="window.open('login.aspx');"/>
-        <img width="100%" src="images/Logout_page.png" alt="Sandler Logo" />
+        <img width="100%" src="<%= Page.ResolveClientUrl("~/images/Logout_page.png") %>" alt="Sandler Logo" />
     </div>
     </form>
 </body>

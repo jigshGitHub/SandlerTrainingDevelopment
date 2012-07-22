@@ -32,10 +32,11 @@
                 <SandlerChart:ChartLiteral ID="AverageLengthTimeActiveClientsByIndustry" runat="server"
                     Width="100%" Height="250">
                 </SandlerChart:ChartLiteral>
-            </td>
-            
+            </td>            
             <td width="34%">
-                
+                <SandlerChart:ChartLiteral ID="ActualDollarsBookedComparisonGoal" runat="server"
+                    Width="100%" Height="250">
+                </SandlerChart:ChartLiteral>
             </td>
         </tr>
     </table>

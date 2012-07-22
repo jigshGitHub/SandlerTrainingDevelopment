@@ -7,15 +7,7 @@ using System.Web.Security;
 
 namespace SandlerModels
 {
-    public enum SandlerRoles
-    {
-        Coach,
-        FranchiseeOwner,
-        FranchiseeUser,
-        SiteAdmin,
-        Anonymous
-    }
-      [Serializable]
+    [Serializable]
     public class UserModel
     {
         private MembershipUser currentUser;

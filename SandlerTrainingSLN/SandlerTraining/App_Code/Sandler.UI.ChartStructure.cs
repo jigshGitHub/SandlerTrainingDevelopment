@@ -271,16 +271,16 @@ namespace Sandler.UI.ChartStructure
                         this.Categories.Add(new Category { Label = "Apr" });
                         this.Categories.Add(new Category { Label = "May" });
 
-                        this.DataSetCollection.Add(new ChartDataSet { Color = "blue", SeriesName = "$$Booked" });
-                        this.DataSetCollection.Add(new ChartDataSet { Color = "yellow", SeriesName = "% of Goal" });
+                        this.DataSetCollection.Add(new ChartDataSet { Color = "0066ff", SeriesName = "$$Booked" });
+                        this.DataSetCollection.Add(new ChartDataSet { Color = "ffff99", SeriesName = "% of Goal" });
 
-                        this.DataSetCollection[0].SetsCollection.Add(new SetValue { Value = "2200", Link = ChartHelper.GeneratePageLink(this.Categories[0].Label, this.DrillChartIds) });
-                        this.DataSetCollection[0].SetsCollection.Add(new SetValue { Value = "4500", Link = ChartHelper.GeneratePageLink(this.Categories[1].Label, this.DrillChartIds) });
-                        this.DataSetCollection[0].SetsCollection.Add(new SetValue { Value = "5500", Link = ChartHelper.GeneratePageLink(this.Categories[2].Label, this.DrillChartIds) });
+                        this.DataSetCollection[0].SetsCollection.Add(new SetValue { Value = "2200", Link = ChartHelper.GeneratePageLink("", this.DrillChartIds) });
+                        this.DataSetCollection[0].SetsCollection.Add(new SetValue { Value = "4500", Link = ChartHelper.GeneratePageLink("", this.DrillChartIds) });
+                        this.DataSetCollection[0].SetsCollection.Add(new SetValue { Value = "5500", Link = ChartHelper.GeneratePageLink("", this.DrillChartIds) });
 
-                        this.DataSetCollection[1].SetsCollection.Add(new SetValue { Value = "40", Link = ChartHelper.GeneratePageLink(this.Categories[0].Label, this.DrillChartIds) });
-                        this.DataSetCollection[1].SetsCollection.Add(new SetValue { Value = "66", Link = ChartHelper.GeneratePageLink(this.Categories[1].Label, this.DrillChartIds) });
-                        this.DataSetCollection[1].SetsCollection.Add(new SetValue { Value = "90", Link = ChartHelper.GeneratePageLink(this.Categories[2].Label, this.DrillChartIds) });
+                        this.DataSetCollection[1].SetsCollection.Add(new SetValue { Value = "40", Link = ChartHelper.GeneratePageLink("", this.DrillChartIds) });
+                        this.DataSetCollection[1].SetsCollection.Add(new SetValue { Value = "66", Link = ChartHelper.GeneratePageLink("", this.DrillChartIds) });
+                        this.DataSetCollection[1].SetsCollection.Add(new SetValue { Value = "90", Link = ChartHelper.GeneratePageLink("", this.DrillChartIds) });
                         break;
                     //case ChartID.CostOfSale:
                     //    if (this.DrillLevel == 0)

@@ -42,7 +42,7 @@ namespace SandlerRepositories
             else if (_user.Role == SandlerRoles.Coach)
             {
                 //Coach - To do - once User object has RegionId then pass it here
-                return db.ExecuteDataset("sp_GetAllCompaniesByRegionId", "CompaniesByRegionId", new SqlParameter("@RegionId", _user.RegionID));
+                return db.ExecuteDataset("sp_GetAllCompaniesByRegionId", "CompaniesByRegionId", new SqlParameter("@CoachId", _user.CoachID));
             }
             else
             {

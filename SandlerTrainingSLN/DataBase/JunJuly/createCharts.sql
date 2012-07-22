@@ -33,7 +33,7 @@ BEGIN TRY
 		VALUES ('Headcount By Industry','Pie3D.swf','HeadcountByIndustry','PieChart', 'FFFFFF' ,'100' ,'1' ,'%' ,'100' ,'1' );
 		
 		INSERT INTO [SandlerDB].[dbo].[TBL_CHART] ([Caption],[SWFile], [ChartID], [TypeOfChart] ,[YaxisName] ,[CanvasBgColor] ,[BgColor] ,[CanvasBgAlpha] ,[BgAlpha])      
-		VALUES ('Actual Dollars Booked and Comparison to Goal (By Month)' ,'MSColumn3D.swf','ActualDollarsBookedComparisonGoal ','Chart','Actual Dollars Booked ($000) Comparison to Goal (in %)' ,'FFFFFF' ,'FFFFFF' ,'100' ,'100');
+		VALUES ('Actual Dollars Booked and Comparison to Goal (By Month)' ,'MSColumn3D.swf','ActualDollarsBookedComparisonGoal','Chart','Actual Dollars Booked ($000) Comparison to Goal (in %)' ,'FFFFFF' ,'FFFFFF' ,'100' ,'100');
 		
 		INSERT INTO [SandlerDB].[dbo].[TBL_CHART]([Caption],[SWFile], [ChartID], [TypeOfChart],[YaxisName],[CanvasBgColor],[BgColor],[CanvasBgAlpha])
 		VALUES('Average Length of Time for Active Clients (By Industry)','Column3D.swf','AverageLengthTimeActiveClientsByIndustry','BarChart','Average Months','FFFFFF','FFFFFF','100');

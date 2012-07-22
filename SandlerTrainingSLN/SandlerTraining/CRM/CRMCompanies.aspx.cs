@@ -4,12 +4,15 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-
-public partial class UpdatedCRM_CRMCompanies : System.Web.UI.Page
+using SandlerModels;
+public partial class UpdatedCRM_CRMCompanies : BasePage
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-
+        if (!IsPostBack)
+        {
+            btnAddCompany.Visible = !IsUserReadOnly(SandlerUserActions.Add, SandlerEntities.Company);
+        }
     }
     protected void btnAddCompany_Click(object sender, EventArgs e)
     {

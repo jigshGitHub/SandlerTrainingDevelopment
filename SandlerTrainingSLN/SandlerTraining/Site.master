@@ -1,5 +1,7 @@
 ﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="Site.master.cs" Inherits="SiteMaster" %>
+
 <%@ Import Namespace="Sandler.UI.ChartStructure" %>
+<%@ Register src="Menu.ascx" tagname="Menu" tagprefix="uc1" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
 <head runat="server">
@@ -17,8 +19,7 @@
     <![endif]-->
     <asp:ContentPlaceHolder ID="HeadContent" runat="server">
         <style type="text/css">
-            
-        </style>
+</style>
     </asp:ContentPlaceHolder>
 </head>
 <body>
@@ -27,7 +28,7 @@
         <div class="header">
             <div class="title">
             </div>
-            <div class="loginDisplay" style="display: none">
+            <div class="loginDisplay" style="display: block">
                 <asp:LoginView ID="HeadLoginView" runat="server" EnableViewState="false">
                     <AnonymousTemplate>
                         <!--[ <a href="~/Account/Login.aspx" id="HeadLoginStatus" runat="server">Log In</a>
@@ -43,71 +44,11 @@
                     </LoggedInTemplate>
                 </asp:LoginView>
             </div>
-            <div class="clear hideSkiplink">
-                <table style="display: none">
-                    <tr>
-                        <td>
-                            <asp:Image ImageUrl="~/images/header_logo.png" runat="server" ID="imgLogo" />
-                        </td>
-                        <td>
-                            <asp:HyperLink CssClass="menuLink" ID="lnkDashboard" runat="server" NavigateUrl="~/Default.aspx"
-                                Text="DASHBOARD"></asp:HyperLink>
-                        </td>
-                        <td>
-                            <asp:HyperLink CssClass="menuLink" ID="lnkReports" runat="server" NavigateUrl="~/Reports.aspx"
-                                Text="REPORTS"></asp:HyperLink>
-                        </td>
-                        <td>
-                            <asp:HyperLink CssClass="menuLink" ID="lnkCRM" runat="server" NavigateUrl="~/CRM/CRMContacts.aspx"
-                                Text="CRM"></asp:HyperLink>
-                        </td>
-                        <td>
-                            <asp:HyperLink CssClass="disableLink" ID="lnkIndustrialAvgBenchmark" runat="server"
-                                NavigateUrl="~/IndAverageBenchmarks.aspx" Text="BENCHMARKS" Enabled="false">
-                            </asp:HyperLink>
-                        </td>
-                        <td>
-                            <asp:HyperLink CssClass="disableLink" ID="lnkProducts" runat="server" NavigateUrl="~/Products.aspx"
-                                Text="PRODUCTS" Enabled="false"></asp:HyperLink>
-                        </td>
-                        <td>
-                            <asp:HyperLink CssClass="menuLink" ID="lnkLogout" runat="server" NavigateUrl="~/Logout.aspx"
-                                Text="LOGOUT"></asp:HyperLink>
-                        </td>
-                    </tr>
-                </table>
-                <table border="0">
-                    <tr>
-                        <td>
-                            <asp:Image ImageUrl="~/images/header_logo.png" runat="server" ID="Image1" />
-                        </td>
-                        <td style="padding-top: 2.5em">
-                            <ul class="dropdown">
-                                <li><a id="anchorDASHBOARD" runat="server" href="Default.aspx">DASHBOARD</a></li>
-                                <li><a id="anchorCHART" runat="server" href="#">REPORTS</a><ul class="sub_menu">
-                                    <li><a href="<%=  ChartHelper.GeneratePageLink("","NewAppointmentsBySourceMonth")  %>">New Appointments By
-                                        Source (By Month)</a></li>
-                                    <li><a href="<%=  ChartHelper.GeneratePageLink("","NewClientsByProductTypeMonth")  %>">New Clients By Product
-                                        Type (By Month)</a></li>
-                                    <li><a href="<%=  ChartHelper.GeneratePageLink("","NewClientQuantityAverageContractPriceByMonth")  %>">New
-                                        Client Quantity & Average Contract Price (By Month)</a></li>
-                                    <li><a href="<%=  ChartHelper.GeneratePageLink("","ClassHeadcountByCourseIndustryMonth")  %>">Class Headcount
-                                        By Course & Industry (By Month)</a></li>
-                                    <li><a href="<%=  ChartHelper.GeneratePageLink("","AverageLengthTimeActiveClientsByIndustry")  %>">Average
-                                        Length of Time for Active Clients (By Industry)</a></li></ul>
-                                </li>
-                                <li><a href="CRM/CRMContacts.aspx">CRM</a> </li>
-                                <li><a href="#" class="disableLink">BENCHMARKS</a> </li>
-                                <li><a href="#" class="disableLink">PRODUCTS</a> </li>
-                                <li><a href="Logout.aspx">LOGOUT</a> </li>
-                            </ul>
-                        </td>
-                    </tr>
-                </table>
-            </div>
+            <uc1:Menu ID="Menu1" runat="server" />
         </div>
         <div class="main">
-            <asp:ContentPlaceHolder ID="MainContent" runat="server" />
+            <asp:ContentPlaceHolder ID="MainContent" runat="server" >                
+            </asp:ContentPlaceHolder>
         </div>
         <div class="clear">
         </div>
@@ -116,6 +57,7 @@
                 <tr>
                     <td align="left">
                         Powered by Mined Systems, Inc. ®
+                    
                     </td>
                     <td align="right">
                         Copyright© 2011 Mined Systems Metrics Intelligence. All rights reserved.

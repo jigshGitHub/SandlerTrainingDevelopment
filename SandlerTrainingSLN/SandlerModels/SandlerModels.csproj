@@ -66,6 +66,7 @@
     <Compile Include="C_Gap_Analysis_Training_Cost_Savings_.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Enums.cs" />
     <Compile Include="Gap_Analysis.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
