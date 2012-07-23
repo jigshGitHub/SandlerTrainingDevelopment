@@ -88,6 +88,7 @@ This sp creates Region related  data
 */
 CREATE PROCEDURE [dbo].[sp_CreateRegion]
 @name VARCHAR(500),
+@countryCode CHAR(2),
 @region_Id INT OUTPUT
 AS
 
@@ -95,7 +96,9 @@ BEGIN TRY
 
 	BEGIN TRANSACTION;
 
-		Insert Into TBL_REGION(Name) VALUES(@name);
+		DECLARE @countryID INT
+		SELECT @countryID = ID FROM TBL_COUNTRY WHERE Code = @countryCode;
+		INSERT INTO TBL_REGION(Name, CountryID) VALUES(@name,@countryID);
 		SELECT @region_Id = @@IDENTITY;
 		
 	COMMIT TRANSACTION;
@@ -265,6 +268,16 @@ CREATE PROCEDURE [dbo].[sp_CreateFranchisee]
 @_name VARCHAR(50),
 @franchisee_Role NVARCHAR(256) = 'FranchiseeOwner',
 @region_Name NVARCHAR(500),
+@address1 NVARCHAR(500) = NULL,
+@address2 NVARCHAR(500) = NULL,
+@city NVARCHAR(500) = NULL,
+@zip NVARCHAR(500) = NULL,
+@state NVARCHAR(500) = NULL,
+@countryCode CHAR(2) = NULL,
+@phoneNumber NUMERIC = NULL,
+@faxNumber NUMERIC = NULL,
+@webaddress NVARCHAR(500) = NULL,
+@emailAddress NVARCHAR(500) = NULL,
 @franchisee_Id INT OUTPUT
 AS
 
@@ -275,7 +288,7 @@ BEGIN TRY
 		DECLARE @User_Id uniqueidentifier
 		DECLARE @CurrentTime DATETIME
 		DECLARE @coach_Id INT
-		
+		DECLARE @countryID INT
 		SET @CurrentTime = GetDate();
 				
 		EXEC [dbo].[aspnet_Membership_CreateUser] @ApplicationName = @application_Name, @UserName = @user_Name, @Password = N'DE5aG4DJKaWNAC6qtb9Ex1mw0YQ=', @PasswordSalt = N'CgWo/aHD6MDFG4AYqW/5wQ==', @Email = @_email, @PasswordQuestion = NULL, @PasswordAnswer = NULL, @IsApproved = 1, @CurrentTimeUtc = @CurrentTime, @CreateDate = @CurrentTime, @UniqueEmail = NULL, @PasswordFormat = 1, @UserId = @User_Id OUTPUT;
@@ -285,7 +298,11 @@ BEGIN TRY
 		SELECT @coach_Id = c.ID FROM Tbl_Region r INNER JOIN TBL_COACH c ON r.ID = c.RegionID
 		WHERE r.Name = @region_Name AND r.IsActive = 1;
 		
-		Insert Into TBL_FRANCHISEE (Name, CoachID) VALUES(@_name, @coach_Id);
+		SELECT @countryID = ID FROM TBL_COUNTRY WHERE Code = @countryCode;
+		
+		Insert Into TBL_FRANCHISEE (Name, CoachID, Address1, Address2, City,[State],Zip,CountryID,PhoneNumber, FaxNumber,WebAddress,EmailAddress) 
+		VALUES(@_name, @coach_Id, @address1, @address2, @city, @state,@zip,@countryID,@phoneNumber,@faxNumber,@webaddress,@emailAddress);
+		
 		SELECT @franchisee_Id = @@IDENTITY;
 		
 		Insert Into TBL_FRANCHISEE_USERS(FranchiseeID, UserID) VALUES(@franchisee_Id, @User_Id);
@@ -587,4 +604,41 @@ AS
 	
 	
 	RETURN
+GO
+
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[sp_GetNewItemOptions]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[sp_GetNewItemOptions]
+GO
+create PROCEDURE [dbo].[sp_GetNewItemOptions]
+	/*
+	(
+	@parameter1 int = 5,
+	@parameter2 datatype OUTPUT
+	)
+	*/
+AS
+	SELECT * FROM TBL_YesNoOptions ORDER BY Description/* SET NOCOUNT ON */
+	RETURN
+GO
+
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[GetTotalCompanyValue]') AND type in (N'FN'))
+DROP FUNCTION [dbo].[GetTotalCompanyValue]
+GO
+
+Create FUNCTION [dbo].[GetTotalCompanyValue]
+(
+	@CompId INT
+		
+)
+RETURNS Int
+AS
+BEGIN
+	DECLARE @Total Int
+	
+	SELECT  @Total = Sum(WEIGHTEDVALUE) FROM TBL_OPPORTUNITIES WHERE Companyid = @CompId 
+			
+		
+	
+	RETURN @Total
+END
 GO

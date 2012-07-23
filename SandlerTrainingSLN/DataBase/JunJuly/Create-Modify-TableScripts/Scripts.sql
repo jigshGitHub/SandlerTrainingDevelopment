@@ -90,6 +90,10 @@ IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[TBL_F
 DROP TABLE [dbo].TBL_FRANCHISEE_USERS
 GO
 
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_TBL_FRANCHISEE_TBL_COUNTRY]') AND parent_object_id = OBJECT_ID(N'[dbo].[TBL_FRANCHISEE]'))
+ALTER TABLE [dbo].[TBL_FRANCHISEE] DROP CONSTRAINT [FK_TBL_FRANCHISEE_TBL_COUNTRY]
+GO
+
 IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[TBL_FRANCHISEE]') AND type in (N'U'))
 DROP TABLE [dbo].TBL_FRANCHISEE
 GO
@@ -98,16 +102,121 @@ IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[TBL_C
 DROP TABLE [dbo].TBL_COACH
 GO
 
-IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[TBL_REGION]') AND type in (N'U'))
-DROP TABLE [dbo].TBL_REGION
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_TBL_REGION_TBL_COUNTRY]') AND parent_object_id = OBJECT_ID(N'[dbo].[TBL_REGION]'))
+ALTER TABLE [dbo].[TBL_REGION] DROP CONSTRAINT [FK_TBL_REGION_TBL_COUNTRY]
 GO
 
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_TBL_REGION_IsActive]') AND type = 'D')
+BEGIN
+ALTER TABLE [dbo].[TBL_REGION] DROP CONSTRAINT [DF_TBL_REGION_IsActive]
+END
 
--- TO DO Script for Create Table TBL_REGION
+GO
+
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_TBL_REGION_LastUpdatedDate]') AND type = 'D')
+BEGIN
+ALTER TABLE [dbo].[TBL_REGION] DROP CONSTRAINT [DF_TBL_REGION_LastUpdatedDate]
+END
+
+GO
+
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_Table_1_CreatedDate]') AND type = 'D')
+BEGIN
+ALTER TABLE [dbo].[TBL_REGION] DROP CONSTRAINT [DF_Table_1_CreatedDate]
+END
+
+GO
+
+--[TBL_COUNTRY] drop/create
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_TBL_COUNTRY_IsActive]') AND type = 'D')
+BEGIN
+ALTER TABLE [dbo].[TBL_COUNTRY] DROP CONSTRAINT [DF_TBL_COUNTRY_IsActive]
+END
+
+GO
+
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_TBL_COUNTRY_LastUpdateDate]') AND type = 'D')
+BEGIN
+ALTER TABLE [dbo].[TBL_COUNTRY] DROP CONSTRAINT [DF_TBL_COUNTRY_LastUpdateDate]
+END
+
+GO
+
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_TBL_COUNTRY_CreatedDate]') AND type = 'D')
+BEGIN
+ALTER TABLE [dbo].[TBL_COUNTRY] DROP CONSTRAINT [DF_TBL_COUNTRY_CreatedDate]
+END
+
+GO
+
+/****** Object:  Table [dbo].[TBL_COUNTRY]    Script Date: 07/22/2012 20:48:13 ******/
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[TBL_COUNTRY]') AND type in (N'U'))
+DROP TABLE [dbo].[TBL_COUNTRY]
+GO
+
+CREATE TABLE [dbo].[TBL_COUNTRY](
+	[ID] [int] IDENTITY(1,1) NOT NULL,
+	[Name] [nvarchar](500) NULL,
+	[Code] [char](2) NULL,
+	[IsActive] [bit] NOT NULL,
+	[LastUpdateBy] [uniqueidentifier] NULL,
+	[LastUpdateDate] [datetime] NULL,
+	[CreatedBy] [uniqueidentifier] NULL,
+	[CreatedDate] [datetime] NULL, 
+	CONSTRAINT [PK_TBL_COUNTRY] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+
+GO
+
+ALTER TABLE [dbo].[TBL_COUNTRY] ADD  CONSTRAINT [DF_TBL_COUNTRY_IsActive]  DEFAULT ((1)) FOR [IsActive]
+GO
+
+ALTER TABLE [dbo].[TBL_COUNTRY] ADD  CONSTRAINT [DF_TBL_COUNTRY_LastUpdateDate]  DEFAULT (getdate()) FOR [LastUpdateDate]
+GO
+
+ALTER TABLE [dbo].[TBL_COUNTRY] ADD  CONSTRAINT [DF_TBL_COUNTRY_CreatedDate]  DEFAULT (getdate()) FOR [CreatedDate]
+GO
+
+INSERT INTO [SandlerDB].[dbo].[TBL_COUNTRY] ([Code], [Name]) VALUES ( 'AU' ,'Australia');
+INSERT INTO [SandlerDB].[dbo].[TBL_COUNTRY] ([Code], [Name]) VALUES ( 'BE' ,'Belgium');
+INSERT INTO [SandlerDB].[dbo].[TBL_COUNTRY] ([Code], [Name]) VALUES ( 'BR' ,'Brazil');
+INSERT INTO [SandlerDB].[dbo].[TBL_COUNTRY] ([Code], [Name]) VALUES ( 'CA' ,'Canada');
+INSERT INTO [SandlerDB].[dbo].[TBL_COUNTRY] ([Code], [Name]) VALUES ( 'CL' ,'Chile');
+INSERT INTO [SandlerDB].[dbo].[TBL_COUNTRY] ([Code], [Name]) VALUES ( 'CN' ,'China');
+INSERT INTO [SandlerDB].[dbo].[TBL_COUNTRY] ([Code], [Name]) VALUES ( 'CR' ,'Costa Rica');
+INSERT INTO [SandlerDB].[dbo].[TBL_COUNTRY] ([Code], [Name]) VALUES ( 'CZ' ,'Czech Republic');
+INSERT INTO [SandlerDB].[dbo].[TBL_COUNTRY] ([Code], [Name]) VALUES ( 'DE' ,'Germany');
+INSERT INTO [SandlerDB].[dbo].[TBL_COUNTRY] ([Code], [Name]) VALUES ( 'GR' ,'Greece');
+INSERT INTO [SandlerDB].[dbo].[TBL_COUNTRY] ([Code], [Name]) VALUES ( 'GT' ,'Guatemala');
+INSERT INTO [SandlerDB].[dbo].[TBL_COUNTRY] ([Code], [Name]) VALUES ( 'IE' ,'Ireland');
+INSERT INTO [SandlerDB].[dbo].[TBL_COUNTRY] ([Code], [Name]) VALUES ( 'KE' ,'Kenya');
+INSERT INTO [SandlerDB].[dbo].[TBL_COUNTRY] ([Code], [Name]) VALUES ( 'LU' ,'Luxembourg');
+INSERT INTO [SandlerDB].[dbo].[TBL_COUNTRY] ([Code], [Name]) VALUES ( 'MX' ,'Mexico');
+INSERT INTO [SandlerDB].[dbo].[TBL_COUNTRY] ([Code], [Name]) VALUES ( 'NL' ,'Netherlands');
+INSERT INTO [SandlerDB].[dbo].[TBL_COUNTRY] ([Code], [Name]) VALUES ( 'PL' ,'Poland');
+INSERT INTO [SandlerDB].[dbo].[TBL_COUNTRY] ([Code], [Name]) VALUES ( 'RO' ,'Romania');
+INSERT INTO [SandlerDB].[dbo].[TBL_COUNTRY] ([Code], [Name]) VALUES ( 'SW' ,'Switzerland');
+INSERT INTO [SandlerDB].[dbo].[TBL_COUNTRY] ([Code], [Name]) VALUES ( 'SA' ,'Saudi Arabia');
+INSERT INTO [SandlerDB].[dbo].[TBL_COUNTRY] ([Code], [Name]) VALUES ( 'SG' ,'Singapore');
+INSERT INTO [SandlerDB].[dbo].[TBL_COUNTRY] ([Code], [Name]) VALUES ( 'ES' ,'Spain');
+INSERT INTO [SandlerDB].[dbo].[TBL_COUNTRY] ([Code], [Name]) VALUES ( 'TR' ,'Turkey');
+INSERT INTO [SandlerDB].[dbo].[TBL_COUNTRY] ([Code], [Name]) VALUES ( 'GB' ,'United Kingdom');
+INSERT INTO [SandlerDB].[dbo].[TBL_COUNTRY] ([Code], [Name]) VALUES ( 'US' ,'United States');
+GO
+
+/****** Object:  Table [dbo].[TBL_REGION]    Script Date: 07/22/2012 21:23:16 ******/
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[TBL_REGION]') AND type in (N'U'))
+DROP TABLE [dbo].[TBL_REGION]
+GO
+
 USE [SandlerDB]
 GO
 
-/****** Object:  Table [dbo].[TBL_REGION]    Script Date: 07/18/2012 10:15:00 ******/
+/****** Object:  Table [dbo].[TBL_REGION]    Script Date: 07/22/2012 21:23:16 ******/
 SET ANSI_NULLS ON
 GO
 
@@ -120,6 +229,7 @@ GO
 CREATE TABLE [dbo].[TBL_REGION](
 	[ID] [int] IDENTITY(1,1) NOT NULL,
 	[Name] [varchar](500) NOT NULL,
+	[CountryID] [int] NOT NULL,
 	[IsActive] [bit] NULL,
 	[LastUpdatedDate] [datetime] NULL,
 	[LastUpdatedBy] [uniqueidentifier] NULL,
@@ -134,6 +244,13 @@ CREATE TABLE [dbo].[TBL_REGION](
 GO
 
 SET ANSI_PADDING OFF
+GO
+
+ALTER TABLE [dbo].[TBL_REGION]  WITH CHECK ADD  CONSTRAINT [FK_TBL_REGION_TBL_COUNTRY] FOREIGN KEY([CountryID])
+REFERENCES [dbo].[TBL_COUNTRY] ([ID])
+GO
+
+ALTER TABLE [dbo].[TBL_REGION] CHECK CONSTRAINT [FK_TBL_REGION_TBL_COUNTRY]
 GO
 
 ALTER TABLE [dbo].[TBL_REGION] ADD  CONSTRAINT [DF_TBL_REGION_IsActive]  DEFAULT ((1)) FOR [IsActive]
@@ -222,6 +339,16 @@ CREATE TABLE [dbo].[TBL_FRANCHISEE](
 	[ID] [int] IDENTITY(1,1) NOT NULL,
 	[Name] [varchar](500) NOT NULL,
 	[CoachID] [int] NOT NULL,
+	[Address1] [nvarchar](500) NULL,
+	[Address2] [nvarchar](500) NULL,
+	[City] [nvarchar](500) NULL,
+	[State] [nvarchar](500) NULL,
+	[Zip] [nvarchar](500) NULL,
+	[CountryID] [INT] NULL,
+	[PhoneNumber] [NUMERIC] NULL,
+	[FaxNumber] [NUMERIC] NULL,
+	[WebAddress] [nvarchar](500) NULL,
+	[EmailAddress] [nvarchar](500) NULL,
 	[IsActive] [bit] NULL,
 	[LastCreatedDate] [datetime] NULL,
 	[LastUpdatedBy] [uniqueidentifier] NULL,
@@ -240,6 +367,10 @@ GO
 
 ALTER TABLE [dbo].[TBL_FRANCHISEE]  WITH CHECK ADD  CONSTRAINT [FK_TBL_FRANCHISEE_TBL_COACH] FOREIGN KEY([CoachID])
 REFERENCES [dbo].[TBL_COACH] ([ID])
+GO
+
+ALTER TABLE [dbo].[TBL_FRANCHISEE]  WITH CHECK ADD  CONSTRAINT [FK_TBL_FRANCHISEE_TBL_COUNTRY] FOREIGN KEY([CountryID])
+REFERENCES [dbo].[TBL_COUNTRY] ([ID])
 GO
 
 ALTER TABLE [dbo].[TBL_FRANCHISEE] CHECK CONSTRAINT [FK_TBL_FRANCHISEE_TBL_COACH]
