@@ -642,3 +642,46 @@ BEGIN
 	RETURN @Total
 END
 GO
+
+
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[sp_GetNewItemOptions]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[sp_GetNewItemOptions]
+GO
+create PROCEDURE [dbo].[sp_GetNewItemOptions]
+	/*
+	(
+	@parameter1 int = 5,
+	@parameter2 datatype OUTPUT
+	)
+	*/
+AS
+	SELECT * FROM TBL_YesNoOptions ORDER BY Description/* SET NOCOUNT ON */
+	RETURN
+GO
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[sp_GetAllProducts]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[sp_GetAllProducts]
+GO
+create PROCEDURE [dbo].[sp_GetAllProducts]
+	/*
+	(
+	@parameter1 int = 5,
+	@parameter2 datatype OUTPUT
+	)
+	*/
+AS
+	SELECT * FROM TBL_ProductType ORDER BY ProductTypeName/* SET NOCOUNT ON */
+	RETURN
+GO
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[sp_GetAllIndustries]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[sp_GetAllIndustries]
+GO
+create PROCEDURE [dbo].[sp_GetAllIndustries]
+	/*
+	(
+	@parameter1 int = 5,
+	@parameter2 datatype OUTPUT
+	)
+	*/
+AS
+	SELECT * FROM TBL_IndustryType ORDER BY IndustryTypeName/* SET NOCOUNT ON */
+	RETURN
