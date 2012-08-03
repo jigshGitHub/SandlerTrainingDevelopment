@@ -1,0 +1,70 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <script type="text/javascript" src="Scripts/jquery-1.4.1.min.js"></script>
+    <script type="text/javascript" src="Scripts/knockout-2.1.0.js"></script>
+</head>
+<body>
+    <select data-bind="options: optionsOne, optionsCaption: 'select one...', value: valueOne">
+    </select>
+    <select data-bind="options: optionsTwo, optionsCaption: 'select two...',value: valueTwo, visible: optionsTwo().length">
+    </select>
+    <select data-bind="options: optionsThree, optionsCaption: 'select three...',value: valueThree, visible: optionsThree().length">
+    </select>
+    <script type="text/javascript">
+
+        var viewModel = {
+            optionsOne: ko.observableArray(["A", "B", "C", "D"]),
+            valueOne: ko.observable(),
+            optionsTwo: ko.observableArray(),
+            valueTwo: ko.observable(),
+            optionsThree: ko.observableArray(),
+            valueThree: ko.observable()
+        };
+
+        //make a request to populate optionsTwo, when valueOne changes
+        viewModel.valueOne.subscribe(function (newValue) {
+            alert(newValue);
+            this.getOptions(newValue, this.optionsTwo);
+        }, viewModel);
+
+        //make a request to populate optionsThree, when valueTwo changes
+        viewModel.valueTwo.subscribe(function (newValue) {
+            this.getOptions(newValue, this.optionsThree);
+        }, viewModel);
+
+
+        viewModel.getOptions = function (value, list) {
+            if (value) {
+                $.ajax({
+                    type: 'POST',
+                    url: '/echo/json/',
+                    data: {
+                        json: JSON.stringify({
+                            value: value
+                        }),
+                        delay: 0.25
+                    },
+                    success: function (data) {
+                        if (data) {
+                            var result = [];
+                            for (var i = 0, j = 4; i < j; i++) {
+                                result.push(data.value + " - " + i);
+                            }
+                            list(result);
+                        }
+                    },
+                    dataType: 'json'
+                });
+
+            } else {
+                list([]);
+            }
+        };
+
+        ko.applyBindings(viewModel);
+       
+    </script>
+</body>
+</html>

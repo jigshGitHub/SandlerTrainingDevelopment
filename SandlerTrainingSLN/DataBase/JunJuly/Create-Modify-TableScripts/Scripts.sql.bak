@@ -1,0 +1,891 @@
+USE [SandlerDB]
+
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+SET ANSI_PADDING ON
+GO
+
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[TBL_ERRORLOG]') AND type in (N'U'))
+DROP TABLE [dbo].[TBL_ERRORLOG]
+GO
+Create Table TBL_ERRORLOG ( UserName VARCHAR(50), [ErrorNumber] INT, [ErrorSeverity] INT, [ErrorState] INT, [ErrorProcedure] VARCHAR(50), [ErrorLine] INT, [ErrorMessage] VARCHAR(MAX));
+
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_TBL_CHART_Active]') AND type = 'D')
+BEGIN
+ALTER TABLE [dbo].[TBL_CHART] DROP CONSTRAINT [DF_TBL_CHART_Active]
+END
+GO
+
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_TBL_CHART_EnableRotation]') AND type = 'D')
+BEGIN
+ALTER TABLE [dbo].[TBL_CHART] DROP CONSTRAINT [DF_TBL_CHART_EnableRotation]
+END
+GO
+
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_TBL_CHART_LastCreatedDate]') AND type = 'D')
+BEGIN
+ALTER TABLE [dbo].[TBL_CHART] DROP CONSTRAINT [DF_TBL_CHART_LastCreatedDate]
+END
+GO
+
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_TBL_CHART_LastUpdatedDate]') AND type = 'D')
+BEGIN
+ALTER TABLE [dbo].[TBL_CHART] DROP CONSTRAINT [DF_TBL_CHART_LastUpdatedDate]
+END
+GO
+
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_TBL_CHART_ShowLabels]') AND type = 'D')
+BEGIN
+ALTER TABLE [dbo].[TBL_CHART] DROP CONSTRAINT [DF_TBL_CHART_ShowLabels]
+END
+GO
+
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_TBL_CHART_ShowLegend]') AND type = 'D')
+BEGIN
+ALTER TABLE [dbo].[TBL_CHART] DROP CONSTRAINT [DF_TBL_CHART_ShowLegend]
+END
+GO
+
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[TBL_CHART]') AND type in (N'U'))
+DROP TABLE [dbo].[TBL_CHART]
+GO
+
+CREATE TABLE [dbo].[TBL_CHART](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[TypeOfChart] [varchar](100) NOT NULL,
+	[Caption] [varchar](500) NOT NULL,
+	[SWFile] [varchar](500) NOT NULL,
+	[ChartID] [varchar](500) NOT NULL,
+	[NumberSuffix] [char](1) NULL,
+	[SNumberSuffix] [char](1) NULL,
+	[XaxisName] [varchar](500) NULL,
+	[YaxisName] [varchar](500) NULL,
+	[CanvasBgColor] [char](6) NULL,
+	[BgColor] [char](6) NULL,
+	[CanvasBgAlpha] [varchar](10) NULL,
+	[BgAlpha] [varchar](10) NULL,
+	[PieRadius] [varchar](10) NULL,
+	[EnableRotation] [char](1) NULL,
+	[ShowLegend] [char](1) NULL,
+	[ShowLabels] [char](1) NULL,
+	[PlotGradientColor] [char](6) NULL,
+	[DrillLevelChartIDs] [varchar] (MAX) NULL,
+	[IsActive] [bit] NULL,
+	[LastUpdatedDate] [datetime] NULL,
+	[LastCreatedDate] [datetime] NULL,
+	[LastUpdatedBy] [uniqueidentifier] NULL,
+	[LastCreatedBy] [uniqueidentifier] NULL,
+ CONSTRAINT [PK_TBL_CHART] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+SET ANSI_PADDING OFF
+GO
+
+
+ALTER TABLE [dbo].[TBL_CHART] ADD  CONSTRAINT [DF_TBL_CHART_Active]  DEFAULT ((1)) FOR [IsActive]
+GO
+
+ALTER TABLE [dbo].[TBL_CHART] ADD  CONSTRAINT [DF_TBL_CHART_EnableRotation]  DEFAULT ((0)) FOR [EnableRotation]
+GO
+
+ALTER TABLE [dbo].[TBL_CHART] ADD  CONSTRAINT [DF_TBL_CHART_LastCreatedDate]  DEFAULT (getdate()) FOR [LastCreatedDate]
+GO
+
+ALTER TABLE [dbo].[TBL_CHART] ADD  CONSTRAINT [DF_TBL_CHART_LastUpdatedDate]  DEFAULT (getdate()) FOR [LastUpdatedDate]
+GO
+
+ALTER TABLE [dbo].[TBL_CHART] ADD  CONSTRAINT [DF_TBL_CHART_ShowLabels]  DEFAULT ((0)) FOR [ShowLabels]
+GO
+
+ALTER TABLE [dbo].[TBL_CHART] ADD  CONSTRAINT [DF_TBL_CHART_ShowLegend]  DEFAULT ((0)) FOR [ShowLegend]
+GO
+
+--DROP ALL CRM TABLES
+
+-- [TBL_DOCS] DROPPIN CONSTRINTS and Table
+
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_TBL_DOCS_TBL_COMPANIES]') AND parent_object_id = OBJECT_ID(N'[dbo].[TBL_DOCS]'))
+ALTER TABLE [dbo].[TBL_DOCS] DROP CONSTRAINT [FK_TBL_DOCS_TBL_COMPANIES]
+GO
+
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_TBL_DOCS_Tbl_DocumentStatus]') AND parent_object_id = OBJECT_ID(N'[dbo].[TBL_DOCS]'))
+ALTER TABLE [dbo].[TBL_DOCS] DROP CONSTRAINT [FK_TBL_DOCS_Tbl_DocumentStatus]
+GO
+
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_TBL_DOCS_TBL_OPPORTUNITIES]') AND parent_object_id = OBJECT_ID(N'[dbo].[TBL_DOCS]'))
+ALTER TABLE [dbo].[TBL_DOCS] DROP CONSTRAINT [FK_TBL_DOCS_TBL_OPPORTUNITIES]
+GO
+
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_TBL_DOCS_CreatedDate]') AND type = 'D')
+BEGIN
+ALTER TABLE [dbo].[TBL_DOCS] DROP CONSTRAINT [DF_TBL_DOCS_CreatedDate]
+END
+GO
+
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_TBL_DOCS_UpdatedDate]') AND type = 'D')
+BEGIN
+ALTER TABLE [dbo].[TBL_DOCS] DROP CONSTRAINT [DF_TBL_DOCS_UpdatedDate]
+END
+GO
+
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[TBL_DOCS]') AND type in (N'U'))
+DROP TABLE [dbo].[TBL_DOCS]
+GO
+
+-- TBL_OPPORTUNITIES DROPPIN CONSTRINTS and Table
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_TBL_OPPORTUNITIES_TBL_COMPANIES]') AND parent_object_id = OBJECT_ID(N'[dbo].[TBL_OPPORTUNITIES]'))
+ALTER TABLE [dbo].[TBL_OPPORTUNITIES] DROP CONSTRAINT [FK_TBL_OPPORTUNITIES_TBL_COMPANIES]
+GO
+
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_TBL_OPPORTUNITIES_TBL_CONTACTS]') AND parent_object_id = OBJECT_ID(N'[dbo].[TBL_OPPORTUNITIES]'))
+ALTER TABLE [dbo].[TBL_OPPORTUNITIES] DROP CONSTRAINT [FK_TBL_OPPORTUNITIES_TBL_CONTACTS]
+GO
+
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_TBL_OPPORTUNITIES_TBL_OPPORTUNITYSTATUS]') AND parent_object_id = OBJECT_ID(N'[dbo].[TBL_OPPORTUNITIES]'))
+ALTER TABLE [dbo].[TBL_OPPORTUNITIES] DROP CONSTRAINT [FK_TBL_OPPORTUNITIES_TBL_OPPORTUNITYSTATUS]
+GO
+
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_TBL_OPPORTUNITIES_Tbl_ProductType]') AND parent_object_id = OBJECT_ID(N'[dbo].[TBL_OPPORTUNITIES]'))
+ALTER TABLE [dbo].[TBL_OPPORTUNITIES] DROP CONSTRAINT [FK_TBL_OPPORTUNITIES_Tbl_ProductType]
+GO
+
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[TBL_OPPORTUNITIES]') AND type in (N'U'))
+DROP TABLE [dbo].[TBL_OPPORTUNITIES]
+GO
+
+-- TBL_CONTACTS DROPPIN CONSTRINTS and Table
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_TBL_CONTACTS_TBL_Companies]') AND parent_object_id = OBJECT_ID(N'[dbo].[TBL_CONTACTS]'))
+ALTER TABLE [dbo].[TBL_CONTACTS] DROP CONSTRAINT [FK_TBL_CONTACTS_TBL_Companies]
+GO
+
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_TBL_CONTACTS_Tbl_Course]') AND parent_object_id = OBJECT_ID(N'[dbo].[TBL_CONTACTS]'))
+ALTER TABLE [dbo].[TBL_CONTACTS] DROP CONSTRAINT [FK_TBL_CONTACTS_Tbl_Course]
+GO
+
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_TBL_CONTACTS_Tbl_AppointmentsSource]') AND parent_object_id = OBJECT_ID(N'[dbo].[TBL_CONTACTS]'))
+ALTER TABLE [dbo].[TBL_CONTACTS] DROP CONSTRAINT [FK_TBL_CONTACTS_Tbl_AppointmentsSource]
+GO
+
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[DF_TBL_CONTACTS_UpdatedDate]') AND parent_object_id = OBJECT_ID(N'[dbo].[TBL_CONTACTS]'))
+ALTER TABLE [dbo].[TBL_CONTACTS] DROP CONSTRAINT [DF_TBL_CONTACTS_UpdatedDate]
+GO
+
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[DF_TBL_CONTACTS_CreatedDate]') AND parent_object_id = OBJECT_ID(N'[dbo].[TBL_CONTACTS]'))
+ALTER TABLE [dbo].[TBL_CONTACTS] DROP CONSTRAINT [DF_TBL_CONTACTS_CreatedDate]
+GO
+
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[TBL_CONTACTS]') AND type in (N'U'))
+DROP TABLE [dbo].[TBL_CONTACTS]
+GO
+
+-- [TBL_COMPANIES] DROPPIN CONSTRINTS and Table
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_TBL_COMPANIES_TBL_FRANCHISEE]') AND parent_object_id = OBJECT_ID(N'[dbo].[TBL_COMPANIES]'))
+ALTER TABLE [dbo].[TBL_COMPANIES] DROP CONSTRAINT [FK_TBL_COMPANIES_TBL_FRANCHISEE]
+GO
+
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_TBL_COMPANIES_Tbl_IndustryType]') AND parent_object_id = OBJECT_ID(N'[dbo].[TBL_COMPANIES]'))
+ALTER TABLE [dbo].[TBL_COMPANIES] DROP CONSTRAINT [FK_TBL_COMPANIES_Tbl_IndustryType]
+GO
+
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_TBL_COMPANIES_CreatedDate]') AND type = 'D')
+BEGIN
+ALTER TABLE [dbo].[TBL_COMPANIES] DROP CONSTRAINT [DF_TBL_COMPANIES_CreatedDate]
+END
+GO
+
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_TBL_COMPANIES_UpdatedDate]') AND type = 'D')
+BEGIN
+ALTER TABLE [dbo].[TBL_COMPANIES] DROP CONSTRAINT [DF_TBL_COMPANIES_UpdatedDate]
+END
+GO
+
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[TBL_COMPANIES]') AND type in (N'U'))
+DROP TABLE [dbo].[TBL_COMPANIES]
+GO
+
+-- DROP Lookup tables
+
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Tbl_Course]') AND type in (N'U'))
+DROP TABLE [dbo].[Tbl_Course]
+GO
+
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Tbl_YesNoOptions]') AND type in (N'U'))
+DROP TABLE [dbo].[Tbl_YesNoOptions]
+GO
+
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Tbl_AppointmentsSource]') AND type in (N'U'))
+DROP TABLE [dbo].[Tbl_AppointmentsSource]
+GO
+
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Tbl_Course]') AND type in (N'U'))
+DROP TABLE [dbo].[Tbl_Course]
+GO
+
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_TBL_OPPORTUNITYSTATUS_IsActive]') AND type = 'D')
+BEGIN
+ALTER TABLE [dbo].[TBL_OPPORTUNITYSTATUS] DROP CONSTRAINT [DF_TBL_OPPORTUNITYSTATUS_IsActive]
+END
+GO
+
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_TBL_OPPORTUNITYSTATUS_CreatedDate]') AND type = 'D')
+BEGIN
+ALTER TABLE [dbo].[TBL_OPPORTUNITYSTATUS] DROP CONSTRAINT [DF_TBL_OPPORTUNITYSTATUS_CreatedDate]
+END
+GO
+
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_TBL_OPPORTUNITYSTATUS_LastUpdatedDate]') AND type = 'D')
+BEGIN
+ALTER TABLE [dbo].[TBL_OPPORTUNITYSTATUS] DROP CONSTRAINT [DF_TBL_OPPORTUNITYSTATUS_LastUpdatedDate]
+END
+GO
+
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[TBL_OPPORTUNITYSTATUS]') AND type in (N'U'))
+DROP TABLE [dbo].[TBL_OPPORTUNITYSTATUS]
+GO
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Tbl_ProductType]') AND type in (N'U'))
+DROP TABLE [dbo].[Tbl_ProductType]
+GO
+
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Tbl_IndustryType]') AND type in (N'U'))
+DROP TABLE [dbo].[Tbl_IndustryType]
+GO
+
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Tbl_DocumentStatus]') AND type in (N'U'))
+DROP TABLE [dbo].[Tbl_DocumentStatus]
+GO
+
+
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[TBL_FRANCHISEE_USERS]') AND type in (N'U'))
+DROP TABLE [dbo].TBL_FRANCHISEE_USERS
+GO
+
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_TBL_FRANCHISEE_TBL_COUNTRY]') AND parent_object_id = OBJECT_ID(N'[dbo].[TBL_FRANCHISEE]'))
+ALTER TABLE [dbo].[TBL_FRANCHISEE] DROP CONSTRAINT [FK_TBL_FRANCHISEE_TBL_COUNTRY]
+GO
+
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[TBL_FRANCHISEE]') AND type in (N'U'))
+DROP TABLE [dbo].TBL_FRANCHISEE
+GO
+
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_TBL_COACH_aspnet_Users]') AND parent_object_id = OBJECT_ID(N'[dbo].[TBL_COACH]'))
+ALTER TABLE [dbo].[TBL_COACH] DROP CONSTRAINT [FK_TBL_COACH_aspnet_Users]
+GO
+
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_TBL_COACH_TBL_REGION]') AND parent_object_id = OBJECT_ID(N'[dbo].[TBL_COACH]'))
+ALTER TABLE [dbo].[TBL_COACH] DROP CONSTRAINT [FK_TBL_COACH_TBL_REGION]
+GO
+
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_TBL_COACH_CreatedDate]') AND type = 'D')
+BEGIN
+ALTER TABLE [dbo].[TBL_COACH] DROP CONSTRAINT [DF_TBL_COACH_CreatedDate]
+END
+GO
+
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_TBL_COACH_IsActive]') AND type = 'D')
+BEGIN
+ALTER TABLE [dbo].[TBL_COACH] DROP CONSTRAINT [DF_TBL_COACH_IsActive]
+END
+GO
+
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_TBL_COACH_LastCreatedDate]') AND type = 'D')
+BEGIN
+ALTER TABLE [dbo].[TBL_COACH] DROP CONSTRAINT [DF_TBL_COACH_LastCreatedDate]
+END
+GO
+
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[TBL_COACH]') AND type in (N'U'))
+DROP TABLE [dbo].TBL_COACH
+GO
+
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_TBL_REGION_TBL_COUNTRY]') AND parent_object_id = OBJECT_ID(N'[dbo].[TBL_REGION]'))
+ALTER TABLE [dbo].[TBL_REGION] DROP CONSTRAINT [FK_TBL_REGION_TBL_COUNTRY]
+GO
+
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_TBL_REGION_IsActive]') AND type = 'D')
+BEGIN
+ALTER TABLE [dbo].[TBL_REGION] DROP CONSTRAINT [DF_TBL_REGION_IsActive]
+END
+GO
+
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_TBL_REGION_LastUpdatedDate]') AND type = 'D')
+BEGIN
+ALTER TABLE [dbo].[TBL_REGION] DROP CONSTRAINT [DF_TBL_REGION_LastUpdatedDate]
+END
+
+GO
+
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_TBL_REGION_CreatedDate]') AND type = 'D')
+BEGIN
+ALTER TABLE [dbo].[TBL_REGION] DROP CONSTRAINT [DF_TBL_REGION_CreatedDate]
+END
+GO
+
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[TBL_REGION]') AND type in (N'U'))
+DROP TABLE [dbo].[TBL_REGION]
+GO
+
+--[TBL_COUNTRY] drop/create
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_TBL_COUNTRY_IsActive]') AND type = 'D')
+BEGIN
+ALTER TABLE [dbo].[TBL_COUNTRY] DROP CONSTRAINT [DF_TBL_COUNTRY_IsActive]
+END
+GO
+
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_TBL_COUNTRY_LastUpdateDate]') AND type = 'D')
+BEGIN
+ALTER TABLE [dbo].[TBL_COUNTRY] DROP CONSTRAINT [DF_TBL_COUNTRY_LastUpdateDate]
+END
+GO
+
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_TBL_COUNTRY_CreatedDate]') AND type = 'D')
+BEGIN
+ALTER TABLE [dbo].[TBL_COUNTRY] DROP CONSTRAINT [DF_TBL_COUNTRY_CreatedDate]
+END
+GO
+
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[TBL_COUNTRY]') AND type in (N'U'))
+DROP TABLE [dbo].[TBL_COUNTRY]
+GO
+
+CREATE TABLE [dbo].[TBL_COUNTRY](
+	[ID] [int] IDENTITY(1,1) NOT NULL,
+	[Name] [nvarchar](500) NULL,
+	[Code] [char](2) NULL,
+	[IsActive] [bit] NOT NULL,
+	[LastUpdateBy] [uniqueidentifier] NULL,
+	[LastUpdateDate] [datetime] NULL,
+	[CreatedBy] [uniqueidentifier] NULL,
+	[CreatedDate] [datetime] NULL, 
+	CONSTRAINT [PK_TBL_COUNTRY] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+
+GO
+
+ALTER TABLE [dbo].[TBL_COUNTRY] ADD  CONSTRAINT [DF_TBL_COUNTRY_IsActive]  DEFAULT ((1)) FOR [IsActive]
+GO
+
+ALTER TABLE [dbo].[TBL_COUNTRY] ADD  CONSTRAINT [DF_TBL_COUNTRY_LastUpdateDate]  DEFAULT (getdate()) FOR [LastUpdateDate]
+GO
+
+ALTER TABLE [dbo].[TBL_COUNTRY] ADD  CONSTRAINT [DF_TBL_COUNTRY_CreatedDate]  DEFAULT (getdate()) FOR [CreatedDate]
+GO
+
+CREATE TABLE [dbo].[TBL_REGION](
+	[ID] [int] IDENTITY(1,1) NOT NULL,
+	[Name] [varchar](500) NOT NULL,
+	[CountryID] [int] NOT NULL,
+	[IsActive] [bit] NULL,
+	[LastUpdatedDate] [datetime] NULL,
+	[LastUpdatedBy] [uniqueidentifier] NULL,
+	[LastCreatedDate] [datetime] NULL,
+	[LastCreatedBy] [uniqueidentifier] NULL,
+ CONSTRAINT [PK_TBL_REGION] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+SET ANSI_PADDING OFF
+GO
+
+ALTER TABLE [dbo].[TBL_REGION]  WITH CHECK ADD  CONSTRAINT [FK_TBL_REGION_TBL_COUNTRY] FOREIGN KEY([CountryID])
+REFERENCES [dbo].[TBL_COUNTRY] ([ID])
+GO
+
+ALTER TABLE [dbo].[TBL_REGION] CHECK CONSTRAINT [FK_TBL_REGION_TBL_COUNTRY]
+GO
+
+ALTER TABLE [dbo].[TBL_REGION] ADD  CONSTRAINT [DF_TBL_REGION_IsActive]  DEFAULT ((1)) FOR [IsActive]
+GO
+
+ALTER TABLE [dbo].[TBL_REGION] ADD  CONSTRAINT [DF_TBL_REGION_LastUpdatedDate]  DEFAULT (getdate()) FOR [LastUpdatedDate]
+GO
+
+ALTER TABLE [dbo].[TBL_REGION] ADD  CONSTRAINT [DF_TBL_REGION_CreatedDate]  DEFAULT (getdate()) FOR [LastCreatedDate]
+GO
+
+CREATE TABLE [dbo].[TBL_COACH](
+	[ID] [int] IDENTITY(1,1) NOT NULL,
+	[UserID] [uniqueidentifier] NOT NULL,
+	[RegionID] [int] NOT NULL,
+	[IsActive] [bit] NOT NULL,
+	[LastCreatedDate] [datetime] NULL,
+	[LastUpdatedBy] [uniqueidentifier] NULL,
+	[CreatedDate] [datetime] NULL,
+	[CreatedBy] [uniqueidentifier] NULL,
+ CONSTRAINT [PK_TBL_COACH] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+ALTER TABLE [dbo].[TBL_COACH]  WITH CHECK ADD  CONSTRAINT [FK_TBL_COACH_aspnet_Users] FOREIGN KEY([UserID])
+REFERENCES [dbo].[aspnet_Users] ([UserId])
+GO
+
+ALTER TABLE [dbo].[TBL_COACH] CHECK CONSTRAINT [FK_TBL_COACH_aspnet_Users]
+GO
+
+ALTER TABLE [dbo].[TBL_COACH]  WITH CHECK ADD  CONSTRAINT [FK_TBL_COACH_TBL_REGION] FOREIGN KEY([RegionID])
+REFERENCES [dbo].[TBL_REGION] ([ID])
+GO
+
+ALTER TABLE [dbo].[TBL_COACH] CHECK CONSTRAINT [FK_TBL_COACH_TBL_REGION]
+GO
+
+ALTER TABLE [dbo].[TBL_COACH] ADD  CONSTRAINT [DF_TBL_COACH_CreatedDate]  DEFAULT (getdate()) FOR [CreatedDate]
+GO
+
+ALTER TABLE [dbo].[TBL_COACH] ADD  CONSTRAINT [DF_TBL_COACH_IsActive]  DEFAULT ((1)) FOR [IsActive]
+GO
+
+ALTER TABLE [dbo].[TBL_COACH] ADD  CONSTRAINT [DF_TBL_COACH_LastCreatedDate]  DEFAULT (getdate()) FOR [LastCreatedDate]
+GO
+
+
+CREATE TABLE [dbo].[TBL_FRANCHISEE](
+	[ID] [int] IDENTITY(1,1) NOT NULL,
+	[Name] [varchar](500) NOT NULL,
+	[CoachID] [int] NOT NULL,
+	[Address1] [nvarchar](500) NULL,
+	[Address2] [nvarchar](500) NULL,
+	[City] [nvarchar](500) NULL,
+	[State] [nvarchar](500) NULL,
+	[Zip] [nvarchar](500) NULL,
+	[CountryID] [INT] NULL,
+	[PhoneNumber] [NUMERIC] NULL,
+	[FaxNumber] [NUMERIC] NULL,
+	[WebAddress] [nvarchar](500) NULL,
+	[EmailAddress] [nvarchar](500) NULL,
+	[IsActive] [bit] NULL,
+	[LastCreatedDate] [datetime] NULL,
+	[LastUpdatedBy] [uniqueidentifier] NULL,
+	[CreatedDate] [datetime] NULL,
+	[CreatedBy] [uniqueidentifier] NULL,
+ CONSTRAINT [PK_TBL_FRANCHISEE] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+ALTER TABLE [dbo].[TBL_FRANCHISEE]  WITH CHECK ADD  CONSTRAINT [FK_TBL_FRANCHISEE_TBL_COACH] FOREIGN KEY([CoachID])
+REFERENCES [dbo].[TBL_COACH] ([ID])
+GO
+
+ALTER TABLE [dbo].[TBL_FRANCHISEE]  WITH CHECK ADD  CONSTRAINT [FK_TBL_FRANCHISEE_TBL_COUNTRY] FOREIGN KEY([CountryID])
+REFERENCES [dbo].[TBL_COUNTRY] ([ID])
+GO
+
+ALTER TABLE [dbo].[TBL_FRANCHISEE] CHECK CONSTRAINT [FK_TBL_FRANCHISEE_TBL_COACH]
+GO
+
+ALTER TABLE [dbo].[TBL_FRANCHISEE] ADD  CONSTRAINT [DF_TBL_FRANCHISEE_IsActive]  DEFAULT ((1)) FOR [IsActive]
+GO
+
+ALTER TABLE [dbo].[TBL_FRANCHISEE] ADD  CONSTRAINT [DF_TBL_FRANCHISEE_LastCreatedDate]  DEFAULT (getdate()) FOR [LastCreatedDate]
+GO
+
+ALTER TABLE [dbo].[TBL_FRANCHISEE] ADD  CONSTRAINT [DF_TBL_FRANCHISEE_CreatedDate]  DEFAULT (getdate()) FOR [CreatedDate]
+GO
+
+CREATE TABLE [dbo].[TBL_FRANCHISEE_USERS](
+	[FranchiseeID] [int] NOT NULL,
+	[UserID] [uniqueidentifier] NOT NULL
+) ON [PRIMARY]
+
+GO
+
+ALTER TABLE [dbo].[TBL_FRANCHISEE_USERS]  WITH CHECK ADD  CONSTRAINT [FK_TBL_FRANCHISEE_USERS_aspnet_Users] FOREIGN KEY([UserID])
+REFERENCES [dbo].[aspnet_Users] ([UserId])
+GO
+
+ALTER TABLE [dbo].[TBL_FRANCHISEE_USERS] CHECK CONSTRAINT [FK_TBL_FRANCHISEE_USERS_aspnet_Users]
+GO
+
+ALTER TABLE [dbo].[TBL_FRANCHISEE_USERS]  WITH CHECK ADD  CONSTRAINT [FK_TBL_FRANCHISEE_USERS_TBL_FRANCHISEE] FOREIGN KEY([FranchiseeID])
+REFERENCES [dbo].[TBL_FRANCHISEE] ([ID])
+GO
+
+ALTER TABLE [dbo].[TBL_FRANCHISEE_USERS] CHECK CONSTRAINT [FK_TBL_FRANCHISEE_USERS_TBL_FRANCHISEE]
+GO
+
+-- Create lookup tables
+CREATE TABLE [dbo].[Tbl_AppointmentsSource](
+	[ApptSourceId] [int] IDENTITY(1,1) NOT NULL,
+	[ApptSourceName] [varchar](150) NULL,
+	[LastUpdatedDate] [datetime] NULL,
+	[LastUpdatedBy] [varchar](50) NULL,
+	[CreatedDate]  AS (getdate()),
+	[CreatedBy] [varchar](80) NULL,
+	[IsActive] [bit] NULL,
+ CONSTRAINT [PK_Tbl_AppointmentsSource] PRIMARY KEY CLUSTERED 
+(
+	[ApptSourceId] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+CREATE TABLE [dbo].[Tbl_Course](
+	[CourseId] [int] IDENTITY(1,1) NOT NULL,
+	[CourseName] [varchar](150) NULL,
+	[IsActive] [bit] NULL,
+	[LastUpdatedDate] [datetime] NULL,
+	[LastUpdatedBy] [varchar](80) NULL,
+	[CreatedDate]  AS (getdate()),
+	[CreatedBy] [varchar](80) NULL,
+ CONSTRAINT [PK_Tbl_Course] PRIMARY KEY CLUSTERED 
+(
+	[CourseId] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+CREATE TABLE [dbo].[Tbl_DocumentStatus](
+	[DocStatusId] [int] IDENTITY(1,1) NOT NULL,
+	[DocStatusText] [varchar](50) NULL,
+	[IsActive] [bit] NULL,
+	[CreatedBy] [varchar](50) NULL,
+	[CreatedOn]  AS (getdate()),
+	[UpdatedBy] [varchar](50) NULL,
+	[UpdatedOn] [datetime] NULL,
+ CONSTRAINT [PK_Tbl_DocumentStatus] PRIMARY KEY CLUSTERED 
+(
+	[DocStatusId] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+CREATE TABLE [dbo].[Tbl_YesNoOptions](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[Description] [varchar](50) NULL,
+	[Value] [int] NULL,
+ CONSTRAINT [PK_Tbl_YesNoOptions] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+CREATE TABLE [dbo].[Tbl_ProductType](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[ProductTypeName] [varchar](150) NULL,
+	[IsActive] [bit] NULL,
+	[LastUpdatedDate] [datetime] NULL,
+	[LastUpdatedBy] [varchar](80) NULL,
+	[CreatedDate]  AS (getdate()),
+	[CreatedBy] [varchar](80) NULL,
+ CONSTRAINT [PK_Tbl_ProductType] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+SET ANSI_PADDING OFF
+GO
+
+CREATE TABLE [dbo].[Tbl_IndustryType](
+	[IndId] [int] IDENTITY(1,1) NOT NULL,
+	[IndustryTypeName] [varchar](150) NULL,
+	[IsActive] [bit] NULL,
+	[LastUpdatedDate] [datetime] NULL,
+	[LastUpdatedBy] [varchar](80) NULL,
+	[CreatedDate]  AS (getdate()),
+	[CreatedBy] [varchar](80) NULL,
+ CONSTRAINT [PK_Tbl_IndustryType] PRIMARY KEY CLUSTERED 
+(
+	[IndId] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+SET ANSI_PADDING OFF
+GO
+
+CREATE TABLE [dbo].[TBL_OPPORTUNITYSTATUS](
+	[ID] [int] IDENTITY(1,1) NOT NULL,
+	[Name] [nvarchar](50) NOT NULL,
+	[IsActive] [bit] NULL,
+	[CreateBy] [uniqueidentifier] NULL,
+	[CreatedDate] [datetime] NULL,
+	[LastUpdateBy] [uniqueidentifier] NULL,
+	[LastUpdatedDate] [datetime] NULL,
+ CONSTRAINT [PK_TBL_OPPORTUNITYSTATUS] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+ALTER TABLE [dbo].[TBL_OPPORTUNITYSTATUS] ADD  CONSTRAINT [DF_TBL_OPPORTUNITYSTATUS_IsActive]  DEFAULT ((1)) FOR [IsActive]
+GO
+
+ALTER TABLE [dbo].[TBL_OPPORTUNITYSTATUS] ADD  CONSTRAINT [DF_TBL_OPPORTUNITYSTATUS_CreatedDate]  DEFAULT (getdate()) FOR [CreatedDate]
+GO
+
+ALTER TABLE [dbo].[TBL_OPPORTUNITYSTATUS] ADD  CONSTRAINT [DF_TBL_OPPORTUNITYSTATUS_LastUpdatedDate]  DEFAULT (getdate()) FOR [LastUpdatedDate]
+GO
+
+-- Create main tables
+
+CREATE TABLE [dbo].[TBL_COMPANIES](
+	[COMPANIESID] [int] IDENTITY(1,1) NOT NULL,
+	[COMPANYNAME] [varchar](max) NULL,
+	[CITY] [varchar](50) NULL,
+	[STATE] [varchar](50) NULL,
+	[ZIP] [int] NULL,
+	[POCLastName] [varchar](50) NULL,
+	[POCFirstName] [varchar](50) NULL,
+	[POCPhone] [varchar](50) NULL,
+	[IsNewCompany] [bit] NULL,
+	[COMPANYVALUEGOAL] [int] NULL,
+	[IndustryId] [int] NULL,
+	[RepLastName] [varchar](50) NULL,
+	[RepFirstName] [varchar](50) NULL,
+	[DiscussionTopic] [varchar](50) NULL,
+	[ACTIONSTEP] [varchar](50) NULL,
+	[LASTCONTACT_DATE] [datetime] NULL,
+	[NEXTCONTACT_DATE] [datetime] NULL,
+	[CreationDate] [datetime] NULL,
+	[FranchiseeId] [int] NULL,
+	[IsActive] [bit] NULL,
+	[CreatedDate] [DATETIME] NULL,
+	[CreatedBy] [varchar](80) NULL,
+	[UpdatedDate] [datetime] NULL,
+	[UpdatedBy] [varchar](80) NULL,
+	[Address] [varchar](150) NULL,
+ CONSTRAINT [PK_TBL_COMPANIES] PRIMARY KEY CLUSTERED 
+(
+	[COMPANIESID] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+
+ALTER TABLE [dbo].[TBL_COMPANIES]  WITH CHECK ADD  CONSTRAINT [FK_TBL_COMPANIES_TBL_FRANCHISEE] FOREIGN KEY([FranchiseeId])
+REFERENCES [dbo].[TBL_FRANCHISEE] ([ID])
+GO
+
+ALTER TABLE [dbo].[TBL_COMPANIES] CHECK CONSTRAINT [FK_TBL_COMPANIES_TBL_FRANCHISEE]
+GO
+
+ALTER TABLE [dbo].[TBL_COMPANIES]  WITH CHECK ADD  CONSTRAINT [FK_TBL_COMPANIES_Tbl_IndustryType] FOREIGN KEY([IndustryId])
+REFERENCES [dbo].[Tbl_IndustryType] ([IndId])
+GO
+
+ALTER TABLE [dbo].[TBL_COMPANIES] CHECK CONSTRAINT [FK_TBL_COMPANIES_Tbl_IndustryType]
+GO
+
+ALTER TABLE [dbo].[TBL_COMPANIES] ADD  CONSTRAINT [DF_TBL_COMPANIES_CreatedDate]  DEFAULT (getdate()) FOR [CreatedDate]
+GO
+
+ALTER TABLE [dbo].[TBL_COMPANIES] ADD  CONSTRAINT [DF_TBL_COMPANIES_UpdatedDate]  DEFAULT (getdate()) FOR [UpdatedDate]
+GO
+
+CREATE TABLE [dbo].[TBL_CONTACTS](
+	[CONTACTSID] [int] IDENTITY(1,1) NOT NULL,
+	[COMPANYID] [int] NULL,
+	[LASTNAME] [varchar](50) NULL,
+	[FIRSTNAME] [varchar](50) NULL,
+	[PHONE] [varchar](50) NULL,
+	[EMAIL] [varchar](50) NULL,
+	[IsNewAppointment] [bit] NULL,
+	[ApptSourceId] [int] NULL,
+	[IsRegisteredForTraining] [bit] NULL,
+	[CourseId] [int] NULL,
+	[CourseTrainingDate] [datetime] NULL,
+	[DiscussionTopic] [varchar](50) NULL,
+	[ACTIONSTEP] [varchar](50) NULL,
+	[LAST_CONTACT_DATE] [datetime] NULL,
+	[NEXT_CONTACT_DATE] [datetime] NULL,
+	[IsActive] [bit] NULL,
+	[UpdatedDate] [datetime] NULL,
+	[UpdatedBy] [varchar](50) NULL,
+	[CreatedDate]  [datetime] NULL,
+	[CreatedBy] [varchar](50) NULL,
+ CONSTRAINT [PK_TBL_CONTACTS] PRIMARY KEY CLUSTERED 
+(
+	[CONTACTSID] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+ALTER TABLE [dbo].[TBL_CONTACTS]  WITH CHECK ADD  CONSTRAINT [FK_TBL_CONTACTS_TBL_Companies] FOREIGN KEY([COMPANYID])
+REFERENCES [dbo].[TBL_COMPANIES] ([COMPANIESID])
+GO
+
+ALTER TABLE [dbo].[TBL_CONTACTS] CHECK CONSTRAINT [FK_TBL_CONTACTS_TBL_Companies]
+GO
+
+ALTER TABLE [dbo].[TBL_CONTACTS]  WITH CHECK ADD  CONSTRAINT [FK_TBL_CONTACTS_Tbl_Course] FOREIGN KEY([CourseId])
+REFERENCES [dbo].[Tbl_Course] ([CourseId])
+GO
+
+ALTER TABLE [dbo].[TBL_CONTACTS] CHECK CONSTRAINT [FK_TBL_CONTACTS_Tbl_Course]
+GO
+
+ALTER TABLE [dbo].[TBL_CONTACTS]  WITH CHECK ADD  CONSTRAINT [FK_TBL_CONTACTS_Tbl_AppointmentsSource] FOREIGN KEY([ApptSourceId])
+REFERENCES [dbo].[Tbl_AppointmentsSource] ([ApptSourceId])
+GO
+
+ALTER TABLE [dbo].[TBL_CONTACTS] CHECK CONSTRAINT [FK_TBL_CONTACTS_Tbl_AppointmentsSource]
+GO
+ALTER TABLE [dbo].[TBL_CONTACTS] ADD  CONSTRAINT [DF_TBL_CONTACTS_UpdatedDate]  DEFAULT (getdate()) FOR [UpdatedDate]
+GO
+
+ALTER TABLE [dbo].[TBL_CONTACTS] ADD  CONSTRAINT [DF_TBL_CONTACTS_CreatedDate]  DEFAULT (getdate()) FOR [CreatedDate]
+GO
+
+
+
+
+/****** Object:  Table [dbo].[TBL_OPPORTUNITIES]    Script Date: 07/26/2012 22:47:52 ******/
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[TBL_OPPORTUNITIES]') AND type in (N'U'))
+DROP TABLE [dbo].[TBL_OPPORTUNITIES]
+GO
+
+/****** Object:  Table [dbo].[TBL_OPPORTUNITIES]    Script Date: 07/26/2012 22:47:52 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+SET ANSI_PADDING OFF
+GO
+
+CREATE TABLE [dbo].[TBL_OPPORTUNITIES](
+	[ID] [int] IDENTITY(1,1) NOT NULL,
+	[OPPORTUNITYID] [int] NOT NULL,
+	[COMPANYID] [int] NOT NULL,
+	[CONTACTID] [int] NOT NULL,
+	[NAME] [varchar](50) NULL,
+	[ProductID] [int] NOT NULL,
+	[SALESREPLASTNAME] [varchar](50) NULL,
+	[SALESREPFIRSTNAME] [varchar](50) NULL,
+	[SALESREPPHONE] [varchar](50) NULL,
+	[STATUSID] [int] NULL,
+	[VALUE] [int] NULL,
+	[WINPROBABILITY] [varchar](50) NULL,
+	[WEIGHTEDVALUE] [int] NULL,
+	[CLOSEDATE] [datetime] NULL,
+	[IsActive] [bit] NULL,
+	[UpdatedDate] [datetime] NULL,
+	[UpdatedBy] [varchar](80) NULL,
+	[CreatedDate] [datetime] NULL,
+	[CreatedBy] [varchar](80) NULL,
+ CONSTRAINT [PK_TBL_OPPORTUNITIES] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+SET ANSI_PADDING OFF
+GO
+
+ALTER TABLE [dbo].[TBL_OPPORTUNITIES]  WITH CHECK ADD  CONSTRAINT [FK_TBL_OPPORTUNITIES_TBL_COMPANIES] FOREIGN KEY([COMPANYID])
+REFERENCES [dbo].[TBL_COMPANIES] ([COMPANIESID])
+GO
+
+ALTER TABLE [dbo].[TBL_OPPORTUNITIES] CHECK CONSTRAINT [FK_TBL_OPPORTUNITIES_TBL_COMPANIES]
+GO
+
+ALTER TABLE [dbo].[TBL_OPPORTUNITIES]  WITH CHECK ADD  CONSTRAINT [FK_TBL_OPPORTUNITIES_TBL_CONTACTS] FOREIGN KEY([CONTACTID])
+REFERENCES [dbo].[TBL_CONTACTS] ([CONTACTSID])
+GO
+
+ALTER TABLE [dbo].[TBL_OPPORTUNITIES] CHECK CONSTRAINT [FK_TBL_OPPORTUNITIES_TBL_CONTACTS]
+GO
+
+ALTER TABLE [dbo].[TBL_OPPORTUNITIES]  WITH CHECK ADD  CONSTRAINT [FK_TBL_OPPORTUNITIES_TBL_OPPORTUNITYSTATUS] FOREIGN KEY([STATUSID])
+REFERENCES [dbo].[TBL_OPPORTUNITYSTATUS] ([ID])
+GO
+
+ALTER TABLE [dbo].[TBL_OPPORTUNITIES] CHECK CONSTRAINT [FK_TBL_OPPORTUNITIES_TBL_OPPORTUNITYSTATUS]
+GO
+
+ALTER TABLE [dbo].[TBL_OPPORTUNITIES]  WITH CHECK ADD  CONSTRAINT [FK_TBL_OPPORTUNITIES_Tbl_ProductType] FOREIGN KEY([ProductID])
+REFERENCES [dbo].[Tbl_ProductType] ([Id])
+GO
+
+ALTER TABLE [dbo].[TBL_OPPORTUNITIES] CHECK CONSTRAINT [FK_TBL_OPPORTUNITIES_Tbl_ProductType]
+GO
+
+
+
+
+
+CREATE TABLE [dbo].[TBL_DOCS](	
+	[DOCSID] [int] IDENTITY(1,1) NOT NULL,	
+	[DOCNAME] [varchar](50) NULL,	
+	[OPPSID] [int] NULL,	
+	[COMPANYID] [int] NULL,	
+	[DOCUMENTSTATUS] [varchar](50) NULL,
+	[DOCSTATUSID] [int] NULL,
+	[IsActive] [bit] NULL,	
+	[UpdatedBy] [varchar](80) NULL,	
+	[UpdatedDate] [datetime] NULL,	
+	[CreatedDate] [DATETIME] NULL,	
+	[CreatedBy] [varchar](80) NULL, 
+	CONSTRAINT [PK_TBL_DOCS] PRIMARY KEY CLUSTERED 
+	(	
+	[DOCSID] ASC)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) 
+	ON [PRIMARY]) 
+ON [PRIMARY]
+GO
+
+ALTER TABLE [dbo].[TBL_DOCS]  WITH CHECK ADD  CONSTRAINT [FK_TBL_DOCS_TBL_COMPANIES] FOREIGN KEY([COMPANYID])
+REFERENCES [dbo].[TBL_COMPANIES] ([COMPANIESID])
+GO
+
+ALTER TABLE [dbo].[TBL_DOCS] CHECK CONSTRAINT [FK_TBL_DOCS_TBL_COMPANIES]
+GO
+
+ALTER TABLE [dbo].[TBL_DOCS]  WITH CHECK ADD  CONSTRAINT [FK_TBL_DOCS_Tbl_DocumentStatus] FOREIGN KEY([DOCSTATUSID])
+REFERENCES [dbo].[Tbl_DocumentStatus] ([DocStatusId])
+GO
+
+ALTER TABLE [dbo].[TBL_DOCS] CHECK CONSTRAINT [FK_TBL_DOCS_Tbl_DocumentStatus]
+GO
+
+ALTER TABLE [dbo].[TBL_DOCS]  WITH CHECK ADD  CONSTRAINT [FK_TBL_DOCS_TBL_OPPORTUNITIES] FOREIGN KEY([OPPSID])
+REFERENCES [dbo].[TBL_OPPORTUNITIES] ([ID])
+GO
+
+ALTER TABLE [dbo].[TBL_DOCS] CHECK CONSTRAINT [FK_TBL_DOCS_TBL_OPPORTUNITIES]
+GO
+
+ALTER TABLE [dbo].[TBL_DOCS] ADD  CONSTRAINT [DF_TBL_DOCS_CreatedDate]  DEFAULT (getdate()) FOR [CreatedDate]
+GO
+
+ALTER TABLE [dbo].[TBL_DOCS] ADD  CONSTRAINT [DF_TBL_DOCS_UpdatedDate]  DEFAULT (getdate()) FOR [UpdatedDate]
+GO
+
+
+
+
+
+
+
+

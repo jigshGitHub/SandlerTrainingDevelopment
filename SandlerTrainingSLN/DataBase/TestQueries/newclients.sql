@@ -1,0 +1,75 @@
+-- Based on users (FranchiseeUserLevel)
+SELECT p.ProductTypeName,o.* 
+FROM TBL_OPPORTUNITIES o WITH(NOLOCK) 
+INNER JOIN Tbl_ProductType p WITH(NOLOCK) ON p.Id = o.ProductId
+INNER JOIN TBL_COMPANIES c WITH(nolock) ON c.COMPANIESID = o.COMPANYID
+WHERE 
+c.IsNewCompany = 1
+AND YEAR(o.CreatedDate) = YEAR(GETDATE()) 
+AND MONTH(o.CreatedDate) = MONTH(DATEADD(MONTH,-1,GETDATE()))
+AND o.CreatedBy = '7DDFD416-7554-421E-BB60-1E8277BBD2CB'
+;
+
+SELECT p.ProductTypeName,COUNT(o.CompanyID) --p.ProductTypeName,o.* 
+FROM TBL_OPPORTUNITIES o WITH(NOLOCK) 
+INNER JOIN Tbl_ProductType p WITH(NOLOCK) ON p.Id = o.ProductId
+INNER JOIN TBL_COMPANIES c WITH(nolock) ON c.COMPANIESID = o.COMPANYID
+WHERE  
+c.IsNewCompany = 1
+AND YEAR(o.CreatedDate) = YEAR(GETDATE()) 
+AND MONTH(o.CreatedDate) = MONTH(DATEADD(MONTH,-1,GETDATE()))
+AND o.CreatedBy = '7DDFD416-7554-421E-BB60-1E8277BBD2CB'
+GROUP BY p.ProductTypeName;
+
+-- Based on Fr Owner (FranchiseeOwnerLevel)
+SELECT p.ProductTypeName,o.* 
+FROM TBL_OPPORTUNITIES o WITH(NOLOCK) 
+INNER JOIN Tbl_ProductType p WITH(NOLOCK) ON p.Id = o.ProductId
+INNER JOIN TBL_CONTACTS c WITH(nolock) ON c.CONTACTSID = o.CONTACTID
+INNER JOIN TBL_COMPANIES cmp WITH(NOLOCK) ON cmp.CompaniesID = c.CompanyID
+WHERE 
+cmp.IsNewCompany = 1
+AND YEAR(o.CreatedDate) = YEAR(GETDATE()) 
+AND MONTH(o.CreatedDate) = MONTH(DATEADD(MONTH,-1,GETDATE()))
+AND cmp.FranchiseeId = 9;
+
+SELECT p.ProductTypeName,COUNT(o.CompanyID) 
+FROM TBL_OPPORTUNITIES o WITH(NOLOCK) 
+INNER JOIN Tbl_ProductType p WITH(NOLOCK) ON p.Id = o.ProductId
+INNER JOIN TBL_CONTACTS c WITH(nolock) ON c.CONTACTSID = o.CONTACTID
+INNER JOIN TBL_COMPANIES cmp WITH(NOLOCK) ON cmp.CompaniesID = c.CompanyID
+WHERE 
+cmp.IsNewCompany = 1
+AND YEAR(o.CreatedDate) = YEAR(GETDATE()) 
+AND MONTH(o.CreatedDate) = MONTH(DATEADD(MONTH,-1,GETDATE()))
+AND cmp.FranchiseeId = 9
+GROUP BY p.ProductTypeName;
+
+-- Based on Coach
+SELECT p.ProductTypeName,o.* 
+FROM TBL_OPPORTUNITIES o WITH(NOLOCK) 
+INNER JOIN Tbl_ProductType p WITH(NOLOCK) ON p.Id = o.ProductId
+INNER JOIN TBL_CONTACTS c WITH(nolock) ON c.CONTACTSID = o.CONTACTID
+INNER JOIN TBL_COMPANIES cmp WITH(NOLOCK) ON cmp.CompaniesID = c.CompanyID
+INNER JOIN TBL_FRANCHISEE f WITH(NOLOCK) ON f.ID = cmp.FranchiseeId
+INNER JOIN TBL_COACH ch WITH(NOLOCK) ON f.CoachID = ch.ID
+WHERE 
+cmp.IsNewCompany = 1
+AND YEAR(o.CreatedDate) = YEAR(GETDATE()) 
+AND MONTH(o.CreatedDate) = MONTH(DATEADD(MONTH,-1,GETDATE()))
+AND ch.ID = 2
+
+SELECT p.ProductTypeName,COUNT(o.CompanyID) 
+FROM TBL_OPPORTUNITIES o WITH(NOLOCK) 
+INNER JOIN Tbl_ProductType p WITH(NOLOCK) ON p.Id = o.ProductId
+INNER JOIN TBL_CONTACTS c WITH(nolock) ON c.CONTACTSID = o.CONTACTID
+INNER JOIN TBL_COMPANIES cmp WITH(NOLOCK) ON cmp.CompaniesID = c.CompanyID
+INNER JOIN TBL_FRANCHISEE f WITH(NOLOCK) ON f.ID = cmp.FranchiseeId
+INNER JOIN TBL_COACH ch WITH(NOLOCK) ON f.CoachID = ch.ID
+INNER JOIN TBL_REGION r WITH(NOLOCK) ON r.ID = ch.RegionID
+WHERE 
+cmp.IsNewCompany = 1
+AND YEAR(o.CreatedDate) = YEAR(GETDATE()) 
+AND MONTH(o.CreatedDate) = MONTH(DATEADD(MONTH,-1,GETDATE()))
+AND ch.ID = 2
+GROUP BY p.ProductTypeName;
