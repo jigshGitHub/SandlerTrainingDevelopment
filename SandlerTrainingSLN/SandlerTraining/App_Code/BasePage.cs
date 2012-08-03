@@ -71,7 +71,7 @@ public abstract class BasePage : System.Web.UI.Page
                     return true;
                 else
                 {
-                    return (entity != SandlerEntities.Contact);
+                    return (entity == SandlerEntities.Company || entity == SandlerEntities.Coach || entity == SandlerEntities.Region);
                 }
             case SandlerRoles.FranchiseeOwner:
                 if (action == SandlerUserActions.View)

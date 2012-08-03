@@ -1,10 +1,16 @@
 ﻿<%@ Application Language="C#" %>
 <%@ Import Namespace="Sandler.UI.ChartStructure" %>
+<%@ Import Namespace="System.Web.Routing" %>
 <script runat="server">
      
     void Application_Start(object sender, EventArgs e) 
     {
-        // Code that runs on application startup
+        //// Code that runs on application startup
+        //RouteTable.Routes.MapHttpRoute(
+        //name: "DefaultApi",
+        //routeTemplate: "api/{controller}/{id}",
+        //defaults: new { id = System.Web.Http.RouteParameter.Optional }
+        //);
 
     }
     

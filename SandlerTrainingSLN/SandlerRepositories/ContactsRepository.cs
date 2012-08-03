@@ -5,84 +5,153 @@ using System.Web;
 using System.Data;
 using System.Data.SqlClient;
 
-
+using SandlerModels;
 
 /// <summary>
 /// Summary description for ContactsDAL
 /// </summary>
 namespace SandlerRepositories
 {
-    public class ContactsRepository
+    public partial class ContactsRepository
     {
         DBFactory db = new DBFactory();
-        public ContactsRepository()
+        //public ContactsRepository()
+        //{
+        //    //
+        //    // TODO: Add constructor logic here
+        //    //
+        //}
+        public DataSet GetAll(int COMPANIESID)
         {
-            //
-            // TODO: Add constructor logic here
-            //
-        }
-        public DataSet GetAll(int ID)
-        {
-            if (ID == 0)
+            UserModel _user = (UserModel)HttpContext.Current.Session["CurrentUser"];
+
+            if (COMPANIESID == 0)
             {
-                return (db.ExecuteDataset("sp_GetAllContacts", "Contacts"));
+                if (_user.Role == SandlerRoles.SiteAdmin)
+                {
+                    return db.ExecuteDataset("sp_GetAllContacts", "Contacts");
+                }
+                else if (_user.Role == SandlerRoles.Coach)
+                {
+                    return db.ExecuteDataset("sp_GetAllContactsByCoachID", "Contacts", new SqlParameter("@CoachID", _user.CoachID));
+                }
+                else if (_user.Role == SandlerRoles.FranchiseeOwner)
+                {
+                    //now we have to bring records as per role - Franchisee Owner
+                    return db.ExecuteDataset("sp_GetAllContactsByFrID", "Contacts", new SqlParameter("@FranchiseeID", _user.FranchiseeID));
+                }
+                else
+                {
+                    //This is for Franchisee User
+                    return db.ExecuteDataset("sp_GetAllContactsByUserID", "Contacts", new SqlParameter("@UserID", _user.UserId));
+                }
+
             }
             else
             {
-                System.Data.DataSet ds = db.ExecuteDataset("sp_GetAllContactsByID", "Contacts", new SqlParameter("@CompanyID", ID));
-                return ds;
+                //We have Company ID
+                if (_user.Role != SandlerRoles.FranchiseeUser)
+                {
+                    System.Data.DataSet ds = db.ExecuteDataset("sp_GetAllContactsByCompID", "Contacts", new SqlParameter("@CompanyID", COMPANIESID));
+                    return ds;
+                }
+                else
+                {
+                    System.Data.DataSet ds = db.ExecuteDataset("sp_GetAllContactsForCompByUserID", "Contacts", new SqlParameter("@UserID", _user.UserId),new SqlParameter("@CompanyID", COMPANIESID));
+                    return ds;
+                }
+                
             }
 
         }
-        public DataSet GetAllCompanies()
+
+        public DataSet GetCourseInfo()
         {
-            return (db.ExecuteDataset("sp_GetAllCompanies", "Companies"));
+            return db.ExecuteDataset("sp_GetCourseInfo", "CourseInfo");
         }
+
+        public DataSet GetRegForTrainingOptions()
+        {
+            return db.ExecuteDataset("sp_GetRegForTrainingOptions", "RegForTrainingOptions");
+        }
+
+        public DataSet GetApptSourceOptions()
+        {
+            return db.ExecuteDataset("sp_GetApptSourceOptions", "ApptSource");
+        }
+
         public DataSet GetById(int id)
         {
             return db.ExecuteDataset("sp_GetContactDetails", "ContactByID", new SqlParameter("@ContactID", id));
         }
-        public void Insert(int ID, string Full_Name, string Email, string Phone, int Total_ACT_Value, string Comment, string ACTION_STEP, DateTime Last_Contact_Date, DateTime Next_Contact_Date)
+        public void Insert(int COMPANIESID, string LastName, string FirstName, string Phone, string Email, int Value,
+            int ApptSourceId, int RegForTrainingId, int CourseId, DateTime CourseTrngDate, string DiscussionTopic, string ACTIONSTEP, 
+            DateTime Last_Contact_Date, DateTime Next_Contact_Date)
         {
-            if (string.IsNullOrEmpty(Email))
-            {
-                Email = "";
-            }
-            if (string.IsNullOrEmpty(Phone))
-            {
-                Phone = "";
-            }
-            if (string.IsNullOrEmpty(Comment))
-            {
-                Comment = "";
-            }
-            if (string.IsNullOrEmpty(ACTION_STEP))
-            {
-                ACTION_STEP = "";
-            }
-            if (Next_Contact_Date.ToString() == "1/1/0001 12:00:00 AM")
-            {
-                db.ExecuteNonQuery("sp_InsertContactSpecial", new SqlParameter("@FullName", Full_Name), new SqlParameter("@Phone", Phone), new SqlParameter("@Email", Email), new SqlParameter("@LastDate", Last_Contact_Date), new SqlParameter("@CompanyID", ID), new SqlParameter("@Comment", Comment), new SqlParameter("@ActionStep", ACTION_STEP), new SqlParameter("@TotalActValue", Total_ACT_Value));
-            }
-            else
-            {
-                db.ExecuteNonQuery("sp_InsertContact", new SqlParameter("@FullName", Full_Name), new SqlParameter("@Phone", Phone), new SqlParameter("@Email", Email), new SqlParameter("@LastDate", Last_Contact_Date), new SqlParameter("@NextDate", Next_Contact_Date), new SqlParameter("@CompanyID", ID), new SqlParameter("@Comment", Comment), new SqlParameter("@ActionStep", ACTION_STEP), new SqlParameter("@TotalActValue", Total_ACT_Value));
+            
+            UserModel _user = (UserModel)HttpContext.Current.Session["CurrentUser"];
 
+            if (CourseTrngDate.ToString() == "1/1/0001 12:00:00 AM")
+            {
+                CourseTrngDate = default(System.DateTime).AddYears(1754);
             }
+
+            if (Last_Contact_Date.ToString() == "1/1/0001 12:00:00 AM")
+            {
+                Last_Contact_Date = default(System.DateTime).AddYears(1754);
+            }
+
+                //Insert and create contact - Both are Avl
+                db.ExecuteNonQuery("sp_InsertContact",
+                    new SqlParameter("@COMPANIESID", COMPANIESID), new SqlParameter("@LastName", LastName), new SqlParameter("@FirstName", FirstName),
+                    new SqlParameter("@Phone", Phone), new SqlParameter("@Email", Email), new SqlParameter("@Value", Value),
+                    new SqlParameter("@ApptSourceId", ApptSourceId), new SqlParameter("@RegForTrainingId", RegForTrainingId),
+                    new SqlParameter("@CourseId", CourseId), new SqlParameter("@CourseTrngDate", CourseTrngDate),
+                    new SqlParameter("@DiscussionTopic", DiscussionTopic), new SqlParameter("@ACTIONSTEP", ACTIONSTEP),
+                    new SqlParameter("@Last_Contact_Date", Last_Contact_Date), new SqlParameter("@Next_Contact_Date", Next_Contact_Date),
+                    new SqlParameter("@CreatedBy", _user.UserId));
+            
 
         }
 
-        public void Update(int id, string FullName, string PhoneNumber, string Email, string TotalAccountValue, string Comment, string ActionStep, DateTime LastDate, string CompanyID, DateTime NextDate)
+        
+        public void Update(int Contactsid, int CompanyID, string LastName, string FirstName,string Phone, string Email,
+            string DiscussionTopic, string ActionStep, int IsRegisteredForTrng, int IsNewAppt, int CourseId,
+            int AppsSourceId,
+            DateTime LastDate, DateTime NextDate, DateTime CourseTrngDate)
         {
-            if (NextDate.ToString() == "1/1/0001 12:00:00 AM")
-            {
-                db.ExecuteNonQuery("sp_UpdateContactDetailsSpecial", new SqlParameter("@ContactID", id), new SqlParameter("@FullName", FullName), new SqlParameter("@Phone", PhoneNumber), new SqlParameter("@Email", Email), new SqlParameter("@LastDate", LastDate), new SqlParameter("@CompanyID", CompanyID), new SqlParameter("@Comment", Comment), new SqlParameter("@ActionStep", ActionStep), new SqlParameter("@TotalActValue", TotalAccountValue));
-            }
-            else
-            {
-                db.ExecuteNonQuery("sp_UpdateContactDetails", new SqlParameter("@ContactID",id), new SqlParameter("@FullName", FullName), new SqlParameter("@Phone", PhoneNumber), new SqlParameter("@Email", Email), new SqlParameter("@LastDate", LastDate), new SqlParameter("@NextDate", NextDate), new SqlParameter("@CompanyID", CompanyID), new SqlParameter("@Comment", Comment), new SqlParameter("@ActionStep", ActionStep), new SqlParameter("@TotalActValue", TotalAccountValue));
+            UserModel _user = (UserModel)HttpContext.Current.Session["CurrentUser"];
 
+            if (CourseTrngDate.ToString() == "1/1/0001 12:00:00 AM")
+            {
+                CourseTrngDate = default(System.DateTime).AddYears(1754);
             }
+
+            if (LastDate.ToString() == "1/1/0001 12:00:00 AM")
+            {
+                LastDate = default(System.DateTime).AddYears(1754);
+            }
+            
+             //Both Are Avl
+             db.ExecuteNonQuery("sp_UpdateContactDetails",
+                    new SqlParameter("@ContactsID", Contactsid),
+                    new SqlParameter("@CompanyID", CompanyID),
+                    new SqlParameter("@LastName", LastName),
+                    new SqlParameter("@FirstName", FirstName), 
+                    new SqlParameter("@Phone", Phone), 
+                    new SqlParameter("@Email", Email),
+                    new SqlParameter("@DiscussionTopic", DiscussionTopic),
+                    new SqlParameter("@ActionStep", ActionStep),
+                    new SqlParameter("@IsRegisteredForTrng", IsRegisteredForTrng),
+                    new SqlParameter("@IsNewAppt", IsNewAppt),
+                    new SqlParameter("@CourseId", CourseId),
+                    new SqlParameter("@AppsSourceId", AppsSourceId), 
+                    new SqlParameter("@LastDate", LastDate), 
+                    new SqlParameter("@NextDate", NextDate),
+                    new SqlParameter("@CourseTrngDate", CourseTrngDate),
+                    new SqlParameter("@UpdatedBy", _user.UserId));
+
+            
         }
     }
 }

@@ -25,49 +25,20 @@ namespace SandlerModels
             throw new UnintentionalCodeFirstException();
         }
     
-        public DbSet<Gap_Analysis> Gap_Analysis { get; set; }
-        public DbSet<TBL_COMPANY> TBL_COMPANY { get; set; }
-        public DbSet<TBL_CONTACT> TBL_CONTACT { get; set; }
-        public DbSet<TBL_DOCUMENTS> TBL_DOCUMENTS { get; set; }
-        public DbSet<TBL_OPPORTUNITY> TBL_OPPORTUNITY { get; set; }
-        public DbSet<C_Gap_Analysis_Est_Benefits_Gained_> C_Gap_Analysis_Est_Benefits_Gained_ { get; set; }
-        public DbSet<C_Gap_Analysis_Quota_Achievement_> C_Gap_Analysis_Quota_Achievement_ { get; set; }
-        public DbSet<C_Gap_Analysis_Sales_Cycle_Time_> C_Gap_Analysis_Sales_Cycle_Time_ { get; set; }
-        public DbSet<C_Gap_Analysis_Sales_Efficiency_> C_Gap_Analysis_Sales_Efficiency_ { get; set; }
-        public DbSet<C_Gap_Analysis_Sales_Qualification_> C_Gap_Analysis_Sales_Qualification_ { get; set; }
-        public DbSet<C_Gap_Analysis_Training_Cost_Savings_> C_Gap_Analysis_Training_Cost_Savings_ { get; set; }
-        public DbSet<TBL_FORECAST> TBL_FORECAST { get; set; }
-        public DbSet<TBL_ASSESSMENTS> TBL_ASSESSMENTS { get; set; }
-        public DbSet<TBL_COACHING> TBL_COACHING { get; set; }
-        public DbSet<TBL_CONSULTING> TBL_CONSULTING { get; set; }
-        public DbSet<TBL_CORPGLOBALTRAINING> TBL_CORPGLOBALTRAINING { get; set; }
-        public DbSet<TBL_COSTOFSALE_DRILL> TBL_COSTOFSALE_DRILL { get; set; }
-        public DbSet<TBL_COSTOFSALE_MAIN> TBL_COSTOFSALE_MAIN { get; set; }
-        public DbSet<TBL_IND_AVERAGES> TBL_IND_AVERAGES { get; set; }
-        public DbSet<TBL_LEADERSHIP> TBL_LEADERSHIP { get; set; }
-        public DbSet<TBL_NEGOTIATIONS> TBL_NEGOTIATIONS { get; set; }
-        public DbSet<TBL_NETWORKINGWORKS> TBL_NETWORKINGWORKS { get; set; }
-        public DbSet<TBL_PIPELINE_POST> TBL_PIPELINE_POST { get; set; }
-        public DbSet<TBL_PRDSALES_BYACT> TBL_PRDSALES_BYACT { get; set; }
-        public DbSet<TBL_PRODSOLD_AS_SALE> TBL_PRODSOLD_AS_SALE { get; set; }
-        public DbSet<TBL_PRODSOLD_BYCOMP> TBL_PRODSOLD_BYCOMP { get; set; }
-        public DbSet<TBL_PRODSOLD_BYREP> TBL_PRODSOLD_BYREP { get; set; }
-        public DbSet<TBL_PRODUCT_MARGIN> TBL_PRODUCT_MARGIN { get; set; }
-        public DbSet<TBL_PROSPECTING> TBL_PROSPECTING { get; set; }
-        public DbSet<TBL_RETENTION_RATE> TBL_RETENTION_RATE { get; set; }
-        public DbSet<TBL_REVBYSOURCE> TBL_REVBYSOURCE { get; set; }
-        public DbSet<TBL_SALES> TBL_SALES { get; set; }
-        public DbSet<TBL_SALESCYCLETIME_DRILL> TBL_SALESCYCLETIME_DRILL { get; set; }
-        public DbSet<TBL_SALESCYCLETIME_MAIN> TBL_SALESCYCLETIME_MAIN { get; set; }
-        public DbSet<TBL_SALESTOTALBYMONTH> TBL_SALESTOTALBYMONTH { get; set; }
-        public DbSet<TBL_SANDLERONLINE> TBL_SANDLERONLINE { get; set; }
-        public DbSet<TBL_STRATEGICALLIANCIES> TBL_STRATEGICALLIANCIES { get; set; }
-        public DbSet<TBL_STRATEGICCUSTCARE> TBL_STRATEGICCUSTCARE { get; set; }
-        public DbSet<Return_on_Trng_Investment> Return_on_Trng_Investment { get; set; }
         public DbSet<TBL_REGION> TBL_REGION { get; set; }
         public DbSet<TBL_COACH> TBL_COACH { get; set; }
         public DbSet<TBL_FRANCHISEE> TBL_FRANCHISEE { get; set; }
         public DbSet<TBL_FRANCHISEE_USERS> TBL_FRANCHISEE_USERS { get; set; }
         public DbSet<TBL_CHART> TBL_CHART { get; set; }
+        public DbSet<TBL_COMPANIES> TBL_COMPANIES { get; set; }
+        public DbSet<TBL_COUNTRY> TBL_COUNTRY { get; set; }
+        public DbSet<Tbl_Course> Tbl_Course { get; set; }
+        public DbSet<TBL_DOCS> TBL_DOCS { get; set; }
+        public DbSet<Tbl_IndustryType> Tbl_IndustryType { get; set; }
+        public DbSet<TBL_OPPORTUNITYSTATUS> TBL_OPPORTUNITYSTATUS { get; set; }
+        public DbSet<Tbl_AppointmentsSource> Tbl_AppointmentsSource { get; set; }
+        public DbSet<Tbl_ProductType> Tbl_ProductType { get; set; }
+        public DbSet<TBL_CONTACTS> TBL_CONTACTS { get; set; }
+        public DbSet<TBL_OPPORTUNITIES> TBL_OPPORTUNITIES { get; set; }
     }
 }

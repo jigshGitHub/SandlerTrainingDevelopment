@@ -16,10 +16,10 @@ public partial class Login : Page
     }
     protected void btnLogin_Click(object sender, EventArgs e)
     {
-        Response.Redirect("Default.aspx");
+        
     }
     protected void sandlerLogin_LoggedIn(object sender, EventArgs e)
     {
-        //CurrentUser = Membership.GetUser(sandlerLogin.UserName);        
+        Response.Redirect("~/Default.aspx");
     }
 }

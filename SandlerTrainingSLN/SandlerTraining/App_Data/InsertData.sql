@@ -1,5 +1,0 @@
-INSERT [dbo].[TBL_COSTOFSALE_DRILL] ([Category_Name], [Cost], [Profit]) VALUES (N'TARGET', 72, -2)
-INSERT [dbo].[TBL_COSTOFSALE_DRILL] ([Category_Name], [Cost], [Profit]) VALUES (N'WALMART', 72, -5)
-INSERT [dbo].[TBL_COSTOFSALE_DRILL] ([Category_Name], [Cost], [Profit]) VALUES (N'CVS', 72, 8)
-INSERT [dbo].[TBL_COSTOFSALE_DRILL] ([Category_Name], [Cost], [Profit]) VALUES (N'JC Penny', 72, 5)
-INSERT [dbo].[TBL_COSTOFSALE_DRILL] ([Category_Name], [Cost], [Profit]) VALUES (N'Walgreen', 72, -27)

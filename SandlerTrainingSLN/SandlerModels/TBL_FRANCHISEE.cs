@@ -17,6 +17,7 @@ namespace SandlerModels
         public TBL_FRANCHISEE()
         {
             this.TBL_FRANCHISEE_USERS = new HashSet<TBL_FRANCHISEE_USERS>();
+            this.TBL_COMPANIES = new HashSet<TBL_COMPANIES>();
         }
     
         public int ID { get; set; }
@@ -27,9 +28,21 @@ namespace SandlerModels
         public Nullable<System.Guid> LastUpdatedBy { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }
         public Nullable<System.Guid> CreatedBy { get; set; }
+        public string Address1 { get; set; }
+        public string Address2 { get; set; }
+        public string City { get; set; }
+        public string State { get; set; }
+        public string Zip { get; set; }
+        public Nullable<int> CountryID { get; set; }
+        public Nullable<decimal> PhoneNumber { get; set; }
+        public Nullable<decimal> FaxNumber { get; set; }
+        public string WebAddress { get; set; }
+        public string EmailAddress { get; set; }
     
         public virtual TBL_COACH TBL_COACH { get; set; }
         public virtual ICollection<TBL_FRANCHISEE_USERS> TBL_FRANCHISEE_USERS { get; set; }
+        public virtual TBL_COUNTRY TBL_COUNTRY { get; set; }
+        public virtual ICollection<TBL_COMPANIES> TBL_COMPANIES { get; set; }
     }
     
 }

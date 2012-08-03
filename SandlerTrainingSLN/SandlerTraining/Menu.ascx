@@ -23,11 +23,11 @@
                         <li><a href="<%=  Page.ResolveClientUrl("~/" + ChartHelper.GeneratePageLink("","ActualDollarsBookedComparisonGoal"))  %>">
                             Actual Dollars Booked and Comparison to Goal (By Month)</a></li></ul>
                     </li>
-                    <li><a href="~/CRM/CRMCompanies.aspx" id="anchorCRM" runat="server">CRM</a> </li>
+                    <li><a href="~/CRM/Companies/Index.aspx" id="anchorCRM" runat="server">CRM</a> </li>
                     <li><a href="#" class="disableLink">BENCHMARKS</a> </li>
                     <li><a href="#" class="disableLink">PRODUCTS</a> </li>
-                    <li><a href="~/Account/Logout.aspx" id="anchorLogout" runat="server">LOGOUT</a>
-                    </li>
+                    <!--<li><a href="~/Account/Logout.aspx" id="anchorLogout" runat="server">LOGOUT</a>
+                    </li>-->
                 </ul>
             </td>
         </tr>

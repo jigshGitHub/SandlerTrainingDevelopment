@@ -40,6 +40,6 @@
             </td>
         </tr>
     </table>
-    <script type="text/javascript">
+    <script type="text/javascript">        
     </script>
 </asp:Content>

@@ -85,7 +85,7 @@ first child of the left and right table columns */
 
 .page
 {
-    width: 960px;
+    /*width: 960px;*/
     background-color: #8EB4E6;
     margin: 20px auto 0px auto;
 }
@@ -96,7 +96,8 @@ first child of the left and right table columns */
     margin: 0px;
     padding: 0px;
     background: #8EB4E6;
-    width: 100%;
+	width: 80%;
+	margin: 20px auto 0px auto;
 }
 
 .header h1
@@ -110,11 +111,28 @@ first child of the left and right table columns */
     font-size: 2em;
 }
 
+.CRMSubMenus{
+    background-color: white;
+    width: 100%;
+    margin: 20px auto 0px auto;
+}
+.CRMSubMenus a:link
+{
+    color: #0000FF;
+    font-size: large;
+    text-decoration: none;
+}
+
+a.CRMSubMenusActive:link
+{
+	font-weight: bold;
+	text-decoration: underline;
+}
 .main
 {
-    padding: 0px 12px;
-    margin: 12px 8px 8px 8px;
-    min-height: 420px;
+	width: 80%;
+	margin: 20px auto 0px auto;
+	min-height: 420px;
 }
 
 .leftCol
@@ -127,13 +145,14 @@ first child of the left and right table columns */
 
 .footer
 {
-    color: #4e5766;
+    color: #FFFFFF;
     padding: 8px 0px 0px 0px;
     margin: 0px auto;
     text-align: center;
     line-height: normal;
+    width: 80%;
+	margin: 20px auto 0px auto;
 }
-
 
 /* TAB MENU   
 ----------------------------------------------------------*/
@@ -293,14 +312,6 @@ div.accountInfo
 {
     background-color: #ff800d;
 }
-.footer
-{
-    color: #FFFFFF;
-    padding: 8px 0px 0px 0px;
-    margin: 0px auto;
-    text-align: center;
-    line-height: normal;
-}
 a.menuLink
 {
 	border-style: solid;
@@ -429,14 +440,4 @@ a.menuLinkActive:visited
 	padding-left: 0.3em;
 	padding-right: 0.3em;
 	padding-bottom: 0.1em;
-}
-
-.CRMSubMenus{
-    background-color: white;
-}
-.CRMSubMenus a:link
-{
-    color: #0000FF;
-    font-size: large;
-    text-decoration: none;
 }

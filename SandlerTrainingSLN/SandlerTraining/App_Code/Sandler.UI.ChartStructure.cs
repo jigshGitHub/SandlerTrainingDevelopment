@@ -9,7 +9,7 @@ using SandlerRepositories;
 using SandlerModels;
 using System.Data.SqlClient;
 using System.Configuration;
-
+using SandlerData.Models;
 namespace Sandler.UI.ChartStructure
 {
     public static class ChartHelper
@@ -20,10 +20,12 @@ namespace Sandler.UI.ChartStructure
         {
             return (string.IsNullOrEmpty(drillBy) && string.IsNullOrEmpty(drillChartIds)) ? "" : string.Format("{0}?{1}={2}&{3}={4}", CHARTPAGE, ConfigurationManager.AppSettings["QueryStringParamDrillChartIDs"], drillChartIds, ConfigurationManager.AppSettings["QueryStringParamDrillBy"], drillBy);
         }
+
+
     }
     public interface IChart
     {
-        void LoadChart();
+        void LoadChart(UserModel user);
         string CreateCategories();
         string CreateDataSets();
         void CreateChart();
@@ -124,131 +126,152 @@ namespace Sandler.UI.ChartStructure
             this.DrillOverride = true;
         }
 
-        public void LoadChart()
+
+        public void LoadChart(UserModel currentUser)
         {
-            COSTimeRepository cosRepository;
-            IEnumerable<TBL_COSTOFSALE_MAIN> cosData;
-            COSTimeRepositoryDrill cosDrillRepository;
-            IEnumerable<TBL_COSTOFSALE_DRILL> cosDrillData;
-            IndustryAveRepository iAveRepository;
-            IEnumerable<TBL_IND_AVERAGES> iAveData;
-            PipeLinePostTrainingRepository ppTRepository;
-            IEnumerable<TBL_PIPELINE_POST> ppTData;
-            ProductMarginContributionRepository pmcRepository;
-            IEnumerable<TBL_PRODUCT_MARGIN> pmcData;
-            ProductSalesActivityRepository psaRepository;
-            IEnumerable<TBL_PRDSALES_BYACT> psaData;
-            SandlerRepositories.ROIRepository roiRepository;
-            IEnumerable<Return_on_Trng_Investment> roiData;
-            string value;
-            //int nextDrillLevel = this.DrillLevel + 1;
-
-            //Revenue By Source
-            RevenueBySourceRepository rbsRepository;
-            IEnumerable<TBL_REVBYSOURCE> rbsData;
-            //Prod Sold By Rep
-            ProdSoldByRepRepository psbrRepository;
-            IEnumerable<TBL_PRODSOLD_BYREP> psbrData;
-            //Prod sold as 1st Sale
-            ProdSoldAsSaleRepository psasRepository;
-            IEnumerable<TBL_PRODSOLD_AS_SALE> psasData;
-            //Product sold By Company
-            ProdSoldByCompRepository psbcRepository;
-            IEnumerable<TBL_PRODSOLD_BYCOMP> psbcData;
-            //Retention Rate
-            RetentionRateRepository retrateRepository;
-            IEnumerable<TBL_RETENTION_RATE> retrateData;
-            //Sales Totals By Month
-            SalesTotalsByMonthRepository salesTotRepository;
-            IEnumerable<TBL_SALESTOTALBYMONTH> salesTotData;
-
             try
             {
                 this.DrillChartIds = (this.DrillOverride) ? this.Id.ToString() : this.DrillChartIds;
+                List<ChartParameter> chartParams = null;
+                ChartDataSet lastDs = null;
+                ChartDataModel chartData;
+                IEnumerable<TBL_CONTACTS> contacts;
+                IEnumerable<TBL_OPPORTUNITIES> opportunties;
                 switch ((ChartID)Enum.Parse(typeof(ChartID), this.Id.ToString(), true))
                 {
-                    case ChartID.NewAppointmentsBySourceMonth:                        
-                        this.Categories.Add(new Category { Label = "Referral" });
-                        this.Categories.Add(new Category { Label = "Network" });
-                        this.Categories.Add(new Category { Label = "Talk" });
-                        this.Categories.Add(new Category { Label = "Cold Call" });
-                        this.Categories.Add(new Category { Label = "Follow On" });
+                    case ChartID.NewAppointmentsBySourceMonth:
+                        AppointmentSourceRepository appointmentSource = new AppointmentSourceRepository();
+                        foreach (var record in appointmentSource.GetAll().Where(r => r.IsActive == true).AsEnumerable())
+                        {
+                            this.Categories.Add(new Category { Label = record.ApptSourceName });
+                        }
 
-                        this.DataSetCollection.Add(new ChartDataSet { Color = "3300ff", SeriesName = "Mar" });
+                        chartData = new ChartDataModel();
+                        contacts = chartData.GetNewAppointments(currentUser);
 
-                        this.DataSetCollection[0].SetsCollection.Add(new SetValue { Value = "3", Link = ChartHelper.GeneratePageLink(this.DataSetCollection[0].SeriesName, this.DrillChartIds) });
-                        this.DataSetCollection[0].SetsCollection.Add(new SetValue { Value = "4", Link = ChartHelper.GeneratePageLink(this.DataSetCollection[0].SeriesName, this.DrillChartIds) });
-                        this.DataSetCollection[0].SetsCollection.Add(new SetValue { Value = "7", Link = ChartHelper.GeneratePageLink(this.DataSetCollection[0].SeriesName, this.DrillChartIds) });
-                        this.DataSetCollection[0].SetsCollection.Add(new SetValue { Value = "6", Link = ChartHelper.GeneratePageLink(this.DataSetCollection[0].SeriesName, this.DrillChartIds) });
-                        this.DataSetCollection[0].SetsCollection.Add(new SetValue { Value = "4", Link = ChartHelper.GeneratePageLink(this.DataSetCollection[0].SeriesName, this.DrillChartIds) });
-
-                        this.DataSetCollection.Add(new ChartDataSet { Color = "ff6600", SeriesName = "Apr" });
-                        
-                        this.DataSetCollection[1].SetsCollection.Add(new SetValue { Value = "4", Link = ChartHelper.GeneratePageLink(this.DataSetCollection[1].SeriesName, this.DrillChartIds) });
-                        this.DataSetCollection[1].SetsCollection.Add(new SetValue { Value = "6", Link = ChartHelper.GeneratePageLink(this.DataSetCollection[1].SeriesName, this.DrillChartIds) });
-                        this.DataSetCollection[1].SetsCollection.Add(new SetValue { Value = "5", Link = ChartHelper.GeneratePageLink(this.DataSetCollection[1].SeriesName, this.DrillChartIds) });
-                        this.DataSetCollection[1].SetsCollection.Add(new SetValue { Value = "8", Link = ChartHelper.GeneratePageLink(this.DataSetCollection[1].SeriesName, this.DrillChartIds) });
-                        this.DataSetCollection[1].SetsCollection.Add(new SetValue { Value = "5", Link = ChartHelper.GeneratePageLink(this.DataSetCollection[1].SeriesName, this.DrillChartIds) });
-
-                        this.DataSetCollection.Add(new ChartDataSet { Color = "32df00", SeriesName = "May" });                      
+                        chartParams = new List<ChartParameter>();
+                        chartParams.Add(new ChartParameter { Value = "-2", Color = "3300ff" });
+                        chartParams.Add(new ChartParameter { Value = "-1", Color = "ff6600" });
+                        chartParams.Add(new ChartParameter { Value = "0", Color = "32df00" });
 
 
-                        this.DataSetCollection[2].SetsCollection.Add(new SetValue { Value = "6", Link = ChartHelper.GeneratePageLink(this.DataSetCollection[2].SeriesName, this.DrillChartIds) });
-                        this.DataSetCollection[2].SetsCollection.Add(new SetValue { Value = "8", Link = ChartHelper.GeneratePageLink(this.DataSetCollection[2].SeriesName, this.DrillChartIds) });
-                        this.DataSetCollection[2].SetsCollection.Add(new SetValue { Value = "7", Link = ChartHelper.GeneratePageLink(this.DataSetCollection[2].SeriesName, this.DrillChartIds) });
-                        this.DataSetCollection[2].SetsCollection.Add(new SetValue { Value = "9", Link = ChartHelper.GeneratePageLink(this.DataSetCollection[2].SeriesName, this.DrillChartIds) });
-                        this.DataSetCollection[2].SetsCollection.Add(new SetValue { Value = "10", Link = ChartHelper.GeneratePageLink(this.DataSetCollection[2].SeriesName, this.DrillChartIds) });
+                        foreach (ChartParameter parameter in chartParams)
+                        {
+                            if (contacts.Count() > 0)
+                            {
+                                var data = from record in contacts
+                                           where (record.CreatedDate.Value.Year == DateTime.Now.Year && record.CreatedDate.Value.Month == DateTime.Now.AddMonths(int.Parse(parameter.Value)).Month)
+                                           group record by new { record.Tbl_AppointmentsSource.ApptSourceName }
+                                               into grp
+                                               select new { Category = grp.Key.ApptSourceName, Count = grp.Count() };
+
+                                this.DataSetCollection.Add(new ChartDataSet { Color = parameter.Color, SeriesName = DateTime.Now.AddMonths(int.Parse(parameter.Value)).ToString("MMM") });
+
+                                foreach (Category category in this.Categories)
+                                {
+                                    lastDs = this.DataSetCollection.Last();
+                                    lastDs.SetsCollection.Add(new SetValue { Label = category.Label, Link = ChartHelper.GeneratePageLink(lastDs.SeriesName, this.DrillChartIds) });
+                                }
+
+                                foreach (var record in data)
+                                {
+                                    foreach (SetValue set in lastDs.SetsCollection)
+                                    {
+                                        if (set.Label == record.Category)
+                                            set.Value = record.Count.ToString();
+                                    }
+                                }
+                            }
+                        }
                         break;
 
                     case ChartID.NewClientsByProductTypeMonth:
 
-                        this.Categories.Add(new Category { Label = "Assessment" });
-                        this.Categories.Add(new Category { Label = "PC" });
-                        this.Categories.Add(new Category { Label = "Consulting" });
-                        this.Categories.Add(new Category { Label = "Training" });
-                        this.Categories.Add(new Category { Label = "Leadership" });
-                        this.Categories.Add(new Category { Label = "Coaching" });
+                        ProductTypesRepository productTypesSource = new ProductTypesRepository();
+                        foreach (var record in productTypesSource.GetAll().Where(r => r.IsActive == true).AsEnumerable())
+                        {
+                            this.Categories.Add(new Category { Label = record.ProductTypeName });
+                        }
 
-                        this.DataSetCollection.Add(new ChartDataSet { Color = "8A4B08", SeriesName = "Mar" });
-                        this.DataSetCollection.Add(new ChartDataSet { Color = "0000FF", SeriesName = "Apr" });
-                        this.DataSetCollection.Add(new ChartDataSet { Color = "ff9966", SeriesName = "May" });
+                        chartData = new ChartDataModel();
+                        opportunties = chartData.Getopportunities(currentUser);
 
-                        this.DataSetCollection[0].SetsCollection.Add(new SetValue { Value = "25", Link = ChartHelper.GeneratePageLink(this.DataSetCollection[0].SeriesName, this.DrillChartIds) });
-                        this.DataSetCollection[0].SetsCollection.Add(new SetValue { Value = "35", Link = ChartHelper.GeneratePageLink(this.DataSetCollection[0].SeriesName, this.DrillChartIds) });
-                        this.DataSetCollection[0].SetsCollection.Add(new SetValue { Value = "37", Link = ChartHelper.GeneratePageLink(this.DataSetCollection[0].SeriesName, this.DrillChartIds) });
-                        this.DataSetCollection[0].SetsCollection.Add(new SetValue { Value = "38", Link = ChartHelper.GeneratePageLink(this.DataSetCollection[0].SeriesName, this.DrillChartIds) });
-                        this.DataSetCollection[0].SetsCollection.Add(new SetValue { Value = "37", Link = ChartHelper.GeneratePageLink(this.DataSetCollection[0].SeriesName, this.DrillChartIds) });
-                        this.DataSetCollection[0].SetsCollection.Add(new SetValue { Value = "38", Link = ChartHelper.GeneratePageLink(this.DataSetCollection[0].SeriesName, this.DrillChartIds) });
+                        chartParams = new List<ChartParameter>();
+                        chartParams.Add(new ChartParameter { Value = "-2", Color = "8A4B08" });
+                        chartParams.Add(new ChartParameter { Value = "-1", Color = "0000FF" });
+                        chartParams.Add(new ChartParameter { Value = "0", Color = "ff9966" });
 
-                        this.DataSetCollection[1].SetsCollection.Add(new SetValue { Value = "23", Link = ChartHelper.GeneratePageLink(this.DataSetCollection[1].SeriesName, this.DrillChartIds) });
-                        this.DataSetCollection[1].SetsCollection.Add(new SetValue { Value = "26", Link = ChartHelper.GeneratePageLink(this.DataSetCollection[1].SeriesName, this.DrillChartIds) });
-                        this.DataSetCollection[1].SetsCollection.Add(new SetValue { Value = "28", Link = ChartHelper.GeneratePageLink(this.DataSetCollection[1].SeriesName, this.DrillChartIds) });
-                        this.DataSetCollection[1].SetsCollection.Add(new SetValue { Value = "29", Link = ChartHelper.GeneratePageLink(this.DataSetCollection[1].SeriesName, this.DrillChartIds) });
-                        this.DataSetCollection[1].SetsCollection.Add(new SetValue { Value = "28", Link = ChartHelper.GeneratePageLink(this.DataSetCollection[1].SeriesName, this.DrillChartIds) });
-                        this.DataSetCollection[1].SetsCollection.Add(new SetValue { Value = "29", Link = ChartHelper.GeneratePageLink(this.DataSetCollection[1].SeriesName, this.DrillChartIds) });
+                        foreach (ChartParameter parameter in chartParams)
+                        {
+                            if (opportunties.Count() > 0)
+                            {
+                                var data = from record in opportunties
+                                           where (record.TBL_COMPANIES.IsNewCompany == true && record.CreatedDate.Value.Year == DateTime.Now.Year && record.CreatedDate.Value.Month == DateTime.Now.AddMonths(int.Parse(parameter.Value)).Month)
+                                           group record by new { record.Tbl_ProductType.ProductTypeName }
+                                               into grp
+                                               select new { Category = grp.Key.ProductTypeName, Count = grp.Count() };
 
-                        this.DataSetCollection[2].SetsCollection.Add(new SetValue { Value = "10", Link = ChartHelper.GeneratePageLink(this.DataSetCollection[2].SeriesName, this.DrillChartIds) });
-                        this.DataSetCollection[2].SetsCollection.Add(new SetValue { Value = "15", Link = ChartHelper.GeneratePageLink(this.DataSetCollection[2].SeriesName, this.DrillChartIds) });
-                        this.DataSetCollection[2].SetsCollection.Add(new SetValue { Value = "20", Link = ChartHelper.GeneratePageLink(this.DataSetCollection[2].SeriesName, this.DrillChartIds) });
-                        this.DataSetCollection[2].SetsCollection.Add(new SetValue { Value = "15", Link = ChartHelper.GeneratePageLink(this.DataSetCollection[2].SeriesName, this.DrillChartIds) });
-                        this.DataSetCollection[2].SetsCollection.Add(new SetValue { Value = "20", Link = ChartHelper.GeneratePageLink(this.DataSetCollection[2].SeriesName, this.DrillChartIds) });
-                        this.DataSetCollection[2].SetsCollection.Add(new SetValue { Value = "15", Link = ChartHelper.GeneratePageLink(this.DataSetCollection[2].SeriesName, this.DrillChartIds) });
+                                this.DataSetCollection.Add(new ChartDataSet { Color = parameter.Color, SeriesName = DateTime.Now.AddMonths(int.Parse(parameter.Value)).ToString("MMM") });
+
+                                foreach (Category category in this.Categories)
+                                {
+                                    lastDs = this.DataSetCollection.Last();
+                                    lastDs.SetsCollection.Add(new SetValue { Label = category.Label, Link = ChartHelper.GeneratePageLink(lastDs.SeriesName, this.DrillChartIds) });
+                                }
+
+                                foreach (var record in data)
+                                {
+                                    foreach (SetValue set in lastDs.SetsCollection)
+                                    {
+                                        if (set.Label == record.Category)
+                                            set.Value = record.Count.ToString();
+                                    }
+                                }
+                            }
+                        }
+
                         break;
                     case ChartID.NewClientQuantityAverageContractPriceByMonth:
-                        this.Categories.Add(new Category { Label = "Mar" });
-                        this.Categories.Add(new Category { Label = "Apr" });
-                        this.Categories.Add(new Category { Label = "May" });
+                        this.Categories.Add(new Category { Label = DateTime.Now.AddMonths(-2).ToString("MMM") });
+                        this.Categories.Add(new Category { Label = DateTime.Now.AddMonths(-1).ToString("MMM") });
+                        this.Categories.Add(new Category { Label = DateTime.Now.AddMonths(0).ToString("MMM") });
 
                         this.DataSetCollection.Add(new ChartDataSet { Color = "0000FF", SeriesName = "New Clients" });
                         this.DataSetCollection.Add(new ChartDataSet { Color = "ff6600", SeriesName = "Ave Contract Price" });
 
-                        this.DataSetCollection[0].SetsCollection.Add(new SetValue { Value = "18", Link = ChartHelper.GeneratePageLink(this.Categories[0].Label, this.DrillChartIds) });
-                        this.DataSetCollection[0].SetsCollection.Add(new SetValue { Value = "25", Link = ChartHelper.GeneratePageLink(this.Categories[1].Label, this.DrillChartIds) });
-                        this.DataSetCollection[0].SetsCollection.Add(new SetValue { Value = "31", Link = ChartHelper.GeneratePageLink(this.Categories[2].Label, this.DrillChartIds) });
+                        chartData = new ChartDataModel();
+                        opportunties = chartData.Getopportunities(currentUser);
 
-                        this.DataSetCollection[1].SetsCollection.Add(new SetValue { Value = "13", Link = ChartHelper.GeneratePageLink(this.Categories[0].Label, this.DrillChartIds) });
-                        this.DataSetCollection[1].SetsCollection.Add(new SetValue { Value = "19", Link = ChartHelper.GeneratePageLink(this.Categories[1].Label, this.DrillChartIds) });
-                        this.DataSetCollection[1].SetsCollection.Add(new SetValue { Value = "23", Link = ChartHelper.GeneratePageLink(this.Categories[2].Label, this.DrillChartIds) });
+                        if (opportunties.Count() > 0)
+                        {
+                            string[] colors = new string[] { "CC6600", "9900CC", "FF3300", "0099FF", "00CC66", "FFFF00" };
+
+                            foreach (Category catagory in this.Categories)
+                            {
+                                try
+                                {
+                                    System.Nullable<int> newClients = (from record in opportunties
+                                                                       where (record.Tbl_ProductType.Id == record.ProductID && record.Tbl_ProductType.ProductTypeName != "Assessment" && record.TBL_COMPANIES.IsNewCompany == true && record.CreatedDate.Value.Year == DateTime.Now.Year && record.CreatedDate.Value.Month == DateTime.ParseExact(catagory.Label, "MMM", null).Month)
+                                                                       select record.COMPANYID).Count();
+
+                                    System.Nullable<long> aveContractPrice = (from record in opportunties
+                                                                       where (record.Tbl_ProductType.Id == record.ProductID && record.Tbl_ProductType.ProductTypeName != "Assessment" && record.TBL_COMPANIES.IsNewCompany == true && record.CreatedDate.Value.Year == DateTime.Now.Year && record.CreatedDate.Value.Month == DateTime.ParseExact(catagory.Label, "MMM", null).Month)
+                                                                       select record.WEIGHTEDVALUE).Sum();
+
+
+                                    if (aveContractPrice != null && aveContractPrice != null)
+                                    {
+                                        this.DataSetCollection[0].SetsCollection.Add(new SetValue { Value = newClients.ToString(), Link = ChartHelper.GeneratePageLink(catagory.Label, this.DrillChartIds) });
+                                        this.DataSetCollection[1].SetsCollection.Add(new SetValue { Value = (aveContractPrice/5).ToString(), Link = ChartHelper.GeneratePageLink(catagory.Label, this.DrillChartIds) });
+                                    }
+                                }
+                                catch (System.InvalidOperationException)
+                                {
+
+                                }
+                                
+                            }
+                        }
                         break;
                     case ChartID.ClassHeadcountByCourseIndustryMonth:
                         this.Categories.Add(new Category { Label = "Mar" });
@@ -282,325 +305,6 @@ namespace Sandler.UI.ChartStructure
                         this.DataSetCollection[1].SetsCollection.Add(new SetValue { Value = "66", Link = ChartHelper.GeneratePageLink("", this.DrillChartIds) });
                         this.DataSetCollection[1].SetsCollection.Add(new SetValue { Value = "90", Link = ChartHelper.GeneratePageLink("", this.DrillChartIds) });
                         break;
-                    //case ChartID.CostOfSale:
-                    //    if (this.DrillLevel == 0)
-                    //    {
-                    //        cosRepository = new COSTimeRepository();
-                    //        cosData = cosRepository.GetAll();
-
-                    //        this.DataSetCollection.Add(new ChartDataSet { Color = "8A4B08", SeriesName = "Cost" });
-                    //        this.DataSetCollection.Add(new ChartDataSet { Color = "0000FF", SeriesName = "Profit" });
-
-                    //        foreach (TBL_COSTOFSALE_MAIN row in cosData)
-                    //        {
-                    //            this.Categories.Add(new Category { Label = row.Category_Name });
-                    //            this.DataSetCollection[0].SetsCollection.Add(new SetValue { Value = row.Cost.ToString(), Link = "Cost_Of_Sale.aspx?drillLevel=" + nextDrillLevel.ToString() + "&drillBy=" + row.Category_Name });
-                    //            this.DataSetCollection[1].SetsCollection.Add(new SetValue { Value = row.Profit.ToString(), Link = "Cost_Of_Sale.aspx?drillLevel=" + nextDrillLevel.ToString() + "&drillBy=" + row.Category_Name });
-                    //        }
-                    //    }
-                    //    else
-                    //    {
-                    //        cosDrillRepository = new COSTimeRepositoryDrill();
-                    //        if (this.DrillLevel == 1)
-                    //        {
-                    //            cosDrillData = from record in cosDrillRepository.GetAll()
-                    //                           where (record.Id < 6)
-                    //                           select record;
-                    //        }
-                    //        else
-                    //        {
-                    //            cosDrillData = from record in cosDrillRepository.GetAll()
-                    //                           where (record.Id > 5)
-                    //                           select record;
-                    //        }
-
-                    //        this.DataSetCollection.Add(new ChartDataSet { Color = "8A4B08", SeriesName = "Cost" });
-                    //        this.DataSetCollection.Add(new ChartDataSet { Color = "0000FF", SeriesName = "Profit" });
-
-                    //        foreach (TBL_COSTOFSALE_DRILL row in cosDrillData)
-                    //        {
-                    //            this.Categories.Add(new Category { Label = row.Category_Name });
-                    //            this.DataSetCollection[0].SetsCollection.Add(new SetValue { Value = row.Cost.ToString(), Link = "Cost_Of_Sale.aspx?drillLevel=" + nextDrillLevel.ToString() + "&drillBy=" + row.Category_Name });
-                    //            this.DataSetCollection[1].SetsCollection.Add(new SetValue { Value = row.Profit.ToString(), Link = "Cost_Of_Sale.aspx?drillLevel=" + nextDrillLevel.ToString() + "&drillBy=" + row.Category_Name });
-                    //        }
-                    //    }
-
-                    //    break;
-                    //case ChartID.IndustryAve:
-                    //    iAveRepository = new IndustryAveRepository();
-                    //    iAveData = iAveRepository.GetAll();
-
-                    //    this.DataSetCollection.Add(new ChartDataSet { Color = "8A4B08", SeriesName = "Best In Class" });
-                    //    this.DataSetCollection.Add(new ChartDataSet { Color = "0000FF", SeriesName = "Mass Mutual" });
-                    //    this.DataSetCollection.Add(new ChartDataSet { Color = "ff9966", SeriesName = "Industry Average" });
-
-                    //    foreach (TBL_IND_AVERAGES row in iAveData)
-                    //    {
-                    //        this.Categories.Add(new Category { Label = row.Category_Name });
-                    //        this.DataSetCollection[0].SetsCollection.Add(new SetValue { Value = row.Best_In_Class_Value.ToString(), Link = "IndustryAve.aspx" });
-                    //        this.DataSetCollection[1].SetsCollection.Add(new SetValue { Value = row.Mass_Mutual_Value.ToString(), Link = "IndustryAve.aspx" });
-                    //        this.DataSetCollection[2].SetsCollection.Add(new SetValue { Value = row.Ind_Avg_Value.ToString(), Link = "IndustryAve.aspx" });
-                    //    }
-                    //    break;
-                    //case ChartID.IndustryAveBenchmarks:
-                    //    iAveRepository = new IndustryAveRepository();
-                    //    iAveData = iAveRepository.GetAll();
-
-                    //    this.DataSetCollection.Add(new ChartDataSet { Color = "8A4B08", SeriesName = "Best In Class" });
-                    //    this.DataSetCollection.Add(new ChartDataSet { Color = "0000FF", SeriesName = "Mortgage Corporation" });
-                    //    this.DataSetCollection.Add(new ChartDataSet { Color = "ff9966", SeriesName = "Industry Average" });
-
-                    //    foreach (TBL_IND_AVERAGES row in iAveData)
-                    //    {
-                    //        this.Categories.Add(new Category { Label = row.Category_Name });
-                    //        this.DataSetCollection[0].SetsCollection.Add(new SetValue { Value = row.Best_In_Class_Value.ToString(), Link = "IndAverageBenchmarks.aspx" });
-                    //        this.DataSetCollection[1].SetsCollection.Add(new SetValue { Value = row.Mass_Mutual_Value.ToString(), Link = "IndAverageBenchmarks.aspx" });
-                    //        this.DataSetCollection[2].SetsCollection.Add(new SetValue { Value = row.Ind_Avg_Value.ToString(), Link = "IndAverageBenchmarks.aspx" });
-                    //    }
-                    //    break;
-                    //case ChartID.PipelinePostTraining:
-                    //    ppTRepository = new PipeLinePostTrainingRepository();
-                    //    ppTData = ppTRepository.GetAll();
-
-                    //    this.DataSetCollection.Add(new ChartDataSet { Color = "0000FF", SeriesName = "Before Training" });
-                    //    this.DataSetCollection.Add(new ChartDataSet { Color = "8A4B08", SeriesName = "After Training" });
-
-                    //    foreach (TBL_PIPELINE_POST row in ppTData)
-                    //    {
-                    //        this.Categories.Add(new Category { Label = row.Category_Name });
-                    //        this.DataSetCollection[0].SetsCollection.Add(new SetValue { Value = row.Before_Value.ToString(), Link = "Pipeline_Post_Training.aspx" });
-                    //        this.DataSetCollection[1].SetsCollection.Add(new SetValue { Value = row.After_Value.ToString(), Link = "Pipeline_Post_Training.aspx" });
-                    //    }
-                    //    break;
-                    //case ChartID.ProductMarginContributionValue:
-                    //case ChartID.ProductMarginContributionQty:
-                    //    pmcRepository = new ProductMarginContributionRepository();
-                    //    pmcData = pmcRepository.GetAll();
-
-                    //    this.DataSetCollection.Add(new ChartDataSet { Color = "3300ff", SeriesName = "2010" });
-                    //    this.DataSetCollection.Add(new ChartDataSet { Color = "ff6600", SeriesName = "2011" });
-                    //    this.DataSetCollection.Add(new ChartDataSet { Color = "32df00", SeriesName = "2012" });
-
-                    //    foreach (TBL_PRODUCT_MARGIN row in pmcData)
-                    //    {
-                    //        value = "";
-                    //        this.Categories.Add(new Category { Label = row.Category_Name });
-                    //        value = (this.Id == ChartID.ProductMarginContributionValue) ? row.Value_2010.ToString() : row.Qty_2010.ToString();
-                    //        this.DataSetCollection[0].SetsCollection.Add(new SetValue { Value = value, Link = "Product_Margin_Contribution.aspx" });
-                    //        value = (this.Id == ChartID.ProductMarginContributionValue) ? row.Value_2011.ToString() : row.Qty_2011.ToString();
-                    //        this.DataSetCollection[1].SetsCollection.Add(new SetValue { Value = value, Link = "Product_Margin_Contribution.aspx" });
-                    //        value = (this.Id == ChartID.ProductMarginContributionValue) ? row.Value_2012.ToString() : row.Qty_2012.ToString();
-                    //        this.DataSetCollection[2].SetsCollection.Add(new SetValue { Value = value, Link = "Product_Margin_Contribution.aspx" });
-                    //    }
-                    //    break;
-                    //case ChartID.RevenueBySourceValue:
-                    //case ChartID.RevenueBySourceQty:
-                    //    rbsRepository = new RevenueBySourceRepository();
-                    //    rbsData = rbsRepository.GetAll();
-
-                    //    this.DataSetCollection.Add(new ChartDataSet { Color = "3300ff", SeriesName = "2010" });
-                    //    this.DataSetCollection.Add(new ChartDataSet { Color = "ff6600", SeriesName = "2011" });
-                    //    this.DataSetCollection.Add(new ChartDataSet { Color = "32df00", SeriesName = "2012" });
-
-                    //    string rbsValue;
-                    //    foreach (TBL_REVBYSOURCE row in rbsData)
-                    //    {
-                    //        rbsValue = "";
-                    //        this.Categories.Add(new Category { Label = row.Category_Name });
-                    //        rbsValue = (this.Id == ChartID.RevenueBySourceValue) ? row.Value_2010.ToString() : row.Qty_2010.ToString();
-                    //        this.DataSetCollection[0].SetsCollection.Add(new SetValue { Value = rbsValue, Link = "Revenue_By_Source.aspx" });
-                    //        rbsValue = (this.Id == ChartID.RevenueBySourceValue) ? row.Value_2011.ToString() : row.Qty_2011.ToString();
-                    //        this.DataSetCollection[1].SetsCollection.Add(new SetValue { Value = rbsValue, Link = "Revenue_By_Source.aspx" });
-                    //        rbsValue = (this.Id == ChartID.RevenueBySourceValue) ? row.Value_2012.ToString() : row.Qty_2012.ToString();
-                    //        this.DataSetCollection[2].SetsCollection.Add(new SetValue { Value = rbsValue, Link = "Revenue_By_Source.aspx" });
-                    //    }
-                    //    break;
-                    //case ChartID.ProdSoldByRepValue:
-                    //case ChartID.ProdSoldByRepQty:
-                    //    psbrRepository = new ProdSoldByRepRepository();
-                    //    psbrData = psbrRepository.GetAll();
-
-                    //    this.DataSetCollection.Add(new ChartDataSet { Color = "3300ff", SeriesName = "2010" });
-                    //    this.DataSetCollection.Add(new ChartDataSet { Color = "ff6600", SeriesName = "2011" });
-                    //    this.DataSetCollection.Add(new ChartDataSet { Color = "32df00", SeriesName = "2012" });
-
-                    //    string psbrValue;
-                    //    foreach (TBL_PRODSOLD_BYREP row in psbrData)
-                    //    {
-                    //        psbrValue = "";
-                    //        this.Categories.Add(new Category { Label = row.Rep_Name });
-                    //        psbrValue = (this.Id == ChartID.ProdSoldByRepValue) ? row.Value_2010.ToString() : row.Qty_2010.ToString();
-                    //        this.DataSetCollection[0].SetsCollection.Add(new SetValue { Value = psbrValue, Link = "Prod_Sold_By_Rep.aspx" });
-                    //        psbrValue = (this.Id == ChartID.ProdSoldByRepValue) ? row.Value_2011.ToString() : row.Qty_2011.ToString();
-                    //        this.DataSetCollection[1].SetsCollection.Add(new SetValue { Value = psbrValue, Link = "Prod_Sold_By_Rep.aspx" });
-                    //        psbrValue = (this.Id == ChartID.ProdSoldByRepValue) ? row.Value_2012.ToString() : row.Qty_2012.ToString();
-                    //        this.DataSetCollection[2].SetsCollection.Add(new SetValue { Value = psbrValue, Link = "Prod_Sold_By_Rep.aspx" });
-                    //    }
-                    //    break;
-                    //case ChartID.ProductSoldAsSaleValue:
-                    //case ChartID.ProductSoldAsSaleQty:
-                    //    psasRepository = new ProdSoldAsSaleRepository();
-                    //    psasData = psasRepository.GetAll();
-
-                    //    this.DataSetCollection.Add(new ChartDataSet { Color = "3300ff", SeriesName = "2010" });
-                    //    this.DataSetCollection.Add(new ChartDataSet { Color = "ff6600", SeriesName = "2011" });
-                    //    this.DataSetCollection.Add(new ChartDataSet { Color = "32df00", SeriesName = "2012" });
-
-                    //    string psasValue;
-                    //    foreach (TBL_PRODSOLD_AS_SALE row in psasData)
-                    //    {
-                    //        psasValue = "";
-                    //        this.Categories.Add(new Category { Label = row.Category_Name });
-                    //        psasValue = (this.Id == ChartID.ProductSoldAsSaleValue) ? row.Value_2010.ToString() : row.Qty_2010.ToString();
-                    //        this.DataSetCollection[0].SetsCollection.Add(new SetValue { Value = psasValue, Link = "Prod_Sold_As_Sale.aspx" });
-                    //        psasValue = (this.Id == ChartID.ProductSoldAsSaleValue) ? row.Value_2011.ToString() : row.Qty_2011.ToString();
-                    //        this.DataSetCollection[1].SetsCollection.Add(new SetValue { Value = psasValue, Link = "Prod_Sold_As_Sale.aspx" });
-                    //        psasValue = (this.Id == ChartID.ProductSoldAsSaleValue) ? row.Value_2012.ToString() : row.Qty_2012.ToString();
-                    //        this.DataSetCollection[2].SetsCollection.Add(new SetValue { Value = psasValue, Link = "Prod_Sold_As_Sale.aspx" });
-                    //    }
-                    //    break;
-                    //case ChartID.ProductSoldByCompValue:
-                    //case ChartID.ProductSoldByCompQty:
-                    //    psbcRepository = new ProdSoldByCompRepository();
-                    //    psbcData = psbcRepository.GetAll();
-
-                    //    this.DataSetCollection.Add(new ChartDataSet { });
-
-                    //    string psbcValue;
-                    //    string psbcColor;
-                    //    foreach (TBL_PRODSOLD_BYCOMP row in psbcData)
-                    //    {
-                    //        psbcValue = "";
-                    //        psbcColor = "";
-                    //        this.Categories.Add(new Category { Label = row.Category_Name });
-                    //        psbcValue = (this.Id == ChartID.ProductSoldByCompValue) ? row.Value.ToString() : row.Quantity.ToString();
-                    //        psbcColor = row.Color.ToString();
-                    //        this.DataSetCollection[0].SetsCollection.Add(new SetValue { Value = psbcValue, Color = psbcColor, Link = "Prod_Sold_By_Company.aspx" });
-
-                    //    }
-                    //    break;
-                    //case ChartID.ProductSalesActivityValue:
-                    //case ChartID.ProductSalesActivityQty:
-                    //    psaRepository = new ProductSalesActivityRepository();
-                    //    psaData = psaRepository.GetAll();
-
-                    //    this.DataSetCollection.Add(new ChartDataSet { Color = "3300ff", SeriesName = "2010" });
-                    //    this.DataSetCollection.Add(new ChartDataSet { Color = "ff6600", SeriesName = "2011" });
-                    //    this.DataSetCollection.Add(new ChartDataSet { Color = "32df00", SeriesName = "2012" });
-
-                    //    foreach (TBL_PRDSALES_BYACT row in psaData)
-                    //    {
-                    //        value = "";
-                    //        this.Categories.Add(new Category { Label = row.Category_Name });
-                    //        value = (this.Id == ChartID.ProductSalesActivityValue) ? row.Value_2010.ToString() : row.Qty_2010.ToString();
-                    //        this.DataSetCollection[0].SetsCollection.Add(new SetValue { Value = value, Link = "Product_Sales_By_Activity.aspx" });
-                    //        value = (this.Id == ChartID.ProductSalesActivityValue) ? row.Value_2011.ToString() : row.Qty_2011.ToString();
-                    //        this.DataSetCollection[1].SetsCollection.Add(new SetValue { Value = value, Link = "Product_Sales_By_Activity.aspx" });
-                    //        value = (this.Id == ChartID.ProductSalesActivityValue) ? row.Value_2012.ToString() : row.Qty_2012.ToString();
-                    //        this.DataSetCollection[2].SetsCollection.Add(new SetValue { Value = value, Link = "Product_Sales_By_Activity.aspx" });
-                    //    }
-                    //    break;
-                    //case ChartID.RetentionRateByExp:
-                    //case ChartID.RetentionRateByEff:
-                    //    retrateRepository = new RetentionRateRepository();
-                    //    retrateData = retrateRepository.GetAll();
-
-                    //    this.DataSetCollection.Add(new ChartDataSet { Color = "3300ff", SeriesName = "Growth Company" });
-                    //    this.DataSetCollection.Add(new ChartDataSet { Color = "ff6600", SeriesName = "Mass Mutual" });
-                    //    this.DataSetCollection.Add(new ChartDataSet { Color = "32df00", SeriesName = "Marginal Company" });
-
-                    //    string retrateValue;
-                    //    foreach (TBL_RETENTION_RATE row in retrateData)
-                    //    {
-                    //        retrateValue = "";
-                    //        this.Categories.Add(new Category { Label = row.Year.ToString() });
-                    //        retrateValue = (this.Id == ChartID.RetentionRateByExp) ? row.Growth_Comp_Exp.ToString() : row.Growth_Comp_Effect.ToString();
-                    //        this.DataSetCollection[0].SetsCollection.Add(new SetValue { Value = retrateValue, Link = "Retention_Rate.aspx" });
-                    //        retrateValue = (this.Id == ChartID.RetentionRateByExp) ? row.Mass_Mutual_Exp.ToString() : row.Mass_Mutual_Effect.ToString();
-                    //        this.DataSetCollection[1].SetsCollection.Add(new SetValue { Value = retrateValue, Link = "Retention_Rate.aspx" });
-                    //        retrateValue = (this.Id == ChartID.RetentionRateByExp) ? row.Marginal_Comp_Exp.ToString() : row.Marginal_Comp_Effect.ToString();
-                    //        this.DataSetCollection[2].SetsCollection.Add(new SetValue { Value = retrateValue, Link = "Retention_Rate.aspx" });
-                    //    }
-                    //    break;
-                    //case ChartID.SalesTotalsByMonthValue:
-                    //case ChartID.SalesTotalsByMonthQty:
-                    //    salesTotRepository = new SalesTotalsByMonthRepository();
-                    //    salesTotData = salesTotRepository.GetAll();
-
-                    //    this.DataSetCollection.Add(new ChartDataSet { Color = "3300ff", SeriesName = "2010" });
-                    //    this.DataSetCollection.Add(new ChartDataSet { Color = "ff6600", SeriesName = "2011" });
-                    //    this.DataSetCollection.Add(new ChartDataSet { Color = "32df00", SeriesName = "2012" });
-
-                    //    string salesTotValue;
-                    //    foreach (TBL_SALESTOTALBYMONTH row in salesTotData)
-                    //    {
-                    //        psbrValue = "";
-                    //        this.Categories.Add(new Category { Label = row.Month_Name });
-                    //        salesTotValue = (this.Id == ChartID.SalesTotalsByMonthValue) ? row.Value_2010.ToString() : row.Qty_2010.ToString();
-                    //        this.DataSetCollection[0].SetsCollection.Add(new SetValue { Value = salesTotValue, Link = "Sales_Total_By_Month.aspx" });
-                    //        salesTotValue = (this.Id == ChartID.SalesTotalsByMonthValue) ? row.Value_2011.ToString() : row.Qty_2011.ToString();
-                    //        this.DataSetCollection[1].SetsCollection.Add(new SetValue { Value = salesTotValue, Link = "Sales_Total_By_Month.aspx" });
-                    //        salesTotValue = (this.Id == ChartID.SalesTotalsByMonthValue) ? row.Value_2012.ToString() : row.Qty_2012.ToString();
-                    //        this.DataSetCollection[2].SetsCollection.Add(new SetValue { Value = salesTotValue, Link = "Sales_Total_By_Month.aspx" });
-                    //    }
-                    //    break;
-                    //case ChartID.ReturnOnTrainingInvestment:
-                    //    roiRepository = new SandlerRepositories.ROIRepository();
-                    //    roiData = roiRepository.GetAll();
-
-                    //    this.DataSetCollection.Add(new ChartDataSet { Color = "0000FF", SeriesName = "Original ROI" });
-                    //    this.DataSetCollection.Add(new ChartDataSet { Color = "F7D358", SeriesName = "Modified ROI" });
-
-                    //    List<int> roiYears = new List<int>();
-                    //    roiYears.Add(2013);
-                    //    roiYears.Add(2014);
-                    //    roiYears.Add(2015);
-
-                    //    foreach (int periodYear in roiYears)
-                    //    {
-                    //        IEnumerable<Return_on_Trng_Investment> values = roiData.Where(r => r.PeriodYear == periodYear);
-                    //        this.Categories.Add(new Category { Label = periodYear.ToString() });
-                    //        int index = 0;
-                    //        foreach (Return_on_Trng_Investment dr in values)
-                    //        {
-                    //            if (dr.Yr1ROI.HasValue)
-                    //                this.DataSetCollection[index++].SetsCollection.Add(new SetValue { Value = dr.Yr1ROI.ToString(), Link = "ROI.aspx" });
-                    //        }
-                    //    }
-                    //    break;
-
-                    //case ChartID.GapAnalysis:
-                    //    this.Categories.Add(new Category { Label = "Sales Cycle Time" });
-                    //    this.Categories.Add(new Category { Label = "Sales Efficiency" });
-                    //    this.Categories.Add(new Category { Label = "Sales Qualification" });
-                    //    this.Categories.Add(new Category { Label = "Trng Cost Savings" });
-                    //    this.Categories.Add(new Category { Label = "Quota Achievement" });
-                    //    this.Categories.Add(new Category { Label = "Estimated Benifits Gained" });
-
-                    //    SqlDataReader reader = null;
-                    //    IGapAnalysis gaData = new GapAnalysis();
-
-                    //    this.DataSetCollection.Add(new ChartDataSet { Color = "0000FF", SeriesName = "As-Is" });
-                    //    this.DataSetCollection.Add(new ChartDataSet { Color = "8A4B08", SeriesName = "To-Be" });
-
-                    //    reader = gaData.GetByRepId("1");
-                    //    while (reader.Read())
-                    //    {
-                    //        this.DataSetCollection[0].SetsCollection.Add(new SetValue { Value = reader.GetValue(5).ToString(), Link = "GapAnalysisCreate.aspx" });
-                    //        this.DataSetCollection[0].SetsCollection.Add(new SetValue { Value = reader.GetValue(6).ToString(), Link = "GapAnalysisCreate.aspx" });
-                    //        this.DataSetCollection[0].SetsCollection.Add(new SetValue { Value = reader.GetValue(7).ToString(), Link = "GapAnalysisCreate.aspx" });
-                    //        this.DataSetCollection[0].SetsCollection.Add(new SetValue { Value = reader.GetValue(8).ToString(), Link = "GapAnalysisCreate.aspx" });
-                    //        this.DataSetCollection[0].SetsCollection.Add(new SetValue { Value = reader.GetValue(9).ToString(), Link = "GapAnalysisCreate.aspx" });
-                    //        this.DataSetCollection[0].SetsCollection.Add(new SetValue { Value = reader.GetValue(10).ToString(), Link = "GapAnalysisCreate.aspx" });
-
-                    //        this.DataSetCollection[1].SetsCollection.Add(new SetValue { Value = reader.GetValue(11).ToString(), Link = "GapAnalysisCreate.aspx" });
-                    //        this.DataSetCollection[1].SetsCollection.Add(new SetValue { Value = reader.GetValue(12).ToString(), Link = "GapAnalysisCreate.aspx" });
-                    //        this.DataSetCollection[1].SetsCollection.Add(new SetValue { Value = reader.GetValue(13).ToString(), Link = "GapAnalysisCreate.aspx" });
-                    //        this.DataSetCollection[1].SetsCollection.Add(new SetValue { Value = reader.GetValue(14).ToString(), Link = "GapAnalysisCreate.aspx" });
-                    //        this.DataSetCollection[1].SetsCollection.Add(new SetValue { Value = reader.GetValue(15).ToString(), Link = "GapAnalysisCreate.aspx" });
-                    //        this.DataSetCollection[1].SetsCollection.Add(new SetValue { Value = reader.GetValue(16).ToString(), Link = "GapAnalysisCreate.aspx" });
-                    //    }
-                    //    break;
                     default:
                         break;
                 }
@@ -705,10 +409,6 @@ namespace Sandler.UI.ChartStructure
 
         public new void LoadChart()
         {
-            ProspectingRepository prosRepository;
-            IEnumerable<TBL_PROSPECTING> prosData;
-            ProdcutsSalesRepository prosalesRepository;
-            IEnumerable<TBL_SALES> prosalesData;
             try
             {
                 this.DrillChartIds = (this.DrillOverride) ? this.Id.ToString() : this.DrillChartIds;
@@ -876,44 +576,119 @@ namespace Sandler.UI.ChartStructure
             }
             return datasetXML.ToString();
         }
-        public new void LoadChart()
+        public new void LoadChart(UserModel currentUser)
         {
-            SalesCycleTimeRepository salescycleTimeRepository;
-            IEnumerable<TBL_SALESCYCLETIME_MAIN> sctimeData;
-
-            SalesCycleTimeDrillRepository sctdrillRepository;
-            IEnumerable<TBL_SALESCYCLETIME_DRILL> sctdrillData;
-
             try
             {
                 this.DrillChartIds = (this.DrillOverride) ? this.Id.ToString() : this.DrillChartIds;
+                int colorIndex = 0;
+                ChartDataModel chartData;
                 switch (this.Id)
                 {
                     case ChartID.NewAppointmentsBySource:
-                        this.SetsCollection.Add(new SetValue { Color = "00CC66", Label = "Referral", Link = "", Value = "13" });
-                        this.SetsCollection.Add(new SetValue { Color = "0099FF", Label = "Network", Link = "", Value = "17" });
-                        this.SetsCollection.Add(new SetValue { Color = "FF3300", Label = "Talk", Link = "", Value = "29" });
-                        this.SetsCollection.Add(new SetValue { Color = "9900CC", Label = "Cold Call", Link = "", Value = "25" });
-                        this.SetsCollection.Add(new SetValue { Color = "CC6600", Label = "Followw On", Link = "", Value = "16" });
+                        chartData = new ChartDataModel();
+                        IEnumerable<TBL_CONTACTS> contacts = chartData.GetNewAppointments(currentUser);
+
+                        if (contacts.Count() > 0)
+                        {
+                            var data = from record in contacts
+                                       where (record.CreatedDate.Value.Year == DateTime.Now.Year && record.CreatedDate.Value.Month == DateTime.ParseExact(this.DrillBy, "MMM", null).Month)
+                                       group record by new { record.Tbl_AppointmentsSource.ApptSourceName }
+                                           into grp
+                                           select new { Category = grp.Key.ApptSourceName, Count = grp.Count() };
+
+                            string[] colors = new string[] { "00CC66", "0099FF", "FF3300", "9900CC", "CC6600" };
+
+                            AppointmentSourceRepository appointmentSource = new AppointmentSourceRepository();
+                            foreach (var record in appointmentSource.GetAll().Where(r => r.IsActive == true).AsEnumerable())
+                            {
+                                try
+                                {
+                                    if (data.Single(r => r.Category == record.ApptSourceName) != null)
+                                        this.SetsCollection.Add(new SetValue { Color = colors.GetValue(colorIndex).ToString(), Label = record.ApptSourceName, Value = data.Single(r => r.Category == record.ApptSourceName).Count.ToString() });
+                                }
+                                catch (System.InvalidOperationException)
+                                {
+
+                                }
+                                colorIndex++;
+                            }
+                        }
                         break;
 
                     case ChartID.NewClientByProductType:
-                        this.SetsCollection.Add(new SetValue { Color = "CC6600", Label = "Assessment", Link = "", Value = "15" });
-                        this.SetsCollection.Add(new SetValue { Color = "9900CC", Label = "PC", Link = "", Value = "14" });
-                        this.SetsCollection.Add(new SetValue { Color = "FF3300", Label = "Consulting", Link = "", Value = "17" });
-                        this.SetsCollection.Add(new SetValue { Color = "0099FF", Label = "Training", Link = "", Value = "19" });
-                        this.SetsCollection.Add(new SetValue { Color = "00CC66", Label = "Leadership", Link = "", Value = "18" });
-                        this.SetsCollection.Add(new SetValue { Color = "FFFF00", Label = "Coaching", Link = "", Value = "17" });
+                        chartData = new ChartDataModel();
+                        IEnumerable<TBL_OPPORTUNITIES> opportunties = chartData.Getopportunities(currentUser);
+
+
+                        if (opportunties.Count() > 0)
+                        {
+                            var data = from record in opportunties
+                                       where (record.TBL_COMPANIES.IsNewCompany == true && record.CreatedDate.Value.Year == DateTime.Now.Year && record.CreatedDate.Value.Month == DateTime.ParseExact(this.DrillBy, "MMM", null).Month)
+                                       group record by new { record.Tbl_ProductType.ProductTypeName }
+                                           into grp
+                                           select new { Category = grp.Key.ProductTypeName, Count = grp.Count() };
+
+                            string[] colors = new string[] { "CC6600", "9900CC", "FF3300", "0099FF", "00CC66", "FFFF00" };
+
+                            ProductTypesRepository productTypesSource = new ProductTypesRepository();
+                            foreach (var record in productTypesSource.GetAll().Where(r => r.IsActive == true).AsEnumerable())
+                            {
+                                try
+                                {
+                                    if (data.Single(r => r.Category == record.ProductTypeName) != null)
+                                        this.SetsCollection.Add(new SetValue { Color = colors.GetValue(colorIndex).ToString(), Label = record.ProductTypeName, Value = data.Single(r => r.Category == record.ProductTypeName).Count.ToString() });
+                                }
+                                catch (System.InvalidOperationException)
+                                {
+
+                                }
+                                colorIndex++;
+                            }
+                        }
+
                         break;
 
                     case ChartID.NewClientQuantity:
-                        this.SetsCollection.Add(new SetValue { Color = "CC6600", Label = "Assessment", Link = "", Value = "15" });
-                        this.SetsCollection.Add(new SetValue { Color = "9900CC", Label = "PC", Link = "", Value = "14" });
-                        this.SetsCollection.Add(new SetValue { Color = "FF3300", Label = "Consulting", Link = "", Value = "17" });
-                        this.SetsCollection.Add(new SetValue { Color = "0099FF", Label = "Training", Link = "", Value = "19" });
-                        this.SetsCollection.Add(new SetValue { Color = "00CC66", Label = "Leadership", Link = "", Value = "18" });
-                        this.SetsCollection.Add(new SetValue { Color = "FFFF00", Label = "Coaching", Link = "", Value = "17" });
+                        chartData = new ChartDataModel();
+                        opportunties = chartData.Getopportunities(currentUser);
+
+
+                        if (opportunties.Count() > 0)
+                        {
+                            var data = from record in opportunties
+                                       where (record.Tbl_ProductType.Id == record.ProductID && record.Tbl_ProductType.ProductTypeName != "Assessment" && record.TBL_COMPANIES.IsNewCompany == true && record.CreatedDate.Value.Year == DateTime.Now.Year && record.CreatedDate.Value.Month == DateTime.ParseExact(this.DrillBy, "MMM", null).Month)
+                                       group record by new { record.Tbl_ProductType.ProductTypeName }
+                                           into grp
+                                           select new { Category = grp.Key.ProductTypeName, Count = grp.Count() };
+
+                            string[] colors = new string[] { "CC6600", "9900CC", "FF3300", "0099FF", "00CC66", "FFFF00" };
+
+                            ProductTypesRepository productTypesSource = new ProductTypesRepository();
+                            foreach (var record in productTypesSource.GetAll().Where(r => r.IsActive == true).AsEnumerable())
+                            {
+                                try
+                                {
+                                    if (data.Single(r => r.Category == record.ProductTypeName) != null)
+                                        this.SetsCollection.Add(new SetValue { Color = colors.GetValue(colorIndex).ToString(), Label = record.ProductTypeName, Value = data.Single(r => r.Category == record.ProductTypeName).Count.ToString() });
+                                }
+                                catch (System.InvalidOperationException)
+                                {
+
+                                }
+                                colorIndex++;
+                            }
+                        }
+
                         break;
+
+                        //this.SetsCollection.Add(new SetValue { Color = "CC6600", Label = "Assessment", Link = "", Value = "15" });
+                        //this.SetsCollection.Add(new SetValue { Color = "9900CC", Label = "PC", Link = "", Value = "14" });
+                        //this.SetsCollection.Add(new SetValue { Color = "FF3300", Label = "Consulting", Link = "", Value = "17" });
+                        //this.SetsCollection.Add(new SetValue { Color = "0099FF", Label = "Training", Link = "", Value = "19" });
+                        //this.SetsCollection.Add(new SetValue { Color = "00CC66", Label = "Leadership", Link = "", Value = "18" });
+                        //this.SetsCollection.Add(new SetValue { Color = "FFFF00", Label = "Coaching", Link = "", Value = "17" });
+                        //break;
 
                     case ChartID.ContractPrice:
                         this.SetsCollection.Add(new SetValue { Color = "CC6600", Label = "Assessment", Link = "", Value = "15" });
@@ -938,133 +713,6 @@ namespace Sandler.UI.ChartStructure
                         this.SetsCollection.Add(new SetValue { Color = "00CC66", Label = "Software", Link = "", Value = "18" });
                         this.SetsCollection.Add(new SetValue { Color = "FFFF00", Label = "Consulting", Link = "", Value = "17" });
                         break;
-
-                    //case ChartID.SalesCycleTimeMain:
-                    //    salescycleTimeRepository = new SalesCycleTimeRepository();
-                    //    sctimeData = salescycleTimeRepository.GetAll();
-                    //    SetValue set;
-                    //    foreach (TBL_SALESCYCLETIME_MAIN row in sctimeData)
-                    //    {
-                    //        set = new SetValue();
-                    //        set.Value = row.Value.ToString();
-                    //        set.Color = row.Color;
-                    //        set.Label = row.Category_Name;
-                    //        if (!string.IsNullOrEmpty(row.Link))
-                    //            set.Link = row.Link;
-                    //        this.SetsCollection.Add(set);
-
-                    //    }
-                    //    break;
-
-                    //case ChartID.SalesCycleTimeDrill:
-                    //    sctdrillRepository = new SalesCycleTimeDrillRepository();
-                    //    string nextDrillBy = "";
-                    //    string productName = "";
-                    //    string companyName = "";
-                    //    if (DrillBy == "Product")
-                    //    {
-                    //        sctdrillData = from record in sctdrillRepository.GetAll()
-                    //                       where (record.Id < 12)
-                    //                       select record;
-                    //        nextDrillBy = "Company";
-                    //    }
-                    //    else if (DrillBy == "Company")
-                    //    {
-                    //        sctdrillData = from record in sctdrillRepository.GetAll()
-                    //                       where (record.Id > 11 && record.Id < 22)
-                    //                       select record;
-                    //        nextDrillBy = "SalesRep";
-                    //    }
-                    //    else
-                    //    {
-                    //        sctdrillData = from record in sctdrillRepository.GetAll()
-                    //                       where (record.Id > 21)
-                    //                       select record;
-                    //    }
-                    //    string drillValue = "";
-                    //    SetValue localset;
-                    //    foreach (TBL_SALESCYCLETIME_DRILL row in sctdrillData)
-                    //    {
-                    //        localset = new SetValue();
-                    //        switch (DrillLevel)
-                    //        {
-                    //            case 2:
-                    //                drillValue = row.Value_DL2.ToString();
-                    //                if (row.Category_Name == "Sandler Online" || row.Category_Name == "Castle Metals")
-                    //                {
-                    //                    localset.Link = "SCTDrill.aspx?drillCategory=" + this.DrillCategory + "&drillLevel=" + DrillLevel.ToString() + "&drillBy=" + nextDrillBy;
-                    //                    HttpContext.Current.Session[DrillBy] = row.Category_Name;
-                    //                }
-                    //                break;
-                    //            case 3:
-                    //                drillValue = row.Value_DL3.ToString();
-                    //                if (row.Category_Name == "Consulting" || row.Category_Name == "GE Capital Corp")
-                    //                {
-                    //                    localset.Link = "SCTDrill.aspx?drillCategory=" + this.DrillCategory + "&drillLevel=" + DrillLevel.ToString() + "&drillBy=" + nextDrillBy;
-                    //                    HttpContext.Current.Session[DrillBy] = row.Category_Name;
-                    //                }
-                    //                break;
-                    //        }
-                    //        localset.Value = drillValue;
-                    //        localset.Color = row.Color;
-                    //        localset.Label = row.Category_Name;
-                    //        this.SetsCollection.Add(localset);
-                    //    }
-                    //    break;
-                    //case ChartID.SalesCycleTimeDrill1:
-                    //    sctdrillRepository = new SalesCycleTimeDrillRepository();
-                    //    sctdrillData = sctdrillRepository.GetAll();
-
-                    //    foreach (TBL_SALESCYCLETIME_DRILL row in sctdrillData)
-                    //    {
-                    //        this.SetsCollection.Add(new SetValue { Value = row.Value_DL1.ToString(), Color = row.Color, Label = row.Category_Name });
-                    //    }
-                    //    break;
-                    //case ChartID.SalesCycleTimeDrill2:
-                    //    sctdrillRepository = new SalesCycleTimeDrillRepository();
-                    //    sctdrillData = sctdrillRepository.GetAll();
-
-                    //    foreach (TBL_SALESCYCLETIME_DRILL row in sctdrillData)
-                    //    {
-                    //        this.SetsCollection.Add(new SetValue { Value = row.Value_DL2.ToString(), Color = row.Color, Label = row.Category_Name });
-                    //    }
-                    //    break;
-                    //case ChartID.SalesCycleTimeDrill3:
-                    //    sctdrillRepository = new SalesCycleTimeDrillRepository();
-                    //    sctdrillData = sctdrillRepository.GetAll();
-
-                    //    foreach (TBL_SALESCYCLETIME_DRILL row in sctdrillData)
-                    //    {
-                    //        this.SetsCollection.Add(new SetValue { Value = row.Value_DL3.ToString(), Color = row.Color, Label = row.Category_Name });
-                    //    }
-                    //    break;
-                    //case ChartID.SalesCycleTimeDrill4:
-                    //    sctdrillRepository = new SalesCycleTimeDrillRepository();
-                    //    sctdrillData = sctdrillRepository.GetAll();
-
-                    //    foreach (TBL_SALESCYCLETIME_DRILL row in sctdrillData)
-                    //    {
-                    //        this.SetsCollection.Add(new SetValue { Value = row.Value_DL4.ToString(), Color = row.Color, Label = row.Category_Name });
-                    //    }
-                    //    break;
-                    //case ChartID.SalesCycleTimeDrill5:
-                    //    sctdrillRepository = new SalesCycleTimeDrillRepository();
-                    //    sctdrillData = sctdrillRepository.GetAll();
-
-                    //    foreach (TBL_SALESCYCLETIME_DRILL row in sctdrillData)
-                    //    {
-                    //        this.SetsCollection.Add(new SetValue { Value = row.Value_DL5.ToString(), Color = row.Color, Label = row.Category_Name });
-                    //    }
-                    //    break;
-                    //case ChartID.SalesCycleTimeDrill6:
-                    //    sctdrillRepository = new SalesCycleTimeDrillRepository();
-                    //    sctdrillData = sctdrillRepository.GetAll();
-
-                    //    foreach (TBL_SALESCYCLETIME_DRILL row in sctdrillData)
-                    //    {
-                    //        this.SetsCollection.Add(new SetValue { Value = row.Value_DL6.ToString(), Color = row.Color, Label = row.Category_Name });
-                    //    }
-                    //    break;
 
                     default:
                         break;
@@ -1136,6 +784,13 @@ namespace Sandler.UI.ChartStructure
         public string Color { get; set; }
         public string Label { get; set; }
     }
+
+    public class ChartParameter
+    {
+        public string Color { get; set; }
+        public string Value { get; set; }
+    }
+
 
 
 }

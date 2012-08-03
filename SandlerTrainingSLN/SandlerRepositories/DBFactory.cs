@@ -398,12 +398,36 @@ namespace SandlerRepositories
 
         public System.Data.Entity.DbContext Get()
         {
-            return dbContext ?? (dbContext = new SandlerDBEntities());
+            dbContext = (SandlerDBEntities) UnitOfWorkStore.GetInstance("DBEntities");
+            if (dbContext == null)
+            {
+                dbContext = new SandlerDBEntities();
+                UnitOfWorkStore.SetInstance("DBEntities", dbContext);
+            }
+            return dbContext;
         }
 
         public void Dispose()
         {
             throw new System.NotImplementedException();
+        }
+    }
+
+    public static class UnitOfWorkStore
+    {
+        public static object GetInstance(string key)
+        {
+            if (System.Web.HttpContext.Current != null)
+                return System.Web.HttpContext.Current.Items[key];
+            throw new Exception("Not found");
+        }
+
+        public static void SetInstance(string key, object instance)
+        {
+            if (System.Web.HttpContext.Current != null)
+                System.Web.HttpContext.Current.Items[key] = instance;
+            else
+                throw new Exception("Not found");
         }
     }
 }

@@ -1,7 +1,8 @@
 ﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="Site.master.cs" Inherits="SiteMaster" %>
 
 <%@ Import Namespace="Sandler.UI.ChartStructure" %>
-<%@ Register src="Menu.ascx" tagname="Menu" tagprefix="uc1" %>
+<%@ Register Src="Header.ascx" TagName="Header" TagPrefix="uc1" %>
+<%@ Register Src="Footer.ascx" TagName="Footer" TagPrefix="uc1" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
 <head runat="server">
@@ -10,7 +11,9 @@
     <script type="text/javascript" src="<%= Page.ResolveClientUrl("~/Scripts/jquery.formatCurrency-1.4.0.min.js") %>"></script>
     <script type="text/javascript" src="<%= Page.ResolveClientUrl("~/Scripts/jquery.calculation.min.js") %>"></script>
     <script type="text/javascript" src="<%= Page.ResolveClientUrl("~/FusionChartLib/FusionCharts.js") %>"></script>
-    <script type="text/javascript" language="javascript" src="<%= Page.ResolveClientUrl("~/Scripts/jquery.dropdownPlain.js") %>"></script>
+    <script type="text/javascript" src="<%= Page.ResolveClientUrl("~/Scripts/jquery.dropdownPlain.js") %>"></script>
+    <script type="text/javascript" src="<%= Page.ResolveClientUrl("~/Scripts/consolelog.min.js") %>"></script>
+    <script type="text/javascript" src="<%= Page.ResolveClientUrl("~/Scripts/plugins.js") %>"></script>
     <title></title>
     <link href="~/Styles/Site.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="~/Styles/Menu/style.css" type="text/css" media="screen, projection" />
@@ -19,91 +22,31 @@
     <![endif]-->
     <asp:ContentPlaceHolder ID="HeadContent" runat="server">
         <style type="text/css">
-</style>
+            
+        </style>
     </asp:ContentPlaceHolder>
 </head>
 <body>
     <form runat="server" id="formMain">
     <div class="page">
         <div class="header">
-            <div class="title">
+            <div class="clear hideSkiplink">
+                <uc1:Header ID="Header1" runat="server" />
             </div>
-            <div class="loginDisplay" style="display: block">
-                <asp:LoginView ID="HeadLoginView" runat="server" EnableViewState="false">
-                    <AnonymousTemplate>
-                        <!--[ <a href="~/Account/Login.aspx" id="HeadLoginStatus" runat="server">Log In</a>
-                        ]-->
-                    </AnonymousTemplate>
-                    <LoggedInTemplate>
-                        Welcome <span class="bold">
-                            <asp:LoginName ID="HeadLoginName" runat="server" />
-                        </span>! [
-                        <asp:LoginStatus ID="HeadLoginStatus" runat="server" LogoutAction="Redirect" LogoutText="Log Out"
-                            LogoutPageUrl="~/" />
-                        ]
-                    </LoggedInTemplate>
-                </asp:LoginView>
-            </div>
-            <uc1:Menu ID="Menu1" runat="server" />
         </div>
         <div class="main">
-            <asp:ContentPlaceHolder ID="MainContent" runat="server" >                
+            <asp:ContentPlaceHolder ID="MainContent" runat="server">
             </asp:ContentPlaceHolder>
         </div>
         <div class="clear">
         </div>
         <div class="footer">
-            <table width="100%">
-                <tr>
-                    <td align="left">
-                        Powered by Mined Systems, Inc. ®
-                    
-                    </td>
-                    <td align="right">
-                        Copyright© 2011 Mined Systems Metrics Intelligence. All rights reserved.
-                    </td>
-                </tr>
-            </table>
-        </div>
-        <div id="reportsSelection" style='display: none'>
-            <select id="reports" name="reports" size="15" multiple="multiple" style="position: absolute;
-                left: 405px; top: 40px;">
-                <option value="NewAppointmentsBySourceMonth">New Appointments By Source (By Month)</option>
-                <option value="NewClientsByProductTypeMonth">New Clients By Product Type (By Month)</option>
-                <option value="NewClientQuantityAverageContractPriceByMonth">New Client Quantity & Average
-                    Contract Price (By Month)</option>
-                <option value="ClassHeadcountByCourseIndustryMonth">Class Headcount By Course & Industry
-                    (By Month)</option>
-                <option value="AverageLengthTimeActiveClientsByIndustry">Average Length of Time for
-                    Active Clients (By Industry)</option>
-            </select>
+            <uc1:Footer ID="Footer1" runat="server" />
         </div>
     </div>
     <script type="text/javascript">
         $(document).ready(function () {
-            $('#lnkReports').click(function () {
-                $('#reportsSelection').show();
 
-                $('#[id*=lnk]').each(function (i) {
-                    if ($(this).hasClass('menuLinkActive')) {
-                        $(this).removeClass("menuLinkActive");
-                        $(this).addClass("menuLink");
-                    }
-                });
-                $('#lnkReports').addClass("menuLinkActive");
-                return false;
-            });
-            $('#reports').change(function () {
-                window.location = "ChartPage.aspx?chartId=" + $(this).val();
-            });
-
-            $("ul.dropdown li a").click(function () {
-                //alert($(this).text()); 
-
-                $('ul.dropdown li').each(function (i) {
-                    //alert($(this).find("a").text());
-                });
-            });
         });
     </script>
     </form>

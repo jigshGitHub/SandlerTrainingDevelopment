@@ -1,17 +1,25 @@
 ﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="CRM.master.cs" Inherits="CRM" %>
 
 <%@ Import Namespace="Sandler.UI.ChartStructure" %>
-<%@ Register Src="Menu.ascx" TagName="Menu" TagPrefix="uc1" %>
+<%@ Register Src="Header.ascx" TagName="Header" TagPrefix="uc1" %>
+<%@ Register Src="Footer.ascx" TagName="Footer" TagPrefix="uc1" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <script type="text/javascript" src="<%= Page.ResolveClientUrl("~/FusionChartLib/FusionCharts.js") %>"></script>
     <script type="text/javascript" src="<%= Page.ResolveClientUrl("~/Scripts/jquery-1.4.1.min.js") %>"></script>
     <script type="text/javascript" src="<%= Page.ResolveClientUrl("~/Scripts/External.js") %>"></script>
+    <script type="text/javascript" src="<%= Page.ResolveClientUrl("~/Scripts/jquery.formatCurrency-1.4.0.min.js") %>"></script>
+    <script type="text/javascript" src="<%= Page.ResolveClientUrl("~/Scripts/jquery.calculation.min.js") %>"></script>
+    <script type="text/javascript" src="<%= Page.ResolveClientUrl("~/Scripts/consolelog.min.js") %>"></script>
+    <script type="text/javascript" src="<%= Page.ResolveClientUrl("~/Scripts/plugins.js") %>"></script>
     <script type="text/javascript" language="javascript" src="<%= Page.ResolveClientUrl("~/Scripts/jquery.dropdownPlain.js") %>"></script>
     <title></title>
     <link href="~/Styles/CRMSite.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="~/Styles/Menu/style.css" type="text/css" media="screen, projection" />
+    <!--[if lte IE 7]>
+        <link rel="stylesheet" type="text/css" href="~/Styles/Menu/ie.css" media="screen" />
+    <![endif]-->
     <asp:ContentPlaceHolder ID="HeadContent" runat="server">
     </asp:ContentPlaceHolder>
 </head>
@@ -20,8 +28,8 @@
     <div class="page">
         <div class="header">
             <div class="clear hideSkiplink">
-                <uc1:Menu ID="Menu1" runat="server" />
-                <table class="CRMSubMenus" width="100%">
+                <uc1:Header ID="Header1" runat="server" />
+                <table class="CRMSubMenus" align="center">
                     <tr>
                         <td align="center">
                             <asp:LinkButton ID="linkCompanies" runat="server" CausesValidation="false" OnClick="linkCompanies_Click">Companies</asp:LinkButton>
@@ -30,7 +38,7 @@
                             <asp:LinkButton ID="linkContacts" runat="server" CausesValidation="false" OnClick="linkContacts_Click">Contacts</asp:LinkButton>
                         </td>
                         <td align="center">
-                            <asp:LinkButton ID="linkForOpps" runat="server" CausesValidation="false" OnClick="linkForOpps_Click">Opportunities</asp:LinkButton>
+                            <asp:LinkButton ID="linkOpportunities" runat="server" CausesValidation="false" OnClick="linkOpportunities_Click">Opportunities</asp:LinkButton>
                         </td>
                         <td align="center">
                             <asp:LinkButton ID="linkDocuments" runat="server" CausesValidation="false" OnClick="linkDocuments_Click">Documents</asp:LinkButton>
@@ -43,29 +51,9 @@
             <asp:ContentPlaceHolder ID="MainContent" runat="server" />
         </div>
         <div class="footer">
-            <table width="100%">
-                <tr>
-                    <td align="left">
-                        Powered by Mined Systems, Inc. ®
-                    </td>
-                    <td align="right">
-                        Copyright© 2011 Mined Systems Metrics Intelligence. All rights reserved.
-                    </td>
-                </tr>
-            </table>
+            <uc1:Footer ID="Footer1" runat="server" />
         </div>
     </div>
-    <%--<script type="text/javascript" language="javascript">
-        $(document).ready(function () {
-            $('#btnDashboard').click(function () {
-                window.open('Default.aspx', '_self');
-            });
-
-            $('#btnCRM').click(function () {
-                window.open('CRMContacts.aspx', '_self');
-            });
-        });
-    </script>--%>
     </form>
 </body>
 </html>

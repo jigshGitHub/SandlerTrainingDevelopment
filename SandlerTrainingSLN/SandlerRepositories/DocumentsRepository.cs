@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Data;
 using System.Data.SqlClient;
-
+using SandlerModels;
 
 
 /// <summary>
@@ -21,35 +21,51 @@ namespace SandlerRepositories
             // TODO: Add constructor logic here
             //
         }
-        public DataSet GetById(int Opp_ID)
+        public DataSet GetByOppsId(int OppsID)
         {
-            System.Data.DataSet ds = db.ExecuteDataset("sp_GetDocumentsById", "Documents", new SqlParameter("@OppID", Opp_ID));
+            System.Data.DataSet ds = db.ExecuteDataset("sp_GetDocumentsByOppId", "Documents", new SqlParameter("@OppsID", OppsID));
             return ds;
 
         }
-        public DataSet GetDetailsById(int Doc_ID)
+        public DataSet GetDetailsById(int DocsID)
         {
-            System.Data.DataSet ds = db.ExecuteDataset("sp_GetDocumentDetails", "Documents", new SqlParameter("@DocID", Doc_ID));
+            System.Data.DataSet ds = db.ExecuteDataset("sp_GetDocumentDetails", "Documents", new SqlParameter("@DocsID", DocsID));
             return ds;
 
         }
 
-        public void Insert(int ID, string DocStatus, string DocName, string DocumentLoaded, DateTime LastModifyDate)
+        public DataSet GetDocStatus()
         {
-            db.ExecuteNonQuery("sp_AttachDocument", new SqlParameter("@OppID", ID),
-           new SqlParameter("@Document_Name", DocName),
-           new SqlParameter("@Document_Status", DocStatus),
-           new SqlParameter("@Document_Loaded", DocumentLoaded), new SqlParameter("@LastModifyDate", LastModifyDate));
+            System.Data.DataSet ds = db.ExecuteDataset("sp_GetDocStatus", "DocStatus");
+            return ds;
+        }
+
+        public void Insert(int OppsID, int DocStatus, string DocName, DateTime LastModifyDate)
+        {
+            //Get the User Info
+            UserModel _user = (UserModel)HttpContext.Current.Session["CurrentUser"];
+
+           db.ExecuteNonQuery("sp_AttachDocument", new SqlParameter("@OppsID", OppsID),
+           new SqlParameter("@DocName", DocName),
+           new SqlParameter("@DocStatus", DocStatus),
+           new SqlParameter("@LastModifyDate", LastModifyDate),
+           new SqlParameter("@CreatedBy", _user.UserId));
 
         }
 
-        public void Update(int ID, string DocStatus, string DocName, DateTime LastModifyDate)
+        public void Update(int DocsID, int OppsID, string DocName, int DocStatus, DateTime LastModifyDate)
         {
+            
+            //Get the User Info
+            UserModel _user = (UserModel)HttpContext.Current.Session["CurrentUser"];
+            
             db.ExecuteNonQuery("sp_UpdateDocumentDetails",
-            new SqlParameter("@DocID", ID),
-            new SqlParameter("@DocStatus", DocStatus),
+            new SqlParameter("@DocsID", DocsID),
+            new SqlParameter("@OppsID", OppsID),
             new SqlParameter("@DocName", DocName),
-            new SqlParameter("@LastModifyDate", LastModifyDate));
+            new SqlParameter("@DocStatus", DocStatus),
+            new SqlParameter("@LastModifyDate", LastModifyDate),
+            new SqlParameter("@UpdatedBy", _user.UserId));
         }
 
     }
