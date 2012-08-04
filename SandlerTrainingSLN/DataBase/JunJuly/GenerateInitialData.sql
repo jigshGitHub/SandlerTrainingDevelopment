@@ -170,12 +170,12 @@ BEGIN TRY
 
 		--[Tbl_ProductType] Data
 		SET IDENTITY_INSERT [dbo].[Tbl_ProductType] ON
-		INSERT [dbo].[Tbl_ProductType] ([Id], [ProductTypeName], [IsActive], [LastUpdatedDate], [LastUpdatedBy], [CreatedBy]) VALUES (1, N'Assessment', 1, NULL, NULL, N'System')
-		INSERT [dbo].[Tbl_ProductType] ([Id], [ProductTypeName], [IsActive], [LastUpdatedDate], [LastUpdatedBy], [CreatedBy]) VALUES (2, N'PC', 1, NULL, NULL, N'System')
-		INSERT [dbo].[Tbl_ProductType] ([Id], [ProductTypeName], [IsActive], [LastUpdatedDate], [LastUpdatedBy], [CreatedBy]) VALUES (3, N'Consulting', 1, NULL, NULL, N'System')
-		INSERT [dbo].[Tbl_ProductType] ([Id], [ProductTypeName], [IsActive], [LastUpdatedDate], [LastUpdatedBy], [CreatedBy]) VALUES (4, N'Training', 1, NULL, NULL, N'System')
-		INSERT [dbo].[Tbl_ProductType] ([Id], [ProductTypeName], [IsActive], [LastUpdatedDate], [LastUpdatedBy], [CreatedBy]) VALUES (5, N'Leadership', 1, NULL, NULL, N'System')
-		INSERT [dbo].[Tbl_ProductType] ([Id], [ProductTypeName], [IsActive], [LastUpdatedDate], [LastUpdatedBy], [CreatedBy]) VALUES (6, N'Coaching', 1, NULL, NULL, N'System')
+		INSERT [dbo].[Tbl_ProductType] ([Id], [ProductTypeName], [IsActive], [LastUpdatedDate], [LastUpdatedBy], [CreatedBy],[FranchiseeId]) VALUES (1, N'Assessment', 1, NULL, NULL, N'System',0);
+		INSERT [dbo].[Tbl_ProductType] ([Id], [ProductTypeName], [IsActive], [LastUpdatedDate], [LastUpdatedBy], [CreatedBy],[FranchiseeId]) VALUES (2, N'PC', 1, NULL, NULL, N'System',0);
+		INSERT [dbo].[Tbl_ProductType] ([Id], [ProductTypeName], [IsActive], [LastUpdatedDate], [LastUpdatedBy], [CreatedBy],[FranchiseeId]) VALUES (3, N'Consulting', 1, NULL, NULL, N'System',0);
+		INSERT [dbo].[Tbl_ProductType] ([Id], [ProductTypeName], [IsActive], [LastUpdatedDate], [LastUpdatedBy], [CreatedBy],[FranchiseeId]) VALUES (4, N'Training', 1, NULL, NULL, N'System',0);
+		INSERT [dbo].[Tbl_ProductType] ([Id], [ProductTypeName], [IsActive], [LastUpdatedDate], [LastUpdatedBy], [CreatedBy],[FranchiseeId]) VALUES (5, N'Leadership', 1, NULL, NULL, N'System',0);
+		INSERT [dbo].[Tbl_ProductType] ([Id], [ProductTypeName], [IsActive], [LastUpdatedDate], [LastUpdatedBy], [CreatedBy],[FranchiseeId]) VALUES (6, N'Coaching', 1, NULL, NULL, N'System',0);
 		SET IDENTITY_INSERT [dbo].[Tbl_ProductType] OFF
 		
 		PRINT '[Tbl_ProductType] data created.'

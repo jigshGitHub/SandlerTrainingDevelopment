@@ -10,6 +10,7 @@ public partial class SiteMaster : System.Web.UI.MasterPage
 {
     protected void Page_Load(object sender, EventArgs e)
     {
+        //Page.Header.DataBind();    
         if (!Page.IsPostBack)
         {
             //HyperLink activeLink = (HyperLink)Page.Master.FindControl("lnk" + Page.Title);

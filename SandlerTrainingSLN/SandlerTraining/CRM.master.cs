@@ -10,6 +10,7 @@ public partial class CRM : System.Web.UI.MasterPage
 {
     protected void Page_Load(object sender, EventArgs e)
     {
+        //Page.Header.DataBind();    
         if (!Page.IsPostBack)
         {
             HtmlButton activeButton = (HtmlButton)Page.Master.FindControl("btn" + Page.Title);

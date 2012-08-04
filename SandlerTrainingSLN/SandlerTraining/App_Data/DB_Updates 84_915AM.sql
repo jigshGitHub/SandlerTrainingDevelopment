@@ -1,0 +1,10 @@
+USE [SandlerDB]
+GO
+ALTER TABLE [dbo].[TBL_OPPORTUNITIES] DROP COLUMN [OpportunityID] ; 
+GO
+ALTER TABLE [dbo].[TBL_OPPORTUNITIES] ADD [OpportunityID]  AS ([Id]+(1000));
+GO
+UPDATE TBL_CHART
+SET NumberSuffix = null
+WHERE ID IN (9,10);
+GO

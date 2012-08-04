@@ -1,9 +1,11 @@
 ﻿<%@ Page Title="CRM" Language="C#" MasterPageFile="~/CRM.master" AutoEventWireup="true"
     CodeFile="Add.aspx.cs" Inherits="OpportunityADD" %>
 
-<%@ Register TagPrefix="ew" Namespace="eWorld.UI" Assembly="eWorld.UI, Version=1.9.0.0, Culture=neutral, PublicKeyToken=24d65337282035f2" %>
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 <%@ Import Namespace="SandlerRepositories" %>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="Server">
+    <asp:ToolkitScriptManager ID="ToolkitScriptManager1" runat="server">
+    </asp:ToolkitScriptManager>
     <table>
         <tr>
             <th class="tdTC" style="width: 280px" align="left">
@@ -32,7 +34,8 @@
                                 SelectMethod="GetCompaniesForDDL"></asp:ObjectDataSource>
                         </td>
                     </tr>
-                    <tr style="color: Black; background-color: #DCDCDC; white-space: nowrap;">
+                    <tr style="color: Black; background-color: #DCDCDC; white-space: nowrap;" id="trOpportunityID"
+                        runat="server" visible="false">
                         <td style="white-space: nowrap;">
                             Opportunity ID :
                         </td>
@@ -174,32 +177,11 @@
                             Close Date :
                         </td>
                         <td>
-                            <ew:CalendarPopup ID="CloseDate" Nullable="True" DisplayPrevNextYearSelection="True"
-                                runat="server" AllowArbitraryText="False" CellPadding="2px" CellSpacing="0px"
-                                Culture="English (United States)" JavascriptOnChangeFunction="" LowerBoundDate=""
-                                ShowClearDate="True" UpperBoundDate="12/31/9999 23:59:59" ImageUrl="~/Images/calendar.gif"
-                                ControlDisplay="TextBoxImage">
-                                <TodayDayStyle BackColor="LightGoldenrodYellow" Font-Names="Verdana,Helvetica,Tahoma,Arial"
-                                    Font-Size="XX-Small" ForeColor="Black" />
-                                <WeekendStyle BackColor="LightGray" Font-Names="Verdana,Helvetica,Tahoma,Arial" Font-Size="XX-Small"
-                                    ForeColor="Black" />
-                                <OffMonthStyle BackColor="AntiqueWhite" Font-Names="Verdana,Helvetica,Tahoma,Arial"
-                                    Font-Size="XX-Small" ForeColor="Gray" />
-                                <WeekdayStyle BackColor="White" Font-Names="Verdana,Helvetica,Tahoma,Arial" Font-Size="XX-Small"
-                                    ForeColor="Black" />
-                                <SelectedDateStyle BackColor="Yellow" Font-Names="Verdana,Helvetica,Tahoma,Arial"
-                                    Font-Size="XX-Small" ForeColor="Black" />
-                                <MonthHeaderStyle BackColor="Yellow" Font-Names="Verdana,Helvetica,Tahoma,Arial"
-                                    Font-Size="XX-Small" ForeColor="Black" />
-                                <HolidayStyle BackColor="White" Font-Names="Verdana,Helvetica,Tahoma,Arial" Font-Size="XX-Small"
-                                    ForeColor="Black" />
-                                <GoToTodayStyle BackColor="White" Font-Names="Verdana,Helvetica,Tahoma,Arial" Font-Size="XX-Small"
-                                    ForeColor="Black" />
-                                <DayHeaderStyle BackColor="Orange" Font-Names="Verdana,Helvetica,Tahoma,Arial" Font-Size="XX-Small"
-                                    ForeColor="Black" />
-                                <ClearDateStyle BackColor="White" Font-Names="Verdana,Helvetica,Tahoma,Arial" Font-Size="XX-Small"
-                                    ForeColor="Black" />
-                            </ew:CalendarPopup>
+                            <asp:TextBox ID="CloseDate" runat="server" />&nbsp;<asp:Image ID="calanderImage"
+                                runat="server" ImageUrl="~/images/calendar.gif" ImageAlign="Middle" />
+                            <asp:CalendarExtender runat="server" TargetControlID="CloseDate" PopupButtonID="calanderImage"
+                                CssClass="calendar">
+                            </asp:CalendarExtender>
                         </td>
                         <tr>
                             <td colspan="2">
@@ -255,7 +237,7 @@
                             case 110: break; // . number block (Opera 9.63+ maps the "." from the number block to the "N" key (78) !!!)
                             case 190: break; // .
                             default: break;
-                            //$(this).formatCurrency({ colorize: true, negativeFormat: '(%s%n)', roundToDecimalPlace: -1, eventOnDecimalsEntered: true });          
+                            //$(this).formatCurrency({ colorize: true, negativeFormat: '(%s%n)', roundToDecimalPlace: -1, eventOnDecimalsEntered: true });                     
                         }
                     }
                 })

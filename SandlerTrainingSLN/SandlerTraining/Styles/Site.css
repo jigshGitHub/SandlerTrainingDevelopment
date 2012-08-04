@@ -506,3 +506,8 @@ ul.navigation li a
 	color: #000000;
 }
 
+.calendar .ajax__calendar_container {
+    border:1px solid #646464;
+    background-color: lemonchiffon;
+    color: red;
+}

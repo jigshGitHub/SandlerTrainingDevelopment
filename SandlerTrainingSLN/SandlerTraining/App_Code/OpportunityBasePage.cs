@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using SandlerModels;
 using SandlerRepositories;
+using SandlerData.Models;
 /// <summary>
 /// Summary description for OpportunityBasePage
 /// </summary>
@@ -31,7 +32,7 @@ public class OpportunityBasePage: BasePage
         {
             if (ViewState["MaxPageRecords"] == null)
             {
-                ViewState["MaxPageRecords"] = 10;
+                ViewState["MaxPageRecords"] = 20;
             }
             return int.Parse(ViewState["MaxPageRecords"].ToString());
         }
@@ -49,25 +50,14 @@ public class OpportunityBasePage: BasePage
 
     protected virtual IQueryable<TBL_OPPORTUNITIES> GetOpportunities(int companyId)
     {
-        OpportunitiesRepository opportuntiesSource = new OpportunitiesRepository();
-        IQueryable<TBL_OPPORTUNITIES> data;
-        if(CurrentUser.Role == SandlerRoles.FranchiseeUser)
-            data = opportuntiesSource.GetAll().Where(record => record.IsActive == true && record.CreatedBy.ToLower() == CurrentUser.UserId.ToString().ToLower()).AsQueryable();
-        else
-            data = opportuntiesSource.GetAll().Where(record => record.IsActive == true).AsQueryable();
+        UserEntities userEntities = new UserEntities();
+        IQueryable<TBL_OPPORTUNITIES> data = userEntities.Getopportunities(CurrentUser).AsQueryable();
         return (companyId == 0) ? data : data.Where(record => record.COMPANYID == companyId);
     }
 
     protected virtual IEnumerable<TBL_CONTACTS> GetContactsByCompany(int companyId)
     {
-        ContactsRepository contactsSource = new ContactsRepository();
-        IEnumerable<TBL_CONTACTS> data = null;
-        if(CurrentUser.Role == SandlerRoles.FranchiseeUser)
-            data = contactsSource.GetByCompanyId(companyId).Where(record => record.IsActive == true && record.CreatedBy.ToLower() == CurrentUser.UserId.ToString().ToLower()).AsEnumerable();
-        else
-            data = contactsSource.GetByCompanyId(companyId).Where(record => record.IsActive == true).AsEnumerable();
-
-        return data;
+        return new UserEntities().GetContactsByCompany(CurrentUser, companyId);
     }
 
     protected virtual TBL_CONTACTS GetContact(long contactId)

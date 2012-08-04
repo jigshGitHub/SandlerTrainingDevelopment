@@ -289,19 +289,22 @@ BEGIN TRY
 		DECLARE @CurrentTime DATETIME
 		DECLARE @coach_Id INT
 		DECLARE @countryID INT
+		DECLARE @coachUserId uniqueidentifier
+		
 		SET @CurrentTime = GetDate();
 				
 		EXEC [dbo].[aspnet_Membership_CreateUser] @ApplicationName = @application_Name, @UserName = @user_Name, @Password = N'DE5aG4DJKaWNAC6qtb9Ex1mw0YQ=', @PasswordSalt = N'CgWo/aHD6MDFG4AYqW/5wQ==', @Email = @_email, @PasswordQuestion = NULL, @PasswordAnswer = NULL, @IsApproved = 1, @CurrentTimeUtc = @CurrentTime, @CreateDate = @CurrentTime, @UniqueEmail = NULL, @PasswordFormat = 1, @UserId = @User_Id OUTPUT;
 		
 		EXEC [dbo].[aspnet_UsersInRoles_AddUsersToRoles] @ApplicationName = @application_Name, @UserNames = @user_Name, @RoleNames = @franchisee_Role, @CurrentTimeUtc = NULL;
 		
-		SELECT @coach_Id = c.ID FROM Tbl_Region r INNER JOIN TBL_COACH c ON r.ID = c.RegionID
+		SELECT @coach_Id = c.ID, @coachUserId = c.UserID
+		FROM Tbl_Region r INNER JOIN TBL_COACH c ON r.ID = c.RegionID
 		WHERE r.Name = @region_Name AND r.IsActive = 1;
 		
 		SELECT @countryID = ID FROM TBL_COUNTRY WHERE Code = @countryCode;
 		
-		Insert Into TBL_FRANCHISEE (Name, CoachID, Address1, Address2, City,[State],Zip,CountryID,PhoneNumber, FaxNumber,WebAddress,EmailAddress) 
-		VALUES(@_name, @coach_Id, @address1, @address2, @city, @state,@zip,@countryID,@phoneNumber,@faxNumber,@webaddress,@emailAddress);
+		Insert Into TBL_FRANCHISEE (Name, CoachID, Address1, Address2, City,[State],Zip,CountryID,PhoneNumber, FaxNumber,WebAddress,EmailAddress, CreatedBy, LastUpdatedBy) 
+		VALUES(@_name, @coach_Id, @address1, @address2, @city, @state,@zip,@countryID,@phoneNumber,@faxNumber,@webaddress,@emailAddress,@coachUserId,@coachUserId);
 		
 		SELECT @franchisee_Id = @@IDENTITY;
 		

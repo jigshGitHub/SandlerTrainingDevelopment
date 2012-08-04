@@ -64,7 +64,7 @@ public partial class _Default : BasePage
                     else if (dbChart.TypeOfChart == "PieChart")
                     {
                         chartToLoad = new PieChart() { BGAlpha = dbChart.BgAlpha, BGColor = dbChart.BgColor, CanvasBGAlpha = dbChart.CanvasBgAlpha, CanvasBGColor = dbChart.CanvasBgColor, Caption = dbChart.Caption, SWF = dbChart.SWFile, NumberSuffix = dbChart.NumberSuffix, PieRadius = dbChart.PieRadius, showLabels = dbChart.ShowLabels, showLegend = dbChart.ShowLegend, XaxisName = dbChart.XaxisName, YaxisName = dbChart.YaxisName, Id = idSelected, enableRotation = dbChart.EnableRotation,  DrillChartIds = (string.IsNullOrEmpty(dbChart.DrillLevelChartIDs)) ? "" : dbChart.DrillLevelChartIDs };
-                        ((PieChart)chartToLoad).LoadChart();
+                        ((PieChart)chartToLoad).LoadChart(CurrentUser);
                         ((PieChart)chartToLoad).CreateChart();
 
                         literalControl.Text = FusionCharts.RenderChart(@"FusionChartLib/" + ((PieChart)chartToLoad).SWF, "", ((PieChart)chartToLoad).ChartXML, literalControl.ID, literalControl.Width, literalControl.Height, false, true);
@@ -72,7 +72,7 @@ public partial class _Default : BasePage
                     else if (dbChart.TypeOfChart == "BarChart")
                     {
                         chartToLoad = new BarChart() { BGAlpha = dbChart.BgAlpha, BGColor = dbChart.BgColor, CanvasBGAlpha = dbChart.CanvasBgAlpha, CanvasBGColor = dbChart.CanvasBgColor, Caption = dbChart.Caption, SWF = dbChart.SWFile, NumberSuffix = dbChart.NumberSuffix, PieRadius = dbChart.PieRadius, showLabels = dbChart.ShowLabels, showLegend = dbChart.ShowLegend, XaxisName = dbChart.XaxisName, YaxisName = dbChart.YaxisName, Id = idSelected, enableRotation = dbChart.EnableRotation,  DrillChartIds = (string.IsNullOrEmpty(dbChart.DrillLevelChartIDs)) ? "" : dbChart.DrillLevelChartIDs };
-                        ((BarChart)chartToLoad).LoadChart();
+                        ((BarChart)chartToLoad).LoadChart(CurrentUser);
                         ((BarChart)chartToLoad).CreateChart();
                         literalControl.Text = FusionCharts.RenderChart(@"FusionChartLib/" + ((BarChart)chartToLoad).SWF, "", ((BarChart)chartToLoad).ChartXML, literalControl.ID, literalControl.Width, literalControl.Height, false, true); ;
                     }

@@ -20,7 +20,6 @@ namespace SandlerModels
         }
     
         public int ID { get; set; }
-        public int OPPORTUNITYID { get; set; }
         public int COMPANYID { get; set; }
         public int CONTACTID { get; set; }
         public string NAME { get; set; }
@@ -38,6 +37,7 @@ namespace SandlerModels
         public string UpdatedBy { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }
         public string CreatedBy { get; set; }
+        public Nullable<int> OpportunityID { get; set; }
     
         public virtual TBL_COMPANIES TBL_COMPANIES { get; set; }
         public virtual TBL_CONTACTS TBL_CONTACTS { get; set; }

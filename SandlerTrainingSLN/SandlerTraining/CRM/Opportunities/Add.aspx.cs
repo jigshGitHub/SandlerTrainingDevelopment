@@ -14,13 +14,8 @@ public partial class OpportunityADD : OpportunityBasePage
             if (!string.IsNullOrEmpty(Request.QueryString["id"]))
             {
                 ID = int.Parse(Request.QueryString["id"]);
-                BindDetails(ID);
+                BindDetailsToFields(ID);
                 lbtnAdd.Text = "Update";
-            }
-            else
-            {
-                Random random = new Random();
-                txtOpportunityID.Text = random.Next(10000).ToString(); //will generate a number 0 to 9999
             }
         }
 
@@ -83,48 +78,26 @@ public partial class OpportunityADD : OpportunityBasePage
         if (lbtnAdd.Text=="Add")
         {
             opportunity = new TBL_OPPORTUNITIES();
-            if (CloseDate.ValidDateEntered)
-                opportunity.CLOSEDATE = CloseDate.SelectedDate;
-            opportunity.COMPANYID = int.Parse(ddlCompany.SelectedValue);
-            opportunity.CONTACTID = int.Parse(ddlContacts.SelectedValue);
-            opportunity.NAME = txtOppName.Text;
-            opportunity.OPPORTUNITYID = int.Parse(txtOpportunityID.Text);
-            opportunity.ProductID = int.Parse(ddlProducts.SelectedValue);
-            opportunity.SALESREPFIRSTNAME = txtSalesRepFName.Text;
-            opportunity.SALESREPLASTNAME = txtSalesRepLName.Text;
-            opportunity.SALESREPPHONE = txtSalesRepPhone.Text;
-            opportunity.STATUSID = int.Parse(ddlProductStatus.SelectedValue);
-            opportunity.VALUE = int.Parse(txtOpportunityValue.Text);
-            opportunity.WINPROBABILITY = txtWinProbability.Text;
-            opportunity.WEIGHTEDVALUE = (opportunity.VALUE * int.Parse(opportunity.WINPROBABILITY)) / 100;
+
+            BindFieldsToOpportunity(opportunity);
+
             opportunity.UpdatedBy = CurrentUser.UserId.ToString();
             opportunity.CreatedBy = CurrentUser.UserId.ToString();
             opportunity.IsActive = true;
-
             //Default setup in DB is not working to do check
             opportunity.CreatedDate = DateTime.Now;
             opportunity.UpdatedDate = DateTime.Now;
 
             Save(opportunity);
-            lblResult.Text = "Opportunity created Successfully!";
+            lblResult.Text = "Opportunity with Opportunity ID = " + opportunity.OpportunityID.Value.ToString()  + " created Successfully!";
         }
         else
         {
             ID = int.Parse(Request.QueryString["id"]);
             opportunity = GetOpportunity(ID);
-            if (CloseDate.ValidDateEntered)
-                opportunity.CLOSEDATE = CloseDate.SelectedDate;
-            opportunity.COMPANYID = int.Parse(ddlCompany.SelectedValue);
-            opportunity.CONTACTID = int.Parse(ddlContacts.SelectedValue);
-            opportunity.NAME = txtOppName.Text;
-            opportunity.ProductID = int.Parse(ddlProducts.SelectedValue);
-            opportunity.SALESREPFIRSTNAME = txtSalesRepFName.Text;
-            opportunity.SALESREPLASTNAME = txtSalesRepLName.Text;
-            opportunity.SALESREPPHONE = txtSalesRepPhone.Text;
-            opportunity.STATUSID = int.Parse(ddlProductStatus.SelectedValue);
-            opportunity.VALUE = int.Parse(txtOpportunityValue.Text);
-            opportunity.WINPROBABILITY = txtWinProbability.Text;
-            opportunity.WEIGHTEDVALUE = (opportunity.VALUE * int.Parse(opportunity.WINPROBABILITY)) / 100;
+
+            BindFieldsToOpportunity(opportunity);
+
             opportunity.UpdatedBy = CurrentUser.UserId.ToString();
             opportunity.UpdatedDate = DateTime.Now;
             Update(opportunity);
@@ -132,18 +105,36 @@ public partial class OpportunityADD : OpportunityBasePage
         }
         ClearFiels();
     }
+
+    private void BindFieldsToOpportunity(TBL_OPPORTUNITIES opportunity)
+    {
+        if (!string.IsNullOrEmpty(CloseDate.Text))
+            opportunity.CLOSEDATE = Convert.ToDateTime(CloseDate.Text);
+        opportunity.COMPANYID = int.Parse(ddlCompany.SelectedValue);
+        opportunity.CONTACTID = int.Parse(ddlContacts.SelectedValue);
+        opportunity.NAME = txtOppName.Text;
+        opportunity.ProductID = int.Parse(ddlProducts.SelectedValue);
+        opportunity.SALESREPFIRSTNAME = txtSalesRepFName.Text;
+        opportunity.SALESREPLASTNAME = txtSalesRepLName.Text;
+        opportunity.SALESREPPHONE = txtSalesRepPhone.Text;
+        opportunity.STATUSID = int.Parse(ddlProductStatus.SelectedValue);
+        opportunity.VALUE = int.Parse(txtOpportunityValue.Text);
+        opportunity.WINPROBABILITY = txtWinProbability.Text;
+        opportunity.WEIGHTEDVALUE = (opportunity.VALUE * int.Parse(opportunity.WINPROBABILITY)) / 100;
+    }
     
-    private void BindDetails(int ID)
+    private void BindDetailsToFields(int ID)
     {
         TBL_OPPORTUNITIES record = GetOpportunity(ID);
         if (record.CLOSEDATE.HasValue)
-            CloseDate.SelectedDate = record.CLOSEDATE.Value;
+            CloseDate.Text = record.CLOSEDATE.Value.ToString();
         ddlCompany.SelectedValue = record.TBL_COMPANIES.COMPANIESID.ToString();
         BindContacts(record.COMPANYID);
         ddlContacts.SelectedValue = record.TBL_CONTACTS.CONTACTSID.ToString();
         SetContact(record.TBL_CONTACTS.PHONE, record.TBL_CONTACTS.EMAIL);
         txtOppName.Text = record.NAME;
-        txtOpportunityID.Text = record.OPPORTUNITYID.ToString();
+        trOpportunityID.Visible = true;
+        txtOpportunityID.Text = record.OpportunityID.Value.ToString();
         txtOpportunityValue.Text = record.VALUE.ToString();
         ddlProducts.SelectedValue = record.ProductID.ToString();
         txtSalesRepFName.Text = record.SALESREPFIRSTNAME;
@@ -160,7 +151,8 @@ public partial class OpportunityADD : OpportunityBasePage
         SetContact("", "");
         ddlContacts.SelectedValue = "0";
         txtOppName.Text = "";
-        txtOpportunityID.Text = "";
+        if(trOpportunityID.Visible)
+            txtOpportunityID.Text = "";
         txtOpportunityValue.Text = "";
         ddlProducts.SelectedIndex = 0;
         txtSalesRepFName.Text = "";
@@ -169,6 +161,7 @@ public partial class OpportunityADD : OpportunityBasePage
         ddlProductStatus.SelectedIndex = 0;
         txtWeightedValue.Text = "";
         txtWinProbability.Text = "";
+        CloseDate.Text = "";
     }
 
     protected void lbtnCancel_Click(object sender, EventArgs e)

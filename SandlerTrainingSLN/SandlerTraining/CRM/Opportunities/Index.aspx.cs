@@ -19,7 +19,7 @@ public partial class OpportunityIndex : OpportunityBasePage
     private void BindGrid(int companyId)
     {
         var data = from record in GetOpportunities(companyId).Skip(SkipRecords).Take(MaxPageRecords)
-                   select new { ID = record.ID, OPPORTUNITYID = record.OPPORTUNITYID, NAME = record.NAME, CompanyName = record.TBL_COMPANIES.COMPANYNAME, VALUE = record.VALUE, WEIGHTEDVALUE = record.WEIGHTEDVALUE, CloseDate = record.CLOSEDATE, SalesRep = record.SALESREPFIRSTNAME + " " + record.SALESREPLASTNAME, Status = record.TBL_OPPORTUNITYSTATUS.Name };
+                   select new { ID = record.ID, OPPORTUNITYID = record.OpportunityID.Value, NAME = record.NAME, CompanyName = record.TBL_COMPANIES.COMPANYNAME, VALUE = record.VALUE, WEIGHTEDVALUE = record.WEIGHTEDVALUE, CloseDate = record.CLOSEDATE, SalesRep = record.SALESREPFIRSTNAME + " " + record.SALESREPLASTNAME, Status = record.TBL_OPPORTUNITYSTATUS.Name };
         gvOpportunities.DataSource = data;
         gvOpportunities.DataBind();
     }

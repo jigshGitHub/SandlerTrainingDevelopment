@@ -30,7 +30,7 @@ public partial class OpportunityDETAIL : OpportunityBasePage
         lblContact.Text = record.TBL_CONTACTS.FIRSTNAME + " " + record.TBL_CONTACTS.LASTNAME;
         lblEmail.Text = record.TBL_CONTACTS.EMAIL;
         lblOppName.Text = record.NAME;
-        lblOpportunityID.Text = record.OPPORTUNITYID.ToString();
+        lblOpportunityID.Text = record.OpportunityID.Value.ToString();
         lblOpportunityValue.Text = record.VALUE.ToString();
         lblPhone.Text = record.TBL_CONTACTS.PHONE;
         lblProduct.Text = record.Tbl_ProductType.ProductTypeName;

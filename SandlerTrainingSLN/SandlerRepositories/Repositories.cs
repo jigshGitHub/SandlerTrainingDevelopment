@@ -366,4 +366,28 @@ namespace SandlerRepositories
         {
         }
     }
+
+    public partial class CourseRepository : RepositoryBase<Tbl_Course>
+    {
+        public CourseRepository(IDatabaseFactory dbFactory)
+            : base(dbFactory)
+        {
+        }
+        public CourseRepository()
+            : base(new DBFactory())
+        {
+        }
+    }
+
+    public partial class IndustryTypeRepository : RepositoryBase<Tbl_IndustryType>
+    {
+        public IndustryTypeRepository(IDatabaseFactory dbFactory)
+            : base(dbFactory)
+        {
+        }
+        public IndustryTypeRepository()
+            : base(new DBFactory())
+        {
+        }
+    }
 }
