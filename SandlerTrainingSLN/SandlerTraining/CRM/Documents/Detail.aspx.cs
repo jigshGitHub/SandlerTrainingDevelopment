@@ -76,13 +76,16 @@ public partial class DocumentDETAIL : BasePage
 
         //For LastModifyDate
         {
-            eWorld.UI.CalendarPopup LastModifyDateCal = new eWorld.UI.CalendarPopup();
-            LastModifyDateCal = (eWorld.UI.CalendarPopup)DocumentDW.FindControl("LastModifyDate");
+            TextBox LastModifyDateCal = new TextBox();
+            LastModifyDateCal = (TextBox)DocumentDW.FindControl("LastModifyDate");
             if ((LastModifyDateCal != null))
             {
-                LastModifyDate = LastModifyDateCal.SelectedDate;
-
+                if (!string.IsNullOrEmpty(LastModifyDateCal.Text))
+                {
+                    LastModifyDate = Convert.ToDateTime(LastModifyDateCal.Text.Trim());
+                }
             }
+            
         }
         //For Document Status
         DropDownList DocStatusDDList = new DropDownList();

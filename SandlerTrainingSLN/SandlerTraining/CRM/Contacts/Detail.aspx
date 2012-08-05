@@ -1,8 +1,8 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/CRM.master" AutoEventWireup="true"
-    CodeFile="Detail.aspx.cs" Inherits="ContactDETAIL" %>
-
-<%@ Register TagPrefix="ew" Namespace="eWorld.UI" Assembly="eWorld.UI, Version=1.9.0.0, Culture=neutral, PublicKeyToken=24d65337282035f2" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/CRM.master" AutoEventWireup="true" CodeFile="Detail.aspx.cs" Inherits="ContactDETAIL" %>
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
+<%@ Import Namespace="SandlerRepositories" %>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="Server">
+    <asp:ToolkitScriptManager ID="ToolkitScriptManager1" runat="server"></asp:ToolkitScriptManager>
     <table>
         <tr>
             <th style="float: left">
@@ -121,32 +121,8 @@
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="Course Training Date :">
                             <EditItemTemplate>
-                                <ew:CalendarPopup ID="CourseTrngDate" Nullable="True" DisplayPrevNextYearSelection="True"
-                                    SelectedDate='<%# Bind("CourseTrainingDate") %>' runat="server" AllowArbitraryText="False"
-                                    CellPadding="2px" CellSpacing="0px" Culture="English (United States)" JavascriptOnChangeFunction=""
-                                    LowerBoundDate="" ShowClearDate="True" UpperBoundDate="12/31/9999 23:59:59" ImageUrl="~/images/calendar.gif"
-                                    ControlDisplay="TextBoxImage">
-                                    <TodayDayStyle BackColor="LightGoldenrodYellow" Font-Names="Verdana,Helvetica,Tahoma,Arial"
-                                        Font-Size="XX-Small" ForeColor="Black" />
-                                    <WeekendStyle BackColor="LightGray" Font-Names="Verdana,Helvetica,Tahoma,Arial" Font-Size="XX-Small"
-                                        ForeColor="Black" />
-                                    <OffMonthStyle BackColor="AntiqueWhite" Font-Names="Verdana,Helvetica,Tahoma,Arial"
-                                        Font-Size="XX-Small" ForeColor="Gray" />
-                                    <WeekdayStyle BackColor="White" Font-Names="Verdana,Helvetica,Tahoma,Arial" Font-Size="XX-Small"
-                                        ForeColor="Black" />
-                                    <SelectedDateStyle BackColor="Yellow" Font-Names="Verdana,Helvetica,Tahoma,Arial"
-                                        Font-Size="XX-Small" ForeColor="Black" />
-                                    <MonthHeaderStyle BackColor="Yellow" Font-Names="Verdana,Helvetica,Tahoma,Arial"
-                                        Font-Size="XX-Small" ForeColor="Black" />
-                                    <HolidayStyle BackColor="White" Font-Names="Verdana,Helvetica,Tahoma,Arial" Font-Size="XX-Small"
-                                        ForeColor="Black" />
-                                    <GoToTodayStyle BackColor="White" Font-Names="Verdana,Helvetica,Tahoma,Arial" Font-Size="XX-Small"
-                                        ForeColor="Black" />
-                                    <DayHeaderStyle BackColor="Orange" Font-Names="Verdana,Helvetica,Tahoma,Arial" Font-Size="XX-Small"
-                                        ForeColor="Black" />
-                                    <ClearDateStyle BackColor="White" Font-Names="Verdana,Helvetica,Tahoma,Arial" Font-Size="XX-Small"
-                                        ForeColor="Black" />
-                                </ew:CalendarPopup>
+                                <asp:TextBox ID="CourseTrngDate" Text='<%# Bind("CourseTrainingDate") %>' runat="server" />&nbsp;<asp:Image ID="calanderImageCTD" runat="server" ImageUrl="~/images/calendar.gif" ImageAlign="Middle" />
+                                <asp:CalendarExtender runat="server" TargetControlID="CourseTrngDate" PopupButtonID="calanderImageCTD" CssClass="calendar"></asp:CalendarExtender>
                             </EditItemTemplate>
                             <ItemTemplate>
                                 <asp:Label ID="lblCourseTrngDate" runat="server" Text='<%# Bind("CourseTrainingDate","{0:d}") %>'></asp:Label>
@@ -178,32 +154,8 @@
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="Last Contact Date :">
                             <EditItemTemplate>
-                                <ew:CalendarPopup ID="LastContactDate" Nullable="True" DisplayPrevNextYearSelection="True"
-                                    SelectedDate='<%# Bind("Last_Contact_Date") %>' runat="server" AllowArbitraryText="False"
-                                    CellPadding="2px" CellSpacing="0px" Culture="English (United States)" JavascriptOnChangeFunction=""
-                                    LowerBoundDate="" ShowClearDate="True" UpperBoundDate="12/31/9999 23:59:59" ImageUrl="~/images/calendar.gif"
-                                    ControlDisplay="TextBoxImage">
-                                    <TodayDayStyle BackColor="LightGoldenrodYellow" Font-Names="Verdana,Helvetica,Tahoma,Arial"
-                                        Font-Size="XX-Small" ForeColor="Black" />
-                                    <WeekendStyle BackColor="LightGray" Font-Names="Verdana,Helvetica,Tahoma,Arial" Font-Size="XX-Small"
-                                        ForeColor="Black" />
-                                    <OffMonthStyle BackColor="AntiqueWhite" Font-Names="Verdana,Helvetica,Tahoma,Arial"
-                                        Font-Size="XX-Small" ForeColor="Gray" />
-                                    <WeekdayStyle BackColor="White" Font-Names="Verdana,Helvetica,Tahoma,Arial" Font-Size="XX-Small"
-                                        ForeColor="Black" />
-                                    <SelectedDateStyle BackColor="Yellow" Font-Names="Verdana,Helvetica,Tahoma,Arial"
-                                        Font-Size="XX-Small" ForeColor="Black" />
-                                    <MonthHeaderStyle BackColor="Yellow" Font-Names="Verdana,Helvetica,Tahoma,Arial"
-                                        Font-Size="XX-Small" ForeColor="Black" />
-                                    <HolidayStyle BackColor="White" Font-Names="Verdana,Helvetica,Tahoma,Arial" Font-Size="XX-Small"
-                                        ForeColor="Black" />
-                                    <GoToTodayStyle BackColor="White" Font-Names="Verdana,Helvetica,Tahoma,Arial" Font-Size="XX-Small"
-                                        ForeColor="Black" />
-                                    <DayHeaderStyle BackColor="Orange" Font-Names="Verdana,Helvetica,Tahoma,Arial" Font-Size="XX-Small"
-                                        ForeColor="Black" />
-                                    <ClearDateStyle BackColor="White" Font-Names="Verdana,Helvetica,Tahoma,Arial" Font-Size="XX-Small"
-                                        ForeColor="Black" />
-                                </ew:CalendarPopup>
+                                <asp:TextBox ID="LastContactDate" Text='<%# Bind("Last_Contact_Date") %>' runat="server" />&nbsp;<asp:Image ID="calanderImageLCD" runat="server" ImageUrl="~/images/calendar.gif" ImageAlign="Middle" />
+                                <asp:CalendarExtender runat="server" TargetControlID="LastContactDate" PopupButtonID="calanderImageLCD" CssClass="calendar"></asp:CalendarExtender>
                             </EditItemTemplate>
                             <ItemTemplate>
                                 <asp:Label ID="lblLastContactDate" runat="server" Text='<%# Bind("Last_Contact_Date","{0:d}") %>'></asp:Label>
@@ -211,36 +163,9 @@
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="Next Contact Date :">
                             <EditItemTemplate>
-                                <ew:CalendarPopup ID="NextContactDate" Nullable="True" DisplayPrevNextYearSelection="True"
-                                    SelectedDate='<%# Bind("Next_Contact_Date") %>' runat="server" AllowArbitraryText="False"
-                                    CellPadding="2px" CellSpacing="0px" Culture="English (United States)" JavascriptOnChangeFunction=""
-                                    LowerBoundDate="" ShowClearDate="True" UpperBoundDate="12/31/9999 23:59:59" ImageUrl="~/images/calendar.gif"
-                                    ControlDisplay="TextBoxImage">
-                                    <TodayDayStyle BackColor="LightGoldenrodYellow" Font-Names="Verdana,Helvetica,Tahoma,Arial"
-                                        Font-Size="XX-Small" ForeColor="Black" />
-                                    <WeekendStyle BackColor="LightGray" Font-Names="Verdana,Helvetica,Tahoma,Arial" Font-Size="XX-Small"
-                                        ForeColor="Black" />
-                                    <OffMonthStyle BackColor="AntiqueWhite" Font-Names="Verdana,Helvetica,Tahoma,Arial"
-                                        Font-Size="XX-Small" ForeColor="Gray" />
-                                    <WeekdayStyle BackColor="White" Font-Names="Verdana,Helvetica,Tahoma,Arial" Font-Size="XX-Small"
-                                        ForeColor="Black" />
-                                    <SelectedDateStyle BackColor="Yellow" Font-Names="Verdana,Helvetica,Tahoma,Arial"
-                                        Font-Size="XX-Small" ForeColor="Black" />
-                                    <MonthHeaderStyle BackColor="Yellow" Font-Names="Verdana,Helvetica,Tahoma,Arial"
-                                        Font-Size="XX-Small" ForeColor="Black" />
-                                    <HolidayStyle BackColor="White" Font-Names="Verdana,Helvetica,Tahoma,Arial" Font-Size="XX-Small"
-                                        ForeColor="Black" />
-                                    <GoToTodayStyle BackColor="White" Font-Names="Verdana,Helvetica,Tahoma,Arial" Font-Size="XX-Small"
-                                        ForeColor="Black" />
-                                    <DayHeaderStyle BackColor="Orange" Font-Names="Verdana,Helvetica,Tahoma,Arial" Font-Size="XX-Small"
-                                        ForeColor="Black" />
-                                    <ClearDateStyle BackColor="White" Font-Names="Verdana,Helvetica,Tahoma,Arial" Font-Size="XX-Small"
-                                        ForeColor="Black" />
-                                </ew:CalendarPopup>
-                                <asp:RequiredFieldValidator ID="NextContactDateRFV" ControlToValidate="NextContactDate"
-                                    runat="server" ErrorMessage="Please Enter Next Contact Date to proceed.">
-            *
-                                </asp:RequiredFieldValidator>
+                                <asp:TextBox ID="NextContactDate" Text='<%# Bind("Next_Contact_Date") %>' runat="server" />&nbsp;<asp:Image ID="calanderImageNCD" runat="server" ImageUrl="~/images/calendar.gif" ImageAlign="Middle" />
+                                <asp:CalendarExtender runat="server" TargetControlID="NextContactDate" PopupButtonID="calanderImageNCD" CssClass="calendar"></asp:CalendarExtender>
+                                <asp:RequiredFieldValidator ID="NextContactDateRFV" ControlToValidate="NextContactDate" runat="server" ErrorMessage="Please Enter Next Contact Date to proceed.">*</asp:RequiredFieldValidator>
                             </EditItemTemplate>
                             <ItemTemplate>
                                 <asp:Label ID="lblNextContactDate" runat="server" Text='<%# Bind("Next_Contact_Date","{0:d}") %>'></asp:Label>
@@ -283,7 +208,7 @@
         </tr>
         <tr>
             <td colspan="2">
-                <asp:ValidationSummary ID="ValidationSummary1" runat="server" ShowMessageBox="True" />
+                <asp:ValidationSummary ID="ValidationSummary1" runat="server" ForeColor="Red" ShowMessageBox="True" />
             </td>
         </tr>
         <tr>

@@ -1,8 +1,8 @@
 ﻿<%@ Page Title="CRM - Add Company" Language="C#" MasterPageFile="~/CRM.master" AutoEventWireup="true" CodeFile="Add.aspx.cs" Inherits="AddCompany" %>
-
-<%@ Register TagPrefix="ew" Namespace="eWorld.UI" Assembly="eWorld.UI, Version=1.9.0.0, Culture=neutral, PublicKeyToken=24d65337282035f2" %>
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 <%@ Import Namespace="SandlerRepositories" %>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="Server">
+<asp:ToolkitScriptManager ID="ToolkitScriptManager1" runat="server"></asp:ToolkitScriptManager>
     <table>
         <tr>
             <th class="tdTC" style="width: 280px" align="left">
@@ -108,17 +108,7 @@
                                 </asp:RequiredFieldValidator>
                             </InsertItemTemplate>
                         </asp:TemplateField>
-                        <%--<asp:TemplateField HeaderText="Product:">
-                   <InsertItemTemplate>
-                        <asp:DropDownList ID="ddlProduct" runat="server" DataSourceID="ProductDS" DataTextField="ProductTypeName" DataValueField="ID" SelectedValue='<%# Bind("ID") %>'></asp:DropDownList>
-                        <asp:RequiredFieldValidator id="productRFV"
-                            ControlToValidate="ddlProduct"
-                            Display="Static"
-                            InitialValue="0" runat="server" ErrorMessage="Please Select Product to proceed." >
-                            *
-                        </asp:RequiredFieldValidator>
-                   </InsertItemTemplate>
-          </asp:TemplateField>--%>
+                        
                         <asp:TemplateField HeaderText="Industry:">
                             <InsertItemTemplate>
                                 <asp:DropDownList ID="ddlIndustry" runat="server" DataSourceID="IndustryDS" DataTextField="IndustryTypeName"
@@ -168,100 +158,26 @@
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="Last Contact Date :">
                             <InsertItemTemplate>
-                                <ew:CalendarPopup ID="LastContactDate" Nullable="True" DisplayPrevNextYearSelection="True"
-                                    SelectedDate='<%# Bind("LastContact_Date") %>' runat="server" AllowArbitraryText="False"
-                                    CellPadding="2px" CellSpacing="0px" Culture="English (United States)" JavascriptOnChangeFunction=""
-                                    LowerBoundDate="" ShowClearDate="True" UpperBoundDate="12/31/9999 23:59:59" ImageUrl="~/images/calendar.gif"
-                                    ControlDisplay="TextBoxImage">
-                                    <TodayDayStyle BackColor="LightGoldenrodYellow" Font-Names="Verdana,Helvetica,Tahoma,Arial"
-                                        Font-Size="XX-Small" ForeColor="Black" />
-                                    <WeekendStyle BackColor="LightGray" Font-Names="Verdana,Helvetica,Tahoma,Arial" Font-Size="XX-Small"
-                                        ForeColor="Black" />
-                                    <OffMonthStyle BackColor="AntiqueWhite" Font-Names="Verdana,Helvetica,Tahoma,Arial"
-                                        Font-Size="XX-Small" ForeColor="Gray" />
-                                    <WeekdayStyle BackColor="White" Font-Names="Verdana,Helvetica,Tahoma,Arial" Font-Size="XX-Small"
-                                        ForeColor="Black" />
-                                    <SelectedDateStyle BackColor="Yellow" Font-Names="Verdana,Helvetica,Tahoma,Arial"
-                                        Font-Size="XX-Small" ForeColor="Black" />
-                                    <MonthHeaderStyle BackColor="Yellow" Font-Names="Verdana,Helvetica,Tahoma,Arial"
-                                        Font-Size="XX-Small" ForeColor="Black" />
-                                    <HolidayStyle BackColor="White" Font-Names="Verdana,Helvetica,Tahoma,Arial" Font-Size="XX-Small"
-                                        ForeColor="Black" />
-                                    <GoToTodayStyle BackColor="White" Font-Names="Verdana,Helvetica,Tahoma,Arial" Font-Size="XX-Small"
-                                        ForeColor="Black" />
-                                    <DayHeaderStyle BackColor="Orange" Font-Names="Verdana,Helvetica,Tahoma,Arial" Font-Size="XX-Small"
-                                        ForeColor="Black" />
-                                    <ClearDateStyle BackColor="White" Font-Names="Verdana,Helvetica,Tahoma,Arial" Font-Size="XX-Small"
-                                        ForeColor="Black" />
-                                </ew:CalendarPopup>
+                                <asp:TextBox ID="LastContactDate" Text='<%# Bind("LastContact_Date") %>' runat="server" />&nbsp;<asp:Image ID="calanderImageLCD" runat="server" ImageUrl="~/images/calendar.gif" ImageAlign="Middle" />
+                                <asp:CalendarExtender  runat="server" TargetControlID="LastContactDate" PopupButtonID="calanderImageLCD" CssClass="calendar"></asp:CalendarExtender>
                             </InsertItemTemplate>
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="Next Contact Date :">
                             <InsertItemTemplate>
-                                <ew:CalendarPopup ID="NextContactDate" Nullable="True" DisplayPrevNextYearSelection="True"
-                                    SelectedDate='<%# Bind("NextContact_Date") %>' runat="server" AllowArbitraryText="False"
-                                    CellPadding="2px" CellSpacing="0px" Culture="English (United States)" JavascriptOnChangeFunction=""
-                                    LowerBoundDate="" ShowClearDate="True" UpperBoundDate="12/31/9999 23:59:59" ImageUrl="~/images/calendar.gif"
-                                    ControlDisplay="TextBoxImage">
-                                    <TodayDayStyle BackColor="LightGoldenrodYellow" Font-Names="Verdana,Helvetica,Tahoma,Arial"
-                                        Font-Size="XX-Small" ForeColor="Black" />
-                                    <WeekendStyle BackColor="LightGray" Font-Names="Verdana,Helvetica,Tahoma,Arial" Font-Size="XX-Small"
-                                        ForeColor="Black" />
-                                    <OffMonthStyle BackColor="AntiqueWhite" Font-Names="Verdana,Helvetica,Tahoma,Arial"
-                                        Font-Size="XX-Small" ForeColor="Gray" />
-                                    <WeekdayStyle BackColor="White" Font-Names="Verdana,Helvetica,Tahoma,Arial" Font-Size="XX-Small"
-                                        ForeColor="Black" />
-                                    <SelectedDateStyle BackColor="Yellow" Font-Names="Verdana,Helvetica,Tahoma,Arial"
-                                        Font-Size="XX-Small" ForeColor="Black" />
-                                    <MonthHeaderStyle BackColor="Yellow" Font-Names="Verdana,Helvetica,Tahoma,Arial"
-                                        Font-Size="XX-Small" ForeColor="Black" />
-                                    <HolidayStyle BackColor="White" Font-Names="Verdana,Helvetica,Tahoma,Arial" Font-Size="XX-Small"
-                                        ForeColor="Black" />
-                                    <GoToTodayStyle BackColor="White" Font-Names="Verdana,Helvetica,Tahoma,Arial" Font-Size="XX-Small"
-                                        ForeColor="Black" />
-                                    <DayHeaderStyle BackColor="Orange" Font-Names="Verdana,Helvetica,Tahoma,Arial" Font-Size="XX-Small"
-                                        ForeColor="Black" />
-                                    <ClearDateStyle BackColor="White" Font-Names="Verdana,Helvetica,Tahoma,Arial" Font-Size="XX-Small"
-                                        ForeColor="Black" />
-                                </ew:CalendarPopup>
-                                <asp:RequiredFieldValidator ID="NextContactDateRFV" ControlToValidate="NextContactDate"
-                                    runat="server" ErrorMessage="Please Enter Next Contact Date to proceed.">
-            *
-                                </asp:RequiredFieldValidator>
+                                
+                                <asp:TextBox ID="NextContactDate" Text='<%# Bind("NextContact_Date") %>' runat="server" />&nbsp;<asp:Image ID="calanderImageNCD" runat="server" ImageUrl="~/images/calendar.gif" ImageAlign="Middle" />
+                                <asp:CalendarExtender  runat="server" TargetControlID="NextContactDate" PopupButtonID="calanderImageNCD" CssClass="calendar"></asp:CalendarExtender>
+                                                                
+                                <asp:RequiredFieldValidator ID="NextContactDateRFV" ControlToValidate="NextContactDate" runat="server" ErrorMessage="Please Enter Next Contact Date to proceed.">*</asp:RequiredFieldValidator>
                             </InsertItemTemplate>
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="Creation Date :">
                             <InsertItemTemplate>
-                                <ew:CalendarPopup ID="CreationDate" Nullable="True" DisplayPrevNextYearSelection="True"
-                                    SelectedDate='<%# Bind("CreationDate") %>' runat="server" AllowArbitraryText="False"
-                                    CellPadding="2px" CellSpacing="0px" Culture="English (United States)" JavascriptOnChangeFunction=""
-                                    LowerBoundDate="" ShowClearDate="True" UpperBoundDate="12/31/9999 23:59:59" ImageUrl="~/images/calendar.gif"
-                                    ControlDisplay="TextBoxImage">
-                                    <TodayDayStyle BackColor="LightGoldenrodYellow" Font-Names="Verdana,Helvetica,Tahoma,Arial"
-                                        Font-Size="XX-Small" ForeColor="Black" />
-                                    <WeekendStyle BackColor="LightGray" Font-Names="Verdana,Helvetica,Tahoma,Arial" Font-Size="XX-Small"
-                                        ForeColor="Black" />
-                                    <OffMonthStyle BackColor="AntiqueWhite" Font-Names="Verdana,Helvetica,Tahoma,Arial"
-                                        Font-Size="XX-Small" ForeColor="Gray" />
-                                    <WeekdayStyle BackColor="White" Font-Names="Verdana,Helvetica,Tahoma,Arial" Font-Size="XX-Small"
-                                        ForeColor="Black" />
-                                    <SelectedDateStyle BackColor="Yellow" Font-Names="Verdana,Helvetica,Tahoma,Arial"
-                                        Font-Size="XX-Small" ForeColor="Black" />
-                                    <MonthHeaderStyle BackColor="Yellow" Font-Names="Verdana,Helvetica,Tahoma,Arial"
-                                        Font-Size="XX-Small" ForeColor="Black" />
-                                    <HolidayStyle BackColor="White" Font-Names="Verdana,Helvetica,Tahoma,Arial" Font-Size="XX-Small"
-                                        ForeColor="Black" />
-                                    <GoToTodayStyle BackColor="White" Font-Names="Verdana,Helvetica,Tahoma,Arial" Font-Size="XX-Small"
-                                        ForeColor="Black" />
-                                    <DayHeaderStyle BackColor="Orange" Font-Names="Verdana,Helvetica,Tahoma,Arial" Font-Size="XX-Small"
-                                        ForeColor="Black" />
-                                    <ClearDateStyle BackColor="White" Font-Names="Verdana,Helvetica,Tahoma,Arial" Font-Size="XX-Small"
-                                        ForeColor="Black" />
-                                </ew:CalendarPopup>
-                                <asp:RequiredFieldValidator ID="AcctCreationDateRFV" ControlToValidate="CreationDate"
-                                    runat="server" ErrorMessage="Please Enter Creation Date to proceed.">
-            *
-                                </asp:RequiredFieldValidator>
+                                
+                                <asp:TextBox ID="CreationDate" Text='<%# Bind("CreationDate") %>' runat="server" />&nbsp;<asp:Image ID="calanderImageCRD" runat="server" ImageUrl="~/images/calendar.gif" ImageAlign="Middle" />
+                                <asp:CalendarExtender  runat="server" TargetControlID="CreationDate" PopupButtonID="calanderImageCRD" CssClass="calendar"></asp:CalendarExtender>
+                                                                
+                                <asp:RequiredFieldValidator ID="AcctCreationDateRFV" ControlToValidate="CreationDate" runat="server" ErrorMessage="Please Enter Creation Date to proceed.">*</asp:RequiredFieldValidator>
                             </InsertItemTemplate>
                         </asp:TemplateField>
                         <asp:TemplateField ShowHeader="False">
@@ -286,7 +202,7 @@
         </tr>
         <tr>
             <td style="width: 280px">
-                <asp:ValidationSummary ID="ValidationSummary1" runat="server" ShowMessageBox="True" />
+                <asp:ValidationSummary ID="ValidationSummary1" runat="server"  ForeColor="Red" ShowMessageBox="True" />
             </td>
         </tr>
         <tr>

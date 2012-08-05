@@ -89,7 +89,7 @@ public partial class CompanyDETAIL : BasePage
             COMPANYNAMETextBox = (TextBox)CompanyDW.FindControl("txtCompName");
             if ((COMPANYNAMETextBox != null))
             {
-                COMPANYNAME = COMPANYNAMETextBox.Text;
+                COMPANYNAME = COMPANYNAMETextBox.Text.Trim();
             }
         }
         //For Address
@@ -98,7 +98,7 @@ public partial class CompanyDETAIL : BasePage
             AddressTextBox = (TextBox)CompanyDW.FindControl("txtAddress");
             if ((AddressTextBox != null))
             {
-                Address = AddressTextBox.Text;
+                Address = AddressTextBox.Text.Trim();
             }
         }
         //For City
@@ -107,7 +107,7 @@ public partial class CompanyDETAIL : BasePage
             CityTextBox = (TextBox)CompanyDW.FindControl("txtCity");
             if ((CityTextBox != null))
             {
-                City = CityTextBox.Text;
+                City = CityTextBox.Text.Trim();
             }
         }
         //For State
@@ -116,7 +116,7 @@ public partial class CompanyDETAIL : BasePage
             StateTextBox = (TextBox)CompanyDW.FindControl("txtState");
             if ((StateTextBox != null))
             {
-                State = StateTextBox.Text;
+                State = StateTextBox.Text.Trim();
             }
         }
         //For Zip
@@ -125,7 +125,7 @@ public partial class CompanyDETAIL : BasePage
             ZipTextBox = (TextBox)CompanyDW.FindControl("txtZip");
             if ((ZipTextBox != null))
             {
-                Zip = ZipTextBox.Text;
+                Zip = ZipTextBox.Text.Trim();
             }
         }
         //For POC Last Name
@@ -134,7 +134,7 @@ public partial class CompanyDETAIL : BasePage
             POCLastNameTextBox = (TextBox)CompanyDW.FindControl("txtPOCLastName");
             if ((POCLastNameTextBox != null))
             {
-                POCLastName = POCLastNameTextBox.Text;
+                POCLastName = POCLastNameTextBox.Text.Trim();
             }
         }
         //For POC First Name
@@ -143,7 +143,7 @@ public partial class CompanyDETAIL : BasePage
             POCFirstNameTextBox = (TextBox)CompanyDW.FindControl("txtPOCFirstName");
             if ((POCFirstNameTextBox != null))
             {
-                POCFirstName = POCFirstNameTextBox.Text;
+                POCFirstName = POCFirstNameTextBox.Text.Trim();
             }
         }
         //For POC First Name
@@ -152,7 +152,7 @@ public partial class CompanyDETAIL : BasePage
             POCFirstNameTextBox = (TextBox)CompanyDW.FindControl("txtPOCFirstName");
             if ((POCFirstNameTextBox != null))
             {
-                POCFirstName = POCFirstNameTextBox.Text;
+                POCFirstName = POCFirstNameTextBox.Text.Trim();
             }
         }
         //For POC Phone
@@ -161,7 +161,7 @@ public partial class CompanyDETAIL : BasePage
             POCPhoneTextBox = (TextBox)CompanyDW.FindControl("txtPOCPhone");
             if ((POCPhoneTextBox != null))
             {
-                POCPhone = POCPhoneTextBox.Text;
+                POCPhone = POCPhoneTextBox.Text.Trim();
             }
         }
         //For COMPANY VALUE GOAL
@@ -170,7 +170,7 @@ public partial class CompanyDETAIL : BasePage
             CompValueGoalTextBox = (TextBox)CompanyDW.FindControl("txtCOMPANYVALUEGOAL");
             if ((CompValueGoalTextBox != null))
             {
-                COMPANYVALUEGOAL = CompValueGoalTextBox.Text;
+                COMPANYVALUEGOAL = CompValueGoalTextBox.Text.Trim();
             }
         }
         //For Rep Last Name
@@ -179,7 +179,7 @@ public partial class CompanyDETAIL : BasePage
             RepLastNameTextBox = (TextBox)CompanyDW.FindControl("txtRepLastName");
             if ((RepLastNameTextBox != null))
             {
-                RepLastName = RepLastNameTextBox.Text;
+                RepLastName = RepLastNameTextBox.Text.Trim();
             }
         }
         //For Rep First Name
@@ -188,7 +188,7 @@ public partial class CompanyDETAIL : BasePage
             RepFirstNameTextBox = (TextBox)CompanyDW.FindControl("txtRepFirstName");
             if ((RepFirstNameTextBox != null))
             {
-                RepFirstName = RepFirstNameTextBox.Text;
+                RepFirstName = RepFirstNameTextBox.Text.Trim();
             }
         }
         //For Discussion Topic 
@@ -197,7 +197,7 @@ public partial class CompanyDETAIL : BasePage
             DiscTopicTextBox = (TextBox)CompanyDW.FindControl("txtDiscussionTopic");
             if ((DiscTopicTextBox != null))
             {
-                DiscussionTopic = DiscTopicTextBox.Text;
+                DiscussionTopic = DiscTopicTextBox.Text.Trim();
             }
         }
         //For Action Step
@@ -206,36 +206,48 @@ public partial class CompanyDETAIL : BasePage
             ActionStepTextBox = (TextBox)CompanyDW.FindControl("txtACTIONSTEP");
             if ((ActionStepTextBox != null))
             {
-                ACTIONSTEP = ActionStepTextBox.Text;
+                ACTIONSTEP = ActionStepTextBox.Text.Trim();
             }
         }
         //For Creation Date
         {
-            eWorld.UI.CalendarPopup CreationDateCal = new eWorld.UI.CalendarPopup();
-            CreationDateCal = (eWorld.UI.CalendarPopup)CompanyDW.FindControl("CreationDate");
+            TextBox CreationDateCal = new TextBox();
+            CreationDateCal = (TextBox)CompanyDW.FindControl("CreationDate");
             if ((CreationDateCal != null))
             {
-                CreationDate = CreationDateCal.SelectedDate;
+                if (!string.IsNullOrEmpty(CreationDateCal.Text))
+                {
+                    CreationDate = Convert.ToDateTime(CreationDateCal.Text.Trim());
+                }
+                
 
             }
         }
         //For Last Contact Date
         {
-            eWorld.UI.CalendarPopup LastContactDateCal = new eWorld.UI.CalendarPopup();
-            LastContactDateCal = (eWorld.UI.CalendarPopup)CompanyDW.FindControl("LastContactDate");
+            TextBox LastContactDateCal = new TextBox();
+            LastContactDateCal = (TextBox)CompanyDW.FindControl("LastContactDate");
             if ((LastContactDateCal != null))
             {
-                LastDate = LastContactDateCal.SelectedDate;
+                if (!string.IsNullOrEmpty(LastContactDateCal.Text))
+                {
+                    LastDate = Convert.ToDateTime(LastContactDateCal.Text.Trim());
+                }
+                
 
             }
         }
         //For Next Contact Date
         {
-            eWorld.UI.CalendarPopup NextContactDateCal = new eWorld.UI.CalendarPopup();
-            NextContactDateCal = (eWorld.UI.CalendarPopup)CompanyDW.FindControl("NextContactDate");
+            TextBox NextContactDateCal = new TextBox();
+            NextContactDateCal = (TextBox)CompanyDW.FindControl("NextContactDate");
             if ((NextContactDateCal != null))
             {
-                NextDate = NextContactDateCal.SelectedDate;
+                if (!string.IsNullOrEmpty(NextContactDateCal.Text))
+                {
+                    NextDate = Convert.ToDateTime(NextContactDateCal.Text.Trim());
+                }
+                
 
             }
         }
@@ -248,18 +260,6 @@ public partial class CompanyDETAIL : BasePage
                 IndustryID = Convert.ToInt32(IndustryDDList.SelectedValue.ToString());
             }
         }
-        #region Commented For Product
-        
-        //For Product ID
-        //{
-        //    DropDownList ProductDDList = new DropDownList();
-        //    ProductDDList = (DropDownList)CompanyDW.FindControl("ddlProduct");
-        //    if ((ProductDDList != null))
-        //    {
-        //        ProductID = Convert.ToInt32(ProductDDList.SelectedValue.ToString());
-        //    }
-        //}
-        #endregion
         //For New Item  ID
         {
             DropDownList NewItemDDList = new DropDownList();
@@ -273,8 +273,7 @@ public partial class CompanyDETAIL : BasePage
         SandlerRepositories.CompaniesRepository companiesRepository = new SandlerRepositories.CompaniesRepository();
         //Update Company Information
         companiesRepository.Update(Convert.ToInt32(hidCompanyID.Value), COMPANYNAME, Address, City, State, Zip,POCLastName, POCFirstName, POCPhone, NewItemID, COMPANYVALUEGOAL, 
-            //ProductID, 
-            IndustryID, RepLastName, RepFirstName, DiscussionTopic, ACTIONSTEP, LastDate, NextDate, CreationDate, CurrentUser.UserId.ToString());
+                                   IndustryID, RepLastName, RepFirstName, DiscussionTopic, ACTIONSTEP, LastDate, NextDate, CreationDate, CurrentUser.UserId.ToString());
         //Inform the Message
         LblStatus.Text = "Company informaton updated successfully!";
 
@@ -294,49 +293,53 @@ public partial class CompanyDETAIL : BasePage
     }
     protected void CompanyDW_DataBound(object sender, EventArgs e)
     {
-        System.DateTime NextContactDate = default(System.DateTime);
-        System.DateTime LastContactDate = default(System.DateTime);
-        System.DateTime CreationDate = default(System.DateTime);
         
         //For Next Contact Date - Calendar control
-        eWorld.UI.CalendarPopup NextContactDateCal = new eWorld.UI.CalendarPopup();
-        NextContactDateCal = (eWorld.UI.CalendarPopup)CompanyDW.FindControl("NextContactDate");
+        TextBox NextContactDateCal = new TextBox();
+        NextContactDateCal = (TextBox)CompanyDW.FindControl("NextContactDate");
         if (NextContactDateCal != null)
         {
-            NextContactDate = NextContactDateCal.SelectedDate;
-            if (NextContactDate.ToString() == "1/1/1900 12:00:00 AM")
+            if (NextContactDateCal.Text == "1/1/1900 12:00:00 AM")
             {
-                NextContactDateCal.SelectedDate = default(System.DateTime);
+                NextContactDateCal.Text = default(System.String);
+            }
+            else
+            {
+                NextContactDateCal.Text = NextContactDateCal.Text.Replace("12:00:00 AM", "");
             }
 
         }
         
         //For Last Contact Date - Calendar control
-        eWorld.UI.CalendarPopup LastContactDateCal = new eWorld.UI.CalendarPopup();
-        LastContactDateCal = (eWorld.UI.CalendarPopup)CompanyDW.FindControl("LastContactDate");
+        TextBox LastContactDateCal = new TextBox();
+        LastContactDateCal = (TextBox)CompanyDW.FindControl("LastContactDate");
         if (LastContactDateCal != null)
         {
-            LastContactDate = LastContactDateCal.SelectedDate;
-            if (LastContactDate.ToString() == "1/1/1900 12:00:00 AM")
+            if (LastContactDateCal.Text == "1/1/1900 12:00:00 AM")
             {
-                LastContactDateCal.SelectedDate = default(System.DateTime);
+                LastContactDateCal.Text = default(System.String);
+            }
+            else
+            {
+                LastContactDateCal.Text = LastContactDateCal.Text.Replace("12:00:00 AM", "");
             }
 
         }
-
         //For Creation Date - Calendar control
-        eWorld.UI.CalendarPopup CreationDateCal = new eWorld.UI.CalendarPopup();
-        CreationDateCal = (eWorld.UI.CalendarPopup)CompanyDW.FindControl("CreationDate");
+        TextBox CreationDateCal = new TextBox();
+        CreationDateCal = (TextBox)CompanyDW.FindControl("CreationDate");
         if (CreationDateCal != null)
         {
-            CreationDate = CreationDateCal.SelectedDate;
-            if (CreationDate.ToString() == "1/1/1900 12:00:00 AM")
+            if (CreationDateCal.Text == "1/1/1900 12:00:00 AM")
             {
-                CreationDateCal.SelectedDate = default(System.DateTime);
+                CreationDateCal.Text = default(System.String);
+            }
+            else
+            {
+                CreationDateCal.Text = CreationDateCal.Text.Replace("12:00:00 AM", "");
             }
 
         }
-        
         //For Course Trng Date - Label
         Label NextContactDateLabel = new Label();
         NextContactDateLabel = (Label)CompanyDW.FindControl("lblNextContactDate");
@@ -369,8 +372,6 @@ public partial class CompanyDETAIL : BasePage
                 CreationDateLabel.Text = "";
             }
         }
-
-
 
     }
 }

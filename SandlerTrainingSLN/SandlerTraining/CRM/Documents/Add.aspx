@@ -1,9 +1,8 @@
-﻿<%@ Page Title="CRM" Language="C#" MasterPageFile="~/CRM.master" AutoEventWireup="true"
-    CodeFile="Add.aspx.cs" Inherits="DocumentADD" %>
-
-<%@ Register TagPrefix="ew" Namespace="eWorld.UI" Assembly="eWorld.UI, Version=1.9.0.0, Culture=neutral, PublicKeyToken=24d65337282035f2" %>
+﻿<%@ Page Title="CRM" Language="C#" MasterPageFile="~/CRM.master" AutoEventWireup="true" CodeFile="Add.aspx.cs" Inherits="DocumentADD" %>
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 <%@ Import Namespace="SandlerRepositories" %>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="Server">
+    <asp:ToolkitScriptManager ID="ToolkitScriptManager1" runat="server"></asp:ToolkitScriptManager>
     <table>
         <tr>
             <th class="tdTC" style="width: 280px" align="left">
@@ -50,36 +49,9 @@
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="Last Modify Date :">
                             <InsertItemTemplate>
-                                <ew:CalendarPopup ID="LastModifyDate" Nullable="True" DisplayPrevNextYearSelection="True"
-                                    SelectedDate='<%# Bind("Last_Modify_Date") %>' runat="server" AllowArbitraryText="False"
-                                    CellPadding="2px" CellSpacing="0px" Culture="English (United States)" JavascriptOnChangeFunction=""
-                                    LowerBoundDate="" ShowClearDate="True" UpperBoundDate="12/31/9999 23:59:59" ImageUrl="~/images/calendar.gif"
-                                    ControlDisplay="TextBoxImage">
-                                    <TodayDayStyle BackColor="LightGoldenrodYellow" Font-Names="Verdana,Helvetica,Tahoma,Arial"
-                                        Font-Size="XX-Small" ForeColor="Black" />
-                                    <WeekendStyle BackColor="LightGray" Font-Names="Verdana,Helvetica,Tahoma,Arial" Font-Size="XX-Small"
-                                        ForeColor="Black" />
-                                    <OffMonthStyle BackColor="AntiqueWhite" Font-Names="Verdana,Helvetica,Tahoma,Arial"
-                                        Font-Size="XX-Small" ForeColor="Gray" />
-                                    <WeekdayStyle BackColor="White" Font-Names="Verdana,Helvetica,Tahoma,Arial" Font-Size="XX-Small"
-                                        ForeColor="Black" />
-                                    <SelectedDateStyle BackColor="Yellow" Font-Names="Verdana,Helvetica,Tahoma,Arial"
-                                        Font-Size="XX-Small" ForeColor="Black" />
-                                    <MonthHeaderStyle BackColor="Yellow" Font-Names="Verdana,Helvetica,Tahoma,Arial"
-                                        Font-Size="XX-Small" ForeColor="Black" />
-                                    <HolidayStyle BackColor="White" Font-Names="Verdana,Helvetica,Tahoma,Arial" Font-Size="XX-Small"
-                                        ForeColor="Black" />
-                                    <GoToTodayStyle BackColor="White" Font-Names="Verdana,Helvetica,Tahoma,Arial" Font-Size="XX-Small"
-                                        ForeColor="Black" />
-                                    <DayHeaderStyle BackColor="Orange" Font-Names="Verdana,Helvetica,Tahoma,Arial" Font-Size="XX-Small"
-                                        ForeColor="Black" />
-                                    <ClearDateStyle BackColor="White" Font-Names="Verdana,Helvetica,Tahoma,Arial" Font-Size="XX-Small"
-                                        ForeColor="Black" />
-                                </ew:CalendarPopup>
-                                <asp:RequiredFieldValidator ID="LastContactDateRFV" ControlToValidate="LastModifyDate"
-                                    runat="server" ErrorMessage="Please Enter Last Modify Date to proceed.">
-            *
-                                </asp:RequiredFieldValidator>
+                                <asp:TextBox ID="LastModifyDate" Text='<%# Bind("Last_Modify_Date") %>' runat="server" />&nbsp;<asp:Image ID="calanderImageLMD" runat="server" ImageUrl="~/images/calendar.gif" ImageAlign="Middle" />
+                                <asp:CalendarExtender runat="server" TargetControlID="LastModifyDate" PopupButtonID="calanderImageLMD" CssClass="calendar"></asp:CalendarExtender>
+                                <asp:RequiredFieldValidator ID="LastContactDateRFV" ControlToValidate="LastModifyDate" runat="server" ErrorMessage="Please Enter Last Modify Date to proceed.">*</asp:RequiredFieldValidator>
                             </InsertItemTemplate>
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="Attached Document:">
@@ -109,7 +81,7 @@
         </tr>
         <tr>
             <td colspan="3">
-                <asp:ValidationSummary ID="ValidationSummary1" runat="server" ShowMessageBox="True" />
+                <asp:ValidationSummary ID="ValidationSummary1" runat="server" ForeColor="Red" ShowMessageBox="True" />
             </td>
         </tr>
         <tr>

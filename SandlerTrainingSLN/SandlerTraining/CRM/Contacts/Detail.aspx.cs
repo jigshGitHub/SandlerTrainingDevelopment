@@ -171,31 +171,39 @@ public partial class ContactDETAIL : BasePage
         }
         //For Last Contact Date
         {
-            eWorld.UI.CalendarPopup LastContactDateCal = new eWorld.UI.CalendarPopup();
-            LastContactDateCal = (eWorld.UI.CalendarPopup)ContactDW.FindControl("LastContactDate");
+            TextBox LastContactDateCal = new TextBox();
+            LastContactDateCal = (TextBox)ContactDW.FindControl("LastContactDate");
             if ((LastContactDateCal != null))
             {
-                LastDate = LastContactDateCal.SelectedDate;
+                if (!string.IsNullOrEmpty(LastContactDateCal.Text))
+                {
+                    LastDate = Convert.ToDateTime(LastContactDateCal.Text.Trim());
+                }
 
             }
         }
         //For Next Contact Date
         {
-            eWorld.UI.CalendarPopup NextContactDateCal = new eWorld.UI.CalendarPopup();
-            NextContactDateCal = (eWorld.UI.CalendarPopup)ContactDW.FindControl("NextContactDate");
+            TextBox NextContactDateCal = new TextBox();
+            NextContactDateCal = (TextBox)ContactDW.FindControl("NextContactDate");
             if ((NextContactDateCal != null))
             {
-                NextDate = NextContactDateCal.SelectedDate;
-
+                if (!string.IsNullOrEmpty(NextContactDateCal.Text))
+                {
+                    NextDate = Convert.ToDateTime(NextContactDateCal.Text.Trim());
+                }
             }
         }
         //For Course Trng Date
         {
-            eWorld.UI.CalendarPopup CourseTrngDateCal = new eWorld.UI.CalendarPopup();
-            CourseTrngDateCal = (eWorld.UI.CalendarPopup)ContactDW.FindControl("CourseTrngDate");
-            if ((CourseTrngDateCal != null))
+            TextBox CourseTrainingDateCal = new TextBox();
+            CourseTrainingDateCal = (TextBox)ContactDW.FindControl("CourseTrngDate");
+            if ((CourseTrainingDateCal != null))
             {
-                CourseTrngDate = CourseTrngDateCal.SelectedDate;
+                if (!string.IsNullOrEmpty(CourseTrainingDateCal.Text))
+                {
+                    CourseTrngDate = Convert.ToDateTime(CourseTrainingDateCal.Text.Trim());
+                }
 
             }
         }
@@ -209,15 +217,6 @@ public partial class ContactDETAIL : BasePage
         {
             ErrorMessage = "Please select Appointment Source to Proceed.";
         }
-
-        //if (CourseTrngDate <= LastDate)
-        //{
-        //    ErrorMessage = "Course Training Date should be greater than the Last Contact date.";
-        //}
-        //if (NextDate <= LastDate)
-        //{
-        //    ErrorMessage = "Next Contact Date should be greater than the Last Contact Date.";
-        //}
         //Now check if all is well with the selection
         if ((CourseTrngDate.ToString() != "1/1/0001 12:00:00 AM" && CourseId == 0) || (CourseId == 0 && IsRegisteredForTrng == 1))
         {
@@ -273,9 +272,6 @@ public partial class ContactDETAIL : BasePage
 
     protected void ContactDW_DataBound(object sender, EventArgs e)
     {
-        System.DateTime CourseTrngDate = default(System.DateTime);
-        System.DateTime LastContactDate = default(System.DateTime);
-        
         //For Course DDL
         DropDownList CourseDDList = new DropDownList();
         CourseDDList = (DropDownList)ContactDW.FindControl("ddlCourse");
@@ -290,8 +286,6 @@ public partial class ContactDETAIL : BasePage
             }
             
         }
-
-
         //For Appt Source DDL
         DropDownList ApptSourceDDList = new DropDownList();
         ApptSourceDDList = (DropDownList)ContactDW.FindControl("ddlApptSource");
@@ -307,34 +301,51 @@ public partial class ContactDETAIL : BasePage
 
         }
 
-
-
         //For Course Trng Date - Calendar control
-        eWorld.UI.CalendarPopup CourseTrngDateCal = new eWorld.UI.CalendarPopup();
-        CourseTrngDateCal = (eWorld.UI.CalendarPopup)ContactDW.FindControl("CourseTrngDate");
+        TextBox CourseTrngDateCal = new TextBox();
+        CourseTrngDateCal = (TextBox)ContactDW.FindControl("CourseTrngDate");
         if (CourseTrngDateCal != null)
         {
-            CourseTrngDate = CourseTrngDateCal.SelectedDate;
-            if (CourseTrngDate.ToString() == "1/1/1900 12:00:00 AM")
+            if (CourseTrngDateCal.Text == "1/1/1900 12:00:00 AM")
             {
-                CourseTrngDateCal.SelectedDate = default(System.DateTime);
+                CourseTrngDateCal.Text = default(System.String);
+            }
+            else
+            {
+                CourseTrngDateCal.Text = CourseTrngDateCal.Text.Replace("12:00:00 AM", "");
             }
                 
         }
-
         //For Last Contact Date
-        eWorld.UI.CalendarPopup LastContactDateCal = new eWorld.UI.CalendarPopup();
-        LastContactDateCal = (eWorld.UI.CalendarPopup)ContactDW.FindControl("LastContactDate");
+        TextBox LastContactDateCal = new TextBox();
+        LastContactDateCal = (TextBox)ContactDW.FindControl("LastContactDate");
         if (LastContactDateCal != null)
         {
-            LastContactDate = LastContactDateCal.SelectedDate;
-            if (LastContactDate.ToString() == "1/1/1900 12:00:00 AM")
+            if (LastContactDateCal.Text == "1/1/1900 12:00:00 AM")
             {
-                LastContactDateCal.SelectedDate = default(System.DateTime);
+                LastContactDateCal.Text = default(System.String);
+            }
+            else
+            {
+                LastContactDateCal.Text = LastContactDateCal.Text.Replace("12:00:00 AM", "");
             }
 
         }
+        //For Next  Contact Date
+        TextBox NextContactDateCal = new TextBox();
+        NextContactDateCal = (TextBox)ContactDW.FindControl("NextContactDate");
+        if (NextContactDateCal != null)
+        {
+            if (NextContactDateCal.Text == "1/1/1900 12:00:00 AM")
+            {
+                NextContactDateCal.Text = default(System.String);
+            }
+            else
+            {
+                NextContactDateCal.Text = NextContactDateCal.Text.Replace("12:00:00 AM", "");
+            }
 
+        }
         //For Course Trng Date - Label
         Label CsTrngDateLabel = new Label();
         CsTrngDateLabel = (Label)ContactDW.FindControl("lblCourseTrngDate");

@@ -193,6 +193,10 @@ fieldset p
     margin: 2px 12px 10px 10px;
 }
 
+fieldset.changePassword
+{
+	width:100%
+}
 fieldset.login label, fieldset.register label, fieldset.changePassword label
 {
     display: block;

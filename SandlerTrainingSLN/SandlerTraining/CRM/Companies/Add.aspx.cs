@@ -30,15 +30,6 @@ public partial class AddCompany : BasePage
 
     protected void dvCompany_DataBound(object sender, EventArgs e)
     {
-        //For ProductDDL
-        //DropDownList productDropDownList = new DropDownList();
-        //productDropDownList = (DropDownList)dvCompany.FindControl("ddlProduct");
-        //if ((productDropDownList != null))
-        //{
-        //    ListItem selectItem = new ListItem("--Select Product--", "0");
-        //    productDropDownList.Items.Insert(0, selectItem);
-        //}
-
         //For IndustryDDL
         DropDownList industryDropDownList = new DropDownList();
         industryDropDownList = (DropDownList)dvCompany.FindControl("ddlIndustry");
@@ -49,6 +40,5 @@ public partial class AddCompany : BasePage
         }
 
     }
-
-
+    
 }

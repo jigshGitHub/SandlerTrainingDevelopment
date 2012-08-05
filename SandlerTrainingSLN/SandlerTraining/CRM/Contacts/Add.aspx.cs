@@ -52,13 +52,8 @@ public partial class ContactADD : BasePage
         DateTime CourseTrgDate = default(System.DateTime);
         System.DateTime NextDate = default(System.DateTime);
         System.DateTime LastDate = default(System.DateTime);
-
         string IsNewAppt = default(System.String);
         string ApptSource = default(System.String);
-
-        //ddlAccount
-        //ddlApptSource
-
         string ErrorMessage = default(System.String);
 
         DropDownList CourseDDList = new DropDownList();
@@ -84,7 +79,7 @@ public partial class ContactADD : BasePage
             ApptSource = ApptSourceDDList.SelectedValue;
 
         }
-
+        //Is Registered for Training
         DropDownList IsRegisteredDDList = new DropDownList();
         IsRegisteredDDList = (DropDownList)dvContact.FindControl("ddlRegForTraining");
         if ((IsRegisteredDDList != null))
@@ -94,36 +89,44 @@ public partial class ContactADD : BasePage
         }
         //For Course Training Date
         {
-            eWorld.UI.CalendarPopup CourseTrainingDateCal = new eWorld.UI.CalendarPopup();
-            CourseTrainingDateCal = (eWorld.UI.CalendarPopup)dvContact.FindControl("CourseTrngDate");
+            TextBox CourseTrainingDateCal = new TextBox();
+            CourseTrainingDateCal = (TextBox)dvContact.FindControl("CourseTrngDate");
             if ((CourseTrainingDateCal != null))
             {
-                CourseTrgDate = CourseTrainingDateCal.SelectedDate;
-
+                if (!string.IsNullOrEmpty(CourseTrainingDateCal.Text))
+                {
+                    CourseTrgDate = Convert.ToDateTime(CourseTrainingDateCal.Text.Trim());
+                }
+                
             }
         }
 
         //For Last Contact Date
         {
-            eWorld.UI.CalendarPopup LastContactDateCal = new eWorld.UI.CalendarPopup();
-            LastContactDateCal = (eWorld.UI.CalendarPopup)dvContact.FindControl("LastContactDate");
+            TextBox LastContactDateCal = new TextBox();
+            LastContactDateCal = (TextBox)dvContact.FindControl("LastContactDate");
             if ((LastContactDateCal != null))
             {
-                LastDate = LastContactDateCal.SelectedDate;
-
+                if (!string.IsNullOrEmpty(LastContactDateCal.Text))
+                {
+                    LastDate = Convert.ToDateTime(LastContactDateCal.Text.Trim()); 
+                }
+               
             }
         }
         //For Next Contact Date
         {
-            eWorld.UI.CalendarPopup NextContactDateCal = new eWorld.UI.CalendarPopup();
-            NextContactDateCal = (eWorld.UI.CalendarPopup)dvContact.FindControl("NextContactDate");
+            TextBox NextContactDateCal = new TextBox();
+            NextContactDateCal = (TextBox)dvContact.FindControl("NextContactDate");
             if ((NextContactDateCal != null))
             {
-                NextDate = NextContactDateCal.SelectedDate;
-
+                if (!string.IsNullOrEmpty(NextContactDateCal.Text))
+                {
+                    NextDate = Convert.ToDateTime(NextContactDateCal.Text.Trim()); 
+                }
             }
         }
-
+        //Extra Server side Validation
         if (IsNewAppt == "No" && ApptSource != "0")
         {
             ErrorMessage = "New Appointment? is selected as No. Please change your selection to Proceed.";
@@ -133,15 +136,6 @@ public partial class ContactADD : BasePage
         {
             ErrorMessage = "Please select Appointment Source to Proceed.";
         }
-
-        //if (CourseTrgDate <= LastDate)
-        //{
-        //    ErrorMessage = "Course Training Date should be greater than the Last Contact date.";
-        //}
-        //if (NextDate <= LastDate)
-        //{
-        //    ErrorMessage = "Next Contact Date should be greater than the Last Contact Date.";
-        //}
         if ((CourseTrgDate.ToString() != "1/1/0001 12:00:00 AM" && selectedCourse == "0") || (selectedCourse == "0" && IsRegistered == "1"))
         {
             ErrorMessage = "Please select Course Type to Proceed.";

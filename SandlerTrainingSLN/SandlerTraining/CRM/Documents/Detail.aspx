@@ -1,8 +1,8 @@
-﻿<%@ Page Title="CRM" Language="C#" MasterPageFile="~/CRM.master" AutoEventWireup="true"
-    CodeFile="Detail.aspx.cs" Inherits="DocumentDETAIL" %>
-
-<%@ Register TagPrefix="ew" Namespace="eWorld.UI" Assembly="eWorld.UI, Version=1.9.0.0, Culture=neutral, PublicKeyToken=24d65337282035f2" %>
+﻿<%@ Page Title="CRM" Language="C#" MasterPageFile="~/CRM.master" AutoEventWireup="true" CodeFile="Detail.aspx.cs" Inherits="DocumentDETAIL" %>
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
+<%@ Import Namespace="SandlerRepositories" %>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="Server">
+    <asp:ToolkitScriptManager ID="ToolkitScriptManager1" runat="server"></asp:ToolkitScriptManager>
     <table>
         <tr>
             <th align="left" class="tdTC" colspan="2" style="width: 680px">
@@ -43,36 +43,9 @@
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="Last Modified Date :">
                             <EditItemTemplate>
-                                <ew:CalendarPopup ID="LastModifyDate" Nullable="True" DisplayPrevNextYearSelection="True"
-                                    SelectedDate='<%# Bind("LastModifyDate") %>' runat="server" AllowArbitraryText="False"
-                                    CellPadding="2px" CellSpacing="0px" Culture="English (United States)" JavascriptOnChangeFunction=""
-                                    LowerBoundDate="" ShowClearDate="True" UpperBoundDate="12/31/9999 23:59:59" ImageUrl="~/images/calendar.gif"
-                                    ControlDisplay="TextBoxImage">
-                                    <TodayDayStyle BackColor="LightGoldenrodYellow" Font-Names="Verdana,Helvetica,Tahoma,Arial"
-                                        Font-Size="XX-Small" ForeColor="Black" />
-                                    <WeekendStyle BackColor="LightGray" Font-Names="Verdana,Helvetica,Tahoma,Arial" Font-Size="XX-Small"
-                                        ForeColor="Black" />
-                                    <OffMonthStyle BackColor="AntiqueWhite" Font-Names="Verdana,Helvetica,Tahoma,Arial"
-                                        Font-Size="XX-Small" ForeColor="Gray" />
-                                    <WeekdayStyle BackColor="White" Font-Names="Verdana,Helvetica,Tahoma,Arial" Font-Size="XX-Small"
-                                        ForeColor="Black" />
-                                    <SelectedDateStyle BackColor="Yellow" Font-Names="Verdana,Helvetica,Tahoma,Arial"
-                                        Font-Size="XX-Small" ForeColor="Black" />
-                                    <MonthHeaderStyle BackColor="Yellow" Font-Names="Verdana,Helvetica,Tahoma,Arial"
-                                        Font-Size="XX-Small" ForeColor="Black" />
-                                    <HolidayStyle BackColor="White" Font-Names="Verdana,Helvetica,Tahoma,Arial" Font-Size="XX-Small"
-                                        ForeColor="Black" />
-                                    <GoToTodayStyle BackColor="White" Font-Names="Verdana,Helvetica,Tahoma,Arial" Font-Size="XX-Small"
-                                        ForeColor="Black" />
-                                    <DayHeaderStyle BackColor="Orange" Font-Names="Verdana,Helvetica,Tahoma,Arial" Font-Size="XX-Small"
-                                        ForeColor="Black" />
-                                    <ClearDateStyle BackColor="White" Font-Names="Verdana,Helvetica,Tahoma,Arial" Font-Size="XX-Small"
-                                        ForeColor="Black" />
-                                </ew:CalendarPopup>
-                                <asp:RequiredFieldValidator ID="LastContactDateRFV" ControlToValidate="LastModifyDate"
-                                    runat="server" ErrorMessage="Please Enter Last Modify Date to proceed.">
-                                    *
-                                </asp:RequiredFieldValidator>
+                                <asp:TextBox ID="LastModifyDate" Text='<%# Bind("LastModifyDate") %>' runat="server" />&nbsp;<asp:Image ID="calanderImageLMD" runat="server" ImageUrl="~/images/calendar.gif" ImageAlign="Middle" />
+                                <asp:CalendarExtender runat="server" TargetControlID="LastModifyDate" PopupButtonID="calanderImageLMD" CssClass="calendar"></asp:CalendarExtender>
+                                <asp:RequiredFieldValidator ID="LastContactDateRFV" ControlToValidate="LastModifyDate" runat="server" ErrorMessage="Please Enter Last Modify Date to proceed.">*</asp:RequiredFieldValidator>
                             </EditItemTemplate>
                             <ItemTemplate>
                                 <asp:Label ID="lblLastContactDate" runat="server" Text='<%# Bind("LastModifyDate","{0:d}") %>'></asp:Label>
@@ -113,8 +86,7 @@
         </tr>
         <tr>
             <td colspan="2">
-                <asp:Button ID="Cancel" CssClass="menuButton" runat="server" Text="Go Back to Documents"
-                    OnClick="Cancel_Click" />
+                <asp:Button ID="Cancel" CssClass="menuButton" runat="server" Text="Go Back to Documents" OnClick="Cancel_Click" />
             </td>
         </tr>
         <tr>
@@ -124,22 +96,18 @@
         </tr>
         <tr>
             <td colspan="2">
-                <asp:ValidationSummary ID="ValidationSummary1" runat="server" ShowMessageBox="True" />
+                <asp:ValidationSummary ID="ValidationSummary1" runat="server" ForeColor="Red" ShowMessageBox="True" />
             </td>
         </tr>
         <tr>
             <td colspan="2">
-                <asp:HiddenField ID="hidDocumentID" runat="server" />
-                <asp:HiddenField ID="hidCompanyID" runat="server" />
-                <asp:HiddenField ID="hidDocumentName" runat="server" />
+                <asp:HiddenField ID="hidDocumentID" runat="server" /> <asp:HiddenField ID="hidCompanyID" runat="server" /> <asp:HiddenField ID="hidDocumentName" runat="server" />
             </td>
         </tr>
         <tr>
             <td>
-                <asp:ObjectDataSource ID="DocStatusDS" runat="server" TypeName="SandlerRepositories.DocumentsRepository"
-                    SelectMethod="GetDocStatus"></asp:ObjectDataSource>
-                <asp:ObjectDataSource ID="OpprtunityDS" runat="server" TypeName="SandlerRepositories.OpportunityRepository"
-                    SelectMethod="GetByCompId">
+                <asp:ObjectDataSource ID="DocStatusDS" runat="server" TypeName="SandlerRepositories.DocumentsRepository" SelectMethod="GetDocStatus"></asp:ObjectDataSource>
+                <asp:ObjectDataSource ID="OpprtunityDS" runat="server" TypeName="SandlerRepositories.OpportunityRepository" SelectMethod="GetByCompId">
                     <SelectParameters>
                         <asp:ControlParameter ControlID="hidCompanyID" Name="COMPANIESID" Type="Int32" />
                     </SelectParameters>
