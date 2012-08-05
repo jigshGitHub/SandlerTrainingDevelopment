@@ -33,7 +33,7 @@ namespace SandlerModels
         {
             get
             {
-                return false;// (currentUser.CreationDate == currentUser.LastPasswordChangedDate);
+                return (currentUser.CreationDate == currentUser.LastPasswordChangedDate);
             }
         }
 

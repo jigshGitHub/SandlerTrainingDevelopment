@@ -1,33 +1,33 @@
 ﻿body
 {
-	background: #4985d6;
-	font-size: .80em;
-	font-family: "Helvetica Neue" , "Lucida Grande" , "Segoe UI" , Arial, Helvetica, Verdana, sans-serif;
-	margin: 0px;
-	padding: 0px;
-	color: #000000;
+    background: #4985d6;
+    font-size: .80em;
+    font-family: "Helvetica Neue" , "Lucida Grande" , "Segoe UI" , Arial, Helvetica, Verdana, sans-serif;
+    margin: 0px;
+    padding: 0px;
+    color: #000000;
 }
 
 a:link, a:visited
 {
-	color: #034af3;
+    color: #034af3;
 }
 
 a:hover
 {
-	color: #1d60ff;
-	text-decoration: none;
+    color: #1d60ff;
+    text-decoration: none;
 }
 
 a:active
 {
-	color: #034af3;
+    color: #034af3;
 }
 
 p
 {
-	margin-bottom: 10px;
-	line-height: 1.6em;
+    margin-bottom: 10px;
+    line-height: 1.6em;
 }
 
 
@@ -36,47 +36,47 @@ p
 
 h1, h2, h3, h4, h5, h6
 {
-	font-size: 1.5em;
-	color: #666666;
-	font-variant: small-caps;
-	text-transform: none;
-	font-weight: 200;
-	margin-bottom: 0px;
+    font-size: 1.5em;
+    color: #666666;
+    font-variant: small-caps;
+    text-transform: none;
+    font-weight: 200;
+    margin-bottom: 0px;
 }
 
 h1
 {
-	font-size: 1.6em;
-	padding-bottom: 0px;
-	margin-bottom: 0px;
+    font-size: 1.6em;
+    padding-bottom: 0px;
+    margin-bottom: 0px;
 }
 
 h2
 {
-	font-size: 1.5em;
-	font-weight: 600;
+    font-size: 1.5em;
+    font-weight: 600;
 }
 
 h3
 {
-	font-size: 1.2em;
+    font-size: 1.2em;
 }
 
 h4
 {
-	font-size: 1.1em;
+    font-size: 1.1em;
 }
 
 h5, h6
 {
-	font-size: 1em;
+    font-size: 1em;
 }
 
 /* this rule styles <h1> and <h2> tags that are the 
 first child of the left and right table columns */
 .rightColumn > h1, .rightColumn > h2, .leftColumn > h1, .leftColumn > h2
 {
-	margin-top: 0px;
+    margin-top: 0px;
 }
 
 
@@ -85,54 +85,54 @@ first child of the left and right table columns */
 
 .page
 {
-	/*width: 960px;*/
-	background-color: #4985d6;
-	margin: 20px auto 0px auto;
+    /*width: 960px;*/
+    background-color: #4985d6;
+    margin: 20px auto 0px auto;
 }
 
 .header
 {
-	position: relative;
-	margin: 0px;
-	padding: 0px;
-	background: #4985d6;
-	width: 80%;
-	margin: 20px auto 0px auto;
+    position: relative;
+    margin: 0px;
+    padding: 0px;
+    background: #4985d6;
+    width: 80%;
+    margin: 20px auto 0px auto;
 }
 
 .header h1
 {
-	font-weight: 700;
-	margin: 0px;
-	padding: 0px 0px 0px 20px;
-	color: #f9f9f9;
-	border: none;
-	line-height: 2em;
-	font-size: 2em;
+    font-weight: 700;
+    margin: 0px;
+    padding: 0px 0px 0px 20px;
+    color: #f9f9f9;
+    border: none;
+    line-height: 2em;
+    font-size: 2em;
 }
 
 .main
 {
-	padding: 0px 12px;
-	margin: 12px 8px 8px 8px;
-	min-height: 420px;
+    padding: 0px 12px;
+    margin: 12px 8px 8px 8px;
+    min-height: 420px;
 }
 
 .leftCol
 {
-	padding: 6px 0px;
-	margin: 12px 8px 8px 8px;
-	width: 200px;
-	min-height: 200px;
+    padding: 6px 0px;
+    margin: 12px 8px 8px 8px;
+    width: 200px;
+    min-height: 200px;
 }
 
 .footer
 {
-	color: #FFFFFF;
-	padding: 8px 0px 0px 0px;
-	margin: 0px auto;
-	text-align: center;
-	line-height: normal;
+    color: #FFFFFF;
+    padding: 8px 0px 0px 0px;
+    margin: 0px auto;
+    text-align: center;
+    line-height: normal;
 }
 
 
@@ -141,41 +141,41 @@ first child of the left and right table columns */
 
 div.hideSkiplink
 {
-	background-color: #4985d6;
-	width: 100%;
+    background-color: #4985d6;
+    width: 100%;
 }
 
 div.menu
 {
-	padding: 4px 0px 4px 8px;
+    padding: 4px 0px 4px 8px;
 }
 
 div.menu ul
 {
-	list-style: none;
-	margin: 0px;
-	padding: 0px;
-	width: auto;
+    list-style: none;
+    margin: 0px;
+    padding: 0px;
+    width: auto;
 }
 
 div.menu ul li a
 {
-	background-color: #3366cc;
-	border: 1px #4e667d solid;
-	color: #dde4ec;
-	display: block;
-	line-height: 1.35em;
-	padding: 4px 20px;
-	text-decoration: none;
-	white-space: nowrap;
+    background-color: #3366cc;
+    border: 1px #4e667d solid;
+    color: #dde4ec;
+    display: block;
+    line-height: 1.35em;
+    padding: 4px 20px;
+    text-decoration: none;
+    white-space: nowrap;
 }
 
 
 div.menu ul li a:active
 {
-	background-color: #ff800d;
-	color: #cfdbe6;
-	text-decoration: none;
+    background-color: #ff800d;
+    color: #cfdbe6;
+    text-decoration: none;
 }
 
 /* FORM ELEMENTS   
@@ -183,48 +183,48 @@ div.menu ul li a:active
 
 fieldset
 {
-	margin: 1em 0px;
-	padding: 1em;
-	border: 1px solid #ccc;
+    margin: 1em 0px;
+    padding: 1em;
+    border: 1px solid #ccc;
 }
 
 fieldset p
 {
-	margin: 2px 12px 10px 10px;
+    margin: 2px 12px 10px 10px;
 }
 
 fieldset.login label, fieldset.register label, fieldset.changePassword label
 {
-	display: block;
+    display: block;
 }
 
 fieldset label.inline
 {
-	display: inline;
+    display: inline;
 }
 
 legend
 {
-	font-size: 1.1em;
-	font-weight: 600;
-	padding: 2px 4px 8px 4px;
+    font-size: 1.1em;
+    font-weight: 600;
+    padding: 2px 4px 8px 4px;
 }
 
 input.textEntry
 {
-	width: 320px;
-	border: 1px solid #ccc;
+    width: 320px;
+    border: 1px solid #ccc;
 }
 
 input.passwordEntry
 {
-	width: 320px;
-	border: 1px solid #ccc;
+    width: 320px;
+    border: 1px solid #ccc;
 }
 
 div.accountInfo
 {
-	width: 42%;
+    width: 42%;
 }
 
 /* MISC  
@@ -232,282 +232,286 @@ div.accountInfo
 
 .clear
 {
-	clear: both;
+    clear: both;
 }
 
 .title
 {
-	display: block;
-	float: left;
-	text-align: left;
-	width: auto;
+    display: block;
+    float: left;
+    text-align: left;
+    width: auto;
 }
 
 .loginDisplay
 {
-	font-size: 1.1em;
-	display: block;
-	text-align: right;
-	padding: 10px;
-	color: White;
+    font-size: 1.1em;
+    display: block;
+    text-align: right;
+    padding: 10px;
+    color: White;
 }
 
 .loginDisplay a:link
 {
-	color: white;
+    color: white;
 }
 
 .loginDisplay a:visited
 {
-	color: white;
+    color: white;
 }
 
 .loginDisplay a:hover
 {
-	color: white;
+    color: white;
 }
 
 .failureNotification
 {
-	font-size: 1.2em;
-	color: Red;
+    font-size: 1.2em;
+    color: Red;
 }
 
 .bold
 {
-	font-weight: bold;
+    font-weight: bold;
 }
 
 .submitButton
 {
-	text-align: right;
-	padding-right: 10px;
+    text-align: right;
+    padding-right: 10px;
 }
 
 .menuButton
 {
-	background-color: #3366cc;
-	color: #FFFFFF;
+    background-color: #3366cc;
+    color: #FFFFFF;
 }
 
 .menuButtonActive
 {
-	background-color: #ff800d;
+    background-color: #ff800d;
 }
 
 a.menuLink
 {
-	border-style: solid;
-	border-width: .15em;
-	border-color: #FFFFFF #808080 #808080 #FFFFFF;
-	background-color: #3366cc;
-	color: #FFFFFF;
-	padding-top: 0.1em;
-	padding-left: 0.3em;
-	padding-right: 0.3em;
-	padding-bottom: 0.1em;
-	text-decoration: none;
+    border-style: solid;
+    border-width: .15em;
+    border-color: #FFFFFF #808080 #808080 #FFFFFF;
+    background-color: #3366cc;
+    color: #FFFFFF;
+    padding-top: 0.1em;
+    padding-left: 0.3em;
+    padding-right: 0.3em;
+    padding-bottom: 0.1em;
+    text-decoration: none;
 }
 a.menuLink:link
 {
-	border-style: solid;
-	border-width: .15em;
-	border-color: #FFFFFF #808080 #808080 #FFFFFF;
-	background-color: #3366cc;
-	color: #FFFFFF;
-	padding-top: 0.1em;
-	padding-left: 0.3em;
-	padding-right: 0.3em;
-	padding-bottom: 0.1em;
-	text-decoration: none;
+    border-style: solid;
+    border-width: .15em;
+    border-color: #FFFFFF #808080 #808080 #FFFFFF;
+    background-color: #3366cc;
+    color: #FFFFFF;
+    padding-top: 0.1em;
+    padding-left: 0.3em;
+    padding-right: 0.3em;
+    padding-bottom: 0.1em;
+    text-decoration: none;
 }
 a.menuLink:visited
 {
-	border-style: solid;
-	border-width: .15em;
-	border-color: #FFFFFF #808080 #808080 #FFFFFF;
-	background-color: #3366cc;
-	color: #FFFFFF;
-	padding-top: 0.1em;
-	padding-left: 0.3em;
-	padding-right: 0.3em;
-	padding-bottom: 0.1em;
-	text-decoration: none;
+    border-style: solid;
+    border-width: .15em;
+    border-color: #FFFFFF #808080 #808080 #FFFFFF;
+    background-color: #3366cc;
+    color: #FFFFFF;
+    padding-top: 0.1em;
+    padding-left: 0.3em;
+    padding-right: 0.3em;
+    padding-bottom: 0.1em;
+    text-decoration: none;
 }
 a.menuLinkActive
 {
-	border-style: solid;
-	border-width: .15em;
-	border-color: #FFFFFF #808080 #808080 #FFFFFF;
-	background-color: #ff800d;
-	color: #FFFFFF;
-	padding-top: 0.1em;
-	padding-left: 0.3em;
-	padding-right: 0.3em;
-	padding-bottom: 0.1em;
-	text-decoration: none;
+    border-style: solid;
+    border-width: .15em;
+    border-color: #FFFFFF #808080 #808080 #FFFFFF;
+    background-color: #ff800d;
+    color: #FFFFFF;
+    padding-top: 0.1em;
+    padding-left: 0.3em;
+    padding-right: 0.3em;
+    padding-bottom: 0.1em;
+    text-decoration: none;
 }
 a.menuLinkActive:link
 {
-	border-style: solid;
-	border-width: .15em;
-	border-color: #FFFFFF #808080 #808080 #FFFFFF;
-	background-color: #ff800d;
-	color: #FFFFFF;
-	padding-top: 0.1em;
-	padding-left: 0.3em;
-	padding-right: 0.3em;
-	padding-bottom: 0.1em;
-	text-decoration: none;
+    border-style: solid;
+    border-width: .15em;
+    border-color: #FFFFFF #808080 #808080 #FFFFFF;
+    background-color: #ff800d;
+    color: #FFFFFF;
+    padding-top: 0.1em;
+    padding-left: 0.3em;
+    padding-right: 0.3em;
+    padding-bottom: 0.1em;
+    text-decoration: none;
 }
 a.menuLinkActive:visited
 {
-	border-style: solid;
-	border-width: .15em;
-	border-color: #FFFFFF #808080 #808080 #FFFFFF;
-	background-color: #ff800d;
-	color: #FFFFFF;
-	padding-top: 0.1em;
-	padding-left: 0.3em;
-	padding-right: 0.3em;
-	padding-bottom: 0.1em;
-	text-decoration: none;
+    border-style: solid;
+    border-width: .15em;
+    border-color: #FFFFFF #808080 #808080 #FFFFFF;
+    background-color: #ff800d;
+    color: #FFFFFF;
+    padding-top: 0.1em;
+    padding-left: 0.3em;
+    padding-right: 0.3em;
+    padding-bottom: 0.1em;
+    text-decoration: none;
 }
 
 .disableLink
 {
-	background-color: #999999;
-	color: #FFFFFF;
-	border-style: solid;
-	border-width: .1em;
-	border-color: #FFFFFF #808080 #808080 #FFFFFF;
-	padding-top: 0.1em;
-	padding-left: 0.3em;
-	padding-right: 0.3em;
-	padding-bottom: 0.1em;
+    background-color: #999999;
+    color: #FFFFFF;
+    border-style: solid;
+    border-width: .1em;
+    border-color: #FFFFFF #808080 #808080 #FFFFFF;
+    padding-top: 0.1em;
+    padding-left: 0.3em;
+    padding-right: 0.3em;
+    padding-bottom: 0.1em;
 }
 
 .disableLink:link
 {
-	background-color: #999999;
-	color: #FFFFFF;
-	border-style: solid;
-	border-width: .1em;
-	border-color: #FFFFFF #808080 #808080 #FFFFFF;
-	padding-top: 0.1em;
-	padding-left: 0.3em;
-	padding-right: 0.3em;
-	padding-bottom: 0.1em;
-	cursor: text;
+    background-color: #999999;
+    color: #FFFFFF;
+    border-style: solid;
+    border-width: .1em;
+    border-color: #FFFFFF #808080 #808080 #FFFFFF;
+    padding-top: 0.1em;
+    padding-left: 0.3em;
+    padding-right: 0.3em;
+    padding-bottom: 0.1em;
+    cursor: text;
 }
 
 .disableLink:visited
 {
-	background-color: #999999;
-	color: #FFFFFF;
-	border-style: solid;
-	border-width: .1em;
-	border-color: #FFFFFF #808080 #808080 #FFFFFF;
-	padding-top: 0.1em;
-	padding-left: 0.3em;
-	padding-right: 0.3em;
-	padding-bottom: 0.1em;
+    background-color: #999999;
+    color: #FFFFFF;
+    border-style: solid;
+    border-width: .1em;
+    border-color: #FFFFFF #808080 #808080 #FFFFFF;
+    padding-top: 0.1em;
+    padding-left: 0.3em;
+    padding-right: 0.3em;
+    padding-bottom: 0.1em;
 }
 
 .disableLink:hover
 {
-	background-color: #999999;
-	color: #FFFFFF;
-	border-style: solid;
-	border-width: .1em;
-	border-color: #FFFFFF #808080 #808080 #FFFFFF;
-	padding-top: 0.1em;
-	padding-left: 0.3em;
-	padding-right: 0.3em;
-	padding-bottom: 0.1em;
-	cursor: text;
+    background-color: #999999;
+    color: #FFFFFF;
+    border-style: solid;
+    border-width: .1em;
+    border-color: #FFFFFF #808080 #808080 #FFFFFF;
+    padding-top: 0.1em;
+    padding-left: 0.3em;
+    padding-right: 0.3em;
+    padding-bottom: 0.1em;
+    cursor: text;
 }
 
 /*Modal Popup*/
 .modalBackground
 {
-	background-color: Gray;
-	filter: alpha(opacity=70);
-	opacity: 0.7;
+    background-color: Gray;
+    filter: alpha(opacity=70);
+    opacity: 0.7;
 }
 
 .modalPopup
 {
-	background-color: #ffffdd;
-	border-width: 3px;
-	border-style: solid;
-	border-color: Gray;
-	padding: 3px;
-	width: 250px;
+    background-color: #ffffdd;
+    border-width: 3px;
+    border-style: solid;
+    border-color: Gray;
+    padding: 3px;
+    width: 250px;
 }
 
 .modalPopup p
 {
-	padding: 5px;
+    padding: 5px;
 }
 
 .roiChartModalPopup
 {
-	background-color: #808080;
-	border-width: 3px;
-	border-style: solid;
-	border-color: Gray;
-	padding: 3px;
-	width: 80%;
-	height: 80%;
+    background-color: #808080;
+    border-width: 3px;
+    border-style: solid;
+    border-color: Gray;
+    padding: 3px;
+    width: 80%;
+    height: 80%;
 }
 td
 {
-	vertical-align: top;
+    vertical-align: top;
 }
 
 .changePassword
 {
-	color: white;
-	vertical-align: top;
+    margin: auto;
+    color: white;
+    vertical-align: top;
+    width: 50%;
 }
 
 .changePassword h2
 {
-	color: White;
-	font-weight: bold;
+    color: White;
+    font-weight: bold;
 }
 
 .changePassword .failureNotification
 {
-	font-size: 1.2em;
-	color: #003366;
+    font-size: 1.2em;
+    color: #003366;
 }
 
 .accountInfo .submitButton
 {
-	background-color: #336699;
-	color: #FFFFFF;
-	padding-right: 10px;
+    background-color: #3366cc;
+    color: #FFFFFF;
+    padding-right: 10px;
 }
 
 /* http://www.webreference.com/programming/css_lists/index.html */
 
-ul.navigation,
-ul.navigation ul {
-	margin: 0;
+ul.navigation, ul.navigation ul
+{
+    margin: 0;
 }
-ul.navigation li {
-	list-style-type: none;
-	float: left;
+ul.navigation li
+{
+    list-style-type: none;
+    float: left;
 }
 ul.navigation li a
 {
-	color: #000000;
+    color: #000000;
 }
 
-.calendar .ajax__calendar_container {
-    border:1px solid #646464;
+.calendar .ajax__calendar_container
+{
+    border: 1px solid #646464;
     background-color: lemonchiffon;
     color: red;
 }

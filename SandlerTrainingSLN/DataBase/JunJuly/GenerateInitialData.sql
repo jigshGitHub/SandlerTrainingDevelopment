@@ -98,13 +98,24 @@ BEGIN TRY
 		-- Franchisee Users
 		DECLARE @userId uniqueidentifier
 		EXECUTE sp_CreateFranchisee_User @user_Name = 'ctfruser', @_email = 'ctfruser@sandler.com', @franchisee_Name = 'Connecticut Fr', @User_Id = @userId OUTPUT; 
+		SET @userId = NULL;
 		EXECUTE sp_CreateFranchisee_User @user_Name = 'flfruser', @_email = 'flfruser@sandler.com', @franchisee_Name = 'Florida Fr', @User_Id = @userId OUTPUT; 
+		SET @userId = NULL;
 		EXECUTE sp_CreateFranchisee_User @user_Name = 'chfruser', @_email = 'chfruser@sandler.com', @franchisee_Name = 'Chicago Fr', @User_Id = @userId OUTPUT; 
+		SET @userId = NULL;
 
 		EXECUTE sp_CreateFranchisee_User @user_Name = 'abcuser1', @_email = 'abcuser1@sandler.com', @franchisee_Name = 'ABC Training Center', @User_Id = @userId OUTPUT; 
+		SET @userId = NULL;
 		EXECUTE sp_CreateFranchisee_User @user_Name = 'xyzuser1', @_email = 'xyzuser1@sandler.com', @franchisee_Name = 'XYZ Training Center', @User_Id = @userId OUTPUT; 
-
-		PRINT '5 Franchisees created.'
+		SET @userId = NULL;
+		
+		EXECUTE sp_CreateFranchisee_User @user_Name = 'mamd1fouser1', @_email = 'mamd1fouser1@sandler.com', @franchisee_Name = 'Neuberger and Company, Inc.', @User_Id = @userId OUTPUT; 
+		SET @userId = NULL;
+		EXECUTE sp_CreateFranchisee_User @user_Name = 'mamd2fouser2', @_email = 'mamd2fouser2@sandler.com', @franchisee_Name = 'Professional Achievement Group, Inc.', @User_Id = @userId OUTPUT; 
+		SET @userId = NULL;
+		EXECUTE sp_CreateFranchisee_User @user_Name = 'mamd3fouser3', @_email = 'mamd3fouser3@sandler.com', @franchisee_Name = 'McDonell Consulting & Development, Inc.', @User_Id = @userId OUTPUT; 
+		
+		PRINT '8 Franchisees Users created.'
 		--Charts
 		INSERT INTO [SandlerDB].[dbo].[TBL_CHART] ([Caption],[SWFile], [ChartID], [TypeOfChart] ,[YaxisName] ,[CanvasBgColor] ,[BgColor] ,[CanvasBgAlpha] ,[BgAlpha], [DrillLevelChartIDs])      
 		VALUES ('New Appointments By Source (By Month)' ,'MSColumn3D.swf','NewAppointmentsBySourceMonth','Chart','Appointment Quantity' ,'FFFFFF' ,'FFFFFF' ,'100' ,'100', 'NewAppointmentsBySource' );
