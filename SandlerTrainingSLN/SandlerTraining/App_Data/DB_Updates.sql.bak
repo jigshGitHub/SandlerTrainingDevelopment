@@ -1,6 +1,0 @@
-USE [SandlerDB]
-GO
-ALTER TABLE [dbo].[TBL_OPPORTUNITIES] DROP COLUMN [OpportunityID] ; 
-GO
-ALTER TABLE [dbo].[TBL_OPPORTUNITIES] ADD COLUMN [OpportunityID]  AS ([Id]+(1000)),;
-GO
