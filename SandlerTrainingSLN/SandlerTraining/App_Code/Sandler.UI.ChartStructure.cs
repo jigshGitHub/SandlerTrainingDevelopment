@@ -161,7 +161,7 @@ namespace Sandler.UI.ChartStructure
                             if (contacts.Count() > 0)
                             {
                                 var data = from record in contacts
-                                           where (record.CreatedDate.Value.Year == DateTime.Now.Year && record.CreatedDate.Value.Month == DateTime.Now.AddMonths(int.Parse(parameter.Value)).Month)
+                                           where (record.TBL_COMPANIES.CreationDate.Value.Year == DateTime.Now.Year && record.TBL_COMPANIES.CreationDate.Value.Month == DateTime.Now.AddMonths(int.Parse(parameter.Value)).Month)
                                            group record by new { record.Tbl_AppointmentsSource.ApptSourceName }
                                                into grp
                                                select new { Category = grp.Key.ApptSourceName, Count = grp.Count() };
@@ -207,7 +207,7 @@ namespace Sandler.UI.ChartStructure
                             if (opportunties.Count() > 0)
                             {
                                 var data = from record in opportunties
-                                           where (record.TBL_COMPANIES.IsNewCompany == true && record.CreatedDate.Value.Year == DateTime.Now.Year && record.CreatedDate.Value.Month == DateTime.Now.AddMonths(int.Parse(parameter.Value)).Month)
+                                           where (record.TBL_COMPANIES.IsNewCompany == true && record.TBL_COMPANIES.CreationDate.Value.Year == DateTime.Now.Year && record.TBL_COMPANIES.CreationDate.Value.Month == DateTime.Now.AddMonths(int.Parse(parameter.Value)).Month)
                                            group record by new { record.Tbl_ProductType.ProductTypeName }
                                                into grp
                                                select new { Category = grp.Key.ProductTypeName, Count = grp.Count() };
@@ -252,11 +252,11 @@ namespace Sandler.UI.ChartStructure
                                 try
                                 {
                                     System.Nullable<int> newClients = (from record in opportunties
-                                                                       where (record.Tbl_ProductType.Id == record.ProductID && record.Tbl_ProductType.ProductTypeName != "Assessment" && record.TBL_COMPANIES.IsNewCompany == true && record.CreatedDate.Value.Year == DateTime.Now.Year && record.CreatedDate.Value.Month == DateTime.ParseExact(catagory.Label, "MMM", null).Month)
+                                                                       where (record.Tbl_ProductType.Id == record.ProductID && record.Tbl_ProductType.ProductTypeName != "Assessment" && record.TBL_COMPANIES.IsNewCompany == true && record.TBL_COMPANIES.CreationDate.Value.Year == DateTime.Now.Year && record.TBL_COMPANIES.CreationDate.Value.Month == DateTime.ParseExact(catagory.Label, "MMM", null).Month)
                                                                        select record.COMPANYID).Count();
 
                                     System.Nullable<long> aveContractPrice = (from record in opportunties
-                                                                              where (record.Tbl_ProductType.Id == record.ProductID && record.Tbl_ProductType.ProductTypeName != "Assessment" && record.TBL_COMPANIES.IsNewCompany == true && record.CreatedDate.Value.Year == DateTime.Now.Year && record.CreatedDate.Value.Month == DateTime.ParseExact(catagory.Label, "MMM", null).Month)
+                                                                              where (record.Tbl_ProductType.Id == record.ProductID && record.Tbl_ProductType.ProductTypeName != "Assessment" && record.TBL_COMPANIES.IsNewCompany == true && record.TBL_COMPANIES.CreationDate.Value.Year == DateTime.Now.Year && record.TBL_COMPANIES.CreationDate.Value.Month == DateTime.ParseExact(catagory.Label, "MMM", null).Month)
                                                                               select record.WEIGHTEDVALUE).Sum();
 
 
@@ -649,7 +649,7 @@ namespace Sandler.UI.ChartStructure
                         if (contacts.Count() > 0)
                         {
                             var data = from record in contacts
-                                       where (record.CreatedDate.Value.Year == DateTime.Now.Year && record.CreatedDate.Value.Month == DateTime.ParseExact(this.DrillBy, "MMM", null).Month)
+                                       where (record.TBL_COMPANIES.CreationDate.Value.Year == DateTime.Now.Year && record.TBL_COMPANIES.CreationDate.Value.Month == DateTime.ParseExact(this.DrillBy, "MMM", null).Month)
                                        group record by new { record.Tbl_AppointmentsSource.ApptSourceName }
                                            into grp
                                            select new { Category = grp.Key.ApptSourceName, Count = grp.Count() };
@@ -681,7 +681,7 @@ namespace Sandler.UI.ChartStructure
                         if (opportunties.Count() > 0)
                         {
                             var data = from record in opportunties
-                                       where (record.TBL_COMPANIES.IsNewCompany == true && record.CreatedDate.Value.Year == DateTime.Now.Year && record.CreatedDate.Value.Month == DateTime.ParseExact(this.DrillBy, "MMM", null).Month)
+                                       where (record.TBL_COMPANIES.IsNewCompany == true && record.TBL_COMPANIES.CreationDate.Value.Year == DateTime.Now.Year && record.TBL_COMPANIES.CreationDate.Value.Month == DateTime.ParseExact(this.DrillBy, "MMM", null).Month)
                                        group record by new { record.Tbl_ProductType.ProductTypeName }
                                            into grp
                                            select new { Category = grp.Key.ProductTypeName, Count = grp.Count() };
@@ -714,7 +714,7 @@ namespace Sandler.UI.ChartStructure
                         if (opportunties.Count() > 0)
                         {
                             var data = from record in opportunties
-                                       where (record.Tbl_ProductType.Id == record.ProductID && record.Tbl_ProductType.ProductTypeName != "Assessment" && record.TBL_COMPANIES.IsNewCompany == true && record.CreatedDate.Value.Year == DateTime.Now.Year && record.CreatedDate.Value.Month == DateTime.ParseExact(this.DrillBy, "MMM", null).Month)
+                                       where (record.Tbl_ProductType.Id == record.ProductID && record.Tbl_ProductType.ProductTypeName != "Assessment" && record.TBL_COMPANIES.IsNewCompany == true && record.TBL_COMPANIES.CreationDate.Value.Year == DateTime.Now.Year && record.TBL_COMPANIES.CreationDate.Value.Month == DateTime.ParseExact(this.DrillBy, "MMM", null).Month)
                                        group record by new { record.Tbl_ProductType.ProductTypeName }
                                            into grp
                                            select new { Category = grp.Key.ProductTypeName, Count = grp.Count() };
@@ -755,7 +755,7 @@ namespace Sandler.UI.ChartStructure
                         if (opportunties.Count() > 0)
                         {
                             var data = from record in opportunties
-                                       where (record.Tbl_ProductType.Id == record.ProductID && record.Tbl_ProductType.ProductTypeName != "Assessment" && record.TBL_COMPANIES.IsNewCompany == true && record.CreatedDate.Value.Year == DateTime.Now.Year && record.CreatedDate.Value.Month == DateTime.ParseExact(this.DrillBy, "MMM", null).Month)
+                                       where (record.Tbl_ProductType.Id == record.ProductID && record.Tbl_ProductType.ProductTypeName != "Assessment" && record.TBL_COMPANIES.IsNewCompany == true && record.TBL_COMPANIES.CreationDate.Value.Year == DateTime.Now.Year && record.TBL_COMPANIES.CreationDate.Value.Month == DateTime.ParseExact(this.DrillBy, "MMM", null).Month)
                                        group record by new { record.Tbl_ProductType.ProductTypeName }
                                            into grp
                                            select new { Category = grp.Key.ProductTypeName, AvgPrice = grp.Sum(record => record.WEIGHTEDVALUE) };

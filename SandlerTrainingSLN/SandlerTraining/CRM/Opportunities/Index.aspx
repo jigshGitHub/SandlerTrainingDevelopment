@@ -62,6 +62,11 @@
             </td>
         </tr>
         <tr>
+            <td colspan="2" class="Pager">
+                <% = BindPager() %>
+            </td>
+        </tr>
+        <tr>
             <td colspan="2">
                 <asp:Label ForeColor="Red" ID="LblStatus" runat="server"></asp:Label>
             </td>

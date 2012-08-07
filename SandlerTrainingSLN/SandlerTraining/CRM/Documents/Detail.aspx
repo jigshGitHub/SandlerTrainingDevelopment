@@ -56,7 +56,7 @@
                                 <asp:FileUpload ID="UpLoad" Width="275px" runat="server" />
                             </EditItemTemplate>
                             <ItemTemplate>
-                                <asp:HyperLink ID="ModuleLink" runat="server" ForeColor="Blue" Target="_blank" NavigateUrl='<%# Eval("DocName", "{0}") %>'
+                                <asp:HyperLink ID="ModuleLink" runat="server" ForeColor="Blue" Target="_blank" NavigateUrl='<%# Eval("docFullName", "~/SandlerDocuments/{0}") %>'
                                     Text='<%# Eval("DocName") %>'></asp:HyperLink>
                             </ItemTemplate>
                         </asp:TemplateField>

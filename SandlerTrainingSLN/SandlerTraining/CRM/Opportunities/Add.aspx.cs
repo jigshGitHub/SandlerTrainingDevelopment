@@ -13,8 +13,8 @@ public partial class OpportunityADD : OpportunityBasePage
         {
             if (!string.IsNullOrEmpty(Request.QueryString["id"]))
             {
-                ID = int.Parse(Request.QueryString["id"]);
-                BindDetailsToFields(ID);
+                OpportunityID = int.Parse(Request.QueryString["id"]);
+                BindDetailsToFields(OpportunityID);
                 lbtnAdd.Text = "Update";
             }
         }
@@ -93,8 +93,8 @@ public partial class OpportunityADD : OpportunityBasePage
         }
         else
         {
-            ID = int.Parse(Request.QueryString["id"]);
-            opportunity = GetOpportunity(ID);
+            OpportunityID = int.Parse(Request.QueryString["id"]);
+            opportunity = GetOpportunity(OpportunityID);
 
             BindFieldsToOpportunity(opportunity);
 

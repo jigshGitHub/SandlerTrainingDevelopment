@@ -7,6 +7,8 @@ using System.Web.UI.WebControls;
 
 using System.Data.SqlClient;
 using System.Data;
+using System.Configuration;
+ 
 public partial class DocumentDETAIL : BasePage
 {
     
@@ -107,7 +109,8 @@ public partial class DocumentDETAIL : BasePage
         FileUploadControl = (FileUpload)DocumentDW.FindControl("Upload");
         if ((FileUploadControl != null))
         {
-            DocName = FileUploadControl.FileName.ToString();
+            //Add GUID 
+            DocName = System.Guid.NewGuid() + "_" + FileUploadControl.FileName.ToString();
             if (string.IsNullOrEmpty(DocName))
             {
                 //User has not uploaded new file so keep the same filename
@@ -116,7 +119,8 @@ public partial class DocumentDETAIL : BasePage
             else
             {
                 //Save the actual file in the documents folder
-                FileUploadControl.SaveAs(Server.MapPath(DocName));
+                //FileUploadControl.SaveAs(Server.MapPath(DocName));
+                FileUploadControl.SaveAs(ConfigurationManager.AppSettings["DocumentsUploadLocation"] + DocName);
             }
                         
         }

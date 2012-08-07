@@ -789,7 +789,9 @@ Create PROCEDURE [dbo].[sp_GetDocumentsByOppId]
 AS
 	
 	Select 
-	dc.docsid, dc.docname, 
+	dc.docsid, 
+	dc.DocName as docFullName,
+	substring(dc.DocName, CHARINDEX('_',dc.DocName)+1, LEN(dc.DocName)) as DocName, 
 	dc.updateddate,
 	op.name as oppname, cp.companyname,
 	ds.DocStatusText 
@@ -2049,7 +2051,7 @@ GO
 CREATE PROCEDURE [dbo].[sp_AttachDocument]
 	
 	(
-		@OppsID int,@DocName varchar(50), @DocStatus int, 
+		@OppsID int,@DocName varchar(150), @DocStatus int, 
 		@LastModifyDate datetime, @CreatedBy varchar(50)
 	)
 	
@@ -2113,7 +2115,9 @@ CREATE PROCEDURE [dbo].[sp_GetDocumentDetails]
 	
 AS
 	Select 
-	dc.DocsID, dc.DocName, 
+	dc.DocsID, 
+	dc.DocName as docFullName,
+	substring(dc.DocName, CHARINDEX('_',dc.DocName)+1, LEN(dc.DocName)) as DocName,
 	dc.updateddate as LastModifyDate,
 	ds.DocStatusId, op.name as OppName, op.id as OppsID,
 	cp.CompanyName, ds.DocStatusText,cp.COMPANIESID
@@ -2145,7 +2149,9 @@ CREATE PROCEDURE [dbo].[sp_GetDocumentsById]
 AS
 	
 	Select 
-	dc.docsid, dc.docname, 
+	dc.docsid, 
+	dc.DocName as docFullName,
+	substring(dc.DocName, CHARINDEX('_',dc.DocName)+1, LEN(dc.DocName)) as DocName,
 	dc.updateddate,
 	op.name as oppname, cp.companyname,
 	ds.DocStatusText 

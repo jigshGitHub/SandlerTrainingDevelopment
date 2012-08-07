@@ -4,10 +4,9 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-
-
 using System.Data;
-using System.Data.SqlClient; 
+using System.Data.SqlClient;
+using System.Configuration; 
 
 public partial class DocumentADD : BasePage
 {
@@ -70,19 +69,20 @@ public partial class DocumentADD : BasePage
         string DocName = default(System.String);
         int DocStatus = default(System.Int32);
         System.DateTime LastModifyDate = default(System.DateTime);
-
-        
+                
         //for file
         FileUpload FileUploadControl = new FileUpload();
         FileUploadControl = (FileUpload)dvDocument.FindControl("Upload");
         if ((FileUploadControl != null))
         {
-            DocName = FileUploadControl.FileName.ToString();
+            //Create GUID and modify Document Name - This will ensure that document will be unique for all users even if they use same name
+            DocName = System.Guid.NewGuid() + "_" + FileUploadControl.FileName.ToString();
             //check if we have Document name
             if (!string.IsNullOrEmpty(DocName))
             {
-                //Save the actual file in the documents folder
-                FileUploadControl.SaveAs(Server.MapPath(DocName));
+                //Save the actual file in the documents folder- DocumentsUploadLocation
+                //FileUploadControl.SaveAs(Server.MapPath(DocName);
+                FileUploadControl.SaveAs(Server.MapPath(ConfigurationManager.AppSettings["DocumentsUploadLocation"] + DocName));
             }
             else
             {

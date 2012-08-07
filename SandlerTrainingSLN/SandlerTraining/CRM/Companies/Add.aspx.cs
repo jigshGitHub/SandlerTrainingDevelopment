@@ -40,5 +40,12 @@ public partial class AddCompany : BasePage
         }
 
     }
-    
+
+    protected void dvCompany_ItemCreated(object sender, EventArgs e)
+    {
+        if (dvCompany.CurrentMode == DetailsViewMode.Insert)
+        {
+            (dvCompany.FindControl("CreationDate") as TextBox).Text = DateTime.Now.ToShortDateString();
+        }
+    }
 }

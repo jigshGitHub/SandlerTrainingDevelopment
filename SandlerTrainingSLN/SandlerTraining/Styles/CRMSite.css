@@ -490,3 +490,23 @@ a.menuLinkActive:visited
 	color: #FFFFFF;
 }
 
+.Pager
+{
+    background-color: #999999;
+    
+}
+
+.Pager table
+{
+    text-align:center;
+    margin-left:auto;
+    margin-right:auto;
+}
+.Pager a
+{
+	color:Blue;
+}
+.Pager a.selected
+{
+	text-decoration: none;
+}

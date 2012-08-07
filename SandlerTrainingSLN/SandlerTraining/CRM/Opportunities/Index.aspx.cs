@@ -12,16 +12,42 @@ public partial class OpportunityIndex : OpportunityBasePage
         if (!IsPostBack)
         {
             btnAddOpportunity.Visible = !IsUserReadOnly(SandlerUserActions.Add, SandlerEntities.Opportunity);
+            
+            if(!string.IsNullOrEmpty(Request.QueryString["skiprecords"]))
+                SkipRecords = int.Parse(Request.QueryString["skiprecords"]);
+            else
+                SkipRecords = 0;
+
             BindGrid(0);
         }
     }
 
     private void BindGrid(int companyId)
     {
-        var data = from record in GetOpportunities(companyId).Skip(SkipRecords).Take(MaxPageRecords)
+        var data = from record in GetOpportunities(companyId)
                    select new { ID = record.ID, OPPORTUNITYID = record.OpportunityID.Value, NAME = record.NAME, CompanyName = record.TBL_COMPANIES.COMPANYNAME, VALUE = record.VALUE, WEIGHTEDVALUE = record.WEIGHTEDVALUE, CloseDate = record.CLOSEDATE, SalesRep = record.SALESREPFIRSTNAME + " " + record.SALESREPLASTNAME, Status = record.TBL_OPPORTUNITYSTATUS.Name };
-        gvOpportunities.DataSource = data;
+        TotalRecords = data.Count();
+        gvOpportunities.DataSource = data.Skip(SkipRecords).Take(MaxPageRecords);
         gvOpportunities.DataBind();
+    }
+
+    public string BindPager()
+    {
+        int pageCount = (TotalRecords % MaxPageRecords > 0) ? ((TotalRecords / MaxPageRecords) + 1) : TotalRecords / MaxPageRecords;
+        int skiprecords = 0;
+        System.Text.StringBuilder sb = new System.Text.StringBuilder("<table>");
+        sb.Append("<tr>");
+
+        for (int index = 1; index <= pageCount; index++)
+        {
+            if(skiprecords == SkipRecords)
+                sb.Append("<td><a  class=selected href=index.aspx?skiprecords=" + skiprecords + ">" + index + "</a></td>");
+            else
+                sb.Append("<td><a href=index.aspx?skiprecords=" + skiprecords + ">" + index + "</a></td>");
+            skiprecords += MaxPageRecords;
+        }
+        sb.Append("</tr></table>");
+        return sb.ToString();
     }
     protected void gvOpportunities_DataBound(object sender, EventArgs e)
     {

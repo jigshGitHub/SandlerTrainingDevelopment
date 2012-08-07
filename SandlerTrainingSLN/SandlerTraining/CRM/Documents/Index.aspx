@@ -39,13 +39,19 @@
             <td colspan="2">
                 <asp:GridView Width="100%" ID="gvDocuments" runat="server" DataSourceID="DocumentsDS"
                     AutoGenerateColumns="False" DataKeyNames="docsid" AllowSorting="True" AllowPaging="True"
-                    PageSize="20" OnSelectedIndexChanged="gvDocuments_SelectedIndexChanged" OnDataBound="gvDocuments_DataBound">
+                    PageSize="20" OnSelectedIndexChanged="gvDocuments_SelectedIndexChanged" OnDataBound="gvDocuments_DataBound"
+                    OnRowDataBound="gvDocuments_RowDataBound">
                     <PagerStyle BackColor="#999999" ForeColor="Blue" HorizontalAlign="Center" />
                     <Columns>
+                        <asp:TemplateField Visible="false">
+                            <ItemTemplate>
+                                <asp:HiddenField ID="hdnDocFullName" runat="server" Value='<%# Eval("docFullName") %>' />
+                            </ItemTemplate>
+                            <ItemStyle HorizontalAlign="Center" />
+                        </asp:TemplateField>
                         <asp:TemplateField HeaderText="Document Name" SortExpression="DocName">
                             <ItemTemplate>
-                                <asp:HyperLink ID="ModuleLink" runat="server" Target="_blank" ForeColor="Blue" NavigateUrl='<%# Eval("DocName", "{0}") %>'
-                                    Text='<%# Eval("DocName") %>'></asp:HyperLink>
+                                <asp:HyperLink ID="ModuleLink" runat="server" Target="_blank" ForeColor="Blue" Text='<%# Eval("DocName") %>'></asp:HyperLink>
                             </ItemTemplate>
                             <ItemStyle HorizontalAlign="Center" />
                         </asp:TemplateField>

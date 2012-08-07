@@ -5,12 +5,13 @@ using System.Web;
 using SandlerModels;
 using SandlerRepositories;
 using SandlerData.Models;
+using System.Configuration;
 /// <summary>
 /// Summary description for OpportunityBasePage
 /// </summary>
 public class OpportunityBasePage: BasePage
 {
-    protected int ID;
+    protected int OpportunityID;
     protected int SkipRecords
     {
         get
@@ -32,13 +33,24 @@ public class OpportunityBasePage: BasePage
         {
             if (ViewState["MaxPageRecords"] == null)
             {
-                ViewState["MaxPageRecords"] = 20;
+                ViewState["MaxPageRecords"] = ConfigurationManager.AppSettings["OpportunityPageSize"];
             }
             return int.Parse(ViewState["MaxPageRecords"].ToString());
         }
         set
         {
             ViewState["MaxPageRecords"] = value;
+        }
+    }
+    protected int TotalRecords
+    {
+        get
+        {
+            return int.Parse(ViewState["TotalRecords"].ToString());
+        }
+        set
+        {
+            ViewState["TotalRecords"] = value;
         }
     }
     public OpportunityBasePage()

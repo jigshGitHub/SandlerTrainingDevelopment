@@ -13,11 +13,11 @@ public partial class OpportunityDETAIL : OpportunityBasePage
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        ID = int.Parse(Request.QueryString["id"]);
+        OpportunityID = int.Parse(Request.QueryString["id"]);
             
         if (!Page.IsPostBack)
         {
-            BindDetails(ID);
+            BindDetails(OpportunityID);
             lbtnEdit.Visible = !IsUserReadOnly(SandlerUserActions.Edit, SandlerEntities.Opportunity);
         }
     }
@@ -25,7 +25,7 @@ public partial class OpportunityDETAIL : OpportunityBasePage
     private void BindDetails(int ID)
     {
         TBL_OPPORTUNITIES record = GetOpportunity(ID);
-        lblCloseDate.Text = record.CLOSEDATE.ToString();
+        lblCloseDate.Text = record.CLOSEDATE.Value.ToShortDateString();
         lblCompany.Text = record.TBL_COMPANIES.COMPANYNAME;
         lblContact.Text = record.TBL_CONTACTS.FIRSTNAME + " " + record.TBL_CONTACTS.LASTNAME;
         lblEmail.Text = record.TBL_CONTACTS.EMAIL;
@@ -48,7 +48,7 @@ public partial class OpportunityDETAIL : OpportunityBasePage
     }
     protected void lbtnEdit_Click(object sender, EventArgs e)
     {
-        Response.Redirect("Add.aspx?id=" + ID);
+        Response.Redirect("Add.aspx?id=" + OpportunityID);
     }
     protected void lbtnCancel_Click(object sender, EventArgs e)
     {

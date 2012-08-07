@@ -195,7 +195,7 @@ fieldset p
 
 fieldset.changePassword
 {
-	width:100%
+    width: 100%;
 }
 fieldset.login label, fieldset.register label, fieldset.changePassword label
 {
@@ -519,3 +519,4 @@ ul.navigation li a
     background-color: lemonchiffon;
     color: red;
 }
+
