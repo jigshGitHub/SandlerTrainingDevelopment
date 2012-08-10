@@ -1,7 +1,10 @@
-﻿<%@ Page Title="CRM - View/Edit Company" Language="C#" MasterPageFile="~/CRM.master" AutoEventWireup="true" CodeFile="Detail.aspx.cs" Inherits="CompanyDETAIL" %>
+﻿<%@ Page Title="CRM - View/Edit Company" Language="C#" MasterPageFile="~/CRM.master"
+    AutoEventWireup="true" CodeFile="Detail.aspx.cs" Inherits="CompanyDETAIL" %>
+
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="Server">
-    <asp:ToolkitScriptManager ID="ToolkitScriptManager1" runat="server"></asp:ToolkitScriptManager>
+    <asp:ToolkitScriptManager ID="ToolkitScriptManager1" runat="server">
+    </asp:ToolkitScriptManager>
     <table>
         <tr>
             <th style="float: left">
@@ -138,7 +141,6 @@
                                 <asp:Label ID="lblCOMPANYVALUEGOAL" runat="server" Text='<%# Bind("COMPANYVALUEGOAL") %>'></asp:Label>
                             </ItemTemplate>
                         </asp:TemplateField>
-                        
                         <asp:TemplateField HeaderText="Industry :">
                             <ItemTemplate>
                                 <asp:Label ID="lblIndustry" runat="server" Text='<%# Eval("Industry") %>'></asp:Label>
@@ -200,8 +202,11 @@
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="Last Contact Date :">
                             <EditItemTemplate>
-                                <asp:TextBox ID="LastContactDate" Text='<%# Bind("LastContact_Date") %>' runat="server" />&nbsp;<asp:Image ID="calanderImageLCD" runat="server" ImageUrl="~/images/calendar.gif" ImageAlign="Middle" />
-                                <asp:CalendarExtender runat="server" TargetControlID="LastContactDate" PopupButtonID="calanderImageLCD" CssClass="calendar"></asp:CalendarExtender>
+                                <asp:TextBox ID="LastContactDate" Text='<%# Bind("LastContact_Date") %>' runat="server" />&nbsp;<asp:Image
+                                    ID="calanderImageLCD" runat="server" ImageUrl="~/images/calendar.gif" ImageAlign="Middle" />
+                                <asp:CalendarExtender runat="server" TargetControlID="LastContactDate" PopupButtonID="calanderImageLCD"
+                                    CssClass="calendar">
+                                </asp:CalendarExtender>
                             </EditItemTemplate>
                             <ItemTemplate>
                                 <asp:Label ID="lblLastContactDate" runat="server" Text='<%# Bind("LastContact_Date","{0:d}") %>'></asp:Label>
@@ -209,9 +214,13 @@
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="Next Contact Date :">
                             <EditItemTemplate>
-                                <asp:TextBox ID="NextContactDate" Text='<%# Bind("NextContact_Date") %>' runat="server" />&nbsp;<asp:Image ID="calanderImageNCD" runat="server" ImageUrl="~/images/calendar.gif" ImageAlign="Middle" />
-                                <asp:CalendarExtender runat="server" TargetControlID="NextContactDate" PopupButtonID="calanderImageNCD" CssClass="calendar"></asp:CalendarExtender>
-                                <asp:RequiredFieldValidator ID="NextContactDateRFV" ControlToValidate="NextContactDate" runat="server" ErrorMessage="Please Enter Next Contact Date to proceed.">*</asp:RequiredFieldValidator>
+                                <asp:TextBox ID="NextContactDate" Text='<%# Bind("NextContact_Date") %>' runat="server" />&nbsp;<asp:Image
+                                    ID="calanderImageNCD" runat="server" ImageUrl="~/images/calendar.gif" ImageAlign="Middle" />
+                                <asp:CalendarExtender runat="server" TargetControlID="NextContactDate" PopupButtonID="calanderImageNCD"
+                                    CssClass="calendar">
+                                </asp:CalendarExtender>
+                                <asp:RequiredFieldValidator ID="NextContactDateRFV" ControlToValidate="NextContactDate"
+                                    runat="server" ErrorMessage="Please Enter Next Contact Date to proceed.">*</asp:RequiredFieldValidator>
                             </EditItemTemplate>
                             <ItemTemplate>
                                 <asp:Label ID="lblNextContactDate" runat="server" Text='<%# Bind("NextContact_Date","{0:d}") %>'></asp:Label>
@@ -219,25 +228,29 @@
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="Creation Date :">
                             <EditItemTemplate>
-                                <asp:TextBox ID="CreationDate" Text='<%# Bind("CreationDate") %>' runat="server" />&nbsp;<asp:Image ID="calanderImageCRD" runat="server" ImageUrl="~/images/calendar.gif" ImageAlign="Middle" />
-                                <asp:CalendarExtender ID="CalendarExtender1"  runat="server" TargetControlID="CreationDate" PopupButtonID="calanderImageCRD" CssClass="calendar"></asp:CalendarExtender>
-                                <asp:RequiredFieldValidator ID="CreationDateRFV" ControlToValidate="CreationDate" runat="server" ErrorMessage="Please Enter Creation Date to proceed.">*</asp:RequiredFieldValidator>
+                                <asp:TextBox ID="CreationDate" Text='<%# Bind("CreationDate") %>' runat="server" />&nbsp;<asp:Image
+                                    ID="calanderImageCRD" runat="server" ImageUrl="~/images/calendar.gif" ImageAlign="Middle" />
+                                <asp:CalendarExtender ID="CalendarExtender1" runat="server" TargetControlID="CreationDate"
+                                    PopupButtonID="calanderImageCRD" CssClass="calendar">
+                                </asp:CalendarExtender>
+                                <asp:RequiredFieldValidator ID="CreationDateRFV" ControlToValidate="CreationDate"
+                                    runat="server" ErrorMessage="Please Enter Creation Date to proceed.">*</asp:RequiredFieldValidator>
                             </EditItemTemplate>
                             <ItemTemplate>
                                 <asp:Label ID="lblCreationDate" runat="server" Text='<%# Bind("CreationDate","{0:d}") %>'></asp:Label>
                             </ItemTemplate>
                         </asp:TemplateField>
                         <asp:TemplateField ShowHeader="False">
+                            <ControlStyle Font-Bold="true" />
                             <EditItemTemplate>
                                 <asp:LinkButton ID="LinkButton1" runat="server" CausesValidation="True" CommandName="Update"
                                     Text="Update"></asp:LinkButton>&nbsp;&nbsp;
                                 <asp:LinkButton ID="LinkButton2" runat="server" CausesValidation="False" CommandName="Cancel"
                                     Text="Cancel"></asp:LinkButton>
                             </EditItemTemplate>
-                            <ControlStyle ForeColor="Red" />
                             <ItemTemplate>
                                 <asp:LinkButton ID="LinkButton1" runat="server" CausesValidation="False" CommandName="Edit"
-                                    Text="Edit"></asp:LinkButton>
+                                    Text="Edit"></asp:LinkButton>&nbsp;&nbsp;<a href="Index.aspx" style="font-weight:bold">Back To Companies</a>
                             </ItemTemplate>
                         </asp:TemplateField>
                     </Fields>
@@ -245,16 +258,10 @@
                     <AlternatingRowStyle BackColor="#DCDCDC" />
                 </asp:DetailsView>
             </td>
-        </tr>
-        <tr>
-            <td style="height: 70">
-                <br />
-            </td>
-        </tr>
+        </tr>        
         <tr>
             <td colspan="2">
-                <asp:Button ID="Cancel" CssClass="menuButton" runat="server" Text="Go Back to All Compnaies"
-                    OnClick="Cancel_Click" />
+                &nbsp;
             </td>
         </tr>
         <tr>
@@ -264,7 +271,7 @@
         </tr>
         <tr>
             <td colspan="2">
-                <asp:ValidationSummary ID="ValidationSummary1" runat="server"  ForeColor="Red" ShowMessageBox="True" />
+                <asp:ValidationSummary ID="ValidationSummary1" runat="server" ForeColor="Red" ShowMessageBox="True" />
             </td>
         </tr>
         <tr>

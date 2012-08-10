@@ -19,19 +19,6 @@ public partial class CRM : System.Web.UI.MasterPage
             HyperLink activeLink = (HyperLink)Page.Master.FindControl("lnk" + Page.Title);
             if (activeLink != null)
                 activeLink.CssClass = "menuLinkActive";
-
-            LinkButton activeSubMenuLink = null;
-            if(Request.Url.AbsoluteUri.Contains("CRM/Companies"))
-                activeSubMenuLink = (LinkButton)Page.Master.FindControl("linkCompanies");
-            else if (Request.Url.AbsoluteUri.Contains("CRM/Contacts"))
-                activeSubMenuLink = (LinkButton)Page.Master.FindControl("linkContacts");
-            else if (Request.Url.AbsoluteUri.Contains("CRM/Opportunities"))
-                activeSubMenuLink = (LinkButton)Page.Master.FindControl("linkOpportunities");
-            else if (Request.Url.AbsoluteUri.Contains("CRM/Documents"))
-                activeSubMenuLink = (LinkButton)Page.Master.FindControl("linkDocuments");
-
-            if (activeSubMenuLink != null)
-                activeSubMenuLink.CssClass = "CRMSubMenusActive";
         }
     }
     

@@ -12,7 +12,7 @@ public partial class ContactIndex : BasePage
     {
         if (!IsPostBack)
         {
-            btnAddContact.Visible = !IsUserReadOnly(SandlerUserActions.Add, SandlerEntities.Contact);
+            addContactAnchor.Visible = !IsUserReadOnly(SandlerUserActions.Add, SandlerEntities.Contact);
         }
 
     }

@@ -11,8 +11,8 @@ public partial class CompanyIndex : BasePage
     {
         if (!IsPostBack)
         {
-            btnAddCompany.Visible = !IsUserReadOnly(SandlerUserActions.Add, SandlerEntities.Company);
-            //btnAddProduct.Visible = !IsUserReadOnly(SandlerUserActions.Add, SandlerEntities.Company);
+            addCompanyAnchor.Visible = !IsUserReadOnly(SandlerUserActions.Add, SandlerEntities.Company);
+            //addProductAnchor.Visible = !IsUserReadOnly(SandlerUserActions.Add, SandlerEntities.Company);
         }
     }
     protected void btnAddCompany_Click(object sender, EventArgs e)

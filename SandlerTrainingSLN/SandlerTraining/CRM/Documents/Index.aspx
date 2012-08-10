@@ -6,15 +6,6 @@
     <table width="100%" border="0">
         <tr>
             <td>
-                <b>View Documents:</b>
-            </td>
-            <td align="right">
-                <asp:LinkButton ID="btnAddDocument" runat="server" Font-Size="Large" OnClick="btnAddDocument_Click"
-                    ForeColor="blue">Attach New Document</asp:LinkButton>
-            </td>
-        </tr>
-        <tr>
-            <td colspan="2" width="100%">
                 <label for="ddlCompany">
                     <b>Select Company :</b></label>
                 <asp:DropDownList ID="ddlCompany" runat="server" DataSourceID="CompanyDS" AutoPostBack="True"
@@ -28,6 +19,9 @@
                     AutoPostBack="True" DataTextField="OppName" DataValueField="OppsID" OnDataBound="ddlOpportunity_DataBound"
                     OnSelectedIndexChanged="ddlOpportunity_SelectedIndexChanged">
                 </asp:DropDownList>
+            </td>
+            <td align="right">
+                <a href="Add.aspx">Attach New Document</a>
             </td>
         </tr>
         <tr>
@@ -73,7 +67,6 @@
                             <ItemStyle HorizontalAlign="Center"></ItemStyle>
                         </asp:BoundField>
                         <asp:TemplateField ShowHeader="False">
-                            <ControlStyle ForeColor="Maroon" />
                             <ItemTemplate>
                                 <asp:LinkButton ID="LinkButton1" runat="server" CausesValidation="False" CommandName="Select"
                                     Text="View Detail.."></asp:LinkButton>

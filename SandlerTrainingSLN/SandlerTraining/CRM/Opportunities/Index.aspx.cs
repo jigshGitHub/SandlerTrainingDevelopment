@@ -5,18 +5,17 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using SandlerModels;
+using SandlerData;
 public partial class OpportunityIndex : OpportunityBasePage
 {
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)
         {
-            btnAddOpportunity.Visible = !IsUserReadOnly(SandlerUserActions.Add, SandlerEntities.Opportunity);
+            addOpportunityAnchor.Visible = !IsUserReadOnly(SandlerUserActions.Add, SandlerEntities.Opportunity);
             
-            if(!string.IsNullOrEmpty(Request.QueryString["skiprecords"]))
-                SkipRecords = int.Parse(Request.QueryString["skiprecords"]);
-            else
-                SkipRecords = 0;
+            if(!string.IsNullOrEmpty(Request.QueryString["currentPage"]))
+                CurrentPage = int.Parse(Request.QueryString["currentPage"]);
 
             BindGrid(0);
         }
@@ -24,29 +23,41 @@ public partial class OpportunityIndex : OpportunityBasePage
 
     private void BindGrid(int companyId)
     {
+        //var data = from record in GetOpportunities(companyId)
+        //           select new { ID = record.ID, OPPORTUNITYID = record.OpportunityID.Value, NAME = record.NAME, CompanyName = record.TBL_COMPANIES.COMPANYNAME, VALUE = record.VALUE, WEIGHTEDVALUE = record.WEIGHTEDVALUE, CloseDate = record.CLOSEDATE, SalesRep = record.SALESREPFIRSTNAME + " " + record.SALESREPLASTNAME, Status = record.TBL_OPPORTUNITYSTATUS.Name };
+        //TotalRecords = data.Count();
+        //gvOpportunities.DataSource = data.Skip(SkipRecords).Take(PageSize);
+        //gvOpportunities.DataBind();
         var data = from record in GetOpportunities(companyId)
                    select new { ID = record.ID, OPPORTUNITYID = record.OpportunityID.Value, NAME = record.NAME, CompanyName = record.TBL_COMPANIES.COMPANYNAME, VALUE = record.VALUE, WEIGHTEDVALUE = record.WEIGHTEDVALUE, CloseDate = record.CLOSEDATE, SalesRep = record.SALESREPFIRSTNAME + " " + record.SALESREPLASTNAME, Status = record.TBL_OPPORTUNITYSTATUS.Name };
         TotalRecords = data.Count();
-        gvOpportunities.DataSource = data.Skip(SkipRecords).Take(MaxPageRecords);
+        //var filterRecords = 
+        gvOpportunities.DataSource = IQueryableExtensions.Page(data ,PageSize, CurrentPage).AsQueryable();                                     
         gvOpportunities.DataBind();
+
+        pager.BindPager(TotalRecords, PageSize, CurrentPage);
     }
 
     public string BindPager()
     {
-        int pageCount = (TotalRecords % MaxPageRecords > 0) ? ((TotalRecords / MaxPageRecords) + 1) : TotalRecords / MaxPageRecords;
-        int skiprecords = 0;
-        System.Text.StringBuilder sb = new System.Text.StringBuilder("<table>");
-        sb.Append("<tr>");
-
-        for (int index = 1; index <= pageCount; index++)
+        int pageCount = (TotalRecords % PageSize > 0) ? ((TotalRecords / PageSize) + 1) : TotalRecords / PageSize;
+        int currentPage = 1;
+        System.Text.StringBuilder sb = new System.Text.StringBuilder("");
+        if (pageCount > 1)
         {
-            if(skiprecords == SkipRecords)
-                sb.Append("<td><a  class=selected href=index.aspx?skiprecords=" + skiprecords + ">" + index + "</a></td>");
-            else
-                sb.Append("<td><a href=index.aspx?skiprecords=" + skiprecords + ">" + index + "</a></td>");
-            skiprecords += MaxPageRecords;
+            sb.Append("<table>");
+            sb.Append("<tr>");
+
+            for (int index = 1; index <= pageCount; index++)
+            {
+                if (currentPage == CurrentPage)
+                    sb.Append("<td><a  class=selected href=index.aspx?currentPage=" + currentPage + ">" + index + "</a></td>");
+                else
+                    sb.Append("<td><a href=index.aspx?currentPage=" + currentPage + ">" + index + "</a></td>");
+                currentPage++;
+            }
+            sb.Append("</tr></table>");
         }
-        sb.Append("</tr></table>");
         return sb.ToString();
     }
     protected void gvOpportunities_DataBound(object sender, EventArgs e)
@@ -67,15 +78,6 @@ public partial class OpportunityIndex : OpportunityBasePage
             ListItem selectItem = new ListItem("All", "0");
             ddlCompany.Items.Insert(0, selectItem);
         }
-    }
-    protected void gvOpportunities_SelectedIndexChanged(object sender, EventArgs e)
-    {
-        //hidOpprtunityID.Value = gvOpportunities.SelectedDataKey.Value.ToString();
-        Response.Redirect("Detail.aspx?id=" + gvOpportunities.SelectedDataKey.Value.ToString());
-    }
-    protected void btnAddOpportunity_Click(object sender, EventArgs e)
-    {
-        Response.Redirect("~/CRM/Opportunities/Add.aspx");
     }
     decimal Weighted_valueTotal = 0;
     decimal Total_ValueTotal = 0;
@@ -100,5 +102,10 @@ public partial class OpportunityIndex : OpportunityBasePage
     protected void ddlCompany_SelectedIndexChanged(object sender, EventArgs e)
     {
         BindGrid(int.Parse(ddlCompany.SelectedValue));
+    }
+    protected void gvOpportunities_Sorting(object sender, GridViewSortEventArgs e)
+    {
+        SortExpression = e.SortExpression;
+        SortDirection = e.SortDirection.ToString();
     }
 }

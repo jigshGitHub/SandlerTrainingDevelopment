@@ -15,10 +15,11 @@ namespace SandlerData.Models
     
     public class UserDataModel : IUserDataModel
     {
-        public FranchiseeUsersRepository franchiseeUsersRepository;
-        public FranchiseeRepository franchiseeRepository;
-        public CoachRepository coachRepository;
-        public RegionRepository regionRepository;
+        private FranchiseeUsersRepository franchiseeUsersRepository;
+        private FranchiseeRepository franchiseeRepository;
+        private CoachRepository coachRepository;
+        private RegionRepository regionRepository;
+        
         public UserDataModel()
         {
             franchiseeUsersRepository = new FranchiseeUsersRepository();
@@ -49,7 +50,6 @@ namespace SandlerData.Models
                     break;
             }
         }
-
         ~ UserDataModel()
         {
             franchiseeUsersRepository = null;
@@ -60,7 +60,7 @@ namespace SandlerData.Models
         #endregion
     }
 
-    public interface IChartDataModel
+    public interface IUserEntities
     {
         IEnumerable<TBL_CONTACTS> GetNewAppointments(UserModel user);
         IEnumerable<TBL_OPPORTUNITIES> Getopportunities(UserModel user);
@@ -69,7 +69,7 @@ namespace SandlerData.Models
         IEnumerable<TBL_COMPANIES> GetCompanies(UserModel user);
     }
 
-    public class UserEntities : IChartDataModel
+    public class UserEntities : IUserEntities
     {
         #region IChartDataModel Members
 
@@ -93,6 +93,10 @@ namespace SandlerData.Models
                            select c;
 
             }
+            else if (user.Role == SandlerRoles.Corporate)
+            {
+                companies = companiesSource.GetAll().Where(r => r.IsActive == true).AsEnumerable();
+            }
             return companies;
         }
         public IEnumerable<TBL_CONTACTS> GetNewAppointments(UserModel user)
@@ -114,6 +118,10 @@ namespace SandlerData.Models
                            where c.TBL_COMPANIES.FranchiseeId == f.ID && f.CoachID == ch.ID && ch.ID == user.CoachID
                            select c;
 
+            }
+            else if (user.Role == SandlerRoles.Corporate)
+            {
+                contacts = contactsSource.GetAll().Where(r => r.IsActive == true).AsEnumerable();
             }
             return contacts;
         }
@@ -140,6 +148,10 @@ namespace SandlerData.Models
                                select c;
 
             }
+            else if (user.Role == SandlerRoles.Corporate)
+            {
+                opportunties = opportunitiesSource.GetAll().Where(r => r.IsActive == true).AsEnumerable();
+            }
             return opportunties;
         }
 
@@ -162,6 +174,10 @@ namespace SandlerData.Models
                                select c;
 
             }
+            else if (user.Role == SandlerRoles.Corporate)
+            {
+                contacts = contactsSource.GetByCompanyId(companyId).Where(record => record.IsActive == true).AsEnumerable();
+            }
             return contacts;
         }
 
@@ -183,6 +199,10 @@ namespace SandlerData.Models
                            where c.TBL_COMPANIES.FranchiseeId == f.ID && f.CoachID == ch.ID && ch.ID == user.CoachID
                            select c;
 
+            }
+            else if (user.Role == SandlerRoles.Corporate)
+            {
+                contacts = contactsSource.GetAll().Where(record => record.IsActive == true).AsEnumerable();
             }
             return contacts;
         }

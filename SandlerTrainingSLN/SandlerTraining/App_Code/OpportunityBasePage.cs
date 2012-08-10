@@ -12,34 +12,64 @@ using System.Configuration;
 public class OpportunityBasePage: BasePage
 {
     protected int OpportunityID;
-    protected int SkipRecords
+    protected int CurrentPage
     {
         get
         {
-            if (ViewState["Skiprecords"] == null)
+            if (ViewState["CurrentPage"] == null)
             {
-                ViewState["Skiprecords"] = 0;
+                ViewState["CurrentPage"] = 1;
             }
-            return int.Parse(ViewState["Skiprecords"].ToString());
+            return int.Parse(ViewState["CurrentPage"].ToString());
         }
         set
         {
-            ViewState["Skiprecords"] = value;
+            ViewState["CurrentPage"] = value;
         }
     }
-    protected int MaxPageRecords
+    protected int PageSize
     {
         get
         {
-            if (ViewState["MaxPageRecords"] == null)
+            if (ViewState["PageSize"] == null)
             {
-                ViewState["MaxPageRecords"] = ConfigurationManager.AppSettings["OpportunityPageSize"];
+                ViewState["PageSize"] = ConfigurationManager.AppSettings["OpportunityPageSize"];
             }
-            return int.Parse(ViewState["MaxPageRecords"].ToString());
+            return int.Parse(ViewState["PageSize"].ToString());
         }
         set
         {
-            ViewState["MaxPageRecords"] = value;
+            ViewState["PageSize"] = value;
+        }
+    }
+    protected string SortExpression
+    {
+        get
+        {
+            if (ViewState["SortExpression"] == null)
+            {
+                ViewState["SortExpression"] = "ID";
+            }
+            return ViewState["SortExpression"].ToString();
+        }
+        set
+        {
+            ViewState["SortExpression"] = value;
+        }
+    }
+    protected string SortDirection
+    {
+        get
+        {
+            if (ViewState["SortDirection"] == null)
+            {
+                ViewState["SortDirection"] = "ASC";
+            }
+            return ViewState["SortDirection"].ToString();
+        }
+        set
+        {
+            ViewState["SortDirection"] = value;
         }
     }
     protected int TotalRecords

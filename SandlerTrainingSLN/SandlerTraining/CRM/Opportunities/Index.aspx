@@ -2,6 +2,7 @@
     CodeFile="Index.aspx.cs" Inherits="OpportunityIndex" %>
 
 <%@ Import Namespace="SandlerRepositories" %>
+<%@ Register Src="../Pager.ascx" TagName="Pager" TagPrefix="uc1" %>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="Server">
     <table id="tblMain" width="100%">
         <tr>
@@ -15,8 +16,7 @@
                     SelectMethod="GetCompaniesForDDL"></asp:ObjectDataSource>
             </td>
             <td align="right">
-                <asp:LinkButton ID="btnAddOpportunity" runat="server" Font-Size="Large" OnClick="btnAddOpportunity_Click"
-                    ForeColor="blue">Add New Opportunity</asp:LinkButton>
+                <a id="addOpportunityAnchor" runat="server" href="Add.aspx">Add New Opportunity</a>
             </td>
         </tr>
         <tr>
@@ -26,9 +26,8 @@
         <tr>
             <td colspan="2">
                 <asp:GridView Width="100%" ID="gvOpportunities" runat="server" AutoGenerateColumns="False"
-                    DataKeyNames="ID" AllowSorting="true" PageSize="3" OnSelectedIndexChanged="gvOpportunities_SelectedIndexChanged"
-                    OnDataBound="gvOpportunities_DataBound" OnRowDataBound="gvOpportunities_RowDataBound"
-                    ShowFooter="true">
+                    DataKeyNames="ID" AllowSorting="true" PageSize="3" OnDataBound="gvOpportunities_DataBound"
+                    OnRowDataBound="gvOpportunities_RowDataBound" ShowFooter="true" OnSorting="gvOpportunities_Sorting">
                     <PagerStyle BackColor="#999999" ForeColor="Blue" HorizontalAlign="Center" />
                     <Columns>
                         <asp:BoundField DataField="ID" Visible="False" />
@@ -49,10 +48,8 @@
                         <asp:BoundField ItemStyle-HorizontalAlign="Center" HeaderStyle-ForeColor="Blue" DataField="Status"
                             HeaderText="Status" SortExpression="Status" />
                         <asp:TemplateField ShowHeader="False">
-                            <ControlStyle ForeColor="Maroon" />
                             <ItemTemplate>
-                                <asp:LinkButton ID="LinkButton1" runat="server" CausesValidation="False" CommandName="Select"
-                                    Text="View Detail.."></asp:LinkButton>
+                                <a href="Detail.aspx?id=<%#Eval("Id")%>">View Detail...</a>
                             </ItemTemplate>
                         </asp:TemplateField>
                     </Columns>
@@ -63,7 +60,7 @@
         </tr>
         <tr>
             <td colspan="2" class="Pager">
-                <% = BindPager() %>
+                <uc1:Pager ID="pager" runat="server" />
             </td>
         </tr>
         <tr>

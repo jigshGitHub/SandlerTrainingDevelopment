@@ -7,6 +7,7 @@ namespace SandlerModels
 {
     public enum SandlerRoles
     {
+        Corporate,
         Coach,
         FranchiseeOwner,
         FranchiseeUser,

@@ -1,8 +1,11 @@
-﻿<%@ Page Title="CRM" Language="C#" MasterPageFile="~/CRM.master" AutoEventWireup="true" CodeFile="Detail.aspx.cs" Inherits="DocumentDETAIL" %>
+﻿<%@ Page Title="CRM" Language="C#" MasterPageFile="~/CRM.master" AutoEventWireup="true"
+    CodeFile="Detail.aspx.cs" Inherits="DocumentDETAIL" %>
+
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 <%@ Import Namespace="SandlerRepositories" %>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="Server">
-    <asp:ToolkitScriptManager ID="ToolkitScriptManager1" runat="server"></asp:ToolkitScriptManager>
+    <asp:ToolkitScriptManager ID="ToolkitScriptManager1" runat="server">
+    </asp:ToolkitScriptManager>
     <table>
         <tr>
             <th align="left" class="tdTC" colspan="2" style="width: 680px">
@@ -13,7 +16,7 @@
             <td>
                 <asp:DetailsView AutoGenerateRows="False" DataKeyNames="DocsID" ID="DocumentDW" runat="server"
                     Width="675px" OnItemCommand="DocumentDW_ItemCommand" OnModeChanging="DocumentDW_ModeChanging"
-                    OnItemUpdating="DocumentDW_ItemUpdating">
+                    OnItemUpdating="DocumentDW_ItemUpdating" OnDataBound="DocumentDW_DataBound">
                     <Fields>
                         <asp:BoundField DataField="DocsID" Visible="False" />
                         <asp:TemplateField HeaderText="Company :">
@@ -43,9 +46,13 @@
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="Last Modified Date :">
                             <EditItemTemplate>
-                                <asp:TextBox ID="LastModifyDate" Text='<%# Bind("LastModifyDate") %>' runat="server" />&nbsp;<asp:Image ID="calanderImageLMD" runat="server" ImageUrl="~/images/calendar.gif" ImageAlign="Middle" />
-                                <asp:CalendarExtender runat="server" TargetControlID="LastModifyDate" PopupButtonID="calanderImageLMD" CssClass="calendar"></asp:CalendarExtender>
-                                <asp:RequiredFieldValidator ID="LastContactDateRFV" ControlToValidate="LastModifyDate" runat="server" ErrorMessage="Please Enter Last Modify Date to proceed.">*</asp:RequiredFieldValidator>
+                                <asp:TextBox ID="LastModifyDate" Text='<%# Bind("LastModifyDate") %>' runat="server" />&nbsp;<asp:Image
+                                    ID="calanderImageLMD" runat="server" ImageUrl="~/images/calendar.gif" ImageAlign="Middle" />
+                                <asp:CalendarExtender runat="server" TargetControlID="LastModifyDate" PopupButtonID="calanderImageLMD"
+                                    CssClass="calendar">
+                                </asp:CalendarExtender>
+                                <asp:RequiredFieldValidator ID="LastContactDateRFV" ControlToValidate="LastModifyDate"
+                                    runat="server" ErrorMessage="Please Enter Last Modify Date to proceed.">*</asp:RequiredFieldValidator>
                             </EditItemTemplate>
                             <ItemTemplate>
                                 <asp:Label ID="lblLastContactDate" runat="server" Text='<%# Bind("LastModifyDate","{0:d}") %>'></asp:Label>
@@ -56,21 +63,21 @@
                                 <asp:FileUpload ID="UpLoad" Width="275px" runat="server" />
                             </EditItemTemplate>
                             <ItemTemplate>
-                                <asp:HyperLink ID="ModuleLink" runat="server" ForeColor="Blue" Target="_blank" NavigateUrl='<%# Eval("docFullName", "~/SandlerDocuments/{0}") %>'
-                                    Text='<%# Eval("DocName") %>'></asp:HyperLink>
+                                <asp:HyperLink ID="ModuleLink" runat="server" ForeColor="Blue" Target="_blank" Text='<%# Eval("DocName") %>'></asp:HyperLink>
                             </ItemTemplate>
                         </asp:TemplateField>
                         <asp:TemplateField ShowHeader="False">
+                            <ControlStyle Font-Bold="true" />
                             <EditItemTemplate>
                                 <asp:LinkButton ID="LinkButton1" runat="server" CausesValidation="True" CommandName="Update"
                                     Text="Update"></asp:LinkButton>&nbsp;&nbsp;
                                 <asp:LinkButton ID="LinkButton2" runat="server" CausesValidation="False" CommandName="Cancel"
                                     Text="Cancel"></asp:LinkButton>
                             </EditItemTemplate>
-                            <ControlStyle ForeColor="Red" />
                             <ItemTemplate>
                                 <asp:LinkButton ID="LinkButton1" runat="server" CausesValidation="False" CommandName="Edit"
-                                    Text="Edit"></asp:LinkButton>
+                                    Text="Edit"></asp:LinkButton>&nbsp;&nbsp;<a href="Index.aspx" style="font-weight: bold">Go
+                                        Back to Documents</a>
                             </ItemTemplate>
                         </asp:TemplateField>
                     </Fields>
@@ -86,11 +93,6 @@
         </tr>
         <tr>
             <td colspan="2">
-                <asp:Button ID="Cancel" CssClass="menuButton" runat="server" Text="Go Back to Documents" OnClick="Cancel_Click" />
-            </td>
-        </tr>
-        <tr>
-            <td colspan="2">
                 <asp:Label CssClass="resultLabel" ID="LblStatus" ForeColor="Red" runat="server"></asp:Label>
             </td>
         </tr>
@@ -101,13 +103,18 @@
         </tr>
         <tr>
             <td colspan="2">
-                <asp:HiddenField ID="hidDocumentID" runat="server" /> <asp:HiddenField ID="hidCompanyID" runat="server" /> <asp:HiddenField ID="hidDocumentName" runat="server" />
+                <asp:HiddenField ID="hidDocumentID" runat="server" />
+                <asp:HiddenField ID="hidCompanyID" runat="server" />
+                <asp:HiddenField ID="hidDocumentName" runat="server" />
+                <asp:HiddenField ID="hdnDocFullName" runat="server" />
             </td>
         </tr>
         <tr>
             <td>
-                <asp:ObjectDataSource ID="DocStatusDS" runat="server" TypeName="SandlerRepositories.DocumentsRepository" SelectMethod="GetDocStatus"></asp:ObjectDataSource>
-                <asp:ObjectDataSource ID="OpprtunityDS" runat="server" TypeName="SandlerRepositories.OpportunityRepository" SelectMethod="GetByCompId">
+                <asp:ObjectDataSource ID="DocStatusDS" runat="server" TypeName="SandlerRepositories.DocumentsRepository"
+                    SelectMethod="GetDocStatus"></asp:ObjectDataSource>
+                <asp:ObjectDataSource ID="OpprtunityDS" runat="server" TypeName="SandlerRepositories.OpportunityRepository"
+                    SelectMethod="GetByCompId">
                     <SelectParameters>
                         <asp:ControlParameter ControlID="hidCompanyID" Name="COMPANIESID" Type="Int32" />
                     </SelectParameters>

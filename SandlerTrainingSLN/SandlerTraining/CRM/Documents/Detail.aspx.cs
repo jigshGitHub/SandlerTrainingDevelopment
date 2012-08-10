@@ -8,10 +8,10 @@ using System.Web.UI.WebControls;
 using System.Data.SqlClient;
 using System.Data;
 using System.Configuration;
- 
+
 public partial class DocumentDETAIL : BasePage
 {
-    
+
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!Page.IsPostBack)
@@ -31,12 +31,9 @@ public partial class DocumentDETAIL : BasePage
         DocumentDW.DataSource = ds;
         //Find the company ID for this Document and store in the Hidden field
         hidCompanyID.Value = ds.Tables[0].Rows[0]["COMPANIESID"].ToString();
-        hidDocumentName.Value = ds.Tables[0].Rows[0]["DOCNAME"].ToString(); 
+        hidDocumentName.Value = ds.Tables[0].Rows[0]["DOCNAME"].ToString();
+        hdnDocFullName.Value = ds.Tables[0].Rows[0]["docFullName"].ToString();
         DocumentDW.DataBind();
-    }
-    protected void Cancel_Click(object sender, EventArgs e)
-    {
-        Server.Transfer("~/CRM/Documents/Index.aspx");
     }
     protected void DocumentDW_ModeChanging(object sender, DetailsViewModeEventArgs e)
     {
@@ -87,7 +84,7 @@ public partial class DocumentDETAIL : BasePage
                     LastModifyDate = Convert.ToDateTime(LastModifyDateCal.Text.Trim());
                 }
             }
-            
+
         }
         //For Document Status
         DropDownList DocStatusDDList = new DropDownList();
@@ -120,11 +117,22 @@ public partial class DocumentDETAIL : BasePage
             {
                 //Save the actual file in the documents folder
                 //FileUploadControl.SaveAs(Server.MapPath(DocName));
-                FileUploadControl.SaveAs(ConfigurationManager.AppSettings["DocumentsUploadLocation"] + DocName);
+                //FileUploadControl.SaveAs(ConfigurationManager.AppSettings["DocumentsUploadLocation"] + DocName);
+                FileUploadControl.SaveAs(Server.MapPath(ConfigurationManager.AppSettings["DocumentsUploadLocation"] + DocName));
             }
-                        
+
         }
         //Now Update
-        new SandlerRepositories.DocumentsRepository().Update(Convert.ToInt32(hidDocumentID.Value), OppsID, DocName,DocStatus, LastModifyDate);
+        new SandlerRepositories.DocumentsRepository().Update(Convert.ToInt32(hidDocumentID.Value), OppsID, DocName, DocStatus, LastModifyDate);
+    }
+    protected void DocumentDW_DataBound(object sender, EventArgs e)
+    {
+        DetailsView DocumentDW = sender as DetailsView;
+        HyperLink moduleLink = DocumentDW.FindControl("ModuleLink") as HyperLink;
+
+        if (moduleLink != null && !string.IsNullOrEmpty(hdnDocFullName.Value))
+        {
+            moduleLink.NavigateUrl = string.Format(@"{0}\{1}", ConfigurationManager.AppSettings["DocumentsUploadLocation"], hdnDocFullName.Value);
+        }
     }
 }

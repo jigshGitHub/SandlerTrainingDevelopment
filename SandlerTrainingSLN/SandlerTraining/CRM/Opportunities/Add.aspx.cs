@@ -11,11 +11,14 @@ public partial class OpportunityADD : OpportunityBasePage
     {
         if (!IsPostBack)
         {
+            lbtnCancel.Text = "Back To Opportunities";
+            ProductTypesDS.SelectParameters["franchiseeId"].DefaultValue = CurrentUser.FranchiseeID.ToString();
             if (!string.IsNullOrEmpty(Request.QueryString["id"]))
             {
                 OpportunityID = int.Parse(Request.QueryString["id"]);
                 BindDetailsToFields(OpportunityID);
                 lbtnAdd.Text = "Update";
+                lbtnCancel.Text = "Cancel";
             }
         }
 
@@ -101,7 +104,7 @@ public partial class OpportunityADD : OpportunityBasePage
             opportunity.UpdatedBy = CurrentUser.UserId.ToString();
             opportunity.UpdatedDate = DateTime.Now;
             Update(opportunity);
-            lblResult.Text = "Opportunity updated Successfully!";
+            Server.Transfer("Detail.aspx?showResult=True&id=" + OpportunityID);
         }
         ClearFiels();
     }
@@ -167,6 +170,9 @@ public partial class OpportunityADD : OpportunityBasePage
     protected void lbtnCancel_Click(object sender, EventArgs e)
     {
         ClearFiels();
-        Response.Redirect("~/CRM/Opportunities/Index.aspx");
+        if(OpportunityID > 0)
+            Server.Transfer("~/CRM/Opportunities/Detail.aspx?id=" + OpportunityID);
+        else
+            Server.Transfer("~/CRM/Opportunities/Index.aspx");
     }
 }

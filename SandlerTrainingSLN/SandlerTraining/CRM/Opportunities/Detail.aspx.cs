@@ -18,7 +18,11 @@ public partial class OpportunityDETAIL : OpportunityBasePage
         if (!Page.IsPostBack)
         {
             BindDetails(OpportunityID);
-            lbtnEdit.Visible = !IsUserReadOnly(SandlerUserActions.Edit, SandlerEntities.Opportunity);
+            anchorEdit.Visible = !IsUserReadOnly(SandlerUserActions.Edit, SandlerEntities.Opportunity);
+            anchorEdit.HRef = "Add.aspx?id=" + OpportunityID;
+            if (!string.IsNullOrEmpty(Request.QueryString["showResult"]))
+                lblResult.Text = "Opportunity updated Successfully!";
+
         }
     }
 
@@ -39,19 +43,6 @@ public partial class OpportunityDETAIL : OpportunityBasePage
         lblSalesRepPhone.Text = record.SALESREPPHONE;
         lblStatus.Text = record.TBL_OPPORTUNITYSTATUS.Name;
         lblWeightedValue.Text = record.WEIGHTEDVALUE.ToString();
-        lblWinProbability.Text = record.WINPROBABILITY;
-        
-    }
-    protected void Cancel_Click(object sender, EventArgs e)
-    {
-        Response.Redirect("CRMSalesPipeLine.aspx");
-    }
-    protected void lbtnEdit_Click(object sender, EventArgs e)
-    {
-        Response.Redirect("Add.aspx?id=" + OpportunityID);
-    }
-    protected void lbtnCancel_Click(object sender, EventArgs e)
-    {
-        Response.Redirect("Index.aspx");
+        lblWinProbability.Text = record.WINPROBABILITY;        
     }
 }

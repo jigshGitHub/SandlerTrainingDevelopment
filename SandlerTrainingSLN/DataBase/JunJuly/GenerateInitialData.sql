@@ -11,10 +11,10 @@ BEGIN TRY
 		
 		EXEC [dbo].[aspnet_Membership_CreateUser] @ApplicationName = N'SandlerTraining', @UserName = N'siteadmin', @Password = N'GNbb2dozNE4rulc7W8bRCSf8g5s=', @PasswordSalt = N'v6TQ0qbGAUIcMs/zYNhlbA==', @Email = N'siteadmin@siteadmin.com', @PasswordQuestion = NULL, @PasswordAnswer = NULL, @IsApproved = 1, @CurrentTimeUtc = @CurrentTime, @CreateDate = @CurrentTime, @UniqueEmail = NULL, @PasswordFormat = 1, @UserId = @User_Id OUTPUT;
 		
-		EXEC [dbo].[aspnet_UsersInRoles_AddUsersToRoles] @ApplicationName = N'SandlerTraining', @UserNames = N'siteadmin', @RoleNames = N'siteadmin', @CurrentTimeUtc = NULL;
+		EXEC [dbo].[aspnet_UsersInRoles_AddUsersToRoles] @ApplicationName = N'SandlerTraining', @UserNames = N'siteadmin', @RoleNames = N'siteadmin', @CurrentTimeUtc = @CurrentTime;
 		
 		PRINT 'SiteAdmin created.'
-		
+				
 		-- Countries
 		INSERT INTO [SandlerDB].[dbo].[TBL_COUNTRY] ([Code], [Name]) VALUES ( 'AU' ,'Australia');
 		INSERT INTO [SandlerDB].[dbo].[TBL_COUNTRY] ([Code], [Name]) VALUES ( 'BE' ,'Belgium');
@@ -65,6 +65,13 @@ BEGIN TRY
 		EXEC sp_CreateRegion @name = 'Canada-Western',  @countryCode = 'CA',  @region_Id = @regionID OUTPUT;
 		
 		PRINT 'Regions created (7 US regions, 2 canada regions created.'
+		
+						
+		EXEC [dbo].[aspnet_Membership_CreateUser] @ApplicationName = N'SandlerTraining', @UserName = N'corporateuser', @Password = N'DE5aG4DJKaWNAC6qtb9Ex1mw0YQ=', @PasswordSalt = N'CgWo/aHD6MDFG4AYqW/5wQ==', @Email = N'corporate@sandler.com', @PasswordQuestion = NULL, @PasswordAnswer = NULL, @IsApproved = 1, @CurrentTimeUtc = @CurrentTime, @CreateDate = @CurrentTime, @UniqueEmail = NULL, @PasswordFormat = 1, @UserId = @User_Id OUTPUT;
+		
+		EXEC [dbo].[aspnet_UsersInRoles_AddUsersToRoles] @ApplicationName = N'SandlerTraining', @UserNames = N'corporateuser', @RoleNames = N'Corporate', @CurrentTimeUtc = @CurrentTime
+		
+		PRINT 'CorporateUser created.'
 		-- COACH
 		DECLARE @coachId int
 

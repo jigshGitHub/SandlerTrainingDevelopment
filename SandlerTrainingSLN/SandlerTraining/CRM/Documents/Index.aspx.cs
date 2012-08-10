@@ -70,11 +70,6 @@ public partial class DocumentIndex : BasePage
         }
 
     }
-    protected void btnAddDocument_Click(object sender, EventArgs e)
-    {
-        Response.Redirect("~/CRM/Documents/Add.aspx");
-    }
-
 
     protected void gvDocuments_RowDataBound(object sender, GridViewRowEventArgs e)
     {

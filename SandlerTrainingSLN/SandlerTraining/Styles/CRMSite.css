@@ -10,18 +10,19 @@
 
 a:link, a:visited
 {
-	color: #FFFFFF;
+	color: blue;
+	text-decoration: none;
 }
 
 a:hover
 {
-	color: #FFFFFF;
-	text-decoration: none;
+	color: blue;
+	text-decoration: underline;
 }
 
 a:active
 {
-	color: #FFFFFF;
+	color: blue;
 }
 
 p
@@ -124,11 +125,26 @@ first child of the left and right table columns */
 	text-decoration: none;
 }
 
+.CRMSubMenus a:visited
+{
+	color: #0000FF;
+	font-size: large;
+	text-decoration: none;
+}
+
 a.CRMSubMenusActive:link
 {
 	font-weight: bold;
 	text-decoration: underline;
 }
+
+a.CRMSubMenusActive:visited
+{
+	font-weight: bold;
+	text-decoration: underline;
+}
+
+
 .main
 {
 	width: 80%;
@@ -505,6 +521,7 @@ a.menuLinkActive:visited
 .Pager a
 {
 	color:Blue;
+	text-decoration:underline;
 }
 .Pager a.selected
 {

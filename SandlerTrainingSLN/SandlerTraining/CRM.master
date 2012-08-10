@@ -32,16 +32,16 @@
                 <table class="CRMSubMenus" align="center">
                     <tr>
                         <td align="center">
-                            <asp:LinkButton ID="linkCompanies" runat="server" CausesValidation="false" OnClick="linkCompanies_Click">Companies</asp:LinkButton>
+                            <a href="<%= Page.ResolveClientUrl("~/CRM/Companies/Index.aspx") %>">Companies</a>
                         </td>
                         <td align="center">
-                            <asp:LinkButton ID="linkContacts" runat="server" CausesValidation="false" OnClick="linkContacts_Click">Contacts</asp:LinkButton>
+                            <a href="<%= Page.ResolveClientUrl("~/CRM/Contacts/Index.aspx") %>">Contacts</a>
                         </td>
                         <td align="center">
-                            <asp:LinkButton ID="linkOpportunities" runat="server" CausesValidation="false" OnClick="linkOpportunities_Click">Opportunities</asp:LinkButton>
+                            <a href="<%= Page.ResolveClientUrl("~/CRM/Opportunities/Index.aspx") %>">Opportunities</a>
                         </td>
                         <td align="center">
-                            <asp:LinkButton ID="linkDocuments" runat="server" CausesValidation="false" OnClick="linkDocuments_Click">Documents</asp:LinkButton>
+                            <a href="<%= Page.ResolveClientUrl("~/CRM/Documents/Index.aspx") %>">Documents</a>
                         </td>
                     </tr>
                 </table>
@@ -54,6 +54,20 @@
             <uc1:Footer ID="Footer1" runat="server" />
         </div>
     </div>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.CRMSubMenus a').each(function () {
+
+                var folderPath = $(this).attr('href').split('/')[1];
+
+                if (folderPath == undefined) {
+                    $(this).addClass('CRMSubMenusActive');
+                }
+            });
+            $('.CRMSubMenus a').click(function (e) {
+            });
+        });
+    </script>
     </form>
 </body>
 </html>
