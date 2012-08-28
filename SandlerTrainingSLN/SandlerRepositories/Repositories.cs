@@ -267,4 +267,54 @@ namespace SandlerRepositories
         {
         }
     }
+
+    public partial class CountryRepository : RepositoryBase<TBL_COUNTRY>
+    {
+        public CountryRepository(IDatabaseFactory dbFactory)
+            : base(dbFactory)
+        {
+        }
+        public CountryRepository()
+            : base(new DBFactory())
+        {
+        }
+    }
+
+    public partial class UsersRepository : RepositoryBase<aspnet_Users>
+    {
+        public UsersRepository(IDatabaseFactory dbFactory)
+            : base(dbFactory)
+        {
+        }
+        public UsersRepository()
+            : base(new DBFactory())
+        {
+        }
+    }
+
+    public partial class RolesRepository : RepositoryBase<aspnet_Roles>
+    {
+        public RolesRepository(IDatabaseFactory dbFactory)
+            : base(dbFactory)
+        {
+        }
+        public RolesRepository()
+            : base(new DBFactory())
+        {
+        }
+    }
+
+    public partial class MembershipRepository : RepositoryBase<aspnet_Membership>
+    {
+        public MembershipRepository(IDatabaseFactory dbFactory)
+            : base(dbFactory)
+        {
+        }
+        public MembershipRepository()
+            : base(new DBFactory())
+        {
+        }
+    }
+
+
 }

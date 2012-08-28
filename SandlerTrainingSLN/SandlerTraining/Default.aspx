@@ -5,6 +5,8 @@
 <asp:Content ID="HeaderContent" runat="server" ContentPlaceHolderID="HeadContent">
 </asp:Content>
 <asp:Content ID="BodyContent" runat="server" ContentPlaceHolderID="MainContent">
+<script type="text/javascript" src="<%= Page.ResolveClientUrl("~/Scripts/knockout-2.1.0.js") %>"></script>
+    
     <table width="100%">
         <tr>
             <td width="33%">
@@ -40,6 +42,6 @@
             </td>
         </tr>
     </table>
-    <script type="text/javascript">        
-    </script>
+
+    
 </asp:Content>

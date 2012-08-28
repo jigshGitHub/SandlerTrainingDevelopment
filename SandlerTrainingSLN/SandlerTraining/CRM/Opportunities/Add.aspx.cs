@@ -131,10 +131,11 @@ public partial class OpportunityADD : OpportunityBasePage
         TBL_OPPORTUNITIES record = GetOpportunity(ID);
         if (record.CLOSEDATE.HasValue)
             CloseDate.Text = record.CLOSEDATE.Value.ToString();
-        ddlCompany.SelectedValue = record.TBL_COMPANIES.COMPANIESID.ToString();
+        ddlCompany.SelectedValue = record.COMPANYID.ToString();
         BindContacts(record.COMPANYID);
-        ddlContacts.SelectedValue = record.TBL_CONTACTS.CONTACTSID.ToString();
-        SetContact(record.TBL_CONTACTS.PHONE, record.TBL_CONTACTS.EMAIL);
+        ddlContacts.SelectedValue = record.CONTACTID.ToString();
+        TBL_CONTACTS contact = GetContact(long.Parse(record.CONTACTID.ToString()));
+        SetContact(contact.PHONE, contact.EMAIL);
         txtOppName.Text = record.NAME;
         trOpportunityID.Visible = true;
         txtOpportunityID.Text = record.OpportunityID.Value.ToString();

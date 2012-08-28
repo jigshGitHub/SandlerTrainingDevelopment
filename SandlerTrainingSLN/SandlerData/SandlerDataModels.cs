@@ -60,152 +60,182 @@ namespace SandlerData.Models
         #endregion
     }
 
-    public interface IUserEntities
-    {
-        IEnumerable<TBL_CONTACTS> GetNewAppointments(UserModel user);
-        IEnumerable<TBL_OPPORTUNITIES> Getopportunities(UserModel user);
-        IEnumerable<TBL_CONTACTS> GetContactsByCompany(UserModel user, int companyId);
-        IEnumerable<TBL_CONTACTS> GetContacts(UserModel user);
-        IEnumerable<TBL_COMPANIES> GetCompanies(UserModel user);
-    }
+    //public interface IUserEntities
+    //{
+    //    IEnumerable<TBL_CONTACTS> GetNewAppointments(UserModel user);
+    //    IEnumerable<TBL_OPPORTUNITIES> Getopportunities(UserModel user);
+    //    IEnumerable<TBL_CONTACTS> GetContactsByCompany(UserModel user, int companyId);
+    //    IEnumerable<TBL_CONTACTS> GetContacts(UserModel user);
+    //    IEnumerable<TBL_COMPANIES> GetCompanies(UserModel user);
+    //}
 
-    public class UserEntities : IUserEntities
-    {
-        #region IChartDataModel Members
+    //public class UserEntities : IUserEntities
+    //{
+    //    #region IChartDataModel Members
 
-        public IEnumerable<TBL_COMPANIES> GetCompanies(UserModel user)
-        {
-            CompaniesRepository companiesSource = new CompaniesRepository();
-            IEnumerable<TBL_COMPANIES> companies = null;
+    //    public IEnumerable<TBL_COMPANIES> GetCompanies(UserModel user)
+    //    {
+    //        CompaniesRepository companiesSource = new CompaniesRepository();
+    //        IEnumerable<TBL_COMPANIES> companies = null;
 
-            if (user.Role == SandlerRoles.FranchiseeUser)
-                companies = companiesSource.GetAll().Where(r => r.IsActive == true && r.FranchiseeId == user.FranchiseeID).AsEnumerable();
-            else if (user.Role == SandlerRoles.FranchiseeOwner)
-                companies = companiesSource.GetAll().Where(r => r.IsActive == true && r.FranchiseeId == user.FranchiseeID).AsEnumerable();
-            else if (user.Role == SandlerRoles.Coach)
-            {
-                FranchiseeRepository franchiseeSource = new FranchiseeRepository();
-                CoachRepository coachSource = new CoachRepository();
-                companies = from c in companiesSource.GetAll().Where(r => r.IsActive == true)
-                           from f in franchiseeSource.GetAll().Where(r => r.IsActive == true)
-                           from ch in coachSource.GetAll().Where(r => r.IsActive == true)
-                           where c.FranchiseeId == f.ID && f.CoachID == ch.ID && ch.ID == user.CoachID
-                           select c;
+    //        if (user.Role == SandlerRoles.FranchiseeUser)
+    //            companies = companiesSource.GetAll().Where(r => r.IsActive == true && r.FranchiseeId == user.FranchiseeID).AsEnumerable();
+    //        else if (user.Role == SandlerRoles.FranchiseeOwner)
+    //            companies = companiesSource.GetAll().Where(r => r.IsActive == true && r.FranchiseeId == user.FranchiseeID).AsEnumerable();
+    //        else if (user.Role == SandlerRoles.Coach)
+    //        {
+    //            FranchiseeRepository franchiseeSource = new FranchiseeRepository();
+    //            CoachRepository coachSource = new CoachRepository();
+    //            companies = from c in companiesSource.GetAll().Where(r => r.IsActive == true)
+    //                       from f in franchiseeSource.GetAll().Where(r => r.IsActive == true)
+    //                       from ch in coachSource.GetAll().Where(r => r.IsActive == true)
+    //                       where c.FranchiseeId == f.ID && f.CoachID == ch.ID && ch.ID == user.CoachID
+    //                       select c;
 
-            }
-            else if (user.Role == SandlerRoles.Corporate)
-            {
-                companies = companiesSource.GetAll().Where(r => r.IsActive == true).AsEnumerable();
-            }
-            return companies;
-        }
-        public IEnumerable<TBL_CONTACTS> GetNewAppointments(UserModel user)
-        {
-            ContactsRepository contactsSource = new ContactsRepository();
-            IEnumerable<TBL_CONTACTS> contacts = null;
+    //        }
+    //        else if (user.Role == SandlerRoles.Corporate)
+    //        {
+    //            companies = companiesSource.GetAll().Where(r => r.IsActive == true).AsEnumerable();
+    //        }
+    //        return companies;
+    //    }
+    //    public IEnumerable<TBL_CONTACTS> GetNewAppointments(UserModel user)
+    //    {
+    //        ContactsRepository contactsSource = new ContactsRepository();
+    //        IEnumerable<TBL_CONTACTS> contacts = null;
 
-            if (user.Role == SandlerRoles.FranchiseeUser)
-                contacts = contactsSource.GetAll().Where(r => r.IsNewAppointment == true && r.IsActive == true && r.CreatedBy.ToLower() == user.UserId.ToString().ToLower()).AsEnumerable();
-            else if (user.Role == SandlerRoles.FranchiseeOwner)
-                contacts = contactsSource.GetAll().Where(r => r.IsNewAppointment == true && r.IsActive == true && r.TBL_COMPANIES.FranchiseeId == user.FranchiseeID).AsEnumerable();
-            else if (user.Role == SandlerRoles.Coach)
-            {
-                FranchiseeRepository franchiseeSource = new FranchiseeRepository();
-                CoachRepository coachSource = new CoachRepository();
-                contacts = from c in contactsSource.GetAll().Where(r => r.IsNewAppointment == true && r.IsActive == true)
-                           from f in franchiseeSource.GetAll().Where(r => r.IsActive == true)
-                           from ch in coachSource.GetAll().Where(r => r.IsActive == true)
-                           where c.TBL_COMPANIES.FranchiseeId == f.ID && f.CoachID == ch.ID && ch.ID == user.CoachID
-                           select c;
+    //        if (user.Role == SandlerRoles.FranchiseeUser)
+    //            contacts = contactsSource.GetAll().Where(r => r.IsNewAppointment == true && r.IsActive == true && r.CreatedBy.ToLower() == user.UserId.ToString().ToLower()).AsEnumerable();
+    //        else if (user.Role == SandlerRoles.FranchiseeOwner)
+    //        {
+    //            //contacts = contactsSource.GetAll().Where(r => r.IsNewAppointment == true && r.IsActive == true && r.TBL_COMPANIES.FranchiseeId == user.FranchiseeID).AsEnumerable();
+    //            contacts = from contact in contactsSource.GetAll().Where(r => r.IsNewAppointment == true && r.IsActive == true)
+    //                       from company in new CompaniesRepository().GetAll().Where(c => c.IsActive == true && c.FranchiseeId == user.FranchiseeID && c.COMPANIESID == contact.COMPANYID)
+    //                       select contact;
+    //        }
+    //        else if (user.Role == SandlerRoles.Coach)
+    //        {
+    //            FranchiseeRepository franchiseeSource = new FranchiseeRepository();
+    //            CoachRepository coachSource = new CoachRepository();
+    //            contacts = from contact in contactsSource.GetAll().Where(r => r.IsNewAppointment == true && r.IsActive == true)
+    //                       from co in new CompaniesRepository().GetAll().Where(c => c.IsActive == true)
+    //                       from f in franchiseeSource.GetAll().Where(r => r.IsActive == true)
+    //                       from ch in coachSource.GetAll().Where(r => r.IsActive == true)
+    //                       where co.FranchiseeId == f.ID && f.CoachID == ch.ID && ch.ID == user.CoachID
+    //                       select contact;
 
-            }
-            else if (user.Role == SandlerRoles.Corporate)
-            {
-                contacts = contactsSource.GetAll().Where(r => r.IsActive == true).AsEnumerable();
-            }
-            return contacts;
-        }
+    //        }
+    //        else if (user.Role == SandlerRoles.Corporate)
+    //        {
+    //            contacts = contactsSource.GetAll().Where(r => r.IsActive == true).AsEnumerable();
+    //        }
+    //        return contacts;
+    //    }
 
         
 
-        public IEnumerable<TBL_OPPORTUNITIES> Getopportunities(UserModel user)
-        {
-            OpportunitiesRepository opportunitiesSource = new OpportunitiesRepository();
-            IEnumerable<TBL_OPPORTUNITIES> opportunties = null;
+    //    public IEnumerable<TBL_OPPORTUNITIES> Getopportunities(UserModel user)
+    //    {
+    //        OpportunitiesRepository opportunitiesSource = new OpportunitiesRepository();
+    //        IEnumerable<TBL_OPPORTUNITIES> opportunties = null;
 
-            if (user.Role == SandlerRoles.FranchiseeUser)
-                opportunties = opportunitiesSource.GetAll().Where(r => r.IsActive == true && r.CreatedBy.ToLower() == user.UserId.ToString().ToLower()).AsEnumerable();
-            else if (user.Role == SandlerRoles.FranchiseeOwner)
-                opportunties = opportunitiesSource.GetAll().Where(r => r.IsActive == true && r.TBL_COMPANIES.FranchiseeId == user.FranchiseeID).AsEnumerable();
-            else if (user.Role == SandlerRoles.Coach)
-            {
-                FranchiseeRepository franchiseeSource = new FranchiseeRepository();
-                CoachRepository coachSource = new CoachRepository();
-                opportunties = from c in opportunitiesSource.GetAll().Where(r => r.IsActive == true)
-                               from f in franchiseeSource.GetAll().Where(r => r.IsActive == true)
-                               from ch in coachSource.GetAll().Where(r => r.IsActive == true)
-                               where c.TBL_COMPANIES.FranchiseeId == f.ID && f.CoachID == ch.ID && ch.ID == user.CoachID
-                               select c;
+    //        if (user.Role == SandlerRoles.FranchiseeUser)
+    //            opportunties = opportunitiesSource.GetAll().Where(r => r.IsActive == true && r.CreatedBy.ToLower() == user.UserId.ToString().ToLower()).AsEnumerable();
+    //        else if (user.Role == SandlerRoles.FranchiseeOwner)
+    //        {
+    //            //opportunties = opportunitiesSource.GetAll().Where(r => r.IsActive == true && r.TBL_COMPANIES.FranchiseeId == user.FranchiseeID).AsEnumerable();
+    //            opportunties = from opportunity in opportunitiesSource.GetAll().Where(r => r.IsActive == true)
+    //                           from contct in new ContactsRepository().GetAll().Where(c => c.IsActive == true &&  c.CONTACTSID == opportunity.CONTACTID)
+    //                           from company in new CompaniesRepository().GetAll().Where(co => co.IsActive == true &&  co.COMPANIESID == opportunity.COMPANYID && co.FranchiseeId == user.FranchiseeID)
+    //                           select opportunity;
+    //        }
+    //        else if (user.Role == SandlerRoles.Coach)
+    //        {
+    //            FranchiseeRepository franchiseeSource = new FranchiseeRepository();
+    //            CoachRepository coachSource = new CoachRepository();
+    //            opportunties = from c in opportunitiesSource.GetAll().Where(r => r.IsActive == true)
+    //                           from compamy in new CompaniesRepository().GetAll().Where(co => co.IsActive == true && co.COMPANIESID == c.COMPANYID)
+    //                           from f in franchiseeSource.GetAll().Where(r => r.IsActive == true && r.ID == compamy.FranchiseeId)
+    //                           from ch in coachSource.GetAll().Where(r => r.IsActive == true && r.ID == f.CoachID & r.ID == user.CoachID)                               
+    //                           select c;
 
-            }
-            else if (user.Role == SandlerRoles.Corporate)
-            {
-                opportunties = opportunitiesSource.GetAll().Where(r => r.IsActive == true).AsEnumerable();
-            }
-            return opportunties;
-        }
+    //        }
+    //        else if (user.Role == SandlerRoles.Corporate)
+    //        {
+    //            opportunties = opportunitiesSource.GetAll().Where(r => r.IsActive == true).AsEnumerable();
+    //        }
+    //        return opportunties;
+    //    }
 
-        public IEnumerable<TBL_CONTACTS> GetContactsByCompany(UserModel user, int companyId)
-        {
-            ContactsRepository contactsSource = new ContactsRepository();
-            IEnumerable<TBL_CONTACTS> contacts = null;
-            if (user.Role == SandlerRoles.FranchiseeUser)
-                contacts = contactsSource.GetByCompanyId(companyId).Where(record => record.IsActive == true && record.CreatedBy.ToLower() == user.UserId.ToString().ToLower()).AsEnumerable();
-            else if(user.Role == SandlerRoles.FranchiseeOwner)
-                contacts = contactsSource.GetByCompanyId(companyId).Where(record => record.IsActive == true && record.TBL_COMPANIES.FranchiseeId == user.FranchiseeID).AsEnumerable();
-            else if(user.Role == SandlerRoles.Coach)
-            {
-                FranchiseeRepository franchiseeSource = new FranchiseeRepository();
-                CoachRepository coachSource = new CoachRepository();
-                contacts = from c in contactsSource.GetByCompanyId(companyId).Where(r => r.IsActive == true)
-                               from f in franchiseeSource.GetAll().Where(r => r.IsActive == true)
-                               from ch in coachSource.GetAll().Where(r => r.IsActive == true)
-                               where c.TBL_COMPANIES.FranchiseeId == f.ID && f.CoachID == ch.ID && ch.ID == user.CoachID
-                               select c;
+    //    public IEnumerable<TBL_CONTACTS> GetContactsByCompany(UserModel user, int companyId)
+    //    {
+    //        ContactsRepository contactsSource = new ContactsRepository();
+    //        IEnumerable<TBL_CONTACTS> contacts = null;
+    //        if (user.Role == SandlerRoles.FranchiseeUser)
+    //            contacts = contactsSource.GetByCompanyId(companyId).Where(record => record.IsActive == true && record.CreatedBy.ToLower() == user.UserId.ToString().ToLower()).AsEnumerable();
+    //        else if (user.Role == SandlerRoles.FranchiseeOwner)
+    //        {
+    //            //contacts = contactsSource.GetByCompanyId(companyId).Where(record => record.IsActive == true && record.TBL_COMPANIES.FranchiseeId == user.FranchiseeID).AsEnumerable();
+    //            contacts = from contact in contactsSource.GetAll().Where(r => r.IsNewAppointment == true && r.IsActive == true)
+    //                       from company in new CompaniesRepository().GetAll().Where(c => c.IsActive == true && c.FranchiseeId == user.FranchiseeID)
+    //                       select contact;
+    //        }
+    //        else if (user.Role == SandlerRoles.Coach)
+    //        {
+    //            FranchiseeRepository franchiseeSource = new FranchiseeRepository();
+    //            CoachRepository coachSource = new CoachRepository();
+    //            //contacts = from c in contactsSource.GetByCompanyId(companyId).Where(r => r.IsActive == true)
+    //            //           from f in franchiseeSource.GetAll().Where(r => r.IsActive == true)
+    //            //           from ch in coachSource.GetAll().Where(r => r.IsActive == true)
+    //            //           where c.TBL_COMPANIES.FranchiseeId == f.ID && f.CoachID == ch.ID && ch.ID == user.CoachID
+    //            //           select c;
 
-            }
-            else if (user.Role == SandlerRoles.Corporate)
-            {
-                contacts = contactsSource.GetByCompanyId(companyId).Where(record => record.IsActive == true).AsEnumerable();
-            }
-            return contacts;
-        }
+    //            contacts = from contact in contactsSource.GetByCompanyId(companyId).Where(r => r.IsActive == true)
+    //                       from co in new CompaniesRepository().GetAll().Where(c => c.IsActive == true)
+    //                       from f in franchiseeSource.GetAll().Where(r => r.IsActive == true)
+    //                       from ch in coachSource.GetAll().Where(r => r.IsActive == true)
+    //                       where co.FranchiseeId == f.ID && f.CoachID == ch.ID && ch.ID == user.CoachID
+    //                       select contact;
 
-        public IEnumerable<TBL_CONTACTS> GetContacts(UserModel user)
-        {
-            ContactsRepository contactsSource = new ContactsRepository();
-            IEnumerable<TBL_CONTACTS> contacts = null;
-            if (user.Role == SandlerRoles.FranchiseeUser)
-                contacts = contactsSource.GetAll().Where(record => record.IsActive == true && record.CreatedBy.ToLower() == user.UserId.ToString().ToLower()).AsEnumerable();
-            else if (user.Role == SandlerRoles.FranchiseeOwner)
-                contacts = contactsSource.GetAll().Where(record => record.IsActive == true && record.TBL_COMPANIES.FranchiseeId == user.FranchiseeID).AsEnumerable();
-            else if (user.Role == SandlerRoles.Coach)
-            {
-                FranchiseeRepository franchiseeSource = new FranchiseeRepository();
-                CoachRepository coachSource = new CoachRepository();
-                contacts = from c in contactsSource.GetAll().Where(r => r.IsActive == true)
-                           from f in franchiseeSource.GetAll().Where(r => r.IsActive == true)
-                           from ch in coachSource.GetAll().Where(r => r.IsActive == true)
-                           where c.TBL_COMPANIES.FranchiseeId == f.ID && f.CoachID == ch.ID && ch.ID == user.CoachID
-                           select c;
+    //        }
+    //        else if (user.Role == SandlerRoles.Corporate)
+    //        {
+    //            contacts = contactsSource.GetByCompanyId(companyId).Where(record => record.IsActive == true).AsEnumerable();
+    //        }
+    //        return contacts;
+    //    }
 
-            }
-            else if (user.Role == SandlerRoles.Corporate)
-            {
-                contacts = contactsSource.GetAll().Where(record => record.IsActive == true).AsEnumerable();
-            }
-            return contacts;
-        }
-        #endregion
-    }
+    //    public IEnumerable<TBL_CONTACTS> GetContacts(UserModel user)
+    //    {
+    //        ContactsRepository contactsSource = new ContactsRepository();
+    //        IEnumerable<TBL_CONTACTS> contacts = null;
+    //        if (user.Role == SandlerRoles.FranchiseeUser)
+    //            contacts = contactsSource.GetAll().Where(record => record.IsActive == true && record.CreatedBy.ToLower() == user.UserId.ToString().ToLower()).AsEnumerable();
+    //        else if (user.Role == SandlerRoles.FranchiseeOwner)
+    //        {
+    //            //contacts = contactsSource.GetAll().Where(record => record.IsActive == true && record.TBL_COMPANIES.FranchiseeId == user.FranchiseeID).AsEnumerable();
+    //            contacts = from contact in contactsSource.GetAll().Where(r => r.IsNewAppointment == true && r.IsActive == true)
+    //                       from company in new CompaniesRepository().GetAll().Where(c => c.IsActive == true && c.COMPANIESID == contact.COMPANYID && c.FranchiseeId == user.FranchiseeID)
+    //                       select contact;
+    //        }
+    //        else if (user.Role == SandlerRoles.Coach)
+    //        {
+    //            FranchiseeRepository franchiseeSource = new FranchiseeRepository();
+    //            CoachRepository coachSource = new CoachRepository();
+    //            contacts = from contact in contactsSource.GetAll().Where(r => r.IsActive == true)
+    //                       from co in new CompaniesRepository().GetAll().Where(c => c.IsActive == true)
+    //                       from f in franchiseeSource.GetAll().Where(r => r.IsActive == true)
+    //                       from ch in coachSource.GetAll().Where(r => r.IsActive == true)
+    //                       where co.FranchiseeId == f.ID && f.CoachID == ch.ID && ch.ID == user.CoachID
+    //                       select contact;
+
+    //        }
+    //        else if (user.Role == SandlerRoles.Corporate)
+    //        {
+    //            contacts = contactsSource.GetAll().Where(record => record.IsActive == true).AsEnumerable();
+    //        }
+    //        return contacts;
+    //    }
+    //    #endregion
+    //}
 }

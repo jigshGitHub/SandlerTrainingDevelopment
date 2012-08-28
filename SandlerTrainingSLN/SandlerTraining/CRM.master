@@ -8,6 +8,7 @@
 <head runat="server">
     <title></title>
     <link href="~/Styles/CRMSite.css" rel="stylesheet" type="text/css" />
+    <link href="~/Styles/KoGrid.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="~/Styles/Menu/style.css" type="text/css" media="screen, projection" />
     <!--[if lte IE 7]>
         <link rel="stylesheet" type="text/css" href="~/Styles/Menu/ie.css" media="screen" />
@@ -24,6 +25,9 @@
     <script type="text/javascript" src="<%= Page.ResolveClientUrl("~/Scripts/consolelog.min.js") %>"></script>
     <script type="text/javascript" src="<%= Page.ResolveClientUrl("~/Scripts/plugins.js") %>"></script>
     <script type="text/javascript" language="javascript" src="<%= Page.ResolveClientUrl("~/Scripts/jquery.dropdownPlain.js") %>"></script>
+    <script type="text/javascript" src="<%= Page.ResolveClientUrl("~/Scripts/knockout-2.1.0.js") %>"></script>
+    <script type="text/javascript" src="<%= Page.ResolveClientUrl("~/Scripts/knockout-validation.js") %>"></script>
+    <script type="text/javascript" src="<%= Page.ResolveClientUrl("~/Scripts/koGrid.debug.js") %>"></script>
     <form id="Form1" runat="server">
     <div class="page">
         <div class="header">

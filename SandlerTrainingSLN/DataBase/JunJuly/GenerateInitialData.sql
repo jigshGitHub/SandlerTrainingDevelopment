@@ -10,7 +10,7 @@ BEGIN TRY
 		EXEC [dbo].[aspnet_Roles_CreateRole] 'SandlerTraining','SiteAdmin';
 		
 		EXEC [dbo].[aspnet_Membership_CreateUser] @ApplicationName = N'SandlerTraining', @UserName = N'siteadmin', @Password = N'GNbb2dozNE4rulc7W8bRCSf8g5s=', @PasswordSalt = N'v6TQ0qbGAUIcMs/zYNhlbA==', @Email = N'siteadmin@siteadmin.com', @PasswordQuestion = NULL, @PasswordAnswer = NULL, @IsApproved = 1, @CurrentTimeUtc = @CurrentTime, @CreateDate = @CurrentTime, @UniqueEmail = NULL, @PasswordFormat = 1, @UserId = @User_Id OUTPUT;
-		
+		SET @User_Id = NULL;
 		EXEC [dbo].[aspnet_UsersInRoles_AddUsersToRoles] @ApplicationName = N'SandlerTraining', @UserNames = N'siteadmin', @RoleNames = N'siteadmin', @CurrentTimeUtc = @CurrentTime;
 		
 		PRINT 'SiteAdmin created.'
@@ -60,6 +60,7 @@ BEGIN TRY
 		EXEC sp_CreateRegion @name = 'South East',  @countryCode = 'US',  @region_Id = @regionID OUTPUT;
 		EXEC sp_CreateRegion @name = 'South Central',  @countryCode = 'US',  @region_Id = @regionID OUTPUT;
 		EXEC sp_CreateRegion @name = 'West',  @countryCode = 'US',  @region_Id = @regionID OUTPUT;
+		EXEC sp_CreateRegion @name = 'Boise Idaho',  @countryCode = 'US',  @region_Id = @regionID OUTPUT;
 
 		EXEC sp_CreateRegion @name = 'Canada-Eastern',  @countryCode = 'CA',  @region_Id = @regionID OUTPUT;
 		EXEC sp_CreateRegion @name = 'Canada-Western',  @countryCode = 'CA',  @region_Id = @regionID OUTPUT;
@@ -73,56 +74,48 @@ BEGIN TRY
 		
 		PRINT 'CorporateUser created.'
 		-- COACH
-		DECLARE @coachId int
+		DECLARE @_coachId int
+		DECLARE @franchiseeId int
+		DECLARE @userId uniqueidentifier
 
-		EXECUTE sp_CreateCoach @user_Name = 'necoach', @_email = 'necoach@sandler.com',@region_Name = 'North East', @coach_Id = @coachId OUTPUT; 
-		EXECUTE sp_CreateCoach @user_Name = 'macoach', @_email = 'macoach@sandler.com',@region_Name = 'Mid-Atlantic', @coach_Id = @coachId OUTPUT; 		
-		EXECUTE sp_CreateCoach @user_Name = 'nccoach', @_email = 'nccoach@sandler.com',@region_Name = 'North Central', @coach_Id = @coachId OUTPUT;
-		EXECUTE sp_CreateCoach @user_Name = 'glcoach', @_email = 'glcoach@sandler.com',@region_Name = 'Great Lakes', @coach_Id = @coachId OUTPUT;
-		EXECUTE sp_CreateCoach @user_Name = 'secoach', @_email = 'secoach@sandler.com',@region_Name = 'South East', @coach_Id = @coachId OUTPUT;
-		EXECUTE sp_CreateCoach @user_Name = 'sccoach', @_email = 'nccoach@sandler.com',@region_Name = 'South Central', @coach_Id = @coachId OUTPUT;
-		EXECUTE sp_CreateCoach @user_Name = 'wcoach', @_email = 'nccoach@sandler.com',@region_Name = 'West', @coach_Id = @coachId OUTPUT;
-		EXECUTE sp_CreateCoach @user_Name = 'cecoach', @_email = 'nccoach@sandler.com',@region_Name = 'Canada-Eastern', @coach_Id = @coachId OUTPUT;
-		EXECUTE sp_CreateCoach @user_Name = 'cwoach', @_email = 'nccoach@sandler.com',@region_Name = 'Canada-Western', @coach_Id = @coachId OUTPUT;
+		EXECUTE sp_CreateCoach @user_Name = 'necoach', @_email = 'necoach@sandler.com',@region_Name = 'North East', @coach_Id = @_coachId OUTPUT; 
+		EXECUTE sp_CreateFranchisee @user_Name = 'nectfo', @_email = 'necoach@sandler.com', @_name = 'Connecticut Fr', @coachId = @_coachId, @countryCode = 'US', @franchisee_Id = @franchiseeId OUTPUT; 
+		EXECUTE sp_CreateFranchisee_User @user_Name = 'ctfruser', @_email = 'ctfruser@sandler.com', @franchiseeId=@franchiseeId, @User_Id = @userId OUTPUT; 
+		SET @userId = NULL;
+		
+		set @_coachId = null;
+		
+		EXECUTE sp_CreateCoach @user_Name = 'macoach', @_email = 'macoach@sandler.com',@region_Name = 'Mid-Atlantic', @coach_Id = @_coachId OUTPUT; 		
+		
+		EXECUTE sp_CreateCoach @user_Name = 'nccoach', @_email = 'nccoach@sandler.com',@region_Name = 'North Central', @coach_Id = @_coachId OUTPUT;
+		EXECUTE sp_CreateFranchisee @user_Name = 'ncchfo', @_email = 'nccoach@sandler.com', @_name = 'Chicago Fr', @coachId = @_coachId, @countryCode = 'US', @franchisee_Id = @franchiseeId OUTPUT; 
+		EXECUTE sp_CreateFranchisee_User @user_Name = 'chfruser', @_email = 'chfruser@sandler.com', @franchiseeId=@franchiseeId, @User_Id = @userId OUTPUT; 
+		SET @userId = NULL;set @_coachId = null;
+		
+		EXECUTE sp_CreateCoach @user_Name = 'glcoach', @_email = 'glcoach@sandler.com',@region_Name = 'Great Lakes', @coach_Id = @_coachId OUTPUT;
+		
+		EXECUTE sp_CreateCoach @user_Name = 'secoach', @_email = 'secoach@sandler.com',@region_Name = 'South East', @coach_Id = @_coachId OUTPUT;
+		EXECUTE sp_CreateFranchisee @user_Name = 'seflfo', @_email = 'secoach@sandler.com', @_name = 'Florida Fr', @coachId = @_coachId, @countryCode = 'US', @franchisee_Id = @franchiseeId OUTPUT; 
+		EXECUTE sp_CreateFranchisee_User @user_Name = 'flfruser', @_email = 'flfruser@sandler.com', @franchiseeId=@franchiseeId, @User_Id = @userId OUTPUT; 
+		SET @userId = NULL;
+		
+		set @_coachId = null;
+		
+		EXECUTE sp_CreateCoach @user_Name = 'sccoach', @_email = 'nccoach@sandler.com',@region_Name = 'South Central', @coach_Id = @_coachId OUTPUT;
+		EXECUTE sp_CreateCoach @user_Name = 'wcoach', @_email = 'nccoach@sandler.com',@region_Name = 'West', @coach_Id = @_coachId OUTPUT;
+		EXECUTE sp_CreateCoach @user_Name = 'cecoach', @_email = 'nccoach@sandler.com',@region_Name = 'Canada-Eastern', @coach_Id = @_coachId OUTPUT;
+		EXECUTE sp_CreateCoach @user_Name = 'cwoach', @_email = 'nccoach@sandler.com',@region_Name = 'Canada-Western', @coach_Id = @_coachId OUTPUT;
 		
 		PRINT 'Coaches created (7 US regions, 2 canada regions created.'
 		-- Franchisee
-		DECLARE @franchiseeId int
-
-		EXECUTE sp_CreateFranchisee @user_Name = 'nectfo', @_email = 'necoach@sandler.com', @_name = 'Connecticut Fr', @region_Name = 'North East', @countryCode = 'US', @franchisee_Id = @franchiseeId OUTPUT; 
-		EXECUTE sp_CreateFranchisee @user_Name = 'seflfo', @_email = 'secoach@sandler.com', @_name = 'Florida Fr', @region_Name = 'South East', @countryCode = 'US', @franchisee_Id = @franchiseeId OUTPUT; 
-		EXECUTE sp_CreateFranchisee @user_Name = 'ncchfo', @_email = 'nccoach@sandler.com', @_name = 'Chicago Fr', @region_Name = 'North Central', @countryCode = 'US', @franchisee_Id = @franchiseeId OUTPUT; 
-
-
-		EXECUTE sp_CreateFranchisee @user_Name = 'mamd1fo', @_email = 'mamd1fo@sandler.com', @_name = 'Neuberger and Company, Inc.', @region_Name = 'Mid-Atlantic', @countryCode = 'US', @franchisee_Id = @franchiseeId OUTPUT; 
-		EXECUTE sp_CreateFranchisee @user_Name = 'mamd2fo', @_email = 'mamd2fo@sandler.com', @_name = 'Professional Achievement Group, Inc.', @region_Name = 'Mid-Atlantic', @countryCode = 'US', @franchisee_Id = @franchiseeId OUTPUT; 
-		EXECUTE sp_CreateFranchisee @user_Name = 'mamd3fo', @_email = 'mamd3fo@sandler.com', @_name = 'McDonell Consulting & Development, Inc.', @region_Name = 'Mid-Atlantic', @countryCode = 'US', @franchisee_Id = @franchiseeId OUTPUT; 
-
-		EXECUTE sp_CreateFranchisee @user_Name = 'adarling', @_email = 'adarling@sandler.com', @_name = 'ABC Training Center', @region_Name = 'Mid-Atlantic', @countryCode = 'US', @franchisee_Id = @franchiseeId OUTPUT; 
-		EXECUTE sp_CreateFranchisee @user_Name = 'pdarling', @_email = 'pdarling@sandler.com', @_name = 'XYZ Training Center', @region_Name = 'Mid-Atlantic', @countryCode = 'US', @franchisee_Id = @franchiseeId OUTPUT; 
 		
-		PRINT '8 Franchisees created.'
+		
+
+		PRINT 'Franchisees created.'
 		-- Franchisee Users
-		DECLARE @userId uniqueidentifier
-		EXECUTE sp_CreateFranchisee_User @user_Name = 'ctfruser', @_email = 'ctfruser@sandler.com', @franchisee_Name = 'Connecticut Fr', @User_Id = @userId OUTPUT; 
-		SET @userId = NULL;
-		EXECUTE sp_CreateFranchisee_User @user_Name = 'flfruser', @_email = 'flfruser@sandler.com', @franchisee_Name = 'Florida Fr', @User_Id = @userId OUTPUT; 
-		SET @userId = NULL;
-		EXECUTE sp_CreateFranchisee_User @user_Name = 'chfruser', @_email = 'chfruser@sandler.com', @franchisee_Name = 'Chicago Fr', @User_Id = @userId OUTPUT; 
-		SET @userId = NULL;
+		
 
-		EXECUTE sp_CreateFranchisee_User @user_Name = 'abcuser1', @_email = 'abcuser1@sandler.com', @franchisee_Name = 'ABC Training Center', @User_Id = @userId OUTPUT; 
-		SET @userId = NULL;
-		EXECUTE sp_CreateFranchisee_User @user_Name = 'xyzuser1', @_email = 'xyzuser1@sandler.com', @franchisee_Name = 'XYZ Training Center', @User_Id = @userId OUTPUT; 
-		SET @userId = NULL;
-		
-		EXECUTE sp_CreateFranchisee_User @user_Name = 'mamd1fouser1', @_email = 'mamd1fouser1@sandler.com', @franchisee_Name = 'Neuberger and Company, Inc.', @User_Id = @userId OUTPUT; 
-		SET @userId = NULL;
-		EXECUTE sp_CreateFranchisee_User @user_Name = 'mamd2fouser2', @_email = 'mamd2fouser2@sandler.com', @franchisee_Name = 'Professional Achievement Group, Inc.', @User_Id = @userId OUTPUT; 
-		SET @userId = NULL;
-		EXECUTE sp_CreateFranchisee_User @user_Name = 'mamd3fouser3', @_email = 'mamd3fouser3@sandler.com', @franchisee_Name = 'McDonell Consulting & Development, Inc.', @User_Id = @userId OUTPUT; 
-		
-		PRINT '8 Franchisees Users created.'
+		PRINT 'Franchisees Users created.'
 		--Charts
 		INSERT INTO [SandlerDB].[dbo].[TBL_CHART] ([Caption],[SWFile], [ChartID], [TypeOfChart] ,[YaxisName] ,[CanvasBgColor] ,[BgColor] ,[CanvasBgAlpha] ,[BgAlpha], [DrillLevelChartIDs])      
 		VALUES ('New Appointments By Source (By Month)' ,'MSColumn3D.swf','NewAppointmentsBySourceMonth','Chart','Appointment Quantity' ,'FFFFFF' ,'FFFFFF' ,'100' ,'100', 'NewAppointmentsBySource' );
@@ -169,65 +162,56 @@ BEGIN TRY
 		PRINT '[TBL_OPPORTUNITYSTATUS] data created.'
 		--[Tbl_Course] Data
 
-		SET IDENTITY_INSERT [dbo].[Tbl_Course] ON
-		INSERT [dbo].[Tbl_Course] ([CourseId], [CourseName], [IsActive], [LastUpdatedDate], [LastUpdatedBy], [CreatedBy]) VALUES (1, N'Bootcamp', 1, NULL, NULL, N'System')
-		INSERT [dbo].[Tbl_Course] ([CourseId], [CourseName], [IsActive], [LastUpdatedDate], [LastUpdatedBy], [CreatedBy]) VALUES (2, N'Foundations', 1, NULL, NULL, N'System')
-		INSERT [dbo].[Tbl_Course] ([CourseId], [CourseName], [IsActive], [LastUpdatedDate], [LastUpdatedBy], [CreatedBy]) VALUES (3, N'Management', 1, NULL, NULL, N'System')
-		INSERT [dbo].[Tbl_Course] ([CourseId], [CourseName], [IsActive], [LastUpdatedDate], [LastUpdatedBy], [CreatedBy]) VALUES (4, N'PC', 1, NULL, NULL, N'System')
-		SET IDENTITY_INSERT [dbo].[Tbl_Course] OFF
+		INSERT [dbo].[Tbl_Course] ( [CourseName], [IsActive], [LastUpdatedDate], [LastUpdatedBy], [CreatedBy]) VALUES ( N'Bootcamp', 1, NULL, NULL, N'System')
+		INSERT [dbo].[Tbl_Course] ( [CourseName], [IsActive], [LastUpdatedDate], [LastUpdatedBy], [CreatedBy]) VALUES ( N'Foundations', 1, NULL, NULL, N'System')
+		INSERT [dbo].[Tbl_Course] ( [CourseName], [IsActive], [LastUpdatedDate], [LastUpdatedBy], [CreatedBy]) VALUES ( N'Management', 1, NULL, NULL, N'System')
+		INSERT [dbo].[Tbl_Course] ( [CourseName], [IsActive], [LastUpdatedDate], [LastUpdatedBy], [CreatedBy]) VALUES ( N'PC', 1, NULL, NULL, N'System')
 		
 		PRINT '[Tbl_Course] data created.'
 		
 		--[Tbl_YesNoOptions] Data
-		SET IDENTITY_INSERT [dbo].[Tbl_YesNoOptions] ON
-		INSERT [dbo].[Tbl_YesNoOptions] ([id], [Description], [Value]) VALUES (1, N'No', 0)
-		INSERT [dbo].[Tbl_YesNoOptions] ([id], [Description], [Value]) VALUES (2, N'Yes', 1)
-		SET IDENTITY_INSERT [dbo].[Tbl_YesNoOptions] OFF
+		INSERT [dbo].[Tbl_YesNoOptions] ( [Description], [Value]) VALUES ( N'No', 0)
+		INSERT [dbo].[Tbl_YesNoOptions] ( [Description], [Value]) VALUES ( N'Yes', 1)
 		
 		PRINT '[Tbl_YesNoOptions] data created.'
 
 		--[Tbl_ProductType] Data
-		SET IDENTITY_INSERT [dbo].[Tbl_ProductType] ON
-		INSERT [dbo].[Tbl_ProductType] ([Id], [ProductTypeName], [IsActive], [LastUpdatedDate], [LastUpdatedBy], [CreatedBy],[FranchiseeId]) VALUES (1, N'Assessment', 1, NULL, NULL, N'System',0);
-		INSERT [dbo].[Tbl_ProductType] ([Id], [ProductTypeName], [IsActive], [LastUpdatedDate], [LastUpdatedBy], [CreatedBy],[FranchiseeId]) VALUES (2, N'PC', 1, NULL, NULL, N'System',0);
-		INSERT [dbo].[Tbl_ProductType] ([Id], [ProductTypeName], [IsActive], [LastUpdatedDate], [LastUpdatedBy], [CreatedBy],[FranchiseeId]) VALUES (3, N'Consulting', 1, NULL, NULL, N'System',0);
-		INSERT [dbo].[Tbl_ProductType] ([Id], [ProductTypeName], [IsActive], [LastUpdatedDate], [LastUpdatedBy], [CreatedBy],[FranchiseeId]) VALUES (4, N'Training', 1, NULL, NULL, N'System',0);
-		INSERT [dbo].[Tbl_ProductType] ([Id], [ProductTypeName], [IsActive], [LastUpdatedDate], [LastUpdatedBy], [CreatedBy],[FranchiseeId]) VALUES (5, N'Leadership', 1, NULL, NULL, N'System',0);
-		INSERT [dbo].[Tbl_ProductType] ([Id], [ProductTypeName], [IsActive], [LastUpdatedDate], [LastUpdatedBy], [CreatedBy],[FranchiseeId]) VALUES (6, N'Coaching', 1, NULL, NULL, N'System',0);
-		SET IDENTITY_INSERT [dbo].[Tbl_ProductType] OFF
+		INSERT [dbo].[Tbl_ProductType] ( [ProductTypeName], [IsActive], [LastUpdatedDate], [LastUpdatedBy], [CreatedBy],[FranchiseeId]) VALUES (N'Assessment', 1, NULL, NULL, N'System',0);
+		INSERT [dbo].[Tbl_ProductType] ( [ProductTypeName], [IsActive], [LastUpdatedDate], [LastUpdatedBy], [CreatedBy],[FranchiseeId]) VALUES (N'PC', 1, NULL, NULL, N'System',0);
+		INSERT [dbo].[Tbl_ProductType] ( [ProductTypeName], [IsActive], [LastUpdatedDate], [LastUpdatedBy], [CreatedBy],[FranchiseeId]) VALUES (N'Consulting', 1, NULL, NULL, N'System',0);
+		INSERT [dbo].[Tbl_ProductType] ( [ProductTypeName], [IsActive], [LastUpdatedDate], [LastUpdatedBy], [CreatedBy],[FranchiseeId]) VALUES (N'Training', 1, NULL, NULL, N'System',0);
+		INSERT [dbo].[Tbl_ProductType] ( [ProductTypeName], [IsActive], [LastUpdatedDate], [LastUpdatedBy], [CreatedBy],[FranchiseeId]) VALUES (N'Leadership', 1, NULL, NULL, N'System',0);
+		INSERT [dbo].[Tbl_ProductType] ( [ProductTypeName], [IsActive], [LastUpdatedDate], [LastUpdatedBy], [CreatedBy],[FranchiseeId]) VALUES (N'Coaching', 1, NULL, NULL, N'System',0);
+		
 		
 		PRINT '[Tbl_ProductType] data created.'
 
 		--[Tbl_IndustryType] Data
-		SET IDENTITY_INSERT [dbo].[Tbl_IndustryType] ON
-		INSERT [dbo].[Tbl_IndustryType] ([IndId], [IndustryTypeName], [IsActive], [LastUpdatedDate], [LastUpdatedBy], [CreatedBy]) VALUES (1, N'Professional Services', 1, NULL, NULL, N'System')
-		INSERT [dbo].[Tbl_IndustryType] ([IndId], [IndustryTypeName], [IsActive], [LastUpdatedDate], [LastUpdatedBy], [CreatedBy]) VALUES (2, N'Service Industry', 1, NULL, NULL, N'System')
-		INSERT [dbo].[Tbl_IndustryType] ([IndId], [IndustryTypeName], [IsActive], [LastUpdatedDate], [LastUpdatedBy], [CreatedBy]) VALUES (3, N'Manufacturing', 1, NULL, NULL, N'System')
-		INSERT [dbo].[Tbl_IndustryType] ([IndId], [IndustryTypeName], [IsActive], [LastUpdatedDate], [LastUpdatedBy], [CreatedBy]) VALUES (4, N'Software', 1, NULL, NULL, N'System')
-		INSERT [dbo].[Tbl_IndustryType] ([IndId], [IndustryTypeName], [IsActive], [LastUpdatedDate], [LastUpdatedBy], [CreatedBy]) VALUES (5, N'Consulting', 1, NULL, NULL, N'System')
-		SET IDENTITY_INSERT [dbo].[Tbl_IndustryType] OFF
+		INSERT [dbo].[Tbl_IndustryType] ([IndustryTypeName] ,[IsActive], [LastUpdatedDate], [LastUpdatedBy], [CreatedBy]) VALUES ('Professional Services',1, NULL, NULL, N'System')
+		INSERT [dbo].[Tbl_IndustryType] ([IndustryTypeName], [IsActive], [LastUpdatedDate], [LastUpdatedBy], [CreatedBy]) VALUES ('Service Industry', 1, NULL, NULL, N'System')
+		INSERT [dbo].[Tbl_IndustryType] ([IndustryTypeName], [IsActive], [LastUpdatedDate], [LastUpdatedBy], [CreatedBy]) VALUES ('Manufacturing', 1, NULL, NULL, N'System')
+		INSERT [dbo].[Tbl_IndustryType] ([IndustryTypeName], [IsActive], [LastUpdatedDate], [LastUpdatedBy], [CreatedBy]) VALUES ('Software', 1, NULL, NULL, N'System')
+		INSERT [dbo].[Tbl_IndustryType] ([IndustryTypeName], [IsActive], [LastUpdatedDate], [LastUpdatedBy], [CreatedBy]) VALUES ('Consulting', 1, NULL, NULL, N'System')
+		INSERT [dbo].[Tbl_IndustryType] ([IndustryTypeName], [IsActive], [LastUpdatedDate], [LastUpdatedBy], [CreatedBy]) VALUES ('High Tech', 1, NULL, NULL, N'System')
 		
 		PRINT '[Tbl_IndustryType] data created.' 
 		
 		--[Tbl_AppointmentsSource] Data
-		SET IDENTITY_INSERT [dbo].[Tbl_AppointmentsSource] ON
-		INSERT [dbo].[Tbl_AppointmentsSource] ([ApptSourceId], [ApptSourceName], [LastUpdatedDate], [LastUpdatedBy], [CreatedBy], [IsActive]) VALUES (1, N'Referral', NULL, NULL, N'System', 1)
-		INSERT [dbo].[Tbl_AppointmentsSource] ([ApptSourceId], [ApptSourceName], [LastUpdatedDate], [LastUpdatedBy], [CreatedBy], [IsActive]) VALUES (2, N'Network', NULL, NULL, N'System', 1)
-		INSERT [dbo].[Tbl_AppointmentsSource] ([ApptSourceId], [ApptSourceName], [LastUpdatedDate], [LastUpdatedBy], [CreatedBy], [IsActive]) VALUES (3, N'Talk', NULL, NULL, N'System', 1)
-		INSERT [dbo].[Tbl_AppointmentsSource] ([ApptSourceId], [ApptSourceName], [LastUpdatedDate], [LastUpdatedBy], [CreatedBy], [IsActive]) VALUES (4, N'Cold Call', NULL, NULL, N'System', 1)
-		INSERT [dbo].[Tbl_AppointmentsSource] ([ApptSourceId], [ApptSourceName], [LastUpdatedDate], [LastUpdatedBy], [CreatedBy], [IsActive]) VALUES (5, N'Follow On', NULL, NULL, N'System', 1)
-		SET IDENTITY_INSERT [dbo].[Tbl_AppointmentsSource] OFF
-
+		INSERT [dbo].[Tbl_AppointmentsSource] ( [ApptSourceName], [LastUpdatedDate], [LastUpdatedBy], [CreatedBy], [IsActive]) VALUES (N'Referral', NULL, NULL, N'System', 1)
+		INSERT [dbo].[Tbl_AppointmentsSource] ( [ApptSourceName], [LastUpdatedDate], [LastUpdatedBy], [CreatedBy], [IsActive]) VALUES (N'Network', NULL, NULL, N'System', 1)
+		INSERT [dbo].[Tbl_AppointmentsSource] ( [ApptSourceName], [LastUpdatedDate], [LastUpdatedBy], [CreatedBy], [IsActive]) VALUES (N'Talk', NULL, NULL, N'System', 1)
+		INSERT [dbo].[Tbl_AppointmentsSource] ( [ApptSourceName], [LastUpdatedDate], [LastUpdatedBy], [CreatedBy], [IsActive]) VALUES (N'Cold Call', NULL, NULL, N'System', 1)
+		INSERT [dbo].[Tbl_AppointmentsSource] ( [ApptSourceName], [LastUpdatedDate], [LastUpdatedBy], [CreatedBy], [IsActive]) VALUES (N'Follow On', NULL, NULL, N'System', 1)
+		
 		PRINT '[Tbl_AppointmentsSource] data created.' 
 		
 		--[Tbl_DocumentStatus] Data
-		SET IDENTITY_INSERT [dbo].[Tbl_DocumentStatus] ON
-		INSERT [dbo].[Tbl_DocumentStatus] ([DocStatusId], [DocStatusText], [IsActive], [CreatedBy], [UpdatedBy], [UpdatedOn]) VALUES (1, N'Daraft', 1, N'System', NULL, NULL)
-		INSERT [dbo].[Tbl_DocumentStatus] ([DocStatusId], [DocStatusText], [IsActive], [CreatedBy], [UpdatedBy], [UpdatedOn]) VALUES (2, N'In Review', 1, N'System', NULL, NULL)
-		INSERT [dbo].[Tbl_DocumentStatus] ([DocStatusId], [DocStatusText], [IsActive], [CreatedBy], [UpdatedBy], [UpdatedOn]) VALUES (3, N'Final', 1, N'System', NULL, NULL)
-		INSERT [dbo].[Tbl_DocumentStatus] ([DocStatusId], [DocStatusText], [IsActive], [CreatedBy], [UpdatedBy], [UpdatedOn]) VALUES (4, N'Approved', 1, N'System', NULL, NULL)
-		INSERT [dbo].[Tbl_DocumentStatus] ([DocStatusId], [DocStatusText], [IsActive], [CreatedBy], [UpdatedBy], [UpdatedOn]) VALUES (5, N'Reference', 1, N'System', NULL, NULL)
-		SET IDENTITY_INSERT [dbo].[Tbl_DocumentStatus] OFF
+		INSERT [dbo].[Tbl_DocumentStatus] ( [DocStatusText], [IsActive], [CreatedBy], [UpdatedBy], [UpdatedOn]) VALUES (N'Daraft', 1, N'System', NULL, NULL)
+		INSERT [dbo].[Tbl_DocumentStatus] ( [DocStatusText], [IsActive], [CreatedBy], [UpdatedBy], [UpdatedOn]) VALUES (N'In Review', 1, N'System', NULL, NULL)
+		INSERT [dbo].[Tbl_DocumentStatus] ( [DocStatusText], [IsActive], [CreatedBy], [UpdatedBy], [UpdatedOn]) VALUES (N'Final', 1, N'System', NULL, NULL)
+		INSERT [dbo].[Tbl_DocumentStatus] ( [DocStatusText], [IsActive], [CreatedBy], [UpdatedBy], [UpdatedOn]) VALUES (N'Approved', 1, N'System', NULL, NULL)
+		INSERT [dbo].[Tbl_DocumentStatus] ( [DocStatusText], [IsActive], [CreatedBy], [UpdatedBy], [UpdatedOn]) VALUES (N'Reference', 1, N'System', NULL, NULL)
+		
 		
 		PRINT '[Tbl_DocumentStatus] data created.' 
 	COMMIT TRANSACTION;

@@ -16,7 +16,18 @@ namespace SandlerModels
     {
         public int FranchiseeID { get; set; }
         public System.Guid UserID { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string ContactNumber { get; set; }
+        public string ADDRESS { get; set; }
+        public string City { get; set; }
+        public string State { get; set; }
+        public string Zip { get; set; }
+        public Nullable<int> CountryID { get; set; }
+        public Nullable<bool> IsEmailSubscribtion { get; set; }
     
+        public virtual aspnet_Users aspnet_Users { get; set; }
+        public virtual TBL_COUNTRY TBL_COUNTRY { get; set; }
         public virtual TBL_FRANCHISEE TBL_FRANCHISEE { get; set; }
     }
     

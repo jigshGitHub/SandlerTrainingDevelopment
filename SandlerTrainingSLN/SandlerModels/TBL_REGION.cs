@@ -21,12 +21,12 @@ namespace SandlerModels
     
         public int ID { get; set; }
         public string Name { get; set; }
+        public int CountryID { get; set; }
         public Nullable<bool> IsActive { get; set; }
         public Nullable<System.DateTime> LastUpdatedDate { get; set; }
         public Nullable<System.Guid> LastUpdatedBy { get; set; }
         public Nullable<System.DateTime> LastCreatedDate { get; set; }
         public Nullable<System.Guid> LastCreatedBy { get; set; }
-        public int CountryID { get; set; }
     
         public virtual ICollection<TBL_COACH> TBL_COACH { get; set; }
         public virtual TBL_COUNTRY TBL_COUNTRY { get; set; }

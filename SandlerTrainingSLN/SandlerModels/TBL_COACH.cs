@@ -27,7 +27,16 @@ namespace SandlerModels
         public Nullable<System.Guid> LastUpdatedBy { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }
         public Nullable<System.Guid> CreatedBy { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string PhoneNumber { get; set; }
+        public string ADDRESS { get; set; }
+        public string City { get; set; }
+        public string State { get; set; }
+        public string Zip { get; set; }
+        public Nullable<bool> IsEmailSubscribtion { get; set; }
     
+        public virtual aspnet_Users aspnet_Users { get; set; }
         public virtual TBL_REGION TBL_REGION { get; set; }
         public virtual ICollection<TBL_FRANCHISEE> TBL_FRANCHISEE { get; set; }
     }

@@ -123,6 +123,11 @@ DROP TABLE [dbo].[TBL_OPPORTUNITIES]
 GO
 
 -- TBL_CONTACTS DROPPIN CONSTRINTS and Table
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_TBL_CONTACTS_IsEmailSubscribtion]') AND type = 'D')
+BEGIN
+ALTER TABLE [dbo].[TBL_CONTACTS] DROP CONSTRAINT [DF_TBL_CONTACTS_IsEmailSubscribtion]
+END
+GO
 IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_TBL_CONTACTS_TBL_Companies]') AND parent_object_id = OBJECT_ID(N'[dbo].[TBL_CONTACTS]'))
 ALTER TABLE [dbo].[TBL_CONTACTS] DROP CONSTRAINT [FK_TBL_CONTACTS_TBL_Companies]
 GO
@@ -234,6 +239,23 @@ IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Tbl_D
 DROP TABLE [dbo].[Tbl_DocumentStatus]
 GO
 
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_TBL_FRANCHISEE_USERS_aspnet_Users]') AND parent_object_id = OBJECT_ID(N'[dbo].[TBL_FRANCHISEE_USERS]'))
+ALTER TABLE [dbo].[TBL_FRANCHISEE_USERS] DROP CONSTRAINT [FK_TBL_FRANCHISEE_USERS_aspnet_Users]
+GO
+
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_TBL_FRANCHISEE_USERS_TBL_COUNTRY]') AND parent_object_id = OBJECT_ID(N'[dbo].[TBL_FRANCHISEE_USERS]'))
+ALTER TABLE [dbo].[TBL_FRANCHISEE_USERS] DROP CONSTRAINT [FK_TBL_FRANCHISEE_USERS_TBL_COUNTRY]
+GO
+
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_TBL_FRANCHISEE_USERS_TBL_FRANCHISEE]') AND parent_object_id = OBJECT_ID(N'[dbo].[TBL_FRANCHISEE_USERS]'))
+ALTER TABLE [dbo].[TBL_FRANCHISEE_USERS] DROP CONSTRAINT [FK_TBL_FRANCHISEE_USERS_TBL_FRANCHISEE]
+GO
+
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_TBL_FRANCHISEE_USERS_IsEmailSubscribtion]') AND type = 'D')
+BEGIN
+ALTER TABLE [dbo].[TBL_FRANCHISEE_USERS] DROP CONSTRAINT [DF_TBL_FRANCHISEE_USERS_IsEmailSubscribtion]
+END
+GO
 
 IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[TBL_FRANCHISEE_USERS]') AND type in (N'U'))
 DROP TABLE [dbo].TBL_FRANCHISEE_USERS
@@ -247,18 +269,15 @@ IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[TBL_F
 DROP TABLE [dbo].TBL_FRANCHISEE
 GO
 
+USE [SandlerDB]
+GO
+
 IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_TBL_COACH_aspnet_Users]') AND parent_object_id = OBJECT_ID(N'[dbo].[TBL_COACH]'))
 ALTER TABLE [dbo].[TBL_COACH] DROP CONSTRAINT [FK_TBL_COACH_aspnet_Users]
 GO
 
 IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_TBL_COACH_TBL_REGION]') AND parent_object_id = OBJECT_ID(N'[dbo].[TBL_COACH]'))
 ALTER TABLE [dbo].[TBL_COACH] DROP CONSTRAINT [FK_TBL_COACH_TBL_REGION]
-GO
-
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_TBL_COACH_CreatedDate]') AND type = 'D')
-BEGIN
-ALTER TABLE [dbo].[TBL_COACH] DROP CONSTRAINT [DF_TBL_COACH_CreatedDate]
-END
 GO
 
 IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_TBL_COACH_IsActive]') AND type = 'D')
@@ -273,9 +292,22 @@ ALTER TABLE [dbo].[TBL_COACH] DROP CONSTRAINT [DF_TBL_COACH_LastCreatedDate]
 END
 GO
 
-IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[TBL_COACH]') AND type in (N'U'))
-DROP TABLE [dbo].TBL_COACH
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_TBL_COACH_CreatedDate]') AND type = 'D')
+BEGIN
+ALTER TABLE [dbo].[TBL_COACH] DROP CONSTRAINT [DF_TBL_COACH_CreatedDate]
+END
 GO
+
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_TBL_COACH_IsEmailSubscribtion]') AND type = 'D')
+BEGIN
+ALTER TABLE [dbo].[TBL_COACH] DROP CONSTRAINT [DF_TBL_COACH_IsEmailSubscribtion]
+END
+GO
+
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[TBL_COACH]') AND type in (N'U'))
+DROP TABLE [dbo].[TBL_COACH]
+GO
+
 
 IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_TBL_REGION_TBL_COUNTRY]') AND parent_object_id = OBJECT_ID(N'[dbo].[TBL_REGION]'))
 ALTER TABLE [dbo].[TBL_REGION] DROP CONSTRAINT [FK_TBL_REGION_TBL_COUNTRY]
@@ -454,6 +486,14 @@ CREATE TABLE [dbo].[TBL_COACH](
 	[LastUpdatedBy] [uniqueidentifier] NULL,
 	[CreatedDate] [datetime] NULL,
 	[CreatedBy] [uniqueidentifier] NULL,
+	[FirstName] [nvarchar](50) NULL,
+	[LastName] [nvarchar](50) NULL,
+	[PhoneNumber] [nvarchar](25) NULL,
+	[ADDRESS] [nvarchar](50) NULL,
+	[City] [nvarchar](25) NULL,
+	[State] [nvarchar](25) NULL,
+	[Zip] [nvarchar](10) NULL,
+	[IsEmailSubscribtion] [bit] NULL,
  CONSTRAINT [PK_TBL_COACH] PRIMARY KEY CLUSTERED 
 (
 	[ID] ASC
@@ -476,15 +516,17 @@ GO
 ALTER TABLE [dbo].[TBL_COACH] CHECK CONSTRAINT [FK_TBL_COACH_TBL_REGION]
 GO
 
-ALTER TABLE [dbo].[TBL_COACH] ADD  CONSTRAINT [DF_TBL_COACH_CreatedDate]  DEFAULT (getdate()) FOR [CreatedDate]
-GO
-
 ALTER TABLE [dbo].[TBL_COACH] ADD  CONSTRAINT [DF_TBL_COACH_IsActive]  DEFAULT ((1)) FOR [IsActive]
 GO
 
 ALTER TABLE [dbo].[TBL_COACH] ADD  CONSTRAINT [DF_TBL_COACH_LastCreatedDate]  DEFAULT (getdate()) FOR [LastCreatedDate]
 GO
 
+ALTER TABLE [dbo].[TBL_COACH] ADD  CONSTRAINT [DF_TBL_COACH_CreatedDate]  DEFAULT (getdate()) FOR [CreatedDate]
+GO
+
+ALTER TABLE [dbo].[TBL_COACH] ADD  CONSTRAINT [DF_TBL_COACH_IsEmailSubscribtion]  DEFAULT ((1)) FOR [IsEmailSubscribtion]
+GO
 
 CREATE TABLE [dbo].[TBL_FRANCHISEE](
 	[ID] [int] IDENTITY(1,1) NOT NULL,
@@ -535,7 +577,16 @@ GO
 
 CREATE TABLE [dbo].[TBL_FRANCHISEE_USERS](
 	[FranchiseeID] [int] NOT NULL,
-	[UserID] [uniqueidentifier] NOT NULL
+	[UserID] [uniqueidentifier] NOT NULL,
+	[FirstName] [nvarchar](50) NULL,
+	[LastName] [nvarchar](50) NULL,
+	[ContactNumber] [nvarchar](25) NULL,
+	[ADDRESS] [nvarchar](50) NULL,
+	[City] [nvarchar](25) NULL,
+	[State] [nvarchar](25) NULL,
+	[Zip] [nvarchar](10) NULL,
+	[CountryID] [int] NULL,
+	[IsEmailSubscribtion] [bit] NULL
 ) ON [PRIMARY]
 
 GO
@@ -547,6 +598,13 @@ GO
 ALTER TABLE [dbo].[TBL_FRANCHISEE_USERS] CHECK CONSTRAINT [FK_TBL_FRANCHISEE_USERS_aspnet_Users]
 GO
 
+ALTER TABLE [dbo].[TBL_FRANCHISEE_USERS]  WITH CHECK ADD  CONSTRAINT [FK_TBL_FRANCHISEE_USERS_TBL_COUNTRY] FOREIGN KEY([CountryID])
+REFERENCES [dbo].[TBL_COUNTRY] ([ID])
+GO
+
+ALTER TABLE [dbo].[TBL_FRANCHISEE_USERS] CHECK CONSTRAINT [FK_TBL_FRANCHISEE_USERS_TBL_COUNTRY]
+GO
+
 ALTER TABLE [dbo].[TBL_FRANCHISEE_USERS]  WITH CHECK ADD  CONSTRAINT [FK_TBL_FRANCHISEE_USERS_TBL_FRANCHISEE] FOREIGN KEY([FranchiseeID])
 REFERENCES [dbo].[TBL_FRANCHISEE] ([ID])
 GO
@@ -554,6 +612,8 @@ GO
 ALTER TABLE [dbo].[TBL_FRANCHISEE_USERS] CHECK CONSTRAINT [FK_TBL_FRANCHISEE_USERS_TBL_FRANCHISEE]
 GO
 
+ALTER TABLE [dbo].[TBL_FRANCHISEE_USERS] ADD  CONSTRAINT [DF_TBL_FRANCHISEE_USERS_IsEmailSubscribtion]  DEFAULT ((1)) FOR [IsEmailSubscribtion]
+GO
 -- Create lookup tables
 CREATE TABLE [dbo].[Tbl_AppointmentsSource](
 	[ApptSourceId] [int] IDENTITY(1,1) NOT NULL,
@@ -688,7 +748,7 @@ CREATE TABLE [dbo].[TBL_COMPANIES](
 	[COMPANYNAME] [varchar](max) NULL,
 	[CITY] [varchar](50) NULL,
 	[STATE] [varchar](50) NULL,
-	[ZIP] [int] NULL,
+	[ZIP] [varchar] (50)NULL,
 	[POCLastName] [varchar](50) NULL,
 	[POCFirstName] [varchar](50) NULL,
 	[POCPhone] [varchar](50) NULL,
@@ -758,6 +818,7 @@ CREATE TABLE [dbo].[TBL_CONTACTS](
 	[UpdatedBy] [varchar](50) NULL,
 	[CreatedDate]  [datetime] NULL,
 	[CreatedBy] [varchar](50) NULL,
+	[IsEmailSubscribtion] [bit] NULL,
  CONSTRAINT [PK_TBL_CONTACTS] PRIMARY KEY CLUSTERED 
 (
 	[CONTACTSID] ASC
@@ -791,6 +852,8 @@ GO
 ALTER TABLE [dbo].[TBL_CONTACTS] ADD  CONSTRAINT [DF_TBL_CONTACTS_CreatedDate]  DEFAULT (getdate()) FOR [CreatedDate]
 GO
 
+ALTER TABLE [dbo].[TBL_CONTACTS] ADD  CONSTRAINT [DF_TBL_CONTACTS_IsEmailSubscribtion]  DEFAULT ((1)) FOR [IsEmailSubscribtion]
+GO
 CREATE TABLE [dbo].[TBL_OPPORTUNITIES](
 	[ID] [int] IDENTITY(1,1) NOT NULL,
 	[COMPANYID] [int] NOT NULL,

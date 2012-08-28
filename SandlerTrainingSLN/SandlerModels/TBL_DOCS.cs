@@ -19,15 +19,16 @@ namespace SandlerModels
         public Nullable<int> OPPSID { get; set; }
         public Nullable<int> COMPANYID { get; set; }
         public string DOCUMENTSTATUS { get; set; }
+        public Nullable<int> DOCSTATUSID { get; set; }
         public Nullable<bool> IsActive { get; set; }
         public string UpdatedBy { get; set; }
-        public Nullable<System.DateTime> UpdatedDate { get; set; }
-        public System.DateTime CreatedDate { get; set; }
         public string CreatedBy { get; set; }
-        public Nullable<int> DOCSTATUSID { get; set; }
+        public Nullable<System.DateTime> CreatedDate { get; set; }
+        public Nullable<System.DateTime> UpdatedDate { get; set; }
     
-        public virtual TBL_COMPANIES TBL_COMPANIES { get; set; }
+        public virtual Tbl_DocumentStatus Tbl_DocumentStatus { get; set; }
         public virtual TBL_OPPORTUNITIES TBL_OPPORTUNITIES { get; set; }
+        public virtual TBL_COMPANIES TBL_COMPANIES { get; set; }
     }
     
 }

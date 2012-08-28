@@ -23,11 +23,6 @@ namespace SandlerModels
         public int ID { get; set; }
         public string Name { get; set; }
         public int CoachID { get; set; }
-        public Nullable<bool> IsActive { get; set; }
-        public Nullable<System.DateTime> LastCreatedDate { get; set; }
-        public Nullable<System.Guid> LastUpdatedBy { get; set; }
-        public Nullable<System.DateTime> CreatedDate { get; set; }
-        public Nullable<System.Guid> CreatedBy { get; set; }
         public string Address1 { get; set; }
         public string Address2 { get; set; }
         public string City { get; set; }
@@ -38,10 +33,15 @@ namespace SandlerModels
         public Nullable<decimal> FaxNumber { get; set; }
         public string WebAddress { get; set; }
         public string EmailAddress { get; set; }
+        public Nullable<bool> IsActive { get; set; }
+        public Nullable<System.DateTime> LastCreatedDate { get; set; }
+        public Nullable<System.Guid> LastUpdatedBy { get; set; }
+        public Nullable<System.DateTime> CreatedDate { get; set; }
+        public Nullable<System.Guid> CreatedBy { get; set; }
     
         public virtual TBL_COACH TBL_COACH { get; set; }
-        public virtual ICollection<TBL_FRANCHISEE_USERS> TBL_FRANCHISEE_USERS { get; set; }
         public virtual TBL_COUNTRY TBL_COUNTRY { get; set; }
+        public virtual ICollection<TBL_FRANCHISEE_USERS> TBL_FRANCHISEE_USERS { get; set; }
         public virtual ICollection<TBL_COMPANIES> TBL_COMPANIES { get; set; }
     }
     

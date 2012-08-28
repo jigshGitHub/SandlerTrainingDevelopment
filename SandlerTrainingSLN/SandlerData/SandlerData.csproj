@@ -60,10 +60,6 @@
       <Project>{53C1515D-FA71-43B1-B75C-A3E447584FA3}</Project>
       <Name>SandlerModels</Name>
     </ProjectReference>
-    <ProjectReference Include="..\SandlerRepositories\SandlerRepositories.csproj">
-      <Project>{F043E849-4A0E-471E-A394-148C44D16685}</Project>
-      <Name>SandlerRepositories</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

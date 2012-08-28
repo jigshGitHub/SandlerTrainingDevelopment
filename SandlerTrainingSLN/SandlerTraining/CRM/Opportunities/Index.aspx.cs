@@ -28,8 +28,9 @@ public partial class OpportunityIndex : OpportunityBasePage
         //TotalRecords = data.Count();
         //gvOpportunities.DataSource = data.Skip(SkipRecords).Take(PageSize);
         //gvOpportunities.DataBind();
+        //Status = GetOpportunityStatus(GetContact(long.Parse(record.CONTACTID.ToString())).ApptSourceId.Value).Name
         var data = from record in GetOpportunities(companyId)
-                   select new { ID = record.ID, OPPORTUNITYID = record.OpportunityID.Value, NAME = record.NAME, CompanyName = record.TBL_COMPANIES.COMPANYNAME, VALUE = record.VALUE, WEIGHTEDVALUE = record.WEIGHTEDVALUE, CloseDate = record.CLOSEDATE, SalesRep = record.SALESREPFIRSTNAME + " " + record.SALESREPLASTNAME, Status = record.TBL_OPPORTUNITYSTATUS.Name };
+                   select new { ID = record.ID, OPPORTUNITYID = record.OpportunityID.Value, NAME = record.NAME, CompanyName = GetCompany(record.COMPANYID).COMPANYNAME, VALUE = record.VALUE, WEIGHTEDVALUE = record.WEIGHTEDVALUE, CloseDate = record.CLOSEDATE, SalesRep = record.SALESREPFIRSTNAME + " " + record.SALESREPLASTNAME, Status = GetOpportunityStatus(record.STATUSID.Value).Name };
         TotalRecords = data.Count();
         //var filterRecords = 
         gvOpportunities.DataSource = IQueryableExtensions.Page(data ,PageSize, CurrentPage).AsQueryable();                                     

@@ -16,7 +16,7 @@
             <td style="width: 280px">
                 <table cellspacing="0" cellpadding="3" rules="cols" id="MainContent_dvOpportunity"
                     style="background-color: White; border-color: #999999; border-width: 1px; border-style: solid;
-                    height: 50px; width: 300px; border-collapse: collapse;">
+                    height: 50px; width: 100%; border-collapse: collapse;">
                     <tr style="color: Black; background-color: #EEEEEE; white-space: nowrap;">
                         <td style="white-space: nowrap;">
                             Company :
@@ -241,7 +241,7 @@
                             case 110: break; // . number block (Opera 9.63+ maps the "." from the number block to the "N" key (78) !!!)
                             case 190: break; // .
                             default: break;
-                            //$(this).formatCurrency({ colorize: true, negativeFormat: '(%s%n)', roundToDecimalPlace: -1, eventOnDecimalsEntered: true });                         
+                            //$(this).formatCurrency({ colorize: true, negativeFormat: '(%s%n)', roundToDecimalPlace: -1, eventOnDecimalsEntered: true });                          
                         }
                     }
                 })

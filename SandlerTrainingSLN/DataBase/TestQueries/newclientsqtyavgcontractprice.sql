@@ -1,5 +1,28 @@
+-- Based on Fr Owner (FranchiseeOwnerLevel)
+SELECT p.ProductTypeName,o.WEIGHTEDVALUE, o.COMPANYID 
+FROM TBL_OPPORTUNITIES o WITH(NOLOCK) 
+INNER JOIN Tbl_ProductType p WITH(NOLOCK) ON p.Id = o.ProductId
+INNER JOIN TBL_CONTACTS c WITH(nolock) ON c.CONTACTSID = o.CONTACTID
+INNER JOIN TBL_COMPANIES cmp WITH(NOLOCK) ON cmp.CompaniesID = c.CompanyID
+WHERE 
+cmp.IsNewCompany = 1
+AND YEAR(cmp.CreationDate) = YEAR(GETDATE()) 
+AND MONTH(cmp.CreationDate) = MONTH(DATEADD(MONTH,-1,GETDATE()))
+AND cmp.FranchiseeId = 4;
 
+SELECT SUM(o.WEIGHTEDVALUE)/5,COUNT( o.COMPANYID )
+FROM TBL_OPPORTUNITIES o WITH(NOLOCK) 
+INNER JOIN Tbl_ProductType p WITH(NOLOCK) ON p.Id = o.ProductId
+INNER JOIN TBL_CONTACTS c WITH(nolock) ON c.CONTACTSID = o.CONTACTID
+INNER JOIN TBL_COMPANIES cmp WITH(NOLOCK) ON cmp.CompaniesID = c.CompanyID
+WHERE 
+cmp.IsNewCompany = 1
+AND YEAR(cmp.CreationDate) = YEAR(GETDATE()) 
+AND MONTH(cmp.CreationDate) = MONTH(DATEADD(MONTH,-1,GETDATE()))
+AND cmp.FranchiseeId = 4
+GROUP BY p.ProductTypeName;
 
+--By coach
 SELECT p.ProductTypeName,o.WEIGHTEDVALUE, o.COMPANYID 
 FROM TBL_OPPORTUNITIES o WITH(NOLOCK) 
 INNER JOIN Tbl_ProductType p WITH(NOLOCK) ON p.Id = o.ProductId

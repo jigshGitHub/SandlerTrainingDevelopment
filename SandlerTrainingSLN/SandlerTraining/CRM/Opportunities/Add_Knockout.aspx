@@ -1,7 +1,6 @@
 ﻿<%@ Page Title="CRM" Language="C#" MasterPageFile="~/CRM.master" AutoEventWireup="true"
     CodeFile="Add_Knockout.aspx.cs" Inherits="CRMAddOpportunity_Konckout" %>
 
-<%@ Register TagPrefix="ew" Namespace="eWorld.UI" Assembly="eWorld.UI, Version=1.9.0.0, Culture=neutral, PublicKeyToken=24d65337282035f2" %>
 <%@ Import Namespace="SandlerRepositories" %>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="Server">
     <script type="text/javascript" src="<%= Page.ResolveClientUrl("~/Scripts/knockout-2.1.0.js") %>"></script>
@@ -19,7 +18,7 @@
                         border-color: #999999; border-width: 1px; border-style: None; height: 50px; width: 300px;
                         border-collapse: collapse;">
                         <tr style="color: Black; background-color: #EEEEEE; white-space: nowrap;">
-                            <td style="white-space: nowrap;">
+                            <td style="white-space: nowrap;" align="right">
                                 Select Company
                             </td>
                             <td>
@@ -30,115 +29,60 @@
                                 </select>
                             </td>
                         </tr>
-                        <tr style="color: Black; background-color: #DCDCDC; white-space: nowrap;">
-                            <td style="white-space: nowrap;">
-                                Opportunity ID
-                            </td>
-                            <td>
-                                &nbsp;:&nbsp;
-                            </td>
-                            <td>
-                                <input data-bind="text:opportunityID" type="text" />
-                            </td>
-                        </tr>
                         <tr style="color: Black; background-color: #EEEEEE; white-space: nowrap;">
-                            <td style="white-space: nowrap;">
+                            <td style="white-space: nowrap;" align="right">
                                 Opportunity Name
                             </td>
                             <td>
                                 &nbsp;:&nbsp;
                             </td>
                             <td>
-                                <input data-bind="text:opportunityName" type="text" />
-                            </td>
-                        </tr>
-                        <tr style="color: Black; background-color: #DCDCDC; white-space: nowrap;">
-                            <td style="white-space: nowrap;">
-                                Sales Represntative
-                            </td>
-                            <td>
-                                &nbsp;:&nbsp;
-                            </td>
-                            <td>
-                                &nbsp;
+                                <input data-bind="value:opportunityName" type="text" />
                             </td>
                         </tr>
                         <tr style="color: Black; background-color: #EEEEEE; white-space: nowrap;">
                             <td style="white-space: nowrap;" align="right">
-                                Last Name
+                                Sales Rep Last Name
                             </td>
                             <td>
                                 &nbsp;:&nbsp;
                             </td>
                             <td>
-                                <input data-bind="text:srLastName" type="text" />
+                                <input data-bind="value:srLastName" type="text" />
                             </td>
                         </tr>
                         <tr style="color: Black; background-color: #DCDCDC; white-space: nowrap;">
                             <td style="white-space: nowrap;" align="right">
-                                First Name
+                                Sales Rep First Name
                             </td>
                             <td>
                                 &nbsp;:&nbsp;
                             </td>
                             <td>
-                                <input data-bind="text:srFirstName" type="text" />
+                                <input data-bind="value:srLastName" type="text" />
                             </td>
                         </tr>
                         <tr style="color: Black; background-color: #EEEEEE; white-space: nowrap;">
                             <td style="white-space: nowrap;" align="right">
-                                Phone Number
+                                Sales Rep Phone Number
                             </td>
                             <td>
                                 &nbsp;:&nbsp;
                             </td>
                             <td>
-                                <input data-bind="text:srPhoneNo" type="text" />
+                                <input data-bind="value:srPhoneNo" type="text" />
                             </td>
                         </tr>
                         <tr style="color: Black; background-color: #DCDCDC; white-space: nowrap;">
-                            <td style="white-space: nowrap;">
-                                Select Contact
-                            </td>
-                            <td>
-                                &nbsp;:&nbsp;
-                            </td>
-                            <td>
-                                &nbsp;
-                            </td>
-                        </tr>
-                        <tr style="color: Black; background-color: #EEEEEE; white-space: nowrap;">
                             <td style="white-space: nowrap;" align="right">
-                                Name
+                                Product
                             </td>
                             <td>
                                 &nbsp;:&nbsp;
                             </td>
                             <td>
-                                <select data-bind="options: contacts,  optionsCaption:' ',optionsValue : 'CONTACTSID',optionsText: 'FIRSTNAME', value:contact">
+                                <select data-bind="options: products,  optionsCaption:' ',optionsValue : 'ProductID',optionsText: 'ProductTypeName', value:product">
                                 </select>
-                            </td>
-                        </tr>
-                        <tr style="color: Black; background-color: #DCDCDC; white-space: nowrap;">
-                            <td style="white-space: nowrap;" align="right">
-                                Phone
-                            </td>
-                            <td>
-                                &nbsp;:&nbsp;
-                            </td>
-                            <td>
-                                <input data-bind="text:contactPhone" type="text" />
-                            </td>
-                        </tr>
-                        <tr style="color: Black; background-color: #EEEEEE; white-space: nowrap;">
-                            <td style="white-space: nowrap;" align="right">
-                                Email
-                            </td>
-                            <td>
-                                &nbsp;:&nbsp;
-                            </td>
-                            <td>
-                                <input data-bind="text:contactEmail" type="text" />
                             </td>
                         </tr>
                         <tr style="color: Black; background-color: #DCDCDC; white-space: nowrap;">
@@ -149,8 +93,86 @@
                                 &nbsp;:&nbsp;
                             </td>
                             <td>
-                                <select data-bind="options: opportunityStatusList,  optionsCaption:' ',optionsValue : 'StatusID',optionsText: 'StatusName', value:opportunityStatus">
+                                <select data-bind="options: opportunityStatuss,  optionsCaption:' ',optionsValue : 'StatusID',optionsText: 'Name', value:opportunityStatus">
                                 </select>
+                            </td>
+                        </tr>
+                        <tr style="color: Black; background-color: #EEEEEE; white-space: nowrap;">
+                            <td style="white-space: nowrap;" align="right">
+                                Contact Name
+                            </td>
+                            <td>
+                                &nbsp;:&nbsp;
+                            </td>
+                            <td>
+                                <select data-bind="options: contacts, optionsValue:'CONTACTSID', optionsText: 'FIRSTNAME',optionsCaption: ' ', value: contact">
+                                </select>
+                            </td>
+                        </tr>
+                        <tr style="color: Black; background-color: #DCDCDC; white-space: nowrap;">
+                            <td style="white-space: nowrap;" align="right">
+                                Contact Phone
+                            </td>
+                            <td>
+                                &nbsp;:&nbsp;
+                            </td>
+                            <td>
+                                <input data-bind="value:contactPhone" type="text" />
+                            </td>
+                        </tr>
+                        <tr style="color: Black; background-color: #EEEEEE; white-space: nowrap;">
+                            <td style="white-space: nowrap;" align="right">
+                                Contact Email
+                            </td>
+                            <td>
+                                &nbsp;:&nbsp;
+                            </td>
+                            <td>
+                                <input data-bind="value:contactEmail" type="text" />
+                            </td>
+                        </tr>
+                        <tr style="color: Black; background-color: #EEEEEE; white-space: nowrap;">
+                            <td style="white-space: nowrap;" align="right">
+                                Opportunity Value
+                            </td>
+                            <td>
+                                &nbsp;:&nbsp;
+                            </td>
+                            <td>
+                                <input data-bind="value:opportunityValue" type="text" />
+                            </td>
+                        </tr>
+                        <tr style="color: Black; background-color: #EEEEEE; white-space: nowrap;">
+                            <td style="white-space: nowrap;" align="right">
+                                Win Probability %
+                            </td>
+                            <td>
+                                &nbsp;:&nbsp;
+                            </td>
+                            <td>
+                                <input data-bind="value:winProbability" type="text" />
+                            </td>
+                        </tr>
+                        <tr style="color: Black; background-color: #EEEEEE; white-space: nowrap;">
+                            <td style="white-space: nowrap;" align="right">
+                                Weighted Value
+                            </td>
+                            <td>
+                                &nbsp;:&nbsp;
+                            </td>
+                            <td>
+                                <input data-bind="value:weightedValue" type="text" />
+                            </td>
+                        </tr>
+                        <tr style="color: Black; background-color: #EEEEEE; white-space: nowrap;">
+                            <td style="white-space: nowrap;" align="right">
+                                Close Date
+                            </td>
+                            <td>
+                                &nbsp;:&nbsp;
+                            </td>
+                            <td>
+                                <input data-bind="value:closeDate" type="text" />
                             </td>
                         </tr>
                     </table>
@@ -160,76 +182,134 @@
     </table>
     <script type="text/javascript">
 
-    function OpportunityVM() {
+        function OpportunityVM() {
 
-        var href = window.location.href.split('/');
-        var baseUrl = href[0] + '//' + href[2] + '/' + href[3];
+            var href = window.location.href.split('/');
+            var baseUrl = href[0] + '//' + href[2] + '/' + href[3];
 
-        var self = this;
-        self.loaded = ko.observable(false);
-        self.frenchiseeId = ko.observable($('#<%=hdnFrenchiseeID.ClientID%>').val());
+            var self = this;
+            self.loaded = ko.observable(false);
+            self.frenchiseeId = ko.observable($('#<%=hdnFrenchiseeID.ClientID%>').val());
 
-        self.companies = ko.observableArray([]);
-        self.company = ko.observable(); // Nothing selected by default
-                                
-        self.company.subscribe(function (companyId) {
-            //alert(companyId);
-            self.contact(undefined);
-            self.contacts(undefined);
+            self.companies = ko.observableArray([]);
+            self.company = ko.observable(); // Nothing selected by default
 
-            if (companyId != '') {
-                $.ajax({
-                    url: baseUrl + "/api/Contacts/",
-                    type: 'GET',
-                    data: { companyId: companyId },
-                    success: function (data) {
-                        self.contacts(data);
-                        log(self.contacts());
-                    }
-                });
-            }
-        }.bind(this));
+            self.contacts = ko.observableArray([]);
+            self.contact = ko.observable(); // Nothing selected by default
+
+            self.opportunityID = ko.observable('');
+            self.opportunityName = ko.observable('test');
+
+            self.srFirstName = ko.observable('');
+            self.srLastName = ko.observable('');
+            self.srPhoneNo = ko.observable('');
+
+            self.products = ko.observableArray([]);
+            self.product = ko.observable(); // Nothing selected by default
+
+            self.opportunityStatuss = ko.observableArray([]);
+            self.opportunityStatus = ko.observable(); // Nothing selected by default
+
+            self.contactPhone = ko.observable('');
+            self.contactEmail = ko.observable('');
+            self.opportunityValue = ko.observable('');
+            self.winProbability = ko.observable('');
+            self.weightedValue = ko.observable('');
+            self.closeDate = ko.observable('');
+
+            self.company.subscribe(function (companyId) {
+                if (companyId != '') {
+                    $.ajax({
+                        url: baseUrl + "/api/Contacts/",
+                        type: 'GET',
+                        contentType: 'application/json',
+                        data: { companyId: companyId },
+                        success: function (data) {
+                            //log(data);
+                            $.each(data.$values, function (i, item) {
+                                //log(item);
+                                self.contacts.push(item);
+                            });
+                        },
+                        error: function (xhr, status, somthing) {
+                            log(status);
+                        }
+                    });
+                }
+            } .bind(this));
+
+            self.contact.subscribe(function (contactId) {
+                if (contactId != '') {
+                    //alert(contactId);
+                    $.ajax({
+                        url: baseUrl + "/api/Contacts/Details/",
+                        type: 'GET',
+                        contentType: 'application/json',
+                        data: { id: contactId },
+                        success: function (data) {
+                            self.contactPhone(data.PHONE);
+                            self.contactEmail(data.EMAIL);
+                        },
+                        error: function (xhr, status, somthing) {
+                            log(status);
+                        }
+                    });
+                }
+            } .bind(this));
+
+            $.ajax({
+                url: baseUrl + "/api/Companies/",
+                type: 'GET',
+                contentType: 'application/json',
+                data: { frenchiseeId: self.frenchiseeId() },
+                success: function (data) {
+                    $.each(data.$values, function (i, item) {
+                        //log(item);
+                        self.companies.push(item);
+                    });
+                },
+                error: function (xhr, status, somthing) {
+                    log(status);
+                }
+            });
 
 
-        self.opportunityID = ko.observable('');
-        self.opportunityName = ko.observable('');
+            $.ajax({
+                url: baseUrl + "/api/Products/",
+                type: 'GET',
+                contentType: 'application/json',
+                // data: { frenchiseeId: self.frenchiseeId() },
+                success: function (data) {
+                    $.each(data.$values, function (i, item) {
+                        //log(item);
+                        self.products.push(item);
+                    });
+                },
+                error: function (xhr, status, somthing) {
+                    log(status);
+                }
+            });
 
-        self.srFirstName = ko.observable('');
-        self.srLastName = ko.observable('');
-        self.srPhoneNo = ko.observable('');
+            $.ajax({
+                url: baseUrl + "/api/OpportunityStatus/",
+                type: 'GET',
+                contentType: 'application/json',
+                //data: { frenchiseeId: self.frenchiseeId() },
+                success: function (data) {
+                    $.each(data.$values, function (i, item) {
+                        //log(item);
+                        self.opportunityStatuss.push(item);
+                    });
+                },
+                error: function (xhr, status, somthing) {
+                    log(status);
+                }
+            });
+        }
+        $(document).ready(function () {
+            ko.applyBindings(new OpportunityVM());
 
-        self.contacts = ko.observableArray([]);
-        self.contact = ko.observable(); // Nothing selected by default
-                    
-        self.contactPhone = ko.observable('');
-        self.contactEmail = ko.observable('');
 
-        $.ajax({
-            url: baseUrl + "/api/Companies/",
-            type: 'GET',
-            data: { franchiseeId: self.frenchiseeId() },
-            success: function (data) {
-                self.companies(data);
-                log(self.companies());
-            }
         });
-
-        self.opportunityStatusList = ko.observableArray([]);
-        self.opportunityStatus = ko.observable();
-       
-        $.ajax({
-            url: baseUrl + "/api/OpportunityStatus/",
-            type: 'GET',
-            success: function (data) {
-                self.opportunityStatusList(data);
-                log(self.opportunityStatusList());
-            }
-        });
-    }
-    $(document).ready(function () {
-        ko.applyBindings(new OpportunityVM());
-
-
-    });
     </script>
 </asp:Content>

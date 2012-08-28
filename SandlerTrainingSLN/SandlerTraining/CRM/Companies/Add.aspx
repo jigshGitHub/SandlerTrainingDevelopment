@@ -55,7 +55,7 @@
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="Zip :">
                             <InsertItemTemplate>
-                                <asp:TextBox ID="txtZip" onkeypress="EnterOnlyNumeric()" Width="380" runat="server"
+                                <asp:TextBox ID="txtZip"  MaxLength="6"  Width="380" runat="server"
                                     Text='<%# Bind("Zip") %>'></asp:TextBox>
                                 <asp:RequiredFieldValidator ID="reqFieldValtxtZipTB" ControlToValidate="txtZip" Display="Static"
                                     InitialValue="" runat="server" ErrorMessage="Please Enter Zip to proceed.">

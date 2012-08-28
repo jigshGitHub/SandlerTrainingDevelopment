@@ -30,18 +30,21 @@ public partial class OpportunityDETAIL : OpportunityBasePage
     {
         TBL_OPPORTUNITIES record = GetOpportunity(ID);
         lblCloseDate.Text = record.CLOSEDATE.Value.ToShortDateString();
-        lblCompany.Text = record.TBL_COMPANIES.COMPANYNAME;
-        lblContact.Text = record.TBL_CONTACTS.FIRSTNAME + " " + record.TBL_CONTACTS.LASTNAME;
-        lblEmail.Text = record.TBL_CONTACTS.EMAIL;
+        TBL_COMPANIES company = GetCompany(record.COMPANYID);
+        TBL_CONTACTS contact = GetContact(record.CONTACTID);
+        lblCompany.Text = company.COMPANYNAME;
+        lblContact.Text = contact.FIRSTNAME + " " + contact.LASTNAME;
+        lblEmail.Text = contact.EMAIL;
         lblOppName.Text = record.NAME;
         lblOpportunityID.Text = record.OpportunityID.Value.ToString();
         lblOpportunityValue.Text = record.VALUE.ToString();
-        lblPhone.Text = record.TBL_CONTACTS.PHONE;
-        lblProduct.Text = record.Tbl_ProductType.ProductTypeName;
+        lblPhone.Text = contact.PHONE;
+        Tbl_ProductType product = GetProduct(record.ProductID);
+        lblProduct.Text = product.ProductTypeName;
         lblSalesRepFName.Text = record.SALESREPFIRSTNAME;
         lblSalesRepLName.Text = record.SALESREPLASTNAME;
         lblSalesRepPhone.Text = record.SALESREPPHONE;
-        lblStatus.Text = record.TBL_OPPORTUNITYSTATUS.Name;
+        lblStatus.Text = GetAppointment(contact.ApptSourceId.Value).ApptSourceName;
         lblWeightedValue.Text = record.WEIGHTEDVALUE.ToString();
         lblWinProbability.Text = record.WINPROBABILITY;        
     }

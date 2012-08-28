@@ -31,13 +31,18 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Accessibility">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
     <Reference Include="EntityFramework">
       <HintPath>..\packages\EntityFramework.4.3.1\lib\net40\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Data.Linq" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -48,6 +53,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="aspnet_Applications.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="aspnet_Membership.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="aspnet_Roles.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="aspnet_Users.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\Class1.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="Model1.Context.cs">
       <AutoGen>True</AutoGen>
@@ -66,6 +84,14 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>SandlerEDM.edmx</DependentUpon>
     </Compile>
+    <Compile Include="SandlerRepositories\AccountsRepository.cs" />
+    <Compile Include="SandlerRepositories\CompaniesRepository.cs" />
+    <Compile Include="SandlerRepositories\ContactsRepository.cs" />
+    <Compile Include="SandlerRepositories\DBFactory.cs" />
+    <Compile Include="SandlerRepositories\DocumentsRepository.cs" />
+    <Compile Include="SandlerRepositories\ForcastingRepository.cs" />
+    <Compile Include="SandlerRepositories\OpportunityRepository.cs" />
+    <Compile Include="SandlerRepositories\Repositories.cs" />
     <Compile Include="Tbl_AppointmentsSource.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -88,6 +114,9 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="TBL_DOCS.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Tbl_DocumentStatus.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="TBL_FRANCHISEE.cs">
@@ -133,6 +162,8 @@
       <LastGenOutput>Model1.cs</LastGenOutput>
     </None>
     <None Include="packages.config" />
+    <None Include="SandlerRepositories\App.config" />
+    <None Include="SandlerRepositories\packages.config" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />

@@ -39,11 +39,11 @@ namespace SandlerModels
         public string CreatedBy { get; set; }
         public Nullable<int> OpportunityID { get; set; }
     
-        public virtual TBL_COMPANIES TBL_COMPANIES { get; set; }
-        public virtual TBL_CONTACTS TBL_CONTACTS { get; set; }
         public virtual ICollection<TBL_DOCS> TBL_DOCS { get; set; }
         public virtual TBL_OPPORTUNITYSTATUS TBL_OPPORTUNITYSTATUS { get; set; }
         public virtual Tbl_ProductType Tbl_ProductType { get; set; }
+        public virtual TBL_CONTACTS TBL_CONTACTS { get; set; }
+        public virtual TBL_COMPANIES TBL_COMPANIES { get; set; }
     }
     
 }

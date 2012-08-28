@@ -16,8 +16,8 @@ namespace SandlerModels
     {
         public TBL_COMPANIES()
         {
-            this.TBL_DOCS = new HashSet<TBL_DOCS>();
             this.TBL_CONTACTS = new HashSet<TBL_CONTACTS>();
+            this.TBL_DOCS = new HashSet<TBL_DOCS>();
             this.TBL_OPPORTUNITIES = new HashSet<TBL_OPPORTUNITIES>();
         }
     
@@ -25,7 +25,7 @@ namespace SandlerModels
         public string COMPANYNAME { get; set; }
         public string CITY { get; set; }
         public string STATE { get; set; }
-        public Nullable<int> ZIP { get; set; }
+        public string ZIP { get; set; }
         public string POCLastName { get; set; }
         public string POCFirstName { get; set; }
         public string POCPhone { get; set; }
@@ -41,7 +41,7 @@ namespace SandlerModels
         public Nullable<System.DateTime> CreationDate { get; set; }
         public Nullable<int> FranchiseeId { get; set; }
         public Nullable<bool> IsActive { get; set; }
-        public System.DateTime CreatedDate { get; set; }
+        public Nullable<System.DateTime> CreatedDate { get; set; }
         public string CreatedBy { get; set; }
         public Nullable<System.DateTime> UpdatedDate { get; set; }
         public string UpdatedBy { get; set; }
@@ -49,8 +49,8 @@ namespace SandlerModels
     
         public virtual TBL_FRANCHISEE TBL_FRANCHISEE { get; set; }
         public virtual Tbl_IndustryType Tbl_IndustryType { get; set; }
-        public virtual ICollection<TBL_DOCS> TBL_DOCS { get; set; }
         public virtual ICollection<TBL_CONTACTS> TBL_CONTACTS { get; set; }
+        public virtual ICollection<TBL_DOCS> TBL_DOCS { get; set; }
         public virtual ICollection<TBL_OPPORTUNITIES> TBL_OPPORTUNITIES { get; set; }
     }
     
