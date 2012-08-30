@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/CRM.master" AutoEventWireup="true" CodeFile="Add.aspx.cs" Inherits="ContactADD" %>
+﻿<%@ Page Title="CRM - Add Contact" Language="C#" MasterPageFile="~/CRM.master" AutoEventWireup="true" CodeFile="Add.aspx.cs" Inherits="ContactADD" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 <%@ Import Namespace="SandlerRepositories" %>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="Server">
@@ -44,7 +44,7 @@
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="Phone :">
                             <InsertItemTemplate>
-                                <asp:TextBox ID="txtPhone" onkeypress="EnterOnlyNumeric()" MaxLength="50" Width="380"
+                                <asp:TextBox ID="txtPhone"  MaxLength="50" Width="380"
                                     runat="server" Text='<%# Bind("Phone") %>'></asp:TextBox>
                                 <asp:RequiredFieldValidator ID="rfvPhoneTB" ControlToValidate="txtPhone" Display="Static"
                                     InitialValue="" runat="server" ErrorMessage="Please Enter Phone to proceed.">
@@ -55,10 +55,8 @@
                         <asp:TemplateField HeaderText="E-mail :">
                             <InsertItemTemplate>
                                 <asp:TextBox ID="txtEmail" MaxLength="50" Width="380" runat="server" Text='<%# Bind("Email") %>'></asp:TextBox>
-                                <asp:RequiredFieldValidator ID="rfvEmailTB" ControlToValidate="txtEmail" Display="Static"
-                                    InitialValue="" runat="server" ErrorMessage="Please Enter Email to proceed.">
-                                    *
-                                </asp:RequiredFieldValidator>
+                                <asp:RequiredFieldValidator ID="rfvEmailTB" ControlToValidate="txtEmail" Display="Static" InitialValue="" runat="server" ErrorMessage="Please Enter Email to proceed.">*</asp:RequiredFieldValidator>
+                                <asp:RegularExpressionValidator ID="regExpVal" runat="server" ControlToValidate="txtEmail" ErrorMessage="Please Enter Valid Email address." ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*">*</asp:RegularExpressionValidator>
                             </InsertItemTemplate>
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="New Appointment?:">
@@ -126,6 +124,11 @@
                                 <asp:RequiredFieldValidator ID="NextContactDateRFV" ControlToValidate="NextContactDate" runat="server" ErrorMessage="Please Enter Next Contact Date to proceed.">*</asp:RequiredFieldValidator>
                             </InsertItemTemplate>
                         </asp:TemplateField>
+                        <asp:TemplateField HeaderText="Need to Call Back?:">
+                            <InsertItemTemplate>
+                                <asp:DropDownList ID="ddlCallBack" runat="server" DataSourceID="CallBackInfoDS" DataTextField="CallBackDescription" DataValueField="CallBackValue" SelectedValue='<%# Bind("CallBackValue") %>'></asp:DropDownList>
+                            </InsertItemTemplate>
+                        </asp:TemplateField>
                         <asp:TemplateField ShowHeader="False">
                             <InsertItemTemplate>
                                 <asp:LinkButton ID="LinkButton1" runat="server" CausesValidation="True" CommandName="Insert"
@@ -154,16 +157,14 @@
         <tr>
             <td style="width: 280px">
                 <asp:Label ID="lblResult" runat="server" ForeColor="Red"></asp:Label><br />
-                <asp:ObjectDataSource ID="CompanyDS" runat="server" TypeName="SandlerRepositories.CompaniesRepository"
-                    SelectMethod="GetCompaniesForDDL"></asp:ObjectDataSource>
-                <asp:ObjectDataSource ID="NewItemInfoDS" runat="server" TypeName="SandlerRepositories.CompaniesRepository"
-                    SelectMethod="GetNewItemOptions"></asp:ObjectDataSource>
-                <asp:ObjectDataSource ID="ApptSourceDS" runat="server" TypeName="SandlerRepositories.ContactsRepository"
-                    SelectMethod="GetApptSourceOptions"></asp:ObjectDataSource>
-                <asp:ObjectDataSource ID="RegForTrainingDS" runat="server" TypeName="SandlerRepositories.ContactsRepository"
-                    SelectMethod="GetRegForTrainingOptions"></asp:ObjectDataSource>
-                <asp:ObjectDataSource ID="CourseDS" runat="server" TypeName="SandlerRepositories.ContactsRepository"
-                    SelectMethod="GetCourseInfo"></asp:ObjectDataSource>
+                <asp:ObjectDataSource ID="CompanyDS" runat="server" TypeName="SandlerRepositories.CompaniesRepository" SelectMethod="GetCompaniesForDDL"></asp:ObjectDataSource>
+                <asp:ObjectDataSource ID="NewItemInfoDS" runat="server" TypeName="SandlerRepositories.CompaniesRepository" SelectMethod="GetNewItemOptions"></asp:ObjectDataSource>
+                
+                <asp:ObjectDataSource ID="CallBackInfoDS" runat="server" TypeName="SandlerRepositories.CompaniesRepository" SelectMethod="GetCallBackOptions"></asp:ObjectDataSource>
+
+                <asp:ObjectDataSource ID="ApptSourceDS" runat="server" TypeName="SandlerRepositories.ContactsRepository"  SelectMethod="GetApptSourceOptions"></asp:ObjectDataSource>
+                <asp:ObjectDataSource ID="RegForTrainingDS" runat="server" TypeName="SandlerRepositories.ContactsRepository" SelectMethod="GetRegForTrainingOptions"></asp:ObjectDataSource>
+                <asp:ObjectDataSource ID="CourseDS" runat="server" TypeName="SandlerRepositories.ContactsRepository" SelectMethod="GetCourseInfo"></asp:ObjectDataSource>
                 <asp:ObjectDataSource ID="ContactDataSource" runat="server" InsertMethod="Insert"
                     TypeName="SandlerRepositories.ContactsRepository">
                     <InsertParameters>
@@ -181,6 +182,7 @@
                         <asp:ControlParameter ControlID="dvContact" Name="ACTIONSTEP" PropertyName="SelectedValue" />
                         <asp:ControlParameter ControlID="dvContact" Name="Last_Contact_Date" PropertyName="SelectedValue" />
                         <asp:ControlParameter ControlID="dvContact" Name="Next_Contact_Date" PropertyName="SelectedValue" />
+                        <asp:ControlParameter ControlID="dvContact" Name="CallBackValue" PropertyName="SelectedValue" />
                     </InsertParameters>
                 </asp:ObjectDataSource>
             </td>

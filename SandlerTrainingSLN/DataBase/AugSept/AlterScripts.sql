@@ -1,3 +1,6 @@
+/*
+This script executed in 139
+*/
 ALTER TABLE TBL_COACH ADD FirstName NVARCHAR(50);
 GO
 ALTER TABLE TBL_COACH ADD LastName NVARCHAR(50);

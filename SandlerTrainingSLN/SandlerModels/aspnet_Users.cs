@@ -17,6 +17,7 @@ namespace SandlerModels
         public aspnet_Users()
         {
             this.TBL_COACH = new HashSet<TBL_COACH>();
+            this.Tbl_FollowUpItemsList = new HashSet<Tbl_FollowUpItemsList>();
             this.TBL_FRANCHISEE_USERS = new HashSet<TBL_FRANCHISEE_USERS>();
             this.aspnet_Roles = new HashSet<aspnet_Roles>();
         }
@@ -29,11 +30,11 @@ namespace SandlerModels
         public bool IsAnonymous { get; set; }
         public System.DateTime LastActivityDate { get; set; }
     
-        public virtual aspnet_Applications aspnet_Applications { get; set; }
-        public virtual aspnet_Membership aspnet_Membership { get; set; }
-        public virtual ICollection<TBL_COACH> TBL_COACH { get; set; }
-        public virtual ICollection<TBL_FRANCHISEE_USERS> TBL_FRANCHISEE_USERS { get; set; }
-        public virtual ICollection<aspnet_Roles> aspnet_Roles { get; set; }
+        internal aspnet_Membership aspnet_Membership { get; set; }
+        internal ICollection<TBL_COACH> TBL_COACH { get; set; }
+        internal ICollection<Tbl_FollowUpItemsList> Tbl_FollowUpItemsList { get; set; }
+        internal ICollection<TBL_FRANCHISEE_USERS> TBL_FRANCHISEE_USERS { get; set; }
+        internal ICollection<aspnet_Roles> aspnet_Roles { get; set; }
     }
     
 }

@@ -114,7 +114,7 @@ public partial class Account_Coach_Index : System.Web.UI.Page
                                   City = coach.City,
                                   CreatedByCorporateID = (coach.CreatedBy.HasValue) ? coach.CreatedBy.ToString() : "",
                                   Email = membership.Email,
-                                  IsEmailSubscribtion = (coach.IsEmailSubscribtion.HasValue) ? coach.IsEmailSubscribtion.Value : false,
+                                  IsEmailSubscription = (coach.IsEmailSubscription.HasValue) ? coach.IsEmailSubscription.Value : false,
                                   FirstName = coach.FirstName,
                                   ID = coach.ID,
                                   LastName = coach.LastName,

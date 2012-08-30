@@ -158,28 +158,28 @@ namespace Sandler.UI.ChartStructure
                         {
                             try
                             {
-                                if (queries.GetNewAppointmentSource(currentUser, DateTime.Now.AddMonths(int.Parse(parameter.Value)).Month) != null)
+                                //if (queries.GetNewAppointmentSource(currentUser, DateTime.Now.AddMonths(int.Parse(parameter.Value)).Month) != null)
+                                //{
+                                var newAppointments = from record in queries.GetNewAppointmentSource(currentUser, DateTime.Now.AddMonths(int.Parse(parameter.Value)).Month)
+                                                      select new { Category = record.SourceName, Count = record.Count };
+
+                                this.DataSetCollection.Add(new ChartDataSet { Color = parameter.Color, SeriesName = DateTime.Now.AddMonths(int.Parse(parameter.Value)).ToString("MMM") });
+
+                                foreach (Category category in this.Categories)
                                 {
-                                    var newAppointments = from record in queries.GetNewAppointmentSource(currentUser, DateTime.Now.AddMonths(int.Parse(parameter.Value)).Month)
-                                                          select new { Category = record.SourceName, Count = record.Count };
+                                    lastDs = this.DataSetCollection.Last();
+                                    lastDs.SetsCollection.Add(new SetValue { Label = category.Label, Link = ChartHelper.GeneratePageLink(lastDs.SeriesName, this.DrillChartIds) });
+                                }
 
-                                    this.DataSetCollection.Add(new ChartDataSet { Color = parameter.Color, SeriesName = DateTime.Now.AddMonths(int.Parse(parameter.Value)).ToString("MMM") });
-
-                                    foreach (Category category in this.Categories)
+                                foreach (var record in newAppointments)
+                                {
+                                    foreach (SetValue set in lastDs.SetsCollection)
                                     {
-                                        lastDs = this.DataSetCollection.Last();
-                                        lastDs.SetsCollection.Add(new SetValue { Label = category.Label, Link = ChartHelper.GeneratePageLink(lastDs.SeriesName, this.DrillChartIds) });
-                                    }
-
-                                    foreach (var record in newAppointments)
-                                    {
-                                        foreach (SetValue set in lastDs.SetsCollection)
-                                        {
-                                            if (set.Label == record.Category)
-                                                set.Value = record.Count.ToString();
-                                        }
+                                        if (set.Label == record.Category)
+                                            set.Value = record.Count.ToString();
                                     }
                                 }
+                                //}
                             }
                             catch (Exception ex)
                             {
@@ -206,28 +206,28 @@ namespace Sandler.UI.ChartStructure
                         {
                             try
                             {
-                                if (queries.GetNewClientsByProductType(currentUser, DateTime.Now.AddMonths(int.Parse(parameter.Value)).Month) != null)
+                                //if (queries.GetNewClientsByProductType(currentUser, DateTime.Now.AddMonths(int.Parse(parameter.Value)).Month) != null)
+                                //{
+                                var newClientsByProducts = from record in queries.GetNewClientsByProductType(currentUser, DateTime.Now.AddMonths(int.Parse(parameter.Value)).Month)
+                                                           select new { Category = record.ProductTypeName, Count = record.Count };
+
+                                this.DataSetCollection.Add(new ChartDataSet { Color = parameter.Color, SeriesName = DateTime.Now.AddMonths(int.Parse(parameter.Value)).ToString("MMM") });
+
+                                foreach (Category category in this.Categories)
                                 {
-                                    var newClientsByProducts = from record in queries.GetNewClientsByProductType(currentUser, DateTime.Now.AddMonths(int.Parse(parameter.Value)).Month)
-                                                               select new { Category = record.ProductTypeName, Count = record.Count };
+                                    lastDs = this.DataSetCollection.Last();
+                                    lastDs.SetsCollection.Add(new SetValue { Label = category.Label, Link = ChartHelper.GeneratePageLink(lastDs.SeriesName, this.DrillChartIds) });
+                                }
 
-                                    this.DataSetCollection.Add(new ChartDataSet { Color = parameter.Color, SeriesName = DateTime.Now.AddMonths(int.Parse(parameter.Value)).ToString("MMM") });
-
-                                    foreach (Category category in this.Categories)
+                                foreach (var record in newClientsByProducts)
+                                {
+                                    foreach (SetValue set in lastDs.SetsCollection)
                                     {
-                                        lastDs = this.DataSetCollection.Last();
-                                        lastDs.SetsCollection.Add(new SetValue { Label = category.Label, Link = ChartHelper.GeneratePageLink(lastDs.SeriesName, this.DrillChartIds) });
-                                    }
-
-                                    foreach (var record in newClientsByProducts)
-                                    {
-                                        foreach (SetValue set in lastDs.SetsCollection)
-                                        {
-                                            if (set.Label == record.Category)
-                                                set.Value = record.Count.ToString();
-                                        }
+                                        if (set.Label == record.Category)
+                                            set.Value = record.Count.ToString();
                                     }
                                 }
+                                //}
                             }
                             catch (Exception ex)
                             {
@@ -262,7 +262,7 @@ namespace Sandler.UI.ChartStructure
                             catch (System.InvalidOperationException)
                             {
 
-                            }                           
+                            }
 
                         }
                         break;
@@ -281,7 +281,7 @@ namespace Sandler.UI.ChartStructure
                             {
                                 int classHeadCountsCourse = queries.GetClassHeadCountsCourse(currentUser, DateTime.ParseExact(catagory.Label, "MMM", null).Month);
 
-                                int classHeadCountsIndustry = queries.GetClassHeadCountsCourse(currentUser, DateTime.ParseExact(catagory.Label, "MMM", null).Month);
+                                int classHeadCountsIndustry = queries.GetClassHeadCountsIndustry(currentUser, DateTime.ParseExact(catagory.Label, "MMM", null).Month);
 
                                 if (classHeadCountsCourse > 0 && classHeadCountsIndustry > 0)
                                 {
@@ -316,11 +316,11 @@ namespace Sandler.UI.ChartStructure
 
                                 long goalOfDollarsBooked = queries.GetGoalOfDollarsBooked(currentUser, DateTime.ParseExact(catagory.Label, "MMM", null).Month);
 
-                                if (actualDollarsBooked > 0 && goalOfDollarsBooked > 0)
-                                {
-                                    this.DataSetCollection[0].SetsCollection.Add(new SetValue { Value = actualDollarsBooked.ToString(), Link = ChartHelper.GeneratePageLink(catagory.Label, this.DrillChartIds) });
-                                    this.DataSetCollection[1].SetsCollection.Add(new SetValue { Value = ((Convert.ToDouble(actualDollarsBooked) / Convert.ToDouble(goalOfDollarsBooked)) * 100).ToString("#.##"), Link = ChartHelper.GeneratePageLink(catagory.Label, this.DrillChartIds) });
-                                }
+                                //if (actualDollarsBooked > 0 && goalOfDollarsBooked > 0)
+                                //{
+                                    this.DataSetCollection[0].SetsCollection.Add(new SetValue { Label = catagory.Label, Value = actualDollarsBooked.ToString(), Link = ChartHelper.GeneratePageLink(catagory.Label, this.DrillChartIds) });
+                                    this.DataSetCollection[1].SetsCollection.Add(new SetValue { Label = catagory.Label, Value = ((Convert.ToDouble(actualDollarsBooked) / Convert.ToDouble(goalOfDollarsBooked)) * 100).ToString("#.##"), Link = ChartHelper.GeneratePageLink(catagory.Label, this.DrillChartIds) });
+                                //}
                             }
                             catch (System.InvalidOperationException)
                             {
@@ -446,46 +446,44 @@ namespace Sandler.UI.ChartStructure
                         string[] colors = new string[] { "009999", "CC99FF", "FFFF99", "009900", "0066FF" };
                         try
                         {
-                            if (queries.AverageLengthTimeActiveClientsByIndustry(currentUser) != null)
+
+                            var AverageLengthTimeActiveClientsByIndustry = from record in queries.AverageLengthTimeActiveClientsByIndustry(currentUser)
+                                                                           select new { Industry = record.IndustryTypeName, Months = record.Months };
+
+                            IndustryTypeRepository industrySource = new IndustryTypeRepository();
+
+                            int totalMonths = 0;
+                            int frequency = 0;
+                            double totalAvgMonths;
+                            foreach (var record in industrySource.GetAll().Where(r => r.IsActive == true).AsEnumerable())
                             {
-                                var AverageLengthTimeActiveClientsByIndustry = from record in queries.AverageLengthTimeActiveClientsByIndustry(currentUser)
-                                                                               select new { Industry = record.IndustryTypeName, Months = record.Months };
-
-                                IndustryTypeRepository industrySource = new IndustryTypeRepository();
-
-                                int totalMonths = 0;
-                                int frequency = 0;
-                                double totalAvgMonths;
-                                foreach (var record in industrySource.GetAll().Where(r => r.IsActive == true).AsEnumerable())
+                                try
                                 {
-                                    try
+                                    //var companyFiltered = data.Select(r => r.Industry == record.IndustryTypeName).AsEnumerable();
+                                    //if (companyFiltered.Count() > 0)
+                                    //{
+                                    foreach (var d in AverageLengthTimeActiveClientsByIndustry)
                                     {
-                                        //var companyFiltered = data.Select(r => r.Industry == record.IndustryTypeName).AsEnumerable();
-                                        //if (companyFiltered.Count() > 0)
-                                        //{
-                                        foreach (var d in AverageLengthTimeActiveClientsByIndustry)
+                                        if (record.IndustryTypeName == d.Industry)
                                         {
-                                            if (record.IndustryTypeName == d.Industry)
-                                            {
-                                                totalMonths += d.Months;
-                                                frequency++;
-                                            }
-                                        }
-                                        if (frequency > 0)
-                                        {
-                                            totalAvgMonths = totalMonths / frequency;
-                                            //this.SetsCollection.Add(new SetValue {, , Value = data.Single(r => r.Category == record.ApptSourceName).Count.ToString() });
-                                            this.SetsCollection.Add(new SetValue { Color = colors.GetValue(colorIndex).ToString(), Label = record.IndustryTypeName, Value = totalAvgMonths.ToString("#"), Link = ChartHelper.GeneratePageLink("", this.DrillChartIds) });
-                                            frequency = 0;
-                                            totalMonths = 0;
+                                            totalMonths += d.Months;
+                                            frequency++;
                                         }
                                     }
-                                    catch (System.InvalidOperationException)
+                                    if (frequency > 0)
                                     {
-
+                                        totalAvgMonths = totalMonths / frequency;
+                                        //this.SetsCollection.Add(new SetValue {, , Value = data.Single(r => r.Category == record.ApptSourceName).Count.ToString() });
+                                        this.SetsCollection.Add(new SetValue { Color = colors.GetValue(colorIndex).ToString(), Label = record.IndustryTypeName, Value = totalAvgMonths.ToString("#"), Link = ChartHelper.GeneratePageLink("", this.DrillChartIds) });
+                                        frequency = 0;
+                                        totalMonths = 0;
                                     }
-                                    colorIndex++;
                                 }
+                                catch (System.InvalidOperationException)
+                                {
+
+                                }
+                                colorIndex++;
                             }
                         }
 
@@ -600,153 +598,153 @@ namespace Sandler.UI.ChartStructure
                 switch (this.Id)
                 {
                     case ChartID.NewAppointmentsBySource:
-                        if (queries.GetNewAppointmentSource(currentUser, DateTime.ParseExact(this.DrillBy, "MMM", null).Month) != null)
+                        //if (queries.GetNewAppointmentSource(currentUser, DateTime.ParseExact(this.DrillBy, "MMM", null).Month) != null)
+                        //{
+                        var NewAppointmentSource = from record in queries.GetNewAppointmentSource(currentUser, DateTime.ParseExact(this.DrillBy, "MMM", null).Month)
+                                                   select new { Category = record.SourceName, Count = record.Count };
+
+                        colors = new string[] { "00CC66", "0099FF", "FF3300", "9900CC", "CC6600" };
+
+                        appointmentSource = new AppointmentSourceRepository();
+                        foreach (var record in appointmentSource.GetAll().Where(r => r.IsActive == true).AsEnumerable())
                         {
-                            var NewAppointmentSource = from record in queries.GetNewAppointmentSource(currentUser, DateTime.ParseExact(this.DrillBy, "MMM", null).Month)
-                                                       select new { Category = record.SourceName, Count = record.Count };
-
-                            colors = new string[] { "00CC66", "0099FF", "FF3300", "9900CC", "CC6600" };
-
-                            appointmentSource = new AppointmentSourceRepository();
-                            foreach (var record in appointmentSource.GetAll().Where(r => r.IsActive == true).AsEnumerable())
+                            try
                             {
-                                try
-                                {
-                                    if (NewAppointmentSource.Single(r => r.Category == record.ApptSourceName) != null)
-                                        this.SetsCollection.Add(new SetValue { Color = colors.GetValue(colorIndex).ToString(), Label = record.ApptSourceName, Value = NewAppointmentSource.Single(r => r.Category == record.ApptSourceName).Count.ToString() });
-                                }
-                                catch (System.InvalidOperationException)
-                                {
-
-                                }
-                                colorIndex++;
+                                if (NewAppointmentSource.Single(r => r.Category == record.ApptSourceName) != null)
+                                    this.SetsCollection.Add(new SetValue { Color = colors.GetValue(colorIndex).ToString(), Label = record.ApptSourceName, Value = NewAppointmentSource.Single(r => r.Category == record.ApptSourceName).Count.ToString() });
                             }
+                            catch (System.InvalidOperationException)
+                            {
+
+                            }
+                            colorIndex++;
                         }
+                        //}
                         break;
 
                     case ChartID.NewClientByProductType:
-                        if (queries.GetNewClientsByProductType(currentUser, DateTime.ParseExact(this.DrillBy, "MMM", null).Month) != null)
+                        //if (queries.GetNewClientsByProductType(currentUser, DateTime.ParseExact(this.DrillBy, "MMM", null).Month) != null)
+                        //{
+                        var NewClientsByProductType = from record in queries.GetNewClientsByProductType(currentUser, DateTime.ParseExact(this.DrillBy, "MMM", null).Month)
+                                                      select new { Category = record.ProductTypeName, Count = record.Count };
+                        colors = new string[] { "CC6600", "9900CC", "FF3300", "0099FF", "00CC66", "FFFF00" };
+
+                        productTypesSource = new ProductTypesRepository();
+                        foreach (var record in productTypesSource.GetAll().Where(r => r.IsActive == true).AsEnumerable())
                         {
-                            var NewClientsByProductType = from record in queries.GetNewClientsByProductType(currentUser, DateTime.ParseExact(this.DrillBy, "MMM", null).Month)
-                                                          select new { Category = record.ProductTypeName, Count = record.Count };
-                            colors = new string[] { "CC6600", "9900CC", "FF3300", "0099FF", "00CC66", "FFFF00" };
-
-                            productTypesSource = new ProductTypesRepository();
-                            foreach (var record in productTypesSource.GetAll().Where(r => r.IsActive == true).AsEnumerable())
+                            try
                             {
-                                try
-                                {
-                                    if (NewClientsByProductType.Single(r => r.Category == record.ProductTypeName) != null)
-                                        this.SetsCollection.Add(new SetValue { Color = colors.GetValue(colorIndex).ToString(), Label = record.ProductTypeName, Value = NewClientsByProductType.Single(r => r.Category == record.ProductTypeName).Count.ToString() });
-                                }
-                                catch (System.InvalidOperationException)
-                                {
-
-                                }
-                                colorIndex++;
+                                if (NewClientsByProductType.Single(r => r.Category == record.ProductTypeName) != null)
+                                    this.SetsCollection.Add(new SetValue { Color = colors.GetValue(colorIndex).ToString(), Label = record.ProductTypeName, Value = NewClientsByProductType.Single(r => r.Category == record.ProductTypeName).Count.ToString() });
                             }
+                            catch (System.InvalidOperationException)
+                            {
+
+                            }
+                            colorIndex++;
                         }
+                        //}
                         break;
 
                     case ChartID.NewClientQuantity:
-                        if (queries.NewClientsWithProductTypes(currentUser, DateTime.ParseExact(this.DrillBy, "MMM", null).Month) != null)
+                        //if (queries.NewClientsWithProductTypes(currentUser, DateTime.ParseExact(this.DrillBy, "MMM", null).Month) != null)
+                        //{
+                        var NewClientsWithProductTypes = from record in queries.NewClientsWithProductTypes(currentUser, DateTime.ParseExact(this.DrillBy, "MMM", null).Month)
+                                                         select new { Category = record.ProductTypeName, Count = record.Count };
+
+                        colors = new string[] { "CC6600", "9900CC", "FF3300", "0099FF", "00CC66", "FFFF00" };
+
+                        productTypesSource = new ProductTypesRepository();
+                        foreach (var record in productTypesSource.GetAll().Where(r => r.IsActive == true).AsEnumerable())
                         {
-                            var NewClientsWithProductTypes = from record in queries.NewClientsWithProductTypes(currentUser, DateTime.ParseExact(this.DrillBy, "MMM", null).Month)
-                                                             select new { Category = record.ProductTypeName, Count = record.Count };
-
-                            colors = new string[] { "CC6600", "9900CC", "FF3300", "0099FF", "00CC66", "FFFF00" };
-
-                            productTypesSource = new ProductTypesRepository();
-                            foreach (var record in productTypesSource.GetAll().Where(r => r.IsActive == true).AsEnumerable())
+                            try
                             {
-                                try
-                                {
-                                    if (NewClientsWithProductTypes.Single(r => r.Category == record.ProductTypeName) != null)
-                                        this.SetsCollection.Add(new SetValue { Color = colors.GetValue(colorIndex).ToString(), Label = record.ProductTypeName, Value = NewClientsWithProductTypes.Single(r => r.Category == record.ProductTypeName).Count.ToString() });
-                                }
-                                catch (System.InvalidOperationException)
-                                {
-
-                                }
-                                colorIndex++;
+                                if (NewClientsWithProductTypes.Single(r => r.Category == record.ProductTypeName) != null)
+                                    this.SetsCollection.Add(new SetValue { Color = colors.GetValue(colorIndex).ToString(), Label = record.ProductTypeName, Value = NewClientsWithProductTypes.Single(r => r.Category == record.ProductTypeName).Count.ToString() });
                             }
+                            catch (System.InvalidOperationException)
+                            {
+
+                            }
+                            colorIndex++;
                         }
+                        //}
                         break;
 
                     case ChartID.ContractPrice:
 
-                        if (queries.ContractPriceWithProductTypes(currentUser, DateTime.ParseExact(this.DrillBy, "MMM", null).Month) != null)
+                        //if (queries.ContractPriceWithProductTypes(currentUser, DateTime.ParseExact(this.DrillBy, "MMM", null).Month) != null)
+                        //{
+                        var ContractPriceWithProductTypes = from record in queries.ContractPriceWithProductTypes(currentUser, DateTime.ParseExact(this.DrillBy, "MMM", null).Month)
+                                                            select new { Category = record.ProductTypeName, AvgPrice = record.AvgPrice };
+                        colors = new string[] { "CC6600", "9900CC", "FF3300", "0099FF", "00CC66", "FFFF00" };
+
+                        productTypesSource = new ProductTypesRepository();
+                        foreach (var record in productTypesSource.GetAll().Where(r => r.IsActive == true).AsEnumerable())
                         {
-                            var ContractPriceWithProductTypes = from record in queries.ContractPriceWithProductTypes(currentUser, DateTime.ParseExact(this.DrillBy, "MMM", null).Month)
-                                                                select new { Category = record.ProductTypeName, AvgPrice = record.AvgPrice };
-                            colors = new string[] { "CC6600", "9900CC", "FF3300", "0099FF", "00CC66", "FFFF00" };
-
-                            productTypesSource = new ProductTypesRepository();
-                            foreach (var record in productTypesSource.GetAll().Where(r => r.IsActive == true).AsEnumerable())
+                            try
                             {
-                                try
-                                {
-                                    if (ContractPriceWithProductTypes.Single(r => r.Category == record.ProductTypeName) != null)
-                                        this.SetsCollection.Add(new SetValue { Color = colors.GetValue(colorIndex).ToString(), Label = record.ProductTypeName, Value = ((ContractPriceWithProductTypes.Single(r => r.Category == record.ProductTypeName).AvgPrice) / 5).ToString() });
-                                }
-                                catch (System.InvalidOperationException)
-                                {
-
-                                }
-                                colorIndex++;
+                                if (ContractPriceWithProductTypes.Single(r => r.Category == record.ProductTypeName) != null)
+                                    this.SetsCollection.Add(new SetValue { Color = colors.GetValue(colorIndex).ToString(), Label = record.ProductTypeName, Value = ((ContractPriceWithProductTypes.Single(r => r.Category == record.ProductTypeName).AvgPrice) / 5).ToString() });
                             }
+                            catch (System.InvalidOperationException)
+                            {
+
+                            }
+                            colorIndex++;
                         }
+                        //}
                         break;
                     case ChartID.HeadcountByCourse:
-                        if (queries.GetHeadcountByCourse(currentUser, DateTime.ParseExact(this.DrillBy, "MMM", null).Month) != null)
+                        //if (queries.GetHeadcountByCourse(currentUser, DateTime.ParseExact(this.DrillBy, "MMM", null).Month) != null)
+                        //{
+                        var headCountsByCourse = from record in queries.GetHeadcountByCourse(currentUser, DateTime.ParseExact(this.DrillBy, "MMM", null).Month)
+                                                 select new { Course = record.CourseName, Count = record.Count };
+
+                        colors = new string[] { "CC6600", "9900CC", "FF3300", "0099FF", "00CC66", "FFFF00" };
+
+                        CourseRepository courseSource = new CourseRepository();
+                        foreach (var record in courseSource.GetAll().Where(r => r.IsActive == true).AsEnumerable())
                         {
-                            var headCountsByCourse = from record in queries.GetHeadcountByCourse(currentUser, DateTime.ParseExact(this.DrillBy, "MMM", null).Month)
-                                                     select new { Course = record.CourseName, Count = record.Count };
-
-                            colors = new string[] { "CC6600", "9900CC", "FF3300", "0099FF", "00CC66", "FFFF00" };
-
-                            CourseRepository courseSource = new CourseRepository();
-                            foreach (var record in courseSource.GetAll().Where(r => r.IsActive == true).AsEnumerable())
+                            try
                             {
-                                try
-                                {
-                                    if (headCountsByCourse.Single(r => r.Course == record.CourseName) != null)
-                                        this.SetsCollection.Add(new SetValue { Color = colors.GetValue(colorIndex).ToString(), Label = record.CourseName, Value = headCountsByCourse.Single(r => r.Course == record.CourseName).Count.ToString() });
-                                }
-                                catch (System.InvalidOperationException)
-                                {
-
-                                }
-                                colorIndex++;
+                                if (headCountsByCourse.Single(r => r.Course == record.CourseName) != null)
+                                    this.SetsCollection.Add(new SetValue { Color = colors.GetValue(colorIndex).ToString(), Label = record.CourseName, Value = headCountsByCourse.Single(r => r.Course == record.CourseName).Count.ToString() });
                             }
+                            catch (System.InvalidOperationException)
+                            {
+
+                            }
+                            colorIndex++;
                         }
+                        //}
                         break;
                     case ChartID.HeadcountByIndustry:
                         //userEntities = new UserEntities();
                         //contacts = userEntities.GetContacts(currentUser);
 
-                        if (queries.GetHeadcountByIndustry(currentUser, DateTime.ParseExact(this.DrillBy, "MMM", null).Month) != null)
+                        //if (queries.GetHeadcountByIndustry(currentUser, DateTime.ParseExact(this.DrillBy, "MMM", null).Month) != null)
+                        //{
+                        var data = from record in queries.GetHeadcountByIndustry(currentUser, DateTime.ParseExact(this.DrillBy, "MMM", null).Month)
+                                   select new { Industry = record.IndustryTypeName, Count = record.Count };
+                        colors = new string[] { "9900CC", "FF3300", "0099FF", "00CC66", "FFFF00" };
+
+                        IndustryTypeRepository industrySource = new IndustryTypeRepository();
+                        foreach (var record in industrySource.GetAll().Where(r => r.IsActive == true).AsEnumerable())
                         {
-                            var data = from record in queries.GetHeadcountByIndustry(currentUser, DateTime.ParseExact(this.DrillBy, "MMM", null).Month)
-                                       select new { Industry = record.IndustryTypeName, Count = record.Count };
-                            colors = new string[] { "9900CC", "FF3300", "0099FF", "00CC66", "FFFF00" };
-
-                            IndustryTypeRepository industrySource = new IndustryTypeRepository();
-                            foreach (var record in industrySource.GetAll().Where(r => r.IsActive == true).AsEnumerable())
+                            try
                             {
-                                try
-                                {
-                                    if (data.Single(r => r.Industry == record.IndustryTypeName) != null)
-                                        this.SetsCollection.Add(new SetValue { Color = colors.GetValue(colorIndex).ToString(), Label = record.IndustryTypeName, Value = data.Single(r => r.Industry == record.IndustryTypeName).Count.ToString() });
-                                }
-                                catch (System.InvalidOperationException)
-                                {
-
-                                }
-                                colorIndex++;
+                                if (data.Single(r => r.Industry == record.IndustryTypeName) != null)
+                                    this.SetsCollection.Add(new SetValue { Color = colors.GetValue(colorIndex).ToString(), Label = record.IndustryTypeName, Value = data.Single(r => r.Industry == record.IndustryTypeName).Count.ToString() });
                             }
+                            catch (System.InvalidOperationException)
+                            {
+
+                            }
+                            colorIndex++;
                         }
-                            break;
+                        //}
+                        break;
                     default:
                         break;
                 }

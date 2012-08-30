@@ -30,9 +30,9 @@ namespace SandlerModels
         public Nullable<System.Guid> CreatedBy { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }
     
-        public virtual ICollection<TBL_FRANCHISEE> TBL_FRANCHISEE { get; set; }
-        public virtual ICollection<TBL_FRANCHISEE_USERS> TBL_FRANCHISEE_USERS { get; set; }
-        public virtual ICollection<TBL_REGION> TBL_REGION { get; set; }
+        internal ICollection<TBL_FRANCHISEE> TBL_FRANCHISEE { get; set; }
+        internal ICollection<TBL_FRANCHISEE_USERS> TBL_FRANCHISEE_USERS { get; set; }
+        internal ICollection<TBL_REGION> TBL_REGION { get; set; }
     }
     
 }

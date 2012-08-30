@@ -65,6 +65,16 @@ namespace SandlerRepositories
 
         }
 
+        public DataSet GetCallList()
+        {
+            //Get the User Session
+            UserModel _user = (UserModel)HttpContext.Current.Session["CurrentUser"];
+            //Get Call List for this user
+            return db.ExecuteDataset("sp_GetCallList", "GetCallList",
+                new SqlParameter("@Role", _user.Role.ToString()), new SqlParameter("@UserId", _user.UserId.ToString()), 
+                new SqlParameter("@FranchiseeId", _user.FranchiseeID), new SqlParameter("@RegionId", _user.RegionID));
+        }
+
         public DataSet GetCourseInfo()
         {
             return db.ExecuteDataset("sp_GetCourseInfo", "CourseInfo");
@@ -91,7 +101,7 @@ namespace SandlerRepositories
         }
         public void Insert(int COMPANIESID, string LastName, string FirstName, string Phone, string Email, int Value,
             int ApptSourceId, int RegForTrainingId, int CourseId, DateTime CourseTrngDate, string DiscussionTopic, string ACTIONSTEP, 
-            DateTime Last_Contact_Date, DateTime Next_Contact_Date)
+            DateTime Last_Contact_Date, DateTime Next_Contact_Date , int CallBackValue)
         {
             
             UserModel _user = (UserModel)HttpContext.Current.Session["CurrentUser"];
@@ -114,18 +124,17 @@ namespace SandlerRepositories
                     new SqlParameter("@CourseId", CourseId), new SqlParameter("@CourseTrngDate", CourseTrngDate),
                     new SqlParameter("@DiscussionTopic", DiscussionTopic), new SqlParameter("@ACTIONSTEP", ACTIONSTEP),
                     new SqlParameter("@Last_Contact_Date", Last_Contact_Date), new SqlParameter("@Next_Contact_Date", Next_Contact_Date),
-                    new SqlParameter("@CreatedBy", _user.UserId));
-
-                UserEntitiesFactory.ReLoad();
+                    new SqlParameter("@CreatedBy", _user.UserId), new SqlParameter("@CallBackValue", CallBackValue));
             
 
+                UserEntitiesFactory.ReLoad();
         }
 
         
         public void Update(int Contactsid, int CompanyID, string LastName, string FirstName,string Phone, string Email,
             string DiscussionTopic, string ActionStep, int IsRegisteredForTrng, int IsNewAppt, int CourseId,
             int AppsSourceId,
-            DateTime LastDate, DateTime NextDate, DateTime CourseTrngDate)
+            DateTime LastDate, DateTime NextDate, DateTime CourseTrngDate, int BlastEmailSubscription, int CallBackValue)
         {
             UserModel _user = (UserModel)HttpContext.Current.Session["CurrentUser"];
 
@@ -156,9 +165,11 @@ namespace SandlerRepositories
                     new SqlParameter("@LastDate", LastDate), 
                     new SqlParameter("@NextDate", NextDate),
                     new SqlParameter("@CourseTrngDate", CourseTrngDate),
-                    new SqlParameter("@UpdatedBy", _user.UserId));
+                    new SqlParameter("@UpdatedBy", _user.UserId),
+                    new SqlParameter("@BlastEmailSubscription", BlastEmailSubscription),
+                    new SqlParameter("@CallBackValue", CallBackValue));
+
              UserEntitiesFactory.ReLoad();
-            
         }
     }
 }

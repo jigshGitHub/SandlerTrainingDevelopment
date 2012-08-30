@@ -27,7 +27,7 @@ namespace SandlerModels
         public string CreatedBy { get; set; }
         public Nullable<bool> IsActive { get; set; }
     
-        public virtual ICollection<TBL_CONTACTS> TBL_CONTACTS { get; set; }
+        internal ICollection<TBL_CONTACTS> TBL_CONTACTS { get; set; }
     }
     
 }

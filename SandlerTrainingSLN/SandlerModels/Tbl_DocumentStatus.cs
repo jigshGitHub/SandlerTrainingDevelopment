@@ -27,7 +27,7 @@ namespace SandlerModels
         public string UpdatedBy { get; set; }
         public Nullable<System.DateTime> UpdatedOn { get; set; }
     
-        public virtual ICollection<TBL_DOCS> TBL_DOCS { get; set; }
+        internal ICollection<TBL_DOCS> TBL_DOCS { get; set; }
     }
     
 }

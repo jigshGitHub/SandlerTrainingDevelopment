@@ -47,11 +47,11 @@ namespace SandlerModels
         public string UpdatedBy { get; set; }
         public string Address { get; set; }
     
-        public virtual TBL_FRANCHISEE TBL_FRANCHISEE { get; set; }
-        public virtual Tbl_IndustryType Tbl_IndustryType { get; set; }
-        public virtual ICollection<TBL_CONTACTS> TBL_CONTACTS { get; set; }
-        public virtual ICollection<TBL_DOCS> TBL_DOCS { get; set; }
-        public virtual ICollection<TBL_OPPORTUNITIES> TBL_OPPORTUNITIES { get; set; }
+        internal TBL_FRANCHISEE TBL_FRANCHISEE { get; set; }
+        internal Tbl_IndustryType Tbl_IndustryType { get; set; }
+        internal ICollection<TBL_CONTACTS> TBL_CONTACTS { get; set; }
+        internal ICollection<TBL_DOCS> TBL_DOCS { get; set; }
+        internal ICollection<TBL_OPPORTUNITIES> TBL_OPPORTUNITIES { get; set; }
     }
     
 }

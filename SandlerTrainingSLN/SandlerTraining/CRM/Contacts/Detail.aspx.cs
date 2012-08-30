@@ -61,6 +61,8 @@ public partial class ContactDETAIL : BasePage
         int AppsSourceId = default(System.Int32);
         int CourseId = default(System.Int32);
         int IsRegisteredForTrng = default(System.Int32);
+        int BlastEmailSubscription = default(System.Int32);
+        int NeedCallBack  = default(System.Int32);
         string LastName = default(System.String);
         string FirstName = default(System.String);
         string Phone = default(System.String);
@@ -133,6 +135,15 @@ public partial class ContactDETAIL : BasePage
                 IsNewAppt = Convert.ToInt32(ApptDDList.SelectedValue.ToString());
             }
         }
+        //For Need Call Back
+        {
+            DropDownList CallBackDDList = new DropDownList();
+            CallBackDDList = (DropDownList)ContactDW.FindControl("ddlCallBack");
+            if ((CallBackDDList != null))
+            {
+                NeedCallBack = Convert.ToInt32(CallBackDDList.SelectedValue.ToString());
+            }
+        }
         //For Registered for Training
         {
             DropDownList RegTrngDDList = new DropDownList();
@@ -140,6 +151,15 @@ public partial class ContactDETAIL : BasePage
             if ((RegTrngDDList != null))
             {
                 IsRegisteredForTrng = Convert.ToInt32(RegTrngDDList.SelectedValue.ToString());
+            }
+        }
+        //For Blast Email Subcription
+        {
+            DropDownList BlastEmailDDList = new DropDownList();
+            BlastEmailDDList = (DropDownList)ContactDW.FindControl("ddlBlastEmail");
+            if ((BlastEmailDDList != null))
+            {
+                BlastEmailSubscription = Convert.ToInt32(BlastEmailDDList.SelectedValue.ToString());
             }
         }
         //For Last Name
@@ -238,7 +258,7 @@ public partial class ContactDETAIL : BasePage
         {
             //Now Update the Record as validation is Ok
             SandlerRepositories.ContactsRepository contactRepository = new SandlerRepositories.ContactsRepository();
-            contactRepository.Update(Convert.ToInt32(hidContactID.Value), CompanyID, LastName, FirstName, Phone, Email, DiscussionTopic, ActionStep, IsRegisteredForTrng, IsNewAppt, CourseId, AppsSourceId, LastDate, NextDate, CourseTrngDate);
+            contactRepository.Update(Convert.ToInt32(hidContactID.Value), CompanyID, LastName, FirstName, Phone, Email, DiscussionTopic, ActionStep, IsRegisteredForTrng, IsNewAppt, CourseId, AppsSourceId, LastDate, NextDate, CourseTrngDate, BlastEmailSubscription,NeedCallBack);
             LblStatus.Text = "Contact updated successfully!";
         }
                
@@ -365,6 +385,18 @@ public partial class ContactDETAIL : BasePage
             if (LastContDateLabel.Text == "1/1/1900")
             {
                 LastContDateLabel.Text = "";
+            }
+        }
+
+
+        //For Course Trng Date - Label
+        Label NextContDateLabel = new Label();
+        NextContDateLabel = (Label)ContactDW.FindControl("lblNextContactDate");
+        if (NextContDateLabel != null)
+        {
+            if (NextContDateLabel.Text == "1/1/1900")
+            {
+                NextContDateLabel.Text = "";
             }
         }
 

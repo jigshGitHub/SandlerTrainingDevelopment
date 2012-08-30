@@ -28,8 +28,8 @@ namespace SandlerModels
         public Nullable<System.DateTime> LastCreatedDate { get; set; }
         public Nullable<System.Guid> LastCreatedBy { get; set; }
     
-        public virtual ICollection<TBL_COACH> TBL_COACH { get; set; }
-        public virtual TBL_COUNTRY TBL_COUNTRY { get; set; }
+        internal ICollection<TBL_COACH> TBL_COACH { get; set; }
+        internal TBL_COUNTRY TBL_COUNTRY { get; set; }
     }
     
 }

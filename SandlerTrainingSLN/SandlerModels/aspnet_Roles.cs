@@ -25,8 +25,7 @@ namespace SandlerModels
         public string LoweredRoleName { get; set; }
         public string Description { get; set; }
     
-        public virtual aspnet_Applications aspnet_Applications { get; set; }
-        public virtual ICollection<aspnet_Users> aspnet_Users { get; set; }
+        internal ICollection<aspnet_Users> aspnet_Users { get; set; }
     }
     
 }

@@ -25,17 +25,19 @@ namespace SandlerModels
             throw new UnintentionalCodeFirstException();
         }
     
-        public DbSet<aspnet_Applications> aspnet_Applications { get; set; }
         public DbSet<aspnet_Membership> aspnet_Membership { get; set; }
         public DbSet<aspnet_Roles> aspnet_Roles { get; set; }
         public DbSet<aspnet_Users> aspnet_Users { get; set; }
         public DbSet<Tbl_AppointmentsSource> Tbl_AppointmentsSource { get; set; }
         public DbSet<TBL_CHART> TBL_CHART { get; set; }
         public DbSet<TBL_COACH> TBL_COACH { get; set; }
+        public DbSet<TBL_COMPANIES> TBL_COMPANIES { get; set; }
+        public DbSet<TBL_CONTACTS> TBL_CONTACTS { get; set; }
         public DbSet<TBL_COUNTRY> TBL_COUNTRY { get; set; }
         public DbSet<Tbl_Course> Tbl_Course { get; set; }
         public DbSet<TBL_DOCS> TBL_DOCS { get; set; }
         public DbSet<Tbl_DocumentStatus> Tbl_DocumentStatus { get; set; }
+        public DbSet<Tbl_FollowUpItemsList> Tbl_FollowUpItemsList { get; set; }
         public DbSet<TBL_FRANCHISEE> TBL_FRANCHISEE { get; set; }
         public DbSet<TBL_FRANCHISEE_USERS> TBL_FRANCHISEE_USERS { get; set; }
         public DbSet<Tbl_IndustryType> Tbl_IndustryType { get; set; }
@@ -43,7 +45,5 @@ namespace SandlerModels
         public DbSet<TBL_OPPORTUNITYSTATUS> TBL_OPPORTUNITYSTATUS { get; set; }
         public DbSet<Tbl_ProductType> Tbl_ProductType { get; set; }
         public DbSet<TBL_REGION> TBL_REGION { get; set; }
-        public DbSet<TBL_CONTACTS> TBL_CONTACTS { get; set; }
-        public DbSet<TBL_COMPANIES> TBL_COMPANIES { get; set; }
     }
 }

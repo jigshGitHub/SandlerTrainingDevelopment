@@ -24,11 +24,11 @@ namespace SandlerModels
         public string State { get; set; }
         public string Zip { get; set; }
         public Nullable<int> CountryID { get; set; }
-        public Nullable<bool> IsEmailSubscribtion { get; set; }
+        public Nullable<bool> IsEmailSubscription { get; set; }
     
-        public virtual aspnet_Users aspnet_Users { get; set; }
-        public virtual TBL_COUNTRY TBL_COUNTRY { get; set; }
-        public virtual TBL_FRANCHISEE TBL_FRANCHISEE { get; set; }
+        internal aspnet_Users aspnet_Users { get; set; }
+        internal TBL_COUNTRY TBL_COUNTRY { get; set; }
+        internal TBL_FRANCHISEE TBL_FRANCHISEE { get; set; }
     }
     
 }

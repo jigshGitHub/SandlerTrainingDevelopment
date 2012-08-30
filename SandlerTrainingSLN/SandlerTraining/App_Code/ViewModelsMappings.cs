@@ -29,7 +29,7 @@ namespace SandlerViewModelsMappings
             _coach.State = coach.State;
             _coach.Zip = coach.Zip;
             _coach.LastUpdatedBy = _coach.CreatedBy;
-            _coach.IsEmailSubscribtion = coach.IsEmailSubscribtion;
+            _coach.IsEmailSubscription = coach.IsEmailSubscription;
         }
 
         public static void ModelToViewModel(Coach _coach, TBL_COACH coach)
@@ -43,7 +43,7 @@ namespace SandlerViewModelsMappings
             _coach.RegionID = coach.RegionID;
             _coach.State = coach.State;
             _coach.Zip = coach.Zip;
-            _coach.IsEmailSubscribtion = (coach.IsEmailSubscribtion.HasValue) ? coach.IsEmailSubscribtion.Value : false;
+            _coach.IsEmailSubscription = (coach.IsEmailSubscription.HasValue) ? coach.IsEmailSubscription.Value : false;
             _coach.ID = coach.ID;
         }
 

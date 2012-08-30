@@ -28,7 +28,7 @@ namespace SandlerViewModels
         public string City { get; set; }
         public string State { get; set; }
         public string Zip { get; set; }
-        public bool IsEmailSubscribtion { get; set; }
+        public bool IsEmailSubscription { get; set; }
         public string RegionName { get; set; }
     }
 

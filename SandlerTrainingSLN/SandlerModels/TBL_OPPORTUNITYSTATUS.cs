@@ -27,7 +27,7 @@ namespace SandlerModels
         public Nullable<System.Guid> LastUpdateBy { get; set; }
         public Nullable<System.DateTime> LastUpdatedDate { get; set; }
     
-        public virtual ICollection<TBL_OPPORTUNITIES> TBL_OPPORTUNITIES { get; set; }
+        internal ICollection<TBL_OPPORTUNITIES> TBL_OPPORTUNITIES { get; set; }
     }
     
 }

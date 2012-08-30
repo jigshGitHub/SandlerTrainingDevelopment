@@ -34,11 +34,11 @@ namespace SandlerModels
         public string City { get; set; }
         public string State { get; set; }
         public string Zip { get; set; }
-        public Nullable<bool> IsEmailSubscribtion { get; set; }
+        public Nullable<bool> IsEmailSubscription { get; set; }
     
-        public virtual aspnet_Users aspnet_Users { get; set; }
-        public virtual TBL_REGION TBL_REGION { get; set; }
-        public virtual ICollection<TBL_FRANCHISEE> TBL_FRANCHISEE { get; set; }
+        internal aspnet_Users aspnet_Users { get; set; }
+        internal TBL_REGION TBL_REGION { get; set; }
+        internal ICollection<TBL_FRANCHISEE> TBL_FRANCHISEE { get; set; }
     }
     
 }

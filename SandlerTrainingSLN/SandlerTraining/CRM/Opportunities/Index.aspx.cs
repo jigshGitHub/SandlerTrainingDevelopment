@@ -109,4 +109,32 @@ public partial class OpportunityIndex : OpportunityBasePage
         SortExpression = e.SortExpression;
         SortDirection = e.SortDirection.ToString();
     }
+    public override void VerifyRenderingInServerForm(Control control)
+    {
+        //This means that you are overriding the default implementation of the method and giving permission to the GridView to be exported as an Excel file.
+    }
+    protected void btnExportExcel_Click(object sender, ImageClickEventArgs e)
+    {
+        //Export results to Excel
+        Response.Clear();
+        Response.AddHeader("content-disposition", "attachment;filename=AllOpportunities.xls");
+        Response.Charset = "";
+        //Response.Cache.SetCacheability(HttpCacheability.NoCache)
+        Response.ContentType = "application/vnd.ms-excel";
+        this.EnableViewState = false;
+        System.IO.StringWriter stringWrite = new System.IO.StringWriter();
+        System.Web.UI.HtmlTextWriter htmlWrite = new System.Web.UI.HtmlTextWriter(stringWrite);
+        gvOpportunities.AllowPaging = false;
+        gvOpportunities.AllowSorting = false;
+        BindGrid(int.Parse(ddlCompany.SelectedValue));
+        gvOpportunities.Columns[9].Visible = false;
+        //Report is the Div which we need to Export - Gridview is under this Div
+        Report.RenderControl(htmlWrite);
+        Response.Write(stringWrite.ToString());
+        Response.End();
+        gvOpportunities.AllowPaging = true;
+        gvOpportunities.AllowSorting = true;
+        this.EnableViewState = true;
+        gvOpportunities.DataBind();
+    }
 }

@@ -1,5 +1,6 @@
-﻿<%@ Page Title="CRM" Language="C#" MasterPageFile="~/CRM.master" AutoEventWireup="true"
-    CodeFile="Index.aspx.cs" Inherits="OpportunityIndex" %>
+﻿<%@ Page Title="CRM - View Opportunities" Language="C#" MasterPageFile="~/CRM.master"
+    AutoEventWireup="true" EnableEventValidation="false" CodeFile="Index.aspx.cs"
+    Inherits="OpportunityIndex" %>
 
 <%@ Import Namespace="SandlerRepositories" %>
 <%@ Register Src="../Pager.ascx" TagName="Pager" TagPrefix="uc1" %>
@@ -21,41 +22,49 @@
         </tr>
         <tr>
             <td colspan="2">
+                <asp:ImageButton ImageUrl="~/images/excel.jpg" runat="server" ToolTip="Export To Excel"
+                    ID="btnExportExcel" OnClick="btnExportExcel_Click" />
             </td>
         </tr>
         <tr>
             <td colspan="2">
-                <asp:GridView Width="100%" ID="gvOpportunities" runat="server" AutoGenerateColumns="False"
-                    DataKeyNames="ID" AllowSorting="true" PageSize="3" OnDataBound="gvOpportunities_DataBound"
-                    OnRowDataBound="gvOpportunities_RowDataBound" ShowFooter="true" OnSorting="gvOpportunities_Sorting">
-                    <PagerStyle BackColor="#999999" ForeColor="Blue" HorizontalAlign="Center" />
-                    <Columns>
-                        <asp:BoundField DataField="ID" Visible="False" />
-                        <asp:BoundField ItemStyle-HorizontalAlign="Center" HeaderStyle-ForeColor="Blue" DataField="OPPORTUNITYID"
-                            HeaderText="ID" SortExpression="OPPORTUNITYID" />
-                        <asp:BoundField ItemStyle-HorizontalAlign="Center" HeaderStyle-ForeColor="Blue" DataField="NAME"
-                            HeaderText="Name" SortExpression="NAME" />
-                        <asp:BoundField ItemStyle-HorizontalAlign="Center" HeaderStyle-ForeColor="Blue" DataField="CompanyName"
-                            HeaderText="Company" SortExpression="CompanyName" />
-                        <asp:BoundField ItemStyle-HorizontalAlign="Center" HeaderStyle-ForeColor="Blue" DataField="WEIGHTEDVALUE"
-                            HeaderText="Weighted Value" SortExpression="WEIGHTEDVALUE" DataFormatString="{0:C}" />
-                        <asp:BoundField ItemStyle-HorizontalAlign="Center" HeaderStyle-ForeColor="Blue" DataField="VALUE"
-                            HeaderText="Value" SortExpression="VALUE" DataFormatString="{0:C}" />
-                        <asp:BoundField ItemStyle-HorizontalAlign="Center" HeaderStyle-ForeColor="Blue" DataField="CloseDate"
-                            HeaderText="Close Date" SortExpression="CloseDate" DataFormatString="{0:d}" />
-                        <asp:BoundField ItemStyle-HorizontalAlign="Center" HeaderStyle-ForeColor="Blue" DataField="SalesRep"
-                            HeaderText="Sales Rep" SortExpression="SalesRep" />
-                        <asp:BoundField ItemStyle-HorizontalAlign="Center" HeaderStyle-ForeColor="Blue" DataField="Status"
-                            HeaderText="Status" SortExpression="Status" />
-                        <asp:TemplateField ShowHeader="False">
-                            <ItemTemplate>
-                                <a href="Detail.aspx?id=<%#Eval("Id")%>">View Detail...</a>
-                            </ItemTemplate>
-                        </asp:TemplateField>
-                    </Columns>
-                    <RowStyle BackColor="#EEEEEE" ForeColor="Black" />
-                    <AlternatingRowStyle BackColor="#DCDCDC" />
-                </asp:GridView>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <div id="Report" runat="server">
+                    <asp:GridView Width="100%" ID="gvOpportunities" runat="server" AutoGenerateColumns="False"
+                        DataKeyNames="ID" AllowSorting="true" PageSize="3" OnDataBound="gvOpportunities_DataBound"
+                        OnRowDataBound="gvOpportunities_RowDataBound" ShowFooter="true" OnSorting="gvOpportunities_Sorting">
+                        <PagerStyle BackColor="#999999" ForeColor="Blue" HorizontalAlign="Center" />
+                        <Columns>
+                            <asp:BoundField DataField="ID" Visible="False" />
+                            <asp:BoundField ItemStyle-HorizontalAlign="Center" HeaderStyle-ForeColor="Blue" DataField="OPPORTUNITYID"
+                                HeaderText="ID" SortExpression="OPPORTUNITYID" />
+                            <asp:BoundField ItemStyle-HorizontalAlign="Center" HeaderStyle-ForeColor="Blue" DataField="NAME"
+                                HeaderText="Name" SortExpression="NAME" />
+                            <asp:BoundField ItemStyle-HorizontalAlign="Center" HeaderStyle-ForeColor="Blue" DataField="CompanyName"
+                                HeaderText="Company" SortExpression="CompanyName" />
+                            <asp:BoundField ItemStyle-HorizontalAlign="Center" HeaderStyle-ForeColor="Blue" DataField="WEIGHTEDVALUE"
+                                HeaderText="Weighted Value" SortExpression="WEIGHTEDVALUE" DataFormatString="{0:C}" />
+                            <asp:BoundField ItemStyle-HorizontalAlign="Center" HeaderStyle-ForeColor="Blue" DataField="VALUE"
+                                HeaderText="Value" SortExpression="VALUE" DataFormatString="{0:C}" />
+                            <asp:BoundField ItemStyle-HorizontalAlign="Center" HeaderStyle-ForeColor="Blue" DataField="CloseDate"
+                                HeaderText="Close Date" SortExpression="CloseDate" DataFormatString="{0:d}" />
+                            <asp:BoundField ItemStyle-HorizontalAlign="Center" HeaderStyle-ForeColor="Blue" DataField="SalesRep"
+                                HeaderText="Sales Rep" SortExpression="SalesRep" />
+                            <asp:BoundField ItemStyle-HorizontalAlign="Center" HeaderStyle-ForeColor="Blue" DataField="Status"
+                                HeaderText="Status" SortExpression="Status" />
+                            <asp:TemplateField ShowHeader="False">
+                                <ItemTemplate>
+                                    <a href="Detail.aspx?id=<%#Eval("Id")%>">View Detail...</a>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                        </Columns>
+                        <RowStyle BackColor="#EEEEEE" ForeColor="Black" />
+                        <AlternatingRowStyle BackColor="#DCDCDC" />
+                    </asp:GridView>
+                </div>
             </td>
         </tr>
         <tr>

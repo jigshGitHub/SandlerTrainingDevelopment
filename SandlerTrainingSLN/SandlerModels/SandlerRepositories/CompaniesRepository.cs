@@ -31,7 +31,10 @@ namespace SandlerRepositories
         {
             return (db.ExecuteDataset("sp_GetNewItemOptions", "NewItemOptions"));
         }
-
+        public DataSet GetCallBackOptions()
+        {
+            return (db.ExecuteDataset("sp_GetCallBackOptions", "CallBack"));
+        }
         public DataSet GetAllCompanies()
         {
             //Get the User Info

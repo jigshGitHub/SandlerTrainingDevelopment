@@ -3,12 +3,10 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SandlerData", "SandlerData\SandlerData.csproj", "{2A1D302E-BCC9-486C-974D-D849328781AA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SandlerModels", "SandlerModels\SandlerModels.csproj", "{53C1515D-FA71-43B1-B75C-A3E447584FA3}"
-EndProject
 Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "SandlerTraining", "SandlerTraining\", "{18E960A1-14B5-4546-B4F1-70B683B7FA47}"
 	ProjectSection(WebsiteProperties) = preProject
 		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
-		ProjectReferences = "{2A1D302E-BCC9-486C-974D-D849328781AA}|SandlerData.dll;{53C1515D-FA71-43B1-B75C-A3E447584FA3}|SandlerModels.dll;{F3E025CD-1E85-4CF9-865E-87EAEE71B18B}|SandlerControls.dll;"
+		ProjectReferences = "{2A1D302E-BCC9-486C-974D-D849328781AA}|SandlerData.dll;{F3E025CD-1E85-4CF9-865E-87EAEE71B18B}|SandlerControls.dll;{53C1515D-FA71-43B1-B75C-A3E447584FA3}|SandlerModels.dll;"
 		Debug.AspNetCompiler.VirtualPath = "/SandlerTraining"
 		Debug.AspNetCompiler.PhysicalPath = "SandlerTraining\"
 		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\SandlerTraining\"
@@ -28,6 +26,8 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "SandlerTraining", "SandlerT
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SandlerControls", "SandlerControls\SandlerControls.csproj", "{F3E025CD-1E85-4CF9-865E-87EAEE71B18B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SandlerModels", "SandlerModels\SandlerModels.csproj", "{53C1515D-FA71-43B1-B75C-A3E447584FA3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -38,10 +38,6 @@ Global
 		{2A1D302E-BCC9-486C-974D-D849328781AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2A1D302E-BCC9-486C-974D-D849328781AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2A1D302E-BCC9-486C-974D-D849328781AA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{53C1515D-FA71-43B1-B75C-A3E447584FA3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{53C1515D-FA71-43B1-B75C-A3E447584FA3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{53C1515D-FA71-43B1-B75C-A3E447584FA3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{53C1515D-FA71-43B1-B75C-A3E447584FA3}.Release|Any CPU.Build.0 = Release|Any CPU
 		{18E960A1-14B5-4546-B4F1-70B683B7FA47}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{18E960A1-14B5-4546-B4F1-70B683B7FA47}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{18E960A1-14B5-4546-B4F1-70B683B7FA47}.Release|Any CPU.ActiveCfg = Debug|Any CPU
@@ -50,6 +46,10 @@ Global
 		{F3E025CD-1E85-4CF9-865E-87EAEE71B18B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F3E025CD-1E85-4CF9-865E-87EAEE71B18B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F3E025CD-1E85-4CF9-865E-87EAEE71B18B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{53C1515D-FA71-43B1-B75C-A3E447584FA3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{53C1515D-FA71-43B1-B75C-A3E447584FA3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{53C1515D-FA71-43B1-B75C-A3E447584FA3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{53C1515D-FA71-43B1-B75C-A3E447584FA3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

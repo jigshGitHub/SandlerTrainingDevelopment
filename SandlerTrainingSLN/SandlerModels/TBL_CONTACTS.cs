@@ -39,12 +39,18 @@ namespace SandlerModels
         public string UpdatedBy { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }
         public string CreatedBy { get; set; }
-        public Nullable<bool> IsEmailSubscribtion { get; set; }
+        public Nullable<System.DateTime> Birthday { get; set; }
+        public Nullable<System.DateTime> Anniversary { get; set; }
+        public Nullable<int> CompanyYears { get; set; }
+        public string BossName { get; set; }
+        public Nullable<bool> IsNeedCallBack { get; set; }
+        public Nullable<System.DateTime> CallBackCreatedDate { get; set; }
+        public Nullable<bool> IsEmailSubscription { get; set; }
     
-        public virtual Tbl_AppointmentsSource Tbl_AppointmentsSource { get; set; }
-        public virtual Tbl_Course Tbl_Course { get; set; }
-        public virtual ICollection<TBL_OPPORTUNITIES> TBL_OPPORTUNITIES { get; set; }
-        public virtual TBL_COMPANIES TBL_COMPANIES { get; set; }
+        internal Tbl_AppointmentsSource Tbl_AppointmentsSource { get; set; }
+        internal TBL_COMPANIES TBL_COMPANIES { get; set; }
+        internal Tbl_Course Tbl_Course { get; set; }
+        internal ICollection<TBL_OPPORTUNITIES> TBL_OPPORTUNITIES { get; set; }
     }
     
 }

@@ -58,7 +58,10 @@ GO
 
 --DROP ALL CRM TABLES
 
--- [TBL_DOCS] DROPPIN CONSTRINTS and Table
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Tbl_FollowUpItemsList]') AND type in (N'U'))
+DROP TABLE [dbo].[Tbl_FollowUpItemsList]
+GO
+
 
 IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_TBL_DOCS_TBL_COMPANIES]') AND parent_object_id = OBJECT_ID(N'[dbo].[TBL_DOCS]'))
 ALTER TABLE [dbo].[TBL_DOCS] DROP CONSTRAINT [FK_TBL_DOCS_TBL_COMPANIES]
@@ -123,9 +126,9 @@ DROP TABLE [dbo].[TBL_OPPORTUNITIES]
 GO
 
 -- TBL_CONTACTS DROPPIN CONSTRINTS and Table
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_TBL_CONTACTS_IsEmailSubscribtion]') AND type = 'D')
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_TBL_CONTACTS_IsEmailSubscription]') AND type = 'D')
 BEGIN
-ALTER TABLE [dbo].[TBL_CONTACTS] DROP CONSTRAINT [DF_TBL_CONTACTS_IsEmailSubscribtion]
+ALTER TABLE [dbo].[TBL_CONTACTS] DROP CONSTRAINT [DF_TBL_CONTACTS_IsEmailSubscription]
 END
 GO
 IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_TBL_CONTACTS_TBL_Companies]') AND parent_object_id = OBJECT_ID(N'[dbo].[TBL_CONTACTS]'))
@@ -251,9 +254,9 @@ IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[
 ALTER TABLE [dbo].[TBL_FRANCHISEE_USERS] DROP CONSTRAINT [FK_TBL_FRANCHISEE_USERS_TBL_FRANCHISEE]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_TBL_FRANCHISEE_USERS_IsEmailSubscribtion]') AND type = 'D')
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_TBL_FRANCHISEE_USERS_IsEmailSubscription]') AND type = 'D')
 BEGIN
-ALTER TABLE [dbo].[TBL_FRANCHISEE_USERS] DROP CONSTRAINT [DF_TBL_FRANCHISEE_USERS_IsEmailSubscribtion]
+ALTER TABLE [dbo].[TBL_FRANCHISEE_USERS] DROP CONSTRAINT [DF_TBL_FRANCHISEE_USERS_IsEmailSubscription]
 END
 GO
 
@@ -298,9 +301,9 @@ ALTER TABLE [dbo].[TBL_COACH] DROP CONSTRAINT [DF_TBL_COACH_CreatedDate]
 END
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_TBL_COACH_IsEmailSubscribtion]') AND type = 'D')
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_TBL_COACH_IsEmailSubscription]') AND type = 'D')
 BEGIN
-ALTER TABLE [dbo].[TBL_COACH] DROP CONSTRAINT [DF_TBL_COACH_IsEmailSubscribtion]
+ALTER TABLE [dbo].[TBL_COACH] DROP CONSTRAINT [DF_TBL_COACH_IsEmailSubscription]
 END
 GO
 
@@ -493,7 +496,7 @@ CREATE TABLE [dbo].[TBL_COACH](
 	[City] [nvarchar](25) NULL,
 	[State] [nvarchar](25) NULL,
 	[Zip] [nvarchar](10) NULL,
-	[IsEmailSubscribtion] [bit] NULL,
+	[IsEmailSubscription] [bit] NULL,
  CONSTRAINT [PK_TBL_COACH] PRIMARY KEY CLUSTERED 
 (
 	[ID] ASC
@@ -525,7 +528,7 @@ GO
 ALTER TABLE [dbo].[TBL_COACH] ADD  CONSTRAINT [DF_TBL_COACH_CreatedDate]  DEFAULT (getdate()) FOR [CreatedDate]
 GO
 
-ALTER TABLE [dbo].[TBL_COACH] ADD  CONSTRAINT [DF_TBL_COACH_IsEmailSubscribtion]  DEFAULT ((1)) FOR [IsEmailSubscribtion]
+ALTER TABLE [dbo].[TBL_COACH] ADD  CONSTRAINT [DF_TBL_COACH_IsEmailSubscription]  DEFAULT ((1)) FOR [IsEmailSubscription]
 GO
 
 CREATE TABLE [dbo].[TBL_FRANCHISEE](
@@ -586,7 +589,7 @@ CREATE TABLE [dbo].[TBL_FRANCHISEE_USERS](
 	[State] [nvarchar](25) NULL,
 	[Zip] [nvarchar](10) NULL,
 	[CountryID] [int] NULL,
-	[IsEmailSubscribtion] [bit] NULL
+	[IsEmailSubscription] [bit] NULL
 ) ON [PRIMARY]
 
 GO
@@ -612,7 +615,7 @@ GO
 ALTER TABLE [dbo].[TBL_FRANCHISEE_USERS] CHECK CONSTRAINT [FK_TBL_FRANCHISEE_USERS_TBL_FRANCHISEE]
 GO
 
-ALTER TABLE [dbo].[TBL_FRANCHISEE_USERS] ADD  CONSTRAINT [DF_TBL_FRANCHISEE_USERS_IsEmailSubscribtion]  DEFAULT ((1)) FOR [IsEmailSubscribtion]
+ALTER TABLE [dbo].[TBL_FRANCHISEE_USERS] ADD  CONSTRAINT [DF_TBL_FRANCHISEE_USERS_IsEmailSubscription]  DEFAULT ((1)) FOR [IsEmailSubscription]
 GO
 -- Create lookup tables
 CREATE TABLE [dbo].[Tbl_AppointmentsSource](
@@ -818,7 +821,13 @@ CREATE TABLE [dbo].[TBL_CONTACTS](
 	[UpdatedBy] [varchar](50) NULL,
 	[CreatedDate]  [datetime] NULL,
 	[CreatedBy] [varchar](50) NULL,
-	[IsEmailSubscribtion] [bit] NULL,
+	[IsEmailSubscription] [bit] NULL,
+	[Birthday] [datetime] NULL,
+	[Anniversary] [datetime] NULL,
+	[CompanyYears] [int] NULL,
+	[BossName] [varchar](50) NULL,
+	[IsNeedCallBack] [bit] null,
+	[CallBackCreatedDate][datetime]null
  CONSTRAINT [PK_TBL_CONTACTS] PRIMARY KEY CLUSTERED 
 (
 	[CONTACTSID] ASC
@@ -852,7 +861,7 @@ GO
 ALTER TABLE [dbo].[TBL_CONTACTS] ADD  CONSTRAINT [DF_TBL_CONTACTS_CreatedDate]  DEFAULT (getdate()) FOR [CreatedDate]
 GO
 
-ALTER TABLE [dbo].[TBL_CONTACTS] ADD  CONSTRAINT [DF_TBL_CONTACTS_IsEmailSubscribtion]  DEFAULT ((1)) FOR [IsEmailSubscribtion]
+ALTER TABLE [dbo].[TBL_CONTACTS] ADD  CONSTRAINT [DF_TBL_CONTACTS_IsEmailSubscription]  DEFAULT ((1)) FOR [IsEmailSubscription]
 GO
 CREATE TABLE [dbo].[TBL_OPPORTUNITIES](
 	[ID] [int] IDENTITY(1,1) NOT NULL,
@@ -968,10 +977,28 @@ GO
 ALTER TABLE [dbo].[TBL_DOCS] ADD  CONSTRAINT [DF_TBL_DOCS_UpdatedDate]  DEFAULT (getdate()) FOR [UpdatedDate]
 GO
 
+CREATE TABLE [dbo].[Tbl_FollowUpItemsList](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[UserId] [uniqueidentifier] NULL,
+	[FollowUpDate] [datetime] NULL,
+	[Description] [varchar](150) NULL,
+	[IsActive] [bit] NULL,
+	[CreatedOn] [datetime] NULL,
+	[Phone] [varchar](50) NULL,
+ CONSTRAINT [PK_Tbl_FollowUpItemsList] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
 
+GO
 
+SET ANSI_PADDING OFF
+GO
 
+ALTER TABLE [dbo].[Tbl_FollowUpItemsList]  WITH CHECK ADD  CONSTRAINT [FK_Tbl_FollowUpItemsList_aspnet_Users] FOREIGN KEY([UserId])
+REFERENCES [dbo].[aspnet_Users] ([UserId])
+GO
 
-
-
-
+ALTER TABLE [dbo].[Tbl_FollowUpItemsList] CHECK CONSTRAINT [FK_Tbl_FollowUpItemsList_aspnet_Users]
+GO

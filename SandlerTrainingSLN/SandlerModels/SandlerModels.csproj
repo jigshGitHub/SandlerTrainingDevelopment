@@ -53,9 +53,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="aspnet_Applications.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
     <Compile Include="aspnet_Membership.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -85,6 +82,8 @@
       <DependentUpon>SandlerEDM.edmx</DependentUpon>
     </Compile>
     <Compile Include="SandlerRepositories\AccountsRepository.cs" />
+    <Compile Include="SandlerRepositories\BlastEmailRepository.cs" />
+    <Compile Include="SandlerRepositories\CalendarRepository.cs" />
     <Compile Include="SandlerRepositories\CompaniesRepository.cs" />
     <Compile Include="SandlerRepositories\ContactsRepository.cs" />
     <Compile Include="SandlerRepositories\DBFactory.cs" />
@@ -117,6 +116,9 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Tbl_DocumentStatus.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Tbl_FollowUpItemsList.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="TBL_FRANCHISEE.cs">

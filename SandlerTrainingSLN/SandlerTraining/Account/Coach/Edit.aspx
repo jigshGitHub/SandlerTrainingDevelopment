@@ -2,314 +2,165 @@
     CodeFile="Edit.aspx.cs" Inherits="Account_Coach_Edit" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="Server">
-    <style>
-        .floatLeft
-        {
-            width: 50%;
-            float: left;
-        }
-        .floatRight
-        {
-            width: 50%;
-            float: left;
-        }
-        .container
-        {
-            overflow: hidden;
-        }
-    </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="Server">
     <input id="hdnCorporateUserID" type="hidden" runat="server" />
     <input id="hdnCoachId" type="hidden" runat="server" />
-    <div class="container">
-        <div id=left  style="display: block;" class="floatLeft">
-            <table id="viewContainer">
-                <tr>
-                    <th class="tdTC" style="width: 280px" align="left">
-                        View Coach :
-                    </th>
-                </tr>
-                <tr>
-                    <td style="width: 50%">
-                        <table style="background-color: White; border-color: #999999; border-width: 1px;
-                            border-style: solid; height: 50px; width: 100%; border-collapse: collapse;">
-                            <tr style="color: Black; background-color: #EEEEEE; white-space: nowrap;">
-                                <td width="20%">
-                                    First Name
-                                </td>
-                                <td width="1%">
-                                    :
-                                </td>
-                                <td width="79%">
-                                    <span data-bind="text:firstName" type="text" style="width: 100%" />
-                                </td>
-                            </tr>
-                            <tr style="color: Black; background-color: #DCDCDC; white-space: nowrap;">
-                                <td>
-                                    Last Name
-                                </td>
-                                <td>
-                                    :
-                                </td>
-                                <td>
-                                    <span data-bind="text:lastName" type="text" style="width: 100%" />
-                                </td>
-                            </tr>
-                            <tr style="color: Black; background-color: #EEEEEE; white-space: nowrap;">
-                                <td>
-                                    Address
-                                </td>
-                                <td>
-                                    :
-                                </td>
-                                <td>
-                                    <span data-bind="text:address" type="text" style="width: 100%" />
-                                </td>
-                            </tr>
-                            <tr style="color: Black; background-color: #DCDCDC; white-space: nowrap;">
-                                <td>
-                                    City
-                                </td>
-                                <td>
-                                    :
-                                </td>
-                                <td>
-                                    <span data-bind="text:city" type="text" style="width: 100%" />
-                                </td>
-                            </tr>
-                            <tr style="color: Black; background-color: #EEEEEE; white-space: nowrap;">
-                                <td>
-                                    State
-                                </td>
-                                <td>
-                                    :
-                                </td>
-                                <td>
-                                    <span data-bind="text:state" type="text" style="width: 100%" />
-                                </td>
-                            </tr>
-                            <tr style="color: Black; background-color: #EEEEEE; white-space: nowrap;">
-                                <td>
-                                    Zip
-                                </td>
-                                <td>
-                                    :
-                                </td>
-                                <td>
-                                    <span data-bind="text:zip" type="text" style="width: 100%" />
-                                </td>
-                            </tr>
-                            <tr style="color: Black; background-color: #DCDCDC; white-space: nowrap;">
-                                <td>
-                                    Email
-                                </td>
-                                <td>
-                                    :
-                                </td>
-                                <td>
-                                    <span data-bind="text:email" type="text" style="width: 100%" />
-                                </td>
-                            </tr>
-                            <tr style="color: Black; background-color: #EEEEEE; white-space: nowrap;">
-                                <td>
-                                    Region
-                                </td>
-                                <td>
-                                    :
-                                </td>
-                                <td>
-                                    <span data-bind="text:region" />
-                                </td>
-                            </tr>
-                            <tr style="color: Black; background-color: #DCDCDC; white-space: nowrap;">
-                                <td>
-                                    User Name
-                                </td>
-                                <td>
-                                    :
-                                </td>
-                                <td>
-                                    <span data-bind="text:userName, enable:userNameEnabled" style="width: 100%" />
-                                </td>
-                            </tr>
-                            <tr style="color: Black; background-color: #EEEEEE; white-space: nowrap;">
-                                <td colspan="3">
-                                    <a id="anchorEdit" href="#" style="color: Blue; font-weight: bold;">Edit</a> &nbsp;&nbsp;
-                                    <a href="Index.aspx" style="font-weight: bold">Back</a>
-                                </td>
-                            </tr>
-                        </table>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <asp:Label ID="lblResult" runat="server" ForeColor="Red"></asp:Label><br />
-                    </td>
-                </tr>
-            </table>
-        </div>
-        <div id=right  style="display: none;"  class="floatRight">
-            <table id="editContainer">
-                <tr>
-                    <th class="tdTC" align="left">
-                        Edit Coach:
-                    </th>
-                </tr>
-                <tr>
-                    <td style="width: 50%">
-                        <table style="background-color: White; border-color: #999999; border-width: 1px;
-                            border-style: solid; height: 50px; width: 100%; border-collapse: collapse;">
-                            <tr style="color: Black; background-color: #EEEEEE; white-space: nowrap;">
-                                <td width="20%">
-                                    First Name
-                                </td>
-                                <td width="1%">
-                                    :
-                                </td>
-                                <td width="70%">
-                                    <input data-bind="value:firstName" type="text" style="width: 100%" />
-                                </td>
-                                <td width="9%">
-                                    <span data-bind="text:firstNameRequired, visible:firstNameRequiredHasError"></span>
-                                </td>
-                            </tr>
-                            <tr style="color: Black; background-color: #DCDCDC; white-space: nowrap;">
-                                <td>
-                                    Last Name
-                                </td>
-                                <td>
-                                    :
-                                </td>
-                                <td>
-                                    <input data-bind="value:lastName" type="text" style="width: 100%" />
-                                </td>
-                                <td>
-                                    <span data-bind="text:lastNameRequired, visible:lastNameRequiredHasError"></span>
-                                </td>
-                            </tr>
-                            <tr style="color: Black; background-color: #EEEEEE; white-space: nowrap;">
-                                <td>
-                                    Address
-                                </td>
-                                <td>
-                                    :
-                                </td>
-                                <td>
-                                    <input data-bind="value:address" type="text" style="width: 100%" />
-                                </td>
-                                <td>
-                                    &nbsp;
-                                </td>
-                            </tr>
-                            <tr style="color: Black; background-color: #DCDCDC; white-space: nowrap;">
-                                <td>
-                                    City
-                                </td>
-                                <td>
-                                    :
-                                </td>
-                                <td>
-                                    <input data-bind="value:city" type="text" style="width: 100%" />
-                                </td>
-                                <td>
-                                    &nbsp;
-                                </td>
-                            </tr>
-                            <tr style="color: Black; background-color: #EEEEEE; white-space: nowrap;">
-                                <td>
-                                    State
-                                </td>
-                                <td>
-                                    :
-                                </td>
-                                <td>
-                                    <input data-bind="value:state" type="text" style="width: 100%" />
-                                </td>
-                                <td>
-                                    &nbsp;
-                                </td>
-                            </tr>
-                            <tr style="color: Black; background-color: #DCDCDC; white-space: nowrap;">
-                                <td>
-                                    Zip
-                                </td>
-                                <td>
-                                    :
-                                </td>
-                                <td>
-                                    <input data-bind="value:zip" type="text" style="width: 100%" />
-                                </td>
-                                <td>
-                                    &nbsp;
-                                </td>
-                            </tr>
-                            <tr style="color: Black; background-color: #EEEEEE; white-space: nowrap;">
-                                <td>
-                                    Email
-                                </td>
-                                <td>
-                                    :
-                                </td>
-                                <td>
-                                    <input data-bind="value:email" type="text" style="width: 100%" />
-                                </td>
-                                <td>
-                                    <span data-bind="text:emailRequired, visible:emailRequiredHasError"></span>
-                                </td>
-                            </tr>
-                            <tr style="color: Black; background-color: #DCDCDC; white-space: nowrap;">
-                                <td>
-                                    Email subscription
-                                </td>
-                                <td>
-                                    :
-                                </td>
-                                <td>
-                                    <input data-bind="checked:emailSubscription" type="checkbox" style="width: 100%" />
-                                </td>
-                                <td>
-                                    &nbsp;
-                                </td>
-                            </tr>
-                            <tr style="color: Black; background-color: #EEEEEE; white-space: nowrap;">
-                                <td>
-                                    Select region
-                                </td>
-                                <td>
-                                    :
-                                </td>
-                                <td>
-                                    <select data-bind="options:regions,optionsValue:'ID', optionsText: 'Name',optionsCaption: ' ', value: region">
-                                    </select>
-                                </td>
-                                <td>
-                                    <span data-bind="text:regionRequired, visible:regionRequiredHasError"></span>
-                                </td>
-                            </tr>
-                            <tr style="color: Black; background-color: #DCDCDC; white-space: nowrap;">
-                                <td colspan="4">
-                                    <a href="#" style="color: Blue; font-weight: bold;" data-bind="click:save">Update</a>
-                                </td>
-                            </tr>
-                        </table>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <div id="resultSummary" style="color: Red">
-                            <ul>
-                            </ul>
-                        </div>
-                    </td>
-                </tr>
-            </table>
-        </div>
-    </div>
+    <table id="editContainer">
+        <tr>
+            <th class="tdTC" align="left">
+                Edit Coach:
+            </th>
+        </tr>
+        <tr>
+            <td style="width: 50%">
+                <table style="background-color: White; border-color: #999999; border-width: 1px;
+                    border-style: solid; height: 50px; width: 100%; border-collapse: collapse;">
+                    <tr style="color: Black; background-color: #EEEEEE; white-space: nowrap;">
+                        <td width="20%">
+                            First Name
+                        </td>
+                        <td width="1%">
+                            :
+                        </td>
+                        <td width="70%">
+                            <input data-bind="value:firstName" type="text" style="width: 100%" />
+                        </td>
+                        <td width="9%">
+                            <span data-bind="text:firstNameRequired, visible:firstNameRequiredHasError"></span>
+                        </td>
+                    </tr>
+                    <tr style="color: Black; background-color: #DCDCDC; white-space: nowrap;">
+                        <td>
+                            Last Name
+                        </td>
+                        <td>
+                            :
+                        </td>
+                        <td>
+                            <input data-bind="value:lastName" type="text" style="width: 100%" />
+                        </td>
+                        <td>
+                            <span data-bind="text:lastNameRequired, visible:lastNameRequiredHasError"></span>
+                        </td>
+                    </tr>
+                    <tr style="color: Black; background-color: #EEEEEE; white-space: nowrap;">
+                        <td>
+                            Address
+                        </td>
+                        <td>
+                            :
+                        </td>
+                        <td>
+                            <input data-bind="value:address" type="text" style="width: 100%" />
+                        </td>
+                        <td>
+                            &nbsp;
+                        </td>
+                    </tr>
+                    <tr style="color: Black; background-color: #DCDCDC; white-space: nowrap;">
+                        <td>
+                            City
+                        </td>
+                        <td>
+                            :
+                        </td>
+                        <td>
+                            <input data-bind="value:city" type="text" style="width: 100%" />
+                        </td>
+                        <td>
+                            &nbsp;
+                        </td>
+                    </tr>
+                    <tr style="color: Black; background-color: #EEEEEE; white-space: nowrap;">
+                        <td>
+                            State
+                        </td>
+                        <td>
+                            :
+                        </td>
+                        <td>
+                            <input data-bind="value:state" type="text" style="width: 100%" />
+                        </td>
+                        <td>
+                            &nbsp;
+                        </td>
+                    </tr>
+                    <tr style="color: Black; background-color: #DCDCDC; white-space: nowrap;">
+                        <td>
+                            Zip
+                        </td>
+                        <td>
+                            :
+                        </td>
+                        <td>
+                            <input data-bind="value:zip" type="text" style="width: 100%" />
+                        </td>
+                        <td>
+                            &nbsp;
+                        </td>
+                    </tr>
+                    <tr style="color: Black; background-color: #EEEEEE; white-space: nowrap;">
+                        <td>
+                            Email
+                        </td>
+                        <td>
+                            :
+                        </td>
+                        <td>
+                            <input data-bind="value:email" type="text" style="width: 100%" />
+                        </td>
+                        <td>
+                            <span data-bind="text:emailRequired, visible:emailRequiredHasError"></span>
+                        </td>
+                    </tr>
+                    <tr style="color: Black; background-color: #DCDCDC; white-space: nowrap;">
+                        <td>
+                            Email subscription
+                        </td>
+                        <td>
+                            :
+                        </td>
+                        <td style="width: 100%; float: left">
+                            <input data-bind="checked:emailSubscription" type="checkbox" />
+                        </td>
+                        <td>
+                            &nbsp;
+                        </td>
+                    </tr>
+                    <tr style="color: Black; background-color: #EEEEEE; white-space: nowrap;">
+                        <td>
+                            Select region
+                        </td>
+                        <td>
+                            :
+                        </td>
+                        <td>
+                            <select data-bind="options:regions,optionsValue:'ID', optionsText: 'Name',optionsCaption: ' ', value: region">
+                            </select>
+                        </td>
+                        <td>
+                            <span data-bind="text:regionRequired, visible:regionRequiredHasError"></span>
+                        </td>
+                    </tr>
+                    <tr style="color: Black; background-color: #DCDCDC; white-space: nowrap;">
+                        <td colspan="4">
+                            <a href="#" style="color: Blue; font-weight: bold;" data-bind="click:save">Update</a>
+                            &nbsp;&nbsp; <a href="Index.aspx" style="font-weight: bold">Cancel</a>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div id="resultSummary" style="color: Red">
+                    <ul>
+                    </ul>
+                </div>
+            </td>
+        </tr>
+    </table>
     <br />
     <script type="text/javascript">
 
@@ -355,7 +206,6 @@
                 success: function (data) {
                     //log(data);
                     $.each(data.$values, function (i, item) {
-                        log(item);
                         self.regions.push(item);
                     });
                 },
@@ -370,17 +220,16 @@
                 contentType: 'application/json',
                 data: { id: self.id },
                 success: function (data) {
-                    log(data);
-                    self.firstName(data.FirstName);
-                    self.lastName(data.LastName);
+                    self.firstName((data.FirstName == undefined) ? '' : data.FirstName);
+                    self.lastName((data.LastName == undefined) ? '' : data.LastName);
                     self.phoneNumber(data.PhoneNumber);
                     self.address(data.ADDRESS);
                     self.city(data.City);
                     self.state(data.State);
                     self.zip(data.Zip);
                     self.region(data.RegionID);
-                    self.email(data.Email);
-                    self.emailSubscription(data.IsEmailSubscribtion);
+                    self.email((data.Email == undefined) ? '' : data.Email);
+                    self.emailSubscription(data.IsEmailSubscription);
                     self.userName(data.UserName);
                 },
                 error: function (xhr, status, somthing) {
@@ -396,7 +245,6 @@
                 self.emailRequiredHasError(false);
 
                 $('#resultSummary ul').empty();
-
                 if (self.firstName() == '') {
                     self.firstNameRequiredHasError(true);
                     self.firstNameRequiredMsg('First Name is required');
@@ -434,7 +282,7 @@
                         UserName: self.firstName() + '.' + self.lastName(),
                         RegionID: self.region(),
                         Email: self.email(),
-                        IsEmailSubscribtion: self.emailSubscription(),
+                        IsEmailSubscription: self.emailSubscription(),
                         ID: self.id()
                     });
 
@@ -464,11 +312,6 @@
         }
         $(document).ready(function () {
             ko.applyBindings(new CoachVM());
-
-            $('#anchorEdit').click(function () {
-                $('#left').attr('style', 'visibility: hidden');
-                $('#right').attr('style', 'visibility: visible');
-            });
         });
     </script>
 </asp:Content>

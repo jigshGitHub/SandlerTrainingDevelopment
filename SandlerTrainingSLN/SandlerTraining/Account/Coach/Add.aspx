@@ -9,7 +9,7 @@
     <table border="0">
         <tr>
             <th class="tdTC" align="left">
-                <span data-bind="text:addEditCoach" />
+                Create coach :
             </th>
         </tr>
         <tr>
@@ -158,9 +158,10 @@
                             <span data-bind="text:regionRequired, visible:regionRequiredHasError"></span>
                         </td>
                     </tr>
-                    <tr style="color: Black; background-color: #EEEEEE; white-space: nowrap;">
+                    <tr style="color: Black; background-color: #DCDCDC; white-space: nowrap;">
                         <td colspan="4">
-                            <a href="#" style="color: Blue; font-weight: bold;" data-bind="text:addEditMode, click:save" />
+                            <a href="#" style="color: Blue; font-weight: bold;" data-bind="click:save">Add</a>
+                            &nbsp;&nbsp;<a href="Index.aspx" style="font-weight: bold">Cancel</a>
                         </td>
                     </tr>
                 </table>
@@ -184,8 +185,6 @@
             var baseUrl = href[0] + '//' + href[2] + '/' + href[3];
             log($('#<%=hdnCoachId.ClientID%>').val());
             var self = this;
-            self.addEditCoach = ko.observable('Create coach :');
-            self.addEditMode = ko.observable('Add');
             self.isEditMode = ko.observable(false);
             self.userNameEnabled = ko.observable(false);
             self.createdBy = ko.observable($('#<%=hdnCorporateUserID.ClientID%>').val());
@@ -217,68 +216,25 @@
             self.emailSubscription = ko.observable(true);
             self.validationErrors = ko.observableArray([]);
 
-            if (self.id() != '') {
-                self.addEditCoach = ko.observable('Update coach :');
-                self.addEditMode = ko.observable('Update');
-                self.isEditMode(true);
-                $.ajax({
-                    url: baseUrl + "/api/Regions/Get/",
-                    type: 'GET',
-                    contentType: 'application/json',
-                    data: { id: self.id, parameter: 'Coach' },
-                    success: function (data) {
-                        //log(data);
-                        $.each(data.$values, function (i, item) {
-                            log(item);
-                            self.regions.push(item);
-                        });
-                    },
-                    error: function (xhr, status, somthing) {
-                        log(status);
-                    }
-                });
 
-                $.ajax({
-                    url: baseUrl + "/api/Coach/",
-                    type: 'GET',
-                    contentType: 'application/json',
-                    data: { id: self.id },
-                    success: function (data) {
-                        log(data);
-                        self.firstName(data.FirstName);
-                        self.lastName(data.LastName);
-                        self.phoneNumber(data.PhoneNumber);
-                        self.address(data.ADDRESS);
-                        self.city(data.City);
-                        self.state(data.State);
-                        self.zip(data.Zip);
-                        self.region(data.RegionID);
-                        self.email(data.Email);
-                        self.emailSubscription(data.IsEmailSubscribtion);
-                    },
-                    error: function (xhr, status, somthing) {
-                        log(status);
-                    }
-                });
-            }
-            else {
-                $.ajax({
-                    url: baseUrl + "/api/Countries/",
-                    type: 'GET',
-                    contentType: 'application/json',
-                    data: {},
-                    success: function (data) {
-                        //log(data);
-                        $.each(data.$values, function (i, item) {
-                            // log(item);
-                            self.countries.push(item);
-                        });
-                    },
-                    error: function (xhr, status, somthing) {
-                        log(status);
-                    }
-                });
-            }
+
+            $.ajax({
+                url: baseUrl + "/api/Countries/",
+                type: 'GET',
+                contentType: 'application/json',
+                data: {},
+                success: function (data) {
+                    //log(data);
+                    $.each(data.$values, function (i, item) {
+                        // log(item);
+                        self.countries.push(item);
+                    });
+                },
+                error: function (xhr, status, somthing) {
+                    log(status);
+                }
+            });
+
             self.country.subscribe(function (countryId) {
                 if (countryId != '') {
                     self.regions([]);
@@ -352,7 +308,7 @@
                         UserName: self.firstName() + '.' + self.lastName(),
                         RegionID: self.region(),
                         Email: self.email(),
-                        IsEmailSubscribtion: self.emailSubscription(),
+                        IsEmailSubscription: self.emailSubscription(),
                         ID: self.id()
                     });
 

@@ -141,18 +141,23 @@ namespace SandlerModels.DataModels
                 contacts = contactsSource.GetAll().Where(record => record.IsActive == true && record.CreatedBy.ToLower() == user.UserId.ToString().ToLower()).AsEnumerable();
             else if (user.Role == SandlerRoles.FranchiseeOwner)
             {
-                contacts = from contact in contactsSource.GetAll().Where(record => record.IsActive == true)
-                           from company in this.companies.Where(record => record.COMPANIESID == contact.COMPANYID)
-                           where company.FranchiseeId == user.FranchiseeID
+                //contacts = from contact in contactsSource.GetAll().Where(record => record.IsActive == true)
+                //           from company in this.companies.Where(record => record.COMPANIESID == contact.COMPANYID)
+                //           where company.FranchiseeId == user.FranchiseeID
+                //           select contact;
+                contacts = from contact in contactsSource.GetAll().Where(record => record.IsActive == true && record.TBL_COMPANIES.FranchiseeId == user.FranchiseeID)
+                           //from company in this.companies.Where(record => record.COMPANIESID == contact.COMPANYID)
+                           //where company.FranchiseeId == user.FranchiseeID
                            select contact;
             }
             else if (user.Role == SandlerRoles.Coach)
             {
-                contacts = from contact in contactsSource.GetAll().Where(record => record.IsActive == true)
-                           from company in companies.Where(record => record.COMPANIESID == contact.COMPANYID)
-                           from franchisee in franchisees.Where(record => record.ID == company.FranchiseeId)
+                //contacts = from contact in contactsSource.GetAll().Where(record => record.IsActive == true)
+                //           from company in companies.Where(record => record.COMPANIESID == contact.COMPANYID)
+                //           from franchisee in franchisees.Where(record => record.ID == company.FranchiseeId)
+                //           select contact;
+                contacts = from contact in contactsSource.GetAll().Where(record => record.IsActive == true && record.TBL_COMPANIES.TBL_FRANCHISEE.CoachID == user.CoachID)
                            select contact;
-
             }
             else if (user.Role == SandlerRoles.Corporate)
             {
@@ -170,17 +175,21 @@ namespace SandlerModels.DataModels
                     opportunties = opportunitiesSource.GetAll().Where(record => record.IsActive == true && record.CreatedBy.ToLower() == user.UserId.ToString().ToLower()).AsEnumerable();
                 else if (user.Role == SandlerRoles.FranchiseeOwner)
                 {
-                    opportunties = from opportunity in opportunitiesSource.GetAll().Where(record => record.IsActive == true)
-                                   from company in companies.Where(record => record.COMPANIESID == opportunity.COMPANYID)
+                    //opportunties = from opportunity in opportunitiesSource.GetAll().Where(record => record.IsActive == true)
+                    //               from company in companies.Where(record => record.COMPANIESID == opportunity.COMPANYID)
+                    //               select opportunity;
+                    opportunties = from opportunity in opportunitiesSource.GetAll().Where(record => record.IsActive == true && record.TBL_COMPANIES.FranchiseeId == user.FranchiseeID)
                                    select opportunity;
                 }
                 else if (user.Role == SandlerRoles.Coach)
                 {
                     FranchiseeRepository franchiseeSource = new FranchiseeRepository();
                     CoachRepository coachSource = new CoachRepository();
-                    opportunties = from opportunity in opportunitiesSource.GetAll().Where(record => record.IsActive == true)
-                                   from company in companies.Where(record => record.COMPANIESID == opportunity.COMPANYID)
-                                   from franchisee in franchisees.Where(record => record.ID == company.FranchiseeId)
+                    //opportunties = from opportunity in opportunitiesSource.GetAll().Where(record => record.IsActive == true)
+                    //               from company in companies.Where(record => record.COMPANIESID == opportunity.COMPANYID)
+                    //               from franchisee in franchisees.Where(record => record.ID == company.FranchiseeId)
+                    //               select opportunity;
+                    opportunties = from opportunity in opportunitiesSource.GetAll().Where(record => record.IsActive == true && record.TBL_COMPANIES.TBL_FRANCHISEE.CoachID == user.CoachID)
                                    select opportunity;
 
                 }
@@ -204,7 +213,7 @@ namespace SandlerModels.DataModels
             try
             {
                 newContacts = from contact in contacts.Where(record => record.IsNewAppointment == true)
-                           select contact;
+                              select contact;
             }
             catch (Exception ex)
             {
@@ -277,7 +286,7 @@ namespace SandlerModels.DataModels
                 userEntities = UserEntitiesFactory.Get(currentUser);
                 contacts = userEntities.GetNewAppointments(currentUser);
 
-                if (userEntities.ContactsCount  > 0)
+                if (userEntities.ContactsCount > 0)
                 {
                     data = from contact in contacts
                            from company in userEntities.Companies.Where(record => record.COMPANIESID == contact.COMPANYID && record.CreationDate.Value.Year == DateTime.Now.Year && record.CreationDate.Value.Month == month)
@@ -342,13 +351,12 @@ namespace SandlerModels.DataModels
 
                 if (userEntities.OpportunitiesCount > 0)
                 {
-                    newClients = (from record in opportunties
-                                  where (record.TBL_COMPANIES != null && record.Tbl_ProductType.Id == record.ProductID &&
+                    newClients = (from opportunity in opportunties.Where(record => record.Tbl_ProductType.Id != 0 &&
                                   record.Tbl_ProductType.ProductTypeName != "Assessment" &&
                                   record.TBL_COMPANIES.IsNewCompany == true &&
                                   record.TBL_COMPANIES.CreationDate.Value.Year == DateTime.Now.Year &&
                                   record.TBL_COMPANIES.CreationDate.Value.Month == month)
-                                  select record.COMPANYID).Count();
+                                  select opportunity).Count();
                 }
             }
             catch (Exception ex)
@@ -370,13 +378,12 @@ namespace SandlerModels.DataModels
 
                 if (userEntities.OpportunitiesCount > 0)
                 {
-                    aveContractPrice = long.Parse((from record in opportunties
-                                                   where (record.TBL_COMPANIES != null && record.Tbl_ProductType.Id == record.ProductID &&
+                    aveContractPrice = long.Parse((from opportunity in opportunties.Where(record => record.Tbl_ProductType.Id != 0 &&
                                         record.Tbl_ProductType.ProductTypeName != "Assessment" &&
                                         record.TBL_COMPANIES.IsNewCompany == true &&
                                         record.TBL_COMPANIES.CreationDate.Value.Year == DateTime.Now.Year &&
                                         record.TBL_COMPANIES.CreationDate.Value.Month == month)
-                                                   select record.WEIGHTEDVALUE).Sum().Value.ToString());
+                                                   select opportunity.WEIGHTEDVALUE).Sum().Value.ToString());
                 }
             }
             catch (Exception ex)
@@ -399,13 +406,10 @@ namespace SandlerModels.DataModels
 
                 if (userEntities.OpportunitiesCount > 0)
                 {
-                    data = from opportunity in opportunties
-                           from company in new CompaniesRepository().GetAll().Where(c => c.IsActive == true &&
-                               c.IsNewCompany == true &&
-                               opportunity.COMPANYID == c.COMPANIESID &&
-                               c.CreationDate.Value.Year == DateTime.Now.Year && c.CreationDate.Value.Month == month)
-                           from product in new ProductTypesRepository().GetAll().Where(p => p.IsActive == true && opportunity.ProductID == p.Id && p.ProductTypeName != "Assessment")
-                           group opportunity by new { product.ProductTypeName }
+                    data = from opportunity in opportunties.Where(record => record.TBL_COMPANIES.IsNewCompany == true &&
+                               record.TBL_COMPANIES.CreationDate.Value.Year == DateTime.Now.Year && record.TBL_COMPANIES.CreationDate.Value.Month == month &&
+                               record.Tbl_ProductType.Id != null && record.Tbl_ProductType.ProductTypeName != "Assessment")
+                           group opportunity by new { opportunity.Tbl_ProductType.ProductTypeName }
                                into grp
                                select new ProductTypeVM { ProductTypeName = grp.Key.ProductTypeName, Count = grp.Count() };
                 }
@@ -459,16 +463,21 @@ namespace SandlerModels.DataModels
                 userEntities = UserEntitiesFactory.Get(currentUser);
                 contacts = userEntities.Contacts;
 
-                if (userEntities.ContactsCount  > 0)
+                if (userEntities.ContactsCount > 0)
                 {
-                    classHeadCountsCourse = (from record in contacts
-                                             where (record.IsRegisteredForTraining == true &&
-                                             record.Tbl_Course != null &&
-                                             record.Tbl_Course.CourseId == record.CourseId &&
-                                             record.Tbl_Course.IsActive == true &&
-                                             record.CourseTrainingDate.Value.Year == DateTime.Now.Year &&
-                                             record.CourseTrainingDate.Value.Month == month)
-                                             select record.CONTACTSID).Count();
+                    //classHeadCountsCourse = (from record in contacts
+                    //                         where (record.IsRegisteredForTraining == true &&
+                    //                         record.Tbl_Course != null &&
+                    //                         record.Tbl_Course.CourseId == record.CourseId &&
+                    //                         record.Tbl_Course.IsActive == true &&
+                    //                         record.CourseTrainingDate.Value.Year == DateTime.Now.Year &&
+                    //                         record.CourseTrainingDate.Value.Month == month)
+                    //                         select record.CONTACTSID).Count();
+                    classHeadCountsCourse = (from contact in contacts.Where(record => record.IsRegisteredForTraining == true &&
+                                            record.CourseId != null &&
+                                            record.CourseTrainingDate.Value.Year == DateTime.Now.Year &&
+                                            record.CourseTrainingDate.Value.Month == month)
+                                             select contact).Count();
                 }
             }
             catch (Exception ex)
@@ -488,16 +497,21 @@ namespace SandlerModels.DataModels
                 userEntities = UserEntitiesFactory.Get(currentUser);
                 contacts = userEntities.Contacts;
 
-                if (userEntities.ContactsCount  > 0)
+                if (userEntities.ContactsCount > 0)
                 {
-                    classHeadCountsIndustry = (from record in contacts
-                                               where (record.IsRegisteredForTraining == true &&
-                                               record.TBL_COMPANIES.IndustryId == record.TBL_COMPANIES.Tbl_IndustryType.IndId &&
-                                               record.TBL_COMPANIES.IsActive == true &&
-                                               record.TBL_COMPANIES.Tbl_IndustryType.IsActive == true &&
+                    //classHeadCountsIndustry = (from record in contacts
+                    //                           where (record.IsRegisteredForTraining == true &&
+                    //                           record.TBL_COMPANIES.IndustryId == record.TBL_COMPANIES.Tbl_IndustryType.IndId &&
+                    //                           record.TBL_COMPANIES.IsActive == true &&
+                    //                           record.TBL_COMPANIES.Tbl_IndustryType.IsActive == true &&
+                    //                           record.CourseTrainingDate.Value.Year == DateTime.Now.Year &&
+                    //                           record.CourseTrainingDate.Value.Month == month)
+                    //                           select record.COMPANYID).Count();
+                    classHeadCountsIndustry = (from contact in contacts.Where(record => record.IsRegisteredForTraining == true &&
+                                               record.TBL_COMPANIES.IndustryId != null &&
                                                record.CourseTrainingDate.Value.Year == DateTime.Now.Year &&
                                                record.CourseTrainingDate.Value.Month == month)
-                                               select record.COMPANYID).Count();
+                                               select contact).Count();
                 }
             }
             catch (Exception ex)
@@ -565,19 +579,25 @@ namespace SandlerModels.DataModels
             try
             {
                 userEntities = UserEntitiesFactory.Get(currentUser);
-                contacts = userEntities.GetNewAppointments(currentUser);
+                contacts = userEntities.Contacts;
 
-                if (userEntities.ContactsCount  > 0)
+                if (userEntities.ContactsCount > 0)
                 {
 
-                    data = from record in contacts
-                           from course in new CourseRepository().GetAll().Where(c => c.IsActive == true && c.CourseId == record.CourseId)
-                           where (record.IsRegisteredForTraining == true &&
+                    data = from record in contacts.Where(record => record.IsRegisteredForTraining == true &&
                            record.CourseTrainingDate.Value.Year == DateTime.Now.Year &&
                            record.CourseTrainingDate.Value.Month == month)
+                           from course in new CourseRepository().GetAll().Where(c => c.IsActive == true && c.CourseId == record.CourseId)
                            group record by new { course.CourseName }
                                into grp
                                select new CourseVM { CourseName = grp.Key.CourseName, Count = grp.Count() };
+                    //data = from contact in contacts.Where(record => record.IsRegisteredForTraining == true &&
+                    //        record.CourseId != null &&
+                    //       record.CourseTrainingDate.Value.Year == DateTime.Now.Year &&
+                    //       record.CourseTrainingDate.Value.Month == month)
+                    //       group contact by new { contact.Tbl_Course.CourseName }
+                    //           into grp
+                    //           select new CourseVM { CourseName = grp.Key.CourseName, Count = grp.Count() };
                 }
             }
             catch (Exception ex)
@@ -595,16 +615,22 @@ namespace SandlerModels.DataModels
             try
             {
                 userEntities = UserEntitiesFactory.Get(currentUser);
-                contacts = userEntities.GetNewAppointments(currentUser);
-
-                if (userEntities.ContactsCount  > 0)
+                contacts = userEntities.Contacts;
+                if (userEntities.ContactsCount > 0)
                 {
-                    data = from contact in contacts
-                           from company in new CompaniesRepository().GetAll().Where(c => c.IsActive == true && c.COMPANIESID == contact.COMPANYID)
-                           from industry in new IndustryTypeRepository().GetAll().Where(i => i.IsActive == true && i.IndId == company.IndustryId)
-                           where (contact.IsRegisteredForTraining == true &&
-                           contact.CourseTrainingDate.Value.Year == DateTime.Now.Year &&
-                           contact.CourseTrainingDate.Value.Month == month)
+                    //data = from contact in contacts
+                    //       from company in new CompaniesRepository().GetAll().Where(c => c.IsActive == true && c.COMPANIESID == contact.COMPANYID)
+                    //       from industry in new IndustryTypeRepository().GetAll().Where(i => i.IsActive == true && i.IndId == company.IndustryId)
+                    //       where (contact.IsRegisteredForTraining == true &&
+                    //       contact.CourseTrainingDate.Value.Year == DateTime.Now.Year &&
+                    //       contact.CourseTrainingDate.Value.Month == month)
+                    //       group contact by new { industry.IndustryTypeName }
+                    //           into grp
+                    //           select new IndustryVM { IndustryTypeName = grp.Key.IndustryTypeName, Count = grp.Count() };
+                    data = from contact in contacts.Where(record => record.IsRegisteredForTraining == true &&
+                        record.CourseTrainingDate.Value.Year == DateTime.Now.Year &&
+                        record.CourseTrainingDate.Value.Month == month)
+                           from industry in new IndustryTypeRepository().GetAll().Where(i => i.IsActive == true && i.IndId == contact.TBL_COMPANIES.IndustryId)
                            group contact by new { industry.IndustryTypeName }
                                into grp
                                select new IndustryVM { IndustryTypeName = grp.Key.IndustryTypeName, Count = grp.Count() };

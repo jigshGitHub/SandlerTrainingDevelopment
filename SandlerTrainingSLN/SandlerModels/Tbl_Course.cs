@@ -27,7 +27,7 @@ namespace SandlerModels
         public System.DateTime CreatedDate { get; set; }
         public string CreatedBy { get; set; }
     
-        public virtual ICollection<TBL_CONTACTS> TBL_CONTACTS { get; set; }
+        internal ICollection<TBL_CONTACTS> TBL_CONTACTS { get; set; }
     }
     
 }

@@ -4,7 +4,7 @@ INNER JOIN Tbl_Course cs ON cs.CourseId = c.CourseId
 INNER JOIN TBL_COMPANIES cmp ON c.COMPANYID = cmp.COMPANIESID
 WHERE c.IsRegisteredForTraining = 1 AND c.IsActive = 1 AND cs.IsActive = 1
 AND YEAR(c.CourseTrainingDate) = YEAR(GETDATE()) 
-AND MONTH(c.CourseTrainingDate) = MONTH(DATEADD(MONTH,0,GETDATE()))
+AND MONTH(c.CourseTrainingDate) = MONTH(DATEADD(MONTH,-2,GETDATE()))
 AND cmp.FranchiseeId = 6;--To check at coach level comment out this line
 
 SELECT COUNT(c.CONTACTSID)
@@ -13,7 +13,7 @@ INNER JOIN Tbl_Course cs ON cs.CourseId = c.CourseId
 INNER JOIN TBL_COMPANIES cmp ON c.COMPANYID = cmp.COMPANIESID
 WHERE c.IsRegisteredForTraining = 1 AND c.IsActive = 1 AND cs.IsActive = 1
 AND YEAR(c.CourseTrainingDate) = YEAR(GETDATE()) 
-AND MONTH(c.CourseTrainingDate) = MONTH(DATEADD(MONTH,0,GETDATE()))
+AND MONTH(c.CourseTrainingDate) = MONTH(DATEADD(MONTH,-2,GETDATE()))
 AND cmp.FranchiseeId = 6;--To check at coach level comment out this line
 
 SELECT i.IndustryTypeName,c.* 
