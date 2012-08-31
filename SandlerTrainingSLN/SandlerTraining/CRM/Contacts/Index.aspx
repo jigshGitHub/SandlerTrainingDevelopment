@@ -33,7 +33,7 @@
                     <asp:GridView Width="100%" ID="gvContacts" runat="server" DataSourceID="ContactDS"
                         AutoGenerateColumns="False" DataKeyNames="contactsid" AllowSorting="true" AllowPaging="true"
                         PageSize="20" OnSelectedIndexChanged="gvContacts_SelectedIndexChanged" OnDataBound="gvContacts_DataBound">
-                        <PagerStyle BackColor="#999999" ForeColor="Blue" CssClass="gridPager" HorizontalAlign="Center" />
+                        <PagerStyle CssClass="gvPager" />
                         <Columns>
                             <asp:BoundField DataField="contactsid" Visible="False" />
                             <asp:BoundField ItemStyle-HorizontalAlign="Center" DataField="FullName" HeaderText="Name"
