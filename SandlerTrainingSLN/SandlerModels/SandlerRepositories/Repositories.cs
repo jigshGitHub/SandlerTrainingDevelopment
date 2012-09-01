@@ -184,7 +184,12 @@ namespace SandlerRepositories
 
         public IEnumerable<SandlerModels.TBL_COMPANIES> GetByFranchiseeId(int franchiseeId)
         {
-            return GetAll().Where(r => r.FranchiseeId == franchiseeId);
+            return GetAll().Where(r => r.FranchiseeId == franchiseeId && r.IsActive == true);
+        }
+
+        public bool Exists(TBL_COMPANIES company)
+        {
+            return (GetAll().Where(r => r.FranchiseeId == company.FranchiseeId && r.IsActive == true && r.COMPANYNAME == company.COMPANYNAME && r.CITY == company.CITY && r.STATE == company.STATE && r.Address == company.Address).Count() > 0) ? true : false;
         }
     }
     public partial class ContactsRepository : RepositoryBase<TBL_CONTACTS>

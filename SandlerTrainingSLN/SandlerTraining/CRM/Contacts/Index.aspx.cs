@@ -13,6 +13,7 @@ public partial class ContactIndex : BasePage
         if (!IsPostBack)
         {
             addContactAnchor.Visible = !IsUserReadOnly(SandlerUserActions.Add, SandlerEntities.Contact);
+            uploadAnchor.Visible = !IsUserReadOnly(SandlerUserActions.Add, SandlerEntities.Contact);
         }
 
     }

@@ -13,8 +13,9 @@
                 </asp:DropDownList>
             </td>
             <td align="right">
-                <a runat="server" id="addContactAnchor" href="Add.aspx">Add New Contact</a>&nbsp;|&nbsp;
-                <a runat="server" id="callListAnchor" href="CallList.aspx">View Call List</a>
+                <a runat="server" id="uploadAnchor" href="Upload.aspx">Upload Contact Data</a>&nbsp;|&nbsp;
+                <a runat="server" id="addContactAnchor" href="Add.aspx">Add New Contact</a>&nbsp;|&nbsp;<a
+                    runat="server" id="callListAnchor" href="CallList.aspx">View Call List</a>
             </td>
         </tr>
         <tr>

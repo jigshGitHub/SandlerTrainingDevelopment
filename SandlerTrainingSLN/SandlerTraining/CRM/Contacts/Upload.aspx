@@ -1,13 +1,22 @@
-﻿<%@ Page Title="CRM - Upload Company" Language="C#" MasterPageFile="~/CRM.master"
-    AutoEventWireup="true" CodeFile="Upload.aspx.cs" Inherits="CRM_Companies_Upload" %>
+﻿<%@ Page Title="CRM - Upload Contact" Language="C#" MasterPageFile="~/CRM.master"
+    AutoEventWireup="true" CodeFile="Upload.aspx.cs" Inherits="CRM_Contacts_Upload"
+    EnableEventValidation="true" %>
 
 <%@ Register Src="../Pager.ascx" TagName="Pager" TagPrefix="uc1" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="Server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="Server">
+    <input id="hdnFrenchiseeID" type="hidden" runat="server" />
     <div id="dialog" title="Upload Data:">
         <asp:Panel ID="pnlFileUpload" runat="server">
             <table>
+                <tr>
+                    <td>
+                        <asp:DropDownList ID="companyList" runat="server">
+                        </asp:DropDownList>
+                        <asp:Label ID="lblCompanyListRequired" ForeColor="Red" runat="server"></asp:Label>
+                    </td>
+                </tr>
                 <tr>
                     <td>
                         <asp:FileUpload ID="fileToUpload" runat="server" />
@@ -29,6 +38,12 @@
     </div>
     <script type="text/javascript">
         $(document).ready(function () {
+            //            var frenchiseeId = $('#<%=hdnFrenchiseeID.ClientID%>').val();
+            //            log(frenchiseeId);
+            //            var href = window.location.href.split('/');
+            //            var baseUrl = href[0] + '//' + href[2] + '/' + href[3];
+
+            //            var companyList = $('#<%=companyList.ClientID%>');
             //alert($('#<%=showHideDialogFlag.ClientID %>').val());
             if ($('#<%=showHideDialogFlag.ClientID %>').val() == 1) {
                 //            $('#uploadCompanyData').click(function () {
@@ -42,7 +57,7 @@
                 $('#dialog').dialog({
 
                     autoOpen: true,
-                    width: 400
+                    width: 500
                     /*,
                     buttons: {
                     "Ok": function () {
@@ -53,6 +68,22 @@
                     }
                     }*/
                 });
+                //                $.ajax({
+                //                    url: baseUrl + "/api/Companies/",
+                //                    type: 'GET',
+                //                    contentType: 'application/json',
+                //                    data: { frenchiseeId: frenchiseeId },
+                //                    success: function (data) {
+                //                        companyList.append($('<option></option>').val('0').html('Select company'));
+                //                        $.each(data.$values, function (i, item) {
+                //                            log(item);
+                //                            companyList.append($('<option></option>').val(item.COMPANIESID).html(item.COMPANYNAME));
+                //                        });
+                //                    },
+                //                    error: function (xhr, status, somthing) {
+                //                        log(status);
+                //                    }
+                //                });
                 $('#dialog').parent().appendTo($("form:first"));
             }
             else {
@@ -69,20 +100,16 @@
         </tr>
         <tr>
             <td width="100%">
-                <asp:GridView Width="100%" ID="gvCompanies" runat="server" AutoGenerateColumns="False">
+                <asp:GridView Width="100%" ID="gvCompanies" runat="server" AutoGenerateColumns="false">
                     <Columns>
-                        <asp:BoundField ItemStyle-HorizontalAlign="Center" HeaderStyle-ForeColor="Blue" DataField="COMPANYNAME"
-                            HeaderText="Company Name" />
-                        <asp:BoundField ItemStyle-HorizontalAlign="Center" HeaderStyle-ForeColor="Blue" DataField="Address"
-                            HeaderText="Address" />
-                        <asp:BoundField ItemStyle-HorizontalAlign="Center" HeaderStyle-ForeColor="Blue" DataField="POCLastName"
-                            HeaderText="POC-LastName" />
-                        <asp:BoundField ItemStyle-HorizontalAlign="Center" HeaderStyle-ForeColor="Blue" DataField="POCFirstName"
-                            HeaderText="POC-FirstName" />
-                        <asp:BoundField ItemStyle-HorizontalAlign="Center" HeaderStyle-ForeColor="Blue" DataField="POCPhone"
-                            HeaderText="POC-Phone" />
-                        <asp:BoundField ItemStyle-HorizontalAlign="Center" HeaderStyle-ForeColor="Blue" DataField="CreationDate"
-                            HeaderText="Creation Date" />
+                        <asp:BoundField ItemStyle-HorizontalAlign="Center" HeaderStyle-ForeColor="Blue" DataField="FIRSTNAME"
+                            HeaderText="First Name" />
+                        <asp:BoundField ItemStyle-HorizontalAlign="Center" HeaderStyle-ForeColor="Blue" DataField="LASTNAME"
+                            HeaderText="Last Name" />
+                        <asp:BoundField ItemStyle-HorizontalAlign="Center" HeaderStyle-ForeColor="Blue" DataField="PHONE"
+                            HeaderText="Phone Number" />
+                        <asp:BoundField ItemStyle-HorizontalAlign="Center" HeaderStyle-ForeColor="Blue" DataField="E-mail"
+                            HeaderText="Email" />
                         <asp:BoundField ItemStyle-HorizontalAlign="Center" HeaderStyle-ForeColor="Blue" DataField="Errormessage"
                             HeaderText="Message" />
                     </Columns>

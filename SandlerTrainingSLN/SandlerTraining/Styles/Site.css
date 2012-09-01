@@ -233,6 +233,12 @@ div.accountInfo
 
 /* MISC  
 ----------------------------------------------------------*/
+.sandlerButton
+{
+    background-color: #3366cc;
+    color: #FFFFFF;
+    padding-right: 10px;
+}
 
 .clear
 {
@@ -520,3 +526,7 @@ ul.navigation li a
     color: red;
 }
 
+table td
+{
+    vertical-align: top;
+}

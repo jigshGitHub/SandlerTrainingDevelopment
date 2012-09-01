@@ -26,43 +26,52 @@ public partial class CRM_Companies_Upload : UploaderBasePage
         DataRow excelRow = null;
         try
         {
-            fileToUpload.SaveAs(Server.MapPath(FileName));
-
-            SetUpExcel();
-
-            SetUpLogData();
-
-            companyRepository = new SandlerRepositories.CompaniesRepository();
-
-            for(int i=0 ; i < ExcelData.Rows.Count; i++)
+            if (IsDataValid())
             {
-                try
+                fileToUpload.SaveAs(Server.MapPath(FileName));
+
+                SetUpExcel();
+
+                SetUpLogData();
+
+                companyRepository = new SandlerRepositories.CompaniesRepository();
+
+                for (int i = 0; i < ExcelData.Rows.Count; i++)
                 {
-                    excelRow = ExcelData.Rows[i];
+                    try
+                    {
+                        excelRow = ExcelData.Rows[i];
 
-                    company = new SandlerModels.TBL_COMPANIES();
+                        company = new SandlerModels.TBL_COMPANIES();
 
-                    FillCompany(company, excelRow);            
+                        FillCompany(company, excelRow);
 
-                    //companyRepository.Add(company);
+                        if (companyRepository.Exists(company))
+                        {
+                            excelRow["Errormessage"] = "Company exists for this frenchisee";
+                            CreateLogRow(excelRow);
+                        }
+                        else
+                            companyRepository.Add(company);
+
+                    }
+                    catch (Exception ex)
+                    {
+                        excelRow["Errormessage"] = ex.Message;
+
+                        CreateLogRow(excelRow);
+
+                    }
 
                 }
-                catch (Exception ex)
-                {
-                    excelRow["Errormessage"] = ex.Message;
 
-                    CreateLogRow(excelRow);
-                    
-                }
+                showHideDialogFlag.Value = "0";
 
+                System.IO.File.Delete(Server.MapPath(FileName));
+                pnlFileUpload.Visible = false;
+
+                BindLogGrid();
             }
-            
-            showHideDialogFlag.Value = "0";
-
-            System.IO.File.Delete(Server.MapPath(FileName));
-            pnlFileUpload.Visible = false;
-
-            BingLogGrid();
         }
         catch (Exception ex)
         {
@@ -72,6 +81,18 @@ public partial class CRM_Companies_Upload : UploaderBasePage
         {
 
         }
+    }
+
+    private bool IsDataValid()
+    {
+        bool isDataValid = true;
+        lblFileToUpload.Text = "";
+        if (string.IsNullOrEmpty(fileToUpload.FileName))
+        {
+            lblFileToUpload.Text = "Please browse the file to upload the data.";
+            isDataValid = false;
+        }
+        return isDataValid;
     }
 
     private void FillCompany(TBL_COMPANIES company, DataRow excelRow)
@@ -102,6 +123,7 @@ public partial class CRM_Companies_Upload : UploaderBasePage
             company.RepLastName = excelRow["RepLastName"].ToString();
             company.STATE = excelRow["STATE"].ToString();
             company.ZIP = excelRow["ZIP"].ToString();
+            company.IsActive = true;
         }
         catch (Exception ex)
         {
@@ -109,7 +131,7 @@ public partial class CRM_Companies_Upload : UploaderBasePage
         }
     }
 
-    private void BingLogGrid()
+    private void BindLogGrid()
     {
         try
         {

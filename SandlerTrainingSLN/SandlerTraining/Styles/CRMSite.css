@@ -264,7 +264,12 @@ div.accountInfo
 
 /* MISC  
 ----------------------------------------------------------*/
-
+.sandlerButton
+{
+    background-color: #3366cc;
+    color: #FFFFFF;
+    padding-right: 10px;
+}
 .clear
 {
     clear: both;
@@ -561,4 +566,8 @@ a.menuLinkActive:visited
     border: thin solid black;
     padding-right: 5px;
     padding-left: 5px;
+}
+table td
+{
+    vertical-align:top;
 }

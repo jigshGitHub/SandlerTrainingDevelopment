@@ -13,7 +13,10 @@ namespace SandlerAPI.Controllers
     {
         public IQueryable<TBL_COMPANIES> Get(int frenchiseeId)
         {
-            return new CompaniesRepository().GetByFranchiseeId(frenchiseeId).Where(c => c.IsActive == true).AsQueryable();
+            IQueryable<TBL_COMPANIES> companies;
+            companies = new CompaniesRepository().GetByFranchiseeId(frenchiseeId).Where(c => c.IsActive == true).AsQueryable();
+            //companies = new CompaniesRepository().GetAll().Where(company => company.IsActive == true && company.FranchiseeId == frenchiseeId).AsQueryable<TBL_COMPANIES>();
+            return companies;
         }
     }
 
