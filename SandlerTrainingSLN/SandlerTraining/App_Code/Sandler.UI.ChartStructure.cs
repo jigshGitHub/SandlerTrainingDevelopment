@@ -158,28 +158,29 @@ namespace Sandler.UI.ChartStructure
                         {
                             try
                             {
-                                //if (queries.GetNewAppointmentSource(currentUser, DateTime.Now.AddMonths(int.Parse(parameter.Value)).Month) != null)
-                                //{
-                                var newAppointments = from record in queries.GetNewAppointmentSource(currentUser, DateTime.Now.AddMonths(int.Parse(parameter.Value)).Month)
-                                                      select new { Category = record.SourceName, Count = record.Count };
-
-                                this.DataSetCollection.Add(new ChartDataSet { Color = parameter.Color, SeriesName = DateTime.Now.AddMonths(int.Parse(parameter.Value)).ToString("MMM") });
-
-                                foreach (Category category in this.Categories)
+                                IEnumerable<SandlerModels.DataModels.AppointmentSourceVM> appointmentSourceVMcollection = queries.GetNewAppointmentSource(currentUser, DateTime.Now.AddMonths(int.Parse(parameter.Value)).Month);
+                                if (appointmentSourceVMcollection != null)
                                 {
-                                    lastDs = this.DataSetCollection.Last();
-                                    lastDs.SetsCollection.Add(new SetValue { Label = category.Label, Link = ChartHelper.GeneratePageLink(lastDs.SeriesName, this.DrillChartIds) });
-                                }
+                                    var newAppointments = from record in appointmentSourceVMcollection
+                                                          select new { Category = record.SourceName, Count = record.Count };
 
-                                foreach (var record in newAppointments)
-                                {
-                                    foreach (SetValue set in lastDs.SetsCollection)
+                                    this.DataSetCollection.Add(new ChartDataSet { Color = parameter.Color, SeriesName = DateTime.Now.AddMonths(int.Parse(parameter.Value)).ToString("MMM") });
+
+                                    foreach (Category category in this.Categories)
                                     {
-                                        if (set.Label == record.Category)
-                                            set.Value = record.Count.ToString();
+                                        lastDs = this.DataSetCollection.Last();
+                                        lastDs.SetsCollection.Add(new SetValue { Label = category.Label, Link = ChartHelper.GeneratePageLink(lastDs.SeriesName, this.DrillChartIds) });
+                                    }
+
+                                    foreach (var record in newAppointments)
+                                    {
+                                        foreach (SetValue set in lastDs.SetsCollection)
+                                        {
+                                            if (set.Label == record.Category)
+                                                set.Value = record.Count.ToString();
+                                        }
                                     }
                                 }
-                                //}
                             }
                             catch (Exception ex)
                             {
@@ -206,9 +207,10 @@ namespace Sandler.UI.ChartStructure
                         {
                             try
                             {
-                                //if (queries.GetNewClientsByProductType(currentUser, DateTime.Now.AddMonths(int.Parse(parameter.Value)).Month) != null)
-                                //{
-                                var newClientsByProducts = from record in queries.GetNewClientsByProductType(currentUser, DateTime.Now.AddMonths(int.Parse(parameter.Value)).Month)
+                                IEnumerable<SandlerModels.DataModels.ProductTypeVM> productTypeVMCollection = queries.GetNewClientsByProductType(currentUser, DateTime.Now.AddMonths(int.Parse(parameter.Value)).Month);
+                                if (productTypeVMCollection != null)
+                                {
+                                var newClientsByProducts = from record in productTypeVMCollection
                                                            select new { Category = record.ProductTypeName, Count = record.Count };
 
                                 this.DataSetCollection.Add(new ChartDataSet { Color = parameter.Color, SeriesName = DateTime.Now.AddMonths(int.Parse(parameter.Value)).ToString("MMM") });
@@ -227,7 +229,7 @@ namespace Sandler.UI.ChartStructure
                                             set.Value = record.Count.ToString();
                                     }
                                 }
-                                //}
+                                }
                             }
                             catch (Exception ex)
                             {
@@ -318,8 +320,8 @@ namespace Sandler.UI.ChartStructure
 
                                 //if (actualDollarsBooked > 0 && goalOfDollarsBooked > 0)
                                 //{
-                                    this.DataSetCollection[0].SetsCollection.Add(new SetValue { Label = catagory.Label, Value = actualDollarsBooked.ToString(), Link = ChartHelper.GeneratePageLink(catagory.Label, this.DrillChartIds) });
-                                    this.DataSetCollection[1].SetsCollection.Add(new SetValue { Label = catagory.Label, Value = ((Convert.ToDouble(actualDollarsBooked) / Convert.ToDouble(goalOfDollarsBooked)) * 100).ToString("#.##"), Link = ChartHelper.GeneratePageLink(catagory.Label, this.DrillChartIds) });
+                                this.DataSetCollection[0].SetsCollection.Add(new SetValue { Label = catagory.Label, Value = actualDollarsBooked.ToString(), Link = ChartHelper.GeneratePageLink(catagory.Label, this.DrillChartIds) });
+                                this.DataSetCollection[1].SetsCollection.Add(new SetValue { Label = catagory.Label, Value = ((Convert.ToDouble(actualDollarsBooked) / Convert.ToDouble(goalOfDollarsBooked)) * 100).ToString("#.##"), Link = ChartHelper.GeneratePageLink(catagory.Label, this.DrillChartIds) });
                                 //}
                             }
                             catch (System.InvalidOperationException)

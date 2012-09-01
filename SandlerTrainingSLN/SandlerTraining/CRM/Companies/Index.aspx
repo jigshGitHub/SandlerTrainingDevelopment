@@ -6,8 +6,9 @@
     <table id="tblMain" width="100%">
         <tr>
             <td align="right">
+                <a runat="server" id="uploadAnchor" href="Upload.aspx">Upload Company Data | </a>
                 <a runat="server" id="addProductAnchor" href="Add.aspx" style="display: none">Add New
-                    Product |</a> <a runat="server" id="addCompanyAnchor" href="Add.aspx">Add New Company</a>
+                    Product | </a><a runat="server" id="addCompanyAnchor" href="Add.aspx">Add New Company</a>
             </td>
         </tr>
         <tr>
@@ -26,8 +27,7 @@
                 <div id="Report" runat="server">
                     <asp:GridView Width="100%" ID="gvCompanies" runat="server" DataSourceID="CompanyDS"
                         AutoGenerateColumns="False" DataKeyNames="COMPANIESID" AllowSorting="true" AllowPaging="true"
-                        PageSize="20" OnSelectedIndexChanged="gvCompanies_SelectedIndexChanged" OnDataBound="gvCompanies_DataBound"
-                        >
+                        PageSize="20" OnSelectedIndexChanged="gvCompanies_SelectedIndexChanged" OnDataBound="gvCompanies_DataBound">
                         <PagerStyle CssClass="gvPager" />
                         <Columns>
                             <asp:BoundField DataField="COMPANIESID" Visible="False" />
