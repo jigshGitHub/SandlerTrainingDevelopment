@@ -7,7 +7,7 @@ using System.Web.UI.WebControls;
 using System.Data;
 using System.Data.OleDb;
 using SandlerModels;
-
+using SandlerModels.DataModels;
 public partial class CRM_Companies_Upload : UploaderBasePage
 {
     protected void Page_Load(object sender, EventArgs e)
@@ -71,6 +71,7 @@ public partial class CRM_Companies_Upload : UploaderBasePage
                 pnlFileUpload.Visible = false;
 
                 BindLogGrid();
+                UserEntitiesFactory.ReLoad();
             }
         }
         catch (Exception ex)

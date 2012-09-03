@@ -204,8 +204,44 @@
                             </EditItemTemplate>
                             <ItemStyle Wrap="False" />
                         </asp:TemplateField>
-
-
+                        <asp:TemplateField HeaderText="Birthday :">
+                            <EditItemTemplate>
+                                <asp:TextBox ID="Birthday" Text='<%# Bind("Birthday") %>' runat="server"></asp:TextBox>&nbsp;<asp:Image
+                                    ID="calanderImageBD" runat="server" ImageUrl="~/images/calendar.gif" ImageAlign="Middle" />
+                                <asp:CalendarExtender ID="CalendarExtender1" runat="server" TargetControlID="Birthday" PopupButtonID="calanderImageBD"
+                                    CssClass="calendar">
+                                </asp:CalendarExtender>
+                            </EditItemTemplate>
+                            <ItemTemplate>
+                                <asp:Label ID="lblBirthday" runat="server" Text='<%# Bind("Birthday","{0:d}") %>'></asp:Label></ItemTemplate>
+                        </asp:TemplateField>
+                        <asp:TemplateField HeaderText="Anniversary :">
+                            <EditItemTemplate>
+                                <asp:TextBox ID="Anniversary" runat="server" Text='<%# Bind("Anniversary") %>'>
+                                </asp:TextBox>
+                                &nbsp;<asp:Image ID="calanderImageAD" runat="server" ImageUrl="~/images/calendar.gif"
+                                    ImageAlign="Middle" />
+                                <asp:CalendarExtender ID="CalendarExtender2" runat="server" TargetControlID="Anniversary" PopupButtonID="calanderImageAD"
+                                    CssClass="calendar">
+                                </asp:CalendarExtender>
+                            </EditItemTemplate>
+                            <ItemTemplate>
+                                <asp:Label ID="lblAnniversary" runat="server" Text='<%# Bind("Anniversary","{0:d}") %>'></asp:Label></ItemTemplate>
+                        </asp:TemplateField>
+                        <asp:TemplateField HeaderText="Years with the company :">
+                            <EditItemTemplate>
+                                <asp:TextBox ID="CompanyYears" runat="server" Text='<%# Bind("CompanyYears") %>'></asp:TextBox>
+                            </EditItemTemplate>
+                            <ItemTemplate>
+                                <asp:Label ID="lblCompanyYears" runat="server" Text='<%# Bind("CompanyYears") %>'></asp:Label></ItemTemplate>
+                        </asp:TemplateField>
+                        <asp:TemplateField HeaderText="Boss's Name :">
+                            <EditItemTemplate>
+                                <asp:TextBox ID="BossName" runat="server" Text='<%# Bind("BossName") %>'></asp:TextBox>
+                            </EditItemTemplate>
+                            <ItemTemplate>
+                                <asp:Label ID="lblBossName" runat="server" Text='<%# Bind("BossName") %>'></asp:Label></ItemTemplate>
+                        </asp:TemplateField>
                         <asp:TemplateField ShowHeader="False">
                             <ControlStyle Font-Bold="true" />
                             <EditItemTemplate>

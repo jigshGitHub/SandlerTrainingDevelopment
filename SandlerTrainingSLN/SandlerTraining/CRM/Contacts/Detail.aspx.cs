@@ -72,6 +72,11 @@ public partial class ContactDETAIL : BasePage
         System.DateTime NextDate = default(System.DateTime);
         System.DateTime LastDate = default(System.DateTime);
         System.DateTime CourseTrngDate = default(System.DateTime);
+        System.DateTime BirthDate = default(System.DateTime);
+        System.DateTime AnniversaryDate = default(System.DateTime);
+        int CompanyYrs = default(System.Int32);
+        string Boss = default(System.String);
+        
         //For Action Step
         {
             TextBox ActionStepTextBox = new TextBox();
@@ -228,6 +233,51 @@ public partial class ContactDETAIL : BasePage
             }
         }
 
+        //For Birthday
+        {
+            TextBox BirthDateCal = new TextBox();
+            BirthDateCal = (TextBox)ContactDW.FindControl("Birthday");
+            if ((BirthDateCal != null))
+            {
+                if (!string.IsNullOrEmpty(BirthDateCal.Text))
+                {
+                    BirthDate = Convert.ToDateTime(BirthDateCal.Text.Trim());
+                }
+            }
+
+        }
+
+        //For Anniversary
+        {
+            TextBox AnniversaryCal = new TextBox();
+            AnniversaryCal = (TextBox)ContactDW.FindControl("Anniversary");
+            if ((AnniversaryCal != null))
+            {
+                if (!string.IsNullOrEmpty(AnniversaryCal.Text))
+                {
+                    AnniversaryDate = Convert.ToDateTime(AnniversaryCal.Text.Trim());
+                }
+            }
+
+        }
+        //For Company Years
+        {
+            TextBox CompanyYears = new TextBox();
+            CompanyYears = (TextBox)ContactDW.FindControl("CompanyYears");
+            if ((CompanyYears != null))
+            {
+                CompanyYrs = Convert.ToInt32(CompanyYears.Text.ToString());
+            }
+        }
+        //For Boss Name
+        {
+            TextBox BossName = new TextBox();
+            BossName = (TextBox)ContactDW.FindControl("BossName");
+            if ((BossName != null))
+            {
+                Boss = BossName.Text;
+            }
+        }
         if (IsNewAppt == 0 && AppsSourceId != 0)
         {
             ErrorMessage = "New Appointment? is selected as No. Please change your selection to Proceed.";
@@ -258,7 +308,7 @@ public partial class ContactDETAIL : BasePage
         {
             //Now Update the Record as validation is Ok
             SandlerRepositories.ContactsRepository contactRepository = new SandlerRepositories.ContactsRepository();
-            contactRepository.Update(Convert.ToInt32(hidContactID.Value), CompanyID, LastName, FirstName, Phone, Email, DiscussionTopic, ActionStep, IsRegisteredForTrng, IsNewAppt, CourseId, AppsSourceId, LastDate, NextDate, CourseTrngDate, BlastEmailSubscription,NeedCallBack);
+            contactRepository.Update(Convert.ToInt32(hidContactID.Value), CompanyID, LastName, FirstName, Phone, Email, DiscussionTopic, ActionStep, IsRegisteredForTrng, IsNewAppt, CourseId, AppsSourceId, LastDate, NextDate, CourseTrngDate, BlastEmailSubscription,NeedCallBack,BirthDate,AnniversaryDate,CompanyYrs,Boss);
             LblStatus.Text = "Contact updated successfully!";
         }
                

@@ -11,6 +11,21 @@ using System.Configuration;
 /// </summary>
 public class OpportunityBasePage : BasePage
 {
+    protected bool AllowSearch
+    {
+        get
+        {
+            if (ViewState["AllowSearch"] == null)
+            {
+                ViewState["AllowSearch"] = false;
+            } return Convert.ToBoolean(ViewState["AllowSearch"].ToString());
+        }
+        set
+        {
+            ViewState["AllowSearch"] = value;
+        }
+    }
+
     protected int OpportunityID;
     protected int CurrentPage
     {
@@ -95,6 +110,43 @@ public class OpportunityBasePage : BasePage
         UserEntities userEntities = UserEntitiesFactory.Get(this.CurrentUser);
         IQueryable<TBL_OPPORTUNITIES> data = userEntities.Opportunities.AsQueryable();
         return (companyId == 0) ? data : data.Where(record => record.COMPANYID == companyId);
+    }
+
+    protected virtual IQueryable<TBL_OPPORTUNITIES> GetOpportunities(int? companyId, string opportunityId, string name, string repFirstName, string repLastName, string repPhone, int? productId, int? statusId, int? contactId,string contactPhone, string contactEmail)
+    {
+        UserEntities userEntities = UserEntitiesFactory.Get(this.CurrentUser);
+        IQueryable<TBL_OPPORTUNITIES> data = userEntities.Opportunities.AsQueryable();
+        IQueryable<TBL_CONTACTS> contacts = userEntities.Contacts.AsQueryable();
+
+        
+        data = SandlerData.IQueryableExtensions.OptionalWhere(data, companyId, x => (opp => opp.COMPANYID == companyId)); 
+        data = SandlerData.IQueryableExtensions.OptionalWhere(data, productId, x => (opp => opp.ProductID == productId));
+        data = SandlerData.IQueryableExtensions.OptionalWhere(data, statusId, x => (opp => opp.STATUSID == statusId));
+        data = SandlerData.IQueryableExtensions.OptionalWhere(data, contactId, x => (opp => opp.CONTACTID == contactId));
+
+        if (!string.IsNullOrEmpty(opportunityId))
+            data = data.Where(opp => opp.OpportunityID == int.Parse(opportunityId));
+        if (!string.IsNullOrEmpty(name))
+            data = data.Where(opp => opp.NAME.Contains(name));
+        if (!string.IsNullOrEmpty(repFirstName))
+            data = data.Where(opp => opp.SALESREPFIRSTNAME.Contains(repFirstName));
+        if (!string.IsNullOrEmpty(repLastName))
+            data = data.Where(opp => opp.SALESREPLASTNAME.Contains(repLastName));
+        if (!string.IsNullOrEmpty(repPhone))
+            data = data.Where(opp => opp.SALESREPPHONE.Contains(repPhone));
+
+        if (!string.IsNullOrEmpty(contactPhone)){
+            data = from opp in data
+                   from contact in contacts.Where(record => record.PHONE == contactPhone && record.CONTACTSID == opp.CONTACTID)
+                   select opp;
+        }
+        if (!string.IsNullOrEmpty(contactEmail)){
+            data = from opp in data
+                   from contact in contacts.Where(record => record.EMAIL == contactEmail && record.CONTACTSID == opp.CONTACTID)
+                   select opp;
+        }
+
+        return data;
     }
 
     protected virtual TBL_COMPANIES GetCompany(int companyId)

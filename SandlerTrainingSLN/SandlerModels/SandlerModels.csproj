@@ -63,6 +63,7 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="DataModels\Class1.cs" />
+    <Compile Include="DataModels\IQueryableExtensions.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="Model1.Context.cs">
       <AutoGen>True</AutoGen>

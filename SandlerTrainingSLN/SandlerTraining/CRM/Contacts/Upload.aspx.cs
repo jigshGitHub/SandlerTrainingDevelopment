@@ -55,9 +55,12 @@ public partial class CRM_Contacts_Upload : UploaderBasePage
 
                         contact = new SandlerModels.TBL_CONTACTS();
 
-                        FillContact(contact, excelRow);
+                        if (IsExcelDataValid(excelRow))
+                        {
+                            FillContact(contact, excelRow);
 
-                        contactRepository.Add(contact);
+                            contactRepository.Add(contact);
+                        }
 
                     }
                     catch (Exception ex)
@@ -75,7 +78,15 @@ public partial class CRM_Contacts_Upload : UploaderBasePage
                 System.IO.File.Delete(Server.MapPath(FileName));
                 pnlFileUpload.Visible = false;
 
-                BindLogGrid();
+                if (LogData.Rows.Count > 0)
+                {
+                    BindLogGrid();
+                }
+                else
+                {
+                    UserEntitiesFactory.ReLoad();
+                    Response.Redirect("~/CRM/Contacts/Index.aspx");
+                }
             }
         }
         catch (Exception ex)
@@ -86,6 +97,28 @@ public partial class CRM_Contacts_Upload : UploaderBasePage
         {
 
         }
+    }
+
+    private bool IsExcelDataValid(DataRow excelRow)
+    {
+        bool excelDataValid = true;
+        if (!string.IsNullOrEmpty(excelRow["IsRegisteredForTraining"].ToString()))
+        {
+            if (string.IsNullOrEmpty(excelRow["CourseId"].ToString()))
+            {
+                excelDataValid = false;
+                excelRow["Errormessage"] = "Course Id is required.";
+            }
+            if (string.IsNullOrEmpty(excelRow["CourseTrainingDate"].ToString()))
+            {
+                excelDataValid = false;
+                excelRow["Errormessage"] = "Course Training Date is required.";
+            }
+        }
+        if (!excelDataValid)
+            CreateLogRow(excelRow);
+
+        return excelDataValid;
     }
 
     private bool IsDataValid()
@@ -129,7 +162,8 @@ public partial class CRM_Contacts_Upload : UploaderBasePage
             contact.FIRSTNAME = excelRow["FIRSTNAME"].ToString();
             contact.IsEmailSubscription = true;
             contact.IsNewAppointment = (excelRow["IsNewAppointment"].ToString() == "0") ? false : true;
-            contact.IsRegisteredForTraining = (excelRow["IsRegisteredForTraining"].ToString() == "0") ? false : true;
+            if(!string.IsNullOrEmpty (excelRow["IsRegisteredForTraining"].ToString()))
+                contact.IsRegisteredForTraining = (excelRow["IsRegisteredForTraining"].ToString() == "1") ? true : false;
             if (!string.IsNullOrEmpty(excelRow["LASTCONTACT_DATE"].ToString()))
                 contact.LAST_CONTACT_DATE = Convert.ToDateTime(excelRow["LASTCONTACT_DATE"].ToString());
             contact.LASTNAME = excelRow["LASTNAME"].ToString();
@@ -137,6 +171,7 @@ public partial class CRM_Contacts_Upload : UploaderBasePage
             //    contact.NEXT_CONTACT_DATE = Convert.ToDateTime(excelRow["NEXTCONTACT_DATE"].ToString());
 
             contact.PHONE = excelRow["PHONE"].ToString();
+            contact.IsActive = true;
         }
         catch (Exception ex)
         {
@@ -148,17 +183,11 @@ public partial class CRM_Contacts_Upload : UploaderBasePage
     {
         try
         {
-            if (LogData.Rows.Count > 0)
-            {
-                gvCompanies.DataSource = LogData;
-                gvCompanies.DataBind();
+            gvCompanies.DataSource = LogData;
+            gvCompanies.DataBind();
 
-                lblMessage.Text = "Following records are not being uploaded";
-            }
-            else
-            {
-                Response.Redirect("~/CRM/Contacts/Index.aspx");
-            }
+            lblMessage.Text = "Following records are not being uploaded";
+
         }
         catch (Exception ex)
         {

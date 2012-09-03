@@ -129,6 +129,34 @@
                                 <asp:DropDownList ID="ddlCallBack" runat="server" DataSourceID="CallBackInfoDS" DataTextField="CallBackDescription" DataValueField="CallBackValue" SelectedValue='<%# Bind("CallBackValue") %>'></asp:DropDownList>
                             </InsertItemTemplate>
                         </asp:TemplateField>
+                        <asp:TemplateField HeaderText="Birthday :">
+                            <InsertItemTemplate>
+                                <asp:TextBox ID="Birthday" Text='<%# Bind("Birthday") %>' runat="server"></asp:TextBox>&nbsp;<asp:Image
+                                    ID="calanderImageBD" runat="server" ImageUrl="~/images/calendar.gif" ImageAlign="Middle" />
+                                <asp:CalendarExtender ID="CalendarExtender1" runat="server" TargetControlID="Birthday" PopupButtonID="calanderImageBD"
+                                    CssClass="calendar">
+                                </asp:CalendarExtender>
+                            </InsertItemTemplate>
+                        </asp:TemplateField>
+                        <asp:TemplateField HeaderText="Anniversary :">
+                            <InsertItemTemplate>
+                                <asp:TextBox ID="Anniversary" runat="server" Text='<%# Bind("Anniversary") %>'></asp:TextBox>&nbsp;<asp:Image
+                                    ID="calanderImageAD" runat="server" ImageUrl="~/images/calendar.gif" ImageAlign="Middle" />
+                                <asp:CalendarExtender ID="CalendarExtender2" runat="server" TargetControlID="Anniversary" PopupButtonID="calanderImageAD"
+                                    CssClass="calendar">
+                                </asp:CalendarExtender>
+                            </InsertItemTemplate>
+                        </asp:TemplateField>
+                        <asp:TemplateField HeaderText="Years with the company :">
+                            <InsertItemTemplate>
+                                <asp:TextBox ID="CompanyYears" runat="server" Text='<%# Bind("CompanyYears") %>'></asp:TextBox>
+                            </InsertItemTemplate>
+                        </asp:TemplateField>
+                        <asp:TemplateField HeaderText="Boss's Name :">
+                            <InsertItemTemplate>
+                                <asp:TextBox ID="BossName" runat="server" Text='<%# Bind("BossName") %>'></asp:TextBox>
+                            </InsertItemTemplate>
+                        </asp:TemplateField>
                         <asp:TemplateField ShowHeader="False">
                             <InsertItemTemplate>
                                 <asp:LinkButton ID="LinkButton1" runat="server" CausesValidation="True" CommandName="Insert"
@@ -183,6 +211,10 @@
                         <asp:ControlParameter ControlID="dvContact" Name="Last_Contact_Date" PropertyName="SelectedValue" />
                         <asp:ControlParameter ControlID="dvContact" Name="Next_Contact_Date" PropertyName="SelectedValue" />
                         <asp:ControlParameter ControlID="dvContact" Name="CallBackValue" PropertyName="SelectedValue" />
+                        <asp:ControlParameter ControlID="dvContact" Name="Birthday" PropertyName="SelectedValue" />
+                        <asp:ControlParameter ControlID="dvContact" Name="Anniversary" PropertyName="SelectedValue" />
+                        <asp:ControlParameter ControlID="dvContact" Name="CompanyYears" PropertyName="SelectedValue" />
+                        <asp:ControlParameter ControlID="dvContact" Name="BossName" PropertyName="SelectedValue" />
                     </InsertParameters>
                 </asp:ObjectDataSource>
             </td>

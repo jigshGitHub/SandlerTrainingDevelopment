@@ -84,6 +84,7 @@ namespace SandlerData
 
         }
 
+        //http://stackoverflow.com/questions/736952/the-best-way-to-build-dynamic-linq-query
         public static IQueryable<TSource> OptionalWhere<TSource, TParameter>(IQueryable<TSource> source, TParameter? parameter, Func<TParameter, Expression<Func<TSource, bool>>> whereClause) where TParameter : struct
         {
             IQueryable<TSource> ret = source;

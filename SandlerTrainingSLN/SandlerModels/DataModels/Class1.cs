@@ -143,7 +143,6 @@ namespace SandlerModels.DataModels
             {
                 //contacts = from contact in contactsSource.GetAll().Where(record => record.IsActive == true)
                 //           from company in this.companies.Where(record => record.COMPANIESID == contact.COMPANYID)
-                //           where company.FranchiseeId == user.FranchiseeID
                 //           select contact;
                 contacts = from contact in contactsSource.GetAll().Where(record => record.IsActive == true && record.TBL_COMPANIES.FranchiseeId == user.FranchiseeID)
                            //from company in this.companies.Where(record => record.COMPANIESID == contact.COMPANYID)
@@ -227,8 +226,12 @@ namespace SandlerModels.DataModels
             try
             {
                 if (ContactsCount > 0)
-                    companyContacts = from contact in Contacts.Where(c => c.COMPANYID == companyId)
-                                      select contact;
+                    if (companyId == 0) companyContacts = Contacts;
+                    else
+                    {
+                        companyContacts = from contact in Contacts.Where(c => c.COMPANYID == companyId)
+                                          select contact;
+                    }
             }
             catch (Exception ex)
             {
