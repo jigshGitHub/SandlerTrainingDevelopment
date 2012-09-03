@@ -8,7 +8,7 @@ using SandlerModels;
 using System.Data;
 using SandlerRepositories; 
 
-public partial class Email_ManageEmailSubscription : System.Web.UI.Page
+public partial class Email_ManageEmailSubscription : BasePage
 {
     protected void Page_Load(object sender, EventArgs e)
     {

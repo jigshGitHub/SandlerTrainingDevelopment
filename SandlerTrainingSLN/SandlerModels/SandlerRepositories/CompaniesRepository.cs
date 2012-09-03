@@ -58,6 +58,98 @@ namespace SandlerRepositories
 
         }
 
+        public DataSet GetCompaniesForSearch()
+        {
+            //Get the User Info
+            UserModel _user = (UserModel)HttpContext.Current.Session["CurrentUser"];
+            Company _company = (Company)HttpContext.Current.Session["CompanySearchCriteria"];
+
+            if (_company.LastContactDate.ToString() == "1/1/0001 12:00:00 AM")
+            {
+                _company.LastContactDate = default(System.DateTime).AddYears(1754);
+            }
+            if (_company.NextContactDate.ToString() == "1/1/0001 12:00:00 AM")
+            {
+                _company.NextContactDate = default(System.DateTime).AddYears(1754);
+            }
+            if (_company.CreationDate.ToString() == "1/1/0001 12:00:00 AM")
+            {
+                _company.CreationDate = default(System.DateTime).AddYears(1754);
+            }
+            //get data
+            if (_user.Role == SandlerRoles.SiteAdmin || _user.Role == SandlerRoles.Corporate)
+            {
+                //Corporate User
+                return db.ExecuteDataset("sp_GetAllCompaniesSearch", "CompaniesSearch",
+                    new SqlParameter("@CompanyName", _company.CompanyName),
+                    new SqlParameter("@RepLastName", _company.RepLastName),
+                    new SqlParameter("@RepFirstName", _company.RepFirstName),
+                    new SqlParameter("@IndustryIdList", _company.IndId),
+                    new SqlParameter("@TotalCompValue", _company.CompValueGoal),
+                    new SqlParameter("@IsNewCompanyIdList", _company.IsNewCompany),
+                    new SqlParameter("@Address", _company.Address),
+                    new SqlParameter("@Zip", _company.Zip),
+                    new SqlParameter("@City", _company.City),
+                    new SqlParameter("@State", _company.State),
+                    new SqlParameter("@POCLastName", _company.POCLastName),
+                    new SqlParameter("@POCFirstName", _company.POCFirstName),
+                    new SqlParameter("@POCPhone", _company.POCPhone),
+                    new SqlParameter("@DiscussionTopic", _company.DiscussionTopic),
+                    new SqlParameter("@ActionStep", _company.ActionStep),
+                    new SqlParameter("@LastContactDate", _company.LastContactDate),
+                    new SqlParameter("@NextContactDate", _company.NextContactDate),
+                    new SqlParameter("@CreationDate", _company.CreationDate));
+            }
+            else if (_user.Role == SandlerRoles.Coach)
+            {
+                //Coach - To do - once User object has RegionId then pass it here
+                return db.ExecuteDataset("sp_GetAllCompaniesByCoachIdSearch", "CompaniesByCoachIdSearch",
+                    new SqlParameter("@CoachId", _user.CoachID.ToString()),
+                    new SqlParameter("@CompanyName", _company.CompanyName),
+                    new SqlParameter("@RepLastName", _company.RepLastName),
+                    new SqlParameter("@RepFirstName", _company.RepFirstName),
+                    new SqlParameter("@IndustryIdList", _company.IndId),
+                    new SqlParameter("@TotalCompValue", _company.CompValueGoal),
+                    new SqlParameter("@IsNewCompanyIdList", _company.IsNewCompany),
+                    new SqlParameter("@Address", _company.Address),
+                    new SqlParameter("@Zip", _company.Zip),
+                    new SqlParameter("@City", _company.City),
+                    new SqlParameter("@State", _company.State),
+                    new SqlParameter("@POCLastName", _company.POCLastName),
+                    new SqlParameter("@POCFirstName", _company.POCFirstName),
+                    new SqlParameter("@POCPhone", _company.POCPhone),
+                    new SqlParameter("@DiscussionTopic", _company.DiscussionTopic),
+                    new SqlParameter("@ActionStep", _company.ActionStep),
+                    new SqlParameter("@LastContactDate", _company.LastContactDate),
+                    new SqlParameter("@NextContactDate", _company.NextContactDate),
+                    new SqlParameter("@CreationDate", _company.CreationDate));
+            }
+            else
+            {
+                //Franchisee Owner OR Franchisee User
+                return db.ExecuteDataset("sp_GetAllCompaniesByFrIdSearch", "CompaniesByFrIdSearch",
+                    new SqlParameter("@FranchiseeId", _user.FranchiseeID.ToString()),
+                    new SqlParameter("@CompanyName", _company.CompanyName),
+                    new SqlParameter("@RepLastName", _company.RepLastName),
+                    new SqlParameter("@RepFirstName", _company.RepFirstName),
+                    new SqlParameter("@IndustryIdList", _company.IndId),
+                    new SqlParameter("@TotalCompValue", _company.CompValueGoal),
+                    new SqlParameter("@IsNewCompanyIdList", _company.IsNewCompany),
+                    new SqlParameter("@Address", _company.Address),
+                    new SqlParameter("@Zip", _company.Zip),
+                    new SqlParameter("@City", _company.City),
+                    new SqlParameter("@State", _company.State),
+                    new SqlParameter("@POCLastName", _company.POCLastName),
+                    new SqlParameter("@POCFirstName", _company.POCFirstName),
+                    new SqlParameter("@POCPhone", _company.POCPhone),
+                    new SqlParameter("@DiscussionTopic", _company.DiscussionTopic),
+                    new SqlParameter("@ActionStep", _company.ActionStep),
+                    new SqlParameter("@LastContactDate", _company.LastContactDate),
+                    new SqlParameter("@NextContactDate", _company.NextContactDate),
+                    new SqlParameter("@CreationDate", _company.CreationDate));
+            }
+        }
+
         public DataSet GetCompaniesForDDL()
         {
             //Get the User Info

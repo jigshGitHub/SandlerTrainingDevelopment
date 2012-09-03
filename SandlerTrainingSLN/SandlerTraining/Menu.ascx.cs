@@ -25,6 +25,35 @@ public partial class Menu : System.Web.UI.UserControl
             }
             if (activeLink != null)
                 activeLink.Attributes.Add("class", "menuLinkActive");
+
+            SecureNavigation();
+        }
+    }
+
+    private void SecureNavigation()
+    {
+        BasePage thisPage = this.Page as BasePage;
+        if (thisPage != null)
+        {
+            HtmlAnchor link = null;
+            if (thisPage.CurrentUser.Role == SandlerModels.SandlerRoles.Corporate)
+            {
+                link = ((HtmlAnchor)FindControl("manageCoachAnchor"));
+                link.HRef = this.Page.ResolveClientUrl("~/Account/Coach/Index.aspx");
+                link.Visible = true;
+            }
+            if (thisPage.CurrentUser.Role == SandlerModels.SandlerRoles.Corporate || thisPage.CurrentUser.Role == SandlerModels.SandlerRoles.Coach)
+            {
+                link = ((HtmlAnchor)FindControl("manageFranchiseeAnchor"));
+                link.HRef = this.Page.ResolveClientUrl("~/Account/FranchiseeOwner/Index.aspx");
+                link.Visible = true;
+            }
+            if (thisPage.CurrentUser.Role == SandlerModels.SandlerRoles.FranchiseeOwner)
+            {
+                link = ((HtmlAnchor)FindControl("manageFranchiseeUserAnchor"));
+                link.HRef = this.Page.ResolveClientUrl("~/Account/FranchiseeUser/Index.aspx");
+                link.Visible = true;
+            }
         }
     }
 }

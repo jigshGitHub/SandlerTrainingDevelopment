@@ -13,7 +13,7 @@ using SandlerModels;
 using System.Data;
 using SandlerRepositories; 
 
-public partial class Email_BlastEmail : System.Web.UI.Page
+public partial class Email_BlastEmail : BasePage
 {
     protected void Page_Load(object sender, EventArgs e)
     {

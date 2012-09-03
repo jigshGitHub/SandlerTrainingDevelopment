@@ -65,6 +65,139 @@ namespace SandlerRepositories
 
         }
 
+        public DataSet GetAllForSearch()
+        {
+            //get the User Info
+            UserModel _user = (UserModel)HttpContext.Current.Session["CurrentUser"];
+            Contact _contact = (Contact)HttpContext.Current.Session["ContactSearchCriteria"];
+            //date fields
+            if (_contact.LastContactDate.ToString() == "1/1/0001 12:00:00 AM")
+            {
+                _contact.LastContactDate = default(System.DateTime).AddYears(1754);
+            }
+            if (_contact.NextContactDate.ToString() == "1/1/0001 12:00:00 AM")
+            {
+                _contact.NextContactDate = default(System.DateTime).AddYears(1754);
+            }
+            if (_contact.CourseTrainingDate.ToString() == "1/1/0001 12:00:00 AM")
+            {
+                _contact.CourseTrainingDate = default(System.DateTime).AddYears(1754);
+            }
+            if (_contact.BirthDay.ToString() == "1/1/0001 12:00:00 AM")
+            {
+                _contact.BirthDay = default(System.DateTime).AddYears(1754);
+            }
+            if (_contact.Anniversary.ToString() == "1/1/0001 12:00:00 AM")
+            {
+                _contact.Anniversary = default(System.DateTime).AddYears(1754);
+            }
+            //Now perform search based on User role
+            if (_user.Role == SandlerRoles.SiteAdmin || _user.Role == SandlerRoles.Corporate)
+            {
+                //get data
+                return db.ExecuteDataset("sp_GetAllContactsSearch", "Contacts",
+                    new SqlParameter("@LastName", _contact.LastName),
+                    new SqlParameter("@FirstName", _contact.FirstName),
+                    new SqlParameter("@Phone", _contact.Phone),
+                    new SqlParameter("@Email", _contact.Email),
+                    new SqlParameter("@IsNewApptIdList", _contact.IsNewApptList),
+                    new SqlParameter("@ApptSourceIdList", _contact.ApptSourceList),
+                    new SqlParameter("@IsRegForTrainingList", _contact.IsRegisteredForTrainingList),
+                    new SqlParameter("@CourseTypeIdList", _contact.CourseIdList),
+                    new SqlParameter("@CompanyIdList", _contact.CompanyIdList),
+                    new SqlParameter("@NeedCallBackList", _contact.IsNeedCallBackList),
+                    new SqlParameter("@EmailSubscriptionList", _contact.IsEmailSubscriptionList),
+                    new SqlParameter("@DiscussionTopic", _contact.DiscussionTopic),
+                    new SqlParameter("@ActionStep", _contact.ActionStep),
+                    new SqlParameter("@LastContactDate", _contact.LastContactDate),
+                    new SqlParameter("@NextContactDate", _contact.NextContactDate),
+                    new SqlParameter("@CourseTrngDate", _contact.CourseTrainingDate),
+                    new SqlParameter("@BirthDayDate", _contact.BirthDay),
+                    new SqlParameter("@AnniversaryDate", _contact.Anniversary),
+                    new SqlParameter("@CompanyYears", _contact.CompanyYears),
+                    new SqlParameter("@BossName", _contact.BossName));
+            }
+            else if (_user.Role == SandlerRoles.Coach)
+            {
+                //get data
+                return db.ExecuteDataset("sp_GetAllContactsByCoachIDSearch", "Contacts",
+                    new SqlParameter("@CoachID", _user.CoachID.ToString()),
+                    new SqlParameter("@LastName", _contact.LastName),
+                    new SqlParameter("@FirstName", _contact.FirstName),
+                    new SqlParameter("@Phone", _contact.Phone),
+                    new SqlParameter("@Email", _contact.Email),
+                    new SqlParameter("@IsNewApptIdList", _contact.IsNewApptList),
+                    new SqlParameter("@ApptSourceIdList", _contact.ApptSourceList),
+                    new SqlParameter("@IsRegForTrainingList", _contact.IsRegisteredForTrainingList),
+                    new SqlParameter("@CourseTypeIdList", _contact.CourseIdList),
+                    new SqlParameter("@CompanyIdList", _contact.CompanyIdList),
+                    new SqlParameter("@NeedCallBackList", _contact.IsNeedCallBackList),
+                    new SqlParameter("@EmailSubscriptionList", _contact.IsEmailSubscriptionList),
+                    new SqlParameter("@DiscussionTopic", _contact.DiscussionTopic),
+                    new SqlParameter("@ActionStep", _contact.ActionStep),
+                    new SqlParameter("@LastContactDate", _contact.LastContactDate),
+                    new SqlParameter("@NextContactDate", _contact.NextContactDate),
+                    new SqlParameter("@CourseTrngDate", _contact.CourseTrainingDate),
+                    new SqlParameter("@BirthDayDate", _contact.BirthDay),
+                    new SqlParameter("@AnniversaryDate", _contact.Anniversary),
+                    new SqlParameter("@CompanyYears", _contact.CompanyYears),
+                    new SqlParameter("@BossName", _contact.BossName));
+            }
+            else if (_user.Role == SandlerRoles.FranchiseeOwner)
+            {
+                //now we have to bring records as per role - Franchisee Owner
+                return db.ExecuteDataset("sp_GetAllContactsByFrIDSearch", "Contacts",
+                    new SqlParameter("@FranchiseeID", _user.FranchiseeID.ToString()),
+                    new SqlParameter("@LastName", _contact.LastName),
+                    new SqlParameter("@FirstName", _contact.FirstName),
+                    new SqlParameter("@Phone", _contact.Phone),
+                    new SqlParameter("@Email", _contact.Email),
+                    new SqlParameter("@IsNewApptIdList", _contact.IsNewApptList),
+                    new SqlParameter("@ApptSourceIdList", _contact.ApptSourceList),
+                    new SqlParameter("@IsRegForTrainingList", _contact.IsRegisteredForTrainingList),
+                    new SqlParameter("@CourseTypeIdList", _contact.CourseIdList),
+                    new SqlParameter("@CompanyIdList", _contact.CompanyIdList),
+                    new SqlParameter("@NeedCallBackList", _contact.IsNeedCallBackList),
+                    new SqlParameter("@EmailSubscriptionList", _contact.IsEmailSubscriptionList),
+                    new SqlParameter("@DiscussionTopic", _contact.DiscussionTopic),
+                    new SqlParameter("@ActionStep", _contact.ActionStep),
+                    new SqlParameter("@LastContactDate", _contact.LastContactDate),
+                    new SqlParameter("@NextContactDate", _contact.NextContactDate),
+                    new SqlParameter("@CourseTrngDate", _contact.CourseTrainingDate),
+                    new SqlParameter("@BirthDayDate", _contact.BirthDay),
+                    new SqlParameter("@AnniversaryDate", _contact.Anniversary),
+                    new SqlParameter("@CompanyYears", _contact.CompanyYears),
+                    new SqlParameter("@BossName", _contact.BossName));
+            }
+            else
+            {
+                //This is for Franchisee User
+                return db.ExecuteDataset("sp_GetAllContactsByUserIDSearch", "Contacts",
+                    new SqlParameter("@UserID", _user.UserId.ToString()),
+                    new SqlParameter("@LastName", _contact.LastName),
+                    new SqlParameter("@FirstName", _contact.FirstName),
+                    new SqlParameter("@Phone", _contact.Phone),
+                    new SqlParameter("@Email", _contact.Email),
+                    new SqlParameter("@IsNewApptIdList", _contact.IsNewApptList),
+                    new SqlParameter("@ApptSourceIdList", _contact.ApptSourceList),
+                    new SqlParameter("@IsRegForTrainingList", _contact.IsRegisteredForTrainingList),
+                    new SqlParameter("@CourseTypeIdList", _contact.CourseIdList),
+                    new SqlParameter("@CompanyIdList", _contact.CompanyIdList),
+                    new SqlParameter("@NeedCallBackList", _contact.IsNeedCallBackList),
+                    new SqlParameter("@EmailSubscriptionList", _contact.IsEmailSubscriptionList),
+                    new SqlParameter("@DiscussionTopic", _contact.DiscussionTopic),
+                    new SqlParameter("@ActionStep", _contact.ActionStep),
+                    new SqlParameter("@LastContactDate", _contact.LastContactDate),
+                    new SqlParameter("@NextContactDate", _contact.NextContactDate),
+                    new SqlParameter("@CourseTrngDate", _contact.CourseTrainingDate),
+                    new SqlParameter("@BirthDayDate", _contact.BirthDay),
+                    new SqlParameter("@AnniversaryDate", _contact.Anniversary),
+                    new SqlParameter("@CompanyYears", _contact.CompanyYears),
+                    new SqlParameter("@BossName", _contact.BossName));
+            }
+
+        }
+
         public DataSet GetCallList()
         {
             //Get the User Session

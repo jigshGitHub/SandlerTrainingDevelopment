@@ -11,21 +11,6 @@ using System.Configuration;
 /// </summary>
 public class OpportunityBasePage : BasePage
 {
-    protected bool AllowSearch
-    {
-        get
-        {
-            if (ViewState["AllowSearch"] == null)
-            {
-                ViewState["AllowSearch"] = false;
-            } return Convert.ToBoolean(ViewState["AllowSearch"].ToString());
-        }
-        set
-        {
-            ViewState["AllowSearch"] = value;
-        }
-    }
-
     protected int OpportunityID;
     protected int CurrentPage
     {

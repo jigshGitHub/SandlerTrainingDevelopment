@@ -4,62 +4,49 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using SandlerModels;
 
-
-public partial class CompanyIndex : BasePage
+public partial class CRM_Companies_SearchResults : BasePage
 {
-
-
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)
         {
-
-            addCompanyAnchor.Visible = !IsUserReadOnly(SandlerUserActions.Add, SandlerEntities.Company);
-            addProductAnchor.Visible = !IsUserReadOnly(SandlerUserActions.Add, SandlerEntities.Company);
-            //addProductAnchor.Visible = !IsUserReadOnly(SandlerUserActions.Add, SandlerEntities.Company);
+            if (Session["CompanySearchCount"] != null)
+            {
+                lblInfo.Text = "Total Records found: " + Session["CompanySearchCount"].ToString(); 
+            }
+            else
+            {
+                Response.Redirect("~/CRM/Companies/Search.aspx");
+            }
         }
-    }
-    //protected void btnAddCompany_Click(object sender, EventArgs e)
-    //{
-    //    Response.Redirect("~/CRM/Companies/Add.aspx");
-    //}
-    //protected void btnAddProduct_Click(object sender, EventArgs e)
-    //{
-    //    Response.Redirect("~/CRM/Products/Add.aspx");
-    //}
-    protected void gvCompanies_SelectedIndexChanged(object sender, EventArgs e)
-    {
-        hidCompanyID.Value = gvCompanies.SelectedDataKey.Value.ToString();
-        Server.Transfer("~/CRM/Companies/Detail.aspx");
     }
     protected void gvCompanies_DataBound(object sender, EventArgs e)
     {
         if (gvCompanies.Rows.Count == 0)
         {
-            LblStatus.Text = "There are no Companies entered in the System.";
-            btnExportExcel.Visible = false;
-            searchAnchor.Visible = false;
+            LblStatus.Text = "There are no results matching with your criteria.";
         }
         else
         {
             LblStatus.Text = "";
-            btnExportExcel.Visible = true;
         }
-
+    }
+    protected void gvCompanies_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        hidCompanyID.Value = gvCompanies.SelectedDataKey.Value.ToString();
+        Server.Transfer("~/CRM/Companies/Detail.aspx");
     }
     public override void VerifyRenderingInServerForm(Control control)
     {
         //This means that you are overriding the default implementation of the method and giving permission to the GridView to be exported as an Excel file.
     }
-
     protected void btnExportExcel_Click(object sender, ImageClickEventArgs e)
     {
         //Export results to Excel
         trExport.Visible = true;
         Response.Clear();
-        Response.AddHeader("content-disposition", "attachment;filename=AllCompanies.xls");
+        Response.AddHeader("content-disposition", "attachment;filename=SearchResults.xls");
         Response.Charset = "";
         Response.ContentType = "application/vnd.ms-excel";
         this.EnableViewState = false;

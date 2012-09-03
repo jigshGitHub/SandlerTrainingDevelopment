@@ -6,25 +6,32 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using SandlerModels;
 using SandlerData;
-public partial class OpportunityIndex : OpportunityBasePage
+public partial class OpportunitySearch : OpportunityBasePage
 {
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)
         {
-            addOpportunityAnchor.Visible = !IsUserReadOnly(SandlerUserActions.Add, SandlerEntities.Opportunity);
-            searchAnchor.Visible = !IsUserReadOnly(SandlerUserActions.Add, SandlerEntities.Opportunity);
-
             if (!string.IsNullOrEmpty(Request.QueryString["currentPage"]))
                 CurrentPage = int.Parse(Request.QueryString["currentPage"]);
 
-            BindOpportunitiesForAComnpany(0);
+            BindContacts(0);
         }
     }
 
-    private void BindOpportunitiesForAComnpany(int companyId)
+    private void BindOpportunitiesForASearch()
     {
-        var data = from record in GetOpportunities(companyId)
+        int? companyId;
+        int? productId;
+        int? statusId;
+        int? contactId;
+
+        if (ddlCompanySearch.SelectedIndex > 0) companyId = int.Parse(ddlCompanySearch.SelectedValue); else companyId = null;
+        if (ddlProducts.SelectedIndex > 0) productId = int.Parse(ddlProducts.SelectedValue); else productId = null;
+        if (ddlProductStatus.SelectedIndex > 0) statusId = int.Parse(ddlProductStatus.SelectedValue); else statusId = null;
+        if (ddlContacts.SelectedIndex > 0) contactId = int.Parse(ddlContacts.SelectedValue); else contactId = null;
+
+        var data = from record in GetOpportunities(companyId, txtOpportunityID.Text, txtOppName.Text, txtSalesRepFName.Text, txtSalesRepLName.Text, txtSalesRepPhone.Text, productId, statusId, contactId, txtContactPhone.Text, txtEmail.Text)
                    select new { ID = record.ID, OPPORTUNITYID = record.OpportunityID.Value, NAME = record.NAME, CompanyName = GetCompany(record.COMPANYID).COMPANYNAME, VALUE = record.VALUE, WEIGHTEDVALUE = record.WEIGHTEDVALUE, CloseDate = record.CLOSEDATE, SalesRep = record.SALESREPFIRSTNAME + " " + record.SALESREPLASTNAME, Status = GetOpportunityStatus(record.STATUSID.Value).Name };
         TotalRecords = data.Count();
         //var filterRecords = 
@@ -42,8 +49,21 @@ public partial class OpportunityIndex : OpportunityBasePage
         if (!(dropdownList.Items.Count == 0))
         {
             string defaultSelection = "";
+            switch (dropdownList.ID)
+            {
+                case "ddlCompanySearch":
+                    defaultSelection = "--Select company--";
+                    break;
+                case "ddlProducts":
+                    defaultSelection = "--Select product--";
+                    break;
+                case "ddlProductStatus":
+                    defaultSelection = "--Select status--";
+                    break;
+                default:
+                    break;
 
-            defaultSelection =  "All";
+            }
             ListItem selectItem = new ListItem(defaultSelection, "0");
             dropdownList.Items.Insert(0, selectItem);
         }
@@ -52,10 +72,19 @@ public partial class OpportunityIndex : OpportunityBasePage
     protected void ddlCompany_SelectedIndexChanged(object sender, EventArgs e)
     {
         DropDownList ddlCompany = sender as DropDownList;
-        BindOpportunitiesForAComnpany(int.Parse(ddlCompany.SelectedValue));
+        BindContacts(int.Parse(ddlCompany.SelectedValue));
     }
 
-
+    private void BindContacts(int companyId)
+    {
+        var data = from records in GetContactsByCompany(companyId)
+                   select new { Name = records.FIRSTNAME + " " + records.LASTNAME, ID = records.CONTACTSID };
+        ddlContacts.DataSource = data;
+        ddlContacts.DataTextField = "Name";
+        ddlContacts.DataValueField = "ID";
+        ddlContacts.DataBind();
+        ddlContacts.Items.Insert(0, new ListItem("--Select contact--", "0"));
+    }
     #endregion
 
     #region gvOpportunities Events
@@ -123,7 +152,7 @@ public partial class OpportunityIndex : OpportunityBasePage
         System.Web.UI.HtmlTextWriter htmlWrite = new System.Web.UI.HtmlTextWriter(stringWrite);
         gvOpportunities.AllowPaging = false;
         gvOpportunities.AllowSorting = false;
-        BindOpportunitiesForAComnpany(int.Parse(ddlCompany.SelectedValue));
+        //BindOpportunitiesForAComnpany(int.Parse(ddlCompany.SelectedValue));
         gvOpportunities.Columns[9].Visible = false;
 
         //Report is the Div which we need to Export - Gridview is under this Div
@@ -163,4 +192,8 @@ public partial class OpportunityIndex : OpportunityBasePage
     //}
     #endregion
 
+    protected void lbtnSearch_Click(object sender, EventArgs e)
+    {
+        BindOpportunitiesForASearch();
+    }
 }

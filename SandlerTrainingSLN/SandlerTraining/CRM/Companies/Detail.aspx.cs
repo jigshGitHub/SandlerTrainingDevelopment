@@ -146,15 +146,15 @@ public partial class CompanyDETAIL : BasePage
                 POCFirstName = POCFirstNameTextBox.Text.Trim();
             }
         }
-        //For POC First Name
-        {
-            TextBox POCFirstNameTextBox = new TextBox();
-            POCFirstNameTextBox = (TextBox)CompanyDW.FindControl("txtPOCFirstName");
-            if ((POCFirstNameTextBox != null))
-            {
-                POCFirstName = POCFirstNameTextBox.Text.Trim();
-            }
-        }
+        ////For POC First Name
+        //{
+        //    TextBox POCFirstNameTextBox = new TextBox();
+        //    POCFirstNameTextBox = (TextBox)CompanyDW.FindControl("txtPOCFirstName");
+        //    if ((POCFirstNameTextBox != null))
+        //    {
+        //        POCFirstName = POCFirstNameTextBox.Text.Trim();
+        //    }
+        //}
         //For POC Phone
         {
             TextBox POCPhoneTextBox = new TextBox();

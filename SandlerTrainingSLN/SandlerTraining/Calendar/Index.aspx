@@ -8,6 +8,9 @@
     <ContentTemplate>
     <%--Calendar and Grid showing Reminders for each day--%>
       <table width="100%" id="tblCalendarDetails">
+        <tr style="color: Black; background-color: #DCDCDC; white-space: nowrap;">
+            <th colspan="3" class="tdTC" style="width: 280px" align="left">My Calendar : </th>
+        </tr>
         <tr style="color: Black; background-color: #EEEEEE; white-space: nowrap;">
         <td  valign="top" style="width:70%">
                 <ECalendar:EventCalendar ID="EventCal" runat="server" BackColor="White" BorderColor="Silver"

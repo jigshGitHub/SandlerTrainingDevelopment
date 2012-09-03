@@ -1,24 +1,26 @@
-﻿<%@ Page Title="CRM - View Company" Language="C#" MasterPageFile="~/CRM.master" AutoEventWireup="true"
-    EnableEventValidation="false" CodeFile="Index.aspx.cs" Inherits="CompanyIndex" %>
-
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/CRM.master" AutoEventWireup="true"  EnableEventValidation="false" CodeFile="SearchResults.aspx.cs" Inherits="CRM_Companies_SearchResults" %>
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 <%@ Import Namespace="SandlerRepositories" %>
-<asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="Server">
-    <table id="tblMain" width="100%">
+<asp:Content ID="Content2" ContentPlaceHolderID="MainContent" Runat="Server">
+
+<table id="tblMain" width="100%">
+        
+     <tr>
+       <th class="tdTC" align="left">Search Results : Company</th>
+     </tr>
         <tr>
+            <td><asp:Label ID="lblInfo" runat="server" ForeColor="Red"></asp:Label> </td>
             <td align="right">
-                <a runat="server" id="searchAnchor" href="Search.aspx">Search</a>&nbsp;|&nbsp;<a
-                    runat="server" id="uploadAnchor" href="Upload.aspx">Upload Company Data | </a>
-                <a runat="server" id="addProductAnchor" href="~/CRM/Products/Add.aspx" style="display: none">
-                    Add New Product | </a><a runat="server" id="addCompanyAnchor" href="Add.aspx">Add New
-                        Company</a>
+                <a runat="server" id="searchAnchor" href="Search.aspx">Back to Company Search</a>
+                <asp:ImageButton ImageUrl="~/images/excel.jpg" runat="server"  ToolTip="Export To Excel"  ID="btnExportExcel" onclick="btnExportExcel_Click"  />
             </td>
         </tr>
         <tr>
-            <td>
-                <asp:ImageButton ImageUrl="~/images/excel.jpg" runat="server" ToolTip="Export To Excel"
-                    ID="btnExportExcel" OnClick="btnExportExcel_Click" />
+            <td colspan="2">
+                &nbsp;
             </td>
-        </tr><tr>
+        </tr>  
+        <tr>
             <td colspan="2">
             <asp:GridView Width="100%" ID="gvCompanies" runat="server" DataSourceID="SearchCompanyDS"  
                     AutoGenerateColumns="False" DataKeyNames="COMPANIESID" AllowSorting="true" AllowPaging="true"
@@ -82,9 +84,10 @@
         </tr>
         <tr>
             <td>
-                <asp:ObjectDataSource ID="SearchCompanyDS" runat="server" TypeName="SandlerRepositories.CompaniesRepository" SelectMethod="GetAllCompanies"></asp:ObjectDataSource>
+                <asp:ObjectDataSource ID="SearchCompanyDS" runat="server" TypeName="SandlerRepositories.CompaniesRepository" SelectMethod="GetCompaniesForSearch"></asp:ObjectDataSource>
                 <asp:HiddenField ID="hidCompanyID" runat="server" />
             </td>
         </tr>
     </table>
 </asp:Content>
+

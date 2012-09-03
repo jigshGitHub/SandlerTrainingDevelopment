@@ -62,6 +62,8 @@
     <Compile Include="aspnet_Users.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Company.cs" />
+    <Compile Include="Contact.cs" />
     <Compile Include="DataModels\Class1.cs" />
     <Compile Include="DataModels\IQueryableExtensions.cs" />
     <Compile Include="Enums.cs" />

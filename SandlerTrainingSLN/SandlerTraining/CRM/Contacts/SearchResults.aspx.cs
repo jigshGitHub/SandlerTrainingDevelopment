@@ -4,49 +4,38 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using SandlerModels;
 
-public partial class ContactIndex : BasePage
+public partial class CRM_Contacts_SearchResults : BasePage
 {
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)
         {
-            addContactAnchor.Visible = !IsUserReadOnly(SandlerUserActions.Add, SandlerEntities.Contact);
-            uploadAnchor.Visible = !IsUserReadOnly(SandlerUserActions.Add, SandlerEntities.Contact);
+            if (Session["ContactSearchCount"] != null)
+            {
+                lblInfo.Text = "Total Records found: " + Session["ContactSearchCount"].ToString();
+            }
+            else
+            {
+                Response.Redirect("~/CRM/Contacts/Search.aspx");
+            }
         }
-
     }
-    protected void ddlCompanies_DataBound(object sender, EventArgs e)
+    protected void gvContacts_DataBound(object sender, EventArgs e)
     {
-        if (!(ddlCompanies.Items.Count == 0))
+        if (gvContacts.Rows.Count == 0)
         {
-            ListItem selectItem = new ListItem("All", "0");
-            ddlCompanies.Items.Insert(0, selectItem);
+            LblStatus.Text = "There are no results matching with your criteria.";
+        }
+        else
+        {
+            LblStatus.Text = "";
         }
     }
     protected void gvContacts_SelectedIndexChanged(object sender, EventArgs e)
     {
         hidContactID.Value = gvContacts.SelectedDataKey.Value.ToString();
         Server.Transfer("~/CRM/Contacts/Detail.aspx");
-    }
-    protected void btnAddContact_Click(object sender, EventArgs e)
-    {
-        Response.Redirect("~/CRM/Contacts/Add.aspx");
-    }
-    protected void gvContacts_DataBound(object sender, EventArgs e)
-    {
-        if (gvContacts.Rows.Count == 0)
-        {
-            LblStatus.Text = "There are no Contacts available for this Company/Franchisee.";
-            btnExportExcel.Visible = false;
-            searchAnchor.Visible = false;
-        }
-        else
-        {
-            LblStatus.Text = "";
-            btnExportExcel.Visible = true;
-        }
     }
     public override void VerifyRenderingInServerForm(Control control)
     {
@@ -57,7 +46,7 @@ public partial class ContactIndex : BasePage
         //Export results to Excel
         trExport.Visible = true;
         Response.Clear();
-        Response.AddHeader("content-disposition", "attachment;filename=AllContacts.xls");
+        Response.AddHeader("content-disposition", "attachment;filename=SearchResults.xls");
         Response.Charset = "";
         Response.ContentType = "application/vnd.ms-excel";
         this.EnableViewState = false;
@@ -72,6 +61,5 @@ public partial class ContactIndex : BasePage
         Response.End();
         this.EnableViewState = true;
         trExport.Visible = false;
-
     }
 }

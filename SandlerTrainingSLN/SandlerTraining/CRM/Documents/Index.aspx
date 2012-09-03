@@ -5,6 +5,12 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="Server">
     <table width="100%" border="0">
         <tr>
+            <td align="right">
+                <a runat="server" href="Search.aspx">Search </a>&nbsp;|&nbsp;<a href="Add.aspx">Attach
+                    New Document</a>
+            </td>
+        </tr>
+        <tr>
             <td>
                 <label for="ddlCompany">
                     <b>Select Company :</b></label>
@@ -20,9 +26,6 @@
                     OnSelectedIndexChanged="ddlOpportunity_SelectedIndexChanged">
                 </asp:DropDownList>
             </td>
-            <td align="right">
-                <a href="Add.aspx">Attach New Document</a>
-            </td>
         </tr>
         <tr>
             <td colspan="2">
@@ -30,7 +33,7 @@
             </td>
         </tr>
         <tr>
-            <td colspan="2">
+            <td>
                 <asp:GridView Width="100%" ID="gvDocuments" runat="server" DataSourceID="DocumentsDS"
                     AutoGenerateColumns="False" DataKeyNames="docsid" AllowSorting="True" AllowPaging="True"
                     PageSize="20" OnSelectedIndexChanged="gvDocuments_SelectedIndexChanged" OnDataBound="gvDocuments_DataBound"
@@ -79,12 +82,12 @@
             </td>
         </tr>
         <tr>
-            <td colspan="2">
+            <td>
                 <asp:Label ForeColor="Red" ID="LblStatus" runat="server"></asp:Label>
             </td>
         </tr>
         <tr>
-            <td colspan="2">
+            <td>
                 <asp:ObjectDataSource ID="CompanyDS" runat="server" TypeName="SandlerRepositories.CompaniesRepository"
                     SelectMethod="GetCompaniesForDDL"></asp:ObjectDataSource>
                 <asp:ObjectDataSource ID="DocumentsDS" runat="server" TypeName="SandlerRepositories.DocumentsRepository"
@@ -96,7 +99,7 @@
             </td>
         </tr>
         <tr>
-            <td colspan="2">
+            <td>
                 <asp:ObjectDataSource ID="OpprtunityDS" runat="server" TypeName="SandlerRepositories.OpportunityRepository"
                     SelectMethod="GetByCompId">
                     <SelectParameters>
