@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/CRM.master" AutoEventWireup="true" CodeFile="Search.aspx.cs" Inherits="CRM_Contacts_Search" %>
+﻿<%@ Page Title="CRM - Search Contacts" Language="C#" MasterPageFile="~/CRM.master" AutoEventWireup="true" CodeFile="Search.aspx.cs" Inherits="CRM_Contacts_Search" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 <%@ Import Namespace="SandlerRepositories" %>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" Runat="Server">

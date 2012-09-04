@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Change Password" Language="C#" MasterPageFile="~/Site.master" AutoEventWireup="true"
+﻿<%@ Page Title="My Account - Change Password" Language="C#" MasterPageFile="~/Site.master" AutoEventWireup="true"
     CodeFile="ChangePassword.aspx.cs" Inherits="Account_ChangePassword" %>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>

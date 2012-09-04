@@ -12,16 +12,13 @@ public partial class Menu : System.Web.UI.UserControl
     {
         if (!Page.IsPostBack)
         {
-            //HyperLink activeLink = (HyperLink)Page.Master.FindControl("lnk" + Page.Title);
-            //if (activeLink != null)
-            //    activeLink.CssClass = "menuLinkActive";
-
-            //HtmlAnchor activeLink = (HtmlAnchor)Page.Master.FindControl("anchor" + Page.Title);
             HtmlAnchor activeLink = (HtmlAnchor)FindControl("anchor" + Page.Title);
             if (activeLink == null)
             {
-                if(Page.Title.Contains("CRM"))
+                if (Page.Title.Contains("CRM"))
                     activeLink = (HtmlAnchor)FindControl("anchorCRM");
+                else if (Page.Title.Contains("My Account"))
+                    activeLink = (HtmlAnchor)FindControl("anchorMyAccount");
             }
             if (activeLink != null)
                 activeLink.Attributes.Add("class", "menuLinkActive");
@@ -39,21 +36,21 @@ public partial class Menu : System.Web.UI.UserControl
             if (thisPage.CurrentUser.Role == SandlerModels.SandlerRoles.Corporate)
             {
                 link = ((HtmlAnchor)FindControl("manageCoachAnchor"));
-                link.HRef = this.Page.ResolveClientUrl("~/Account/Coach/Index.aspx");
+                link.HRef = "~/Account/Coach/Index.aspx";
                 link.Visible = true;
             }
-            if (thisPage.CurrentUser.Role == SandlerModels.SandlerRoles.Corporate || thisPage.CurrentUser.Role == SandlerModels.SandlerRoles.Coach)
+            if (thisPage.CurrentUser.Role == SandlerModels.SandlerRoles.Coach)
             {
                 link = ((HtmlAnchor)FindControl("manageFranchiseeAnchor"));
-                link.HRef = this.Page.ResolveClientUrl("~/Account/FranchiseeOwner/Index.aspx");
+                link.HRef = "~/Account/FranchiseeOwner/Index.aspx";
                 link.Visible = true;
             }
             if (thisPage.CurrentUser.Role == SandlerModels.SandlerRoles.FranchiseeOwner)
             {
                 link = ((HtmlAnchor)FindControl("manageFranchiseeUserAnchor"));
-                link.HRef = this.Page.ResolveClientUrl("~/Account/FranchiseeUser/Index.aspx");
+                link.HRef = "~/Account/FranchiseeUser/Index.aspx";
                 link.Visible = true;
-            }
+            }            
         }
     }
 }

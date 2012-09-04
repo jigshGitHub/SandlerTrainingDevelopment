@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/CRM.master" AutoEventWireup="true"
+﻿<%@ Page Title="My Account - Coach" Language="C#" MasterPageFile="~/CRM.master" AutoEventWireup="true"
     CodeFile="Index.aspx.cs" Inherits="Account_Coach_Index" %>
     
 <%@ Register Src="~/CRM/Pager.ascx" TagName="Pager" TagPrefix="uc1" %>

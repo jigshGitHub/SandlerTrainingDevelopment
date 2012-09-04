@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/CRM.master" AutoEventWireup="true"
+﻿<%@ Page Title="CRM - Search Documents" Language="C#" MasterPageFile="~/CRM.master" AutoEventWireup="true"
     CodeFile="Search.aspx.cs" Inherits="CRM_Documents_Search" %>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>

@@ -1,4 +1,4 @@
-﻿<%@ Page Title="CRM - View Opportunities" Language="C#" MasterPageFile="~/CRM.master"
+﻿<%@ Page Title="CRM - Search Opportunities" Language="C#" MasterPageFile="~/CRM.master"
     AutoEventWireup="true" EnableEventValidation="false" CodeFile="Search.aspx.cs"
     Inherits="OpportunitySearch" %>
 

@@ -9,7 +9,7 @@ using SandlerViewModels;
 using SandlerRepositories;
 using SandlerData;
 using System.Configuration;
-public partial class Account_Coach_Index : System.Web.UI.Page
+public partial class Account_Coach_Index : BasePage
 {
     protected int CurrentPage
     {

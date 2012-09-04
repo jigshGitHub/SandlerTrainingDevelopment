@@ -2,6 +2,7 @@
 
 <%@ Import Namespace="Sandler.UI.ChartStructure" %>
 <%@ Register Src="Header.ascx" TagName="Header" TagPrefix="uc1" %>
+<%@ Register Src="CRMSubmenu.ascx" TagName="CRMSubMenu" TagPrefix="uc1" %>
 <%@ Register Src="Footer.ascx" TagName="Footer" TagPrefix="uc1" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -36,22 +37,7 @@
         <div class="header">
             <div class="clear hideSkiplink">
                 <uc1:Header ID="Header1" runat="server" />
-                <table class="CRMSubMenus" align="center">
-                    <tr>
-                        <td align="center">
-                            <a href="<%= Page.ResolveClientUrl("~/CRM/Companies/Index.aspx") %>">Companies</a>
-                        </td>
-                        <td align="center">
-                            <a href="<%= Page.ResolveClientUrl("~/CRM/Contacts/Index.aspx") %>">Contacts</a>
-                        </td>
-                        <td align="center">
-                            <a href="<%= Page.ResolveClientUrl("~/CRM/Opportunities/Index.aspx") %>">Opportunities</a>
-                        </td>
-                        <td align="center">
-                            <a href="<%= Page.ResolveClientUrl("~/CRM/Documents/Index.aspx") %>">Documents</a>
-                        </td>
-                    </tr>
-                </table>
+                <uc1:CRMSubMenu id="crmSubmenu1" runat="server" />
             </div>
         </div>
         <div class="main" style="background-color: White">
