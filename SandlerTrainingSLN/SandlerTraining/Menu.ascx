@@ -28,12 +28,12 @@
                         <li><a href="<%=  Page.ResolveClientUrl("~/Account/ChangePassword.aspx") %>">Change
                             Password</a></li>
                         <li><a href="<%=  Page.ResolveClientUrl("~/Email/BlastEmail.aspx") %>">Blast Email</a></li>
-                        <li><a href="<%=  Page.ResolveClientUrl("~/Email/ManageEmailSubscription.aspx") %>">
-                            Manage Email Subscription</a></li><li><a href="<%=  Page.ResolveClientUrl("~/Calendar/Index.aspx") %>">
-                                My Calendar</a></li><li><a id="manageCoachAnchor" runat="server" visible="false">Manage
-                                    Coach</a></li>
+                        <li><a href="<%=  Page.ResolveClientUrl("~/Calendar/Index.aspx") %>">My Calendar</a></li><li>
+                            <a id="manageCoachAnchor" runat="server" visible="false">Manage Coach</a></li>
                         <li><a id="manageFranchiseeAnchor" runat="server" visible="false">Manage Franchisee</a></li>
-                        <li><a id="manageFranchiseeUserAnchor" runat="server" visible="false">Manage Franchisee User</a></li>
+                        <li><a id="manageFranchiseeUserAnchor" runat="server" visible="false">Manage Franchisee
+                            User</a></li>
+                        <li><a id="manageEmailSubscription" runat="server" visible="false">Manage Email Subscription</a></li>
                     </ul>
                     </li>
                     <li><a href="#" class="disableLink">BENCHMARKS</a> </li>

@@ -44,7 +44,7 @@ public class UploaderBasePage:BasePage
         {
             if (ExcelData == null)
                 ExcelData = new DataTable();
-            sourceConstr = @"Provider=Microsoft.ACE.OLEDB.12.0;Data Source='" + Server.MapPath(FileName) + "';Extended Properties= 'Excel 8.0;HDR=Yes;IMEX=1'";
+            sourceConstr = @"Provider=Microsoft.ACE.OLEDB.12.0;Data Source='" + FileName + "';Extended Properties= 'Excel 8.0;HDR=Yes;IMEX=1'";
             //sourceConstr = @"Provider=Microsoft.Jet.OLEDB.4.0;Data Source='" + Server.MapPath(FileName) + "';Extended Properties=Excel 8.0";
             con = new OleDbConnection(sourceConstr);
             query = "Select * from [Sheet1$]";

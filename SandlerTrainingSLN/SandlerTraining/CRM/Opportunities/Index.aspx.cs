@@ -12,9 +12,7 @@ public partial class OpportunityIndex : OpportunityBasePage
     {
         if (!IsPostBack)
         {
-            addOpportunityAnchor.Visible = !IsUserReadOnly(SandlerUserActions.Add, SandlerEntities.Opportunity);
-            searchAnchor.Visible = !IsUserReadOnly(SandlerUserActions.Add, SandlerEntities.Opportunity);
-
+            opportunityMenu.MenuEntityTitle = "Opportunities";
             if (!string.IsNullOrEmpty(Request.QueryString["currentPage"]))
                 CurrentPage = int.Parse(Request.QueryString["currentPage"]);
 

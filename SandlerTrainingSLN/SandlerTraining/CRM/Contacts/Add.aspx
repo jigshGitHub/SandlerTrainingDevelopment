@@ -90,7 +90,7 @@
                         <asp:TemplateField HeaderText="Course Training Date :">
                             <InsertItemTemplate>
                                 <asp:TextBox ID="CourseTrngDate" Text='<%# Bind("CourseTrngDate") %>' runat="server" />&nbsp;<asp:Image ID="calanderImageCTD" runat="server" ImageUrl="~/images/calendar.gif" ImageAlign="Middle" />
-                                <asp:CalendarExtender runat="server" TargetControlID="CourseTrngDate" PopupButtonID="calanderImageCTD" CssClass="calendar"></asp:CalendarExtender>
+                                <asp:CalendarExtender ID="CalendarExtender1" runat="server" TargetControlID="CourseTrngDate" PopupButtonID="calanderImageCTD" CssClass="calendar"></asp:CalendarExtender>
                             </InsertItemTemplate>
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="Discussion Topic :">
@@ -114,13 +114,13 @@
                         <asp:TemplateField HeaderText="Last Contact Date :">
                             <InsertItemTemplate>
                                 <asp:TextBox ID="LastContactDate" Text='<%# Bind("Last_Contact_Date") %>' runat="server" />&nbsp;<asp:Image ID="calanderImageLCD" runat="server" ImageUrl="~/images/calendar.gif" ImageAlign="Middle" />
-                                <asp:CalendarExtender runat="server" TargetControlID="LastContactDate" PopupButtonID="calanderImageLCD" CssClass="calendar"></asp:CalendarExtender>
+                                <asp:CalendarExtender ID="CalendarExtender2" runat="server" TargetControlID="LastContactDate" PopupButtonID="calanderImageLCD" CssClass="calendar"></asp:CalendarExtender>
                              </InsertItemTemplate>
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="Next Contact Date :">
                             <InsertItemTemplate>
                                 <asp:TextBox ID="NextContactDate" Text='<%# Bind("Next_Contact_Date") %>' runat="server" />&nbsp;<asp:Image ID="calanderImageNCD" runat="server" ImageUrl="~/images/calendar.gif" ImageAlign="Middle" />
-                                <asp:CalendarExtender runat="server" TargetControlID="NextContactDate" PopupButtonID="calanderImageNCD" CssClass="calendar"></asp:CalendarExtender>
+                                <asp:CalendarExtender ID="CalendarExtender3" runat="server" TargetControlID="NextContactDate" PopupButtonID="calanderImageNCD" CssClass="calendar"></asp:CalendarExtender>
                                 <asp:RequiredFieldValidator ID="NextContactDateRFV" ControlToValidate="NextContactDate" runat="server" ErrorMessage="Please Enter Next Contact Date to proceed.">*</asp:RequiredFieldValidator>
                             </InsertItemTemplate>
                         </asp:TemplateField>
@@ -131,30 +131,24 @@
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="Birthday :">
                             <InsertItemTemplate>
-                                <asp:TextBox ID="Birthday" Text='<%# Bind("Birthday") %>' runat="server"></asp:TextBox>&nbsp;<asp:Image
-                                    ID="calanderImageBD" runat="server" ImageUrl="~/images/calendar.gif" ImageAlign="Middle" />
-                                <asp:CalendarExtender ID="CalendarExtender1" runat="server" TargetControlID="Birthday" PopupButtonID="calanderImageBD"
-                                    CssClass="calendar">
-                                </asp:CalendarExtender>
+                                <asp:TextBox ID="BirthDayDate" Text='<%# Bind("Birthday") %>' runat="server" />&nbsp;<asp:Image ID="calanderImageBRD" runat="server" ImageUrl="~/images/calendar.gif" ImageAlign="Middle" />
+                                <asp:CalendarExtender ID="CalendarExtender4" runat="server" TargetControlID="BirthDayDate" PopupButtonID="calanderImageBRD" CssClass="calendar"></asp:CalendarExtender>
                             </InsertItemTemplate>
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="Anniversary :">
                             <InsertItemTemplate>
-                                <asp:TextBox ID="Anniversary" runat="server" Text='<%# Bind("Anniversary") %>'></asp:TextBox>&nbsp;<asp:Image
-                                    ID="calanderImageAD" runat="server" ImageUrl="~/images/calendar.gif" ImageAlign="Middle" />
-                                <asp:CalendarExtender ID="CalendarExtender2" runat="server" TargetControlID="Anniversary" PopupButtonID="calanderImageAD"
-                                    CssClass="calendar">
-                                </asp:CalendarExtender>
+                                <asp:TextBox ID="AnniversaryDate" Text='<%# Bind("Anniversary") %>' runat="server" />&nbsp;<asp:Image ID="calanderImageAVS" runat="server" ImageUrl="~/images/calendar.gif" ImageAlign="Middle" />
+                                <asp:CalendarExtender ID="CalendarExtender5" runat="server" TargetControlID="AnniversaryDate" PopupButtonID="calanderImageAVS" CssClass="calendar"></asp:CalendarExtender>
                             </InsertItemTemplate>
                         </asp:TemplateField>
-                        <asp:TemplateField HeaderText="Years with the company :">
+                        <asp:TemplateField HeaderText="Company Years :">
                             <InsertItemTemplate>
-                                <asp:TextBox ID="CompanyYears" runat="server" Text='<%# Bind("CompanyYears") %>'></asp:TextBox>
+                                <asp:TextBox ID="txtCompYears" onkeypress="EnterOnlyNumeric()" MaxLength="3" Width="380" runat="server" Text='<%# Bind("CompanyYears") %>'></asp:TextBox>
                             </InsertItemTemplate>
                         </asp:TemplateField>
-                        <asp:TemplateField HeaderText="Boss's Name :">
+                        <asp:TemplateField HeaderText="Boss Name :">
                             <InsertItemTemplate>
-                                <asp:TextBox ID="BossName" runat="server" Text='<%# Bind("BossName") %>'></asp:TextBox>
+                                <asp:TextBox ID="txtBossName" Width="380" runat="server" Text='<%# Bind("BossName") %>'></asp:TextBox>
                             </InsertItemTemplate>
                         </asp:TemplateField>
                         <asp:TemplateField ShowHeader="False">

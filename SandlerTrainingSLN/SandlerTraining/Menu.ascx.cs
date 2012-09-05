@@ -50,7 +50,13 @@ public partial class Menu : System.Web.UI.UserControl
                 link = ((HtmlAnchor)FindControl("manageFranchiseeUserAnchor"));
                 link.HRef = "~/Account/FranchiseeUser/Index.aspx";
                 link.Visible = true;
-            }            
+            }
+            if (thisPage.CurrentUser.Role != SandlerModels.SandlerRoles.Corporate)
+            {
+                link = ((HtmlAnchor)FindControl("manageEmailSubscription"));
+                link.HRef = "~/Email/ManageEmailSubscription.aspx";
+                link.Visible = true;
+            }
         }
     }
 }

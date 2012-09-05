@@ -5,8 +5,8 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using SandlerModels;
-
-
+using System.Web.UI.HtmlControls;
+using SandlerWeb = Sandler.Web;
 public partial class CompanyIndex : BasePage
 {
 
@@ -15,20 +15,12 @@ public partial class CompanyIndex : BasePage
     {
         if (!IsPostBack)
         {
-
-            addCompanyAnchor.Visible = !IsUserReadOnly(SandlerUserActions.Add, SandlerEntities.Company);
-            addProductAnchor.Visible = !IsUserReadOnly(SandlerUserActions.Add, SandlerEntities.Company);
-            //addProductAnchor.Visible = !IsUserReadOnly(SandlerUserActions.Add, SandlerEntities.Company);
+            companyMenu.MenuEntityTitle = "Companies";
         }
     }
-    //protected void btnAddCompany_Click(object sender, EventArgs e)
-    //{
-    //    Response.Redirect("~/CRM/Companies/Add.aspx");
-    //}
-    //protected void btnAddProduct_Click(object sender, EventArgs e)
-    //{
-    //    Response.Redirect("~/CRM/Products/Add.aspx");
-    //}
+
+    
+
     protected void gvCompanies_SelectedIndexChanged(object sender, EventArgs e)
     {
         hidCompanyID.Value = gvCompanies.SelectedDataKey.Value.ToString();
@@ -40,12 +32,15 @@ public partial class CompanyIndex : BasePage
         {
             LblStatus.Text = "There are no Companies entered in the System.";
             btnExportExcel.Visible = false;
-            searchAnchor.Visible = false;
+            companyMenu.MenuEntity.Items.Find(delegate(Sandler.Web.MenuItem item) { return item.Text == "Search"; }).IsVisible = false;
+            companyMenu.ReLoadSubMenu();
         }
         else
         {
             LblStatus.Text = "";
             btnExportExcel.Visible = true;
+            companyMenu.MenuEntity.Items.Find(delegate(Sandler.Web.MenuItem item) { return item.Text == "Search"; }).IsVisible = true;
+            companyMenu.ReLoadSubMenu();
         }
 
     }

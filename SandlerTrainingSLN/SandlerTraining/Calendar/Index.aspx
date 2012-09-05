@@ -1,4 +1,4 @@
-﻿<%@ Page Title="My Account - Calenar" Language="C#" MasterPageFile="~/CRM.master" AutoEventWireup="true" CodeFile="Index.aspx.cs" Inherits="Calendar_Index" %>
+﻿<%@ Page Title="MyCalenar" Language="C#" MasterPageFile="~/CRM.master" AutoEventWireup="true" CodeFile="Index.aspx.cs" Inherits="Calendar_Index" %>
 <%@ Register TagPrefix="ECalendar" Namespace="ExtendedControls" Assembly="App_Code.EventCalendar" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 
@@ -8,20 +8,20 @@
     <ContentTemplate>
     <%--Calendar and Grid showing Reminders for each day--%>
       <table width="100%" id="tblCalendarDetails">
-        <tr style="color: Black; background-color: #DCDCDC; white-space: nowrap;">
-            <th colspan="3" class="tdTC" style="width: 280px" align="left">My Calendar : </th>
+        <tr style="color: Black; background-color: #EEEEEE;">
+            <th colspan="3" class="tdTC"  align="left">My Calendar : </th>
         </tr>
-        <tr style="color: Black; background-color: #EEEEEE; white-space: nowrap;">
-        <td  valign="top" style="width:70%">
-                <ECalendar:EventCalendar ID="EventCal" runat="server" BackColor="White" BorderColor="Silver"
+        <tr style="color: Black; table-layout: fixed;">
+        <td  valign="top" style="width:70%;">
+                <ECalendar:EventCalendar ID="EventCal" runat="server" BackColor="White" BorderColor="Silver" 
                     BorderWidth="1px" Font-Names="Verdana"
                     Font-Size="9pt" ForeColor="Black" 
-                    Height="700px" Width="100%"
                     FirstDayOfWeek="Monday"  
+                    Height="500px" Width="100%" 
                     SelectionMode="Day" ShowGridLines="True" NextPrevFormat="FullMonth" 
                     ShowDescriptionAsToolTip="True" BorderStyle="Solid" 
                     OnSelectionChanged="EventCal_SelectionChanged">
-                    <SelectedDayStyle BackColor="#333399" ForeColor="White" />
+                    <SelectedDayStyle BackColor="#8EB4E6" ForeColor="White" />
                     <TodayDayStyle BackColor="#CCCCCC" />
                     <SelectorStyle BorderColor="#404040" BorderStyle="Solid" />
                     <DayStyle HorizontalAlign="Left" VerticalAlign="Top" Wrap="True" />
@@ -50,7 +50,7 @@
       </table>
       <br />
       <table width="70%" id="tblFollowup">
-      <tr style="color: Black; background-color: #DCDCDC; white-space: nowrap;">
+      <tr style="color: Black; background-color: #DCDCDC;">
          <th style="float: left">Add Follow up item:</th>
       </tr>
       <tr>

@@ -8,6 +8,7 @@ using System.Data;
 using System.Data.OleDb;
 using SandlerModels;
 using SandlerModels.DataModels;
+using System.Configuration;
 
 public partial class CRM_Contacts_Upload : UploaderBasePage
 {
@@ -30,7 +31,7 @@ public partial class CRM_Contacts_Upload : UploaderBasePage
 
     protected void btnUpload_Click(object sender, EventArgs e)
     {
-        FileName = fileToUpload.ResolveClientUrl(fileToUpload.FileName);
+        FileName = Server.MapPath(ConfigurationManager.AppSettings["DocumentsUploadLocation"] + fileToUpload.ResolveClientUrl(fileToUpload.FileName));
         //http://www.microsoft.com/en-us/download/confirmation.aspx?id=23734
         SandlerRepositories.ContactsRepository contactRepository;
         TBL_CONTACTS contact;
@@ -39,7 +40,7 @@ public partial class CRM_Contacts_Upload : UploaderBasePage
         {
             if (IsDataValid())
             {
-                fileToUpload.SaveAs(Server.MapPath(FileName));
+                fileToUpload.SaveAs(FileName);
 
                 SetUpExcel();
 
@@ -75,7 +76,7 @@ public partial class CRM_Contacts_Upload : UploaderBasePage
 
                 showHideDialogFlag.Value = "0";
 
-                System.IO.File.Delete(Server.MapPath(FileName));
+                System.IO.File.Delete(FileName);
                 pnlFileUpload.Visible = false;
 
                 if (LogData.Rows.Count > 0)

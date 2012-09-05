@@ -80,7 +80,7 @@ namespace ExtendedControls
         {
             CalendarDay d = ((DayRenderEventArgs)e).Day;
             TableCell c = ((DayRenderEventArgs)e).Cell;
-
+            
             // If there is nothing to bind
             if (this.EventSource == null)
                 return;
@@ -98,6 +98,8 @@ namespace ExtendedControls
 
                 if (!d.IsOtherMonth && d.Date == Convert.ToDateTime(dr[this.Date]).Date)
                 {
+                    
+
                     System.Web.UI.WebControls.Label lbl = new System.Web.UI.WebControls.Label();
 
                     // Show the Event Text
@@ -110,8 +112,8 @@ namespace ExtendedControls
                     }
                     else if (c.Controls.Count < 4)
                     {
-                        lbl.Text = "<BR /><BR />" + "More to do list items available..";
-                        lbl.ForeColor = System.Drawing.Color.Green; 
+                        lbl.Text = "<BR />" + "More to do list items available..";
+                        lbl.ForeColor = System.Drawing.Color.DarkRed; 
                         c.Controls.Add(lbl);
                     }
                     else if (c.Controls.Count == 4)

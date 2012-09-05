@@ -5,6 +5,7 @@
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 <%@ Import Namespace="SandlerRepositories" %>
 <%@ Register Src="../Pager.ascx" TagName="Pager" TagPrefix="uc1" %>
+<%@ Register Src="../EntityMenu.ascx" TagName="EntityMenu" TagPrefix="uc1" %>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="Server">
     <table id="tblMain" style="width: 100%">
         <tr>
@@ -12,8 +13,7 @@
                 <table style="width: 100%">
                     <tr>
                         <td style="width: 100%" align="right">
-                            <a id="searchAnchor" runat="server" href="Search.aspx">Search </a>&nbsp;|&nbsp;<a
-                                id="addOpportunityAnchor" runat="server" href="Add.aspx">Add New Opportunity</a>
+                            <uc1:EntityMenu ID="opportunityMenu" runat="server" />
                         </td>
                     </tr>
                     <tr>

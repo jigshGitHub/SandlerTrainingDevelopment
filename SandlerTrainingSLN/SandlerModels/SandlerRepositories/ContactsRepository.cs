@@ -236,7 +236,7 @@ namespace SandlerRepositories
             int ApptSourceId, int RegForTrainingId, int CourseId, DateTime CourseTrngDate, string DiscussionTopic, string ACTIONSTEP,
             DateTime Last_Contact_Date, DateTime Next_Contact_Date, int CallBackValue, DateTime Birthday, DateTime Anniversary, int CompanyYears, string BossName)
         {
-            
+
             UserModel _user = (UserModel)HttpContext.Current.Session["CurrentUser"];
 
             if (CourseTrngDate.ToString() == "1/1/0001 12:00:00 AM")
@@ -249,7 +249,7 @@ namespace SandlerRepositories
                 Last_Contact_Date = default(System.DateTime).AddYears(1754);
             }
 
-			if (Birthday.ToString() == "1/1/0001 12:00:00 AM")
+            if (Birthday.ToString() == "1/1/0001 12:00:00 AM")
             {
                 Birthday = default(System.DateTime).AddYears(1754);
             }
@@ -258,23 +258,29 @@ namespace SandlerRepositories
             {
                 Anniversary = default(System.DateTime).AddYears(1754);
             }
-                //Insert and create contact - Both are Avl
-                db.ExecuteNonQuery("sp_InsertContact",
-                    new SqlParameter("@COMPANIESID", COMPANIESID), new SqlParameter("@LastName", LastName), new SqlParameter("@FirstName", FirstName),
-                    new SqlParameter("@Phone", Phone), new SqlParameter("@Email", Email), new SqlParameter("@Value", Value),
-                    new SqlParameter("@ApptSourceId", ApptSourceId), new SqlParameter("@RegForTrainingId", RegForTrainingId),
-                    new SqlParameter("@CourseId", CourseId), new SqlParameter("@CourseTrngDate", CourseTrngDate),
-                    new SqlParameter("@DiscussionTopic", DiscussionTopic), new SqlParameter("@ACTIONSTEP", ACTIONSTEP),
-                    new SqlParameter("@Last_Contact_Date", Last_Contact_Date), new SqlParameter("@Next_Contact_Date", Next_Contact_Date),
-                    new SqlParameter("@CreatedBy", _user.UserId), new SqlParameter("@CallBackValue", CallBackValue),
-					new SqlParameter("@Birthday", Birthday), 
-                    new SqlParameter("@Anniversary", Anniversary),
-                    new SqlParameter("@CompanyYears", CompanyYears),
-                    new SqlParameter("@BossName", BossName));
-            
-            
 
-                UserEntitiesFactory.ReLoad();
+            if (string.IsNullOrEmpty(BossName))
+            {
+                BossName = "";
+            }
+
+            //Insert and create contact - Both are Avl
+            db.ExecuteNonQuery("sp_InsertContact",
+                new SqlParameter("@COMPANIESID", COMPANIESID), new SqlParameter("@LastName", LastName), new SqlParameter("@FirstName", FirstName),
+                new SqlParameter("@Phone", Phone), new SqlParameter("@Email", Email), new SqlParameter("@Value", Value),
+                new SqlParameter("@ApptSourceId", ApptSourceId), new SqlParameter("@RegForTrainingId", RegForTrainingId),
+                new SqlParameter("@CourseId", CourseId), new SqlParameter("@CourseTrngDate", CourseTrngDate),
+                new SqlParameter("@DiscussionTopic", DiscussionTopic), new SqlParameter("@ACTIONSTEP", ACTIONSTEP),
+                new SqlParameter("@Last_Contact_Date", Last_Contact_Date), new SqlParameter("@Next_Contact_Date", Next_Contact_Date),
+                new SqlParameter("@CreatedBy", _user.UserId), new SqlParameter("@CallBackValue", CallBackValue),
+                new SqlParameter("@Birthday", Birthday),
+                new SqlParameter("@Anniversary", Anniversary),
+                new SqlParameter("@CompanyYears", CompanyYears),
+                new SqlParameter("@BossName", BossName));
+
+
+
+            UserEntitiesFactory.ReLoad();
         }
 
 
@@ -294,8 +300,23 @@ namespace SandlerRepositories
             {
                 LastDate = default(System.DateTime).AddYears(1754);
             }
-            
-             //Both Are Avl
+
+            if (BirthDate.ToString() == "1/1/0001 12:00:00 AM")
+            {
+                BirthDate = default(System.DateTime).AddYears(1754);
+            }
+
+            if (AnniversaryDate.ToString() == "1/1/0001 12:00:00 AM")
+            {
+                AnniversaryDate = default(System.DateTime).AddYears(1754);
+            }
+
+            if (string.IsNullOrEmpty(BossName))
+            {
+                BossName = "";
+            }
+
+            //Both Are Avl
             db.ExecuteNonQuery("sp_UpdateContactDetails",
                    new SqlParameter("@ContactsID", Contactsid),
                    new SqlParameter("@CompanyID", CompanyID),
@@ -318,9 +339,9 @@ namespace SandlerRepositories
                    new SqlParameter("@BirthDate", BirthDate),
                    new SqlParameter("@AnniversaryDate", AnniversaryDate),
                    new SqlParameter("@CompanyYears", CompanyYears),
-                   new SqlParameter("@BossName", BossName));                  
+                   new SqlParameter("@BossName", BossName));
 
-             UserEntitiesFactory.ReLoad();
+            UserEntitiesFactory.ReLoad();
         }
     }
 }

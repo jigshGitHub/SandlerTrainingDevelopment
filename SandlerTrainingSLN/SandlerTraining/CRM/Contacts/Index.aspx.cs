@@ -12,8 +12,7 @@ public partial class ContactIndex : BasePage
     {
         if (!IsPostBack)
         {
-            addContactAnchor.Visible = !IsUserReadOnly(SandlerUserActions.Add, SandlerEntities.Contact);
-            uploadAnchor.Visible = !IsUserReadOnly(SandlerUserActions.Add, SandlerEntities.Contact);
+            contactMenu.MenuEntityTitle = "Contacts";
         }
 
     }
@@ -40,12 +39,16 @@ public partial class ContactIndex : BasePage
         {
             LblStatus.Text = "There are no Contacts available for this Company/Franchisee.";
             btnExportExcel.Visible = false;
-            searchAnchor.Visible = false;
+            //searchAnchor.Visible = false;
+            contactMenu.MenuEntity.Items.Find(delegate(Sandler.Web.MenuItem item) { return item.Text == "Search"; }).IsVisible = false;
+            contactMenu.ReLoadSubMenu();
         }
         else
         {
             LblStatus.Text = "";
             btnExportExcel.Visible = true;
+            contactMenu.MenuEntity.Items.Find(delegate(Sandler.Web.MenuItem item) { return item.Text == "Search"; }).IsVisible = true;
+            contactMenu.ReLoadSubMenu();
         }
     }
     public override void VerifyRenderingInServerForm(Control control)

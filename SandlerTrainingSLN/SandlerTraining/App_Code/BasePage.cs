@@ -7,6 +7,7 @@ using SandlerModels;
 using SandlerData.Models;
 using System.Configuration;
 
+using SandlerWeb = Sandler.Web;
 /// <summary>
 /// Summary description for BasePage
 /// </summary>
@@ -18,9 +19,13 @@ public abstract class BasePage : System.Web.UI.Page
     protected string GENERICCHARTLITERALWIDTH = ConfigurationManager.AppSettings["GenericChartLiteralWidth"];
     protected string GENERICCHARTLITERALHEIGHT = ConfigurationManager.AppSettings["GenericChartLiteralHeight"];
 
+    public List<SandlerWeb.Menu> CRMMenu;
+
     public BasePage()
     {
+        
     }
+
 
     public UserModel CurrentUser
     {
@@ -34,14 +39,14 @@ public abstract class BasePage : System.Web.UI.Page
 
                 Session["CurrentUser"] = user;
             }
-            return user; 
+            return user;
         }
         set
         {
             Session["CurrentUser"] = value;
         }
     }
-    
+
     protected override void OnPreInit(EventArgs e)
     {
         base.OnPreInit(e);
@@ -60,6 +65,40 @@ public abstract class BasePage : System.Web.UI.Page
     protected override void OnLoad(EventArgs e)
     {
         base.OnLoad(e);
+
+        CRMMenu = new List<SandlerWeb.Menu>();
+
+        List<SandlerWeb.MenuItem> items = new List<SandlerWeb.MenuItem>();
+
+        items.Add(new SandlerWeb.MenuItem { Id = "Search", Text = "Search", Link = "~/CRM/Companies/Search.aspx", IsVisible = true });
+        items.Add(new SandlerWeb.MenuItem { Id = "Upload", Text = "Upload Company Data", Link = "~/CRM/Companies/Upload.aspx", IsVisible = !IsUserReadOnly(SandlerUserActions.Add, SandlerEntities.Company) });
+        items.Add(new SandlerWeb.MenuItem { Id = "AddProduct", Text = "Add New Product", Link = "~/CRM/Products/Add.aspx", IsVisible = !IsUserReadOnly(SandlerUserActions.Add, SandlerEntities.Company) });
+        items.Add(new SandlerWeb.MenuItem { Id = "AddCompany", Text = "Add New Company", Link = "~/CRM/Companies/Add.aspx", IsVisible = !IsUserReadOnly(SandlerUserActions.Add, SandlerEntities.Company) });
+
+        CRMMenu.Add(new SandlerWeb.Menu { Title = "Companies", IsVisible = true, Items = items.Where(item => item.IsVisible == true).ToList() });
+
+        items = new List<SandlerWeb.MenuItem>();
+
+        items.Add(new SandlerWeb.MenuItem { Id = "Search", Text = "Search", Link = "~/CRM/Contacts/Search.aspx", IsVisible = true });
+        items.Add(new SandlerWeb.MenuItem { Id = "Upload", Text = "Upload Contact Data", Link = "~/CRM/Contacts/Upload.aspx", IsVisible = !IsUserReadOnly(SandlerUserActions.Add, SandlerEntities.Contact) });
+        items.Add(new SandlerWeb.MenuItem { Id = "AddContact", Text = "Add New Contact", Link = "~/CRM/Contacts/Add.aspx", IsVisible = !IsUserReadOnly(SandlerUserActions.Add, SandlerEntities.Contact) });
+        items.Add(new SandlerWeb.MenuItem { Id = "CallList", Text = "View Call List", Link = "~/CRM/Contacts/CallList.aspx", IsVisible = true });
+
+        CRMMenu.Add(new SandlerWeb.Menu { Title = "Contacts", IsVisible = true, Items = items.Where(item => item.IsVisible == true).ToList() });
+
+        items = new List<SandlerWeb.MenuItem>();
+
+        items.Add(new SandlerWeb.MenuItem { Id = "Search", Text = "Search", Link = "~/CRM/Opportunities/Search.aspx", IsVisible = true });
+        items.Add(new SandlerWeb.MenuItem { Id = "AddOpportunity", Text = "Add New Opportunity", Link = "~/CRM/Opportunities/Add.aspx", IsVisible = !IsUserReadOnly(SandlerUserActions.Add, SandlerEntities.Opportunity) });
+
+        CRMMenu.Add(new SandlerWeb.Menu { Title = "Opportunities", IsVisible = true, Items = items.Where(item => item.IsVisible == true).ToList() });
+
+        items = new List<SandlerWeb.MenuItem>();
+
+        items.Add(new SandlerWeb.MenuItem { Id = "Search", Text = "Search", Link = "~/CRM/Documents/Search.aspx", IsVisible = true });
+        items.Add(new SandlerWeb.MenuItem { Id = "AddDocument", Text = "Attach New Document", Link = "~/CRM/Documents/Add.aspx", IsVisible = !IsUserReadOnly(SandlerUserActions.Add, SandlerEntities.Document) });
+
+        CRMMenu.Add(new SandlerWeb.Menu { Title = "Documents", IsVisible = true, Items = items.Where(item => item.IsVisible == true).ToList() });
     }
 
     protected virtual bool IsUserReadOnly(SandlerUserActions action, SandlerEntities entity)

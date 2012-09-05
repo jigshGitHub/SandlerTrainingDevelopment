@@ -8,6 +8,7 @@ using System.Data;
 using System.Data.OleDb;
 using SandlerModels;
 using SandlerModels.DataModels;
+using System.Configuration;
 public partial class CRM_Companies_Upload : UploaderBasePage
 {
     protected void Page_Load(object sender, EventArgs e)
@@ -19,8 +20,9 @@ public partial class CRM_Companies_Upload : UploaderBasePage
 
     protected void btnUpload_Click(object sender, EventArgs e)
     {
-        FileName = fileToUpload.ResolveClientUrl(fileToUpload.FileName);
+        FileName = Server.MapPath(ConfigurationManager.AppSettings["DocumentsUploadLocation"] + fileToUpload.ResolveClientUrl(fileToUpload.FileName));
         //http://www.microsoft.com/en-us/download/confirmation.aspx?id=23734
+        //For 64 bit http://www.microsoft.com/en-us/download/details.aspx?id=13255
         SandlerRepositories.CompaniesRepository companyRepository;
         TBL_COMPANIES company;
         DataRow excelRow = null;
@@ -28,7 +30,7 @@ public partial class CRM_Companies_Upload : UploaderBasePage
         {
             if (IsDataValid())
             {
-                fileToUpload.SaveAs(Server.MapPath(FileName));
+                fileToUpload.SaveAs(FileName);
 
                 SetUpExcel();
 
@@ -67,7 +69,7 @@ public partial class CRM_Companies_Upload : UploaderBasePage
 
                 showHideDialogFlag.Value = "0";
 
-                System.IO.File.Delete(Server.MapPath(FileName));
+                System.IO.File.Delete(FileName);
                 pnlFileUpload.Visible = false;
 
                 BindLogGrid();
