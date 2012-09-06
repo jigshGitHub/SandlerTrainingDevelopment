@@ -23,12 +23,29 @@ public partial class OpportunityIndex : OpportunityBasePage
     private void BindOpportunitiesForAComnpany(int companyId)
     {
         var data = from record in GetOpportunities(companyId)
-                   select new { ID = record.ID, OPPORTUNITYID = record.OpportunityID.Value, NAME = record.NAME, CompanyName = GetCompany(record.COMPANYID).COMPANYNAME, VALUE = record.VALUE, WEIGHTEDVALUE = record.WEIGHTEDVALUE, CloseDate = record.CLOSEDATE, SalesRep = record.SALESREPFIRSTNAME + " " + record.SALESREPLASTNAME, Status = GetOpportunityStatus(record.STATUSID.Value).Name };
+                   select new
+                   {
+                       ID = record.ID,
+                       OPPORTUNITYID = record.OpportunityID.Value,
+                       NAME = record.NAME,
+                       CompanyName = GetCompany(record.COMPANYID).COMPANYNAME,
+                       VALUE = record.VALUE,
+                       WEIGHTEDVALUE = record.WEIGHTEDVALUE,
+                       CloseDate = record.CLOSEDATE,
+                       SalesRep = record.SALESREPFIRSTNAME + " " + record.SALESREPLASTNAME,
+                       Status = GetOpportunityStatus(record.STATUSID.Value).Name,
+                       ContactName = GetContact(record.CONTACTID).FIRSTNAME + GetContact(record.CONTACTID).LASTNAME,
+                       ContactPhone = GetContact(record.CONTACTID).PHONE,
+                       ContactEmail = GetContact(record.CONTACTID).EMAIL,
+                       Product = GetProduct(record.ProductID).ProductTypeName
+                   };
         TotalRecords = data.Count();
         //var filterRecords = 
         gvOpportunities.DataSource = IQueryableExtensions.Page(data, PageSize, CurrentPage).AsQueryable();
         gvOpportunities.DataBind();
 
+        gvExport.DataSource = data;
+        gvExport.DataBind();
         pager.BindPager(TotalRecords, PageSize, CurrentPage);
     }
 
@@ -41,7 +58,7 @@ public partial class OpportunityIndex : OpportunityBasePage
         {
             string defaultSelection = "";
 
-            defaultSelection =  "All";
+            defaultSelection = "All";
             ListItem selectItem = new ListItem(defaultSelection, "0");
             dropdownList.Items.Insert(0, selectItem);
         }
@@ -119,19 +136,11 @@ public partial class OpportunityIndex : OpportunityBasePage
         this.EnableViewState = false;
         System.IO.StringWriter stringWrite = new System.IO.StringWriter();
         System.Web.UI.HtmlTextWriter htmlWrite = new System.Web.UI.HtmlTextWriter(stringWrite);
-        gvOpportunities.AllowPaging = false;
-        gvOpportunities.AllowSorting = false;
-        BindOpportunitiesForAComnpany(int.Parse(ddlCompany.SelectedValue));
-        gvOpportunities.Columns[9].Visible = false;
-
+        
         //Report is the Div which we need to Export - Gridview is under this Div
-        Report.RenderControl(htmlWrite);
+        gvExport.RenderControl(htmlWrite);
         Response.Write(stringWrite.ToString());
         Response.End();
-        gvOpportunities.AllowPaging = true;
-        gvOpportunities.AllowSorting = true;
-        this.EnableViewState = true;
-        gvOpportunities.DataBind();
     }
 
     #endregion

@@ -15,8 +15,15 @@ public partial class OpportunitySearch : OpportunityBasePage
             if (!string.IsNullOrEmpty(Request.QueryString["currentPage"]))
                 CurrentPage = int.Parse(Request.QueryString["currentPage"]);
 
-            BindContacts(0);
+            //BindContacts(0);
         }
+    }
+
+    protected void Page_Prerender(object sender, EventArgs e)
+    {
+        //opportunityMenu.MenuEntity.Items.Find(delegate(Sandler.Web.MenuItem item) { return item.Text == "Search"; }).IsVisible = !pnlSearch.Visible;
+        //opportunityMenu.ReLoadSubMenu();
+        pnlResults.Visible = !pnlSearch.Visible;
     }
 
     private void BindOpportunitiesForASearch()
@@ -32,14 +39,33 @@ public partial class OpportunitySearch : OpportunityBasePage
         if (ddlContacts.SelectedIndex > 0) contactId = int.Parse(ddlContacts.SelectedValue); else contactId = null;
 
         var data = from record in GetOpportunities(companyId, txtOpportunityID.Text, txtOppName.Text, txtSalesRepFName.Text, txtSalesRepLName.Text, txtSalesRepPhone.Text, productId, statusId, contactId, txtContactPhone.Text, txtEmail.Text)
-                   select new { ID = record.ID, OPPORTUNITYID = record.OpportunityID.Value, NAME = record.NAME, CompanyName = GetCompany(record.COMPANYID).COMPANYNAME, VALUE = record.VALUE, WEIGHTEDVALUE = record.WEIGHTEDVALUE, CloseDate = record.CLOSEDATE, SalesRep = record.SALESREPFIRSTNAME + " " + record.SALESREPLASTNAME, Status = GetOpportunityStatus(record.STATUSID.Value).Name };
+                   select new
+                   {
+                       ID = record.ID,
+                       OPPORTUNITYID = record.OpportunityID.Value,
+                       NAME = record.NAME,
+                       CompanyName = GetCompany(record.COMPANYID).COMPANYNAME,
+                       VALUE = record.VALUE,
+                       WEIGHTEDVALUE = record.WEIGHTEDVALUE,
+                       CloseDate = record.CLOSEDATE,
+                       SalesRep = record.SALESREPFIRSTNAME + " " + record.SALESREPLASTNAME,
+                       Status = GetOpportunityStatus(record.STATUSID.Value).Name,
+                       ContactName = GetContact(record.CONTACTID).FIRSTNAME + GetContact(record.CONTACTID).LASTNAME,
+                       ContactPhone = GetContact(record.CONTACTID).PHONE,
+                       ContactEmail = GetContact(record.CONTACTID).EMAIL,
+                       Product = GetProduct(record.ProductID).ProductTypeName
+                   };
         TotalRecords = data.Count();
+        lblResultsCount.Text = "Total records found:" + TotalRecords.ToString();
         //var filterRecords = 
         gvOpportunities.DataSource = IQueryableExtensions.Page(data, PageSize, CurrentPage).AsQueryable();
         gvOpportunities.DataBind();
 
+        gvExport.DataSource = data;
+        gvExport.DataBind();
         pager.BindPager(TotalRecords, PageSize, CurrentPage);
     }
+
 
     #region dropdownlists selected index changed events
 
@@ -85,6 +111,25 @@ public partial class OpportunitySearch : OpportunityBasePage
         ddlContacts.DataBind();
         ddlContacts.Items.Insert(0, new ListItem("--Select contact--", "0"));
     }
+
+    protected void ddlContacts_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        DropDownList ddlContacts = sender as DropDownList;
+        if (ddlContacts.SelectedIndex > 0)
+        {
+            TBL_CONTACTS contact = GetContact(long.Parse(ddlContacts.SelectedValue));
+            SetContact(contact.PHONE, contact.EMAIL);
+        }
+        else
+            SetContact("", "");
+
+    }
+
+    private void SetContact(string phone, string email)
+    {
+        txtContactPhone.Text = phone;
+        txtEmail.Text = email;
+    }
     #endregion
 
     #region gvOpportunities Events
@@ -97,11 +142,13 @@ public partial class OpportunitySearch : OpportunityBasePage
     {
         if (gvOpportunities.Rows.Count == 0)
         {
-            LblStatus.Text = "There are no Opportunity available for this company.";
+            LblStatus.Text = "There are no Opportunity available.";
+            pnlSearch.Visible = true;
         }
         else
         {
             LblStatus.Text = "";
+            pnlSearch.Visible = false;
         }
     }
 
@@ -128,41 +175,6 @@ public partial class OpportunitySearch : OpportunityBasePage
     {
         SortExpression = e.SortExpression;
         SortDirection = e.SortDirection.ToString();
-    }
-
-    #endregion
-
-    #region Excel downloading
-
-    public override void VerifyRenderingInServerForm(Control control)
-    {
-        //This means that you are overriding the default implementation of the method and giving permission to the GridView to be exported as an Excel file.
-    }
-
-    protected void btnExportExcel_Click(object sender, ImageClickEventArgs e)
-    {
-        //Export results to Excel
-        Response.Clear();
-        Response.AddHeader("content-disposition", "attachment;filename=AllOpportunities.xls");
-        Response.Charset = "";
-        //Response.Cache.SetCacheability(HttpCacheability.NoCache)
-        Response.ContentType = "application/vnd.ms-excel";
-        this.EnableViewState = false;
-        System.IO.StringWriter stringWrite = new System.IO.StringWriter();
-        System.Web.UI.HtmlTextWriter htmlWrite = new System.Web.UI.HtmlTextWriter(stringWrite);
-        gvOpportunities.AllowPaging = false;
-        gvOpportunities.AllowSorting = false;
-        //BindOpportunitiesForAComnpany(int.Parse(ddlCompany.SelectedValue));
-        gvOpportunities.Columns[9].Visible = false;
-
-        //Report is the Div which we need to Export - Gridview is under this Div
-        Report.RenderControl(htmlWrite);
-        Response.Write(stringWrite.ToString());
-        Response.End();
-        gvOpportunities.AllowPaging = true;
-        gvOpportunities.AllowSorting = true;
-        this.EnableViewState = true;
-        gvOpportunities.DataBind();
     }
 
     #endregion
@@ -194,6 +206,34 @@ public partial class OpportunitySearch : OpportunityBasePage
 
     protected void lbtnSearch_Click(object sender, EventArgs e)
     {
+        LblStatus.Text = "";
         BindOpportunitiesForASearch();
     }
+
+    #region Excel downloading
+
+    public override void VerifyRenderingInServerForm(Control control)
+    {
+        //This means that you are overriding the default implementation of the method and giving permission to the GridView to be exported as an Excel file.
+    }
+
+    protected void btnExportExcel_Click(object sender, ImageClickEventArgs e)
+    {
+        //Export results to Excel
+        Response.Clear();
+        Response.AddHeader("content-disposition", "attachment;filename=AllOpportunities.xls");
+        Response.Charset = "";
+        //Response.Cache.SetCacheability(HttpCacheability.NoCache)
+        Response.ContentType = "application/vnd.ms-excel";
+        this.EnableViewState = false;
+        System.IO.StringWriter stringWrite = new System.IO.StringWriter();
+        System.Web.UI.HtmlTextWriter htmlWrite = new System.Web.UI.HtmlTextWriter(stringWrite);
+
+        //Report is the Div which we need to Export - Gridview is under this Div
+        gvExport.RenderControl(htmlWrite);
+        Response.Write(stringWrite.ToString());
+        Response.End();
+    }
+
+    #endregion
 }

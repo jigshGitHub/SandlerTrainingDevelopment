@@ -38,52 +38,15 @@
     </div>
     <script type="text/javascript">
         $(document).ready(function () {
-            //            var frenchiseeId = $('#<%=hdnFrenchiseeID.ClientID%>').val();
-            //            log(frenchiseeId);
-            //            var href = window.location.href.split('/');
-            //            var baseUrl = href[0] + '//' + href[2] + '/' + href[3];
-
-            //            var companyList = $('#<%=companyList.ClientID%>');
-            //alert($('#<%=showHideDialogFlag.ClientID %>').val());
             if ($('#<%=showHideDialogFlag.ClientID %>').val() == 1) {
-                //            $('#uploadCompanyData').click(function () {
-                //                $('#dialog').dialog('open');
-                //                return false;
-                //            });
 
-
-                //            $('#dialog').dialog('open');
-                //            return false;
                 $('#dialog').dialog({
 
                     autoOpen: true,
                     width: 500
-                    /*,
-                    buttons: {
-                    "Ok": function () {
-                    $(this).dialog("close");
-                    },
-                    "Cancel": function () {
-                    $(this).dialog("close");
-                    }
-                    }*/
+
                 });
-                //                $.ajax({
-                //                    url: baseUrl + "/api/Companies/",
-                //                    type: 'GET',
-                //                    contentType: 'application/json',
-                //                    data: { frenchiseeId: frenchiseeId },
-                //                    success: function (data) {
-                //                        companyList.append($('<option></option>').val('0').html('Select company'));
-                //                        $.each(data.$values, function (i, item) {
-                //                            log(item);
-                //                            companyList.append($('<option></option>').val(item.COMPANIESID).html(item.COMPANYNAME));
-                //                        });
-                //                    },
-                //                    error: function (xhr, status, somthing) {
-                //                        log(status);
-                //                    }
-                //                });
+
                 $('#dialog').parent().appendTo($("form:first"));
             }
             else {
@@ -108,7 +71,7 @@
                             HeaderText="Last Name" />
                         <asp:BoundField ItemStyle-HorizontalAlign="Center" HeaderStyle-ForeColor="Blue" DataField="PHONE"
                             HeaderText="Phone Number" />
-                        <asp:BoundField ItemStyle-HorizontalAlign="Center" HeaderStyle-ForeColor="Blue" DataField="E-mail"
+                        <asp:BoundField ItemStyle-HorizontalAlign="Center" HeaderStyle-ForeColor="Blue" DataField="EMail"
                             HeaderText="Email" />
                         <asp:BoundField ItemStyle-HorizontalAlign="Center" HeaderStyle-ForeColor="Blue" DataField="Errormessage"
                             HeaderText="Message" />
