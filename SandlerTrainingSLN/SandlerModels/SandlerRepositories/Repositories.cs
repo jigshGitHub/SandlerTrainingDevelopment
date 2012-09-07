@@ -321,5 +321,26 @@ namespace SandlerRepositories
         }
     }
 
-
+    public partial class DocumentsRepository : RepositoryBase<TBL_DOCS>
+    {
+        public DocumentsRepository(IDatabaseFactory dbFactory)
+            : base(dbFactory)
+        {
+        }
+        public DocumentsRepository()
+            : base(new DBFactory())
+        {
+        }
+    }
+    public partial class DocumentsStatusRepository : RepositoryBase<Tbl_DocumentStatus>
+    {
+        public DocumentsStatusRepository(IDatabaseFactory dbFactory)
+            : base(dbFactory)
+        {
+        }
+        public DocumentsStatusRepository()
+            : base(new DBFactory())
+        {
+        }
+    }
 }

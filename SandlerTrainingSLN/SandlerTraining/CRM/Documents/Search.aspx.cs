@@ -5,13 +5,17 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Configuration;
-public partial class CRM_Documents_Search : System.Web.UI.Page
+public partial class CRM_Documents_Search : BasePage
 {
     protected void Page_Load(object sender, EventArgs e)
     {
 
     }
 
+    protected void Page_Prerender(object sender, EventArgs e)
+    {
+        pnlResults.Visible = !pnlSearch.Visible;
+    }
     #region dropdownlists selected index changed events
 
     protected void ddlCreateDefaultSelection(object sender, EventArgs e)
@@ -38,30 +42,65 @@ public partial class CRM_Documents_Search : System.Web.UI.Page
         }
     }
 
-    protected void ddlCompany_SelectedIndexChanged(object sender, EventArgs e)
-    {
-        DropDownList ddlCompany = sender as DropDownList;
-        //BindOpportunitiesForAComnpany(int.Parse(ddlCompany.SelectedValue));
-    }
-
-
     #endregion
+
+    private void BindDocumentsForASearch()
+    {
+        int? companyId;
+        int? opportunityId;
+        int? statusId;
+
+        if (ddlCompanySearch.SelectedIndex > 0) companyId = int.Parse(ddlCompanySearch.SelectedValue); else companyId = null;
+        if (ddlOpportunities.SelectedIndex > 0) opportunityId = int.Parse(ddlOpportunities.SelectedValue); else opportunityId = null;
+        if (ddlDocStatus.SelectedIndex > 0) statusId = int.Parse(ddlDocStatus.SelectedValue); else statusId = null;
+
+        IQueryable<SandlerModels.TBL_DOCS> documents = from record in new SandlerRepositories.DocumentsRepository().GetAll().Where(d => d.IsActive == true).AsQueryable()
+                                                       select record;
+                   
+        documents = SandlerData.IQueryableExtensions.OptionalWhere(documents, companyId, x => (doc => doc.COMPANYID == companyId));
+        documents = SandlerData.IQueryableExtensions.OptionalWhere(documents, opportunityId, x => (doc => doc.OPPSID == opportunityId));
+        documents = SandlerData.IQueryableExtensions.OptionalWhere(documents, statusId, x => (doc => doc.DOCSTATUSID == statusId));
+
+        if (!string.IsNullOrEmpty(txtDocName.Text))
+            documents = documents.Where(doc => doc.DOCNAME ==txtDocName.Text);
+
+        var data = from record in documents.AsQueryable()
+                   select new
+                    {
+                        DOCSID = record.DOCSID,
+                        DocumentName = record.DOCNAME,
+                        CompanyName = new SandlerRepositories.CompaniesRepository().GetById(long.Parse(record.COMPANYID.ToString())).COMPANYNAME,
+                        OpportunityName = new SandlerRepositories.OpportunitiesRepository().GetById(long.Parse(record.OPPSID.ToString())).NAME,
+                        Status = new SandlerRepositories.DocumentsStatusRepository().GetById(long.Parse(record.DOCSTATUSID.ToString())).DocStatusText
+                    };
+        TotalRecords = data.Count();
+        lblResultsCount.Text = "Total records found:" + TotalRecords.ToString();
+        //var filterRecords = 
+        gvDocuments.DataSource = SandlerData.IQueryableExtensions.Page(data, PageSize, CurrentPage).AsQueryable();
+        gvDocuments.DataBind();
+
+        gvExport.DataSource = data;
+        gvExport.DataBind();
+        pager.BindPager(TotalRecords, PageSize, CurrentPage);
+    }
 
     protected void gvDocuments_SelectedIndexChanged(object sender, EventArgs e)
     {
         hidDocumentID.Value = gvDocuments.SelectedDataKey.Value.ToString();
         Server.Transfer("~/CRM/Documents/Detail.aspx");
     }
+
     protected void gvDocuments_DataBound(object sender, EventArgs e)
     {
         if (gvDocuments.Rows.Count == 0)
         {
             LblStatus.Text = "There are no documents attached to the selected opportunity.";
+            pnlSearch.Visible = true;
         }
         else
         {
             LblStatus.Text = "";
-            gvDocuments.Visible = true;
+            pnlSearch.Visible = false;
         }
 
     }
@@ -78,9 +117,11 @@ public partial class CRM_Documents_Search : System.Web.UI.Page
             }
         }
     }
+
     protected void lbtnSearch_Click(object sender, EventArgs e)
     {
-
+        LblStatus.Text = "";
+        BindDocumentsForASearch();
     }
 
     #region Excel downloading

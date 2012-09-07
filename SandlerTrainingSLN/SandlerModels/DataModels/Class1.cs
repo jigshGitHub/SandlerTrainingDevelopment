@@ -203,7 +203,42 @@ namespace SandlerModels.DataModels
             }
             return opportunties;
         }
+        private IEnumerable<TBL_DOCS> GetDocuments(UserModel user)
+        {
+            IEnumerable<TBL_DOCS> documents = null;
+            DocumentsRepository documentsSource = new DocumentsRepository();
+            try
+            {
+                if (user.Role == SandlerRoles.FranchiseeUser)
+                    documents = documentsSource.GetAll().Where(record => record.IsActive == true && record.CreatedBy.ToLower() == user.UserId.ToString().ToLower()).AsEnumerable();
+                else if (user.Role == SandlerRoles.FranchiseeOwner)
+                {
+                    documents = from document in documentsSource.GetAll().Where(record => record.IsActive == true && record.TBL_COMPANIES.FranchiseeId == user.FranchiseeID)
+                                   select document;
+                }
+                else if (user.Role == SandlerRoles.Coach)
+                {
+                    FranchiseeRepository franchiseeSource = new FranchiseeRepository();
+                    CoachRepository coachSource = new CoachRepository();
+                    //documents = from opportunity in opportunitiesSource.GetAll().Where(record => record.IsActive == true)
+                    //               from company in companies.Where(record => record.COMPANIESID == opportunity.COMPANYID)
+                    //               from franchisee in franchisees.Where(record => record.ID == company.FranchiseeId)
+                    //               select opportunity;
+                    documents = from document in documentsSource.GetAll().Where(record => record.IsActive == true && record.TBL_COMPANIES.TBL_FRANCHISEE.CoachID == user.CoachID)
+                                   select document;
 
+                }
+                else if (user.Role == SandlerRoles.Corporate)
+                {
+                    documents = documentsSource.GetAll().Where(record => record.IsActive == true).AsEnumerable();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("exception in UserEntities.Getopportunities: " + ex.Message);
+            }
+            return documents;
+        }
         #region IUserEntities Members
 
         public IEnumerable<TBL_CONTACTS> GetNewAppointments(UserModel user)

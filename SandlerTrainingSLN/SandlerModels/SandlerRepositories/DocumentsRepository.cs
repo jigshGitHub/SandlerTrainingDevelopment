@@ -12,15 +12,15 @@ using SandlerModels;
 /// </summary>
 namespace SandlerRepositories
 {
-    public class DocumentsRepository
+    public partial class DocumentsRepository
     {
         DBFactory db = new DBFactory();
-        public DocumentsRepository()
-        {
-            //
-            // TODO: Add constructor logic here
-            //
-        }
+        //public DocumentsRepository()
+        //{
+        //    //
+        //    // TODO: Add constructor logic here
+        //    //
+        //}
         public DataSet GetByOppsId(int OppsID)
         {
             System.Data.DataSet ds = db.ExecuteDataset("sp_GetDocumentsByOppId", "Documents", new SqlParameter("@OppsID", OppsID));

@@ -173,7 +173,7 @@
                         <tr>
                             <td colspan="2">
                                 <asp:GridView Width="100%" ID="gvOpportunities" runat="server" AutoGenerateColumns="False"
-                                    DataKeyNames="ID" AllowSorting="true" PageSize="3" OnDataBound="gvOpportunities_DataBound"
+                                    DataKeyNames="ID" AllowSorting="true" OnDataBound="gvOpportunities_DataBound"
                                     OnRowDataBound="gvOpportunities_RowDataBound" ShowFooter="true" OnSorting="gvOpportunities_Sorting">
                                     <PagerStyle BackColor="#999999" ForeColor="Blue" HorizontalAlign="Center" />
                                     <Columns>

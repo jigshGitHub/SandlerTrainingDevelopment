@@ -19,6 +19,77 @@ public abstract class BasePage : System.Web.UI.Page
     protected string GENERICCHARTLITERALWIDTH = ConfigurationManager.AppSettings["GenericChartLiteralWidth"];
     protected string GENERICCHARTLITERALHEIGHT = ConfigurationManager.AppSettings["GenericChartLiteralHeight"];
 
+    protected int CurrentPage
+    {
+        get
+        {
+            if (ViewState["CurrentPage"] == null)
+            {
+                ViewState["CurrentPage"] = 1;
+            }
+            return int.Parse(ViewState["CurrentPage"].ToString());
+        }
+        set
+        {
+            ViewState["CurrentPage"] = value;
+        }
+    }
+    protected int PageSize
+    {
+        get
+        {
+            if (ViewState["PageSize"] == null)
+            {
+                ViewState["PageSize"] = ConfigurationManager.AppSettings["DefaultPageSize"];
+            }
+            return int.Parse(ViewState["PageSize"].ToString());
+        }
+        set
+        {
+            ViewState["PageSize"] = value;
+        }
+    }
+    protected string SortExpression
+    {
+        get
+        {
+            if (ViewState["SortExpression"] == null)
+            {
+                ViewState["SortExpression"] = "ID";
+            }
+            return ViewState["SortExpression"].ToString();
+        }
+        set
+        {
+            ViewState["SortExpression"] = value;
+        }
+    }
+    protected string SortDirection
+    {
+        get
+        {
+            if (ViewState["SortDirection"] == null)
+            {
+                ViewState["SortDirection"] = "ASC";
+            }
+            return ViewState["SortDirection"].ToString();
+        }
+        set
+        {
+            ViewState["SortDirection"] = value;
+        }
+    }
+    protected int TotalRecords
+    {
+        get
+        {
+            return int.Parse(ViewState["TotalRecords"].ToString());
+        }
+        set
+        {
+            ViewState["TotalRecords"] = value;
+        }
+    }
     public List<SandlerWeb.Menu> CRMMenu;
 
     public BasePage()
