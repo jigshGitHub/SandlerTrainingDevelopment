@@ -6,11 +6,11 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Data;
 using System.Data.SqlClient;
-using System.Configuration; 
+using System.Configuration;
 
 public partial class DocumentADD : BasePage
 {
-    
+
     protected void Page_Load(object sender, EventArgs e)
     {
 
@@ -43,7 +43,7 @@ public partial class DocumentADD : BasePage
         {
             ListItem selectItem = new ListItem("--Select Opportunity--", "0");
             ddlOpportunity.Items.Insert(0, selectItem);
-            
+
         }
         else
         {
@@ -63,13 +63,13 @@ public partial class DocumentADD : BasePage
             Response.Redirect("~/CRM/Documents/Index.aspx");
         }
     }
-    
+
     protected void dvDocument_ItemInserting(object sender, DetailsViewInsertEventArgs e)
     {
         string DocName = default(System.String);
         int DocStatus = default(System.Int32);
         System.DateTime LastModifyDate = default(System.DateTime);
-                
+
         //for file
         FileUpload FileUploadControl = new FileUpload();
         FileUploadControl = (FileUpload)dvDocument.FindControl("Upload");
@@ -90,7 +90,7 @@ public partial class DocumentADD : BasePage
                 ClientScript.RegisterStartupScript(this.GetType(), "NoDocument", ("<script> alert('Please click on Browse button and select document to attach.'); </script>"));
                 e.Cancel = true;
             }
-            
+
         }
         //For LastModifyDate
         {
@@ -102,7 +102,7 @@ public partial class DocumentADD : BasePage
                 {
                     LastModifyDate = Convert.ToDateTime(LastModifyDateCal.Text.Trim());
                 }
-            
+
             }
 
         }
@@ -116,9 +116,9 @@ public partial class DocumentADD : BasePage
         }
         if (!e.Cancel)
         {
-            new SandlerRepositories.DocumentsRepository().Insert(Convert.ToInt32(ddlOpportunity.SelectedValue), DocStatus, DocName, LastModifyDate);
+            new SandlerRepositories.DocumentsRepository().Insert(Convert.ToInt32(ddlOpportunity.SelectedValue), Convert.ToInt32(ddlCompany.SelectedValue), DocStatus, DocName, LastModifyDate);
             lblResult.Text = "Document attached Successfully!";
         }
-        
+
     }
 }

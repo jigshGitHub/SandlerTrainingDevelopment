@@ -7,27 +7,28 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="Server">
     <input id="hdnFrenchiseeID" type="hidden" runat="server" />
-    <div id="dialog" title="Upload Data:">
+    <div id="dialog" title="Upload Contacts:">
         <asp:Panel ID="pnlFileUpload" runat="server">
-            <table>
-                <tr>
+            <table style="background-color: White; border-color: #999999; border-width: 1px;
+                border-style: solid; border-collapse: collapse;">
+                <tr style="color: Black; background-color: #DCDCDC; white-space: nowrap;">
                     <td>
                         <asp:DropDownList ID="companyList" runat="server">
                         </asp:DropDownList>
                         <asp:Label ID="lblCompanyListRequired" ForeColor="Red" runat="server"></asp:Label>
                     </td>
                 </tr>
-                <tr>
+                <tr style="color: Black; background-color: #EEEEEE; white-space: nowrap;">
                     <td>
                         <asp:FileUpload ID="fileToUpload" runat="server" />
                     </td>
                 </tr>
-                <tr>
+                <tr style="color: Black; background-color: #EEEEEE; white-space: nowrap;">
                     <td>
                         <asp:Label ID="lblFileToUpload" ForeColor="Red" runat="server"></asp:Label>
                     </td>
                 </tr>
-                <tr>
+                <tr style="color: Black; background-color: #DCDCDC; white-space: nowrap;">
                     <td>
                         <asp:Button ID="btnUpload" runat="server" CssClass="sandlerButton" Text="Upload"
                             OnClick="btnUpload_Click" />

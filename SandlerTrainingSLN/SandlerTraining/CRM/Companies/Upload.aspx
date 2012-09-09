@@ -5,7 +5,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="Server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="Server">
-    <div id="dialog" title="Upload Data:">
+    <div id="dialog" title="Upload Company:">
         <asp:Panel ID="pnlFileUpload" runat="server">
             <table>
                 <tr>

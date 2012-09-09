@@ -103,6 +103,16 @@ public partial class CRM_Contacts_Upload : UploaderBasePage
     private bool IsExcelDataValid(DataRow excelRow)
     {
         bool excelDataValid = true;
+
+        if (string.IsNullOrEmpty(excelRow["FIRSTNAME"].ToString()))
+            return false;
+
+        if (string.IsNullOrEmpty(excelRow["LASTNAME"].ToString()))
+            return false;
+
+        if (string.IsNullOrEmpty(excelRow["PHONE"].ToString()))
+            return false;
+
         if (!string.IsNullOrEmpty(excelRow["IsRegisteredForTraining"].ToString()))
         {
             if (string.IsNullOrEmpty(excelRow["CourseId"].ToString()))
@@ -144,22 +154,33 @@ public partial class CRM_Contacts_Upload : UploaderBasePage
     {
         try
         {
-            contact.ACTIONSTEP = excelRow["ACTIONSTEP"].ToString();
+            if (!string.IsNullOrEmpty(excelRow["ACTIONSTEP"].ToString()))
+                contact.ACTIONSTEP = excelRow["ACTIONSTEP"].ToString();
             if (!string.IsNullOrEmpty(excelRow["Anniversary"].ToString()))
                 contact.Anniversary = Convert.ToDateTime(excelRow["Anniversary"].ToString());
-            contact.ApptSourceId = int.Parse(excelRow["ApptSourceId"].ToString());
+            if (!string.IsNullOrEmpty(excelRow["ApptSourceId"].ToString()))
+                contact.ApptSourceId = int.Parse(excelRow["ApptSourceId"].ToString());
             if (!string.IsNullOrEmpty(excelRow["Birthday"].ToString()))
                 contact.Birthday = Convert.ToDateTime(excelRow["Birthday"].ToString());
-            contact.BossName = excelRow["BossName"].ToString();
+            if (!string.IsNullOrEmpty(excelRow["BossName"].ToString()))
+                contact.BossName = excelRow["BossName"].ToString();
+
             contact.COMPANYID = int.Parse(companyList.SelectedValue);
-            
+
             contact.CreatedBy = CurrentUser.UserId.ToString();
             contact.CreatedDate = DateTime.Now;
-            contact.DiscussionTopic = excelRow["DiscussionTopic"].ToString();
-            contact.EMAIL = excelRow["EMAIL"].ToString();
-            contact.FIRSTNAME = excelRow["FIRSTNAME"].ToString();
+            if (!string.IsNullOrEmpty(excelRow["DiscussionTopic"].ToString()))
+                contact.DiscussionTopic = excelRow["DiscussionTopic"].ToString();
+            if (!string.IsNullOrEmpty(excelRow["EMAIL"].ToString()))
+                contact.EMAIL = excelRow["EMAIL"].ToString();
+            if (!string.IsNullOrEmpty(excelRow["FIRSTNAME"].ToString()))
+                contact.FIRSTNAME = excelRow["FIRSTNAME"].ToString();
             contact.IsEmailSubscription = true;
-            contact.IsNewAppointment = (excelRow["IsNewAppointment"].ToString() == "0") ? false : true;
+            if (!string.IsNullOrEmpty(excelRow["IsNewAppointment"].ToString()))
+                contact.IsNewAppointment = (excelRow["IsNewAppointment"].ToString() == "0") ? false : true;
+            else
+                contact.IsNewAppointment = false;
+
             if (!string.IsNullOrEmpty(excelRow["IsRegisteredForTraining"].ToString()))
             {
                 contact.IsRegisteredForTraining = (excelRow["IsRegisteredForTraining"].ToString() == "1") ? true : false;
@@ -183,12 +204,19 @@ public partial class CRM_Contacts_Upload : UploaderBasePage
                     }
                 }
             }
+            else
+            {
+                contact.IsRegisteredForTraining = false;
+            }
+
+
             if (!string.IsNullOrEmpty(excelRow["LAST_CONTACT_DATE"].ToString()))
                 contact.LAST_CONTACT_DATE = Convert.ToDateTime(excelRow["LAST_CONTACT_DATE"].ToString());
-            contact.LASTNAME = excelRow["LASTNAME"].ToString();
+            if (!string.IsNullOrEmpty(excelRow["LASTNAME"].ToString()))
+                contact.LASTNAME = excelRow["LASTNAME"].ToString();
             if (!string.IsNullOrEmpty(excelRow["NEXT_CONTACT_DATE"].ToString()))
                 contact.NEXT_CONTACT_DATE = Convert.ToDateTime(excelRow["NEXT_CONTACT_DATE"].ToString());
-            
+
             if (!string.IsNullOrEmpty(excelRow["IsNeedCallBack"].ToString()))
             {
                 contact.IsNeedCallBack = (excelRow["IsNeedCallBack"].ToString() == "1") ? true : false;
@@ -197,8 +225,11 @@ public partial class CRM_Contacts_Upload : UploaderBasePage
                     contact.CallBackCreatedDate = Convert.ToDateTime(excelRow["CallBackCreatedDate"].ToString());
                 }
             }
+            else
+                contact.IsNeedCallBack = false;
 
-            contact.PHONE = excelRow["PHONE"].ToString();
+            if (!string.IsNullOrEmpty(excelRow["PHONE"].ToString()))
+                contact.PHONE = excelRow["PHONE"].ToString();
             contact.IsActive = true;
         }
         catch (Exception ex)

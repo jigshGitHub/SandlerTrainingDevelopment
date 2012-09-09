@@ -136,7 +136,7 @@ namespace Sandler.UI.ChartStructure
                 List<ChartParameter> chartParams = null;
                 ChartDataSet lastDs = null;
                 SandlerModels.DataModels.CompiledQueries queries = new SandlerModels.DataModels.CompiledQueries();
-                string[] colors = null;
+
                 AppointmentSourceRepository appointmentSource;
                 ProductTypesRepository productTypesSource;
                 switch ((ChartID)Enum.Parse(typeof(ChartID), this.Id.ToString(), true))
@@ -210,25 +210,25 @@ namespace Sandler.UI.ChartStructure
                                 IEnumerable<SandlerModels.DataModels.ProductTypeVM> productTypeVMCollection = queries.GetNewClientsByProductType(currentUser, DateTime.Now.AddMonths(int.Parse(parameter.Value)).Month);
                                 if (productTypeVMCollection != null)
                                 {
-                                var newClientsByProducts = from record in productTypeVMCollection
-                                                           select new { Category = record.ProductTypeName, Count = record.Count };
+                                    var newClientsByProducts = from record in productTypeVMCollection
+                                                               select new { Category = record.ProductTypeName, Count = record.Count };
 
-                                this.DataSetCollection.Add(new ChartDataSet { Color = parameter.Color, SeriesName = DateTime.Now.AddMonths(int.Parse(parameter.Value)).ToString("MMM") });
+                                    this.DataSetCollection.Add(new ChartDataSet { Color = parameter.Color, SeriesName = DateTime.Now.AddMonths(int.Parse(parameter.Value)).ToString("MMM") });
 
-                                foreach (Category category in this.Categories)
-                                {
-                                    lastDs = this.DataSetCollection.Last();
-                                    lastDs.SetsCollection.Add(new SetValue { Label = category.Label, Link = ChartHelper.GeneratePageLink(lastDs.SeriesName, this.DrillChartIds) });
-                                }
-
-                                foreach (var record in newClientsByProducts)
-                                {
-                                    foreach (SetValue set in lastDs.SetsCollection)
+                                    foreach (Category category in this.Categories)
                                     {
-                                        if (set.Label == record.Category)
-                                            set.Value = record.Count.ToString();
+                                        lastDs = this.DataSetCollection.Last();
+                                        lastDs.SetsCollection.Add(new SetValue { Label = category.Label, Link = ChartHelper.GeneratePageLink(lastDs.SeriesName, this.DrillChartIds) });
                                     }
-                                }
+
+                                    foreach (var record in newClientsByProducts)
+                                    {
+                                        foreach (SetValue set in lastDs.SetsCollection)
+                                        {
+                                            if (set.Label == record.Category)
+                                                set.Value = record.Count.ToString();
+                                        }
+                                    }
                                 }
                             }
                             catch (Exception ex)
@@ -246,7 +246,7 @@ namespace Sandler.UI.ChartStructure
 
                         this.DataSetCollection.Add(new ChartDataSet { Color = "0000FF", SeriesName = "New Clients" });
                         this.DataSetCollection.Add(new ChartDataSet { Color = "ff6600", SeriesName = "Ave Contract Price" });
-                        colors = new string[] { "CC6600", "9900CC", "FF3300", "0099FF", "00CC66", "FFFF00" };
+
 
                         foreach (Category catagory in this.Categories)
                         {
@@ -308,7 +308,7 @@ namespace Sandler.UI.ChartStructure
                         this.DataSetCollection.Add(new ChartDataSet { Color = "0066ff", SeriesName = "$$Booked" });
                         this.DataSetCollection.Add(new ChartDataSet { Color = "ffff99", SeriesName = "% of Goal" });
 
-                        colors = new string[] { "CC6600", "9900CC", "FF3300", "0099FF", "00CC66", "FFFF00" };
+
 
                         foreach (Category catagory in this.Categories)
                         {
@@ -445,7 +445,6 @@ namespace Sandler.UI.ChartStructure
                 switch (this.Id)
                 {
                     case ChartID.AverageLengthTimeActiveClientsByIndustry:
-                        string[] colors = new string[] { "009999", "CC99FF", "FFFF99", "009900", "0066FF" };
                         try
                         {
 
@@ -461,9 +460,6 @@ namespace Sandler.UI.ChartStructure
                             {
                                 try
                                 {
-                                    //var companyFiltered = data.Select(r => r.Industry == record.IndustryTypeName).AsEnumerable();
-                                    //if (companyFiltered.Count() > 0)
-                                    //{
                                     foreach (var d in AverageLengthTimeActiveClientsByIndustry)
                                     {
                                         if (record.IndustryTypeName == d.Industry)
@@ -475,8 +471,7 @@ namespace Sandler.UI.ChartStructure
                                     if (frequency > 0)
                                     {
                                         totalAvgMonths = totalMonths / frequency;
-                                        //this.SetsCollection.Add(new SetValue {, , Value = data.Single(r => r.Category == record.ApptSourceName).Count.ToString() });
-                                        this.SetsCollection.Add(new SetValue { Color = colors.GetValue(colorIndex).ToString(), Label = record.IndustryTypeName, Value = totalAvgMonths.ToString("#"), Link = ChartHelper.GeneratePageLink("", this.DrillChartIds) });
+                                        this.SetsCollection.Add(new SetValue { Color = record.ColorCode, Label = record.IndustryTypeName, Value = totalAvgMonths.ToString("#"), Link = ChartHelper.GeneratePageLink("", this.DrillChartIds) });
                                         frequency = 0;
                                         totalMonths = 0;
                                     }

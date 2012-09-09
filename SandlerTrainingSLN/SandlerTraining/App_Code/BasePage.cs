@@ -121,7 +121,7 @@ public abstract class BasePage : System.Web.UI.Page
     protected override void OnPreInit(EventArgs e)
     {
         base.OnPreInit(e);
-        if (CurrentUser.RequirePasswordChange)
+        if (CurrentUser.RequirePasswordChange && !Request.FilePath.Contains("ChangePassword"))
         {
             CurrentUser = null;
             Response.Redirect("~/Account/ChangePassword.aspx");

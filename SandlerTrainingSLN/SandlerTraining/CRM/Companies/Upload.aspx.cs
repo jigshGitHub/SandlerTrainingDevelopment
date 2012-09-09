@@ -44,17 +44,20 @@ public partial class CRM_Companies_Upload : UploaderBasePage
                     {
                         excelRow = ExcelData.Rows[i];
 
-                        company = new SandlerModels.TBL_COMPANIES();
-
-                        FillCompany(company, excelRow);
-
-                        if (companyRepository.Exists(company))
+                        if (!string.IsNullOrEmpty(excelRow["COMPANYNAME"].ToString()))
                         {
-                            excelRow["Errormessage"] = "Company exists for this frenchisee";
-                            CreateLogRow(excelRow);
+                            company = new SandlerModels.TBL_COMPANIES();
+
+                            FillCompany(company, excelRow);
+
+                            if (companyRepository.Exists(company))
+                            {
+                                excelRow["Errormessage"] = "Company exists for this frenchisee";
+                                CreateLogRow(excelRow);
+                            }
+                            else
+                                companyRepository.Add(company);
                         }
-                        else
-                            companyRepository.Add(company);
 
                     }
                     catch (Exception ex)

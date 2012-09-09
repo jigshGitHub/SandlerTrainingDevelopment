@@ -123,6 +123,11 @@
                                             DataField="OpportunityName" />
                                         <asp:BoundField ItemStyle-HorizontalAlign="Center" HeaderStyle-ForeColor="Blue" HeaderText="Status"
                                             DataField="Status" />
+                                        <asp:TemplateField ShowHeader="False">
+                                            <ItemTemplate>
+                                                <a href="Detail.aspx?id=<%#Eval("DOCSID")%>">View Detail...</a>
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
                                     </Columns>
                                     <RowStyle BackColor="#EEEEEE" ForeColor="Black" />
                                     <AlternatingRowStyle BackColor="#DCDCDC" />
@@ -138,23 +143,23 @@
                             <td colspan="2">
                                 <asp:Panel ID="pnlExport" runat="server" Visible="false">
                                     <asp:GridView ID="gvExport" runat="server" Width="100%" AutoGenerateColumns="false"
-                                    OnDataBound="gvDocuments_DataBound">
-                                    <PagerStyle BackColor="#999999" ForeColor="Blue" HorizontalAlign="Center" />
-                                    <Columns>
-                                        <asp:BoundField ItemStyle-HorizontalAlign="Center" HeaderStyle-ForeColor="Blue" HeaderText="ID"
-                                            DataField="DOCSID" />
-                                        <asp:BoundField ItemStyle-HorizontalAlign="Center" HeaderStyle-ForeColor="Blue" HeaderText="Document Name"
-                                            DataField="DocumentName" />
-                                        <asp:BoundField ItemStyle-HorizontalAlign="Center" HeaderStyle-ForeColor="Blue" HeaderText="Company"
-                                            DataField="CompanyName" />
-                                        <asp:BoundField ItemStyle-HorizontalAlign="Center" HeaderStyle-ForeColor="Blue" HeaderText="Opportunity"
-                                            DataField="OpportunityName" />
-                                        <asp:BoundField ItemStyle-HorizontalAlign="Center" HeaderStyle-ForeColor="Blue" HeaderText="Status"
-                                            DataField="Status" />
-                                    </Columns>
-                                    <RowStyle BackColor="#EEEEEE" ForeColor="Black" />
-                                    <AlternatingRowStyle BackColor="#DCDCDC" />
-                                </asp:GridView>
+                                        OnDataBound="gvDocuments_DataBound">
+                                        <PagerStyle BackColor="#999999" ForeColor="Blue" HorizontalAlign="Center" />
+                                        <Columns>
+                                            <asp:BoundField ItemStyle-HorizontalAlign="Center" HeaderStyle-ForeColor="Blue" HeaderText="ID"
+                                                DataField="DOCSID" />
+                                            <asp:BoundField ItemStyle-HorizontalAlign="Center" HeaderStyle-ForeColor="Blue" HeaderText="Document Name"
+                                                DataField="DocumentName" />
+                                            <asp:BoundField ItemStyle-HorizontalAlign="Center" HeaderStyle-ForeColor="Blue" HeaderText="Company"
+                                                DataField="CompanyName" />
+                                            <asp:BoundField ItemStyle-HorizontalAlign="Center" HeaderStyle-ForeColor="Blue" HeaderText="Opportunity"
+                                                DataField="OpportunityName" />
+                                            <asp:BoundField ItemStyle-HorizontalAlign="Center" HeaderStyle-ForeColor="Blue" HeaderText="Status"
+                                                DataField="Status" />
+                                        </Columns>
+                                        <RowStyle BackColor="#EEEEEE" ForeColor="Black" />
+                                        <AlternatingRowStyle BackColor="#DCDCDC" />
+                                    </asp:GridView>
                                 </asp:Panel>
                             </td>
                         </tr>
@@ -169,7 +174,7 @@
             var href = window.location.href.split('/');
             var baseUrl = href[0] + '//' + href[2] + '/' + href[3];
 
-            $('#<%=ddlOpportunities.ClientID %>').empty().append('<option value=0>--Select Contact--</option>');
+            $('#<%=ddlOpportunities.ClientID %>').empty().append('<option value=0>--Select Opportunity--</option>');
 
             $('#<%=lbtnSearch.ClientID %>').click(function () {
                 if (!checkAtLeastOnecriteria()) {
@@ -201,7 +206,7 @@
                         contentType: 'application/json',
                         data: { companyId: companyId },
                         success: function (data) {
-                            $('#<%=ddlOpportunities.ClientID %>').empty().append('<option value=0>--Select Contact--</option>');
+                            $('#<%=ddlOpportunities.ClientID %>').empty().append('<option value=0>--Select Opportunity--</option>');
                             $.each(data.$values, function (i, item) {
                                 $('#<%=ddlOpportunities.ClientID %>').append($('<option></option>').val(item.CONTACTSID).html(item.NAME));
                             });

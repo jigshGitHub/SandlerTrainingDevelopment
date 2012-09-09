@@ -97,6 +97,9 @@
     <Compile Include="Tbl_AppointmentsSource.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="TBL_BlastEmailGroup.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="TBL_CHART.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>

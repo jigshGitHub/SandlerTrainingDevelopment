@@ -12,23 +12,19 @@ using System.Collections.Generic;
 
 namespace SandlerModels
 {
-    public partial class Tbl_IndustryType
+    public partial class TBL_BlastEmailGroup
     {
-        public Tbl_IndustryType()
-        {
-            this.TBL_COMPANIES = new HashSet<TBL_COMPANIES>();
-        }
-    
-        public int IndId { get; set; }
-        public string IndustryTypeName { get; set; }
+        public int Id { get; set; }
+        public string BlastGroupName { get; set; }
         public Nullable<bool> IsActive { get; set; }
-        public Nullable<System.DateTime> LastUpdatedDate { get; set; }
-        public string LastUpdatedBy { get; set; }
+        public Nullable<bool> ForCorporate { get; set; }
+        public Nullable<bool> ForCoach { get; set; }
+        public Nullable<bool> ForFrOwner { get; set; }
+        public Nullable<bool> ForFrUser { get; set; }
+        public Nullable<System.Guid> CreatedBy { get; set; }
         public System.DateTime CreatedDate { get; set; }
-        public string CreatedBy { get; set; }
-        public string ColorCode { get; set; }
-    
-        internal ICollection<TBL_COMPANIES> TBL_COMPANIES { get; set; }
+        public Nullable<System.Guid> UpdatedBy { get; set; }
+        public Nullable<System.DateTime> UpdateDate { get; set; }
     }
     
 }

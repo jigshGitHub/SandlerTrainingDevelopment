@@ -20,8 +20,11 @@ public partial class DocumentDETAIL : BasePage
             {
                 //Find out ContactID selected by the User
                 hidDocumentID.Value = ((HiddenField)PreviousPage.Master.FindControl("MainContent").FindControl("hidDocumentID")).Value;
-                GetDocumentDetails();
             }
+            else
+                hidDocumentID.Value = Request.QueryString["id"];
+
+            GetDocumentDetails();
         }
     }
     public void GetDocumentDetails()

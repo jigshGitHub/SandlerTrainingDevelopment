@@ -40,25 +40,26 @@ namespace SandlerRepositories
             return ds;
         }
 
-        public void Insert(int OppsID, int DocStatus, string DocName, DateTime LastModifyDate)
+        public void Insert(int OppsID, int CompanyId, int DocStatus, string DocName, DateTime LastModifyDate)
         {
             //Get the User Info
             UserModel _user = (UserModel)HttpContext.Current.Session["CurrentUser"];
 
-           db.ExecuteNonQuery("sp_AttachDocument", new SqlParameter("@OppsID", OppsID),
-           new SqlParameter("@DocName", DocName),
-           new SqlParameter("@DocStatus", DocStatus),
-           new SqlParameter("@LastModifyDate", LastModifyDate),
-           new SqlParameter("@CreatedBy", _user.UserId));
+            db.ExecuteNonQuery("sp_AttachDocument", new SqlParameter("@OppsID", OppsID),
+            new SqlParameter("@CompanyId", CompanyId),
+            new SqlParameter("@DocName", DocName),
+            new SqlParameter("@DocStatus", DocStatus),
+            new SqlParameter("@LastModifyDate", LastModifyDate),
+            new SqlParameter("@CreatedBy", _user.UserId));
 
         }
 
         public void Update(int DocsID, int OppsID, string DocName, int DocStatus, DateTime LastModifyDate)
         {
-            
+
             //Get the User Info
             UserModel _user = (UserModel)HttpContext.Current.Session["CurrentUser"];
-            
+
             db.ExecuteNonQuery("sp_UpdateDocumentDetails",
             new SqlParameter("@DocsID", DocsID),
             new SqlParameter("@OppsID", OppsID),

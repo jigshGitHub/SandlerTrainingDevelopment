@@ -27,10 +27,10 @@ public partial class CRM_Documents_Search : BasePage
             switch (dropdownList.ID)
             {
                 case "ddlCompanySearch":
-                    defaultSelection = "--Select company--";
+                    defaultSelection = "--Select Company--";
                     break;
                 case "ddlDocStatus":
-                    defaultSelection = "--Select status--";
+                    defaultSelection = "--Select Status--";
                     break;
                 default:
                     break;
