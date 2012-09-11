@@ -39,13 +39,13 @@ namespace SandlerModels
         public string UpdatedBy { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }
         public string CreatedBy { get; set; }
+        public Nullable<bool> IsEmailSubscription { get; set; }
         public Nullable<System.DateTime> Birthday { get; set; }
         public Nullable<System.DateTime> Anniversary { get; set; }
         public Nullable<int> CompanyYears { get; set; }
         public string BossName { get; set; }
         public Nullable<bool> IsNeedCallBack { get; set; }
         public Nullable<System.DateTime> CallBackCreatedDate { get; set; }
-        public Nullable<bool> IsEmailSubscription { get; set; }
     
         internal Tbl_AppointmentsSource Tbl_AppointmentsSource { get; set; }
         internal TBL_COMPANIES TBL_COMPANIES { get; set; }

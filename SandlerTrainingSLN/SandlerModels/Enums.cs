@@ -30,6 +30,7 @@ namespace SandlerModels
         Opportunity,
         Document,
         Coach,
-        Region
+        Region,
+        Franchisee
     }
 }

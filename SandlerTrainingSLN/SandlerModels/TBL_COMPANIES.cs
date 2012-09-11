@@ -25,7 +25,6 @@ namespace SandlerModels
         public string COMPANYNAME { get; set; }
         public string CITY { get; set; }
         public string STATE { get; set; }
-        public string ZIP { get; set; }
         public string POCLastName { get; set; }
         public string POCFirstName { get; set; }
         public string POCPhone { get; set; }
@@ -46,12 +45,13 @@ namespace SandlerModels
         public Nullable<System.DateTime> UpdatedDate { get; set; }
         public string UpdatedBy { get; set; }
         public string Address { get; set; }
+        public string Zip { get; set; }
     
         internal TBL_FRANCHISEE TBL_FRANCHISEE { get; set; }
+        internal Tbl_IndustryType Tbl_IndustryType { get; set; }
         internal ICollection<TBL_CONTACTS> TBL_CONTACTS { get; set; }
         internal ICollection<TBL_DOCS> TBL_DOCS { get; set; }
         internal ICollection<TBL_OPPORTUNITIES> TBL_OPPORTUNITIES { get; set; }
-        internal Tbl_IndustryType Tbl_IndustryType { get; set; }
     }
     
 }

@@ -14,6 +14,7 @@ namespace SandlerModels
         private int franchiseeId;
         private int regionId;
         private int coachId;
+        private string emailAdrs;
         public SandlerRoles Role
         {
             get
@@ -22,7 +23,7 @@ namespace SandlerModels
                 {
                     if (Roles.IsUserInRole(role))
                         return (SandlerRoles)Enum.Parse(typeof(SandlerRoles), role, true);
-                        //return role;
+                    //return role;
                 }
                 return SandlerRoles.Anonymous;
             }
@@ -79,9 +80,23 @@ namespace SandlerModels
             }
         }
 
+        public string EmailAdress
+        {
+            get
+            {
+                return emailAdrs;
+            }
+            set
+            {
+                emailAdrs = value;
+            }
+        }
+
         public UserModel()
         {
             currentUser = Membership.GetUser(HttpContext.Current.User.Identity.Name);
+            emailAdrs = currentUser.Email;
+
         }
     }
 }

@@ -9,7 +9,7 @@
                 <a href="<%= Page.ResolveClientUrl("~/CRM/Contacts/Index.aspx") %>">Contacts</a>
             </td>
             <td align="center">
-                <a href="<%= Page.ResolveClientUrl("~/CRM/Opportunities/Index.aspx") %>">Opportunities</a>
+                <a href="<%= Page.ResolveClientUrl("~/CRM/Opportunities/Index.aspx") %>">Pipeline</a>
             </td>
             <td align="center">
                 <a href="<%= Page.ResolveClientUrl("~/CRM/Documents/Index.aspx") %>">Documents</a>

@@ -9,7 +9,6 @@
           <EntitySet Name="aspnet_Membership" EntityType="Sandler.Models.Store.aspnet_Membership" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="aspnet_Roles" EntityType="Sandler.Models.Store.aspnet_Roles" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="aspnet_Users" EntityType="Sandler.Models.Store.aspnet_Users" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="aspnet_UsersInRoles" EntityType="Sandler.Models.Store.aspnet_UsersInRoles" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Tbl_AppointmentsSource" EntityType="Sandler.Models.Store.Tbl_AppointmentsSource" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="TBL_BlastEmailGroup" EntityType="Sandler.Models.Store.TBL_BlastEmailGroup" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="TBL_CHART" EntityType="Sandler.Models.Store.TBL_CHART" store:Type="Tables" Schema="dbo" />
@@ -43,17 +42,9 @@
           <EntitySet Name="Tbl_ProductType" EntityType="Sandler.Models.Store.Tbl_ProductType" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="TBL_REGION" EntityType="Sandler.Models.Store.TBL_REGION" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Tbl_YesNoOptions" EntityType="Sandler.Models.Store.Tbl_YesNoOptions" store:Type="Tables" Schema="dbo" />
-          <AssociationSet Name="FK__aspnet_Me__UserI__22AA2996" Association="Sandler.Models.Store.FK__aspnet_Me__UserI__22AA2996">
+          <AssociationSet Name="FK__aspnet_Me__UserI__15660868" Association="Sandler.Models.Store.FK__aspnet_Me__UserI__15660868">
             <End Role="aspnet_Users" EntitySet="aspnet_Users" />
             <End Role="aspnet_Membership" EntitySet="aspnet_Membership" />
-          </AssociationSet>
-          <AssociationSet Name="FK__aspnet_Us__RoleI__4AB81AF0" Association="Sandler.Models.Store.FK__aspnet_Us__RoleI__4AB81AF0">
-            <End Role="aspnet_Roles" EntitySet="aspnet_Roles" />
-            <End Role="aspnet_UsersInRoles" EntitySet="aspnet_UsersInRoles" />
-          </AssociationSet>
-          <AssociationSet Name="FK__aspnet_Us__UserI__49C3F6B7" Association="Sandler.Models.Store.FK__aspnet_Us__UserI__49C3F6B7">
-            <End Role="aspnet_Users" EntitySet="aspnet_Users" />
-            <End Role="aspnet_UsersInRoles" EntitySet="aspnet_UsersInRoles" />
           </AssociationSet>
           <AssociationSet Name="FK_TBL_COACH_aspnet_Users" Association="Sandler.Models.Store.FK_TBL_COACH_aspnet_Users">
             <End Role="aspnet_Users" EntitySet="aspnet_Users" />
@@ -188,14 +179,6 @@
           <Property Name="IsAnonymous" Type="bit" Nullable="false" />
           <Property Name="LastActivityDate" Type="datetime" Nullable="false" />
         </EntityType>
-        <EntityType Name="aspnet_UsersInRoles">
-          <Key>
-            <PropertyRef Name="UserId" />
-            <PropertyRef Name="RoleId" />
-          </Key>
-          <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="RoleId" Type="uniqueidentifier" Nullable="false" />
-        </EntityType>
         <EntityType Name="Tbl_AppointmentsSource">
           <Key>
             <PropertyRef Name="ApptSourceId" />
@@ -282,7 +265,6 @@
           <Property Name="COMPANYNAME" Type="varchar(max)" />
           <Property Name="CITY" Type="varchar" MaxLength="50" />
           <Property Name="STATE" Type="varchar" MaxLength="50" />
-          <Property Name="ZIP" Type="varchar" MaxLength="50" />
           <Property Name="POCLastName" Type="varchar" MaxLength="50" />
           <Property Name="POCFirstName" Type="varchar" MaxLength="50" />
           <Property Name="POCPhone" Type="varchar" MaxLength="50" />
@@ -303,6 +285,7 @@
           <Property Name="UpdatedDate" Type="datetime" />
           <Property Name="UpdatedBy" Type="varchar" MaxLength="80" />
           <Property Name="Address" Type="varchar" MaxLength="150" />
+          <Property Name="Zip" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="TBL_CONTACTS">
           <Key>
@@ -328,13 +311,13 @@
           <Property Name="UpdatedBy" Type="varchar" MaxLength="50" />
           <Property Name="CreatedDate" Type="datetime" />
           <Property Name="CreatedBy" Type="varchar" MaxLength="50" />
+          <Property Name="IsEmailSubscription" Type="bit" />
           <Property Name="Birthday" Type="datetime" />
           <Property Name="Anniversary" Type="datetime" />
           <Property Name="CompanyYears" Type="int" />
           <Property Name="BossName" Type="varchar" MaxLength="50" />
           <Property Name="IsNeedCallBack" Type="bit" />
           <Property Name="CallBackCreatedDate" Type="datetime" />
-          <Property Name="IsEmailSubscription" Type="bit" />
         </EntityType>
         <EntityType Name="TBL_COUNTRY">
           <Key>
@@ -527,7 +510,7 @@
           <Property Name="Description" Type="varchar" MaxLength="50" />
           <Property Name="Value" Type="int" />
         </EntityType>
-        <Association Name="FK__aspnet_Me__UserI__22AA2996">
+        <Association Name="FK__aspnet_Me__UserI__15660868">
           <End Role="aspnet_Users" Type="Sandler.Models.Store.aspnet_Users" Multiplicity="1" />
           <End Role="aspnet_Membership" Type="Sandler.Models.Store.aspnet_Membership" Multiplicity="0..1" />
           <ReferentialConstraint>
@@ -535,30 +518,6 @@
               <PropertyRef Name="UserId" />
             </Principal>
             <Dependent Role="aspnet_Membership">
-              <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__aspnet_Us__RoleI__4AB81AF0">
-          <End Role="aspnet_Roles" Type="Sandler.Models.Store.aspnet_Roles" Multiplicity="1" />
-          <End Role="aspnet_UsersInRoles" Type="Sandler.Models.Store.aspnet_UsersInRoles" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="aspnet_Roles">
-              <PropertyRef Name="RoleId" />
-            </Principal>
-            <Dependent Role="aspnet_UsersInRoles">
-              <PropertyRef Name="RoleId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__aspnet_Us__UserI__49C3F6B7">
-          <End Role="aspnet_Users" Type="Sandler.Models.Store.aspnet_Users" Multiplicity="1" />
-          <End Role="aspnet_UsersInRoles" Type="Sandler.Models.Store.aspnet_UsersInRoles" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="aspnet_Users">
-              <PropertyRef Name="UserId" />
-            </Principal>
-            <Dependent Role="aspnet_UsersInRoles">
               <PropertyRef Name="UserId" />
             </Dependent>
           </ReferentialConstraint>
@@ -815,6 +774,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <!--Errors Found During Generation:
+      warning 6013: The table/view 'SandlerDB.dbo.TBL_ERRORLOG' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+      
+      <EntityType Name="TBL_ERRORLOG">
+        <Property Name="UserName" Type="varchar" MaxLength="50" />
+        <Property Name="ErrorNumber" Type="int" />
+        <Property Name="ErrorSeverity" Type="int" />
+        <Property Name="ErrorState" Type="int" />
+        <Property Name="ErrorProcedure" Type="varchar" MaxLength="50" />
+        <Property Name="ErrorLine" Type="int" />
+        <Property Name="ErrorMessage" Type="varchar(max)" />
+      </EntityType>-->
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
@@ -824,6 +795,7 @@
           <EntitySet Name="aspnet_Roles" EntityType="Sandler.Models.aspnet_Roles" />
           <EntitySet Name="aspnet_Users" EntityType="Sandler.Models.aspnet_Users" />
           <EntitySet Name="Tbl_AppointmentsSource" EntityType="Sandler.Models.Tbl_AppointmentsSource" />
+          <EntitySet Name="TBL_BlastEmailGroup" EntityType="Sandler.Models.TBL_BlastEmailGroup" />
           <EntitySet Name="TBL_CHART" EntityType="Sandler.Models.TBL_CHART" />
           <EntitySet Name="TBL_COACH" EntityType="Sandler.Models.TBL_COACH" />
           <EntitySet Name="TBL_COMPANIES" EntityType="Sandler.Models.TBL_COMPANIES" />
@@ -835,11 +807,12 @@
           <EntitySet Name="Tbl_FollowUpItemsList" EntityType="Sandler.Models.Tbl_FollowUpItemsList" />
           <EntitySet Name="TBL_FRANCHISEE" EntityType="Sandler.Models.TBL_FRANCHISEE" />
           <EntitySet Name="TBL_FRANCHISEE_USERS" EntityType="Sandler.Models.TBL_FRANCHISEE_USERS" />
+          <EntitySet Name="Tbl_IndustryType" EntityType="Sandler.Models.Tbl_IndustryType" />
           <EntitySet Name="TBL_OPPORTUNITIES" EntityType="Sandler.Models.TBL_OPPORTUNITIES" />
           <EntitySet Name="TBL_OPPORTUNITYSTATUS" EntityType="Sandler.Models.TBL_OPPORTUNITYSTATUS" />
           <EntitySet Name="Tbl_ProductType" EntityType="Sandler.Models.Tbl_ProductType" />
           <EntitySet Name="TBL_REGION" EntityType="Sandler.Models.TBL_REGION" />
-          <AssociationSet Name="FK__aspnet_Me__UserI__22AA2996" Association="Sandler.Models.FK__aspnet_Me__UserI__22AA2996">
+          <AssociationSet Name="FK__aspnet_Me__UserI__15660868" Association="Sandler.Models.FK__aspnet_Me__UserI__15660868">
             <End Role="aspnet_Users" EntitySet="aspnet_Users" />
             <End Role="aspnet_Membership" EntitySet="aspnet_Membership" />
           </AssociationSet>
@@ -869,6 +842,10 @@
           </AssociationSet>
           <AssociationSet Name="FK_TBL_COMPANIES_TBL_FRANCHISEE" Association="Sandler.Models.FK_TBL_COMPANIES_TBL_FRANCHISEE">
             <End Role="TBL_FRANCHISEE" EntitySet="TBL_FRANCHISEE" />
+            <End Role="TBL_COMPANIES" EntitySet="TBL_COMPANIES" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_COMPANIES_Tbl_IndustryType" Association="Sandler.Models.FK_TBL_COMPANIES_Tbl_IndustryType">
+            <End Role="Tbl_IndustryType" EntitySet="Tbl_IndustryType" />
             <End Role="TBL_COMPANIES" EntitySet="TBL_COMPANIES" />
           </AssociationSet>
           <AssociationSet Name="FK_TBL_CONTACTS_TBL_Companies" Association="Sandler.Models.FK_TBL_CONTACTS_TBL_Companies">
@@ -923,16 +900,6 @@
             <End Role="Tbl_ProductType" EntitySet="Tbl_ProductType" />
             <End Role="TBL_OPPORTUNITIES" EntitySet="TBL_OPPORTUNITIES" />
           </AssociationSet>
-          <AssociationSet Name="aspnet_UsersInRoles" Association="Sandler.Models.aspnet_UsersInRoles">
-            <End Role="aspnet_Roles" EntitySet="aspnet_Roles" />
-            <End Role="aspnet_Users" EntitySet="aspnet_Users" />
-          </AssociationSet>
-          <EntitySet Name="TBL_BlastEmailGroup" EntityType="Sandler.Models.TBL_BlastEmailGroup" />
-          <EntitySet Name="Tbl_IndustryType" EntityType="Sandler.Models.Tbl_IndustryType" />
-          <AssociationSet Name="FK_TBL_COMPANIES_Tbl_IndustryType" Association="Sandler.Models.FK_TBL_COMPANIES_Tbl_IndustryType">
-            <End Role="Tbl_IndustryType" EntitySet="Tbl_IndustryType" />
-            <End Role="TBL_COMPANIES" EntitySet="TBL_COMPANIES" />
-          </AssociationSet>
         </EntityContainer>
         <EntityType Name="aspnet_Membership">
           <Key>
@@ -959,7 +926,7 @@
           <Property Type="Int32" Name="FailedPasswordAnswerAttemptCount" Nullable="false" />
           <Property Type="DateTime" Name="FailedPasswordAnswerAttemptWindowStart" Nullable="false" />
           <Property Type="String" Name="Comment" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="aspnet_Users" Relationship="Sandler.Models.FK__aspnet_Me__UserI__22AA2996" FromRole="aspnet_Membership" ToRole="aspnet_Users" />
+          <NavigationProperty Name="aspnet_Users" Relationship="Sandler.Models.FK__aspnet_Me__UserI__15660868" FromRole="aspnet_Membership" ToRole="aspnet_Users" />
         </EntityType>
         <EntityType Name="aspnet_Roles">
           <Key>
@@ -970,7 +937,6 @@
           <Property Type="String" Name="RoleName" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="LoweredRoleName" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="Description" MaxLength="256" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="aspnet_Users" Relationship="Sandler.Models.aspnet_UsersInRoles" FromRole="aspnet_Roles" ToRole="aspnet_Users" />
         </EntityType>
         <EntityType Name="aspnet_Users">
           <Key>
@@ -983,11 +949,10 @@
           <Property Type="String" Name="MobileAlias" MaxLength="16" FixedLength="false" Unicode="true" />
           <Property Type="Boolean" Name="IsAnonymous" Nullable="false" />
           <Property Type="DateTime" Name="LastActivityDate" Nullable="false" />
-          <NavigationProperty Name="aspnet_Membership" Relationship="Sandler.Models.FK__aspnet_Me__UserI__22AA2996" FromRole="aspnet_Users" ToRole="aspnet_Membership" />
+          <NavigationProperty Name="aspnet_Membership" Relationship="Sandler.Models.FK__aspnet_Me__UserI__15660868" FromRole="aspnet_Users" ToRole="aspnet_Membership" />
           <NavigationProperty Name="TBL_COACH" Relationship="Sandler.Models.FK_TBL_COACH_aspnet_Users" FromRole="aspnet_Users" ToRole="TBL_COACH" />
           <NavigationProperty Name="Tbl_FollowUpItemsList" Relationship="Sandler.Models.FK_Tbl_FollowUpItemsList_aspnet_Users" FromRole="aspnet_Users" ToRole="Tbl_FollowUpItemsList" />
           <NavigationProperty Name="TBL_FRANCHISEE_USERS" Relationship="Sandler.Models.FK_TBL_FRANCHISEE_USERS_aspnet_Users" FromRole="aspnet_Users" ToRole="TBL_FRANCHISEE_USERS" />
-          <NavigationProperty Name="aspnet_Roles" Relationship="Sandler.Models.aspnet_UsersInRoles" FromRole="aspnet_Users" ToRole="aspnet_Roles" />
         </EntityType>
         <EntityType Name="Tbl_AppointmentsSource">
           <Key>
@@ -1001,6 +966,22 @@
           <Property Type="String" Name="CreatedBy" MaxLength="80" FixedLength="false" Unicode="false" />
           <Property Type="Boolean" Name="IsActive" />
           <NavigationProperty Name="TBL_CONTACTS" Relationship="Sandler.Models.FK_TBL_CONTACTS_Tbl_AppointmentsSource" FromRole="Tbl_AppointmentsSource" ToRole="TBL_CONTACTS" />
+        </EntityType>
+        <EntityType Name="TBL_BlastEmailGroup">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="BlastGroupName" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Type="Boolean" Name="IsActive" />
+          <Property Type="Boolean" Name="ForCorporate" />
+          <Property Type="Boolean" Name="ForCoach" />
+          <Property Type="Boolean" Name="ForFrOwner" />
+          <Property Type="Boolean" Name="ForFrUser" />
+          <Property Type="Guid" Name="CreatedBy" />
+          <Property Type="DateTime" Name="CreatedDate" Nullable="false" />
+          <Property Type="Guid" Name="UpdatedBy" />
+          <Property Type="DateTime" Name="UpdateDate" />
         </EntityType>
         <EntityType Name="TBL_CHART">
           <Key>
@@ -1063,7 +1044,6 @@
           <Property Type="String" Name="COMPANYNAME" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="CITY" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="STATE" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="ZIP" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="POCLastName" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="POCFirstName" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="POCPhone" MaxLength="50" FixedLength="false" Unicode="false" />
@@ -1084,11 +1064,12 @@
           <Property Type="DateTime" Name="UpdatedDate" />
           <Property Type="String" Name="UpdatedBy" MaxLength="80" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="Address" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Zip" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="TBL_FRANCHISEE" Relationship="Sandler.Models.FK_TBL_COMPANIES_TBL_FRANCHISEE" FromRole="TBL_COMPANIES" ToRole="TBL_FRANCHISEE" />
+          <NavigationProperty Name="Tbl_IndustryType" Relationship="Sandler.Models.FK_TBL_COMPANIES_Tbl_IndustryType" FromRole="TBL_COMPANIES" ToRole="Tbl_IndustryType" />
           <NavigationProperty Name="TBL_CONTACTS" Relationship="Sandler.Models.FK_TBL_CONTACTS_TBL_Companies" FromRole="TBL_COMPANIES" ToRole="TBL_CONTACTS" />
           <NavigationProperty Name="TBL_DOCS" Relationship="Sandler.Models.FK_TBL_DOCS_TBL_COMPANIES" FromRole="TBL_COMPANIES" ToRole="TBL_DOCS" />
           <NavigationProperty Name="TBL_OPPORTUNITIES" Relationship="Sandler.Models.FK_TBL_OPPORTUNITIES_TBL_COMPANIES" FromRole="TBL_COMPANIES" ToRole="TBL_OPPORTUNITIES" />
-          <NavigationProperty Name="Tbl_IndustryType" Relationship="Sandler.Models.FK_TBL_COMPANIES_Tbl_IndustryType" FromRole="TBL_COMPANIES" ToRole="Tbl_IndustryType" />
         </EntityType>
         <EntityType Name="TBL_CONTACTS">
           <Key>
@@ -1114,13 +1095,13 @@
           <Property Type="String" Name="UpdatedBy" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Type="DateTime" Name="CreatedDate" />
           <Property Type="String" Name="CreatedBy" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Boolean" Name="IsEmailSubscription" />
           <Property Type="DateTime" Name="Birthday" />
           <Property Type="DateTime" Name="Anniversary" />
           <Property Type="Int32" Name="CompanyYears" />
           <Property Type="String" Name="BossName" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Type="Boolean" Name="IsNeedCallBack" />
           <Property Type="DateTime" Name="CallBackCreatedDate" />
-          <Property Type="Boolean" Name="IsEmailSubscription" />
           <NavigationProperty Name="Tbl_AppointmentsSource" Relationship="Sandler.Models.FK_TBL_CONTACTS_Tbl_AppointmentsSource" FromRole="TBL_CONTACTS" ToRole="Tbl_AppointmentsSource" />
           <NavigationProperty Name="TBL_COMPANIES" Relationship="Sandler.Models.FK_TBL_CONTACTS_TBL_Companies" FromRole="TBL_CONTACTS" ToRole="TBL_COMPANIES" />
           <NavigationProperty Name="Tbl_Course" Relationship="Sandler.Models.FK_TBL_CONTACTS_Tbl_Course" FromRole="TBL_CONTACTS" ToRole="Tbl_Course" />
@@ -1247,6 +1228,20 @@
           <NavigationProperty Name="TBL_COUNTRY" Relationship="Sandler.Models.FK_TBL_FRANCHISEE_USERS_TBL_COUNTRY" FromRole="TBL_FRANCHISEE_USERS" ToRole="TBL_COUNTRY" />
           <NavigationProperty Name="TBL_FRANCHISEE" Relationship="Sandler.Models.FK_TBL_FRANCHISEE_USERS_TBL_FRANCHISEE" FromRole="TBL_FRANCHISEE_USERS" ToRole="TBL_FRANCHISEE" />
         </EntityType>
+        <EntityType Name="Tbl_IndustryType">
+          <Key>
+            <PropertyRef Name="IndId" />
+          </Key>
+          <Property Type="Int32" Name="IndId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="IndustryTypeName" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Type="Boolean" Name="IsActive" />
+          <Property Type="DateTime" Name="LastUpdatedDate" />
+          <Property Type="String" Name="LastUpdatedBy" MaxLength="80" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="CreatedDate" Nullable="false" annotation:StoreGeneratedPattern="Computed" />
+          <Property Type="String" Name="CreatedBy" MaxLength="80" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="ColorCode" MaxLength="6" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="TBL_COMPANIES" Relationship="Sandler.Models.FK_TBL_COMPANIES_Tbl_IndustryType" FromRole="Tbl_IndustryType" ToRole="TBL_COMPANIES" />
+        </EntityType>
         <EntityType Name="TBL_OPPORTUNITIES">
           <Key>
             <PropertyRef Name="ID" />
@@ -1318,7 +1313,7 @@
           <NavigationProperty Name="TBL_COACH" Relationship="Sandler.Models.FK_TBL_COACH_TBL_REGION" FromRole="TBL_REGION" ToRole="TBL_COACH" />
           <NavigationProperty Name="TBL_COUNTRY" Relationship="Sandler.Models.FK_TBL_REGION_TBL_COUNTRY" FromRole="TBL_REGION" ToRole="TBL_COUNTRY" />
         </EntityType>
-        <Association Name="FK__aspnet_Me__UserI__22AA2996">
+        <Association Name="FK__aspnet_Me__UserI__15660868">
           <End Type="Sandler.Models.aspnet_Users" Role="aspnet_Users" Multiplicity="1" />
           <End Type="Sandler.Models.aspnet_Membership" Role="aspnet_Membership" Multiplicity="0..1" />
           <ReferentialConstraint>
@@ -1411,6 +1406,18 @@
             </Principal>
             <Dependent Role="TBL_COMPANIES">
               <PropertyRef Name="FranchiseeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_COMPANIES_Tbl_IndustryType">
+          <End Type="Sandler.Models.Tbl_IndustryType" Role="Tbl_IndustryType" Multiplicity="0..1" />
+          <End Type="Sandler.Models.TBL_COMPANIES" Role="TBL_COMPANIES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_IndustryType">
+              <PropertyRef Name="IndId" />
+            </Principal>
+            <Dependent Role="TBL_COMPANIES">
+              <PropertyRef Name="IndustryId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1570,52 +1577,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="aspnet_UsersInRoles">
-          <End Type="Sandler.Models.aspnet_Roles" Role="aspnet_Roles" Multiplicity="*" />
-          <End Type="Sandler.Models.aspnet_Users" Role="aspnet_Users" Multiplicity="*" />
-        </Association>
-        <EntityType Name="TBL_BlastEmailGroup">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="String" Name="BlastGroupName" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Type="Boolean" Name="IsActive" />
-          <Property Type="Boolean" Name="ForCorporate" />
-          <Property Type="Boolean" Name="ForCoach" />
-          <Property Type="Boolean" Name="ForFrOwner" />
-          <Property Type="Boolean" Name="ForFrUser" />
-          <Property Type="Guid" Name="CreatedBy" />
-          <Property Type="DateTime" Name="CreatedDate" Nullable="false" />
-          <Property Type="Guid" Name="UpdatedBy" />
-          <Property Type="DateTime" Name="UpdateDate" />
-        </EntityType>
-        <EntityType Name="Tbl_IndustryType">
-          <Key>
-            <PropertyRef Name="IndId" />
-          </Key>
-          <Property Type="Int32" Name="IndId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="String" Name="IndustryTypeName" MaxLength="150" FixedLength="false" Unicode="false" />
-          <Property Type="Boolean" Name="IsActive" />
-          <Property Type="DateTime" Name="LastUpdatedDate" />
-          <Property Type="String" Name="LastUpdatedBy" MaxLength="80" FixedLength="false" Unicode="false" />
-          <Property Type="DateTime" Name="CreatedDate" Nullable="false" annotation:StoreGeneratedPattern="Computed" />
-          <Property Type="String" Name="CreatedBy" MaxLength="80" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="ColorCode" MaxLength="6" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="TBL_COMPANIES" Relationship="Sandler.Models.FK_TBL_COMPANIES_Tbl_IndustryType" FromRole="Tbl_IndustryType" ToRole="TBL_COMPANIES" />
-        </EntityType>
-        <Association Name="FK_TBL_COMPANIES_Tbl_IndustryType">
-          <End Type="Sandler.Models.Tbl_IndustryType" Role="Tbl_IndustryType" Multiplicity="0..1" />
-          <End Type="Sandler.Models.TBL_COMPANIES" Role="TBL_COMPANIES" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Tbl_IndustryType">
-              <PropertyRef Name="IndId" />
-            </Principal>
-            <Dependent Role="TBL_COMPANIES">
-              <PropertyRef Name="IndustryId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1686,6 +1647,23 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="TBL_BlastEmailGroup">
+            <EntityTypeMapping TypeName="Sandler.Models.TBL_BlastEmailGroup">
+              <MappingFragment StoreEntitySet="TBL_BlastEmailGroup">
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="ForFrUser" ColumnName="ForFrUser" />
+                <ScalarProperty Name="ForFrOwner" ColumnName="ForFrOwner" />
+                <ScalarProperty Name="ForCoach" ColumnName="ForCoach" />
+                <ScalarProperty Name="ForCorporate" ColumnName="ForCorporate" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="BlastGroupName" ColumnName="BlastGroupName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="TBL_CHART">
             <EntityTypeMapping TypeName="Sandler.Models.TBL_CHART">
               <MappingFragment StoreEntitySet="TBL_CHART">
@@ -1741,6 +1719,7 @@
           <EntitySetMapping Name="TBL_COMPANIES">
             <EntityTypeMapping TypeName="Sandler.Models.TBL_COMPANIES">
               <MappingFragment StoreEntitySet="TBL_COMPANIES">
+                <ScalarProperty Name="Zip" ColumnName="Zip" />
                 <ScalarProperty Name="Address" ColumnName="Address" />
                 <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
                 <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
@@ -1761,7 +1740,6 @@
                 <ScalarProperty Name="POCPhone" ColumnName="POCPhone" />
                 <ScalarProperty Name="POCFirstName" ColumnName="POCFirstName" />
                 <ScalarProperty Name="POCLastName" ColumnName="POCLastName" />
-                <ScalarProperty Name="ZIP" ColumnName="ZIP" />
                 <ScalarProperty Name="STATE" ColumnName="STATE" />
                 <ScalarProperty Name="CITY" ColumnName="CITY" />
                 <ScalarProperty Name="COMPANYNAME" ColumnName="COMPANYNAME" />
@@ -1772,13 +1750,13 @@
           <EntitySetMapping Name="TBL_CONTACTS">
             <EntityTypeMapping TypeName="Sandler.Models.TBL_CONTACTS">
               <MappingFragment StoreEntitySet="TBL_CONTACTS">
-                <ScalarProperty Name="IsEmailSubscription" ColumnName="IsEmailSubscription" />
                 <ScalarProperty Name="CallBackCreatedDate" ColumnName="CallBackCreatedDate" />
                 <ScalarProperty Name="IsNeedCallBack" ColumnName="IsNeedCallBack" />
                 <ScalarProperty Name="BossName" ColumnName="BossName" />
                 <ScalarProperty Name="CompanyYears" ColumnName="CompanyYears" />
                 <ScalarProperty Name="Anniversary" ColumnName="Anniversary" />
                 <ScalarProperty Name="Birthday" ColumnName="Birthday" />
+                <ScalarProperty Name="IsEmailSubscription" ColumnName="IsEmailSubscription" />
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
                 <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
                 <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
@@ -1913,6 +1891,20 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_IndustryType">
+            <EntityTypeMapping TypeName="Sandler.Models.Tbl_IndustryType">
+              <MappingFragment StoreEntitySet="Tbl_IndustryType">
+                <ScalarProperty Name="ColorCode" ColumnName="ColorCode" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="LastUpdatedBy" ColumnName="LastUpdatedBy" />
+                <ScalarProperty Name="LastUpdatedDate" ColumnName="LastUpdatedDate" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="IndustryTypeName" ColumnName="IndustryTypeName" />
+                <ScalarProperty Name="IndId" ColumnName="IndId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="TBL_OPPORTUNITIES">
             <EntityTypeMapping TypeName="Sandler.Models.TBL_OPPORTUNITIES">
               <MappingFragment StoreEntitySet="TBL_OPPORTUNITIES">
@@ -1979,45 +1971,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <AssociationSetMapping Name="aspnet_UsersInRoles" TypeName="Sandler.Models.aspnet_UsersInRoles" StoreEntitySet="aspnet_UsersInRoles">
-            <EndProperty Name="aspnet_Users">
-              <ScalarProperty Name="UserId" ColumnName="UserId" />
-            </EndProperty>
-            <EndProperty Name="aspnet_Roles">
-              <ScalarProperty Name="RoleId" ColumnName="RoleId" />
-            </EndProperty>
-          </AssociationSetMapping>
-          <EntitySetMapping Name="TBL_BlastEmailGroup">
-            <EntityTypeMapping TypeName="Sandler.Models.TBL_BlastEmailGroup">
-              <MappingFragment StoreEntitySet="TBL_BlastEmailGroup">
-                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
-                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="ForFrUser" ColumnName="ForFrUser" />
-                <ScalarProperty Name="ForFrOwner" ColumnName="ForFrOwner" />
-                <ScalarProperty Name="ForCoach" ColumnName="ForCoach" />
-                <ScalarProperty Name="ForCorporate" ColumnName="ForCorporate" />
-                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-                <ScalarProperty Name="BlastGroupName" ColumnName="BlastGroupName" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Tbl_IndustryType">
-            <EntityTypeMapping TypeName="Sandler.Models.Tbl_IndustryType">
-              <MappingFragment StoreEntitySet="Tbl_IndustryType">
-                <ScalarProperty Name="ColorCode" ColumnName="ColorCode" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="LastUpdatedBy" ColumnName="LastUpdatedBy" />
-                <ScalarProperty Name="LastUpdatedDate" ColumnName="LastUpdatedDate" />
-                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-                <ScalarProperty Name="IndustryTypeName" ColumnName="IndustryTypeName" />
-                <ScalarProperty Name="IndId" ColumnName="IndId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -2040,179 +1993,197 @@
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
       <Diagram Name="SandlerEDM" ZoomLevel="75">
-        <EntityTypeShape EntityType="Sandler.Models.aspnet_Membership" Width="1.5" PointX="5.25" PointY="19.875" Height="5.2494108072916674" />
-        <EntityTypeShape EntityType="Sandler.Models.aspnet_Roles" Width="1.5" PointX="0.75" PointY="19" Height="2.1725878906250031" />
-        <EntityTypeShape EntityType="Sandler.Models.aspnet_Users" Width="1.5" PointX="3" PointY="18.375" Height="3.3263964843750102" />
-        <EntityTypeShape EntityType="Sandler.Models.Tbl_AppointmentsSource" Width="1.5" PointX="8.25" PointY="4.125" Height="2.5571907552083246" />
-        <EntityTypeShape EntityType="Sandler.Models.TBL_CHART" Width="1.5" PointX="12.75" PointY="12.75" Height="5.63401367187501" />
-        <EntityTypeShape EntityType="Sandler.Models.TBL_COACH" Width="1.5" PointX="5.25" PointY="13.75" Height="4.6725065104166674" />
-        <EntityTypeShape EntityType="Sandler.Models.TBL_COMPANIES" Width="1.5" PointX="5.25" PointY="5.75" Height="6.78782226562501" />
-        <EntityTypeShape EntityType="Sandler.Models.TBL_CONTACTS" Width="1.5" PointX="10.5" PointY="5.625" Height="6.9801236979166674" />
-        <EntityTypeShape EntityType="Sandler.Models.TBL_COUNTRY" Width="1.5" PointX="0.75" PointY="8.5" Height="3.1340950520833246" />
-        <EntityTypeShape EntityType="Sandler.Models.Tbl_Course" Width="1.5" PointX="8.25" PointY="13.5" Height="2.5571907552083264" />
-        <EntityTypeShape EntityType="Sandler.Models.TBL_DOCS" Width="1.5" PointX="15" PointY="7.25" Height="3.7109993489583246" />
-        <EntityTypeShape EntityType="Sandler.Models.Tbl_DocumentStatus" Width="1.5" PointX="12.75" PointY="2.875" Height="2.5571907552083246" />
-        <EntityTypeShape EntityType="Sandler.Models.Tbl_FollowUpItemsList" Width="1.5" PointX="5.25" PointY="25.875" Height="2.5571907552083246" />
-        <EntityTypeShape EntityType="Sandler.Models.TBL_FRANCHISEE" Width="1.5" PointX="3" PointY="7.5" Height="5.2494108072916674" />
-        <EntityTypeShape EntityType="Sandler.Models.TBL_FRANCHISEE_USERS" Width="1.5" PointX="8.25" PointY="8.25" Height="3.7109993489583246" />
-        <EntityTypeShape EntityType="Sandler.Models.TBL_OPPORTUNITIES" Width="1.5" PointX="12.75" PointY="6.25" Height="5.63401367187501" />
-        <EntityTypeShape EntityType="Sandler.Models.TBL_OPPORTUNITYSTATUS" Width="1.5" PointX="10.5" PointY="2.125" Height="2.5571907552083246" />
-        <EntityTypeShape EntityType="Sandler.Models.Tbl_ProductType" Width="1.5" PointX="10.5" PointY="13.375" Height="2.7494921874999978" />
-        <EntityTypeShape EntityType="Sandler.Models.TBL_REGION" Width="1.5" PointX="3" PointY="14.625" Height="2.9417936197916674" />
-        <AssociationConnector Association="Sandler.Models.FK__aspnet_Me__UserI__22AA2996" >
-          <ConnectorPoint PointX="4.5" PointY="20.788198242187505" />
-          <ConnectorPoint PointX="5.25" PointY="20.788198242187505" />
+        <EntityTypeShape EntityType="Sandler.Models.aspnet_Membership" Width="1.5" PointX="3" PointY="8" Height="5.2494108072916674" />
+        <EntityTypeShape EntityType="Sandler.Models.aspnet_Roles" Width="1.5" PointX="0.75" PointY="0.75" Height="1.9802864583333246" />
+        <EntityTypeShape EntityType="Sandler.Models.aspnet_Users" Width="1.5" PointX="0.75" PointY="10.625" Height="3.1340950520833246" />
+        <EntityTypeShape EntityType="Sandler.Models.Tbl_AppointmentsSource" Width="1.5" PointX="13.5" PointY="6.25" Height="2.5571907552083246" />
+        <EntityTypeShape EntityType="Sandler.Models.TBL_BlastEmailGroup" Width="1.5" PointX="2.75" PointY="0.75" Height="3.1340950520833246" />
+        <EntityTypeShape EntityType="Sandler.Models.TBL_CHART" Width="1.5" PointX="4.75" PointY="0.75" Height="5.63401367187501" />
+        <EntityTypeShape EntityType="Sandler.Models.TBL_COACH" Width="1.5" PointX="6" PointY="9.875" Height="4.6725065104166674" />
+        <EntityTypeShape EntityType="Sandler.Models.TBL_COMPANIES" Width="1.5" PointX="10.5" PointY="8.875" Height="6.78782226562501" />
+        <EntityTypeShape EntityType="Sandler.Models.TBL_CONTACTS" Width="1.5" PointX="15.75" PointY="8.75" Height="6.9801236979166674" />
+        <EntityTypeShape EntityType="Sandler.Models.TBL_COUNTRY" Width="1.5" PointX="1.5" PointY="14.625" Height="3.1340950520833246" />
+        <EntityTypeShape EntityType="Sandler.Models.Tbl_Course" Width="1.5" PointX="13.5" PointY="15.625" Height="2.5571907552083246" />
+        <EntityTypeShape EntityType="Sandler.Models.TBL_DOCS" Width="1.5" PointX="20.25" PointY="10.375" Height="3.7109993489583246" />
+        <EntityTypeShape EntityType="Sandler.Models.Tbl_DocumentStatus" Width="1.5" PointX="18" PointY="6" Height="2.5571907552083246" />
+        <EntityTypeShape EntityType="Sandler.Models.Tbl_FollowUpItemsList" Width="1.5" PointX="3" PointY="19.375" Height="2.5571907552083246" />
+        <EntityTypeShape EntityType="Sandler.Models.TBL_FRANCHISEE" Width="1.5" PointX="8.25" PointY="9.625" Height="5.2494108072916674" />
+        <EntityTypeShape EntityType="Sandler.Models.TBL_FRANCHISEE_USERS" Width="1.5" PointX="13.5" PointY="10.375" Height="3.7109993489583246" />
+        <EntityTypeShape EntityType="Sandler.Models.Tbl_IndustryType" Width="1.5" PointX="8.25" PointY="5.875" Height="2.749492187499996" />
+        <EntityTypeShape EntityType="Sandler.Models.TBL_OPPORTUNITIES" Width="1.5" PointX="18" PointY="9.375" Height="5.63401367187501" />
+        <EntityTypeShape EntityType="Sandler.Models.TBL_OPPORTUNITYSTATUS" Width="1.5" PointX="15.75" PointY="5.25" Height="2.5571907552083246" />
+        <EntityTypeShape EntityType="Sandler.Models.Tbl_ProductType" Width="1.5" PointX="15.75" PointY="16.5" Height="2.7494921874999818" />
+        <EntityTypeShape EntityType="Sandler.Models.TBL_REGION" Width="1.5" PointX="3.75" PointY="14.75" Height="2.9417936197916674" />
+        <AssociationConnector Association="Sandler.Models.FK__aspnet_Me__UserI__15660868" >
+          <ConnectorPoint PointX="2.25" PointY="11.937205403645834" />
+          <ConnectorPoint PointX="2.6666666666666665" PointY="11.937205403645834" />
+          <ConnectorPoint PointX="2.8333333333333335" PointY="11.937205403645834" />
+          <ConnectorPoint PointX="3" PointY="11.937205403645834" />
         </AssociationConnector>
         <AssociationConnector Association="Sandler.Models.FK_TBL_COACH_aspnet_Users" >
-          <ConnectorPoint PointX="4.5" PointY="18.376152846153843" />
-          <ConnectorPoint PointX="4.875" PointY="18.001152846153843" />
-          <ConnectorPoint PointX="4.875" PointY="18.798659356570514" />
-          <ConnectorPoint PointX="5.2511528461538459" PointY="18.422506510416667" />
+          <ConnectorPoint PointX="2.25" PointY="13.535502929687496" />
+          <ConnectorPoint PointX="6" PointY="13.535502929687496" />
         </AssociationConnector>
         <AssociationConnector Association="Sandler.Models.FK_Tbl_FollowUpItemsList_aspnet_Users" >
-          <ConnectorPoint PointX="3.75" PointY="21.70139648437501" />
-          <ConnectorPoint PointX="3.75" PointY="27.153595377604162" />
-          <ConnectorPoint PointX="5.25" PointY="27.153595377604162" />
+          <ConnectorPoint PointX="1.09375" PointY="13.759095052083325" />
+          <ConnectorPoint PointX="1.09375" PointY="20.653595377604162" />
+          <ConnectorPoint PointX="3" PointY="20.653595377604162" />
         </AssociationConnector>
         <AssociationConnector Association="Sandler.Models.FK_TBL_FRANCHISEE_USERS_aspnet_Users" >
-          <ConnectorPoint PointX="4.5" PointY="19.582175544170674" />
-          <ConnectorPoint PointX="8" PointY="19.582175544170674" />
-          <ConnectorPoint PointX="8" PointY="12.335999348958325" />
-          <ConnectorPoint PointX="8.5104146666666658" PointY="12.335999348958325" />
-          <ConnectorPoint PointX="8.6770813333333336" PointY="12.335999348958325" />
-          <ConnectorPoint PointX="9" PointY="12.335999348958325" />
-          <ConnectorPoint PointX="9" PointY="11.960999348958325" />
+          <ConnectorPoint PointX="2.25" PointY="12.736354166666665" />
+          <ConnectorPoint PointX="2.75" PointY="12.736354166666665" />
+          <ConnectorPoint PointX="2.75" PointY="7.75" />
+          <ConnectorPoint PointX="8" PointY="7.75" />
+          <ConnectorPoint PointX="8" PointY="8.874492187499996" />
+          <ConnectorPoint PointX="9.9166666666666661" PointY="8.874492187499996" />
+          <ConnectorPoint PointX="10.083333333333334" PointY="8.874492187499996" />
+          <ConnectorPoint PointX="10.25" PointY="8.874492187499996" />
+          <ConnectorPoint PointX="10.25" PointY="8.625" />
+          <ConnectorPoint PointX="11.166666666666666" PointY="8.625" />
+          <ConnectorPoint PointX="11.333333333333334" PointY="8.625" />
+          <ConnectorPoint PointX="12.791666666666666" PointY="8.625" />
+          <ConnectorPoint PointX="12.958333333333334" PointY="8.625" />
+          <ConnectorPoint PointX="13.25" PointY="8.625" />
+          <ConnectorPoint PointX="13.25" PointY="9.0571907552083246" />
+          <ConnectorPoint PointX="14.25" PointY="9.0571907552083246" />
+          <ConnectorPoint PointX="14.25" PointY="10.375" />
         </AssociationConnector>
         <AssociationConnector Association="Sandler.Models.FK_TBL_CONTACTS_Tbl_AppointmentsSource" >
-          <ConnectorPoint PointX="9.75" PointY="6.1535953776041623" />
-          <ConnectorPoint PointX="10.5" PointY="6.1535953776041623" />
+          <ConnectorPoint PointX="15" PointY="8.8071907552083246" />
+          <ConnectorPoint PointX="15.375" PointY="9.1821907552083246" />
+          <ConnectorPoint PointX="15.375" PointY="8.375" />
+          <ConnectorPoint PointX="15.75" PointY="8.75" />
         </AssociationConnector>
         <AssociationConnector Association="Sandler.Models.FK_TBL_COACH_TBL_REGION" >
-          <ConnectorPoint PointX="4.5" PointY="16.095896809895834" />
-          <ConnectorPoint PointX="5.25" PointY="16.095896809895834" />
+          <ConnectorPoint PointX="5.25" PointY="16.220896809895834" />
+          <ConnectorPoint PointX="6.75" PointY="16.220896809895834" />
+          <ConnectorPoint PointX="6.75" PointY="14.547506510416667" />
         </AssociationConnector>
         <AssociationConnector Association="Sandler.Models.FK_TBL_FRANCHISEE_TBL_COACH" >
-          <ConnectorPoint PointX="5.2511528461538459" PointY="13.75" />
-          <ConnectorPoint PointX="4.875" PointY="13.373847153846153" />
-          <ConnectorPoint PointX="4.875" PointY="10.124705403645834" />
-          <ConnectorPoint PointX="4.5" PointY="10.124705403645834" />
+          <ConnectorPoint PointX="7.5" PointY="12.211253255208334" />
+          <ConnectorPoint PointX="8.25" PointY="12.211253255208334" />
         </AssociationConnector>
         <AssociationConnector Association="Sandler.Models.FK_TBL_COMPANIES_TBL_FRANCHISEE" >
-          <ConnectorPoint PointX="4.5" PointY="9.0779418772786435" />
-          <ConnectorPoint PointX="5.25" PointY="9.0779418772786435" />
+          <ConnectorPoint PointX="9.75" PointY="12.249705403645834" />
+          <ConnectorPoint PointX="10.5" PointY="12.249705403645834" />
+        </AssociationConnector>
+        <AssociationConnector Association="Sandler.Models.FK_TBL_COMPANIES_Tbl_IndustryType" >
+          <ConnectorPoint PointX="9.75" PointY="7.249746093749998" />
+          <ConnectorPoint PointX="11.25" PointY="7.249746093749998" />
+          <ConnectorPoint PointX="11.25" PointY="8.875" />
         </AssociationConnector>
         <AssociationConnector Association="Sandler.Models.FK_TBL_CONTACTS_TBL_Companies" >
-          <ConnectorPoint PointX="6.75" PointY="7.3098453776041623" />
-          <ConnectorPoint PointX="10.5" PointY="7.3098453776041623" />
+          <ConnectorPoint PointX="12" PointY="14.855499674479162" />
+          <ConnectorPoint PointX="14.166666666666666" PointY="14.855499674479162" />
+          <ConnectorPoint PointX="14.333333333333334" PointY="14.855499674479162" />
+          <ConnectorPoint PointX="15.416666666666666" PointY="14.855499674479162" />
+          <ConnectorPoint PointX="15.583333333333334" PointY="14.855499674479162" />
+          <ConnectorPoint PointX="15.75" PointY="14.855499674479162" />
         </AssociationConnector>
         <AssociationConnector Association="Sandler.Models.FK_TBL_DOCS_TBL_COMPANIES" >
-          <ConnectorPoint PointX="6.75" PointY="10.619699503580725" />
-          <ConnectorPoint PointX="7.75" PointY="10.619699503580725" />
-          <ConnectorPoint PointX="7.75" PointY="12.855123697916667" />
-          <ConnectorPoint PointX="7.916666666666667" PointY="12.855123697916667" />
-          <ConnectorPoint PointX="8.0833333333333339" PointY="12.855123697916667" />
-          <ConnectorPoint PointX="8.5104146666666658" PointY="12.855123697916667" />
-          <ConnectorPoint PointX="8.6770813333333336" PointY="12.855123697916667" />
-          <ConnectorPoint PointX="10.041666666666666" PointY="12.855123697916667" />
-          <ConnectorPoint PointX="10.208333333333334" PointY="12.855123697916667" />
-          <ConnectorPoint PointX="12.291666666666666" PointY="12.855123697916666" />
-          <ConnectorPoint PointX="12.562499999999998" PointY="12.855123697916667" />
-          <ConnectorPoint PointX="12.625" PointY="12.855123697916667" />
-          <ConnectorPoint PointX="12.625" PointY="12.5" />
-          <ConnectorPoint PointX="15.75" PointY="12.5" />
-          <ConnectorPoint PointX="15.75" PointY="10.960999348958325" />
+          <ConnectorPoint PointX="12" PointY="11.92509271484375" />
+          <ConnectorPoint PointX="12.791666666666666" PointY="11.92509271484375" />
+          <ConnectorPoint PointX="12.958333333333334" PointY="11.92509271484375" />
+          <ConnectorPoint PointX="13.25" PointY="11.92509271484375" />
+          <ConnectorPoint PointX="13.25" PointY="14.335999348958325" />
+          <ConnectorPoint PointX="14.166666666666666" PointY="14.335999348958325" />
+          <ConnectorPoint PointX="14.333333333333334" PointY="14.335999348958325" />
+          <ConnectorPoint PointX="15.5" PointY="14.335999348958325" />
+          <ConnectorPoint PointX="15.5" PointY="15.980123697916667" />
+          <ConnectorPoint PointX="18.666666666666668" PointY="15.980123697916667" />
+          <ConnectorPoint PointX="18.833333333333332" PointY="15.980123697916667" />
+          <ConnectorPoint PointX="21" PointY="15.980123697916667" />
+          <ConnectorPoint PointX="21" PointY="14.085999348958325" />
         </AssociationConnector>
         <AssociationConnector Association="Sandler.Models.FK_TBL_OPPORTUNITIES_TBL_COMPANIES" >
-          <ConnectorPoint PointX="6" PointY="12.537822265624998" />
-          <ConnectorPoint PointX="6" PointY="13.037822265624996" />
-          <ConnectorPoint PointX="7.916666666666667" PointY="13.037822265624996" />
-          <ConnectorPoint PointX="8.0833333333333339" PointY="13.037822265624996" />
-          <ConnectorPoint PointX="8.5104146666666658" PointY="13.037822265624996" />
-          <ConnectorPoint PointX="8.6770813333333336" PointY="13.037822265624996" />
-          <ConnectorPoint PointX="10.041666666666666" PointY="13.037822265624996" />
-          <ConnectorPoint PointX="10.208333333333334" PointY="13.037822265624996" />
-          <ConnectorPoint PointX="12.375" PointY="13.037822265624996" />
-          <ConnectorPoint PointX="12.375" PointY="9.0670068359375051" />
-          <ConnectorPoint PointX="12.75" PointY="9.0670068359375051" />
+          <ConnectorPoint PointX="12" PointY="10.459889235026044" />
+          <ConnectorPoint PointX="12.791666666666666" PointY="10.459889235026044" />
+          <ConnectorPoint PointX="12.958333333333334" PointY="10.459889235026044" />
+          <ConnectorPoint PointX="13.25" PointY="10.459889235026044" />
+          <ConnectorPoint PointX="13.25" PointY="10.125" />
+          <ConnectorPoint PointX="14.166666666666666" PointY="10.125" />
+          <ConnectorPoint PointX="14.333333333333334" PointY="10.125" />
+          <ConnectorPoint PointX="15.5" PointY="10.125" />
+          <ConnectorPoint PointX="15.5" PointY="8.5" />
+          <ConnectorPoint PointX="17.541666666666668" PointY="8.5" />
+          <ConnectorPoint PointX="17.708333333333332" PointY="8.5" />
+          <ConnectorPoint PointX="17.75" PointY="8.5" />
+          <ConnectorPoint PointX="17.75" PointY="9.125" />
+          <ConnectorPoint PointX="18.75" PointY="9.125" />
+          <ConnectorPoint PointX="18.75" PointY="9.375" />
         </AssociationConnector>
         <AssociationConnector Association="Sandler.Models.FK_TBL_CONTACTS_Tbl_Course" >
-          <ConnectorPoint PointX="9.75" PointY="13.5" />
-          <ConnectorPoint PointX="10.125" PointY="13.125" />
-          <ConnectorPoint PointX="10.125" PointY="10.06686153776041" />
-          <ConnectorPoint PointX="10.5" PointY="10.06686153776041" />
+          <ConnectorPoint PointX="15" PointY="15.625" />
+          <ConnectorPoint PointX="15.375" PointY="15.25" />
+          <ConnectorPoint PointX="15.375" PointY="16.105123697916667" />
+          <ConnectorPoint PointX="15.75" PointY="15.730123697916667" />
         </AssociationConnector>
         <AssociationConnector Association="Sandler.Models.FK_TBL_OPPORTUNITIES_TBL_CONTACTS" >
-          <ConnectorPoint PointX="12" PointY="7.5960034179687526" />
-          <ConnectorPoint PointX="12.75" PointY="7.5960034179687526" />
+          <ConnectorPoint PointX="17.25" PointY="12.192006835937505" />
+          <ConnectorPoint PointX="18" PointY="12.192006835937505" />
         </AssociationConnector>
         <AssociationConnector Association="Sandler.Models.FK_TBL_FRANCHISEE_TBL_COUNTRY" >
-          <ConnectorPoint PointX="2.25" PointY="10.067047526041662" />
-          <ConnectorPoint PointX="2.6666666666666665" PointY="10.067047526041662" />
-          <ConnectorPoint PointX="2.8333333333333335" PointY="10.067047526041662" />
-          <ConnectorPoint PointX="3" PointY="10.067047526041662" />
+          <ConnectorPoint PointX="3" PointY="16.192047526041662" />
+          <ConnectorPoint PointX="3.5" PointY="16.192047526041662" />
+          <ConnectorPoint PointX="3.5" PointY="14.5" />
+          <ConnectorPoint PointX="5.416666666666667" PointY="14.5" />
+          <ConnectorPoint PointX="5.583333333333333" PointY="14.5" />
+          <ConnectorPoint PointX="5.75" PointY="14.5" />
+          <ConnectorPoint PointX="5.75" PointY="15.124410807291667" />
+          <ConnectorPoint PointX="6.666666666666667" PointY="15.124410807291667" />
+          <ConnectorPoint PointX="6.833333333333333" PointY="15.124410807291667" />
+          <ConnectorPoint PointX="9" PointY="15.124410807291667" />
+          <ConnectorPoint PointX="9" PointY="14.874410807291667" />
         </AssociationConnector>
         <AssociationConnector Association="Sandler.Models.FK_TBL_FRANCHISEE_USERS_TBL_COUNTRY" >
-          <ConnectorPoint PointX="2.25" PointY="9.2522717630208362" />
-          <ConnectorPoint PointX="3.125" PointY="9.2522717630208362" />
-          <ConnectorPoint PointX="2.75" PointY="13.249410807291667" />
-          <ConnectorPoint PointX="4.791666666666667" PointY="13.249410807291667" />
-          <ConnectorPoint PointX="4.958333333333333" PointY="13.249410807291667" />
-          <ConnectorPoint PointX="7.916666666666667" PointY="13.249410807291667" />
-          <ConnectorPoint PointX="8.0833333333333339" PointY="13.249410807291667" />
-          <ConnectorPoint PointX="8.593748" PointY="13.249410807291667" />
-          <ConnectorPoint PointX="8.593748" PointY="11.960999348958325" />
+          <ConnectorPoint PointX="3" PointY="15.377271763020836" />
+          <ConnectorPoint PointX="3.25" PointY="15.377271763020836" />
+          <ConnectorPoint PointX="3.25" PointY="14.25" />
+          <ConnectorPoint PointX="5.5" PointY="14.25" />
+          <ConnectorPoint PointX="5.5" PointY="15.91282226562501" />
+          <ConnectorPoint PointX="6.666666666666667" PointY="15.91282226562501" />
+          <ConnectorPoint PointX="6.833333333333333" PointY="15.91282226562501" />
+          <ConnectorPoint PointX="13.25" PointY="15.91282226562501" />
+          <ConnectorPoint PointX="13.25" PointY="15.375" />
+          <ConnectorPoint PointX="14.25" PointY="15.375" />
+          <ConnectorPoint PointX="14.25" PointY="14.085999348958325" />
         </AssociationConnector>
         <AssociationConnector Association="Sandler.Models.FK_TBL_REGION_TBL_COUNTRY" >
-          <ConnectorPoint PointX="1.5" PointY="11.634095052083325" />
-          <ConnectorPoint PointX="1.5" PointY="16.095896809895834" />
-          <ConnectorPoint PointX="3" PointY="16.095896809895834" />
+          <ConnectorPoint PointX="3" PointY="17.004420572916665" />
+          <ConnectorPoint PointX="3.75" PointY="17.004420572916665" />
         </AssociationConnector>
         <AssociationConnector Association="Sandler.Models.FK_TBL_DOCS_Tbl_DocumentStatus" >
-          <ConnectorPoint PointX="14.25" PointY="4.1535953776041623" />
-          <ConnectorPoint PointX="15.75" PointY="4.1535953776041623" />
-          <ConnectorPoint PointX="15.75" PointY="7.25" />
+          <ConnectorPoint PointX="19.5" PointY="7.2785953776041623" />
+          <ConnectorPoint PointX="21" PointY="7.2785953776041623" />
+          <ConnectorPoint PointX="21" PointY="10.375" />
         </AssociationConnector>
         <AssociationConnector Association="Sandler.Models.FK_TBL_DOCS_TBL_OPPORTUNITIES" >
-          <ConnectorPoint PointX="14.25" PointY="9.1054996744791623" />
-          <ConnectorPoint PointX="15" PointY="9.1054996744791623" />
+          <ConnectorPoint PointX="19.5" PointY="12.230499674479162" />
+          <ConnectorPoint PointX="20.25" PointY="12.230499674479162" />
         </AssociationConnector>
         <AssociationConnector Association="Sandler.Models.FK_TBL_FRANCHISEE_USERS_TBL_FRANCHISEE" >
-          <ConnectorPoint PointX="4.5" PointY="12.5787158203125" />
-          <ConnectorPoint PointX="4.791666666666667" PointY="12.5787158203125" />
-          <ConnectorPoint PointX="4.958333333333333" PointY="12.5787158203125" />
-          <ConnectorPoint PointX="7.666666666666667" PointY="12.5787158203125" />
-          <ConnectorPoint PointX="7.833333333333333" PointY="12.5787158203125" />
-          <ConnectorPoint PointX="7.916666666666667" PointY="12.5787158203125" />
-          <ConnectorPoint PointX="8.0833333333333339" PointY="12.5787158203125" />
-          <ConnectorPoint PointX="8.5104146666666658" PointY="12.5787158203125" />
-          <ConnectorPoint PointX="8.6770813333333336" PointY="12.5787158203125" />
-          <ConnectorPoint PointX="9.4062525" PointY="12.5787158203125" />
-          <ConnectorPoint PointX="9.4062525" PointY="11.960999348958325" />
+          <ConnectorPoint PointX="9" PointY="9.625" />
+          <ConnectorPoint PointX="9" PointY="9.375" />
+          <ConnectorPoint PointX="10" PointY="9.375" />
+          <ConnectorPoint PointX="10" PointY="8.375" />
+          <ConnectorPoint PointX="11.166666666666666" PointY="8.375" />
+          <ConnectorPoint PointX="11.333333333333334" PointY="8.375" />
+          <ConnectorPoint PointX="12.875" PointY="8.375" />
+          <ConnectorPoint PointX="12.875" PointY="13.005545531901039" />
+          <ConnectorPoint PointX="13.166666666666666" PointY="13.005545531901039" />
+          <ConnectorPoint PointX="13.333333333333334" PointY="13.005545531901039" />
+          <ConnectorPoint PointX="13.5" PointY="13.005545531901039" />
         </AssociationConnector>
         <AssociationConnector Association="Sandler.Models.FK_TBL_OPPORTUNITIES_TBL_OPPORTUNITYSTATUS" >
-          <ConnectorPoint PointX="12" PointY="4.6187282167467858" />
-          <ConnectorPoint PointX="12.5625" PointY="5.1812282167467858" />
-          <ConnectorPoint PointX="12.5625" PointY="7.6272514179687594" />
-          <ConnectorPoint PointX="12.75" PointY="7.6272514179687594" />
+          <ConnectorPoint PointX="17.25" PointY="7.8060359090544784" />
+          <ConnectorPoint PointX="17.625" PointY="8.18103590905448" />
+          <ConnectorPoint PointX="17.625" PointY="10.752251417968758" />
+          <ConnectorPoint PointX="18" PointY="10.752251417968758" />
         </AssociationConnector>
         <AssociationConnector Association="Sandler.Models.FK_TBL_OPPORTUNITIES_Tbl_ProductType" >
-          <ConnectorPoint PointX="12" PointY="13.437306692307692" />
-          <ConnectorPoint PointX="12.479166666666666" PointY="12.999806692307693" />
-          <ConnectorPoint PointX="12.479166666666666" PointY="9.0670068359375051" />
-          <ConnectorPoint PointX="12.75" PointY="9.0670068359375051" />
-        </AssociationConnector>
-        <AssociationConnector Association="Sandler.Models.aspnet_UsersInRoles" >
-          <ConnectorPoint PointX="2.25" PointY="20.0862939453125" />
-          <ConnectorPoint PointX="3" PointY="20.0862939453125" />
-        </AssociationConnector>
-        <EntityTypeShape EntityType="Sandler.Models.TBL_BlastEmailGroup" Width="1.5" PointX="2.75" PointY="0.75" Height="3.1340950520833317" />
-        <EntityTypeShape EntityType="Sandler.Models.Tbl_IndustryType" Width="1.5" PointX="0.75" PointY="1" Height="2.749492187499996" />
-        <AssociationConnector Association="Sandler.Models.FK_TBL_COMPANIES_Tbl_IndustryType" >
-          <ConnectorPoint PointX="2.25" PointY="2.374746093749998" />
-          <ConnectorPoint PointX="2.5" PointY="2.374746093749998" />
-          <ConnectorPoint PointX="2.5" PointY="4.1340950520833317" />
-          <ConnectorPoint PointX="6" PointY="4.1340950520833317" />
-          <ConnectorPoint PointX="6" PointY="5.75" />
+          <ConnectorPoint PointX="17.25" PointY="17.874746093749991" />
+          <ConnectorPoint PointX="18.75" PointY="17.874746093749991" />
+          <ConnectorPoint PointX="18.75" PointY="15.00901367187501" />
         </AssociationConnector>
       </Diagram>
     </Diagrams>

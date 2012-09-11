@@ -694,7 +694,7 @@ namespace SandlerModels.DataModels
 
                 industrySource = new IndustryTypeRepository();
                 data = from record in companies
-                       group record by new { Industry = record.Tbl_IndustryType.IndustryTypeName, Months = SqlMethods.DateDiffMonth(record.CreationDate, DateTime.Now) }
+                       group record by new { Industry = industrySource.GetById(long.Parse(record.IndustryId.ToString())).IndustryTypeName, Months = SqlMethods.DateDiffMonth(record.CreationDate, DateTime.Now) }
                            into grp
                            select new IndustryVM { IndustryTypeName = grp.Key.Industry, Months = grp.Key.Months.Value };
 

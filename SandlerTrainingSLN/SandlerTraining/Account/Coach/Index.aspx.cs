@@ -86,6 +86,7 @@ public partial class Account_Coach_Index : BasePage
     {
         if (!IsPostBack)
         {
+            addCoachLink.Visible = !IsUserReadOnly(SandlerModels.SandlerUserActions.Add, SandlerModels.SandlerEntities.Coach);
             if (!string.IsNullOrEmpty(Request.QueryString["currentPage"]))
                 CurrentPage = int.Parse(Request.QueryString["currentPage"]);
             BindCoachUsers();
@@ -127,7 +128,7 @@ public partial class Account_Coach_Index : BasePage
 
             TotalRecords = coachCollection.Count();
 
-            gvCoaches.DataSource = IQueryableExtensions.Page(coachCollection, PageSize, CurrentPage).AsQueryable();  
+            gvCoaches.DataSource = IQueryableExtensions.Page(coachCollection, PageSize, CurrentPage).AsQueryable();
             gvCoaches.DataBind();
 
 

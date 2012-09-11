@@ -128,7 +128,7 @@ public partial class CRM_Companies_Upload : UploaderBasePage
             company.RepFirstName = excelRow["RepFirstName"].ToString();
             company.RepLastName = excelRow["RepLastName"].ToString();
             company.STATE = excelRow["STATE"].ToString();
-            company.ZIP = excelRow["ZIP"].ToString();
+            company.Zip = excelRow["ZIP"].ToString();
             company.IsActive = true;
         }
         catch (Exception ex)

@@ -50,9 +50,11 @@ namespace SandlerViewModels
         public string PhoneNumber { get; set; }
         public string FaxNumber { get; set; }
         public string WebAddress { get; set; }
-        public string EmailAddress { get; set; }
-        public string FrOwnerFirstName { get; set; }
-        public string FrOwnerLastName { get; set; }
+        public string Email { get; set; }
+        public string CreatedByCoachID { get; set; }
+
+
+        public FranchiseeUser FranchiseeUser { get; set; }
     }
 
     public class FranchiseeUser
@@ -71,5 +73,8 @@ namespace SandlerViewModels
         public string State { get; set; }
         public string Zip { get; set; }
         public int CountryID { get; set; }
+        public string UserName { get; set; }
+        public bool IsEmailSubscription { get; set; }
+        public string Email { get; set; }
     }
 }

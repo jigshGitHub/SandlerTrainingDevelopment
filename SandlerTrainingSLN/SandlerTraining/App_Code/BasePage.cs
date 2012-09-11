@@ -195,10 +195,15 @@ public abstract class BasePage : System.Web.UI.Page
                     return true;
                 else
                 {
-                    return (entity != SandlerEntities.Coach);
+                    return (entity != SandlerEntities.Franchisee);
                 }
             default:
-                return true;
+                if (action == SandlerUserActions.View)
+                    return true;
+                else
+                {
+                    return (entity != SandlerEntities.Coach);
+                }
         }
     }
 }

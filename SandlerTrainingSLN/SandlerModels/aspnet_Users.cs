@@ -19,7 +19,6 @@ namespace SandlerModels
             this.TBL_COACH = new HashSet<TBL_COACH>();
             this.Tbl_FollowUpItemsList = new HashSet<Tbl_FollowUpItemsList>();
             this.TBL_FRANCHISEE_USERS = new HashSet<TBL_FRANCHISEE_USERS>();
-            this.aspnet_Roles = new HashSet<aspnet_Roles>();
         }
     
         public System.Guid ApplicationId { get; set; }
@@ -34,7 +33,6 @@ namespace SandlerModels
         internal ICollection<TBL_COACH> TBL_COACH { get; set; }
         internal ICollection<Tbl_FollowUpItemsList> Tbl_FollowUpItemsList { get; set; }
         internal ICollection<TBL_FRANCHISEE_USERS> TBL_FRANCHISEE_USERS { get; set; }
-        internal ICollection<aspnet_Roles> aspnet_Roles { get; set; }
     }
     
 }
