@@ -343,5 +343,18 @@ namespace SandlerRepositories
 
             UserEntitiesFactory.ReLoad();
         }
+
+        public SqlDataReader GetNewAppointments(int month, int year, string userId)
+        {
+            SqlDataReader newAppointments = null;
+            try
+            {
+                newAppointments = db.ExecuteReader("sp_GetNewAppointmentsWithAppointmentSource", new SqlParameter("@month", month), new SqlParameter("@year", year), new SqlParameter("@userId", userId));
+            }
+            catch (Exception ex)
+            {
+            }
+            return newAppointments;
+        }
     }
 }

@@ -56,8 +56,8 @@ INNER JOIN TBL_COACH ch WITH(NOLOCK) ON f.CoachID = ch.ID
 WHERE 
 cmp.IsNewCompany = 1
 AND YEAR(o.CreatedDate) = YEAR(GETDATE()) 
-AND MONTH(o.CreatedDate) = MONTH(DATEADD(MONTH,-2,GETDATE()))
-AND ch.ID = 2
+AND MONTH(o.CreatedDate) = MONTH(DATEADD(MONTH,-1,GETDATE()))
+--AND ch.ID = 2
 
 SELECT p.ProductTypeName,COUNT(o.CompanyID) 
 FROM TBL_OPPORTUNITIES o WITH(NOLOCK) 
@@ -70,6 +70,6 @@ INNER JOIN TBL_REGION r WITH(NOLOCK) ON r.ID = ch.RegionID
 WHERE 
 cmp.IsNewCompany = 1
 AND YEAR(o.CreatedDate) = YEAR(GETDATE()) 
-AND MONTH(o.CreatedDate) = MONTH(DATEADD(MONTH,-2,GETDATE()))
-AND ch.ID = 2
+AND MONTH(o.CreatedDate) = MONTH(DATEADD(MONTH,-1,GETDATE()))
+--AND ch.ID = 2
 GROUP BY p.ProductTypeName;

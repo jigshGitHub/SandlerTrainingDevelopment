@@ -191,7 +191,7 @@ namespace SandlerRepositories
 
 
         public void Insert(string COMPANYNAME, string Address, string City, string State, string Zip,
-            string POCLastName, string POCFirstName, string POCPhone, int Value, int COMPANYVALUEGOAL, 
+            string POCLastName, string POCFirstName, string POCPhone, int Value, int COMPANYVALUEGOAL,
             //int ID, 
             int IndID,
             string RepLastName, string RepFirstName, string DiscussionTopic, string ACTIONSTEP,
@@ -203,37 +203,37 @@ namespace SandlerRepositories
 
             if (LastContact_Date.ToString() == "1/1/0001 12:00:00 AM")
             {
-                LastContact_Date = default(System.DateTime).AddYears(1754) ;
+                LastContact_Date = default(System.DateTime).AddYears(1754);
             }
 
-                //Create the record
-                db.ExecuteNonQuery("sp_InsertCompany",
-                    new SqlParameter("@COMPANYNAME", COMPANYNAME),
-                    new SqlParameter("@Address", Address),
-                    new SqlParameter("@City", City),
-                    new SqlParameter("@State", State),
-                    new SqlParameter("@Zip", Zip),
-                    new SqlParameter("@POCLastName", POCLastName),
-                    new SqlParameter("@POCFirstName", POCFirstName),
-                    new SqlParameter("@POCPhone", POCPhone),
-                    new SqlParameter("@Value", Value),
-                    new SqlParameter("@COMPANYVALUEGOAL", COMPANYVALUEGOAL),
-                    //new SqlParameter("@ID", ID),
-                    new SqlParameter("@IndID", IndID),
-                    new SqlParameter("@RepLastName", RepLastName),
-                    new SqlParameter("@RepFirstName", RepFirstName),
-                    new SqlParameter("@DiscussionTopic", DiscussionTopic),
-                    new SqlParameter("@ACTIONSTEP", ACTIONSTEP),
-                    new SqlParameter("@LastContact_Date", LastContact_Date),
-                    new SqlParameter("@NextContact_Date", NextContact_Date),
-                    new SqlParameter("@CreationDate", CreationDate),
-                    new SqlParameter("@CreatedBy", _user.UserId),
-                    new SqlParameter("@FranchiseeId", _user.FranchiseeID));
-                UserEntitiesFactory.ReLoad();
+            //Create the record
+            db.ExecuteNonQuery("sp_InsertCompany",
+                new SqlParameter("@COMPANYNAME", COMPANYNAME),
+                new SqlParameter("@Address", Address),
+                new SqlParameter("@City", City),
+                new SqlParameter("@State", State),
+                new SqlParameter("@Zip", Zip),
+                new SqlParameter("@POCLastName", POCLastName),
+                new SqlParameter("@POCFirstName", POCFirstName),
+                new SqlParameter("@POCPhone", POCPhone),
+                new SqlParameter("@Value", Value),
+                new SqlParameter("@COMPANYVALUEGOAL", COMPANYVALUEGOAL),
+                //new SqlParameter("@ID", ID),
+                new SqlParameter("@IndID", IndID),
+                new SqlParameter("@RepLastName", RepLastName),
+                new SqlParameter("@RepFirstName", RepFirstName),
+                new SqlParameter("@DiscussionTopic", DiscussionTopic),
+                new SqlParameter("@ACTIONSTEP", ACTIONSTEP),
+                new SqlParameter("@LastContact_Date", LastContact_Date),
+                new SqlParameter("@NextContact_Date", NextContact_Date),
+                new SqlParameter("@CreationDate", CreationDate),
+                new SqlParameter("@CreatedBy", _user.UserId),
+                new SqlParameter("@FranchiseeId", _user.FranchiseeID));
+            UserEntitiesFactory.ReLoad();
 
         }
         public void Update(int COMPANIESID, string COMPANYNAME, string Address, string City, string State, string Zip,
-            string POCLastName, string POCFirstName, string POCPhone, int Value, string COMPANYVALUEGOAL, 
+            string POCLastName, string POCFirstName, string POCPhone, int Value, string COMPANYVALUEGOAL,
             //int ID, 
             int IndID,
             string RepLastName, string RepFirstName, string DiscussionTopic, string ACTIONSTEP,
@@ -244,35 +244,60 @@ namespace SandlerRepositories
             {
                 LastContact_Date = default(System.DateTime).AddYears(1754);
             }
-            
-            
-                //Update Company Details
-                db.ExecuteNonQuery("sp_UpdateCompanyDetails",
-                    new SqlParameter("@COMPANIESID", COMPANIESID),
-                    new SqlParameter("@COMPANYNAME", COMPANYNAME),
-                    new SqlParameter("@Address", Address),
-                    new SqlParameter("@City", City),
-                    new SqlParameter("@State", State),
-                    new SqlParameter("@Zip", Zip),
-                    new SqlParameter("@POCLastName", POCLastName),
-                    new SqlParameter("@POCFirstName", POCFirstName),
-                    new SqlParameter("@POCPhone", POCPhone),
-                    new SqlParameter("@Value", Value),
-                    new SqlParameter("@COMPANYVALUEGOAL", COMPANYVALUEGOAL),
-                    //new SqlParameter("@ID", ID),
-                    new SqlParameter("@IndID", IndID),
-                    new SqlParameter("@RepLastName", RepLastName),
-                    new SqlParameter("@RepFirstName", RepFirstName),
-                    new SqlParameter("@DiscussionTopic", DiscussionTopic),
-                    new SqlParameter("@ACTIONSTEP", ACTIONSTEP),
-                    new SqlParameter("@LastContact_Date", LastContact_Date),
-                    new SqlParameter("@NextContact_Date", NextContact_Date),
-                    new SqlParameter("@CreationDate", CreationDate),
-                    new SqlParameter("@UpdatedBy", updatedBy));
 
-                UserEntitiesFactory.ReLoad();
+
+            //Update Company Details
+            db.ExecuteNonQuery("sp_UpdateCompanyDetails",
+                new SqlParameter("@COMPANIESID", COMPANIESID),
+                new SqlParameter("@COMPANYNAME", COMPANYNAME),
+                new SqlParameter("@Address", Address),
+                new SqlParameter("@City", City),
+                new SqlParameter("@State", State),
+                new SqlParameter("@Zip", Zip),
+                new SqlParameter("@POCLastName", POCLastName),
+                new SqlParameter("@POCFirstName", POCFirstName),
+                new SqlParameter("@POCPhone", POCPhone),
+                new SqlParameter("@Value", Value),
+                new SqlParameter("@COMPANYVALUEGOAL", COMPANYVALUEGOAL),
+                //new SqlParameter("@ID", ID),
+                new SqlParameter("@IndID", IndID),
+                new SqlParameter("@RepLastName", RepLastName),
+                new SqlParameter("@RepFirstName", RepFirstName),
+                new SqlParameter("@DiscussionTopic", DiscussionTopic),
+                new SqlParameter("@ACTIONSTEP", ACTIONSTEP),
+                new SqlParameter("@LastContact_Date", LastContact_Date),
+                new SqlParameter("@NextContact_Date", NextContact_Date),
+                new SqlParameter("@CreationDate", CreationDate),
+                new SqlParameter("@UpdatedBy", updatedBy));
+
+            UserEntitiesFactory.ReLoad();
 
         }
 
+        public SqlDataReader GetNewClientsProducts(int month, int year, string userId)
+        {
+            SqlDataReader newAppointments = null;
+            try
+            {
+                newAppointments = db.ExecuteReader("sp_GetNewClientsWithProducts", new SqlParameter("@month", month), new SqlParameter("@year", year), new SqlParameter("@userId", userId));
+            }
+            catch (Exception ex)
+            {
+            }
+            return newAppointments;
+        }
+
+        public SqlDataReader GetClientsAvgLengthWithIndustries(string userId)
+        {
+            SqlDataReader newAppointments = null;
+            try
+            {
+                newAppointments = db.ExecuteReader("sp_ClientsAvgLengthWithIndustries", new SqlParameter("@userId", userId));
+            }
+            catch (Exception ex)
+            {
+            }
+            return newAppointments;
+        }
     }
 }

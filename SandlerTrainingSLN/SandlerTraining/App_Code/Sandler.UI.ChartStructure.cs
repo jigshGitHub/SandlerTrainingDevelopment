@@ -448,32 +448,21 @@ namespace Sandler.UI.ChartStructure
                         try
                         {
 
-                            var AverageLengthTimeActiveClientsByIndustry = from record in queries.AverageLengthTimeActiveClientsByIndustry(currentUser)
-                                                                           select new { Industry = record.IndustryTypeName, Months = record.Months };
+                            var AverageLengthTimeActiveClientsByIndustry = queries.AverageLengthTimeActiveClientsByIndustry(currentUser);
 
                             IndustryTypeRepository industrySource = new IndustryTypeRepository();
-
-                            int totalMonths = 0;
-                            int frequency = 0;
-                            double totalAvgMonths;
+                                                        
                             foreach (var record in industrySource.GetAll().Where(r => r.IsActive == true).AsEnumerable())
                             {
                                 try
                                 {
                                     foreach (var d in AverageLengthTimeActiveClientsByIndustry)
                                     {
-                                        if (record.IndustryTypeName == d.Industry)
+                                        if (record.IndustryTypeName == d.IndustryTypeName)
                                         {
-                                            totalMonths += d.Months;
-                                            frequency++;
+                                            this.SetsCollection.Add(new SetValue { Color = record.ColorCode, Label = record.IndustryTypeName, Value = d.Count.ToString("#"), Link = ChartHelper.GeneratePageLink("", this.DrillChartIds) });
+                                            break;
                                         }
-                                    }
-                                    if (frequency > 0)
-                                    {
-                                        totalAvgMonths = totalMonths / frequency;
-                                        this.SetsCollection.Add(new SetValue { Color = record.ColorCode, Label = record.IndustryTypeName, Value = totalAvgMonths.ToString("#"), Link = ChartHelper.GeneratePageLink("", this.DrillChartIds) });
-                                        frequency = 0;
-                                        totalMonths = 0;
                                     }
                                 }
                                 catch (System.InvalidOperationException)

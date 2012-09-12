@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using SandlerRepositories;
 using System.Data.Linq.SqlClient;
+using System.Data.SqlClient;
 namespace SandlerModels.DataModels
 {
     public interface IUserEntities
@@ -118,7 +119,7 @@ namespace SandlerModels.DataModels
                 else if (user.Role == SandlerRoles.Coach)
                 {
                     companies = from company in companiesSource.GetAll().Where(record => record.IsActive == true)
-                                from franchisee in franchisees.Where(record => record.ID == user.CoachID)
+                                from franchisee in franchisees.Where(f => f.CoachID == user.CoachID && f.ID == company.FranchiseeId)
                                 select company;
 
                 }
@@ -214,7 +215,7 @@ namespace SandlerModels.DataModels
                 else if (user.Role == SandlerRoles.FranchiseeOwner)
                 {
                     documents = from document in documentsSource.GetAll().Where(record => record.IsActive == true && record.TBL_COMPANIES.FranchiseeId == user.FranchiseeID)
-                                   select document;
+                                select document;
                 }
                 else if (user.Role == SandlerRoles.Coach)
                 {
@@ -225,7 +226,7 @@ namespace SandlerModels.DataModels
                     //               from franchisee in franchisees.Where(record => record.ID == company.FranchiseeId)
                     //               select opportunity;
                     documents = from document in documentsSource.GetAll().Where(record => record.IsActive == true && record.TBL_COMPANIES.TBL_FRANCHISEE.CoachID == user.CoachID)
-                                   select document;
+                                select document;
 
                 }
                 else if (user.Role == SandlerRoles.Corporate)
@@ -319,19 +320,30 @@ namespace SandlerModels.DataModels
             UserEntities userEntities = null;
             IEnumerable<TBL_CONTACTS> contacts = null;
             IEnumerable<AppointmentSourceVM> data = null;
+            ContactsRepository contactSource;
+            SqlDataReader newAppointments;
+            List<AppointmentSourceVM> newAppsSource;
             try
             {
                 userEntities = UserEntitiesFactory.Get(currentUser);
-                contacts = userEntities.GetNewAppointments(currentUser);
+                //contacts = userEntities.GetNewAppointments(currentUser);
 
                 if (userEntities.ContactsCount > 0)
                 {
-                    data = from contact in contacts
-                           from company in userEntities.Companies.Where(record => record.COMPANIESID == contact.COMPANYID && record.CreationDate.Value.Year == DateTime.Now.Year && record.CreationDate.Value.Month == month)
-                           from appSource in new AppointmentSourceRepository().GetAll().Where(record => record.IsActive == true && record.ApptSourceId == contact.ApptSourceId)
-                           group contact by new { appSource.ApptSourceName }
-                               into grp
-                               select new AppointmentSourceVM { SourceName = grp.Key.ApptSourceName, Count = grp.Count() };
+                    //data = from contact in contacts
+                    //       from company in userEntities.Companies.Where(record => record.COMPANIESID == contact.COMPANYID && record.CreationDate.Value.Year == DateTime.Now.Year && record.CreationDate.Value.Month == month)
+                    //       from appSource in new AppointmentSourceRepository().GetAll().Where(record => record.IsActive == true && record.ApptSourceId == contact.ApptSourceId)
+                    //       group contact by new { appSource.ApptSourceName }
+                    //           into grp
+                    //           select new AppointmentSourceVM { SourceName = grp.Key.ApptSourceName, Count = grp.Count() };
+                    contactSource = new ContactsRepository();
+                    newAppointments = contactSource.GetNewAppointments(month, DateTime.Now.Year, currentUser.UserId.ToString());
+                    newAppsSource = new List<AppointmentSourceVM>();
+                    while (newAppointments.Read())
+                    {
+                        newAppsSource.Add(new AppointmentSourceVM { Count = newAppointments.GetInt32(0), SourceName = newAppointments.GetString(1) });
+                    }
+                    data = newAppsSource.AsEnumerable<AppointmentSourceVM>();
                 }
             }
             catch (Exception ex)
@@ -347,6 +359,9 @@ namespace SandlerModels.DataModels
             UserEntities userEntities = null;
             IEnumerable<TBL_OPPORTUNITIES> opportunties = null;
             IEnumerable<ProductTypeVM> data = null;
+            CompaniesRepository companyRepository = null;
+            SqlDataReader newClients;
+            List<ProductTypeVM> newAppsProducts;
             try
             {
                 userEntities = UserEntitiesFactory.Get(currentUser);
@@ -354,20 +369,20 @@ namespace SandlerModels.DataModels
 
                 if (userEntities.OpportunitiesCount > 0)
                 {
-                    //data = from record in opportunties
-                    //       where (record.TBL_COMPANIES != null && record.TBL_COMPANIES.IsNewCompany == true &&
-                    //       record.TBL_COMPANIES.CreationDate.Value.Year == DateTime.Now.Year &&
-                    //       record.TBL_COMPANIES.CreationDate.Value.Month == month)
-                    //       group record by new { record.Tbl_ProductType.ProductTypeName }
-                    //           into grp
-                    //           select new ProductTypeVM { ProductTypeName = grp.Key.ProductTypeName, Count = grp.Count() };
-
-                    data = from oppotunity in opportunties
-                           from company in userEntities.Companies.Where(record => record.COMPANIESID == oppotunity.COMPANYID && record.IsNewCompany == true && record.CreationDate.Value.Year == DateTime.Now.Year && record.CreationDate.Value.Month == month)
-                           from product in new ProductTypesRepository().GetAll().Where(record => record.Id == oppotunity.ProductID && record.IsActive == true)
-                           group oppotunity by new { product.ProductTypeName }
-                               into grp
-                               select new ProductTypeVM { ProductTypeName = grp.Key.ProductTypeName, Count = grp.Count() };
+                   //data = from oppotunity in opportunties
+                   //        from company in userEntities.Companies.Where(record => record.COMPANIESID == oppotunity.COMPANYID && record.IsNewCompany == true && record.CreationDate.Value.Year == DateTime.Now.Year && record.CreationDate.Value.Month == month)
+                   //        from product in new ProductTypesRepository().GetAll().Where(record => record.Id == oppotunity.ProductID && record.IsActive == true)
+                   //        group oppotunity by new { product.ProductTypeName }
+                   //            into grp
+                   //            select new ProductTypeVM { ProductTypeName = grp.Key.ProductTypeName, Count = grp.Count() };
+                    companyRepository = new CompaniesRepository();
+                    newClients = companyRepository.GetNewClientsProducts(month, DateTime.Now.Year, currentUser.UserId.ToString());
+                    newAppsProducts = new List<ProductTypeVM>();
+                    while (newClients.Read())
+                    {
+                        newAppsProducts.Add(new ProductTypeVM { Count = newClients.GetInt32(0), ProductTypeName = newClients.GetString(1) });
+                    }
+                    data = newAppsProducts.AsEnumerable<ProductTypeVM>();
                 }
             }
             catch (Exception ex)
@@ -389,11 +404,14 @@ namespace SandlerModels.DataModels
 
                 if (userEntities.OpportunitiesCount > 0)
                 {
-                    newClients = (from opportunity in opportunties.Where(record => record.Tbl_ProductType.Id != 0 &&
-                                  record.Tbl_ProductType.ProductTypeName != "Assessment" &&
-                                  record.TBL_COMPANIES.IsNewCompany == true &&
-                                  record.TBL_COMPANIES.CreationDate.Value.Year == DateTime.Now.Year &&
-                                  record.TBL_COMPANIES.CreationDate.Value.Month == month)
+                    //newClients = (from opportunity in opportunties.Where(record => record.Tbl_ProductType.Id != 0 &&
+                    //              record.Tbl_ProductType.ProductTypeName != "Assessment" &&
+                    //              record.TBL_COMPANIES.IsNewCompany == true &&
+                    //              record.TBL_COMPANIES.CreationDate.Value.Year == DateTime.Now.Year &&
+                    //              record.TBL_COMPANIES.CreationDate.Value.Month == month)
+                    //              select opportunity).Count();
+                    newClients = (from opportunity in opportunties.Where(record => record.ProductID != 1)
+                                  from company in userEntities.Companies.Where(c => c.COMPANIESID == opportunity.COMPANYID && c.IsNewCompany == true && c.CreationDate.Value.Year == DateTime.Now.Year && c.CreationDate.Value.Month == month)
                                   select opportunity).Count();
                 }
             }
@@ -416,12 +434,16 @@ namespace SandlerModels.DataModels
 
                 if (userEntities.OpportunitiesCount > 0)
                 {
-                    aveContractPrice = long.Parse((from opportunity in opportunties.Where(record => record.Tbl_ProductType.Id != 0 &&
-                                        record.Tbl_ProductType.ProductTypeName != "Assessment" &&
-                                        record.TBL_COMPANIES.IsNewCompany == true &&
-                                        record.TBL_COMPANIES.CreationDate.Value.Year == DateTime.Now.Year &&
-                                        record.TBL_COMPANIES.CreationDate.Value.Month == month)
+                    //aveContractPrice = long.Parse((from opportunity in opportunties.Where(record => record.Tbl_ProductType.Id != 0 &&
+                    //                    record.Tbl_ProductType.ProductTypeName != "Assessment" &&
+                    //                    record.TBL_COMPANIES.IsNewCompany == true &&
+                    //                    record.TBL_COMPANIES.CreationDate.Value.Year == DateTime.Now.Year &&
+                    //                    record.TBL_COMPANIES.CreationDate.Value.Month == month)
+                    //                               select opportunity.WEIGHTEDVALUE).Sum().Value.ToString());
+                    aveContractPrice = long.Parse((from opportunity in opportunties.Where(record => record.ProductID != 1)
+                                                   from company in userEntities.Companies.Where(c => c.COMPANIESID == opportunity.COMPANYID && c.IsNewCompany == true && c.CreationDate.Value.Year == DateTime.Now.Year && c.CreationDate.Value.Month == month)
                                                    select opportunity.WEIGHTEDVALUE).Sum().Value.ToString());
+
                 }
             }
             catch (Exception ex)
@@ -687,16 +709,29 @@ namespace SandlerModels.DataModels
             IEnumerable<TBL_COMPANIES> companies = null;
             IndustryTypeRepository industrySource = null;
             IEnumerable<IndustryVM> data = null;
+            CompaniesRepository companySource = null;
+            List<IndustryVM> clientsIndustry;
+            SqlDataReader clientsIndustrySource;
             try
             {
                 userEntities = UserEntitiesFactory.Get(currentUser);
                 companies = userEntities.Companies;
 
                 industrySource = new IndustryTypeRepository();
-                data = from record in companies
-                       group record by new { Industry = industrySource.GetById(long.Parse(record.IndustryId.ToString())).IndustryTypeName, Months = SqlMethods.DateDiffMonth(record.CreationDate, DateTime.Now) }
-                           into grp
-                           select new IndustryVM { IndustryTypeName = grp.Key.Industry, Months = grp.Key.Months.Value };
+                //data = from record in companies
+                //       from industry in industrySource.GetAll().Where(i => i.IsActive == true && i.IndId == record.IndustryId)
+                //       group record by new { Industry = industry.IndustryTypeName, Months = SqlMethods.DateDiffMonth(record.CreationDate, DateTime.Now) }
+                //           into grp
+                //           select new IndustryVM { IndustryTypeName = grp.Key.Industry, Months = grp.Key.Months.Value };
+
+                companySource = new CompaniesRepository();
+                clientsIndustrySource = companySource.GetClientsAvgLengthWithIndustries(currentUser.UserId.ToString());
+                clientsIndustry = new List<IndustryVM>();
+                while (clientsIndustrySource.Read())
+                {
+                    clientsIndustry.Add(new IndustryVM { Count = clientsIndustrySource.GetInt32(1), IndustryTypeName = clientsIndustrySource.GetString(0) });
+                }
+                data = clientsIndustry.AsEnumerable<IndustryVM>();
 
             }
             catch (Exception ex)

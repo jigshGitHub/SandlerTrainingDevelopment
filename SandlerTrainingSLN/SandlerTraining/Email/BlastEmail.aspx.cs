@@ -157,10 +157,10 @@ public partial class Email_BlastEmail : BasePage
                     string[] receiverAddress = txtEmailAdrs.Text.Trim().Split(',');
                     foreach (string address in receiverAddress)
                     {
-                        //Add Address as BCC
+                        //Add Address as To
                         if (Validation.ValidateEmail(address.Trim()))
                         {
-                            message.Bcc.Add(new MailAddress(address.Trim()));
+                            message.To.Add(new MailAddress(address.Trim()));
                         }
                     }
 
@@ -185,7 +185,7 @@ public partial class Email_BlastEmail : BasePage
                 if (sendEmails)
                 {
                     client.Send(message);
-                    lblInfo.Text = "Your Blast Email has been sent successfully.";
+                    lblInfo.Text = "Your email has been sent successfully.";
                     lblError.Text = "";
                 }
             }
