@@ -1,4 +1,6 @@
-
+/*
+Executed in 139 Dt:9/11/12 11:30PM
+*/
 IF  EXISTS (SELECT * FROM sys.views WHERE object_id = OBJECT_ID(N'[dbo].[vw_NewAppointmentsWithAppointmentSource]'))
 DROP VIEW [dbo].[vw_NewAppointmentsWithAppointmentSource]
 GO

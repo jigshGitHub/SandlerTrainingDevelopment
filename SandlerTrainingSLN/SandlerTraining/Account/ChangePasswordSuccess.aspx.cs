@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using SandlerModels.DataModels;
+using SandlerModels.DataIntegration;
 
 public partial class Account_ChangePasswordSuccess : BasePage
 {

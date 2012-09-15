@@ -4,9 +4,10 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using SandlerModels;
+//using SandlerModels;
 using SandlerRepositories;
 using System.Data;
+using SandlerModels.DataIntegration;
 
 
 public partial class CRM_Contacts_Search : BasePage

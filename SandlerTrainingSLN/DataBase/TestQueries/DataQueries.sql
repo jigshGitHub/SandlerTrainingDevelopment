@@ -36,3 +36,15 @@ FROM TBL_CONTACTS AS C WITH (NOLOCK)
 INNER JOIN TBL_COMPANIES AS CMP WITH (NOLOCK) ON CMP.COMPANIESID = C.COMPANYID
 INNER JOIN aspnet_Users AS U WITH(NOLOCK) ON U.UserId = C.CreatedBy 
 WHERE     (CMP.FranchiseeId = 6 AND CMP.COMPANIESID = 7);
+
+
+Select * from aspnet_membership 
+where DatePart(Year,CreateDate) = DatePart(Year,GetDate()) AND
+DatePart(Month,CreateDate) = DatePart(Month,GetDate()) AND
+DatePart(Day,CreateDate) = DatePart(Day,GetDate()) 
+
+Select * from tbl_franchisee
+where DatePart(Year,CreatedDate) = DatePart(Year,GetDate()) AND
+DatePart(Month,CreatedDate) = DatePart(Month,GetDate()) AND
+DatePart(Day,CreatedDate) = DatePart(Day,GetDate()) 
+--delete from tbl_franchisee where id = 24

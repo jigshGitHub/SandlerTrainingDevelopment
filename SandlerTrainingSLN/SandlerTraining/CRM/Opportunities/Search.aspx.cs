@@ -53,7 +53,9 @@ public partial class OpportunitySearch : OpportunityBasePage
                        ContactName = GetContact(record.CONTACTID).FIRSTNAME + GetContact(record.CONTACTID).LASTNAME,
                        ContactPhone = GetContact(record.CONTACTID).PHONE,
                        ContactEmail = GetContact(record.CONTACTID).EMAIL,
-                       Product = GetProduct(record.ProductID).ProductTypeName
+                       Product = GetProduct(record.ProductID).ProductTypeName,
+                       Franchisee = record.FranchiseeName,
+                       Region = record.Region
                    };
         TotalRecords = data.Count();
         lblResultsCount.Text = "Total records found:" + TotalRecords.ToString();

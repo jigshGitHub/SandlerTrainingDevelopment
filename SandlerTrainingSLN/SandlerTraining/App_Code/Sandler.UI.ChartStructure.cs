@@ -135,7 +135,7 @@ namespace Sandler.UI.ChartStructure
                 this.DrillChartIds = (this.DrillOverride) ? this.Id.ToString() : this.DrillChartIds;
                 List<ChartParameter> chartParams = null;
                 ChartDataSet lastDs = null;
-                SandlerModels.DataModels.CompiledQueries queries = new SandlerModels.DataModels.CompiledQueries();
+                SandlerModels.DataIntegration.DataQueries queries = new SandlerModels.DataIntegration.DataQueries();
 
                 AppointmentSourceRepository appointmentSource;
                 ProductTypesRepository productTypesSource;
@@ -158,7 +158,7 @@ namespace Sandler.UI.ChartStructure
                         {
                             try
                             {
-                                IEnumerable<SandlerModels.DataModels.AppointmentSourceVM> appointmentSourceVMcollection = queries.GetNewAppointmentSource(currentUser, DateTime.Now.AddMonths(int.Parse(parameter.Value)).Month);
+                                IEnumerable<SandlerModels.DataIntegration.AppointmentSourceVM> appointmentSourceVMcollection = queries.GetNewAppointmentSource(currentUser, DateTime.Now.AddMonths(int.Parse(parameter.Value)).Month);
                                 if (appointmentSourceVMcollection != null)
                                 {
                                     var newAppointments = from record in appointmentSourceVMcollection
@@ -207,7 +207,7 @@ namespace Sandler.UI.ChartStructure
                         {
                             try
                             {
-                                IEnumerable<SandlerModels.DataModels.ProductTypeVM> productTypeVMCollection = queries.GetNewClientsByProductType(currentUser, DateTime.Now.AddMonths(int.Parse(parameter.Value)).Month);
+                                IEnumerable<SandlerModels.DataIntegration.ProductTypeVM> productTypeVMCollection = queries.GetNewClientsByProductType(currentUser, DateTime.Now.AddMonths(int.Parse(parameter.Value)).Month);
                                 if (productTypeVMCollection != null)
                                 {
                                     var newClientsByProducts = from record in productTypeVMCollection
@@ -441,7 +441,7 @@ namespace Sandler.UI.ChartStructure
                 this.DrillChartIds = (this.DrillOverride) ? this.Id.ToString() : this.DrillChartIds;
                 int colorIndex = 0;
                 //UserEntities userEntities;
-                SandlerModels.DataModels.CompiledQueries queries = new SandlerModels.DataModels.CompiledQueries();
+                SandlerModels.DataIntegration.DataQueries queries = new SandlerModels.DataIntegration.DataQueries();
                 switch (this.Id)
                 {
                     case ChartID.AverageLengthTimeActiveClientsByIndustry:
@@ -577,7 +577,7 @@ namespace Sandler.UI.ChartStructure
             {
                 this.DrillChartIds = (this.DrillOverride) ? this.Id.ToString() : this.DrillChartIds;
                 int colorIndex = 0;
-                SandlerModels.DataModels.CompiledQueries queries = new SandlerModels.DataModels.CompiledQueries();
+                SandlerModels.DataIntegration.DataQueries queries = new SandlerModels.DataIntegration.DataQueries();
                 AppointmentSourceRepository appointmentSource = null;
                 ProductTypesRepository productTypesSource = null;
                 string[] colors = null;

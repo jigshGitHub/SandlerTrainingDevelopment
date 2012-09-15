@@ -11,7 +11,8 @@ public partial class Account_FranchiseeOwner_Add : BasePage
     {
         if (!IsPostBack)
         {
-            hdnCoachId.Value = CurrentUser.UserId.ToString();
+            hdnCoachId.Value = CurrentUser.UserId.ToString(); 
+            hdnCoachUserid.Value = CurrentUser.UserId.ToString();
         }
     }
 }

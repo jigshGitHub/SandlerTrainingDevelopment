@@ -6,52 +6,105 @@ using System.Web.Http;
 using SandlerModels;
 using SandlerRepositories;
 using System.Net.Http.Headers;
-using System.Web.Security;
 using SandlerViewModels;
 using SandlerViewModelsMappings;
+using SandlerModels.DataIntegration;
 namespace SandlerAPI.Controllers
 {
     [Authorize()]
     public class FranchiseeController : ApiController
     {
-        public Coach PostCoach(Coach franchisee)
+        public Franchisee PostFranchisee(Franchisee franchisee)
         {
-            MembershipUser user;
-            CoachRepository repository;
-            TBL_COACH coachToSave;
+            FranchiseeRepository repository;
+            FranchiseeUsersRepository userRepository;
+            TBL_FRANCHISEE franchiseeToSave = null;
+            TBL_FRANCHISEE_USERS franchiseeUserToSave = null;
+            string userName = "";
+            Guid userId;
             try
             {
-                repository = new CoachRepository();
+                repository = new FranchiseeRepository();
+                userRepository = new FranchiseeUsersRepository();
+
+                userName = franchisee.FranchiseeUser.FirstName.ToLower() + "." + franchisee.FranchiseeUser.LastName.ToLower();
+
                 if (franchisee.ID > 0)
                 {
-                    coachToSave = repository.GetById(franchisee.ID);
-                    coachToSave.LastUpdatedBy = new Guid(franchisee.CreatedByCorporateID);
-                    coachToSave.LastCreatedDate = DateTime.Now;
+                    franchiseeUserToSave = userRepository.GetAll().Where(record => record.FranchiseeID == franchisee.ID && record.UserID.ToString() == franchisee.FranchiseeUser.UserID).SingleOrDefault();
+                    FranchiseeUserMappings.ViewModelToModel(franchiseeUserToSave, franchisee.FranchiseeUser);
+                    userRepository.Update(franchiseeUserToSave);
 
-                    CoachMappings.ViewModelToModel(coachToSave, franchisee);
+                    franchiseeToSave = repository.GetById(franchisee.ID);
+                    franchiseeToSave.LastUpdatedBy = new Guid(franchisee.CreatedByCoachID);
+                    franchiseeToSave.LastCreatedDate = DateTime.Now;
 
-                    repository.Update(coachToSave);
-                    user = Membership.GetUser(coachToSave.UserID);
-                    user.Email = franchisee.Email;
-                    Membership.UpdateUser(user);
+                    FranchiseeMappings.ViewModelToModel(franchiseeToSave, franchisee);
+
+                    repository.Update(franchiseeToSave);
+
+                    UserEntitiesFactory.UpdateUser(franchisee.FranchiseeUser.UserID, franchisee.FranchiseeUser.Email);
                 }
                 else
                 {
-                    user = Membership.CreateUser(franchisee.UserName, "pa$$word", franchisee.Email);
-                    Roles.AddUserToRole(franchisee.UserName, SandlerRoles.Coach.ToString());
+                    if (UserEntitiesFactory.IsUserExits(userName))
+                    {
+                        userName = userName + UserEntitiesFactory.UsersCount(userName).ToString();
+                    }
 
-                    coachToSave = new TBL_COACH();
-                    coachToSave.CreatedBy = new Guid(franchisee.CreatedByCorporateID);
-                    coachToSave.UserID = (Guid)user.ProviderUserKey;
-                    coachToSave.CreatedDate = DateTime.Now;
-                    coachToSave.LastCreatedDate = DateTime.Now;
-                    coachToSave.IsActive = true;
-                    CoachMappings.ViewModelToModel(coachToSave, franchisee);
-                    repository.Add(coachToSave);
-                    franchisee.UserName = user.UserName;
-                }                
+                    userId = UserEntitiesFactory.CreateUserWithRoles(userName, franchisee.FranchiseeUser.Email, SandlerRoles.FranchiseeOwner.ToString());
 
-                //CoachMappings.ModelToViewModel(franchisee, coachToSave);
+                    try
+                    {
+                        franchiseeToSave = new TBL_FRANCHISEE();
+                        franchiseeToSave.CreatedBy = new Guid(franchisee.CreatedByCoachID);
+                        franchiseeToSave.CreatedDate = DateTime.Now;
+                        franchiseeToSave.LastCreatedDate = DateTime.Now;
+                        franchiseeToSave.IsActive = true;
+
+                        FranchiseeMappings.ViewModelToModel(franchiseeToSave, franchisee);
+                        repository.Add(franchiseeToSave);
+                    }
+                    catch (System.Data.Entity.Validation.DbEntityValidationException ex)
+                    {
+
+                        UserEntitiesFactory.DeleteUserWithRoles(userName, SandlerRoles.FranchiseeOwner.ToString());
+
+                        foreach (var errors in ex.EntityValidationErrors)
+                        {
+                            foreach (var error in errors.ValidationErrors)
+                            {
+                                throw new Exception(error.PropertyName + " " + error.ErrorMessage);
+                            }
+                        }
+
+                    }
+                    catch (Exception ex)
+                    {
+                        UserEntitiesFactory.DeleteUserWithRoles(userName, SandlerRoles.FranchiseeOwner.ToString());
+                    }
+
+                    try
+                    {
+                        franchiseeUserToSave = new TBL_FRANCHISEE_USERS();
+                        franchiseeUserToSave.FranchiseeID = franchiseeToSave.ID;
+                        franchiseeUserToSave.IsEmailSubscription = true;
+                        franchiseeUserToSave.UserID = userId;
+
+                        FranchiseeUserMappings.ViewModelToModel(franchiseeUserToSave, franchisee.FranchiseeUser);
+                        franchisee.FranchiseeUser.UserName = userName;
+                        userRepository.Add(franchiseeUserToSave);
+                    }
+                    catch (Exception ex)
+                    {
+                        UserEntitiesFactory.DeleteUserWithRoles(userName, SandlerRoles.FranchiseeOwner.ToString()); 
+                        repository.Delete(franchiseeToSave);
+                    }
+
+                    //Send email user has been created
+                }
+
+                FranchiseeMappings.ModelToViewModel(franchisee, franchiseeToSave, franchiseeUserToSave);
             }
             catch (Exception ex)
             {

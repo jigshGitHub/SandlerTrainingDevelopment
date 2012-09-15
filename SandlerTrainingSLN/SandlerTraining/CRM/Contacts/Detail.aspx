@@ -68,7 +68,7 @@
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="E-mail :">
                             <EditItemTemplate>
-                                <asp:TextBox ID="txtEmail" MaxLength="50" runat="server" Text='<%# Bind("Email") %>'></asp:TextBox>
+                                <asp:TextBox ID="txtEmail" MaxLength="50" Width="380px" runat="server" Text='<%# Bind("Email") %>'></asp:TextBox>
                                 <asp:RequiredFieldValidator ID="rfvEmailTB" ControlToValidate="txtEmail" Display="Static" InitialValue="" runat="server" ErrorMessage="Please Enter Email to proceed.">*</asp:RequiredFieldValidator>
                                 <asp:RegularExpressionValidator ID="regExpVal" runat="server" ControlToValidate="txtEmail" ErrorMessage="Please Enter Valid Email address." ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*">*</asp:RegularExpressionValidator>
                             </EditItemTemplate>

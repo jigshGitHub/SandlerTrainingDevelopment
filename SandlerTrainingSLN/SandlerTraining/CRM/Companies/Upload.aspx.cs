@@ -7,7 +7,7 @@ using System.Web.UI.WebControls;
 using System.Data;
 using System.Data.OleDb;
 using SandlerModels;
-using SandlerModels.DataModels;
+using SandlerModels.DataIntegration;
 using System.Configuration;
 public partial class CRM_Companies_Upload : UploaderBasePage
 {

@@ -46,6 +46,7 @@ namespace SandlerRepositories
         public void Delete(T entity)
         {
             dbset.Remove(entity);
+            dataContext.SaveChanges();
         }
         public void Delete(Expression<Func<T, bool>> where)
         {
@@ -234,6 +235,11 @@ namespace SandlerRepositories
         public OpportunitiesRepository()
             : base(new DBFactory())
         {
+        }
+
+        public IEnumerable<Opportunity> GetByUserId(Guid userID)
+        {
+            return (this.DatabaseFactory.Get() as SandlerDBEntities).GetOpportunitiesByUser(userID); 
         }
     }
 

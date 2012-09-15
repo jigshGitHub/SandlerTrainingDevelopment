@@ -7,6 +7,7 @@ using System.Web.UI.WebControls;
 using SandlerModels;
 using SandlerRepositories;
 using System.Data;
+using SandlerModels.DataIntegration;
 
 public partial class CRM_Companies_Search : BasePage
 {

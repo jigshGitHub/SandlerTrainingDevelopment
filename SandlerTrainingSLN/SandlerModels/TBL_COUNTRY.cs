@@ -16,9 +16,9 @@ namespace SandlerModels
     {
         public TBL_COUNTRY()
         {
-            this.TBL_FRANCHISEE = new HashSet<TBL_FRANCHISEE>();
-            this.TBL_FRANCHISEE_USERS = new HashSet<TBL_FRANCHISEE_USERS>();
             this.TBL_REGION = new HashSet<TBL_REGION>();
+            this.TBL_FRANCHISEE_USERS = new HashSet<TBL_FRANCHISEE_USERS>();
+            this.TBL_FRANCHISEE = new HashSet<TBL_FRANCHISEE>();
         }
     
         public int ID { get; set; }
@@ -30,9 +30,9 @@ namespace SandlerModels
         public Nullable<System.Guid> CreatedBy { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }
     
-        internal ICollection<TBL_FRANCHISEE> TBL_FRANCHISEE { get; set; }
-        internal ICollection<TBL_FRANCHISEE_USERS> TBL_FRANCHISEE_USERS { get; set; }
         internal ICollection<TBL_REGION> TBL_REGION { get; set; }
+        internal ICollection<TBL_FRANCHISEE_USERS> TBL_FRANCHISEE_USERS { get; set; }
+        internal ICollection<TBL_FRANCHISEE> TBL_FRANCHISEE { get; set; }
     }
     
 }

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using SandlerModels;
 using SandlerRepositories;
-using SandlerModels.DataModels;
+using SandlerModels.DataIntegration;
 using System.Configuration;
 /// <summary>
 /// Summary description for OpportunityBasePage
@@ -19,17 +19,17 @@ public class OpportunityBasePage : BasePage
         //
     }
 
-    protected virtual IQueryable<TBL_OPPORTUNITIES> GetOpportunities(int companyId)
+    protected virtual IQueryable<Opportunity> GetOpportunities(int companyId)
     {
         UserEntities userEntities = UserEntitiesFactory.Get(this.CurrentUser);
-        IQueryable<TBL_OPPORTUNITIES> data = userEntities.Opportunities.AsQueryable();
+        IQueryable<Opportunity> data = userEntities.Opportunities.AsQueryable();
         return (companyId == 0) ? data : data.Where(record => record.COMPANYID == companyId);
     }
 
-    protected virtual IQueryable<TBL_OPPORTUNITIES> GetOpportunities(int? companyId, string opportunityId, string name, string repFirstName, string repLastName, string repPhone, int? productId, int? statusId, int? contactId,string contactPhone, string contactEmail)
+    protected virtual IQueryable<Opportunity> GetOpportunities(int? companyId, string opportunityId, string name, string repFirstName, string repLastName, string repPhone, int? productId, int? statusId, int? contactId, string contactPhone, string contactEmail)
     {
         UserEntities userEntities = UserEntitiesFactory.Get(this.CurrentUser);
-        IQueryable<TBL_OPPORTUNITIES> data = userEntities.Opportunities.AsQueryable();
+        IQueryable<Opportunity> data = userEntities.Opportunities.AsQueryable();
         IQueryable<TBL_CONTACTS> contacts = userEntities.Contacts.AsQueryable();
 
         

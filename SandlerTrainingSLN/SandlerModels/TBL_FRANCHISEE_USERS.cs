@@ -25,6 +25,7 @@ namespace SandlerModels
         public string Zip { get; set; }
         public Nullable<int> CountryID { get; set; }
         public Nullable<bool> IsEmailSubscription { get; set; }
+        public int ID { get; set; }
     
         internal aspnet_Users aspnet_Users { get; set; }
         internal TBL_COUNTRY TBL_COUNTRY { get; set; }

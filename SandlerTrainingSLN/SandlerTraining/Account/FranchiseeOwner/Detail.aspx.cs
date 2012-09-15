@@ -12,9 +12,9 @@ public partial class Account_FranchiseeOwner_Details : BasePage
         if (!Page.IsPostBack)
         {
             hdnFranchiseeId.Value = Request.QueryString["id"];
-            hdnUserId.Value = Request.QueryString["UserId"];
+            hdnFranchiseeOwnerUserId.Value = Request.QueryString["UserId"];
             hdnCoachId.Value = CurrentUser.UserId.ToString();
-            anchorEdit.HRef = "Edit.aspx?UserId=" + hdnUserId.Value + "&id=" + hdnFranchiseeId.Value;
+            anchorEdit.HRef = "Edit.aspx?UserId=" + hdnFranchiseeOwnerUserId.Value + "&id=" + hdnFranchiseeId.Value;
         }
     }
 }

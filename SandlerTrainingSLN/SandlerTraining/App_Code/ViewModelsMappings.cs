@@ -58,24 +58,22 @@ namespace SandlerViewModelsMappings
             //
         }
 
-        public static void ViewModelToModel(TBL_FRANCHISEE _franchisee, TBL_FRANCHISEE_USERS _franchiseeUser, Franchisee franchisee)
+        public static void ViewModelToModel(TBL_FRANCHISEE _franchisee, Franchisee franchisee)
         {
+            _franchisee.CoachID = franchisee.CoachID;
+            _franchisee.Name = franchisee.Name;
             _franchisee.Address1 = franchisee.Address1;
             _franchisee.Address2 = franchisee.Address2;
             _franchisee.City = franchisee.City;
-            _franchisee.PhoneNumber = Convert.ToDecimal(franchisee.PhoneNumber);
+            _franchisee.PhoneNumber = franchisee.PhoneNumber;
+            _franchisee.FaxNumber = franchisee.FaxNumber;
+            _franchisee.EmailAddress = franchisee.Email;
+            _franchisee.WebAddress = franchisee.WebAddress;
             _franchisee.State = franchisee.State;
             _franchisee.Zip = franchisee.Zip;
             _franchisee.LastUpdatedBy = _franchisee.CreatedBy;
-            _franchiseeUser.ADDRESS = franchisee.FranchiseeUser.ADDRESS;
-            _franchiseeUser.City = franchisee.FranchiseeUser.City;
-            _franchiseeUser.ContactNumber = franchisee.FranchiseeUser.ContactNumber;
-            _franchiseeUser.FirstName = franchisee.FranchiseeUser.FirstName;
-            _franchiseeUser.FranchiseeID = franchisee.FranchiseeUser.FranchiseeID;
-            _franchiseeUser.IsEmailSubscription = franchisee.FranchiseeUser.IsEmailSubscription;
-            _franchiseeUser.LastName = franchisee.FranchiseeUser.LastName;
-            _franchiseeUser.State = franchisee.FranchiseeUser.State;
-            _franchiseeUser.Zip = franchisee.FranchiseeUser.Zip;
+            if(franchisee.CountryID > 0)
+                _franchisee.CountryID = franchisee.CountryID;
         }
 
         public static void ModelToViewModel(Franchisee _franchisee, TBL_FRANCHISEE franchisee, TBL_FRANCHISEE_USERS franchiseeUser)
@@ -86,11 +84,14 @@ namespace SandlerViewModelsMappings
             _franchisee.City = franchisee.City;
             _franchisee.State = franchisee.State;
             _franchisee.Zip = franchisee.Zip;
+            _franchisee.CountryID = franchisee.CountryID.Value;
             _franchisee.ID = franchisee.ID;
             _franchisee.Name = franchisee.Name;
-            _franchisee.PhoneNumber = (franchisee.PhoneNumber.HasValue) ? franchisee.PhoneNumber.Value.ToString() : "";
+            _franchisee.PhoneNumber = franchisee.PhoneNumber;
+            _franchisee.FaxNumber = franchisee.FaxNumber;
             _franchisee.WebAddress = franchisee.WebAddress;
             _franchisee.Email = franchisee.EmailAddress;
+            _franchisee.FranchiseeUser.FranchiseeID = franchiseeUser.FranchiseeID;
             _franchisee.FranchiseeUser.ADDRESS = franchiseeUser.ADDRESS;
             _franchisee.FranchiseeUser.City = franchiseeUser.City;
             _franchisee.FranchiseeUser.ContactNumber = franchiseeUser.ContactNumber;
@@ -98,6 +99,7 @@ namespace SandlerViewModelsMappings
             _franchisee.FranchiseeUser.IsEmailSubscription = franchiseeUser.IsEmailSubscription.Value;
             _franchisee.FranchiseeUser.LastName = franchiseeUser.LastName;
             _franchisee.FranchiseeUser.State = franchiseeUser.State;
+            _franchisee.FranchiseeUser.CountryID = franchiseeUser.CountryID.Value;
             _franchisee.FranchiseeUser.UserID = franchiseeUser.UserID.ToString();
             _franchisee.FranchiseeUser.Zip = franchiseeUser.Zip;
         }
@@ -121,6 +123,8 @@ namespace SandlerViewModelsMappings
             _franchiseeUser.LastName = franchiseeUser.LastName;
             _franchiseeUser.State = franchiseeUser.State;
             _franchiseeUser.Zip = franchiseeUser.Zip;
+            if(franchiseeUser.CountryID > 0)
+                _franchiseeUser.CountryID = franchiseeUser.CountryID;
             _franchiseeUser.ContactNumber = franchiseeUser.ContactNumber;
             _franchiseeUser.IsEmailSubscription = franchiseeUser.IsEmailSubscription;
         }

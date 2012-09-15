@@ -29,8 +29,6 @@ namespace SandlerModels
         public string State { get; set; }
         public string Zip { get; set; }
         public Nullable<int> CountryID { get; set; }
-        public Nullable<decimal> PhoneNumber { get; set; }
-        public Nullable<decimal> FaxNumber { get; set; }
         public string WebAddress { get; set; }
         public string EmailAddress { get; set; }
         public Nullable<bool> IsActive { get; set; }
@@ -38,6 +36,8 @@ namespace SandlerModels
         public Nullable<System.Guid> LastUpdatedBy { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }
         public Nullable<System.Guid> CreatedBy { get; set; }
+        public string PhoneNumber { get; set; }
+        public string FaxNumber { get; set; }
     
         internal TBL_COACH TBL_COACH { get; set; }
         internal ICollection<TBL_COMPANIES> TBL_COMPANIES { get; set; }

@@ -69,6 +69,10 @@
                             <asp:BoundField ItemStyle-HorizontalAlign="Center" DataField="COMPANYNAME" HeaderText="Company"
                                 HeaderStyle-ForeColor="Blue" SortExpression="COMPANYNAME" />
                             <%--For Export to Excel--%>
+                            <asp:BoundField ItemStyle-HorizontalAlign="Center" HeaderStyle-ForeColor="Blue" DataField="FranchiseeName"
+                                HeaderText="Franchisee" />
+                            <asp:BoundField ItemStyle-HorizontalAlign="Center" HeaderStyle-ForeColor="Blue" DataField="RegionName"
+                                HeaderText="Region" />
                             <asp:BoundField ItemStyle-HorizontalAlign="Center" HeaderStyle-ForeColor="Blue" DataField="NewApptDesp"
                                 HeaderText="New Appointment?" />
                             <asp:BoundField ItemStyle-HorizontalAlign="Center" HeaderStyle-ForeColor="Blue" DataField="ApptSourceName"
