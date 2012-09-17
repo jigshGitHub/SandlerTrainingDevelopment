@@ -8,6 +8,7 @@ using IEnumerator = System.Collections.IEnumerator;
 
 namespace SandlerData
 {
+    //http://www.inflecto.co.uk/Inflecto-Blog/post/2009/11/12/IQueryable-Sorting-Paging-Searching-and-Counting.aspx
     public static class IQueryableExtensions
     {
         public static Type GetDataItemType(this IQueryable DataSource)

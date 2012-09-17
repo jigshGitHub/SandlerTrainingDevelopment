@@ -421,22 +421,23 @@
 
                 $('#resultSummary ul').empty();
 
-                if (self.franchiseeName() == '') {
+                if (self.franchiseeName() == '' || self.franchiseeName() == undefined) {
                     self.franchiseeNameRequiredHasError(true);
                     self.franchiseeNameRequiredMsg('Franchisee Name is required');
                     self.validationErrors.push(self.franchiseeNameRequiredMsg());
                 }
-                if (self.firstName() == '') {
+                
+                if (self.firstName() == '' || self.firstName() == undefined) {
                     self.firstNameRequiredHasError(true);
                     self.firstNameRequiredMsg('First Name is required');
                     self.validationErrors.push(self.firstNameRequiredMsg());
                 }
-                if (self.lastName() == '') {
+                if (self.lastName() == '' || self.lastName() == undefined) {
                     self.lastNameRequiredHasError(true);
                     self.lastNameRequiredMsg('Last Name is required');
                     self.validationErrors.push(self.lastNameRequiredMsg());
                 }
-                if (self.ownerEmail() == '') {
+                if (self.ownerEmail() == '' || self.ownerEmail() == undefined) {
                     self.ownerEmailRequiredHasError(true);
                     self.ownerEmailRequiredMsg('Owner Email is required');
                     self.validationErrors.push(self.ownerEmailRequiredMsg());

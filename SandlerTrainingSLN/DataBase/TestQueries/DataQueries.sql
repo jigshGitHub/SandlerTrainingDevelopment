@@ -11,13 +11,13 @@ INNER JOIN TBL_REGION r ON r.ID = c.RegionID
 INNER JOIN TBL_COUNTRY con ON con.ID = r.CountryID
 
 --Region-Coach-Franchisee-FranchiseeUsers
-SELECT  f.Id,   f.Name, u.UserName,u.UserId, r.Name
+SELECT  f.Id, f.CoachID ,  f.Name, u.UserName,u.UserId, r.Name
 FROM TBL_FRANCHISEE_USERS AS fu 
 INNER JOIN aspnet_Users AS u ON fu.UserID = u.UserId 
 INNER JOIN TBL_FRANCHISEE AS f ON f.ID = fu.FranchiseeID
 INNER JOIN TBL_COACH AS c ON f.CoachID = c.ID
 INNER JOIN TBL_Region AS r ON r.ID = c.RegionID
---where u.UserName='msipdarling'
+where f.CoachID=10
 order by f.name;
 
 select * from aspnet_Users where UserName='judah.domke'
@@ -39,12 +39,17 @@ WHERE     (CMP.FranchiseeId = 6 AND CMP.COMPANIESID = 7);
 
 
 Select * from aspnet_membership 
-where DatePart(Year,CreateDate) = DatePart(Year,GetDate()) AND
-DatePart(Month,CreateDate) = DatePart(Month,GetDate()) AND
-DatePart(Day,CreateDate) = DatePart(Day,GetDate()) 
-
+where 
+--DatePart(Year,CreateDate) = DatePart(Year,GetDate()) AND
+--DatePart(Month,CreateDate) = DatePart(Month,GetDate()) AND
+--DatePart(Day,CreateDate) = DatePart(Day,GetDate()) 
+userid = '7a911b6a-20ca-4e64-8411-f10f7b2aa5fd'
 Select * from tbl_franchisee
 where DatePart(Year,CreatedDate) = DatePart(Year,GetDate()) AND
 DatePart(Month,CreatedDate) = DatePart(Month,GetDate()) AND
 DatePart(Day,CreatedDate) = DatePart(Day,GetDate()) 
 --delete from tbl_franchisee where id = 24
+
+Select * from tbl_franchisee_users
+where userid='7A911B6A-20CA-4E64-8411-F10F7B2AA5FD'
+

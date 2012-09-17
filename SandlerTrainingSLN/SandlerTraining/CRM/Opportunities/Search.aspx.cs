@@ -176,7 +176,7 @@ public partial class OpportunitySearch : OpportunityBasePage
     protected void gvOpportunities_Sorting(object sender, GridViewSortEventArgs e)
     {
         SortExpression = e.SortExpression;
-        SortDirection = e.SortDirection.ToString();
+        //SortDirection = e.SortDirection.ToString();
     }
 
     #endregion

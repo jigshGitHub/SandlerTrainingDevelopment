@@ -99,7 +99,8 @@ namespace SandlerViewModelsMappings
             _franchisee.FranchiseeUser.IsEmailSubscription = franchiseeUser.IsEmailSubscription.Value;
             _franchisee.FranchiseeUser.LastName = franchiseeUser.LastName;
             _franchisee.FranchiseeUser.State = franchiseeUser.State;
-            _franchisee.FranchiseeUser.CountryID = franchiseeUser.CountryID.Value;
+            if(franchiseeUser.CountryID.HasValue)
+                _franchisee.FranchiseeUser.CountryID = franchiseeUser.CountryID.Value;
             _franchisee.FranchiseeUser.UserID = franchiseeUser.UserID.ToString();
             _franchisee.FranchiseeUser.Zip = franchiseeUser.Zip;
         }
@@ -140,6 +141,8 @@ namespace SandlerViewModelsMappings
             _franchiseeUser.Zip = franchiseeUser.Zip;
             _franchiseeUser.IsEmailSubscription = (franchiseeUser.IsEmailSubscription.HasValue) ? franchiseeUser.IsEmailSubscription.Value : false;
             _franchiseeUser.FranchiseeID = franchiseeUser.FranchiseeID;
+            if (franchiseeUser.CountryID.HasValue)
+                _franchiseeUser.CountryID = franchiseeUser.CountryID.Value;
         }
 
     }

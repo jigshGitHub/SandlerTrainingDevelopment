@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-public partial class Account_FranchiseeOwner_Details : BasePage
+public partial class Account_FranchiseeOwner_Detail : BasePage
 {
     protected void Page_Load(object sender, EventArgs e)
     {

@@ -15,7 +15,7 @@ public partial class OpportunityIndex : OpportunityBasePage
             opportunityMenu.MenuEntityTitle = "Opportunities";
             if (!string.IsNullOrEmpty(Request.QueryString["currentPage"]))
                 CurrentPage = int.Parse(Request.QueryString["currentPage"]);
-
+            CompanyID = 0;
             BindOpportunitiesForAComnpany(0);
         }
     }
@@ -42,8 +42,9 @@ public partial class OpportunityIndex : OpportunityBasePage
                        Region = record.Region
                    };
         TotalRecords = data.Count();
+
         //var filterRecords = 
-        gvOpportunities.DataSource = IQueryableExtensions.Page(data, PageSize, CurrentPage).AsQueryable();
+        gvOpportunities.DataSource = IQueryableExtensions.Page(IQueryableExtensions.Sort(data, SortExpression, IsAscendigSortOrder), PageSize, CurrentPage).AsQueryable();
         gvOpportunities.DataBind();
 
         gvExport.DataSource = data;
@@ -69,7 +70,8 @@ public partial class OpportunityIndex : OpportunityBasePage
     protected void ddlCompany_SelectedIndexChanged(object sender, EventArgs e)
     {
         DropDownList ddlCompany = sender as DropDownList;
-        BindOpportunitiesForAComnpany(int.Parse(ddlCompany.SelectedValue));
+        CompanyID = int.Parse(ddlCompany.SelectedValue);
+        BindOpportunitiesForAComnpany(CompanyID);
     }
 
 
@@ -114,8 +116,16 @@ public partial class OpportunityIndex : OpportunityBasePage
 
     protected void gvOpportunities_Sorting(object sender, GridViewSortEventArgs e)
     {
+        if (SortExpression == e.SortExpression)
+        {
+            IsAscendigSortOrder = !IsAscendigSortOrder;
+        }
+        else
+        {
+            IsAscendigSortOrder = true;
+        }
         SortExpression = e.SortExpression;
-        SortDirection = e.SortDirection.ToString();
+        BindOpportunitiesForAComnpany(CompanyID);
     }
 
     #endregion

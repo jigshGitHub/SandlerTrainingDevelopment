@@ -55,7 +55,7 @@ public abstract class BasePage : System.Web.UI.Page
         {
             if (ViewState["SortExpression"] == null)
             {
-                ViewState["SortExpression"] = "ID";
+                ViewState["SortExpression"] = "OPPORTUNITYID";
             }
             return ViewState["SortExpression"].ToString();
         }
@@ -64,19 +64,19 @@ public abstract class BasePage : System.Web.UI.Page
             ViewState["SortExpression"] = value;
         }
     }
-    protected string SortDirection
+    protected bool IsAscendigSortOrder
     {
         get
         {
-            if (ViewState["SortDirection"] == null)
+            if (ViewState["IsAscendigSortOrder"] == null)
             {
-                ViewState["SortDirection"] = "ASC";
+                ViewState["IsAscendigSortOrder"] = true;
             }
-            return ViewState["SortDirection"].ToString();
+            return Convert.ToBoolean(ViewState["IsAscendigSortOrder"] );
         }
         set
         {
-            ViewState["SortDirection"] = value;
+            ViewState["IsAscendigSortOrder"] = value;
         }
     }
     protected int TotalRecords

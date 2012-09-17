@@ -12,6 +12,18 @@ using System.Configuration;
 public class OpportunityBasePage : BasePage
 {
     protected int OpportunityID;
+
+    public int CompanyID
+    {
+        get
+        {
+            return int.Parse(ViewState["CompanyID"].ToString());
+        }
+        set
+        {
+            ViewState["CompanyID"] = value;
+        }
+    }
     public OpportunityBasePage()
     {
         //

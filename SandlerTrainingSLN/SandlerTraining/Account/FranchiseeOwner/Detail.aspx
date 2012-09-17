@@ -1,5 +1,5 @@
 ﻿<%@ Page Title="My Account - Franchisee Detail" Language="C#" MasterPageFile="~/CRM.master"
-    AutoEventWireup="true" CodeFile="Detail.aspx.cs" Inherits="Account_FranchiseeOwner_Details" %>
+    AutoEventWireup="true" CodeFile="Detail.aspx.cs" Inherits="Account_FranchiseeOwner_Detail" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="Server">
 </asp:Content>
@@ -178,7 +178,7 @@
                             :
                         </td>
                         <td>
-                            <span data-bind="text:city" type="text" style="width: 100%" />
+                            <span data-bind="text:ownerCity" type="text" style="width: 100%" />
                         </td>
                     </tr>
                     <tr style="color: Black; background-color: #DCDCDC; white-space: nowrap;">
@@ -189,7 +189,7 @@
                             :
                         </td>
                         <td>
-                            <span data-bind="text:state" type="text" style="width: 100%" />
+                            <span data-bind="text:ownerState" type="text" style="width: 100%" />
                         </td>
                     </tr>
                     <tr style="color: Black; background-color: #EEEEEE; white-space: nowrap;">
@@ -200,7 +200,7 @@
                             :
                         </td>
                         <td>
-                            <span data-bind="text:zip" type="text" style="width: 100%" />
+                            <span data-bind="text:ownerZip" type="text" style="width: 100%" />
                         </td>
                     </tr>
                     <tr style="color: Black; background-color: #DCDCDC; white-space: nowrap;">
@@ -211,7 +211,7 @@
                             :
                         </td>
                         <td>
-                            <span data-bind="text:email" type="text" style="width: 100%" />
+                            <span data-bind="text:ownerEmail" type="text" style="width: 100%" />
                         </td>
                     </tr>
                     <tr style="color: Black; background-color: #EEEEEE; white-space: nowrap;">
@@ -274,8 +274,10 @@
             self.ownerCity = ko.observable('');
             self.ownerState = ko.observable('');
             self.ownerZip = ko.observable('');
+            self.ownerCountry = ko.observable();
             self.userName = ko.observable();
             self.ownerIsEmailSubscription = ko.observable('');
+            self.ownerEmail = ko.observable('');
 
             $.ajax({
                 url: baseUrl + "/api/Franchisee/",
@@ -307,6 +309,8 @@
                     self.ownerZip(data.FranchiseeUser.Zip);
                     self.userName(data.FranchiseeUser.UserName);
                     self.ownerIsEmailSubscription(data.FranchiseeUser.IsEmailSubscription);
+                    self.ownerCountry(data.FranchiseeUser.CountryID);
+                    self.ownerEmail(data.FranchiseeUser.Email);
                 },
                 error: function (xhr, status, somthing) {
                     log(status);

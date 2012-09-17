@@ -90,6 +90,7 @@ namespace SandlerAPI.Controllers
                         franchiseeUserToSave.FranchiseeID = franchiseeToSave.ID;
                         franchiseeUserToSave.IsEmailSubscription = true;
                         franchiseeUserToSave.UserID = userId;
+                        franchiseeUserToSave.IsEmailSubscription = true;
 
                         FranchiseeUserMappings.ViewModelToModel(franchiseeUserToSave, franchisee.FranchiseeUser);
                         franchisee.FranchiseeUser.UserName = userName;

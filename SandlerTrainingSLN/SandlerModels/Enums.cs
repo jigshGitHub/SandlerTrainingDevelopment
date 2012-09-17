@@ -31,6 +31,7 @@ namespace SandlerModels
         Document,
         Coach,
         Region,
-        Franchisee
+        Franchisee,
+        FranchiseeUser
     }
 }
