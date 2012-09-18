@@ -62,6 +62,9 @@
     <Compile Include="aspnet_Users.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Company.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="DataIntegration\Company.cs" />
     <Compile Include="Contact.cs">
       <DependentUpon>Model1.tt</DependentUpon>

@@ -62,7 +62,7 @@ namespace SandlerRepositories
         {
             //Get the User Info
             UserModel _user = (UserModel)HttpContext.Current.Session["CurrentUser"];
-            Company _company = (Company)HttpContext.Current.Session["CompanySearchCriteria"];
+            SandlerModels.DataIntegration.Company _company = (SandlerModels.DataIntegration.Company)HttpContext.Current.Session["CompanySearchCriteria"];
 
             if (_company.LastContactDate.ToString() == "1/1/0001 12:00:00 AM")
             {

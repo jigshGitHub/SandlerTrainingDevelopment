@@ -400,7 +400,7 @@ namespace SandlerModels.DataIntegration
         public IEnumerable<IndustryVM> AverageLengthTimeActiveClientsByIndustry(UserModel currentUser)
         {
             UserEntities userEntities = null;
-            IEnumerable<TBL_COMPANIES> companies = null;
+            IEnumerable<SandlerModels.Company> companies = null;
             IndustryTypeRepository industrySource = null;
             IEnumerable<IndustryVM> data = null;
             CompaniesRepository companySource = null;
@@ -412,12 +412,7 @@ namespace SandlerModels.DataIntegration
                 companies = userEntities.Companies;
 
                 industrySource = new IndustryTypeRepository();
-                //data = from record in companies
-                //       from industry in industrySource.GetAll().Where(i => i.IsActive == true && i.IndId == record.IndustryId)
-                //       group record by new { Industry = industry.IndustryTypeName, Months = SqlMethods.DateDiffMonth(record.CreationDate, DateTime.Now) }
-                //           into grp
-                //           select new IndustryVM { IndustryTypeName = grp.Key.Industry, Months = grp.Key.Months.Value };
-
+                
                 companySource = new CompaniesRepository();
                 clientsIndustrySource = companySource.GetClientsAvgLengthWithIndustries(currentUser.UserId.ToString());
                 clientsIndustry = new List<IndustryVM>();

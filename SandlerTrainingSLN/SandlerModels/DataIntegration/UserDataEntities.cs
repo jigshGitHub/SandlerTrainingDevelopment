@@ -89,10 +89,12 @@ namespace SandlerModels.DataIntegration
         }
 
 
-        private readonly IEnumerable<TBL_COMPANIES> companies;
-        public IEnumerable<TBL_COMPANIES> Companies
+        //private readonly IEnumerable<TBL_COMPANIES> companies;
+        //public IEnumerable<TBL_COMPANIES> Companies
+        //{ get { return companies; } }
+        private readonly IEnumerable<SandlerModels.Company> companies;
+        public IEnumerable<SandlerModels.Company> Companies
         { get { return companies; } }
-
         //private readonly IEnumerable<TBL_CONTACTS> contacts;
         //public IEnumerable<TBL_CONTACTS> Contacts
         //{
@@ -132,7 +134,8 @@ namespace SandlerModels.DataIntegration
         public UserEntities(UserModel user)
         {
             franchisees = GetFranchisees(user);
-            companies = GetCompanies(user);
+            //companies = GetCompanies(user);
+            companies = GetCompaniesByUser(user);
             //contacts = GetContacts(user);
             contacts = GetContactsByUser(user);
             //opportunities = Getopportunities(user);
@@ -154,35 +157,35 @@ namespace SandlerModels.DataIntegration
             }
             return franchisees;
         }
-        private IEnumerable<TBL_COMPANIES> GetCompanies(UserModel user)
-        {
-            CompaniesRepository companiesSource = new CompaniesRepository();
-            IEnumerable<TBL_COMPANIES> companies = null;
+        //private IEnumerable<TBL_COMPANIES> GetCompanies(UserModel user)
+        //{
+        //    CompaniesRepository companiesSource = new CompaniesRepository();
+        //    IEnumerable<TBL_COMPANIES> companies = null;
 
-            try
-            {
-                if (user.Role == SandlerRoles.FranchiseeUser)
-                    companies = companiesSource.GetAll().Where(record => record.IsActive == true && record.FranchiseeId == user.FranchiseeID).AsEnumerable();
-                else if (user.Role == SandlerRoles.FranchiseeOwner)
-                    companies = companiesSource.GetAll().Where(record => record.IsActive == true && record.FranchiseeId == user.FranchiseeID).AsEnumerable();
-                else if (user.Role == SandlerRoles.Coach)
-                {
-                    companies = from company in companiesSource.GetAll().Where(record => record.IsActive == true)
-                                from franchisee in franchisees.Where(f => f.CoachID == user.CoachID && f.ID == company.FranchiseeId)
-                                select company;
+        //    try
+        //    {
+        //        if (user.Role == SandlerRoles.FranchiseeUser)
+        //            companies = companiesSource.GetAll().Where(record => record.IsActive == true && record.FranchiseeId == user.FranchiseeID).AsEnumerable();
+        //        else if (user.Role == SandlerRoles.FranchiseeOwner)
+        //            companies = companiesSource.GetAll().Where(record => record.IsActive == true && record.FranchiseeId == user.FranchiseeID).AsEnumerable();
+        //        else if (user.Role == SandlerRoles.Coach)
+        //        {
+        //            companies = from company in companiesSource.GetAll().Where(record => record.IsActive == true)
+        //                        from franchisee in franchisees.Where(f => f.CoachID == user.CoachID && f.ID == company.FranchiseeId)
+        //                        select company;
 
-                }
-                else if (user.Role == SandlerRoles.Corporate)
-                {
-                    companies = companiesSource.GetAll().Where(record => record.IsActive == true).AsEnumerable();
-                }
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("exception in UserEntities.GetCompanies: " + ex.Message);
-            }
-            return companies;
-        }
+        //        }
+        //        else if (user.Role == SandlerRoles.Corporate)
+        //        {
+        //            companies = companiesSource.GetAll().Where(record => record.IsActive == true).AsEnumerable();
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw new Exception("exception in UserEntities.GetCompanies: " + ex.Message);
+        //    }
+        //    return companies;
+        //}
         //private IEnumerable<TBL_CONTACTS> GetContacts(UserModel user)
         //{
         //    ContactsRepository contactsSource = new ContactsRepository();
@@ -216,6 +219,21 @@ namespace SandlerModels.DataIntegration
         //    }
         //    return contacts;
         //}
+        private List<SandlerModels.Company> GetCompaniesByUser(UserModel user)
+        {
+            CompaniesRepository companiesSource = new CompaniesRepository();
+            List<SandlerModels.Company> companies = null;
+
+            try
+            {
+                companies = companiesSource.GetCompaniesByUser(user.UserId).ToList<SandlerModels.Company>();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("exception in UserEntities.GetCompanies: " + ex.Message);
+            }
+            return companies;
+        }
         private List<SandlerModels.Contact> GetContactsByUser(UserModel user)
         {
             ContactsRepository contactsSource = new ContactsRepository();

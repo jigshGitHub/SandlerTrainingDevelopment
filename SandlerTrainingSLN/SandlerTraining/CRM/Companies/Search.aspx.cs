@@ -31,7 +31,7 @@ public partial class CRM_Companies_Search : BasePage
     {
         //let us have search obj and store all user selection in it
         bool IsCriteriaExist = false;
-        Company searchObj = new Company();
+        SandlerModels.DataIntegration.Company searchObj = new SandlerModels.DataIntegration.Company();
         //TB Fields
         string COMPANYNAME = default(System.String);
         string Address = default(System.String);

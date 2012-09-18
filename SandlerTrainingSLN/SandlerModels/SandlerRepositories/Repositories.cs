@@ -192,6 +192,10 @@ namespace SandlerRepositories
         {
             return (GetAll().Where(r => r.FranchiseeId == company.FranchiseeId && r.IsActive == true && r.COMPANYNAME == company.COMPANYNAME && r.CITY == company.CITY && r.STATE == company.STATE && r.Address == company.Address).Count() > 0) ? true : false;
         }
+        public IEnumerable<Company> GetCompaniesByUser(Guid userID)
+        {
+            return (this.DatabaseFactory.Get() as SandlerDBEntities).GetCompaniesByUser(userID);
+        }
     }
     public partial class ContactsRepository : RepositoryBase<TBL_CONTACTS>
     {

@@ -69,5 +69,16 @@ namespace SandlerModels
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Contact>("GetContactsByUser", userIdParameter);
         }
+    
+        public virtual ObjectResult<Company> GetCompaniesByUser(Nullable<System.Guid> userId)
+        {
+            ((IObjectContextAdapter)this).ObjectContext.MetadataWorkspace.LoadFromAssembly(typeof(Company).Assembly);
+    
+            var userIdParameter = userId.HasValue ?
+                new ObjectParameter("userId", userId) :
+                new ObjectParameter("userId", typeof(System.Guid));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Company>("GetCompaniesByUser", userIdParameter);
+        }
     }
 }

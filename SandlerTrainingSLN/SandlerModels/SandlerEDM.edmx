@@ -757,6 +757,9 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="sp_GetCompaniesByUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="userId" Type="uniqueidentifier" Mode="In" />
+        </Function>
         <Function Name="sp_GetContactsByUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="userId" Type="uniqueidentifier" Mode="In" />
         </Function>
@@ -883,6 +886,9 @@
             <End Role="TBL_FRANCHISEE" EntitySet="TBL_FRANCHISEE" />
             <End Role="TBL_FRANCHISEE_USERS" EntitySet="TBL_FRANCHISEE_USERS" />
           </AssociationSet>
+          <FunctionImport Name="GetCompaniesByUser" ReturnType="Collection(Sandler.Models.Company)">
+            <Parameter Name="userId" Mode="In" Type="Guid" />
+          </FunctionImport>
         </EntityContainer>
         <EntityType Name="aspnet_Membership">
           <Key>
@@ -1635,6 +1641,45 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <ComplexType Name="Company">
+          <Property Type="Int32" Name="RegionID" Nullable="false" />
+          <Property Type="String" Name="Region" Nullable="false" MaxLength="500" />
+          <Property Type="Int32" Name="CoachID" Nullable="false" />
+          <Property Type="String" Name="CoachName" Nullable="true" MaxLength="101" />
+          <Property Type="Int32" Name="FranchiseeId" Nullable="false" />
+          <Property Type="String" Name="FranchiseeName" Nullable="false" MaxLength="500" />
+          <Property Type="String" Name="COMPANYNAME" Nullable="true" />
+          <Property Type="Boolean" Name="IsNewCompany" Nullable="true" />
+          <Property Type="DateTime" Name="CreationDate" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="IndustryId" Nullable="true" />
+          <Property Type="Int32" Name="CONTACTSID" Nullable="false" />
+          <Property Type="Int32" Name="COMPANYID" Nullable="true" />
+          <Property Type="String" Name="LASTNAME" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="FIRSTNAME" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="PHONE" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="EMAIL" Nullable="true" MaxLength="50" />
+          <Property Type="Boolean" Name="IsNewAppointment" Nullable="true" />
+          <Property Type="Int32" Name="ApptSourceId" Nullable="true" />
+          <Property Type="Boolean" Name="IsRegisteredForTraining" Nullable="true" />
+          <Property Type="Int32" Name="CourseId" Nullable="true" />
+          <Property Type="DateTime" Name="CourseTrainingDate" Nullable="true" Precision="23" />
+          <Property Type="String" Name="DiscussionTopic" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="ACTIONSTEP" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="LAST_CONTACT_DATE" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="NEXT_CONTACT_DATE" Nullable="true" Precision="23" />
+          <Property Type="Boolean" Name="IsActive" Nullable="true" />
+          <Property Type="DateTime" Name="UpdatedDate" Nullable="true" Precision="23" />
+          <Property Type="String" Name="UpdatedBy" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="CreatedDate" Nullable="true" Precision="23" />
+          <Property Type="String" Name="CreatedBy" Nullable="true" MaxLength="50" />
+          <Property Type="Boolean" Name="IsEmailSubscription" Nullable="true" />
+          <Property Type="DateTime" Name="Birthday" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="Anniversary" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="CompanyYears" Nullable="true" />
+          <Property Type="String" Name="BossName" Nullable="true" MaxLength="50" />
+          <Property Type="Boolean" Name="IsNeedCallBack" Nullable="true" />
+          <Property Type="DateTime" Name="CallBackCreatedDate" Nullable="true" Precision="23" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2113,6 +2158,49 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="GetCompaniesByUser" FunctionName="Sandler.Models.Store.sp_GetContactsByUser">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Sandler.Models.Company">
+                <ScalarProperty Name="RegionID" ColumnName="RegionID" />
+                <ScalarProperty Name="Region" ColumnName="Region" />
+                <ScalarProperty Name="CoachID" ColumnName="CoachID" />
+                <ScalarProperty Name="CoachName" ColumnName="CoachName" />
+                <ScalarProperty Name="FranchiseeId" ColumnName="FranchiseeId" />
+                <ScalarProperty Name="FranchiseeName" ColumnName="FranchiseeName" />
+                <ScalarProperty Name="COMPANYNAME" ColumnName="COMPANYNAME" />
+                <ScalarProperty Name="IsNewCompany" ColumnName="IsNewCompany" />
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+                <ScalarProperty Name="IndustryId" ColumnName="IndustryId" />
+                <ScalarProperty Name="CONTACTSID" ColumnName="CONTACTSID" />
+                <ScalarProperty Name="COMPANYID" ColumnName="COMPANYID" />
+                <ScalarProperty Name="LASTNAME" ColumnName="LASTNAME" />
+                <ScalarProperty Name="FIRSTNAME" ColumnName="FIRSTNAME" />
+                <ScalarProperty Name="PHONE" ColumnName="PHONE" />
+                <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
+                <ScalarProperty Name="IsNewAppointment" ColumnName="IsNewAppointment" />
+                <ScalarProperty Name="ApptSourceId" ColumnName="ApptSourceId" />
+                <ScalarProperty Name="IsRegisteredForTraining" ColumnName="IsRegisteredForTraining" />
+                <ScalarProperty Name="CourseId" ColumnName="CourseId" />
+                <ScalarProperty Name="CourseTrainingDate" ColumnName="CourseTrainingDate" />
+                <ScalarProperty Name="DiscussionTopic" ColumnName="DiscussionTopic" />
+                <ScalarProperty Name="ACTIONSTEP" ColumnName="ACTIONSTEP" />
+                <ScalarProperty Name="LAST_CONTACT_DATE" ColumnName="LAST_CONTACT_DATE" />
+                <ScalarProperty Name="NEXT_CONTACT_DATE" ColumnName="NEXT_CONTACT_DATE" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="IsEmailSubscription" ColumnName="IsEmailSubscription" />
+                <ScalarProperty Name="Birthday" ColumnName="Birthday" />
+                <ScalarProperty Name="Anniversary" ColumnName="Anniversary" />
+                <ScalarProperty Name="CompanyYears" ColumnName="CompanyYears" />
+                <ScalarProperty Name="BossName" ColumnName="BossName" />
+                <ScalarProperty Name="IsNeedCallBack" ColumnName="IsNeedCallBack" />
+                <ScalarProperty Name="CallBackCreatedDate" ColumnName="CallBackCreatedDate" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

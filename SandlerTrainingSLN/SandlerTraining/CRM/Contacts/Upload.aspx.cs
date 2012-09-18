@@ -18,8 +18,10 @@ public partial class CRM_Contacts_Upload : UploaderBasePage
         {
             hdnFrenchiseeID.Value = CurrentUser.FranchiseeID.ToString();
 
+            //var data = from company in UserEntitiesFactory.Get(CurrentUser).Companies
+            //           select new { Name = company.COMPANYNAME, Id = company.COMPANIESID };
             var data = from company in UserEntitiesFactory.Get(CurrentUser).Companies
-                       select new { Name = company.COMPANYNAME, Id = company.COMPANIESID };
+                       select new { Name = company.COMPANYNAME, Id = company.COMPANYID };
 
             companyList.DataSource = data;
             companyList.DataTextField = "Name";
