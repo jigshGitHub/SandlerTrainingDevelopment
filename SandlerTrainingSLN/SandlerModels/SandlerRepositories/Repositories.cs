@@ -208,6 +208,11 @@ namespace SandlerRepositories
         {
             return GetAll().Where(r => r.COMPANYID == companyId);
         }
+
+        public IEnumerable<Contact> GetContactsByUser(Guid userID)
+        {
+            return (this.DatabaseFactory.Get() as SandlerDBEntities).GetContactsByUser(userID);
+        }
     }
     public class ProductTypesRepository : RepositoryBase<Tbl_ProductType>
     {
@@ -237,7 +242,7 @@ namespace SandlerRepositories
         {
         }
 
-        public IEnumerable<Opportunity> GetByUserId(Guid userID)
+        public IEnumerable<Opportunity> GetOpportunitiesByUser(Guid userID)
         {
             return (this.DatabaseFactory.Get() as SandlerDBEntities).GetOpportunitiesByUser(userID); 
         }

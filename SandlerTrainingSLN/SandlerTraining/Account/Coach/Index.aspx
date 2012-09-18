@@ -18,7 +18,7 @@
                     <tr>
                         <td>
                             <asp:GridView Width="100%" ID="gvCoaches" runat="server" AutoGenerateColumns="false"
-                                DataKeyNames="ID">
+                                DataKeyNames="ID" AllowSorting="true" OnSorting=gvCoaches_Sorting>
                                 <RowStyle BackColor="#EEEEEE" ForeColor="Black" />
                                 <AlternatingRowStyle BackColor="#DCDCDC" />
                                 <PagerStyle BackColor="#999999" ForeColor="Blue" HorizontalAlign="Center" />

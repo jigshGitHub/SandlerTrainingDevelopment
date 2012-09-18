@@ -10,9 +10,10 @@ public partial class ContactIndex : BasePage
 {
     protected void Page_Load(object sender, EventArgs e)
     {
+        contactMenu.MenuEntityTitle = "Contacts";
         if (!IsPostBack)
         {
-            contactMenu.MenuEntityTitle = "Contacts";
+            //contactMenu.MenuEntityTitle = "Contacts";
         }
 
     }

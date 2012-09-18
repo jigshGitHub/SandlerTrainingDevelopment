@@ -42,7 +42,8 @@ public class OpportunityBasePage : BasePage
     {
         UserEntities userEntities = UserEntitiesFactory.Get(this.CurrentUser);
         IQueryable<Opportunity> data = userEntities.Opportunities.AsQueryable();
-        IQueryable<TBL_CONTACTS> contacts = userEntities.Contacts.AsQueryable();
+        //IQueryable<TBL_CONTACTS> contacts = userEntities.Contacts.AsQueryable();
+        IQueryable<SandlerModels.Contact> contacts = userEntities.Contacts.AsQueryable();
 
         
         data = SandlerData.IQueryableExtensions.OptionalWhere(data, companyId, x => (opp => opp.COMPANYID == companyId)); 
@@ -79,7 +80,12 @@ public class OpportunityBasePage : BasePage
     {
         return new CompaniesRepository().GetById(long.Parse(companyId.ToString()));
     }
-    protected virtual IEnumerable<TBL_CONTACTS> GetContactsByCompany(int companyId)
+    //protected virtual IEnumerable<TBL_CONTACTS> GetContactsByCompany(int companyId)
+    //{
+    //    return UserEntitiesFactory.Get(CurrentUser).GetContactsByCompany(CurrentUser, companyId);
+    //}
+
+    protected virtual IEnumerable<SandlerModels.Contact> GetContactsByCompany(int companyId)
     {
         return UserEntitiesFactory.Get(CurrentUser).GetContactsByCompany(CurrentUser, companyId);
     }

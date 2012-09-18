@@ -48,12 +48,17 @@ public partial class OpportunityADD : OpportunityBasePage
     }
     private void BindContacts(int companyId)
     {
-        var data = from records in GetContactsByCompany(companyId)
-                   select new { Name = records.FIRSTNAME + " " + records.LASTNAME, ID = records.CONTACTSID };
-        ddlContacts.DataSource = data;
-        ddlContacts.DataTextField = "Name";
-        ddlContacts.DataValueField = "ID";
-        ddlContacts.DataBind();
+        //IEnumerable<TBL_CONTACTS> companyContacts = GetContactsByCompany(companyId);
+        IEnumerable<SandlerModels.Contact> companyContacts = GetContactsByCompany(companyId);
+        if (companyContacts != null)
+        {
+            var data = from records in companyContacts
+                       select new { Name = records.FIRSTNAME + " " + records.LASTNAME, ID = records.CONTACTSID };
+            ddlContacts.DataSource = data;
+            ddlContacts.DataTextField = "Name";
+            ddlContacts.DataValueField = "ID";
+            ddlContacts.DataBind();
+        }
         ddlContacts.Items.Insert(0, new ListItem("--Select contact--","0"));
     }
     protected void ddlContacts_SelectedIndexChanged(object sender, EventArgs e)
@@ -130,7 +135,7 @@ public partial class OpportunityADD : OpportunityBasePage
     {
         TBL_OPPORTUNITIES record = GetOpportunity(ID);
         if (record.CLOSEDATE.HasValue)
-            CloseDate.Text = record.CLOSEDATE.Value.ToString();
+            CloseDate.Text = record.CLOSEDATE.Value.ToShortDateString();
         ddlCompany.SelectedValue = record.COMPANYID.ToString();
         BindContacts(record.COMPANYID);
         ddlContacts.SelectedValue = record.CONTACTID.ToString();

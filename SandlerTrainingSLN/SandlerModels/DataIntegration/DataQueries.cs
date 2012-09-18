@@ -215,23 +215,18 @@ namespace SandlerModels.DataIntegration
         public int GetClassHeadCountsCourse(UserModel currentUser, int month)
         {
             UserEntities userEntities = null;
-            IEnumerable<TBL_CONTACTS> contacts = null;
+            //IEnumerable<TBL_CONTACTS> contacts = null;
+            IEnumerable<SandlerModels.Contact> contacts = null;
             int classHeadCountsCourse = 0;
             try
             {
                 userEntities = UserEntitiesFactory.Get(currentUser);
+                //contacts = userEntities.Contacts;
                 contacts = userEntities.Contacts;
 
                 if (userEntities.ContactsCount > 0)
                 {
-                    //classHeadCountsCourse = (from record in contacts
-                    //                         where (record.IsRegisteredForTraining == true &&
-                    //                         record.Tbl_Course != null &&
-                    //                         record.Tbl_Course.CourseId == record.CourseId &&
-                    //                         record.Tbl_Course.IsActive == true &&
-                    //                         record.CourseTrainingDate.Value.Year == DateTime.Now.Year &&
-                    //                         record.CourseTrainingDate.Value.Month == month)
-                    //                         select record.CONTACTSID).Count();
+                    
                     classHeadCountsCourse = (from contact in contacts.Where(record => record.IsRegisteredForTraining == true &&
                                             record.CourseId != null &&
                                             record.CourseTrainingDate.Value.Year == DateTime.Now.Year &&
@@ -249,7 +244,8 @@ namespace SandlerModels.DataIntegration
         public int GetClassHeadCountsIndustry(UserModel currentUser, int month)
         {
             UserEntities userEntities = null;
-            IEnumerable<TBL_CONTACTS> contacts = null;
+            //IEnumerable<TBL_CONTACTS> contacts = null;
+            IEnumerable<SandlerModels.Contact> contacts = null;
             int classHeadCountsIndustry = 0;
             try
             {
@@ -258,16 +254,13 @@ namespace SandlerModels.DataIntegration
 
                 if (userEntities.ContactsCount > 0)
                 {
-                    //classHeadCountsIndustry = (from record in contacts
-                    //                           where (record.IsRegisteredForTraining == true &&
-                    //                           record.TBL_COMPANIES.IndustryId == record.TBL_COMPANIES.Tbl_IndustryType.IndId &&
-                    //                           record.TBL_COMPANIES.IsActive == true &&
-                    //                           record.TBL_COMPANIES.Tbl_IndustryType.IsActive == true &&
+                    //classHeadCountsIndustry = (from contact in contacts.Where(record => record.IsRegisteredForTraining == true &&
+                    //                           record.TBL_COMPANIES.IndustryId != null &&
                     //                           record.CourseTrainingDate.Value.Year == DateTime.Now.Year &&
                     //                           record.CourseTrainingDate.Value.Month == month)
-                    //                           select record.COMPANYID).Count();
+                    //                           select contact).Count();
                     classHeadCountsIndustry = (from contact in contacts.Where(record => record.IsRegisteredForTraining == true &&
-                                               record.TBL_COMPANIES.IndustryId != null &&
+                                               record.IndustryId.HasValue &&
                                                record.CourseTrainingDate.Value.Year == DateTime.Now.Year &&
                                                record.CourseTrainingDate.Value.Month == month)
                                                select contact).Count();
@@ -335,7 +328,8 @@ namespace SandlerModels.DataIntegration
         public IEnumerable<CourseVM> GetHeadcountByCourse(UserModel currentUser, int month)
         {
             UserEntities userEntities = null;
-            IEnumerable<TBL_CONTACTS> contacts = null;
+            //IEnumerable<TBL_CONTACTS> contacts = null;
+            IEnumerable<SandlerModels.Contact> contacts = null;
             IEnumerable<CourseVM> data = null;
             try
             {
@@ -371,7 +365,8 @@ namespace SandlerModels.DataIntegration
         public IEnumerable<IndustryVM> GetHeadcountByIndustry(UserModel currentUser, int month)
         {
             UserEntities userEntities = null;
-            IEnumerable<TBL_CONTACTS> contacts = null;
+            //IEnumerable<TBL_CONTACTS> contacts = null;
+            IEnumerable<SandlerModels.Contact> contacts = null;
             IEnumerable<IndustryVM> data = null;
             try
             {
@@ -379,19 +374,17 @@ namespace SandlerModels.DataIntegration
                 contacts = userEntities.Contacts;
                 if (userEntities.ContactsCount > 0)
                 {
-                    //data = from contact in contacts
-                    //       from company in new CompaniesRepository().GetAll().Where(c => c.IsActive == true && c.COMPANIESID == contact.COMPANYID)
-                    //       from industry in new IndustryTypeRepository().GetAll().Where(i => i.IsActive == true && i.IndId == company.IndustryId)
-                    //       where (contact.IsRegisteredForTraining == true &&
-                    //       contact.CourseTrainingDate.Value.Year == DateTime.Now.Year &&
-                    //       contact.CourseTrainingDate.Value.Month == month)
+                    //data = from contact in contacts.Where(record => record.IsRegisteredForTraining == true &&
+                    //    record.CourseTrainingDate.Value.Year == DateTime.Now.Year &&
+                    //    record.CourseTrainingDate.Value.Month == month)
+                    //       from industry in new IndustryTypeRepository().GetAll().Where(i => i.IsActive == true && i.IndId == contact.TBL_COMPANIES.IndustryId)
                     //       group contact by new { industry.IndustryTypeName }
                     //           into grp
                     //           select new IndustryVM { IndustryTypeName = grp.Key.IndustryTypeName, Count = grp.Count() };
                     data = from contact in contacts.Where(record => record.IsRegisteredForTraining == true &&
                         record.CourseTrainingDate.Value.Year == DateTime.Now.Year &&
                         record.CourseTrainingDate.Value.Month == month)
-                           from industry in new IndustryTypeRepository().GetAll().Where(i => i.IsActive == true && i.IndId == contact.TBL_COMPANIES.IndustryId)
+                           from industry in new IndustryTypeRepository().GetAll().Where(i => i.IsActive == true && i.IndId == contact.IndustryId)
                            group contact by new { industry.IndustryTypeName }
                                into grp
                                select new IndustryVM { IndustryTypeName = grp.Key.IndustryTypeName, Count = grp.Count() };

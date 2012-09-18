@@ -100,6 +100,7 @@
     <Compile Include="SandlerRepositories\DBFactory.cs" />
     <Compile Include="SandlerRepositories\DocumentsRepository.cs" />
     <Compile Include="SandlerRepositories\ForcastingRepository.cs" />
+    <Compile Include="SandlerRepositories\NightProcessRepository.cs" />
     <Compile Include="SandlerRepositories\OpportunityRepository.cs" />
     <Compile Include="SandlerRepositories\Repositories.cs" />
     <Compile Include="Tbl_AppointmentsSource.cs">

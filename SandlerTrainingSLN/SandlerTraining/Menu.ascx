@@ -1,12 +1,12 @@
 ﻿<%@ Import Namespace="Sandler.UI.ChartStructure" %>
 <%@ Control Language="C#" AutoEventWireup="true" CodeFile="Menu.ascx.cs" Inherits="Menu" %>
 <div class="clear hideSkiplink">
-    <table border="0">
+    <table style="width: 100%">
         <tr>
-            <td>
+            <td width="20%">
                 <asp:Image ImageUrl="~/images/header_logo.png" runat="server" ID="Image1" />
             </td>
-            <td style="padding-top: 2.5em">
+            <td style="padding-top: 2.5em" width="80%">
                 <ul class="dropdown">
                     <li><a id="anchorDASHBOARD" runat="server" href="Default.aspx">DASHBOARD</a></li>
                     <li><a id="anchorCHART" runat="server" href="#">REPORTS</a><ul class="sub_menu">
@@ -35,14 +35,15 @@
                             User</a></li>
                         <li><a id="manageEmailSubscription" runat="server" visible="false">Manage Email Subscription</a></li>
                     </ul>
-                    </li>                    
+                    </li>
                     <li><a href="#" class="disableLink">Gap Analysis</a> </li>
                     <li><a href="#" class="disableLink">ROI&nbsp;&nbsp;</a></li>
+                    <li><a href="http://assessment.aberdeen.com/gqtJlzBd2X/SAN127/sponsor.aspx" target="_blank">
+                        Sandler Training Assessment Tool</a></li>
                     <!--<li><a href="~/Account/Logout.aspx" id="anchorLogout" runat="server">LOGOUT</a>
                     </li>-->
                 </ul>
             </td>
-            <td style="padding-top:35px;padding-left:5px"><a style="color:White" href="http://assessment.aberdeen.com/gqtJlzBd2X/SAN127/sponsor.aspx" target="_blank">Sandler Training Assessment Tool</a></td>
         </tr>
     </table>
 </div>

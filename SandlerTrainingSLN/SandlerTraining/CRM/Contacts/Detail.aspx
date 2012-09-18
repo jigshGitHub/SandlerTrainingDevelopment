@@ -1,12 +1,12 @@
-﻿<%@ Page Title="CRM - View/Edit Contact" Language="C#" MasterPageFile="~/CRM.master" AutoEventWireup="true"
-    CodeFile="Detail.aspx.cs" Inherits="ContactDETAIL" %>
+﻿<%@ Page Title="CRM - View/Edit Contact" Language="C#" MasterPageFile="~/CRM.master"
+    AutoEventWireup="true" CodeFile="Detail.aspx.cs" Inherits="ContactDETAIL" %>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 <%@ Import Namespace="SandlerRepositories" %>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="Server">
     <asp:ToolkitScriptManager ID="ToolkitScriptManager1" runat="server">
     </asp:ToolkitScriptManager>
-    <table>
+    <table style="width: 100%">
         <tr>
             <th align="left">
                 <asp:Label ID="lblModuleActionHeading" runat="server"></asp:Label>
@@ -69,8 +69,10 @@
                         <asp:TemplateField HeaderText="E-mail :">
                             <EditItemTemplate>
                                 <asp:TextBox ID="txtEmail" MaxLength="50" Width="380px" runat="server" Text='<%# Bind("Email") %>'></asp:TextBox>
-                                <asp:RequiredFieldValidator ID="rfvEmailTB" ControlToValidate="txtEmail" Display="Static" InitialValue="" runat="server" ErrorMessage="Please Enter Email to proceed.">*</asp:RequiredFieldValidator>
-                                <asp:RegularExpressionValidator ID="regExpVal" runat="server" ControlToValidate="txtEmail" ErrorMessage="Please Enter Valid Email address." ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*">*</asp:RegularExpressionValidator>
+                                <asp:RequiredFieldValidator ID="rfvEmailTB" ControlToValidate="txtEmail" Display="Static"
+                                    InitialValue="" runat="server" ErrorMessage="Please Enter Email to proceed.">*</asp:RequiredFieldValidator>
+                                <asp:RegularExpressionValidator ID="regExpVal" runat="server" ControlToValidate="txtEmail"
+                                    ErrorMessage="Please Enter Valid Email address." ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*">*</asp:RegularExpressionValidator>
                             </EditItemTemplate>
                             <ItemTemplate>
                                 <asp:Label ID="lblEmail" runat="server" Text='<%# Bind("Email") %>'></asp:Label>
@@ -124,8 +126,8 @@
                             <EditItemTemplate>
                                 <asp:TextBox ID="CourseTrngDate" Text='<%# Bind("CourseTrainingDate") %>' runat="server" />&nbsp;<asp:Image
                                     ID="calanderImageCTD" runat="server" ImageUrl="~/images/calendar.gif" ImageAlign="Middle" />
-                                <asp:CalendarExtender ID="CalendarExtender1" runat="server" TargetControlID="CourseTrngDate" PopupButtonID="calanderImageCTD"
-                                    CssClass="calendar">
+                                <asp:CalendarExtender ID="CalendarExtender1" runat="server" TargetControlID="CourseTrngDate"
+                                    PopupButtonID="calanderImageCTD" CssClass="calendar">
                                 </asp:CalendarExtender>
                             </EditItemTemplate>
                             <ItemTemplate>
@@ -160,8 +162,8 @@
                             <EditItemTemplate>
                                 <asp:TextBox ID="LastContactDate" Text='<%# Bind("Last_Contact_Date") %>' runat="server" />&nbsp;<asp:Image
                                     ID="calanderImageLCD" runat="server" ImageUrl="~/images/calendar.gif" ImageAlign="Middle" />
-                                <asp:CalendarExtender ID="CalendarExtender2" runat="server" TargetControlID="LastContactDate" PopupButtonID="calanderImageLCD"
-                                    CssClass="calendar">
+                                <asp:CalendarExtender ID="CalendarExtender2" runat="server" TargetControlID="LastContactDate"
+                                    PopupButtonID="calanderImageLCD" CssClass="calendar">
                                 </asp:CalendarExtender>
                             </EditItemTemplate>
                             <ItemTemplate>
@@ -172,8 +174,8 @@
                             <EditItemTemplate>
                                 <asp:TextBox ID="NextContactDate" Text='<%# Bind("Next_Contact_Date") %>' runat="server" />&nbsp;<asp:Image
                                     ID="calanderImageNCD" runat="server" ImageUrl="~/images/calendar.gif" ImageAlign="Middle" />
-                                <asp:CalendarExtender ID="CalendarExtender3" runat="server" TargetControlID="NextContactDate" PopupButtonID="calanderImageNCD"
-                                    CssClass="calendar">
+                                <asp:CalendarExtender ID="CalendarExtender3" runat="server" TargetControlID="NextContactDate"
+                                    PopupButtonID="calanderImageNCD" CssClass="calendar">
                                 </asp:CalendarExtender>
                                 <asp:RequiredFieldValidator ID="NextContactDateRFV" ControlToValidate="NextContactDate"
                                     runat="server" ErrorMessage="Please Enter Next Contact Date to proceed.">*</asp:RequiredFieldValidator>
@@ -182,59 +184,61 @@
                                 <asp:Label ID="lblNextContactDate" runat="server" Text='<%# Bind("Next_Contact_Date","{0:d}") %>'></asp:Label>
                             </ItemTemplate>
                         </asp:TemplateField>
-
                         <asp:TemplateField HeaderText="Email Subscription?:">
                             <ItemTemplate>
                                 <asp:Label ID="lblBlastEmail" runat="server" Text='<%# Eval("BlastEmailDescription") %>'></asp:Label>
                             </ItemTemplate>
                             <EditItemTemplate>
-                                <asp:DropDownList ID="ddlBlastEmail" runat="server" DataSourceID="BlastEmailDS"
-                                    DataTextField="Description" DataValueField="BlastEmailId" SelectedValue='<%# Bind("BlastEmailId") %>'>
+                                <asp:DropDownList ID="ddlBlastEmail" runat="server" DataSourceID="BlastEmailDS" DataTextField="Description"
+                                    DataValueField="BlastEmailId" SelectedValue='<%# Bind("BlastEmailId") %>'>
                                 </asp:DropDownList>
                             </EditItemTemplate>
                             <ItemStyle Wrap="False" />
                         </asp:TemplateField>
-
                         <asp:TemplateField HeaderText="Need to Call Back?:">
                             <ItemTemplate>
                                 <asp:Label ID="lblCallBack" runat="server" Text='<%# Eval("CallBackDescription") %>'></asp:Label>
                             </ItemTemplate>
                             <EditItemTemplate>
-                                <asp:DropDownList ID="ddlCallBack" runat="server" DataSourceID="CallBackInfoDS" DataTextField="CallBackDescription" DataValueField="CallBackValue" SelectedValue='<%# Bind("CallBackValue") %>'></asp:DropDownList>
+                                <asp:DropDownList ID="ddlCallBack" runat="server" DataSourceID="CallBackInfoDS" DataTextField="CallBackDescription"
+                                    DataValueField="CallBackValue" SelectedValue='<%# Bind("CallBackValue") %>'>
+                                </asp:DropDownList>
                             </EditItemTemplate>
                             <ItemStyle Wrap="False" />
                         </asp:TemplateField>
-
-
                         <asp:TemplateField HeaderText="Birthday :">
                             <EditItemTemplate>
-                                <asp:TextBox ID="BirthdayDate" Text='<%# Bind("Birthday") %>' runat="server" />&nbsp;<asp:Image ID="calanderImageBRD" runat="server" ImageUrl="~/images/calendar.gif" ImageAlign="Middle" />
-                                <asp:CalendarExtender ID="CalendarExtender4" runat="server" TargetControlID="BirthdayDate" PopupButtonID="calanderImageBRD" CssClass="calendar"></asp:CalendarExtender>
+                                <asp:TextBox ID="BirthdayDate" Text='<%# Bind("Birthday") %>' runat="server" />&nbsp;<asp:Image
+                                    ID="calanderImageBRD" runat="server" ImageUrl="~/images/calendar.gif" ImageAlign="Middle" />
+                                <asp:CalendarExtender ID="CalendarExtender4" runat="server" TargetControlID="BirthdayDate"
+                                    PopupButtonID="calanderImageBRD" CssClass="calendar">
+                                </asp:CalendarExtender>
                             </EditItemTemplate>
                             <ItemTemplate>
                                 <asp:Label ID="lblBirthdayDate" runat="server" Text='<%# Bind("Birthday","{0:d}") %>'></asp:Label>
                             </ItemTemplate>
                         </asp:TemplateField>
-
                         <asp:TemplateField HeaderText="Anniversary :">
                             <EditItemTemplate>
-                                <asp:TextBox ID="AnniversaryDate" Text='<%# Bind("Anniversary") %>' runat="server" />&nbsp;<asp:Image ID="calanderImageAVS" runat="server" ImageUrl="~/images/calendar.gif" ImageAlign="Middle" />
-                                <asp:CalendarExtender ID="CalendarExtender5" runat="server" TargetControlID="AnniversaryDate" PopupButtonID="calanderImageAVS" CssClass="calendar"></asp:CalendarExtender>
+                                <asp:TextBox ID="AnniversaryDate" Text='<%# Bind("Anniversary") %>' runat="server" />&nbsp;<asp:Image
+                                    ID="calanderImageAVS" runat="server" ImageUrl="~/images/calendar.gif" ImageAlign="Middle" />
+                                <asp:CalendarExtender ID="CalendarExtender5" runat="server" TargetControlID="AnniversaryDate"
+                                    PopupButtonID="calanderImageAVS" CssClass="calendar">
+                                </asp:CalendarExtender>
                             </EditItemTemplate>
                             <ItemTemplate>
                                 <asp:Label ID="lblAnniversaryDate" runat="server" Text='<%# Bind("Anniversary","{0:d}") %>'></asp:Label>
                             </ItemTemplate>
                         </asp:TemplateField>
-
                         <asp:TemplateField HeaderText="Company Years :">
                             <EditItemTemplate>
-                                <asp:TextBox ID="txtCompanyYears" onkeypress="EnterOnlyNumeric()" MaxLength="3" runat="server" Text='<%# Bind("CompanyYears") %>'></asp:TextBox>
+                                <asp:TextBox ID="txtCompanyYears" onkeypress="EnterOnlyNumeric()" MaxLength="3" runat="server"
+                                    Text='<%# Bind("CompanyYears") %>'></asp:TextBox>
                             </EditItemTemplate>
                             <ItemTemplate>
                                 <asp:Label ID="lblCompanyYears" runat="server" Text='<%# Bind("CompanyYears") %>'></asp:Label>
                             </ItemTemplate>
                         </asp:TemplateField>
-
                         <asp:TemplateField HeaderText="Boss Name :">
                             <EditItemTemplate>
                                 <asp:TextBox ID="txtBossName" runat="server" Text='<%# Bind("BossName") %>'></asp:TextBox>
@@ -243,7 +247,6 @@
                                 <asp:Label ID="lblBossName" runat="server" Text='<%# Bind("BossName") %>'></asp:Label>
                             </ItemTemplate>
                         </asp:TemplateField>
-
                         <asp:TemplateField ShowHeader="False">
                             <ControlStyle Font-Bold="true" />
                             <EditItemTemplate>
@@ -281,13 +284,20 @@
         </tr>
         <tr>
             <td colspan="2">
-                <asp:ObjectDataSource ID="CompanyDS" runat="server" TypeName="SandlerRepositories.CompaniesRepository" SelectMethod="GetCompaniesForDDL"></asp:ObjectDataSource>
-                <asp:ObjectDataSource ID="NewItemInfoDS" runat="server" TypeName="SandlerRepositories.CompaniesRepository" SelectMethod="GetNewItemOptions"></asp:ObjectDataSource>
-                <asp:ObjectDataSource ID="ApptSourceDS" runat="server" TypeName="SandlerRepositories.ContactsRepository"  SelectMethod="GetApptSourceOptions"></asp:ObjectDataSource>
-                <asp:ObjectDataSource ID="RegForTrainingDS" runat="server" TypeName="SandlerRepositories.ContactsRepository" SelectMethod="GetRegForTrainingOptions"></asp:ObjectDataSource>
-                <asp:ObjectDataSource ID="BlastEmailDS" runat="server" TypeName="SandlerRepositories.ContactsRepository"   SelectMethod="GetBlastEmailOptions"></asp:ObjectDataSource>
-                <asp:ObjectDataSource ID="CourseDS" runat="server" TypeName="SandlerRepositories.ContactsRepository"  SelectMethod="GetCourseInfo"></asp:ObjectDataSource>
-                <asp:ObjectDataSource ID="CallBackInfoDS" runat="server" TypeName="SandlerRepositories.CompaniesRepository" SelectMethod="GetCallBackOptions"></asp:ObjectDataSource>
+                <asp:ObjectDataSource ID="CompanyDS" runat="server" TypeName="SandlerRepositories.CompaniesRepository"
+                    SelectMethod="GetCompaniesForDDL"></asp:ObjectDataSource>
+                <asp:ObjectDataSource ID="NewItemInfoDS" runat="server" TypeName="SandlerRepositories.CompaniesRepository"
+                    SelectMethod="GetNewItemOptions"></asp:ObjectDataSource>
+                <asp:ObjectDataSource ID="ApptSourceDS" runat="server" TypeName="SandlerRepositories.ContactsRepository"
+                    SelectMethod="GetApptSourceOptions"></asp:ObjectDataSource>
+                <asp:ObjectDataSource ID="RegForTrainingDS" runat="server" TypeName="SandlerRepositories.ContactsRepository"
+                    SelectMethod="GetRegForTrainingOptions"></asp:ObjectDataSource>
+                <asp:ObjectDataSource ID="BlastEmailDS" runat="server" TypeName="SandlerRepositories.ContactsRepository"
+                    SelectMethod="GetBlastEmailOptions"></asp:ObjectDataSource>
+                <asp:ObjectDataSource ID="CourseDS" runat="server" TypeName="SandlerRepositories.ContactsRepository"
+                    SelectMethod="GetCourseInfo"></asp:ObjectDataSource>
+                <asp:ObjectDataSource ID="CallBackInfoDS" runat="server" TypeName="SandlerRepositories.CompaniesRepository"
+                    SelectMethod="GetCallBackOptions"></asp:ObjectDataSource>
             </td>
         </tr>
         <tr>

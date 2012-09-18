@@ -22,15 +22,15 @@ public partial class CRM_EntityMenu : System.Web.UI.UserControl
     }
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (!IsPostBack)
-        {
+        //if (!IsPostBack)
+        //{
             BasePage page = this.Page as BasePage;
             if (page.CRMMenu != null)
             {
                 MenuEntity = page.CRMMenu.Find(delegate(SandlerWeb.Menu menu) { return menu.Title == MenuEntityTitle; });
                 CreateSubMenu(MenuEntity.Items);
             }
-        }
+        //}
     }
 
     private void CreateSubMenu(List<SandlerWeb.MenuItem> items)

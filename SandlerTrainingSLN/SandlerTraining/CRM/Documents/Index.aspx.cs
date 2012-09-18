@@ -12,6 +12,10 @@ public partial class DocumentIndex : BasePage
     protected void Page_Load(object sender, EventArgs e)
     {
         documentsMenu.MenuEntityTitle = "Documents";
+        if (!IsPostBack)
+        {
+//            documentsMenu.MenuEntityTitle = "Documents";
+        }
     }
     protected void ddlCompany_SelectedIndexChanged(object sender, System.EventArgs e)
     {

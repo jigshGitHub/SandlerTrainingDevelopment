@@ -46,7 +46,7 @@
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="Last Modified Date :">
                             <EditItemTemplate>
-                                <asp:TextBox ID="LastModifyDate" Text='<%# Bind("LastModifyDate") %>' runat="server" />&nbsp;<asp:Image
+                                <asp:TextBox ID="LastModifyDate" Text='<%# Bind("LastModifyDate","{0:d}") %>' runat="server" />&nbsp;<asp:Image
                                     ID="calanderImageLMD" runat="server" ImageUrl="~/images/calendar.gif" ImageAlign="Middle" />
                                 <asp:CalendarExtender runat="server" TargetControlID="LastModifyDate" PopupButtonID="calanderImageLMD"
                                     CssClass="calendar">

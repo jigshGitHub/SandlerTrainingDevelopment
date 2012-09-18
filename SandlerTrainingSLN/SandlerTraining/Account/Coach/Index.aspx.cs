@@ -56,19 +56,19 @@ public partial class Account_Coach_Index : BasePage
             ViewState["SortExpression"] = value;
         }
     }
-    protected string SortDirection
+    protected bool IsAscendigSortOrder
     {
         get
         {
-            if (ViewState["SortDirection"] == null)
+            if (ViewState["IsAscendigSortOrder"] == null)
             {
-                ViewState["SortDirection"] = "ASC";
+                ViewState["IsAscendigSortOrder"] = true;
             }
-            return ViewState["SortDirection"].ToString();
+            return Convert.ToBoolean(ViewState["IsAscendigSortOrder"]);
         }
         set
         {
-            ViewState["SortDirection"] = value;
+            ViewState["IsAscendigSortOrder"] = value;
         }
     }
     protected int TotalRecords
@@ -128,7 +128,7 @@ public partial class Account_Coach_Index : BasePage
 
             TotalRecords = coachCollection.Count();
 
-            gvCoaches.DataSource = IQueryableExtensions.Page(coachCollection, PageSize, CurrentPage).AsQueryable();
+            gvCoaches.DataSource = IQueryableExtensions.Page(IQueryableExtensions.Sort(coachCollection, SortExpression, IsAscendigSortOrder), PageSize, CurrentPage).AsQueryable();
             gvCoaches.DataBind();
 
 
@@ -138,4 +138,19 @@ public partial class Account_Coach_Index : BasePage
         {
         }
     }
+
+    protected void gvCoaches_Sorting(object sender, GridViewSortEventArgs e)
+    {
+        if (SortExpression == e.SortExpression)
+        {
+            IsAscendigSortOrder = !IsAscendigSortOrder;
+        }
+        else
+        {
+            IsAscendigSortOrder = true;
+        }
+        SortExpression = e.SortExpression;
+        BindCoachUsers();
+    }
 }
+

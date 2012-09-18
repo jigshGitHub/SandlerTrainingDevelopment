@@ -10,9 +10,9 @@ public partial class OpportunityIndex : OpportunityBasePage
 {
     protected void Page_Load(object sender, EventArgs e)
     {
+        opportunityMenu.MenuEntityTitle = "Opportunities";
         if (!IsPostBack)
         {
-            opportunityMenu.MenuEntityTitle = "Opportunities";
             if (!string.IsNullOrEmpty(Request.QueryString["currentPage"]))
                 CurrentPage = int.Parse(Request.QueryString["currentPage"]);
             CompanyID = 0;

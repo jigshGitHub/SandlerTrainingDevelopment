@@ -13,7 +13,7 @@
                 <table style="width: 100%">
                     <tr>
                         <td style="width: 100%" align="right">
-                            <uc1:EntityMenu ID="opportunityMenu" runat="server" />
+                            <uc1:EntityMenu ID="opportunityMenu" runat="server" EnableViewState="true" />
                         </td>
                     </tr>
                     <tr>

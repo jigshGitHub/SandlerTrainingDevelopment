@@ -10,9 +10,11 @@ namespace SandlerModels.DataIntegration
 {
     public interface IUserEntities
     {
-        IEnumerable<TBL_CONTACTS> GetNewAppointments(UserModel user);
+        //IEnumerable<TBL_CONTACTS> GetNewAppointments(UserModel user);
+        IEnumerable<SandlerModels.Contact> GetNewAppointments(UserModel user);
         //IEnumerable<TBL_OPPORTUNITIES> Getopportunities(UserModel user);
-        IEnumerable<TBL_CONTACTS> GetContactsByCompany(UserModel user, int companyId);
+        //IEnumerable<TBL_CONTACTS> GetContactsByCompany(UserModel user, int companyId);
+        IEnumerable<SandlerModels.Contact> GetContactsByCompany(UserModel user, int companyId);
         //IEnumerable<TBL_CONTACTS> GetContacts(UserModel user);
         //IEnumerable<TBL_COMPANIES> GetCompanies(UserModel user);
     }
@@ -91,8 +93,18 @@ namespace SandlerModels.DataIntegration
         public IEnumerable<TBL_COMPANIES> Companies
         { get { return companies; } }
 
-        private readonly IEnumerable<TBL_CONTACTS> contacts;
-        public IEnumerable<TBL_CONTACTS> Contacts
+        //private readonly IEnumerable<TBL_CONTACTS> contacts;
+        //public IEnumerable<TBL_CONTACTS> Contacts
+        //{
+        //    get
+        //    {
+        //        return contacts;
+        //    }
+        //}
+
+
+        private readonly List<SandlerModels.Contact> contacts;
+        public List<SandlerModels.Contact> Contacts
         {
             get
             {
@@ -121,7 +133,8 @@ namespace SandlerModels.DataIntegration
         {
             franchisees = GetFranchisees(user);
             companies = GetCompanies(user);
-            contacts = GetContacts(user);
+            //contacts = GetContacts(user);
+            contacts = GetContactsByUser(user);
             //opportunities = Getopportunities(user);
             opportunities = GetopportunitiesByUser(user);
             companiesCount = companies.Count();
@@ -170,36 +183,52 @@ namespace SandlerModels.DataIntegration
             }
             return companies;
         }
-        private IEnumerable<TBL_CONTACTS> GetContacts(UserModel user)
+        //private IEnumerable<TBL_CONTACTS> GetContacts(UserModel user)
+        //{
+        //    ContactsRepository contactsSource = new ContactsRepository();
+        //    
+
+        //    IEnumerable<TBL_CONTACTS> contacts = null;
+        //    if (user.Role == SandlerRoles.FranchiseeUser)
+        //        contacts = contactsSource.GetAll().Where(record => record.IsActive == true && record.CreatedBy.ToLower() == user.UserId.ToString().ToLower()).AsEnumerable();
+        //    else if (user.Role == SandlerRoles.FranchiseeOwner)
+        //    {
+        //        //contacts = from contact in contactsSource.GetAll().Where(record => record.IsActive == true)
+        //        //           from company in this.companies.Where(record => record.COMPANIESID == contact.COMPANYID)
+        //        //           select contact;
+        //        contacts = from contact in contactsSource.GetAll().Where(record => record.IsActive == true && record.TBL_COMPANIES.FranchiseeId == user.FranchiseeID)
+        //                   //from company in this.companies.Where(record => record.COMPANIESID == contact.COMPANYID)
+        //                   //where company.FranchiseeId == user.FranchiseeID
+        //                   select contact;
+        //    }
+        //    else if (user.Role == SandlerRoles.Coach)
+        //    {
+        //        //contacts = from contact in contactsSource.GetAll().Where(record => record.IsActive == true)
+        //        //           from company in companies.Where(record => record.COMPANIESID == contact.COMPANYID)
+        //        //           from franchisee in franchisees.Where(record => record.ID == company.FranchiseeId)
+        //        //           select contact;
+        //        contacts = from contact in contactsSource.GetAll().Where(record => record.IsActive == true && record.TBL_COMPANIES.TBL_FRANCHISEE.CoachID == user.CoachID)
+        //                   select contact;
+        //    }
+        //    else if (user.Role == SandlerRoles.Corporate)
+        //    {
+        //        contacts = contactsSource.GetAll().Where(record => record.IsActive == true).AsEnumerable();
+        //    }
+        //    return contacts;
+        //}
+        private List<SandlerModels.Contact> GetContactsByUser(UserModel user)
         {
             ContactsRepository contactsSource = new ContactsRepository();
-            IEnumerable<TBL_CONTACTS> contacts = null;
-            if (user.Role == SandlerRoles.FranchiseeUser)
-                contacts = contactsSource.GetAll().Where(record => record.IsActive == true && record.CreatedBy.ToLower() == user.UserId.ToString().ToLower()).AsEnumerable();
-            else if (user.Role == SandlerRoles.FranchiseeOwner)
+            List<SandlerModels.Contact> contactsList = null;
+            try
             {
-                //contacts = from contact in contactsSource.GetAll().Where(record => record.IsActive == true)
-                //           from company in this.companies.Where(record => record.COMPANIESID == contact.COMPANYID)
-                //           select contact;
-                contacts = from contact in contactsSource.GetAll().Where(record => record.IsActive == true && record.TBL_COMPANIES.FranchiseeId == user.FranchiseeID)
-                           //from company in this.companies.Where(record => record.COMPANIESID == contact.COMPANYID)
-                           //where company.FranchiseeId == user.FranchiseeID
-                           select contact;
+                contactsList = contactsSource.GetContactsByUser(user.UserId).ToList<SandlerModels.Contact>();
             }
-            else if (user.Role == SandlerRoles.Coach)
+            catch (Exception ex)
             {
-                //contacts = from contact in contactsSource.GetAll().Where(record => record.IsActive == true)
-                //           from company in companies.Where(record => record.COMPANIESID == contact.COMPANYID)
-                //           from franchisee in franchisees.Where(record => record.ID == company.FranchiseeId)
-                //           select contact;
-                contacts = from contact in contactsSource.GetAll().Where(record => record.IsActive == true && record.TBL_COMPANIES.TBL_FRANCHISEE.CoachID == user.CoachID)
-                           select contact;
+                throw new Exception("exception in UserEntities.Getopportunities: " + ex.Message);
             }
-            else if (user.Role == SandlerRoles.Corporate)
-            {
-                contacts = contactsSource.GetAll().Where(record => record.IsActive == true).AsEnumerable();
-            }
-            return contacts;
+            return contactsList;
         }
         private IEnumerable<TBL_OPPORTUNITIES> Getopportunities(UserModel user)
         {
@@ -247,7 +276,7 @@ namespace SandlerModels.DataIntegration
             List<Opportunity> opportunties = null;
             try
             {
-               opportunties = opportunitiesSource.GetByUserId(user.UserId).ToList<Opportunity>();
+               opportunties = opportunitiesSource.GetOpportunitiesByUser(user.UserId).ToList<Opportunity>();
             }
             catch (Exception ex)
             {
@@ -294,9 +323,24 @@ namespace SandlerModels.DataIntegration
         }
         #region IUserEntities Members
 
-        public IEnumerable<TBL_CONTACTS> GetNewAppointments(UserModel user)
+        //public IEnumerable<TBL_CONTACTS> GetNewAppointments(UserModel user)
+        //{
+        //    IEnumerable<TBL_CONTACTS> newContacts = null;
+        //    try
+        //    {
+        //        newContacts = from contact in contacts.Where(record => record.IsNewAppointment == true)
+        //                      select contact;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw new Exception("exception in UserEntities.GetNewAppointments: " + ex.Message);
+        //    }
+        //    return newContacts;
+        //}
+
+        public IEnumerable<SandlerModels.Contact> GetNewAppointments(UserModel user)
         {
-            IEnumerable<TBL_CONTACTS> newContacts = null;
+            IEnumerable<SandlerModels.Contact> newContacts = null;
             try
             {
                 newContacts = from contact in contacts.Where(record => record.IsNewAppointment == true)
@@ -308,9 +352,29 @@ namespace SandlerModels.DataIntegration
             }
             return newContacts;
         }
-        public IEnumerable<TBL_CONTACTS> GetContactsByCompany(UserModel user, int companyId)
+        //public IEnumerable<TBL_CONTACTS> GetContactsByCompany(UserModel user, int companyId)
+        //{
+        //    IEnumerable<TBL_CONTACTS> companyContacts = null;
+        //    try
+        //    {
+        //        if (ContactsCount > 0)
+        //            if (companyId == 0) companyContacts = Contacts;
+        //            else
+        //            {
+        //                companyContacts = from contact in Contacts.Where(c => c.COMPANYID == companyId)
+        //                                  select contact;
+        //            }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw new Exception("exception in UserEntities.GetContactsByCompany: " + ex.Message);
+        //    }
+        //    return companyContacts;
+        //}
+
+        public IEnumerable<SandlerModels.Contact> GetContactsByCompany(UserModel user, int companyId)
         {
-            IEnumerable<TBL_CONTACTS> companyContacts = null;
+            IEnumerable<SandlerModels.Contact> companyContacts = null;
             try
             {
                 if (ContactsCount > 0)
@@ -327,7 +391,6 @@ namespace SandlerModels.DataIntegration
             }
             return companyContacts;
         }
-
         #endregion
     }
 

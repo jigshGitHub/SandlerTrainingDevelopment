@@ -13,9 +13,10 @@ public partial class CompanyIndex : BasePage
 
     protected void Page_Load(object sender, EventArgs e)
     {
+        companyMenu.MenuEntityTitle = "Companies";
         if (!IsPostBack)
         {
-            companyMenu.MenuEntityTitle = "Companies";
+//            companyMenu.MenuEntityTitle = "Companies";
         }
     }
 

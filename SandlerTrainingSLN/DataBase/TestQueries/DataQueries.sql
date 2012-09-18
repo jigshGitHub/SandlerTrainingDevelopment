@@ -22,14 +22,14 @@ order by f.name;
 
 select * from aspnet_Users where UserName='judah.domke'
 select *  from TBL_FRANCHISEE where CoachID = 42
-select * from TBL_FRANCHISEE_USERS where FranchiseeID = 33
+select * from TBL_FRANCHISEE_USERS where FranchiseeID = 1
 
 -- Companies/Contacts based on FRanchiseeID
 SELECT u.UserName, cmp.COMPANYNAME, C.*
 FROM TBL_CONTACTS AS C WITH (NOLOCK) 
 INNER JOIN TBL_COMPANIES AS CMP WITH (NOLOCK) ON CMP.COMPANIESID = C.COMPANYID
 INNER JOIN aspnet_Users AS U WITH(NOLOCK) ON U.UserId = C.CreatedBy 
-WHERE     (CMP.FranchiseeId = 6)
+WHERE     (CMP.FranchiseeId = 1)
 
 SELECT u.UserName, cmp.COMPANYNAME, C.*
 FROM TBL_CONTACTS AS C WITH (NOLOCK) 
@@ -53,3 +53,4 @@ DatePart(Day,CreatedDate) = DatePart(Day,GetDate())
 Select * from tbl_franchisee_users
 where userid='7A911B6A-20CA-4E64-8411-F10F7B2AA5FD'
 
+Select * from tbl_companies where LASTCONTACT_DATE < GETDATE() - 90
