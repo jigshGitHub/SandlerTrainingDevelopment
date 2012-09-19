@@ -178,15 +178,42 @@ namespace SandlerRepositories
             return db.ExecuteDataset("sp_GetCompanyDetails", "CompanyByID", new SqlParameter("@COMPANIESID", id));
         }
 
-        public void AddProduct(string ProductTypeName)
+        public void AddProduct(string ProductTypeName, string colorCode)
         {
             //Get the User Session
             UserModel _user = (UserModel)HttpContext.Current.Session["CurrentUser"];
             //Create the record
-            db.ExecuteNonQuery("sp_AddProduct",
-                new SqlParameter("@ProductTypeName", ProductTypeName),
-                new SqlParameter("@CreatedBy", _user.UserId),
-                new SqlParameter("@FranchiseeId", _user.FranchiseeID));
+            //db.ExecuteNonQuery("sp_AddProduct",
+            //    new SqlParameter("@ProductTypeName", ProductTypeName),
+            //    new SqlParameter("@CreatedBy", _user.UserId),
+            //    new SqlParameter("@FranchiseeId", _user.FranchiseeID));
+
+            ProductTypesRepository productRepository = new ProductTypesRepository();
+
+            Tbl_ProductType newProductType = new Tbl_ProductType();
+            newProductType.ColorCode = colorCode;
+            newProductType.CreatedBy = _user.UserId.ToString();
+            newProductType.CreatedDate = DateTime.Now;
+            newProductType.FranchiseeId = _user.FranchiseeID;
+            newProductType.IsActive = true;
+            newProductType.ProductTypeName = ProductTypeName;
+
+            try
+            {
+                productRepository.Add(newProductType);
+            }
+            catch (System.Data.Entity.Validation.DbEntityValidationException ex)
+            {
+
+                foreach (var errors in ex.EntityValidationErrors)
+                {
+                    foreach (var error in errors.ValidationErrors)
+                    {
+                        throw new Exception(error.PropertyName + " " + error.ErrorMessage);
+                    }
+                }
+
+            }
         }
 
 

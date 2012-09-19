@@ -27,6 +27,7 @@ namespace SandlerModels
         public Nullable<System.DateTime> CreatedDate { get; set; }
         public Nullable<System.DateTime> LastUpdatedDate { get; set; }
         public Nullable<int> FranchiseeId { get; set; }
+        public string ColorCode { get; set; }
     
         internal ICollection<TBL_OPPORTUNITIES> TBL_OPPORTUNITIES { get; set; }
     }

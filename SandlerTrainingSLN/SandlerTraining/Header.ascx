@@ -15,5 +15,10 @@
             ]
         </LoggedInTemplate>
     </asp:LoginView>
+    <a href="https://minedsystems.hostpilot.com/Shared%20Documents/User%20Role%20Description.pptx"
+        target="_blank" style="color: White" runat="server" id="anchorUserGuide" visible="false">
+        How-To Guide</a>&nbsp;<a href="https://minedsystems.hostpilot.com/Lists/Tasks/AllItems.aspx"
+            target="_blank" id="anchorIcidentReporting" runat="server" visible="false"> Incident
+            Reporting</a>
 </div>
-<uc1:menu id="Menu1" runat="server" />
+<uc1:Menu ID="Menu1" runat="server" />

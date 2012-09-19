@@ -47,11 +47,11 @@ namespace SandlerModels
         public string Address { get; set; }
         public string Zip { get; set; }
     
-        internal Tbl_IndustryType Tbl_IndustryType { get; set; }
         internal ICollection<TBL_CONTACTS> TBL_CONTACTS { get; set; }
         internal ICollection<TBL_DOCS> TBL_DOCS { get; set; }
         internal ICollection<TBL_OPPORTUNITIES> TBL_OPPORTUNITIES { get; set; }
         internal TBL_FRANCHISEE TBL_FRANCHISEE { get; set; }
+        internal Tbl_IndustryType Tbl_IndustryType { get; set; }
     }
     
 }

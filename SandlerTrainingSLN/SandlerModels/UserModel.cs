@@ -15,6 +15,7 @@ namespace SandlerModels
         private int regionId;
         private int coachId;
         private string emailAdrs;
+        private string userName;
         public SandlerRoles Role
         {
             get
@@ -43,6 +44,18 @@ namespace SandlerModels
             get
             {
                 return (Guid)currentUser.ProviderUserKey;
+            }
+        }
+
+        public string UserName
+        {
+            get
+            {
+                return userName;
+            }
+            set
+            {
+                userName = value;
             }
         }
 
@@ -96,7 +109,7 @@ namespace SandlerModels
         {
             currentUser = Membership.GetUser(HttpContext.Current.User.Identity.Name);
             emailAdrs = currentUser.Email;
-
+            userName = currentUser.UserName;
         }
     }
 }

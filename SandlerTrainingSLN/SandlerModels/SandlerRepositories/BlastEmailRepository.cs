@@ -33,10 +33,11 @@ namespace SandlerRepositories
         public DataSet GetAllContactsAddresses()
         {
             //Get All Franchisee Addresses
+            int FrId = 0;
             UserModel _user = (UserModel)HttpContext.Current.Session["CurrentUser"];
             if ((_user.Role == SandlerRoles.Corporate) || (_user.Role == SandlerRoles.SiteAdmin))
             {
-                return db.ExecuteDataset("sp_GetAllContactsAddresses", "ContactAddress", new SqlParameter("@FranchiseeId", 0));
+                return db.ExecuteDataset("sp_GetAllContactsAddresses", "ContactAddress", new SqlParameter("@FranchiseeId", FrId));
             }
             else
             {

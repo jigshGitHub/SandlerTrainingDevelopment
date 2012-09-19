@@ -81,8 +81,7 @@
                             Sales Rep Phone :
                         </td>
                         <td>
-                            <asp:TextBox ID="txtSalesRepPhone" onkeypress="EnterOnlyNumeric()" MaxLength="50"
-                                Width="380" runat="server"></asp:TextBox>
+                            <asp:TextBox ID="txtSalesRepPhone" MaxLength="50" Width="380" runat="server"></asp:TextBox>
                         </td>
                     </tr>
                     <tr style="color: Black; background-color: #EEEEEE; white-space: nowrap;">
@@ -201,7 +200,7 @@
         </tr>
         <tr>
             <td style="width: 280px">
-                <asp:ValidationSummary ID="ValidationSummary1" runat="server" ShowMessageBox="True" />
+                <asp:ValidationSummary ID="ValidationSummary1" runat="server" ForeColor="Red" ShowMessageBox="True" />
             </td>
         </tr>
         <tr>
@@ -241,7 +240,7 @@
                             case 110: break; // . number block (Opera 9.63+ maps the "." from the number block to the "N" key (78) !!!)
                             case 190: break; // .
                             default: break;
-                            //$(this).formatCurrency({ colorize: true, negativeFormat: '(%s%n)', roundToDecimalPlace: -1, eventOnDecimalsEntered: true });                          
+                            //$(this).formatCurrency({ colorize: true, negativeFormat: '(%s%n)', roundToDecimalPlace: -1, eventOnDecimalsEntered: true });                           
                         }
                     }
                 })

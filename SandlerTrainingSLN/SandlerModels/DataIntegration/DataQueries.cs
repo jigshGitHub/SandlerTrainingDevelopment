@@ -34,9 +34,13 @@ namespace SandlerModels.DataIntegration
                     contactSource = new ContactsRepository();
                     newAppointments = contactSource.GetNewAppointments(month, DateTime.Now.Year, currentUser.UserId.ToString());
                     newAppsSource = new List<AppointmentSourceVM>();
-                    while (newAppointments.Read())
+                    if (newAppointments != null)
                     {
-                        newAppsSource.Add(new AppointmentSourceVM { Count = newAppointments.GetInt32(0), SourceName = newAppointments.GetString(1) });
+                        while (newAppointments.Read())
+                        {
+                            newAppsSource.Add(new AppointmentSourceVM { Count = newAppointments.GetInt32(0), SourceName = newAppointments.GetString(1) });
+                        }
+                        newAppointments.Close();
                     }
                     data = newAppsSource.AsEnumerable<AppointmentSourceVM>();
                 }
@@ -73,9 +77,13 @@ namespace SandlerModels.DataIntegration
                 companyRepository = new CompaniesRepository();
                 newClients = companyRepository.GetNewClientsProducts(month, DateTime.Now.Year, currentUser.UserId.ToString());
                 newAppsProducts = new List<ProductTypeVM>();
-                while (newClients.Read())
+                if (newClients != null)
                 {
-                    newAppsProducts.Add(new ProductTypeVM { Count = newClients.GetInt32(0), ProductTypeName = newClients.GetString(1) });
+                    while (newClients.Read())
+                    {
+                        newAppsProducts.Add(new ProductTypeVM { Count = newClients.GetInt32(0), ProductTypeName = newClients.GetString(1) });
+                    }
+                    newClients.Close();
                 }
                 data = newAppsProducts.AsEnumerable<ProductTypeVM>();
                 //}
@@ -98,12 +106,16 @@ namespace SandlerModels.DataIntegration
                 userEntities = UserEntitiesFactory.Get(currentUser);
                 companyRepository = new CompaniesRepository();
                 newClients = companyRepository.GetNewClientsProducts(month, DateTime.Now.Year, currentUser.UserId.ToString());
-                while (newClients.Read())
+                if (newClients != null)
                 {
-                    if (newClients.GetString(1) != "Assessment")
+                    while (newClients.Read())
                     {
-                        newClientsCount += newClients.GetInt32(0);
+                        if (newClients.GetString(1) != "Assessment")
+                        {
+                            newClientsCount += newClients.GetInt32(0);
+                        }
                     }
+                    newClients.Close();
                 }
             }
             catch (Exception ex)
@@ -126,7 +138,7 @@ namespace SandlerModels.DataIntegration
 
                 if (userEntities.OpportunitiesCount > 0)
                 {
-                    aveContractPrice = long.Parse((from opportunity in opportunties.Where(record => record.ProductID != 1 && record.IsNewCompany == true && record.CreationDate.Value.Year == DateTime.Now.Year && record.CreationDate.Value.Month == month)                                                  
+                    aveContractPrice = long.Parse((from opportunity in opportunties.Where(record => record.ProductID != 1 && record.IsNewCompany == true && record.CreationDate.Value.Year == DateTime.Now.Year && record.CreationDate.Value.Month == month)
                                                    select opportunity.WEIGHTEDVALUE).Sum().Value.ToString());
 
                 }
@@ -162,12 +174,16 @@ namespace SandlerModels.DataIntegration
                 companyRepository = new CompaniesRepository();
                 newClients = companyRepository.GetNewClientsProducts(month, DateTime.Now.Year, currentUser.UserId.ToString());
                 newAppsProducts = new List<ProductTypeVM>();
-                while (newClients.Read())
+                if (newClients != null)
                 {
-                    if (newClients.GetString(1) != "Assessment")
+                    while (newClients.Read())
                     {
-                        newAppsProducts.Add(new ProductTypeVM { Count = newClients.GetInt32(0), ProductTypeName = newClients.GetString(1) });
+                        if (newClients.GetString(1) != "Assessment")
+                        {
+                            newAppsProducts.Add(new ProductTypeVM { Count = newClients.GetInt32(0), ProductTypeName = newClients.GetString(1) });
+                        }
                     }
+                    newClients.Close();
                 }
                 data = newAppsProducts.AsEnumerable<ProductTypeVM>();
                 //}
@@ -226,7 +242,7 @@ namespace SandlerModels.DataIntegration
 
                 if (userEntities.ContactsCount > 0)
                 {
-                    
+
                     classHeadCountsCourse = (from contact in contacts.Where(record => record.IsRegisteredForTraining == true &&
                                             record.CourseId != null &&
                                             record.CourseTrainingDate.Value.Year == DateTime.Now.Year &&
@@ -412,13 +428,17 @@ namespace SandlerModels.DataIntegration
                 companies = userEntities.Companies;
 
                 industrySource = new IndustryTypeRepository();
-                
+
                 companySource = new CompaniesRepository();
                 clientsIndustrySource = companySource.GetClientsAvgLengthWithIndustries(currentUser.UserId.ToString());
                 clientsIndustry = new List<IndustryVM>();
-                while (clientsIndustrySource.Read())
+                if (clientsIndustrySource != null)
                 {
-                    clientsIndustry.Add(new IndustryVM { Count = clientsIndustrySource.GetInt32(1), IndustryTypeName = clientsIndustrySource.GetString(0) });
+                    while (clientsIndustrySource.Read())
+                    {
+                        clientsIndustry.Add(new IndustryVM { Count = clientsIndustrySource.GetInt32(1), IndustryTypeName = clientsIndustrySource.GetString(0) });
+                    }
+                    clientsIndustrySource.Close();
                 }
                 data = clientsIndustry.AsEnumerable<IndustryVM>();
 

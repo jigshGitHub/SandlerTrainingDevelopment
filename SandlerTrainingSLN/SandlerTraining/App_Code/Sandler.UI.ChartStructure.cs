@@ -193,7 +193,12 @@ namespace Sandler.UI.ChartStructure
                     case ChartID.NewClientsByProductTypeMonth:
 
                         productTypesSource = new ProductTypesRepository();
-                        foreach (var record in productTypesSource.GetAll().Where(r => r.IsActive == true).AsEnumerable())
+                        IEnumerable<Tbl_ProductType> products;
+                        if (currentUser.Role == SandlerRoles.FranchiseeOwner || currentUser.Role == SandlerRoles.FranchiseeUser)
+                            products = productTypesSource.GetWithFranchiseeId(currentUser.FranchiseeID);
+                        else
+                            products = productTypesSource.GetAll();
+                        foreach (var record in products.Where(r => r.IsActive == true).AsEnumerable())
                         {
                             this.Categories.Add(new Category { Label = record.ProductTypeName });
                         }
@@ -581,6 +586,8 @@ namespace Sandler.UI.ChartStructure
                 AppointmentSourceRepository appointmentSource = null;
                 ProductTypesRepository productTypesSource = null;
                 string[] colors = null;
+
+                IEnumerable<Tbl_ProductType> products;
                 switch (this.Id)
                 {
                     case ChartID.NewAppointmentsBySource:
@@ -613,21 +620,25 @@ namespace Sandler.UI.ChartStructure
                         //{
                         var NewClientsByProductType = from record in queries.GetNewClientsByProductType(currentUser, DateTime.ParseExact(this.DrillBy, "MMM", null).Month)
                                                       select new { Category = record.ProductTypeName, Count = record.Count };
-                        colors = new string[] { "CC6600", "9900CC", "FF3300", "0099FF", "00CC66", "FFFF00" };
-
                         productTypesSource = new ProductTypesRepository();
-                        foreach (var record in productTypesSource.GetAll().Where(r => r.IsActive == true).AsEnumerable())
+
+                        if (currentUser.Role == SandlerRoles.FranchiseeOwner || currentUser.Role == SandlerRoles.FranchiseeUser)
+                            products = productTypesSource.GetWithFranchiseeId(currentUser.FranchiseeID);
+                        else
+                            products = productTypesSource.GetAll().Where(r => r.IsActive == true);
+
+
+                        foreach (var record in products.AsEnumerable())
                         {
                             try
                             {
                                 if (NewClientsByProductType.Single(r => r.Category == record.ProductTypeName) != null)
-                                    this.SetsCollection.Add(new SetValue { Color = colors.GetValue(colorIndex).ToString(), Label = record.ProductTypeName, Value = NewClientsByProductType.Single(r => r.Category == record.ProductTypeName).Count.ToString() });
+                                    this.SetsCollection.Add(new SetValue { Color = record.ColorCode, Label = record.ProductTypeName, Value = NewClientsByProductType.Single(r => r.Category == record.ProductTypeName).Count.ToString() });
                             }
                             catch (System.InvalidOperationException)
                             {
 
                             }
-                            colorIndex++;
                         }
                         //}
                         break;
@@ -638,21 +649,24 @@ namespace Sandler.UI.ChartStructure
                         var NewClientsWithProductTypes = from record in queries.NewClientsWithProductTypes(currentUser, DateTime.ParseExact(this.DrillBy, "MMM", null).Month)
                                                          select new { Category = record.ProductTypeName, Count = record.Count };
 
-                        colors = new string[] { "CC6600", "9900CC", "FF3300", "0099FF", "00CC66", "FFFF00" };
-
                         productTypesSource = new ProductTypesRepository();
-                        foreach (var record in productTypesSource.GetAll().Where(r => r.IsActive == true).AsEnumerable())
+
+                        if (currentUser.Role == SandlerRoles.FranchiseeOwner || currentUser.Role == SandlerRoles.FranchiseeUser)
+                            products = productTypesSource.GetWithFranchiseeId(currentUser.FranchiseeID);
+                        else
+                            products = productTypesSource.GetAll().Where(r => r.IsActive == true);
+
+                        foreach (var record in products.AsEnumerable())
                         {
                             try
                             {
                                 if (NewClientsWithProductTypes.Single(r => r.Category == record.ProductTypeName) != null)
-                                    this.SetsCollection.Add(new SetValue { Color = colors.GetValue(colorIndex).ToString(), Label = record.ProductTypeName, Value = NewClientsWithProductTypes.Single(r => r.Category == record.ProductTypeName).Count.ToString() });
+                                    this.SetsCollection.Add(new SetValue { Color = record.ColorCode, Label = record.ProductTypeName, Value = NewClientsWithProductTypes.Single(r => r.Category == record.ProductTypeName).Count.ToString() });
                             }
                             catch (System.InvalidOperationException)
                             {
 
                             }
-                            colorIndex++;
                         }
                         //}
                         break;
@@ -663,21 +677,25 @@ namespace Sandler.UI.ChartStructure
                         //{
                         var ContractPriceWithProductTypes = from record in queries.ContractPriceWithProductTypes(currentUser, DateTime.ParseExact(this.DrillBy, "MMM", null).Month)
                                                             select new { Category = record.ProductTypeName, AvgPrice = record.AvgPrice };
-                        colors = new string[] { "CC6600", "9900CC", "FF3300", "0099FF", "00CC66", "FFFF00" };
-
+                        
                         productTypesSource = new ProductTypesRepository();
-                        foreach (var record in productTypesSource.GetAll().Where(r => r.IsActive == true).AsEnumerable())
+
+                        if (currentUser.Role == SandlerRoles.FranchiseeOwner || currentUser.Role == SandlerRoles.FranchiseeUser)
+                            products = productTypesSource.GetWithFranchiseeId(currentUser.FranchiseeID);
+                        else
+                            products = productTypesSource.GetAll().Where(r => r.IsActive == true);
+
+                        foreach (var record in products.AsEnumerable())
                         {
                             try
                             {
                                 if (ContractPriceWithProductTypes.Single(r => r.Category == record.ProductTypeName) != null)
-                                    this.SetsCollection.Add(new SetValue { Color = colors.GetValue(colorIndex).ToString(), Label = record.ProductTypeName, Value = ((ContractPriceWithProductTypes.Single(r => r.Category == record.ProductTypeName).AvgPrice) / 5).ToString() });
+                                    this.SetsCollection.Add(new SetValue { Color = record.ColorCode, Label = record.ProductTypeName, Value = ((ContractPriceWithProductTypes.Single(r => r.Category == record.ProductTypeName).AvgPrice) / 5).ToString() });
                             }
                             catch (System.InvalidOperationException)
                             {
 
                             }
-                            colorIndex++;
                         }
                         //}
                         break;

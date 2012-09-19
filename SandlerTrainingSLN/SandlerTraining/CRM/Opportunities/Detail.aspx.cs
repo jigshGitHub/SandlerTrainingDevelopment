@@ -37,7 +37,7 @@ public partial class OpportunityDETAIL : OpportunityBasePage
         lblEmail.Text = contact.EMAIL;
         lblOppName.Text = record.NAME;
         lblOpportunityID.Text = record.OpportunityID.Value.ToString();
-        lblOpportunityValue.Text = record.VALUE.ToString();
+        lblOpportunityValue.Text = string.Format("{0:C}",record.VALUE);
         lblPhone.Text = contact.PHONE;
         Tbl_ProductType product = GetProduct(record.ProductID);
         lblProduct.Text = product.ProductTypeName;
@@ -45,7 +45,7 @@ public partial class OpportunityDETAIL : OpportunityBasePage
         lblSalesRepLName.Text = record.SALESREPLASTNAME;
         lblSalesRepPhone.Text = record.SALESREPPHONE;
         lblStatus.Text = GetAppointment(contact.ApptSourceId.Value).ApptSourceName;
-        lblWeightedValue.Text = record.WEIGHTEDVALUE.ToString();
+        lblWeightedValue.Text = string.Format("{0:C}",record.WEIGHTEDVALUE);
         lblWinProbability.Text = record.WINPROBABILITY;        
     }
 }
