@@ -596,7 +596,7 @@ namespace Sandler.UI.ChartStructure
                         var NewAppointmentSource = from record in queries.GetNewAppointmentSource(currentUser, DateTime.ParseExact(this.DrillBy, "MMM", null).Month)
                                                    select new { Category = record.SourceName, Count = record.Count };
 
-                        colors = new string[] { "00CC66", "0099FF", "FF3300", "9900CC", "CC6600" };
+                        
 
                         appointmentSource = new AppointmentSourceRepository();
                         foreach (var record in appointmentSource.GetAll().Where(r => r.IsActive == true).AsEnumerable())
@@ -604,7 +604,7 @@ namespace Sandler.UI.ChartStructure
                             try
                             {
                                 if (NewAppointmentSource.Single(r => r.Category == record.ApptSourceName) != null)
-                                    this.SetsCollection.Add(new SetValue { Color = colors.GetValue(colorIndex).ToString(), Label = record.ApptSourceName, Value = NewAppointmentSource.Single(r => r.Category == record.ApptSourceName).Count.ToString() });
+                                    this.SetsCollection.Add(new SetValue { Color = record.ColorCode, Label = record.ApptSourceName, Value = NewAppointmentSource.Single(r => r.Category == record.ApptSourceName).Count.ToString() });
                             }
                             catch (System.InvalidOperationException)
                             {

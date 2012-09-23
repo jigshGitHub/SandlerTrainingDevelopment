@@ -1,1 +1,1 @@
-exec [sp_ClientsAvgLengthWithIndustries] '139F3A7C-2D08-4C6A-92A6-4E78D228EF8E'
+exec [sp_ClientsAvgLengthWithIndustries] '62f38ec0-fbd5-448b-b4ed-782f90d5d4bd'

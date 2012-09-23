@@ -12,6 +12,7 @@ namespace SandlerModels.DataIntegration
         public string SourceName { get; set; }
         public bool IsActive { get; set; }
         public int Count { get; set; }
+        public string ColorCode { get; set; }
     }
 
     public class ProductTypeVM

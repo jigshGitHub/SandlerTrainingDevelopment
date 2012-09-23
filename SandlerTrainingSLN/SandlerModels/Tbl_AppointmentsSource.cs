@@ -26,6 +26,7 @@ namespace SandlerModels
         public System.DateTime CreatedDate { get; set; }
         public string CreatedBy { get; set; }
         public Nullable<bool> IsActive { get; set; }
+        public string ColorCode { get; set; }
     
         internal ICollection<TBL_CONTACTS> TBL_CONTACTS { get; set; }
     }
