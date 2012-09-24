@@ -6,6 +6,7 @@ using System.Web.UI;
 
 namespace Sandler.UI
 {
+    //http://www.codeproject.com/Articles/117475/Load-ASP-Net-User-Control-Dynamically-Using-jQuery
     public class jQueryUserControlRequestHandler : IHttpHandler
     {
         public void ProcessRequest(HttpContext context)

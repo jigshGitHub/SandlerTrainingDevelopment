@@ -21,16 +21,9 @@ namespace SandlerModels.DataIntegration
             try
             {
                 userEntities = UserEntitiesFactory.Get(currentUser);
-                //contacts = userEntities.GetNewAppointments(currentUser);
 
                 if (userEntities.ContactsCount > 0)
                 {
-                    //data = from contact in contacts
-                    //       from company in userEntities.Companies.Where(record => record.COMPANIESID == contact.COMPANYID && record.CreationDate.Value.Year == DateTime.Now.Year && record.CreationDate.Value.Month == month)
-                    //       from appSource in new AppointmentSourceRepository().GetAll().Where(record => record.IsActive == true && record.ApptSourceId == contact.ApptSourceId)
-                    //       group contact by new { appSource.ApptSourceName }
-                    //           into grp
-                    //           select new AppointmentSourceVM { SourceName = grp.Key.ApptSourceName, Count = grp.Count() };
                     contactSource = new ContactsRepository();
                     newAppointments = contactSource.GetNewAppointments(month, DateTime.Now.Year, currentUser.UserId.ToString());
                     newAppsSource = new List<AppointmentSourceVM>();
@@ -56,7 +49,6 @@ namespace SandlerModels.DataIntegration
         public IEnumerable<ProductTypeVM> GetNewClientsByProductType(UserModel currentUser, int month)
         {
             UserEntities userEntities = null;
-            //IEnumerable<TBL_OPPORTUNITIES> opportunties = null;
             IEnumerable<ProductTypeVM> data = null;
             CompaniesRepository companyRepository = null;
             SqlDataReader newClients;
@@ -64,16 +56,7 @@ namespace SandlerModels.DataIntegration
             try
             {
                 userEntities = UserEntitiesFactory.Get(currentUser);
-                //opportunties = userEntities.Opportunities;
-
-                //if (userEntities.OpportunitiesCount > 0)
-                //{
-                //data = from oppotunity in opportunties
-                //        from company in userEntities.Companies.Where(record => record.COMPANIESID == oppotunity.COMPANYID && record.IsNewCompany == true && record.CreationDate.Value.Year == DateTime.Now.Year && record.CreationDate.Value.Month == month)
-                //        from product in new ProductTypesRepository().GetAll().Where(record => record.Id == oppotunity.ProductID && record.IsActive == true)
-                //        group oppotunity by new { product.ProductTypeName }
-                //            into grp
-                //            select new ProductTypeVM { ProductTypeName = grp.Key.ProductTypeName, Count = grp.Count() };
+                
                 companyRepository = new CompaniesRepository();
                 newClients = companyRepository.GetNewClientsProducts(month, DateTime.Now.Year, currentUser.UserId.ToString());
                 newAppsProducts = new List<ProductTypeVM>();
@@ -161,16 +144,7 @@ namespace SandlerModels.DataIntegration
             try
             {
                 userEntities = UserEntitiesFactory.Get(currentUser);
-                // opportunties = userEntities.Opportunities;
-
-                //if (userEntities.OpportunitiesCount > 0)
-                //{
-                //data = from opportunity in opportunties.Where(record => record.TBL_COMPANIES.IsNewCompany == true &&
-                //           record.TBL_COMPANIES.CreationDate.Value.Year == DateTime.Now.Year && record.TBL_COMPANIES.CreationDate.Value.Month == month &&
-                //           record.Tbl_ProductType.Id != null && record.Tbl_ProductType.ProductTypeName != "Assessment")
-                //       group opportunity by new { opportunity.Tbl_ProductType.ProductTypeName }
-                //           into grp
-                //           select new ProductTypeVM { ProductTypeName = grp.Key.ProductTypeName, Count = grp.Count() };
+                
                 companyRepository = new CompaniesRepository();
                 newClients = companyRepository.GetNewClientsProducts(month, DateTime.Now.Year, currentUser.UserId.ToString());
                 newAppsProducts = new List<ProductTypeVM>();
@@ -198,7 +172,6 @@ namespace SandlerModels.DataIntegration
         public IEnumerable<ProductTypeVM> ContractPriceWithProductTypes(UserModel currentUser, int month)
         {
             UserEntities userEntities = null;
-            //IEnumerable<TBL_OPPORTUNITIES> opportunties = null;
             IEnumerable<Opportunity> opportunties = null;
             IEnumerable<ProductTypeVM> data = null;
 
@@ -237,7 +210,6 @@ namespace SandlerModels.DataIntegration
             try
             {
                 userEntities = UserEntitiesFactory.Get(currentUser);
-                //contacts = userEntities.Contacts;
                 contacts = userEntities.Contacts;
 
                 if (userEntities.ContactsCount > 0)
@@ -270,11 +242,6 @@ namespace SandlerModels.DataIntegration
 
                 if (userEntities.ContactsCount > 0)
                 {
-                    //classHeadCountsIndustry = (from contact in contacts.Where(record => record.IsRegisteredForTraining == true &&
-                    //                           record.TBL_COMPANIES.IndustryId != null &&
-                    //                           record.CourseTrainingDate.Value.Year == DateTime.Now.Year &&
-                    //                           record.CourseTrainingDate.Value.Month == month)
-                    //                           select contact).Count();
                     classHeadCountsIndustry = (from contact in contacts.Where(record => record.IsRegisteredForTraining == true &&
                                                record.IndustryId.HasValue &&
                                                record.CourseTrainingDate.Value.Year == DateTime.Now.Year &&
@@ -362,13 +329,6 @@ namespace SandlerModels.DataIntegration
                            group record by new { course.CourseName }
                                into grp
                                select new CourseVM { CourseName = grp.Key.CourseName, Count = grp.Count() };
-                    //data = from contact in contacts.Where(record => record.IsRegisteredForTraining == true &&
-                    //        record.CourseId != null &&
-                    //       record.CourseTrainingDate.Value.Year == DateTime.Now.Year &&
-                    //       record.CourseTrainingDate.Value.Month == month)
-                    //       group contact by new { contact.Tbl_Course.CourseName }
-                    //           into grp
-                    //           select new CourseVM { CourseName = grp.Key.CourseName, Count = grp.Count() };
                 }
             }
             catch (Exception ex)
@@ -390,13 +350,6 @@ namespace SandlerModels.DataIntegration
                 contacts = userEntities.Contacts;
                 if (userEntities.ContactsCount > 0)
                 {
-                    //data = from contact in contacts.Where(record => record.IsRegisteredForTraining == true &&
-                    //    record.CourseTrainingDate.Value.Year == DateTime.Now.Year &&
-                    //    record.CourseTrainingDate.Value.Month == month)
-                    //       from industry in new IndustryTypeRepository().GetAll().Where(i => i.IsActive == true && i.IndId == contact.TBL_COMPANIES.IndustryId)
-                    //       group contact by new { industry.IndustryTypeName }
-                    //           into grp
-                    //           select new IndustryVM { IndustryTypeName = grp.Key.IndustryTypeName, Count = grp.Count() };
                     data = from contact in contacts.Where(record => record.IsRegisteredForTraining == true &&
                         record.CourseTrainingDate.Value.Year == DateTime.Now.Year &&
                         record.CourseTrainingDate.Value.Month == month)

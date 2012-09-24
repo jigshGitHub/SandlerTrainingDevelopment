@@ -25,10 +25,24 @@ namespace SandlerModels
         public Nullable<bool> IsRegisteredForTraining { get; set; }
         public Nullable<int> ApptSourceId { get; set; }
         public Nullable<System.DateTime> CourseTrainingDate { get; set; }
+        public string PrimaryContactFirstName { get; set; }
+        public string PrimaryContactLastName { get; set; }
+        public string PrimaryContactEmail { get; set; }
+        public string SeconadryContact1FirstName { get; set; }
+        public string SeconadryContact1LastName { get; set; }
+        public string SeconadryContact1Email { get; set; }
+        public string SeconadryContact2FirstName { get; set; }
+        public string SeconadryContact2LastName { get; set; }
+        public string SeconadryContact2Email { get; set; }
         public string COMPANYNAME { get; set; }
         public Nullable<bool> IsNewCompany { get; set; }
         public Nullable<System.DateTime> CreationDate { get; set; }
         public Nullable<int> IndustryId { get; set; }
+        public string WhyLost { get; set; }
+        public string Type { get; set; }
+        public string Status { get; set; }
+        public string ProductTypeName { get; set; }
+        public string Source { get; set; }
         public int ID { get; set; }
         public int COMPANYID { get; set; }
         public int CONTACTID { get; set; }
@@ -40,7 +54,7 @@ namespace SandlerModels
         public Nullable<int> STATUSID { get; set; }
         public Nullable<int> VALUE { get; set; }
         public string WINPROBABILITY { get; set; }
-        public Nullable<int> WEIGHTEDVALUE { get; set; }
+        public Nullable<decimal> WEIGHTEDVALUE { get; set; }
         public Nullable<System.DateTime> CLOSEDATE { get; set; }
         public Nullable<bool> IsActive { get; set; }
         public Nullable<System.DateTime> UpdatedDate { get; set; }
@@ -48,6 +62,14 @@ namespace SandlerModels
         public Nullable<System.DateTime> CreatedDate { get; set; }
         public string CreatedBy { get; set; }
         public Nullable<int> OpportunityID { get; set; }
+        public Nullable<int> SourceID { get; set; }
+        public Nullable<int> TypeID { get; set; }
+        public Nullable<int> WhyLostID { get; set; }
+        public string Description { get; set; }
+        public string Notes { get; set; }
+        public Nullable<decimal> ActualValue { get; set; }
+        public Nullable<int> SeconadryContactId1 { get; set; }
+        public Nullable<int> SeconadryContactId2 { get; set; }
     }
     
 }

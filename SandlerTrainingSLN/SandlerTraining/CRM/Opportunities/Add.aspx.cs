@@ -21,7 +21,19 @@ public partial class OpportunityADD : OpportunityBasePage
                 lbtnCancel.Text = "Cancel";
             }
         }
+        lblResult.Text = "";
+    }
+    protected void ddlCreateDefaultSelection(object sender, EventArgs e)
+    {
+        DropDownList dropdownList = sender as DropDownList;
+        if (!(dropdownList.Items.Count == 0))
+        {
+            string defaultSelection = "";
 
+            defaultSelection = "--Select One--";
+            ListItem selectItem = new ListItem(defaultSelection, "0");
+            dropdownList.Items.Insert(0, selectItem);
+        }
     }
     protected void ddlCompany_DataBound(object sender, EventArgs e)
     {
@@ -34,14 +46,12 @@ public partial class OpportunityADD : OpportunityBasePage
     }
     protected void ddlCompany_SelectedIndexChanged(object sender, EventArgs e)
     {
-       if (ddlCompany.SelectedIndex > 0)
+        lstBxContacts.Items.Clear();
+        pnlContacts.Visible = false;
+        if (ddlCompany.SelectedIndex > 0)
         {
-            //Bind contacts            
+            //Bind lstBxContacts            
             BindContacts(int.Parse(ddlCompany.SelectedValue));
-        }
-        else
-        {
-            ddlContacts.Items.Clear();
         }
 
         SetContact("", "");
@@ -54,12 +64,19 @@ public partial class OpportunityADD : OpportunityBasePage
         {
             var data = from records in companyContacts
                        select new { Name = records.FIRSTNAME + " " + records.LASTNAME, ID = records.CONTACTSID };
-            ddlContacts.DataSource = data;
-            ddlContacts.DataTextField = "Name";
-            ddlContacts.DataValueField = "ID";
-            ddlContacts.DataBind();
+            if (data.Count() > 0)
+            {
+                lstBxContacts.DataSource = data;
+                lstBxContacts.DataTextField = "Name";
+                lstBxContacts.DataValueField = "ID";
+                lstBxContacts.DataBind();
+                pnlContacts.Visible = true;
+            }
+            else
+            {
+                lblResult.Text = "First create the lstBxContacts for the company selected";
+            }
         }
-        ddlContacts.Items.Insert(0, new ListItem("--Select contact--","0"));
     }
     protected void ddlContacts_SelectedIndexChanged(object sender, EventArgs e)
     {
@@ -71,19 +88,19 @@ public partial class OpportunityADD : OpportunityBasePage
         }
         else
             SetContact("", "");
-        
+
     }
 
     private void SetContact(string phone, string email)
     {
-        txtContactPhone.Text = phone;
-        txtEmail.Text = email;
+        //txtContactPhone.Text = phone;
+        //txtEmail.Text = email;
     }
 
     protected void lbtnAdd_Click(object sender, EventArgs e)
     {
         TBL_OPPORTUNITIES opportunity = null;
-        if (lbtnAdd.Text=="Add")
+        if (lbtnAdd.Text == "Add")
         {
             opportunity = new TBL_OPPORTUNITIES();
 
@@ -97,7 +114,7 @@ public partial class OpportunityADD : OpportunityBasePage
             opportunity.UpdatedDate = DateTime.Now;
 
             Save(opportunity);
-            lblResult.Text = "Opportunity with Opportunity ID = " + opportunity.OpportunityID.Value.ToString()  + " created Successfully!";
+            lblResult.Text = "Opportunity with Opportunity ID = " + opportunity.OpportunityID.Value.ToString() + " created Successfully!";
         }
         else
         {
@@ -119,18 +136,38 @@ public partial class OpportunityADD : OpportunityBasePage
         if (!string.IsNullOrEmpty(CloseDate.Text))
             opportunity.CLOSEDATE = Convert.ToDateTime(CloseDate.Text);
         opportunity.COMPANYID = int.Parse(ddlCompany.SelectedValue);
-        opportunity.CONTACTID = int.Parse(ddlContacts.SelectedValue);
         opportunity.NAME = txtOppName.Text;
-        opportunity.ProductID = int.Parse(ddlProducts.SelectedValue);
+        if(ddlProducts.SelectedIndex > 0)
+            opportunity.ProductID = int.Parse(ddlProducts.SelectedValue);
         opportunity.SALESREPFIRSTNAME = txtSalesRepFName.Text;
         opportunity.SALESREPLASTNAME = txtSalesRepLName.Text;
         opportunity.SALESREPPHONE = txtSalesRepPhone.Text;
-        opportunity.STATUSID = int.Parse(ddlProductStatus.SelectedValue);
+        if(ddlProductStatus.SelectedIndex > 0)
+            opportunity.STATUSID = int.Parse(ddlProductStatus.SelectedValue);
         opportunity.VALUE = int.Parse(txtOpportunityValue.Text);
         opportunity.WINPROBABILITY = txtWinProbability.Text;
         opportunity.WEIGHTEDVALUE = (opportunity.VALUE * int.Parse(opportunity.WINPROBABILITY)) / 100;
+        if(drpLstSource.SelectedIndex > 0 )
+            opportunity.SourceID = int.Parse(drpLstSource.SelectedValue);
+        if (drpLstTypes.SelectedIndex > 0)
+            opportunity.TypeID = int.Parse(drpLstTypes.SelectedValue);
+        if (drpLstWhyLost.SelectedIndex > 0)
+            opportunity.WhyLostID = int.Parse(drpLstWhyLost.SelectedValue);
+        opportunity.Description = txtBxDescription.Text;
+        opportunity.Notes = txtBxNotes.Text;
+        if(!string.IsNullOrEmpty(txtActualValue.Text))
+            opportunity.ActualValue = Convert.ToDecimal(txtActualValue.Text);
+
+        int[] selectedItemIndexes = lstBxContacts.GetSelectedIndices();
+        
+        opportunity.CONTACTID = int.Parse(lstBxContacts.Items[selectedItemIndexes[0]].Value);
+
+        if (selectedItemIndexes.Count() > 1)
+            opportunity.SeconadryContactId1 = int.Parse(lstBxContacts.Items[selectedItemIndexes[1]].Value);
+        if (selectedItemIndexes.Count() > 2)
+            opportunity.SeconadryContactId2 = int.Parse(lstBxContacts.Items[selectedItemIndexes[2]].Value);
     }
-    
+
     private void BindDetailsToFields(int ID)
     {
         TBL_OPPORTUNITIES record = GetOpportunity(ID);
@@ -138,7 +175,7 @@ public partial class OpportunityADD : OpportunityBasePage
             CloseDate.Text = record.CLOSEDATE.Value.ToShortDateString();
         ddlCompany.SelectedValue = record.COMPANYID.ToString();
         BindContacts(record.COMPANYID);
-        ddlContacts.SelectedValue = record.CONTACTID.ToString();
+        //ddlContacts.SelectedValue = record.CONTACTID.ToString();
         TBL_CONTACTS contact = GetContact(long.Parse(record.CONTACTID.ToString()));
         SetContact(contact.PHONE, contact.EMAIL);
         txtOppName.Text = record.NAME;
@@ -155,12 +192,12 @@ public partial class OpportunityADD : OpportunityBasePage
     }
 
     private void ClearFiels()
-    {        
+    {
         ddlCompany.SelectedValue = "0";
         SetContact("", "");
-        ddlContacts.SelectedValue = "0";
+        //ddlContacts.SelectedValue = "0";
         txtOppName.Text = "";
-        if(trOpportunityID.Visible)
+        if (trOpportunityID.Visible)
             txtOpportunityID.Text = "";
         txtOpportunityValue.Text = "";
         ddlProducts.SelectedIndex = 0;
@@ -176,7 +213,7 @@ public partial class OpportunityADD : OpportunityBasePage
     protected void lbtnCancel_Click(object sender, EventArgs e)
     {
         ClearFiels();
-        if(OpportunityID > 0)
+        if (OpportunityID > 0)
             Server.Transfer("~/CRM/Opportunities/Detail.aspx?id=" + OpportunityID);
         else
             Server.Transfer("~/CRM/Opportunities/Index.aspx");

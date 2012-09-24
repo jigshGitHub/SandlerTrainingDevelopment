@@ -65,10 +65,10 @@
     <Compile Include="Company.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="DataIntegration\Company.cs" />
     <Compile Include="Contact.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="DataIntegration\Company.cs" />
     <Compile Include="DataIntegration\Contact.cs" />
     <Compile Include="DataIntegration\DataQueries.cs" />
     <Compile Include="DataIntegration\UserDataEntities.cs" />
@@ -151,7 +151,16 @@
     <Compile Include="TBL_OPPORTUNITIES.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="TBL_OpportunitySource.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="TBL_OPPORTUNITYSTATUS.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TBL_OpportunityTypes.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TBL_OpportunityWhyLost.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Tbl_ProductType.cs">

@@ -17,6 +17,8 @@ namespace SandlerModels
         public TBL_CONTACTS()
         {
             this.TBL_OPPORTUNITIES = new HashSet<TBL_OPPORTUNITIES>();
+            this.TBL_OPPORTUNITIES1 = new HashSet<TBL_OPPORTUNITIES>();
+            this.TBL_OPPORTUNITIES2 = new HashSet<TBL_OPPORTUNITIES>();
         }
     
         public int CONTACTSID { get; set; }
@@ -49,8 +51,10 @@ namespace SandlerModels
     
         internal TBL_COMPANIES TBL_COMPANIES { get; set; }
         internal Tbl_Course Tbl_Course { get; set; }
-        internal ICollection<TBL_OPPORTUNITIES> TBL_OPPORTUNITIES { get; set; }
         internal Tbl_AppointmentsSource Tbl_AppointmentsSource { get; set; }
+        internal ICollection<TBL_OPPORTUNITIES> TBL_OPPORTUNITIES { get; set; }
+        internal ICollection<TBL_OPPORTUNITIES> TBL_OPPORTUNITIES1 { get; set; }
+        internal ICollection<TBL_OPPORTUNITIES> TBL_OPPORTUNITIES2 { get; set; }
     }
     
 }

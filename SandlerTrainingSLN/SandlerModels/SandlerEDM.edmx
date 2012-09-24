@@ -24,7 +24,10 @@
           <EntitySet Name="TBL_FRANCHISEE_USERS" EntityType="Sandler.Models.Store.TBL_FRANCHISEE_USERS" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Tbl_IndustryType" EntityType="Sandler.Models.Store.Tbl_IndustryType" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="TBL_OPPORTUNITIES" EntityType="Sandler.Models.Store.TBL_OPPORTUNITIES" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="TBL_OpportunitySource" EntityType="Sandler.Models.Store.TBL_OpportunitySource" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="TBL_OPPORTUNITYSTATUS" EntityType="Sandler.Models.Store.TBL_OPPORTUNITYSTATUS" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="TBL_OpportunityTypes" EntityType="Sandler.Models.Store.TBL_OpportunityTypes" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="TBL_OpportunityWhyLost" EntityType="Sandler.Models.Store.TBL_OpportunityWhyLost" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Tbl_ProductType" EntityType="Sandler.Models.Store.Tbl_ProductType" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="TBL_REGION" EntityType="Sandler.Models.Store.TBL_REGION" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Tbl_YesNoOptions" EntityType="Sandler.Models.Store.Tbl_YesNoOptions" store:Type="Tables" Schema="dbo" />
@@ -104,8 +107,28 @@
             <End Role="TBL_CONTACTS" EntitySet="TBL_CONTACTS" />
             <End Role="TBL_OPPORTUNITIES" EntitySet="TBL_OPPORTUNITIES" />
           </AssociationSet>
+          <AssociationSet Name="FK_TBL_OPPORTUNITIES_TBL_CONTACTS1" Association="Sandler.Models.Store.FK_TBL_OPPORTUNITIES_TBL_CONTACTS1">
+            <End Role="TBL_CONTACTS" EntitySet="TBL_CONTACTS" />
+            <End Role="TBL_OPPORTUNITIES" EntitySet="TBL_OPPORTUNITIES" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_OPPORTUNITIES_TBL_CONTACTS2" Association="Sandler.Models.Store.FK_TBL_OPPORTUNITIES_TBL_CONTACTS2">
+            <End Role="TBL_CONTACTS" EntitySet="TBL_CONTACTS" />
+            <End Role="TBL_OPPORTUNITIES" EntitySet="TBL_OPPORTUNITIES" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_OPPORTUNITIES_TBL_OpportunitySource" Association="Sandler.Models.Store.FK_TBL_OPPORTUNITIES_TBL_OpportunitySource">
+            <End Role="TBL_OpportunitySource" EntitySet="TBL_OpportunitySource" />
+            <End Role="TBL_OPPORTUNITIES" EntitySet="TBL_OPPORTUNITIES" />
+          </AssociationSet>
           <AssociationSet Name="FK_TBL_OPPORTUNITIES_TBL_OPPORTUNITYSTATUS" Association="Sandler.Models.Store.FK_TBL_OPPORTUNITIES_TBL_OPPORTUNITYSTATUS">
             <End Role="TBL_OPPORTUNITYSTATUS" EntitySet="TBL_OPPORTUNITYSTATUS" />
+            <End Role="TBL_OPPORTUNITIES" EntitySet="TBL_OPPORTUNITIES" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_OPPORTUNITIES_TBL_OpportunityTypes" Association="Sandler.Models.Store.FK_TBL_OPPORTUNITIES_TBL_OpportunityTypes">
+            <End Role="TBL_OpportunityTypes" EntitySet="TBL_OpportunityTypes" />
+            <End Role="TBL_OPPORTUNITIES" EntitySet="TBL_OPPORTUNITIES" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_OPPORTUNITIES_TBL_OpportunityWhyLost" Association="Sandler.Models.Store.FK_TBL_OPPORTUNITIES_TBL_OpportunityWhyLost">
+            <End Role="TBL_OpportunityWhyLost" EntitySet="TBL_OpportunityWhyLost" />
             <End Role="TBL_OPPORTUNITIES" EntitySet="TBL_OPPORTUNITIES" />
           </AssociationSet>
           <AssociationSet Name="FK_TBL_OPPORTUNITIES_Tbl_ProductType" Association="Sandler.Models.Store.FK_TBL_OPPORTUNITIES_Tbl_ProductType">
@@ -439,7 +462,7 @@
           <Property Name="STATUSID" Type="int" />
           <Property Name="VALUE" Type="int" />
           <Property Name="WINPROBABILITY" Type="varchar" MaxLength="50" />
-          <Property Name="WEIGHTEDVALUE" Type="int" />
+          <Property Name="WEIGHTEDVALUE" Type="numeric" />
           <Property Name="CLOSEDATE" Type="datetime" />
           <Property Name="IsActive" Type="bit" />
           <Property Name="UpdatedDate" Type="datetime" />
@@ -447,8 +470,52 @@
           <Property Name="CreatedDate" Type="datetime" />
           <Property Name="CreatedBy" Type="varchar" MaxLength="80" />
           <Property Name="OpportunityID" Type="int" StoreGeneratedPattern="Computed" />
+          <Property Name="SourceID" Type="int" />
+          <Property Name="TypeID" Type="int" />
+          <Property Name="WhyLostID" Type="int" />
+          <Property Name="Description" Type="varchar" MaxLength="500" />
+          <Property Name="Notes" Type="varchar" MaxLength="500" />
+          <Property Name="ActualValue" Type="numeric" />
+          <Property Name="SeconadryContactId1" Type="int" />
+          <Property Name="SeconadryContactId2" Type="int" />
+        </EntityType>
+        <EntityType Name="TBL_OpportunitySource">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="CreateBy" Type="uniqueidentifier" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="LastUpdateBy" Type="uniqueidentifier" />
+          <Property Name="LastUpdatedDate" Type="datetime" />
         </EntityType>
         <EntityType Name="TBL_OPPORTUNITYSTATUS">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="CreateBy" Type="uniqueidentifier" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="LastUpdateBy" Type="uniqueidentifier" />
+          <Property Name="LastUpdatedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="TBL_OpportunityTypes">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="CreateBy" Type="uniqueidentifier" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="LastUpdateBy" Type="uniqueidentifier" />
+          <Property Name="LastUpdatedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="TBL_OpportunityWhyLost">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
@@ -723,6 +790,42 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_TBL_OPPORTUNITIES_TBL_CONTACTS1">
+          <End Role="TBL_CONTACTS" Type="Sandler.Models.Store.TBL_CONTACTS" Multiplicity="0..1" />
+          <End Role="TBL_OPPORTUNITIES" Type="Sandler.Models.Store.TBL_OPPORTUNITIES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_CONTACTS">
+              <PropertyRef Name="CONTACTSID" />
+            </Principal>
+            <Dependent Role="TBL_OPPORTUNITIES">
+              <PropertyRef Name="SeconadryContactId1" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_OPPORTUNITIES_TBL_CONTACTS2">
+          <End Role="TBL_CONTACTS" Type="Sandler.Models.Store.TBL_CONTACTS" Multiplicity="0..1" />
+          <End Role="TBL_OPPORTUNITIES" Type="Sandler.Models.Store.TBL_OPPORTUNITIES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_CONTACTS">
+              <PropertyRef Name="CONTACTSID" />
+            </Principal>
+            <Dependent Role="TBL_OPPORTUNITIES">
+              <PropertyRef Name="SeconadryContactId2" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_OPPORTUNITIES_TBL_OpportunitySource">
+          <End Role="TBL_OpportunitySource" Type="Sandler.Models.Store.TBL_OpportunitySource" Multiplicity="0..1" />
+          <End Role="TBL_OPPORTUNITIES" Type="Sandler.Models.Store.TBL_OPPORTUNITIES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_OpportunitySource">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TBL_OPPORTUNITIES">
+              <PropertyRef Name="SourceID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_TBL_OPPORTUNITIES_TBL_OPPORTUNITYSTATUS">
           <End Role="TBL_OPPORTUNITYSTATUS" Type="Sandler.Models.Store.TBL_OPPORTUNITYSTATUS" Multiplicity="0..1" />
           <End Role="TBL_OPPORTUNITIES" Type="Sandler.Models.Store.TBL_OPPORTUNITIES" Multiplicity="*" />
@@ -732,6 +835,30 @@
             </Principal>
             <Dependent Role="TBL_OPPORTUNITIES">
               <PropertyRef Name="STATUSID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_OPPORTUNITIES_TBL_OpportunityTypes">
+          <End Role="TBL_OpportunityTypes" Type="Sandler.Models.Store.TBL_OpportunityTypes" Multiplicity="0..1" />
+          <End Role="TBL_OPPORTUNITIES" Type="Sandler.Models.Store.TBL_OPPORTUNITIES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_OpportunityTypes">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TBL_OPPORTUNITIES">
+              <PropertyRef Name="TypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_OPPORTUNITIES_TBL_OpportunityWhyLost">
+          <End Role="TBL_OpportunityWhyLost" Type="Sandler.Models.Store.TBL_OpportunityWhyLost" Multiplicity="0..1" />
+          <End Role="TBL_OPPORTUNITIES" Type="Sandler.Models.Store.TBL_OPPORTUNITIES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_OpportunityWhyLost">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TBL_OPPORTUNITIES">
+              <PropertyRef Name="WhyLostID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -786,7 +913,6 @@
           <EntitySet Name="TBL_DOCS" EntityType="Sandler.Models.TBL_DOCS" />
           <EntitySet Name="Tbl_DocumentStatus" EntityType="Sandler.Models.Tbl_DocumentStatus" />
           <EntitySet Name="Tbl_FollowUpItemsList" EntityType="Sandler.Models.Tbl_FollowUpItemsList" />
-          <EntitySet Name="TBL_OPPORTUNITIES" EntityType="Sandler.Models.TBL_OPPORTUNITIES" />
           <EntitySet Name="TBL_OPPORTUNITYSTATUS" EntityType="Sandler.Models.TBL_OPPORTUNITYSTATUS" />
           <EntitySet Name="TBL_REGION" EntityType="Sandler.Models.TBL_REGION" />
           <AssociationSet Name="FK__aspnet_Me__UserI__15660868" Association="Sandler.Models.FK__aspnet_Me__UserI__15660868">
@@ -813,17 +939,9 @@
             <End Role="TBL_COMPANIES" EntitySet="TBL_COMPANIES" />
             <End Role="TBL_DOCS" EntitySet="TBL_DOCS" />
           </AssociationSet>
-          <AssociationSet Name="FK_TBL_OPPORTUNITIES_TBL_COMPANIES" Association="Sandler.Models.FK_TBL_OPPORTUNITIES_TBL_COMPANIES">
-            <End Role="TBL_COMPANIES" EntitySet="TBL_COMPANIES" />
-            <End Role="TBL_OPPORTUNITIES" EntitySet="TBL_OPPORTUNITIES" />
-          </AssociationSet>
           <AssociationSet Name="FK_TBL_CONTACTS_Tbl_Course" Association="Sandler.Models.FK_TBL_CONTACTS_Tbl_Course">
             <End Role="Tbl_Course" EntitySet="Tbl_Course" />
             <End Role="TBL_CONTACTS" EntitySet="TBL_CONTACTS" />
-          </AssociationSet>
-          <AssociationSet Name="FK_TBL_OPPORTUNITIES_TBL_CONTACTS" Association="Sandler.Models.FK_TBL_OPPORTUNITIES_TBL_CONTACTS">
-            <End Role="TBL_CONTACTS" EntitySet="TBL_CONTACTS" />
-            <End Role="TBL_OPPORTUNITIES" EntitySet="TBL_OPPORTUNITIES" />
           </AssociationSet>
           <AssociationSet Name="FK_TBL_REGION_TBL_COUNTRY" Association="Sandler.Models.FK_TBL_REGION_TBL_COUNTRY">
             <End Role="TBL_COUNTRY" EntitySet="TBL_COUNTRY" />
@@ -833,20 +951,6 @@
             <End Role="Tbl_DocumentStatus" EntitySet="Tbl_DocumentStatus" />
             <End Role="TBL_DOCS" EntitySet="TBL_DOCS" />
           </AssociationSet>
-          <AssociationSet Name="FK_TBL_DOCS_TBL_OPPORTUNITIES" Association="Sandler.Models.FK_TBL_DOCS_TBL_OPPORTUNITIES">
-            <End Role="TBL_OPPORTUNITIES" EntitySet="TBL_OPPORTUNITIES" />
-            <End Role="TBL_DOCS" EntitySet="TBL_DOCS" />
-          </AssociationSet>
-          <AssociationSet Name="FK_TBL_OPPORTUNITIES_TBL_OPPORTUNITYSTATUS" Association="Sandler.Models.FK_TBL_OPPORTUNITIES_TBL_OPPORTUNITYSTATUS">
-            <End Role="TBL_OPPORTUNITYSTATUS" EntitySet="TBL_OPPORTUNITYSTATUS" />
-            <End Role="TBL_OPPORTUNITIES" EntitySet="TBL_OPPORTUNITIES" />
-          </AssociationSet>
-          <FunctionImport Name="GetOpportunitiesByUser" ReturnType="Collection(Sandler.Models.Opportunity)">
-          <Parameter Name="userId" Mode="In" Type="Guid" />
-          </FunctionImport>
-          <FunctionImport Name="GetContactsByUser" ReturnType="Collection(Sandler.Models.Contact)">
-          <Parameter Name="userId" Mode="In" Type="Guid" />
-          </FunctionImport>
           <EntitySet Name="TBL_FRANCHISEE_USERS" EntityType="Sandler.Models.TBL_FRANCHISEE_USERS" />
           <AssociationSet Name="FK_TBL_FRANCHISEE_USERS_aspnet_Users" Association="Sandler.Models.FK_TBL_FRANCHISEE_USERS_aspnet_Users">
             <End Role="aspnet_Users" EntitySet="aspnet_Users" />
@@ -873,24 +977,70 @@
             <End Role="TBL_FRANCHISEE" EntitySet="TBL_FRANCHISEE" />
             <End Role="TBL_FRANCHISEE_USERS" EntitySet="TBL_FRANCHISEE_USERS" />
           </AssociationSet>
-          <FunctionImport Name="GetCompaniesByUser" ReturnType="Collection(Sandler.Models.Company)">
-          <Parameter Name="userId" Mode="In" Type="Guid" />
-          </FunctionImport>
           <EntitySet Name="Tbl_IndustryType" EntityType="Sandler.Models.Tbl_IndustryType" />
           <EntitySet Name="Tbl_ProductType" EntityType="Sandler.Models.Tbl_ProductType" />
           <AssociationSet Name="FK_TBL_COMPANIES_Tbl_IndustryType" Association="Sandler.Models.FK_TBL_COMPANIES_Tbl_IndustryType">
             <End Role="Tbl_IndustryType" EntitySet="Tbl_IndustryType" />
             <End Role="TBL_COMPANIES" EntitySet="TBL_COMPANIES" />
           </AssociationSet>
-          <AssociationSet Name="FK_TBL_OPPORTUNITIES_Tbl_ProductType" Association="Sandler.Models.FK_TBL_OPPORTUNITIES_Tbl_ProductType">
-            <End Role="Tbl_ProductType" EntitySet="Tbl_ProductType" />
-            <End Role="TBL_OPPORTUNITIES" EntitySet="TBL_OPPORTUNITIES" />
-          </AssociationSet>
           <EntitySet Name="Tbl_AppointmentsSource" EntityType="Sandler.Models.Tbl_AppointmentsSource" />
           <AssociationSet Name="FK_TBL_CONTACTS_Tbl_AppointmentsSource" Association="Sandler.Models.FK_TBL_CONTACTS_Tbl_AppointmentsSource">
             <End Role="Tbl_AppointmentsSource" EntitySet="Tbl_AppointmentsSource" />
             <End Role="TBL_CONTACTS" EntitySet="TBL_CONTACTS" />
           </AssociationSet>
+          <EntitySet Name="TBL_OpportunityTypes" EntityType="Sandler.Models.TBL_OpportunityTypes" />
+          <EntitySet Name="TBL_OpportunityWhyLost" EntityType="Sandler.Models.TBL_OpportunityWhyLost" />
+          <EntitySet Name="TBL_OpportunitySource" EntityType="Sandler.Models.TBL_OpportunitySource" />
+          <EntitySet Name="TBL_OPPORTUNITIES" EntityType="Sandler.Models.TBL_OPPORTUNITIES" />
+          <AssociationSet Name="FK_TBL_OPPORTUNITIES_TBL_COMPANIES" Association="Sandler.Models.FK_TBL_OPPORTUNITIES_TBL_COMPANIES">
+            <End Role="TBL_COMPANIES" EntitySet="TBL_COMPANIES" />
+            <End Role="TBL_OPPORTUNITIES" EntitySet="TBL_OPPORTUNITIES" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_OPPORTUNITIES_TBL_CONTACTS" Association="Sandler.Models.FK_TBL_OPPORTUNITIES_TBL_CONTACTS">
+            <End Role="TBL_CONTACTS" EntitySet="TBL_CONTACTS" />
+            <End Role="TBL_OPPORTUNITIES" EntitySet="TBL_OPPORTUNITIES" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_OPPORTUNITIES_TBL_CONTACTS1" Association="Sandler.Models.FK_TBL_OPPORTUNITIES_TBL_CONTACTS1">
+            <End Role="TBL_CONTACTS" EntitySet="TBL_CONTACTS" />
+            <End Role="TBL_OPPORTUNITIES" EntitySet="TBL_OPPORTUNITIES" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_OPPORTUNITIES_TBL_CONTACTS2" Association="Sandler.Models.FK_TBL_OPPORTUNITIES_TBL_CONTACTS2">
+            <End Role="TBL_CONTACTS" EntitySet="TBL_CONTACTS" />
+            <End Role="TBL_OPPORTUNITIES" EntitySet="TBL_OPPORTUNITIES" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_DOCS_TBL_OPPORTUNITIES" Association="Sandler.Models.FK_TBL_DOCS_TBL_OPPORTUNITIES">
+            <End Role="TBL_OPPORTUNITIES" EntitySet="TBL_OPPORTUNITIES" />
+            <End Role="TBL_DOCS" EntitySet="TBL_DOCS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_OPPORTUNITIES_TBL_OpportunitySource" Association="Sandler.Models.FK_TBL_OPPORTUNITIES_TBL_OpportunitySource">
+            <End Role="TBL_OpportunitySource" EntitySet="TBL_OpportunitySource" />
+            <End Role="TBL_OPPORTUNITIES" EntitySet="TBL_OPPORTUNITIES" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_OPPORTUNITIES_TBL_OPPORTUNITYSTATUS" Association="Sandler.Models.FK_TBL_OPPORTUNITIES_TBL_OPPORTUNITYSTATUS">
+            <End Role="TBL_OPPORTUNITYSTATUS" EntitySet="TBL_OPPORTUNITYSTATUS" />
+            <End Role="TBL_OPPORTUNITIES" EntitySet="TBL_OPPORTUNITIES" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_OPPORTUNITIES_TBL_OpportunityTypes" Association="Sandler.Models.FK_TBL_OPPORTUNITIES_TBL_OpportunityTypes">
+            <End Role="TBL_OpportunityTypes" EntitySet="TBL_OpportunityTypes" />
+            <End Role="TBL_OPPORTUNITIES" EntitySet="TBL_OPPORTUNITIES" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_OPPORTUNITIES_TBL_OpportunityWhyLost" Association="Sandler.Models.FK_TBL_OPPORTUNITIES_TBL_OpportunityWhyLost">
+            <End Role="TBL_OpportunityWhyLost" EntitySet="TBL_OpportunityWhyLost" />
+            <End Role="TBL_OPPORTUNITIES" EntitySet="TBL_OPPORTUNITIES" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_OPPORTUNITIES_Tbl_ProductType" Association="Sandler.Models.FK_TBL_OPPORTUNITIES_Tbl_ProductType">
+            <End Role="Tbl_ProductType" EntitySet="Tbl_ProductType" />
+            <End Role="TBL_OPPORTUNITIES" EntitySet="TBL_OPPORTUNITIES" />
+          </AssociationSet>
+          <FunctionImport Name="GetCompaniesByUser" ReturnType="Collection(Sandler.Models.Company)">
+            <Parameter Name="userId" Mode="In" Type="Guid" />
+          </FunctionImport>
+          <FunctionImport Name="GetContactsByUser" ReturnType="Collection(Sandler.Models.Contact)">
+            <Parameter Name="userId" Mode="In" Type="Guid" />
+          </FunctionImport>
+          <FunctionImport Name="GetOpportunitiesByUser" ReturnType="Collection(Sandler.Models.Opportunity)">
+            <Parameter Name="userId" Mode="In" Type="Guid" />
+          </FunctionImport>
         </EntityContainer>
         <EntityType Name="aspnet_Membership">
           <Key>
@@ -1045,9 +1195,9 @@
           <Property Type="String" Name="Zip" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="TBL_CONTACTS" Relationship="Sandler.Models.FK_TBL_CONTACTS_TBL_Companies" FromRole="TBL_COMPANIES" ToRole="TBL_CONTACTS" />
           <NavigationProperty Name="TBL_DOCS" Relationship="Sandler.Models.FK_TBL_DOCS_TBL_COMPANIES" FromRole="TBL_COMPANIES" ToRole="TBL_DOCS" />
-          <NavigationProperty Name="TBL_OPPORTUNITIES" Relationship="Sandler.Models.FK_TBL_OPPORTUNITIES_TBL_COMPANIES" FromRole="TBL_COMPANIES" ToRole="TBL_OPPORTUNITIES" />
           <NavigationProperty Name="TBL_FRANCHISEE" Relationship="Sandler.Models.FK_TBL_COMPANIES_TBL_FRANCHISEE" FromRole="TBL_COMPANIES" ToRole="TBL_FRANCHISEE" />
           <NavigationProperty Name="Tbl_IndustryType" Relationship="Sandler.Models.FK_TBL_COMPANIES_Tbl_IndustryType" FromRole="TBL_COMPANIES" ToRole="Tbl_IndustryType" />
+          <NavigationProperty Name="TBL_OPPORTUNITIES" Relationship="Sandler.Models.FK_TBL_OPPORTUNITIES_TBL_COMPANIES" FromRole="TBL_COMPANIES" ToRole="TBL_OPPORTUNITIES" />
         </EntityType>
         <EntityType Name="TBL_CONTACTS">
           <Key>
@@ -1082,8 +1232,10 @@
           <Property Type="DateTime" Name="CallBackCreatedDate" />
           <NavigationProperty Name="TBL_COMPANIES" Relationship="Sandler.Models.FK_TBL_CONTACTS_TBL_Companies" FromRole="TBL_CONTACTS" ToRole="TBL_COMPANIES" />
           <NavigationProperty Name="Tbl_Course" Relationship="Sandler.Models.FK_TBL_CONTACTS_Tbl_Course" FromRole="TBL_CONTACTS" ToRole="Tbl_Course" />
-          <NavigationProperty Name="TBL_OPPORTUNITIES" Relationship="Sandler.Models.FK_TBL_OPPORTUNITIES_TBL_CONTACTS" FromRole="TBL_CONTACTS" ToRole="TBL_OPPORTUNITIES" />
           <NavigationProperty Name="Tbl_AppointmentsSource" Relationship="Sandler.Models.FK_TBL_CONTACTS_Tbl_AppointmentsSource" FromRole="TBL_CONTACTS" ToRole="Tbl_AppointmentsSource" />
+          <NavigationProperty Name="TBL_OPPORTUNITIES" Relationship="Sandler.Models.FK_TBL_OPPORTUNITIES_TBL_CONTACTS" FromRole="TBL_CONTACTS" ToRole="TBL_OPPORTUNITIES" />
+          <NavigationProperty Name="TBL_OPPORTUNITIES1" Relationship="Sandler.Models.FK_TBL_OPPORTUNITIES_TBL_CONTACTS1" FromRole="TBL_CONTACTS" ToRole="TBL_OPPORTUNITIES" />
+          <NavigationProperty Name="TBL_OPPORTUNITIES2" Relationship="Sandler.Models.FK_TBL_OPPORTUNITIES_TBL_CONTACTS2" FromRole="TBL_CONTACTS" ToRole="TBL_OPPORTUNITIES" />
         </EntityType>
         <EntityType Name="TBL_COUNTRY">
           <Key>
@@ -1158,35 +1310,6 @@
           <Property Type="DateTime" Name="CreatedOn" />
           <Property Type="String" Name="Phone" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="aspnet_Users" Relationship="Sandler.Models.FK_Tbl_FollowUpItemsList_aspnet_Users" FromRole="Tbl_FollowUpItemsList" ToRole="aspnet_Users" />
-        </EntityType>
-        <EntityType Name="TBL_OPPORTUNITIES">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Type="Int32" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="Int32" Name="COMPANYID" Nullable="false" />
-          <Property Type="Int32" Name="CONTACTID" Nullable="false" />
-          <Property Type="String" Name="NAME" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Type="Int32" Name="ProductID" Nullable="false" />
-          <Property Type="String" Name="SALESREPLASTNAME" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="SALESREPFIRSTNAME" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="SALESREPPHONE" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Type="Int32" Name="STATUSID" />
-          <Property Type="Int32" Name="VALUE" />
-          <Property Type="String" Name="WINPROBABILITY" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Type="Int32" Name="WEIGHTEDVALUE" />
-          <Property Type="DateTime" Name="CLOSEDATE" />
-          <Property Type="Boolean" Name="IsActive" />
-          <Property Type="DateTime" Name="UpdatedDate" />
-          <Property Type="String" Name="UpdatedBy" MaxLength="80" FixedLength="false" Unicode="false" />
-          <Property Type="DateTime" Name="CreatedDate" />
-          <Property Type="String" Name="CreatedBy" MaxLength="80" FixedLength="false" Unicode="false" />
-          <Property Type="Int32" Name="OpportunityID" annotation:StoreGeneratedPattern="Computed" />
-          <NavigationProperty Name="TBL_COMPANIES" Relationship="Sandler.Models.FK_TBL_OPPORTUNITIES_TBL_COMPANIES" FromRole="TBL_OPPORTUNITIES" ToRole="TBL_COMPANIES" />
-          <NavigationProperty Name="TBL_CONTACTS" Relationship="Sandler.Models.FK_TBL_OPPORTUNITIES_TBL_CONTACTS" FromRole="TBL_OPPORTUNITIES" ToRole="TBL_CONTACTS" />
-          <NavigationProperty Name="TBL_DOCS" Relationship="Sandler.Models.FK_TBL_DOCS_TBL_OPPORTUNITIES" FromRole="TBL_OPPORTUNITIES" ToRole="TBL_DOCS" />
-          <NavigationProperty Name="TBL_OPPORTUNITYSTATUS" Relationship="Sandler.Models.FK_TBL_OPPORTUNITIES_TBL_OPPORTUNITYSTATUS" FromRole="TBL_OPPORTUNITIES" ToRole="TBL_OPPORTUNITYSTATUS" />
-          <NavigationProperty Name="Tbl_ProductType" Relationship="Sandler.Models.FK_TBL_OPPORTUNITIES_Tbl_ProductType" FromRole="TBL_OPPORTUNITIES" ToRole="Tbl_ProductType" />
         </EntityType>
         <EntityType Name="TBL_OPPORTUNITYSTATUS">
           <Key>
@@ -1288,18 +1411,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_TBL_OPPORTUNITIES_TBL_COMPANIES">
-          <End Type="Sandler.Models.TBL_COMPANIES" Role="TBL_COMPANIES" Multiplicity="1" />
-          <End Type="Sandler.Models.TBL_OPPORTUNITIES" Role="TBL_OPPORTUNITIES" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TBL_COMPANIES">
-              <PropertyRef Name="COMPANIESID" />
-            </Principal>
-            <Dependent Role="TBL_OPPORTUNITIES">
-              <PropertyRef Name="COMPANYID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_TBL_CONTACTS_Tbl_Course">
           <End Type="Sandler.Models.Tbl_Course" Role="Tbl_Course" Multiplicity="0..1" />
           <End Type="Sandler.Models.TBL_CONTACTS" Role="TBL_CONTACTS" Multiplicity="*" />
@@ -1309,18 +1420,6 @@
             </Principal>
             <Dependent Role="TBL_CONTACTS">
               <PropertyRef Name="CourseId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_TBL_OPPORTUNITIES_TBL_CONTACTS">
-          <End Type="Sandler.Models.TBL_CONTACTS" Role="TBL_CONTACTS" Multiplicity="1" />
-          <End Type="Sandler.Models.TBL_OPPORTUNITIES" Role="TBL_OPPORTUNITIES" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TBL_CONTACTS">
-              <PropertyRef Name="CONTACTSID" />
-            </Principal>
-            <Dependent Role="TBL_OPPORTUNITIES">
-              <PropertyRef Name="CONTACTID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1348,105 +1447,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_TBL_DOCS_TBL_OPPORTUNITIES">
-          <End Type="Sandler.Models.TBL_OPPORTUNITIES" Role="TBL_OPPORTUNITIES" Multiplicity="0..1" />
-          <End Type="Sandler.Models.TBL_DOCS" Role="TBL_DOCS" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TBL_OPPORTUNITIES">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="TBL_DOCS">
-              <PropertyRef Name="OPPSID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_TBL_OPPORTUNITIES_TBL_OPPORTUNITYSTATUS">
-          <End Type="Sandler.Models.TBL_OPPORTUNITYSTATUS" Role="TBL_OPPORTUNITYSTATUS" Multiplicity="0..1" />
-          <End Type="Sandler.Models.TBL_OPPORTUNITIES" Role="TBL_OPPORTUNITIES" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TBL_OPPORTUNITYSTATUS">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="TBL_OPPORTUNITIES">
-              <PropertyRef Name="STATUSID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <ComplexType Name="Opportunity">
-          <Property Type="Int32" Name="RegionID" Nullable="false" />
-          <Property Type="String" Name="Region" Nullable="false" MaxLength="500" />
-          <Property Type="Int32" Name="CoachID" Nullable="false" />
-          <Property Type="String" Name="CoachName" Nullable="true" MaxLength="101" />
-          <Property Type="Int32" Name="FranchiseeId" Nullable="false" />
-          <Property Type="String" Name="FranchiseeName" Nullable="false" MaxLength="500" />
-          <Property Type="String" Name="ContactName" Nullable="true" MaxLength="101" />
-          <Property Type="Boolean" Name="IsNewAppointment" Nullable="true" />
-          <Property Type="Boolean" Name="IsRegisteredForTraining" Nullable="true" />
-          <Property Type="Int32" Name="ApptSourceId" Nullable="true" />
-          <Property Type="DateTime" Name="CourseTrainingDate" Nullable="true" Precision="23" />
-          <Property Type="String" Name="COMPANYNAME" Nullable="true" />
-          <Property Type="Boolean" Name="IsNewCompany" Nullable="true" />
-          <Property Type="DateTime" Name="CreationDate" Nullable="true" Precision="23" />
-          <Property Type="Int32" Name="IndustryId" Nullable="true" />
-          <Property Type="Int32" Name="ID" Nullable="false" />
-          <Property Type="Int32" Name="COMPANYID" Nullable="false" />
-          <Property Type="Int32" Name="CONTACTID" Nullable="false" />
-          <Property Type="String" Name="NAME" Nullable="true" MaxLength="50" />
-          <Property Type="Int32" Name="ProductID" Nullable="false" />
-          <Property Type="String" Name="SALESREPLASTNAME" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="SALESREPFIRSTNAME" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="SALESREPPHONE" Nullable="true" MaxLength="50" />
-          <Property Type="Int32" Name="STATUSID" Nullable="true" />
-          <Property Type="Int32" Name="VALUE" Nullable="true" />
-          <Property Type="String" Name="WINPROBABILITY" Nullable="true" MaxLength="50" />
-          <Property Type="Int32" Name="WEIGHTEDVALUE" Nullable="true" />
-          <Property Type="DateTime" Name="CLOSEDATE" Nullable="true" Precision="23" />
-          <Property Type="Boolean" Name="IsActive" Nullable="true" />
-          <Property Type="DateTime" Name="UpdatedDate" Nullable="true" Precision="23" />
-          <Property Type="String" Name="UpdatedBy" Nullable="true" MaxLength="80" />
-          <Property Type="DateTime" Name="CreatedDate" Nullable="true" Precision="23" />
-          <Property Type="String" Name="CreatedBy" Nullable="true" MaxLength="80" />
-          <Property Type="Int32" Name="OpportunityID" Nullable="true" />
-        </ComplexType>
-        <ComplexType Name="Contact">
-          <Property Type="Int32" Name="RegionID" Nullable="false" />
-          <Property Type="String" Name="Region" Nullable="false" MaxLength="500" />
-          <Property Type="Int32" Name="CoachID" Nullable="false" />
-          <Property Type="String" Name="CoachName" Nullable="true" MaxLength="101" />
-          <Property Type="Int32" Name="FranchiseeId" Nullable="false" />
-          <Property Type="String" Name="FranchiseeName" Nullable="false" MaxLength="500" />
-          <Property Type="String" Name="COMPANYNAME" Nullable="true" />
-          <Property Type="Boolean" Name="IsNewCompany" Nullable="true" />
-          <Property Type="DateTime" Name="CreationDate" Nullable="true" Precision="23" />
-          <Property Type="Int32" Name="IndustryId" Nullable="true" />
-          <Property Type="Int32" Name="CONTACTSID" Nullable="false" />
-          <Property Type="Int32" Name="COMPANYID" Nullable="true" />
-          <Property Type="String" Name="LASTNAME" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="FIRSTNAME" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="PHONE" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="EMAIL" Nullable="true" MaxLength="50" />
-          <Property Type="Boolean" Name="IsNewAppointment" Nullable="true" />
-          <Property Type="Int32" Name="ApptSourceId" Nullable="true" />
-          <Property Type="Boolean" Name="IsRegisteredForTraining" Nullable="true" />
-          <Property Type="Int32" Name="CourseId" Nullable="true" />
-          <Property Type="DateTime" Name="CourseTrainingDate" Nullable="true" Precision="23" />
-          <Property Type="String" Name="DiscussionTopic" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="ACTIONSTEP" Nullable="true" MaxLength="50" />
-          <Property Type="DateTime" Name="LAST_CONTACT_DATE" Nullable="true" Precision="23" />
-          <Property Type="DateTime" Name="NEXT_CONTACT_DATE" Nullable="true" Precision="23" />
-          <Property Type="Boolean" Name="IsActive" Nullable="true" />
-          <Property Type="DateTime" Name="UpdatedDate" Nullable="true" Precision="23" />
-          <Property Type="String" Name="UpdatedBy" Nullable="true" MaxLength="50" />
-          <Property Type="DateTime" Name="CreatedDate" Nullable="true" Precision="23" />
-          <Property Type="String" Name="CreatedBy" Nullable="true" MaxLength="50" />
-          <Property Type="Boolean" Name="IsEmailSubscription" Nullable="true" />
-          <Property Type="DateTime" Name="Birthday" Nullable="true" Precision="23" />
-          <Property Type="DateTime" Name="Anniversary" Nullable="true" Precision="23" />
-          <Property Type="Int32" Name="CompanyYears" Nullable="true" />
-          <Property Type="String" Name="BossName" Nullable="true" MaxLength="50" />
-          <Property Type="Boolean" Name="IsNeedCallBack" Nullable="true" />
-          <Property Type="DateTime" Name="CallBackCreatedDate" Nullable="true" Precision="23" />
-        </ComplexType>
         <EntityType Name="TBL_FRANCHISEE_USERS">
           <Key>
             <PropertyRef Name="ID" />
@@ -1566,45 +1566,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <ComplexType Name="Company">
-          <Property Type="Int32" Name="RegionID" Nullable="false" />
-          <Property Type="String" Name="Region" Nullable="false" MaxLength="500" />
-          <Property Type="Int32" Name="CoachID" Nullable="false" />
-          <Property Type="String" Name="CoachName" Nullable="true" MaxLength="101" />
-          <Property Type="Int32" Name="FranchiseeId" Nullable="false" />
-          <Property Type="String" Name="FranchiseeName" Nullable="false" MaxLength="500" />
-          <Property Type="String" Name="COMPANYNAME" Nullable="true" />
-          <Property Type="Boolean" Name="IsNewCompany" Nullable="true" />
-          <Property Type="DateTime" Name="CreationDate" Nullable="true" Precision="23" />
-          <Property Type="Int32" Name="IndustryId" Nullable="true" />
-          <Property Type="Int32" Name="CONTACTSID" Nullable="false" />
-          <Property Type="Int32" Name="COMPANYID" Nullable="true" />
-          <Property Type="String" Name="LASTNAME" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="FIRSTNAME" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="PHONE" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="EMAIL" Nullable="true" MaxLength="50" />
-          <Property Type="Boolean" Name="IsNewAppointment" Nullable="true" />
-          <Property Type="Int32" Name="ApptSourceId" Nullable="true" />
-          <Property Type="Boolean" Name="IsRegisteredForTraining" Nullable="true" />
-          <Property Type="Int32" Name="CourseId" Nullable="true" />
-          <Property Type="DateTime" Name="CourseTrainingDate" Nullable="true" Precision="23" />
-          <Property Type="String" Name="DiscussionTopic" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="ACTIONSTEP" Nullable="true" MaxLength="50" />
-          <Property Type="DateTime" Name="LAST_CONTACT_DATE" Nullable="true" Precision="23" />
-          <Property Type="DateTime" Name="NEXT_CONTACT_DATE" Nullable="true" Precision="23" />
-          <Property Type="Boolean" Name="IsActive" Nullable="true" />
-          <Property Type="DateTime" Name="UpdatedDate" Nullable="true" Precision="23" />
-          <Property Type="String" Name="UpdatedBy" Nullable="true" MaxLength="50" />
-          <Property Type="DateTime" Name="CreatedDate" Nullable="true" Precision="23" />
-          <Property Type="String" Name="CreatedBy" Nullable="true" MaxLength="50" />
-          <Property Type="Boolean" Name="IsEmailSubscription" Nullable="true" />
-          <Property Type="DateTime" Name="Birthday" Nullable="true" Precision="23" />
-          <Property Type="DateTime" Name="Anniversary" Nullable="true" Precision="23" />
-          <Property Type="Int32" Name="CompanyYears" Nullable="true" />
-          <Property Type="String" Name="BossName" Nullable="true" MaxLength="50" />
-          <Property Type="Boolean" Name="IsNeedCallBack" Nullable="true" />
-          <Property Type="DateTime" Name="CallBackCreatedDate" Nullable="true" Precision="23" />
-        </ComplexType>
         <EntityType Name="Tbl_IndustryType">
           <Key>
             <PropertyRef Name="IndId" />
@@ -1646,18 +1607,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_TBL_OPPORTUNITIES_Tbl_ProductType">
-          <End Type="Sandler.Models.Tbl_ProductType" Role="Tbl_ProductType" Multiplicity="1" />
-          <End Type="Sandler.Models.TBL_OPPORTUNITIES" Role="TBL_OPPORTUNITIES" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Tbl_ProductType">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="TBL_OPPORTUNITIES">
-              <PropertyRef Name="ProductID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="Tbl_AppointmentsSource">
           <Key>
             <PropertyRef Name="ApptSourceId" />
@@ -1684,6 +1633,336 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="TBL_OpportunityTypes">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Int32" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="Boolean" Name="IsActive" />
+          <Property Type="Guid" Name="CreateBy" />
+          <Property Type="DateTime" Name="CreatedDate" />
+          <Property Type="Guid" Name="LastUpdateBy" />
+          <Property Type="DateTime" Name="LastUpdatedDate" />
+          <NavigationProperty Name="TBL_OPPORTUNITIES" Relationship="Sandler.Models.FK_TBL_OPPORTUNITIES_TBL_OpportunityTypes" FromRole="TBL_OpportunityTypes" ToRole="TBL_OPPORTUNITIES" />
+        </EntityType>
+        <EntityType Name="TBL_OpportunityWhyLost">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Int32" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="Boolean" Name="IsActive" />
+          <Property Type="Guid" Name="CreateBy" />
+          <Property Type="DateTime" Name="CreatedDate" />
+          <Property Type="Guid" Name="LastUpdateBy" />
+          <Property Type="DateTime" Name="LastUpdatedDate" />
+          <NavigationProperty Name="TBL_OPPORTUNITIES" Relationship="Sandler.Models.FK_TBL_OPPORTUNITIES_TBL_OpportunityWhyLost" FromRole="TBL_OpportunityWhyLost" ToRole="TBL_OPPORTUNITIES" />
+        </EntityType>
+        <EntityType Name="TBL_OpportunitySource">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Int32" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="Boolean" Name="IsActive" />
+          <Property Type="Guid" Name="CreateBy" />
+          <Property Type="DateTime" Name="CreatedDate" />
+          <Property Type="Guid" Name="LastUpdateBy" />
+          <Property Type="DateTime" Name="LastUpdatedDate" />
+          <NavigationProperty Name="TBL_OPPORTUNITIES" Relationship="Sandler.Models.FK_TBL_OPPORTUNITIES_TBL_OpportunitySource" FromRole="TBL_OpportunitySource" ToRole="TBL_OPPORTUNITIES" />
+        </EntityType>
+        <EntityType Name="TBL_OPPORTUNITIES">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Int32" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="COMPANYID" Nullable="false" />
+          <Property Type="Int32" Name="CONTACTID" Nullable="false" />
+          <Property Type="String" Name="NAME" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="ProductID" Nullable="false" />
+          <Property Type="String" Name="SALESREPLASTNAME" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="SALESREPFIRSTNAME" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="SALESREPPHONE" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="STATUSID" />
+          <Property Type="Int32" Name="VALUE" />
+          <Property Type="String" Name="WINPROBABILITY" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Decimal" Name="WEIGHTEDVALUE" Precision="18" Scale="0" />
+          <Property Type="DateTime" Name="CLOSEDATE" />
+          <Property Type="Boolean" Name="IsActive" />
+          <Property Type="DateTime" Name="UpdatedDate" />
+          <Property Type="String" Name="UpdatedBy" MaxLength="80" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="CreatedDate" />
+          <Property Type="String" Name="CreatedBy" MaxLength="80" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="OpportunityID" annotation:StoreGeneratedPattern="Computed" />
+          <Property Type="Int32" Name="TypeID" />
+          <Property Type="Int32" Name="WhyLostID" />
+          <Property Type="String" Name="Description" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Notes" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Type="Decimal" Name="ActualValue" Precision="18" Scale="0" />
+          <Property Type="Int32" Name="SeconadryContactId1" />
+          <Property Type="Int32" Name="SeconadryContactId2" />
+          <Property Type="Int32" Name="SourceID" />
+          <NavigationProperty Name="TBL_COMPANIES" Relationship="Sandler.Models.FK_TBL_OPPORTUNITIES_TBL_COMPANIES" FromRole="TBL_OPPORTUNITIES" ToRole="TBL_COMPANIES" />
+          <NavigationProperty Name="TBL_CONTACTS" Relationship="Sandler.Models.FK_TBL_OPPORTUNITIES_TBL_CONTACTS" FromRole="TBL_OPPORTUNITIES" ToRole="TBL_CONTACTS" />
+          <NavigationProperty Name="TBL_CONTACTS1" Relationship="Sandler.Models.FK_TBL_OPPORTUNITIES_TBL_CONTACTS1" FromRole="TBL_OPPORTUNITIES" ToRole="TBL_CONTACTS" />
+          <NavigationProperty Name="TBL_CONTACTS2" Relationship="Sandler.Models.FK_TBL_OPPORTUNITIES_TBL_CONTACTS2" FromRole="TBL_OPPORTUNITIES" ToRole="TBL_CONTACTS" />
+          <NavigationProperty Name="TBL_DOCS" Relationship="Sandler.Models.FK_TBL_DOCS_TBL_OPPORTUNITIES" FromRole="TBL_OPPORTUNITIES" ToRole="TBL_DOCS" />
+          <NavigationProperty Name="TBL_OpportunitySource" Relationship="Sandler.Models.FK_TBL_OPPORTUNITIES_TBL_OpportunitySource" FromRole="TBL_OPPORTUNITIES" ToRole="TBL_OpportunitySource" />
+          <NavigationProperty Name="TBL_OPPORTUNITYSTATUS" Relationship="Sandler.Models.FK_TBL_OPPORTUNITIES_TBL_OPPORTUNITYSTATUS" FromRole="TBL_OPPORTUNITIES" ToRole="TBL_OPPORTUNITYSTATUS" />
+          <NavigationProperty Name="TBL_OpportunityTypes" Relationship="Sandler.Models.FK_TBL_OPPORTUNITIES_TBL_OpportunityTypes" FromRole="TBL_OPPORTUNITIES" ToRole="TBL_OpportunityTypes" />
+          <NavigationProperty Name="TBL_OpportunityWhyLost" Relationship="Sandler.Models.FK_TBL_OPPORTUNITIES_TBL_OpportunityWhyLost" FromRole="TBL_OPPORTUNITIES" ToRole="TBL_OpportunityWhyLost" />
+          <NavigationProperty Name="Tbl_ProductType" Relationship="Sandler.Models.FK_TBL_OPPORTUNITIES_Tbl_ProductType" FromRole="TBL_OPPORTUNITIES" ToRole="Tbl_ProductType" />
+        </EntityType>
+        <Association Name="FK_TBL_OPPORTUNITIES_TBL_COMPANIES">
+          <End Type="Sandler.Models.TBL_COMPANIES" Role="TBL_COMPANIES" Multiplicity="1" />
+          <End Type="Sandler.Models.TBL_OPPORTUNITIES" Role="TBL_OPPORTUNITIES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_COMPANIES">
+              <PropertyRef Name="COMPANIESID" />
+            </Principal>
+            <Dependent Role="TBL_OPPORTUNITIES">
+              <PropertyRef Name="COMPANYID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_OPPORTUNITIES_TBL_CONTACTS">
+          <End Type="Sandler.Models.TBL_CONTACTS" Role="TBL_CONTACTS" Multiplicity="1" />
+          <End Type="Sandler.Models.TBL_OPPORTUNITIES" Role="TBL_OPPORTUNITIES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_CONTACTS">
+              <PropertyRef Name="CONTACTSID" />
+            </Principal>
+            <Dependent Role="TBL_OPPORTUNITIES">
+              <PropertyRef Name="CONTACTID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_OPPORTUNITIES_TBL_CONTACTS1">
+          <End Type="Sandler.Models.TBL_CONTACTS" Role="TBL_CONTACTS" Multiplicity="0..1" />
+          <End Type="Sandler.Models.TBL_OPPORTUNITIES" Role="TBL_OPPORTUNITIES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_CONTACTS">
+              <PropertyRef Name="CONTACTSID" />
+            </Principal>
+            <Dependent Role="TBL_OPPORTUNITIES">
+              <PropertyRef Name="SeconadryContactId1" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_OPPORTUNITIES_TBL_CONTACTS2">
+          <End Type="Sandler.Models.TBL_CONTACTS" Role="TBL_CONTACTS" Multiplicity="0..1" />
+          <End Type="Sandler.Models.TBL_OPPORTUNITIES" Role="TBL_OPPORTUNITIES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_CONTACTS">
+              <PropertyRef Name="CONTACTSID" />
+            </Principal>
+            <Dependent Role="TBL_OPPORTUNITIES">
+              <PropertyRef Name="SeconadryContactId2" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_DOCS_TBL_OPPORTUNITIES">
+          <End Type="Sandler.Models.TBL_OPPORTUNITIES" Role="TBL_OPPORTUNITIES" Multiplicity="0..1" />
+          <End Type="Sandler.Models.TBL_DOCS" Role="TBL_DOCS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_OPPORTUNITIES">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TBL_DOCS">
+              <PropertyRef Name="OPPSID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_OPPORTUNITIES_TBL_OpportunitySource">
+          <End Type="Sandler.Models.TBL_OpportunitySource" Role="TBL_OpportunitySource" Multiplicity="0..1" />
+          <End Type="Sandler.Models.TBL_OPPORTUNITIES" Role="TBL_OPPORTUNITIES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_OpportunitySource">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TBL_OPPORTUNITIES">
+              <PropertyRef Name="SourceID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_OPPORTUNITIES_TBL_OPPORTUNITYSTATUS">
+          <End Type="Sandler.Models.TBL_OPPORTUNITYSTATUS" Role="TBL_OPPORTUNITYSTATUS" Multiplicity="0..1" />
+          <End Type="Sandler.Models.TBL_OPPORTUNITIES" Role="TBL_OPPORTUNITIES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_OPPORTUNITYSTATUS">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TBL_OPPORTUNITIES">
+              <PropertyRef Name="STATUSID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_OPPORTUNITIES_TBL_OpportunityTypes">
+          <End Type="Sandler.Models.TBL_OpportunityTypes" Role="TBL_OpportunityTypes" Multiplicity="0..1" />
+          <End Type="Sandler.Models.TBL_OPPORTUNITIES" Role="TBL_OPPORTUNITIES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_OpportunityTypes">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TBL_OPPORTUNITIES">
+              <PropertyRef Name="TypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_OPPORTUNITIES_TBL_OpportunityWhyLost">
+          <End Type="Sandler.Models.TBL_OpportunityWhyLost" Role="TBL_OpportunityWhyLost" Multiplicity="0..1" />
+          <End Type="Sandler.Models.TBL_OPPORTUNITIES" Role="TBL_OPPORTUNITIES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_OpportunityWhyLost">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TBL_OPPORTUNITIES">
+              <PropertyRef Name="WhyLostID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_OPPORTUNITIES_Tbl_ProductType">
+          <End Type="Sandler.Models.Tbl_ProductType" Role="Tbl_ProductType" Multiplicity="1" />
+          <End Type="Sandler.Models.TBL_OPPORTUNITIES" Role="TBL_OPPORTUNITIES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_ProductType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TBL_OPPORTUNITIES">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="Company">
+          <Property Type="Int32" Name="RegionID" Nullable="false" />
+          <Property Type="String" Name="Region" Nullable="false" MaxLength="500" />
+          <Property Type="Int32" Name="CoachID" Nullable="false" />
+          <Property Type="String" Name="CoachName" Nullable="true" MaxLength="101" />
+          <Property Type="String" Name="FranchiseeName" Nullable="false" MaxLength="500" />
+          <Property Type="Int32" Name="COMPANIESID" Nullable="false" />
+          <Property Type="String" Name="COMPANYNAME" Nullable="true" />
+          <Property Type="String" Name="CITY" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="STATE" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="POCLastName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="POCFirstName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="POCPhone" Nullable="true" MaxLength="50" />
+          <Property Type="Boolean" Name="IsNewCompany" Nullable="true" />
+          <Property Type="Int32" Name="COMPANYVALUEGOAL" Nullable="true" />
+          <Property Type="Int32" Name="IndustryId" Nullable="true" />
+          <Property Type="String" Name="RepLastName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="RepFirstName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="DiscussionTopic" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="ACTIONSTEP" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="LASTCONTACT_DATE" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="NEXTCONTACT_DATE" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="CreationDate" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="FranchiseeId" Nullable="true" />
+          <Property Type="Boolean" Name="IsActive" Nullable="true" />
+          <Property Type="DateTime" Name="CreatedDate" Nullable="true" Precision="23" />
+          <Property Type="String" Name="CreatedBy" Nullable="true" MaxLength="80" />
+          <Property Type="DateTime" Name="UpdatedDate" Nullable="true" Precision="23" />
+          <Property Type="String" Name="UpdatedBy" Nullable="true" MaxLength="80" />
+          <Property Type="String" Name="Address" Nullable="true" MaxLength="150" />
+          <Property Type="String" Name="Zip" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="Contact">
+          <Property Type="Int32" Name="RegionID" Nullable="false" />
+          <Property Type="String" Name="Region" Nullable="false" MaxLength="500" />
+          <Property Type="Int32" Name="CoachID" Nullable="false" />
+          <Property Type="String" Name="CoachName" Nullable="true" MaxLength="101" />
+          <Property Type="Int32" Name="FranchiseeId" Nullable="false" />
+          <Property Type="String" Name="FranchiseeName" Nullable="false" MaxLength="500" />
+          <Property Type="String" Name="COMPANYNAME" Nullable="true" />
+          <Property Type="Boolean" Name="IsNewCompany" Nullable="true" />
+          <Property Type="DateTime" Name="CreationDate" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="IndustryId" Nullable="true" />
+          <Property Type="Int32" Name="CONTACTSID" Nullable="false" />
+          <Property Type="Int32" Name="COMPANYID" Nullable="true" />
+          <Property Type="String" Name="LASTNAME" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="FIRSTNAME" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="PHONE" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="EMAIL" Nullable="true" MaxLength="50" />
+          <Property Type="Boolean" Name="IsNewAppointment" Nullable="true" />
+          <Property Type="Int32" Name="ApptSourceId" Nullable="true" />
+          <Property Type="Boolean" Name="IsRegisteredForTraining" Nullable="true" />
+          <Property Type="Int32" Name="CourseId" Nullable="true" />
+          <Property Type="DateTime" Name="CourseTrainingDate" Nullable="true" Precision="23" />
+          <Property Type="String" Name="DiscussionTopic" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="ACTIONSTEP" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="LAST_CONTACT_DATE" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="NEXT_CONTACT_DATE" Nullable="true" Precision="23" />
+          <Property Type="Boolean" Name="IsActive" Nullable="true" />
+          <Property Type="DateTime" Name="UpdatedDate" Nullable="true" Precision="23" />
+          <Property Type="String" Name="UpdatedBy" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="CreatedDate" Nullable="true" Precision="23" />
+          <Property Type="String" Name="CreatedBy" Nullable="true" MaxLength="50" />
+          <Property Type="Boolean" Name="IsEmailSubscription" Nullable="true" />
+          <Property Type="DateTime" Name="Birthday" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="Anniversary" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="CompanyYears" Nullable="true" />
+          <Property Type="String" Name="BossName" Nullable="true" MaxLength="50" />
+          <Property Type="Boolean" Name="IsNeedCallBack" Nullable="true" />
+          <Property Type="DateTime" Name="CallBackCreatedDate" Nullable="true" Precision="23" />
+        </ComplexType>
+        <ComplexType Name="Opportunity">
+          <Property Type="Int32" Name="RegionID" Nullable="false" />
+          <Property Type="String" Name="Region" Nullable="false" MaxLength="500" />
+          <Property Type="Int32" Name="CoachID" Nullable="false" />
+          <Property Type="String" Name="CoachName" Nullable="true" MaxLength="101" />
+          <Property Type="Int32" Name="FranchiseeId" Nullable="false" />
+          <Property Type="String" Name="FranchiseeName" Nullable="false" MaxLength="500" />
+          <Property Type="String" Name="ContactName" Nullable="true" MaxLength="101" />
+          <Property Type="Boolean" Name="IsNewAppointment" Nullable="true" />
+          <Property Type="Boolean" Name="IsRegisteredForTraining" Nullable="true" />
+          <Property Type="Int32" Name="ApptSourceId" Nullable="true" />
+          <Property Type="DateTime" Name="CourseTrainingDate" Nullable="true" Precision="23" />
+          <Property Type="String" Name="PrimaryContactFirstName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="PrimaryContactLastName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="PrimaryContactEmail" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="SeconadryContact1FirstName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="SeconadryContact1LastName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="SeconadryContact1Email" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="SeconadryContact2FirstName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="SeconadryContact2LastName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="SeconadryContact2Email" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="COMPANYNAME" Nullable="true" />
+          <Property Type="Boolean" Name="IsNewCompany" Nullable="true" />
+          <Property Type="DateTime" Name="CreationDate" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="IndustryId" Nullable="true" />
+          <Property Type="String" Name="WhyLost" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Type" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Status" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="ProductTypeName" Nullable="true" MaxLength="150" />
+          <Property Type="String" Name="Source" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="Int32" Name="COMPANYID" Nullable="false" />
+          <Property Type="Int32" Name="CONTACTID" Nullable="false" />
+          <Property Type="String" Name="NAME" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="ProductID" Nullable="false" />
+          <Property Type="String" Name="SALESREPLASTNAME" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="SALESREPFIRSTNAME" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="SALESREPPHONE" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="STATUSID" Nullable="true" />
+          <Property Type="Int32" Name="VALUE" Nullable="true" />
+          <Property Type="String" Name="WINPROBABILITY" Nullable="true" MaxLength="50" />
+          <Property Type="Decimal" Name="WEIGHTEDVALUE" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="DateTime" Name="CLOSEDATE" Nullable="true" Precision="23" />
+          <Property Type="Boolean" Name="IsActive" Nullable="true" />
+          <Property Type="DateTime" Name="UpdatedDate" Nullable="true" Precision="23" />
+          <Property Type="String" Name="UpdatedBy" Nullable="true" MaxLength="80" />
+          <Property Type="DateTime" Name="CreatedDate" Nullable="true" Precision="23" />
+          <Property Type="String" Name="CreatedBy" Nullable="true" MaxLength="80" />
+          <Property Type="Int32" Name="OpportunityID" Nullable="true" />
+          <Property Type="Int32" Name="SourceID" Nullable="true" />
+          <Property Type="Int32" Name="TypeID" Nullable="true" />
+          <Property Type="Int32" Name="WhyLostID" Nullable="true" />
+          <Property Type="String" Name="Description" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="Notes" Nullable="true" MaxLength="500" />
+          <Property Type="Decimal" Name="ActualValue" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="Int32" Name="SeconadryContactId1" Nullable="true" />
+          <Property Type="Int32" Name="SeconadryContactId2" Nullable="true" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1944,31 +2223,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="TBL_OPPORTUNITIES">
-            <EntityTypeMapping TypeName="Sandler.Models.TBL_OPPORTUNITIES">
-              <MappingFragment StoreEntitySet="TBL_OPPORTUNITIES">
-                <ScalarProperty Name="OpportunityID" ColumnName="OpportunityID" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
-                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
-                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-                <ScalarProperty Name="CLOSEDATE" ColumnName="CLOSEDATE" />
-                <ScalarProperty Name="WEIGHTEDVALUE" ColumnName="WEIGHTEDVALUE" />
-                <ScalarProperty Name="WINPROBABILITY" ColumnName="WINPROBABILITY" />
-                <ScalarProperty Name="VALUE" ColumnName="VALUE" />
-                <ScalarProperty Name="STATUSID" ColumnName="STATUSID" />
-                <ScalarProperty Name="SALESREPPHONE" ColumnName="SALESREPPHONE" />
-                <ScalarProperty Name="SALESREPFIRSTNAME" ColumnName="SALESREPFIRSTNAME" />
-                <ScalarProperty Name="SALESREPLASTNAME" ColumnName="SALESREPLASTNAME" />
-                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
-                <ScalarProperty Name="NAME" ColumnName="NAME" />
-                <ScalarProperty Name="CONTACTID" ColumnName="CONTACTID" />
-                <ScalarProperty Name="COMPANYID" ColumnName="COMPANYID" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="TBL_OPPORTUNITYSTATUS">
             <EntityTypeMapping TypeName="Sandler.Models.TBL_OPPORTUNITYSTATUS">
               <MappingFragment StoreEntitySet="TBL_OPPORTUNITYSTATUS">
@@ -1996,43 +2250,196 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="GetOpportunitiesByUser" FunctionName="Sandler.Models.Store.sp_GetOpportunitiesByUser">
+          <EntitySetMapping Name="TBL_FRANCHISEE_USERS">
+            <EntityTypeMapping TypeName="Sandler.Models.TBL_FRANCHISEE_USERS">
+              <MappingFragment StoreEntitySet="TBL_FRANCHISEE_USERS">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="IsEmailSubscription" ColumnName="IsEmailSubscription" />
+                <ScalarProperty Name="CountryID" ColumnName="CountryID" />
+                <ScalarProperty Name="Zip" ColumnName="Zip" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="ADDRESS" ColumnName="ADDRESS" />
+                <ScalarProperty Name="ContactNumber" ColumnName="ContactNumber" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="FranchiseeID" ColumnName="FranchiseeID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_FRANCHISEE">
+            <EntityTypeMapping TypeName="Sandler.Models.TBL_FRANCHISEE">
+              <MappingFragment StoreEntitySet="TBL_FRANCHISEE">
+                <ScalarProperty Name="FaxNumber" ColumnName="FaxNumber" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="LastUpdatedBy" ColumnName="LastUpdatedBy" />
+                <ScalarProperty Name="LastCreatedDate" ColumnName="LastCreatedDate" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="EmailAddress" ColumnName="EmailAddress" />
+                <ScalarProperty Name="WebAddress" ColumnName="WebAddress" />
+                <ScalarProperty Name="CountryID" ColumnName="CountryID" />
+                <ScalarProperty Name="Zip" ColumnName="Zip" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Address2" ColumnName="Address2" />
+                <ScalarProperty Name="Address1" ColumnName="Address1" />
+                <ScalarProperty Name="CoachID" ColumnName="CoachID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_IndustryType">
+            <EntityTypeMapping TypeName="Sandler.Models.Tbl_IndustryType">
+              <MappingFragment StoreEntitySet="Tbl_IndustryType">
+                <ScalarProperty Name="ColorCode" ColumnName="ColorCode" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="LastUpdatedBy" ColumnName="LastUpdatedBy" />
+                <ScalarProperty Name="LastUpdatedDate" ColumnName="LastUpdatedDate" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="IndustryTypeName" ColumnName="IndustryTypeName" />
+                <ScalarProperty Name="IndId" ColumnName="IndId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_ProductType">
+            <EntityTypeMapping TypeName="Sandler.Models.Tbl_ProductType">
+              <MappingFragment StoreEntitySet="Tbl_ProductType">
+                <ScalarProperty Name="ColorCode" ColumnName="ColorCode" />
+                <ScalarProperty Name="FranchiseeId" ColumnName="FranchiseeId" />
+                <ScalarProperty Name="LastUpdatedDate" ColumnName="LastUpdatedDate" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="LastUpdatedBy" ColumnName="LastUpdatedBy" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="ProductTypeName" ColumnName="ProductTypeName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_AppointmentsSource">
+            <EntityTypeMapping TypeName="Sandler.Models.Tbl_AppointmentsSource">
+              <MappingFragment StoreEntitySet="Tbl_AppointmentsSource">
+                <ScalarProperty Name="ColorCode" ColumnName="ColorCode" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="LastUpdatedBy" ColumnName="LastUpdatedBy" />
+                <ScalarProperty Name="LastUpdatedDate" ColumnName="LastUpdatedDate" />
+                <ScalarProperty Name="ApptSourceName" ColumnName="ApptSourceName" />
+                <ScalarProperty Name="ApptSourceId" ColumnName="ApptSourceId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_OpportunityTypes">
+            <EntityTypeMapping TypeName="Sandler.Models.TBL_OpportunityTypes">
+              <MappingFragment StoreEntitySet="TBL_OpportunityTypes">
+                <ScalarProperty Name="LastUpdatedDate" ColumnName="LastUpdatedDate" />
+                <ScalarProperty Name="LastUpdateBy" ColumnName="LastUpdateBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_OpportunityWhyLost">
+            <EntityTypeMapping TypeName="Sandler.Models.TBL_OpportunityWhyLost">
+              <MappingFragment StoreEntitySet="TBL_OpportunityWhyLost">
+                <ScalarProperty Name="LastUpdatedDate" ColumnName="LastUpdatedDate" />
+                <ScalarProperty Name="LastUpdateBy" ColumnName="LastUpdateBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_OpportunitySource">
+            <EntityTypeMapping TypeName="Sandler.Models.TBL_OpportunitySource">
+              <MappingFragment StoreEntitySet="TBL_OpportunitySource">
+                <ScalarProperty Name="LastUpdatedDate" ColumnName="LastUpdatedDate" />
+                <ScalarProperty Name="LastUpdateBy" ColumnName="LastUpdateBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_OPPORTUNITIES">
+            <EntityTypeMapping TypeName="Sandler.Models.TBL_OPPORTUNITIES">
+              <MappingFragment StoreEntitySet="TBL_OPPORTUNITIES">
+                <ScalarProperty Name="SourceID" ColumnName="SourceID" />
+                <ScalarProperty Name="SeconadryContactId2" ColumnName="SeconadryContactId2" />
+                <ScalarProperty Name="SeconadryContactId1" ColumnName="SeconadryContactId1" />
+                <ScalarProperty Name="ActualValue" ColumnName="ActualValue" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="WhyLostID" ColumnName="WhyLostID" />
+                <ScalarProperty Name="TypeID" ColumnName="TypeID" />
+                <ScalarProperty Name="OpportunityID" ColumnName="OpportunityID" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="CLOSEDATE" ColumnName="CLOSEDATE" />
+                <ScalarProperty Name="WEIGHTEDVALUE" ColumnName="WEIGHTEDVALUE" />
+                <ScalarProperty Name="WINPROBABILITY" ColumnName="WINPROBABILITY" />
+                <ScalarProperty Name="VALUE" ColumnName="VALUE" />
+                <ScalarProperty Name="STATUSID" ColumnName="STATUSID" />
+                <ScalarProperty Name="SALESREPPHONE" ColumnName="SALESREPPHONE" />
+                <ScalarProperty Name="SALESREPFIRSTNAME" ColumnName="SALESREPFIRSTNAME" />
+                <ScalarProperty Name="SALESREPLASTNAME" ColumnName="SALESREPLASTNAME" />
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+                <ScalarProperty Name="CONTACTID" ColumnName="CONTACTID" />
+                <ScalarProperty Name="COMPANYID" ColumnName="COMPANYID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="GetCompaniesByUser" FunctionName="Sandler.Models.Store.sp_GetCompaniesByUser">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="Sandler.Models.Opportunity">
+              <ComplexTypeMapping TypeName="Sandler.Models.Company">
                 <ScalarProperty Name="RegionID" ColumnName="RegionID" />
                 <ScalarProperty Name="Region" ColumnName="Region" />
                 <ScalarProperty Name="CoachID" ColumnName="CoachID" />
                 <ScalarProperty Name="CoachName" ColumnName="CoachName" />
-                <ScalarProperty Name="FranchiseeId" ColumnName="FranchiseeId" />
                 <ScalarProperty Name="FranchiseeName" ColumnName="FranchiseeName" />
-                <ScalarProperty Name="ContactName" ColumnName="ContactName" />
-                <ScalarProperty Name="IsNewAppointment" ColumnName="IsNewAppointment" />
-                <ScalarProperty Name="IsRegisteredForTraining" ColumnName="IsRegisteredForTraining" />
-                <ScalarProperty Name="ApptSourceId" ColumnName="ApptSourceId" />
-                <ScalarProperty Name="CourseTrainingDate" ColumnName="CourseTrainingDate" />
+                <ScalarProperty Name="COMPANIESID" ColumnName="COMPANIESID" />
                 <ScalarProperty Name="COMPANYNAME" ColumnName="COMPANYNAME" />
+                <ScalarProperty Name="CITY" ColumnName="CITY" />
+                <ScalarProperty Name="STATE" ColumnName="STATE" />
+                <ScalarProperty Name="POCLastName" ColumnName="POCLastName" />
+                <ScalarProperty Name="POCFirstName" ColumnName="POCFirstName" />
+                <ScalarProperty Name="POCPhone" ColumnName="POCPhone" />
                 <ScalarProperty Name="IsNewCompany" ColumnName="IsNewCompany" />
-                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+                <ScalarProperty Name="COMPANYVALUEGOAL" ColumnName="COMPANYVALUEGOAL" />
                 <ScalarProperty Name="IndustryId" ColumnName="IndustryId" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="COMPANYID" ColumnName="COMPANYID" />
-                <ScalarProperty Name="CONTACTID" ColumnName="CONTACTID" />
-                <ScalarProperty Name="NAME" ColumnName="NAME" />
-                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
-                <ScalarProperty Name="SALESREPLASTNAME" ColumnName="SALESREPLASTNAME" />
-                <ScalarProperty Name="SALESREPFIRSTNAME" ColumnName="SALESREPFIRSTNAME" />
-                <ScalarProperty Name="SALESREPPHONE" ColumnName="SALESREPPHONE" />
-                <ScalarProperty Name="STATUSID" ColumnName="STATUSID" />
-                <ScalarProperty Name="VALUE" ColumnName="VALUE" />
-                <ScalarProperty Name="WINPROBABILITY" ColumnName="WINPROBABILITY" />
-                <ScalarProperty Name="WEIGHTEDVALUE" ColumnName="WEIGHTEDVALUE" />
-                <ScalarProperty Name="CLOSEDATE" ColumnName="CLOSEDATE" />
+                <ScalarProperty Name="RepLastName" ColumnName="RepLastName" />
+                <ScalarProperty Name="RepFirstName" ColumnName="RepFirstName" />
+                <ScalarProperty Name="DiscussionTopic" ColumnName="DiscussionTopic" />
+                <ScalarProperty Name="ACTIONSTEP" ColumnName="ACTIONSTEP" />
+                <ScalarProperty Name="LASTCONTACT_DATE" ColumnName="LASTCONTACT_DATE" />
+                <ScalarProperty Name="NEXTCONTACT_DATE" ColumnName="NEXTCONTACT_DATE" />
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+                <ScalarProperty Name="FranchiseeId" ColumnName="FranchiseeId" />
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
-                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
                 <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="OpportunityID" ColumnName="OpportunityID" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Zip" ColumnName="Zip" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -2079,134 +2486,68 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <EntitySetMapping Name="TBL_FRANCHISEE_USERS">
-            <EntityTypeMapping TypeName="Sandler.Models.TBL_FRANCHISEE_USERS">
-              <MappingFragment StoreEntitySet="TBL_FRANCHISEE_USERS">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="IsEmailSubscription" ColumnName="IsEmailSubscription" />
-                <ScalarProperty Name="CountryID" ColumnName="CountryID" />
-                <ScalarProperty Name="Zip" ColumnName="Zip" />
-                <ScalarProperty Name="State" ColumnName="State" />
-                <ScalarProperty Name="City" ColumnName="City" />
-                <ScalarProperty Name="ADDRESS" ColumnName="ADDRESS" />
-                <ScalarProperty Name="ContactNumber" ColumnName="ContactNumber" />
-                <ScalarProperty Name="LastName" ColumnName="LastName" />
-                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
-                <ScalarProperty Name="UserID" ColumnName="UserID" />
-                <ScalarProperty Name="FranchiseeID" ColumnName="FranchiseeID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="TBL_FRANCHISEE">
-            <EntityTypeMapping TypeName="Sandler.Models.TBL_FRANCHISEE">
-              <MappingFragment StoreEntitySet="TBL_FRANCHISEE">
-                <ScalarProperty Name="FaxNumber" ColumnName="FaxNumber" />
-                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="LastUpdatedBy" ColumnName="LastUpdatedBy" />
-                <ScalarProperty Name="LastCreatedDate" ColumnName="LastCreatedDate" />
-                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-                <ScalarProperty Name="EmailAddress" ColumnName="EmailAddress" />
-                <ScalarProperty Name="WebAddress" ColumnName="WebAddress" />
-                <ScalarProperty Name="CountryID" ColumnName="CountryID" />
-                <ScalarProperty Name="Zip" ColumnName="Zip" />
-                <ScalarProperty Name="State" ColumnName="State" />
-                <ScalarProperty Name="City" ColumnName="City" />
-                <ScalarProperty Name="Address2" ColumnName="Address2" />
-                <ScalarProperty Name="Address1" ColumnName="Address1" />
-                <ScalarProperty Name="CoachID" ColumnName="CoachID" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="GetCompaniesByUser" FunctionName="Sandler.Models.Store.sp_GetContactsByUser">
+          <FunctionImportMapping FunctionImportName="GetOpportunitiesByUser" FunctionName="Sandler.Models.Store.sp_GetOpportunitiesByUser">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="Sandler.Models.Company">
+              <ComplexTypeMapping TypeName="Sandler.Models.Opportunity">
                 <ScalarProperty Name="RegionID" ColumnName="RegionID" />
                 <ScalarProperty Name="Region" ColumnName="Region" />
                 <ScalarProperty Name="CoachID" ColumnName="CoachID" />
                 <ScalarProperty Name="CoachName" ColumnName="CoachName" />
                 <ScalarProperty Name="FranchiseeId" ColumnName="FranchiseeId" />
                 <ScalarProperty Name="FranchiseeName" ColumnName="FranchiseeName" />
+                <ScalarProperty Name="ContactName" ColumnName="ContactName" />
+                <ScalarProperty Name="IsNewAppointment" ColumnName="IsNewAppointment" />
+                <ScalarProperty Name="IsRegisteredForTraining" ColumnName="IsRegisteredForTraining" />
+                <ScalarProperty Name="ApptSourceId" ColumnName="ApptSourceId" />
+                <ScalarProperty Name="CourseTrainingDate" ColumnName="CourseTrainingDate" />
+                <ScalarProperty Name="PrimaryContactFirstName" ColumnName="PrimaryContactFirstName" />
+                <ScalarProperty Name="PrimaryContactLastName" ColumnName="PrimaryContactLastName" />
+                <ScalarProperty Name="PrimaryContactEmail" ColumnName="PrimaryContactEmail" />
+                <ScalarProperty Name="SeconadryContact1FirstName" ColumnName="SeconadryContact1FirstName" />
+                <ScalarProperty Name="SeconadryContact1LastName" ColumnName="SeconadryContact1LastName" />
+                <ScalarProperty Name="SeconadryContact1Email" ColumnName="SeconadryContact1Email" />
+                <ScalarProperty Name="SeconadryContact2FirstName" ColumnName="SeconadryContact2FirstName" />
+                <ScalarProperty Name="SeconadryContact2LastName" ColumnName="SeconadryContact2LastName" />
+                <ScalarProperty Name="SeconadryContact2Email" ColumnName="SeconadryContact2Email" />
                 <ScalarProperty Name="COMPANYNAME" ColumnName="COMPANYNAME" />
                 <ScalarProperty Name="IsNewCompany" ColumnName="IsNewCompany" />
                 <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
                 <ScalarProperty Name="IndustryId" ColumnName="IndustryId" />
-                <ScalarProperty Name="CONTACTSID" ColumnName="CONTACTSID" />
+                <ScalarProperty Name="WhyLost" ColumnName="WhyLost" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="ProductTypeName" ColumnName="ProductTypeName" />
+                <ScalarProperty Name="Source" ColumnName="Source" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="COMPANYID" ColumnName="COMPANYID" />
-                <ScalarProperty Name="LASTNAME" ColumnName="LASTNAME" />
-                <ScalarProperty Name="FIRSTNAME" ColumnName="FIRSTNAME" />
-                <ScalarProperty Name="PHONE" ColumnName="PHONE" />
-                <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
-                <ScalarProperty Name="IsNewAppointment" ColumnName="IsNewAppointment" />
-                <ScalarProperty Name="ApptSourceId" ColumnName="ApptSourceId" />
-                <ScalarProperty Name="IsRegisteredForTraining" ColumnName="IsRegisteredForTraining" />
-                <ScalarProperty Name="CourseId" ColumnName="CourseId" />
-                <ScalarProperty Name="CourseTrainingDate" ColumnName="CourseTrainingDate" />
-                <ScalarProperty Name="DiscussionTopic" ColumnName="DiscussionTopic" />
-                <ScalarProperty Name="ACTIONSTEP" ColumnName="ACTIONSTEP" />
-                <ScalarProperty Name="LAST_CONTACT_DATE" ColumnName="LAST_CONTACT_DATE" />
-                <ScalarProperty Name="NEXT_CONTACT_DATE" ColumnName="NEXT_CONTACT_DATE" />
+                <ScalarProperty Name="CONTACTID" ColumnName="CONTACTID" />
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="SALESREPLASTNAME" ColumnName="SALESREPLASTNAME" />
+                <ScalarProperty Name="SALESREPFIRSTNAME" ColumnName="SALESREPFIRSTNAME" />
+                <ScalarProperty Name="SALESREPPHONE" ColumnName="SALESREPPHONE" />
+                <ScalarProperty Name="STATUSID" ColumnName="STATUSID" />
+                <ScalarProperty Name="VALUE" ColumnName="VALUE" />
+                <ScalarProperty Name="WINPROBABILITY" ColumnName="WINPROBABILITY" />
+                <ScalarProperty Name="WEIGHTEDVALUE" ColumnName="WEIGHTEDVALUE" />
+                <ScalarProperty Name="CLOSEDATE" ColumnName="CLOSEDATE" />
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />
                 <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
                 <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
                 <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="IsEmailSubscription" ColumnName="IsEmailSubscription" />
-                <ScalarProperty Name="Birthday" ColumnName="Birthday" />
-                <ScalarProperty Name="Anniversary" ColumnName="Anniversary" />
-                <ScalarProperty Name="CompanyYears" ColumnName="CompanyYears" />
-                <ScalarProperty Name="BossName" ColumnName="BossName" />
-                <ScalarProperty Name="IsNeedCallBack" ColumnName="IsNeedCallBack" />
-                <ScalarProperty Name="CallBackCreatedDate" ColumnName="CallBackCreatedDate" />
+                <ScalarProperty Name="OpportunityID" ColumnName="OpportunityID" />
+                <ScalarProperty Name="SourceID" ColumnName="SourceID" />
+                <ScalarProperty Name="TypeID" ColumnName="TypeID" />
+                <ScalarProperty Name="WhyLostID" ColumnName="WhyLostID" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+                <ScalarProperty Name="ActualValue" ColumnName="ActualValue" />
+                <ScalarProperty Name="SeconadryContactId1" ColumnName="SeconadryContactId1" />
+                <ScalarProperty Name="SeconadryContactId2" ColumnName="SeconadryContactId2" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <EntitySetMapping Name="Tbl_IndustryType">
-            <EntityTypeMapping TypeName="Sandler.Models.Tbl_IndustryType">
-              <MappingFragment StoreEntitySet="Tbl_IndustryType">
-                <ScalarProperty Name="ColorCode" ColumnName="ColorCode" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="LastUpdatedBy" ColumnName="LastUpdatedBy" />
-                <ScalarProperty Name="LastUpdatedDate" ColumnName="LastUpdatedDate" />
-                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-                <ScalarProperty Name="IndustryTypeName" ColumnName="IndustryTypeName" />
-                <ScalarProperty Name="IndId" ColumnName="IndId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Tbl_ProductType">
-            <EntityTypeMapping TypeName="Sandler.Models.Tbl_ProductType">
-              <MappingFragment StoreEntitySet="Tbl_ProductType">
-                <ScalarProperty Name="ColorCode" ColumnName="ColorCode" />
-                <ScalarProperty Name="FranchiseeId" ColumnName="FranchiseeId" />
-                <ScalarProperty Name="LastUpdatedDate" ColumnName="LastUpdatedDate" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="LastUpdatedBy" ColumnName="LastUpdatedBy" />
-                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-                <ScalarProperty Name="ProductTypeName" ColumnName="ProductTypeName" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Tbl_AppointmentsSource">
-            <EntityTypeMapping TypeName="Sandler.Models.Tbl_AppointmentsSource">
-              <MappingFragment StoreEntitySet="Tbl_AppointmentsSource">
-                <ScalarProperty Name="ColorCode" ColumnName="ColorCode" />
-                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="LastUpdatedBy" ColumnName="LastUpdatedBy" />
-                <ScalarProperty Name="LastUpdatedDate" ColumnName="LastUpdatedDate" />
-                <ScalarProperty Name="ApptSourceName" ColumnName="ApptSourceName" />
-                <ScalarProperty Name="ApptSourceId" ColumnName="ApptSourceId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -2242,7 +2583,6 @@
         <EntityTypeShape EntityType="Sandler.Models.TBL_DOCS" Width="1.5" PointX="20.25" PointY="10.375" Height="3.7109993489583246" />
         <EntityTypeShape EntityType="Sandler.Models.Tbl_DocumentStatus" Width="1.5" PointX="18" PointY="6" Height="2.5571907552083246" />
         <EntityTypeShape EntityType="Sandler.Models.Tbl_FollowUpItemsList" Width="1.5" PointX="3" PointY="19.375" Height="2.5571907552083246" />
-        <EntityTypeShape EntityType="Sandler.Models.TBL_OPPORTUNITIES" Width="1.5" PointX="18" PointY="9.375" Height="5.63401367187501" />
         <EntityTypeShape EntityType="Sandler.Models.TBL_OPPORTUNITYSTATUS" Width="1.5" PointX="15.75" PointY="5.25" Height="2.5571907552083246" />
         <EntityTypeShape EntityType="Sandler.Models.TBL_REGION" Width="1.5" PointX="3.75" PointY="14.75" Height="2.9417936197916674" />
         <AssociationConnector Association="Sandler.Models.FK__aspnet_Me__UserI__15660868" >
@@ -2274,54 +2614,30 @@
           <ConnectorPoint PointX="15.75" PointY="9.78125" />
         </AssociationConnector>
         <AssociationConnector Association="Sandler.Models.FK_TBL_DOCS_TBL_COMPANIES" >
-          <ConnectorPoint PointX="12" PointY="12.484377499999994" />
-          <ConnectorPoint PointX="13.25" PointY="12.484377499999994" />
-          <ConnectorPoint PointX="13.25" PointY="14.903300781250007" />
-          <ConnectorPoint PointX="14.166666666666666" PointY="14.903300781250007" />
-          <ConnectorPoint PointX="14.333333333333334" PointY="14.903300781250007" />
-          <ConnectorPoint PointX="15.5" PointY="14.903300781250007" />
-          <ConnectorPoint PointX="15.5" PointY="15.787822265625" />
-          <ConnectorPoint PointX="21" PointY="15.787822265625" />
-          <ConnectorPoint PointX="21" PointY="14.085999348958325" />
-        </AssociationConnector>
-        <AssociationConnector Association="Sandler.Models.FK_TBL_OPPORTUNITIES_TBL_COMPANIES" >
-          <ConnectorPoint PointX="12" PointY="11.132813749999997" />
-          <ConnectorPoint PointX="13.375" PointY="11.132813749999997" />
-          <ConnectorPoint PointX="13.375" PointY="14.918925781250007" />
-          <ConnectorPoint PointX="14.166666666666666" PointY="14.918925781250007" />
-          <ConnectorPoint PointX="14.333333333333334" PointY="14.918925781250007" />
-          <ConnectorPoint PointX="15.625" PointY="14.918925781250007" />
-          <ConnectorPoint PointX="15.625" PointY="15.785869140625" />
-          <ConnectorPoint PointX="18.75" PointY="15.785869140625" />
-          <ConnectorPoint PointX="18.75" PointY="15.00901367187501" />
+          <ConnectorPoint PointX="11.25" PointY="8.875" />
+          <ConnectorPoint PointX="11.25" PointY="8.5" />
+          <ConnectorPoint PointX="11.885416666666666" PointY="8.5" />
+          <ConnectorPoint PointX="12.052083333333334" PointY="8.5" />
+          <ConnectorPoint PointX="15.416666666666666" PointY="8.5" />
+          <ConnectorPoint PointX="15.583333333333334" PointY="8.5" />
+          <ConnectorPoint PointX="17.75" PointY="8.5" />
+          <ConnectorPoint PointX="17.75" PointY="11.494425688476561" />
+          <ConnectorPoint PointX="18.666666666666668" PointY="11.494425688476561" />
+          <ConnectorPoint PointX="18.833333333333332" PointY="11.494425688476561" />
+          <ConnectorPoint PointX="20.25" PointY="11.494425688476561" />
         </AssociationConnector>
         <AssociationConnector Association="Sandler.Models.FK_TBL_CONTACTS_Tbl_Course" >
-          <ConnectorPoint PointX="15" PointY="16.98500651041666" />
-          <ConnectorPoint PointX="16.5" PointY="16.98500651041666" />
-          <ConnectorPoint PointX="16.5" PointY="15.730123697916666" />
-        </AssociationConnector>
-        <AssociationConnector Association="Sandler.Models.FK_TBL_OPPORTUNITIES_TBL_CONTACTS" >
-          <ConnectorPoint PointX="17.25" PointY="12.943132544921884" />
-          <ConnectorPoint PointX="18" PointY="12.943132544921884" />
+          <ConnectorPoint PointX="15" PointY="15.869863281250002" />
+          <ConnectorPoint PointX="15.75" PointY="15.869863281250002" />
         </AssociationConnector>
         <AssociationConnector Association="Sandler.Models.FK_TBL_REGION_TBL_COUNTRY" >
           <ConnectorPoint PointX="3" PointY="16.650763417400896" />
           <ConnectorPoint PointX="3.75" PointY="16.650763417400896" />
         </AssociationConnector>
         <AssociationConnector Association="Sandler.Models.FK_TBL_DOCS_Tbl_DocumentStatus" >
-          <ConnectorPoint PointX="19.5" PointY="7.2785953776041623" />
-          <ConnectorPoint PointX="21" PointY="7.2785953776041623" />
-          <ConnectorPoint PointX="21" PointY="10.375" />
-        </AssociationConnector>
-        <AssociationConnector Association="Sandler.Models.FK_TBL_DOCS_TBL_OPPORTUNITIES" >
-          <ConnectorPoint PointX="19.5" PointY="12.230499674479162" />
-          <ConnectorPoint PointX="20.25" PointY="12.230499674479162" />
-        </AssociationConnector>
-        <AssociationConnector Association="Sandler.Models.FK_TBL_OPPORTUNITIES_TBL_OPPORTUNITYSTATUS" >
-          <ConnectorPoint PointX="17.25" PointY="7.8060359090544784" />
-          <ConnectorPoint PointX="17.625" PointY="8.18103590905448" />
-          <ConnectorPoint PointX="17.625" PointY="11.209686146565762" />
-          <ConnectorPoint PointX="18" PointY="11.209686146565762" />
+          <ConnectorPoint PointX="18.75" PointY="8.5571907552083246" />
+          <ConnectorPoint PointX="18.75" PointY="12.82146501871744" />
+          <ConnectorPoint PointX="20.25" PointY="12.82146501871744" />
         </AssociationConnector>
         <EntityTypeShape EntityType="Sandler.Models.TBL_FRANCHISEE_USERS" Width="1.5" PointX="13.5" PointY="10.75" Height="3.9033007812500067" />
         <AssociationConnector Association="Sandler.Models.FK_TBL_FRANCHISEE_USERS_aspnet_Users" >
@@ -2332,6 +2648,10 @@
           <ConnectorPoint PointX="8" PointY="11" />
           <ConnectorPoint PointX="10.25" PointY="11" />
           <ConnectorPoint PointX="10.25" PointY="8.625" />
+          <ConnectorPoint PointX="11.166666666666666" PointY="8.625" />
+          <ConnectorPoint PointX="11.333333333333334" PointY="8.625" />
+          <ConnectorPoint PointX="11.885416666666666" PointY="8.625" />
+          <ConnectorPoint PointX="12.052083333333334" PointY="8.625" />
           <ConnectorPoint PointX="14.25" PointY="8.625" />
           <ConnectorPoint PointX="14.25" PointY="10.75" />
         </AssociationConnector>
@@ -2352,8 +2672,8 @@
           <ConnectorPoint PointX="8.25" PointY="12.898753255208334" />
         </AssociationConnector>
         <AssociationConnector Association="Sandler.Models.FK_TBL_COMPANIES_TBL_FRANCHISEE" >
-          <ConnectorPoint PointX="9.75" PointY="13.04304380598958" />
-          <ConnectorPoint PointX="10.5" PointY="13.04304380598958" />
+          <ConnectorPoint PointX="9.75" PointY="13.456411132812498" />
+          <ConnectorPoint PointX="10.5" PointY="13.456411132812498" />
         </AssociationConnector>
         <AssociationConnector Association="Sandler.Models.FK_TBL_FRANCHISEE_TBL_COUNTRY" >
           <ConnectorPoint PointX="3" PointY="14.65625" />
@@ -2366,13 +2686,11 @@
           <ConnectorPoint PointX="8.25" PointY="14.65625" />
         </AssociationConnector>
         <AssociationConnector Association="Sandler.Models.FK_TBL_FRANCHISEE_USERS_TBL_FRANCHISEE" >
-          <ConnectorPoint PointX="9.75" PointY="14.96108761197916" />
-          <ConnectorPoint PointX="10.25" PointY="14.96108761197916" />
-          <ConnectorPoint PointX="10.25" PointY="15.720520833333332" />
-          <ConnectorPoint PointX="13" PointY="15.720520833333332" />
-          <ConnectorPoint PointX="13" PointY="15.125" />
-          <ConnectorPoint PointX="14.25" PointY="15.125" />
-          <ConnectorPoint PointX="14.25" PointY="14.653300781250007" />
+          <ConnectorPoint PointX="9" PointY="16.499410807291667" />
+          <ConnectorPoint PointX="9" PointY="16.749410807291667" />
+          <ConnectorPoint PointX="12.875" PointY="16.749410807291667" />
+          <ConnectorPoint PointX="12.875" PointY="12.701650390625003" />
+          <ConnectorPoint PointX="13.5" PointY="12.701650390625003" />
         </AssociationConnector>
         <EntityTypeShape EntityType="Sandler.Models.Tbl_IndustryType" Width="1.5" PointX="8.25" PointY="6.875" Height="2.749492187499996" />
         <EntityTypeShape EntityType="Sandler.Models.Tbl_ProductType" Width="1.5" PointX="7.375" PointY="1" Height="2.9417936197916674" />
@@ -2382,24 +2700,82 @@
           <ConnectorPoint PointX="10.333333333333334" PointY="9.249746093749998" />
           <ConnectorPoint PointX="10.5" PointY="9.249746093749998" />
         </AssociationConnector>
-        <AssociationConnector Association="Sandler.Models.FK_TBL_OPPORTUNITIES_Tbl_ProductType" >
-          <ConnectorPoint PointX="8.875" PointY="3.9406387736378212" />
-          <ConnectorPoint PointX="9.2511548461538453" PointY="4.3167936197916674" />
-          <ConnectorPoint PointX="11.166666666666666" PointY="4.3167936197916665" />
-          <ConnectorPoint PointX="11.333333333333334" PointY="4.3167936197916674" />
-          <ConnectorPoint PointX="17.6875" PointY="4.3167936197916674" />
-          <ConnectorPoint PointX="17.6875" PointY="9.0625" />
-          <ConnectorPoint PointX="18" PointY="9.375" />
-        </AssociationConnector>
         <EntityTypeShape EntityType="Sandler.Models.Tbl_AppointmentsSource" Width="1.5" PointX="9.375" PointY="1" Height="2.749492187499996" />
         <AssociationConnector Association="Sandler.Models.FK_TBL_CONTACTS_Tbl_AppointmentsSource" >
           <ConnectorPoint PointX="10.875" PointY="3.74833734134615" />
-          <ConnectorPoint PointX="11.25" PointY="4.12333734134615" />
-          <ConnectorPoint PointX="11.25" PointY="8.375" />
+          <ConnectorPoint PointX="11.251154846153845" PointY="4.124492187499996" />
+          <ConnectorPoint PointX="15.375" PointY="4.124492187499996" />
           <ConnectorPoint PointX="15.375" PointY="8.375" />
           <ConnectorPoint PointX="15.75" PointY="8.75" />
         </AssociationConnector>
-      </Diagram>
+        <EntityTypeShape EntityType="Sandler.Models.TBL_OpportunityTypes" Width="1.5" PointX="15" PointY="0.5" Height="2.5571907552083246" />
+        <EntityTypeShape EntityType="Sandler.Models.TBL_OpportunityWhyLost" Width="1.5" PointX="18.75" PointY="0.75" Height="2.5571907552083246" />
+        <EntityTypeShape EntityType="Sandler.Models.TBL_OpportunitySource" Width="1.5" PointX="10.375" PointY="5" Height="2.5571907552083246" />
+        <EntityTypeShape EntityType="Sandler.Models.TBL_OPPORTUNITIES" Width="1.5" PointX="23" PointY="3.25" Height="8.1339322916666674" />
+        <AssociationConnector Association="Sandler.Models.FK_TBL_OPPORTUNITIES_TBL_COMPANIES" >
+          <ConnectorPoint PointX="11.96875" PointY="8.875" />
+          <ConnectorPoint PointX="11.96875" PointY="4.530996093749998" />
+          <ConnectorPoint PointX="15.291666666666666" PointY="4.5309960937499971" />
+          <ConnectorPoint PointX="15.458333333333334" PointY="4.530996093749998" />
+          <ConnectorPoint PointX="23" PointY="4.530996093749998" />
+        </AssociationConnector>
+        <AssociationConnector Association="Sandler.Models.FK_TBL_OPPORTUNITIES_TBL_CONTACTS" >
+          <ConnectorPoint PointX="17.25" PointY="9.53125" />
+          <ConnectorPoint PointX="17.666666666666668" PointY="9.53125" />
+          <ConnectorPoint PointX="17.833333333333332" PointY="9.53125" />
+          <ConnectorPoint PointX="18.666666666666668" PointY="9.53125" />
+          <ConnectorPoint PointX="18.833333333333332" PointY="9.53125" />
+          <ConnectorPoint PointX="23" PointY="9.53125" />
+        </AssociationConnector>
+        <AssociationConnector Association="Sandler.Models.FK_TBL_OPPORTUNITIES_TBL_CONTACTS1" >
+          <ConnectorPoint PointX="17.25" PointY="9.984375" />
+          <ConnectorPoint PointX="17.666666666666668" PointY="9.984375" />
+          <ConnectorPoint PointX="17.833333333333332" PointY="9.984375" />
+          <ConnectorPoint PointX="18.666666666666668" PointY="9.984375" />
+          <ConnectorPoint PointX="18.833333333333332" PointY="9.984375" />
+          <ConnectorPoint PointX="23" PointY="9.984375" />
+        </AssociationConnector>
+        <AssociationConnector Association="Sandler.Models.FK_TBL_OPPORTUNITIES_TBL_CONTACTS2" >
+          <ConnectorPoint PointX="17.25" PointY="9.078125" />
+          <ConnectorPoint PointX="17.666666666666668" PointY="9.078125" />
+          <ConnectorPoint PointX="17.833333333333332" PointY="9.078125" />
+          <ConnectorPoint PointX="18.666666666666668" PointY="9.078125" />
+          <ConnectorPoint PointX="18.833333333333332" PointY="9.078125" />
+          <ConnectorPoint PointX="23" PointY="9.078125" />
+        </AssociationConnector>
+        <AssociationConnector Association="Sandler.Models.FK_TBL_DOCS_TBL_OPPORTUNITIES" >
+          <ConnectorPoint PointX="23" PointY="10.879466145833334" />
+          <ConnectorPoint PointX="21.75" PointY="10.879466145833334" />
+        </AssociationConnector>
+        <AssociationConnector Association="Sandler.Models.FK_TBL_OPPORTUNITIES_TBL_OpportunitySource" >
+          <ConnectorPoint PointX="11.875" PointY="5.09375" />
+          <ConnectorPoint PointX="11.885416666666666" PointY="5.0937499999999991" />
+          <ConnectorPoint PointX="12.052083333333334" PointY="5.09375" />
+          <ConnectorPoint PointX="15.291666666666666" PointY="5.0937499999999991" />
+          <ConnectorPoint PointX="15.458333333333334" PointY="5.09375" />
+          <ConnectorPoint PointX="23" PointY="5.09375" />
+        </AssociationConnector>
+        <AssociationConnector Association="Sandler.Models.FK_TBL_OPPORTUNITIES_TBL_OPPORTUNITYSTATUS" >
+          <ConnectorPoint PointX="17.25" PointY="5.59375" />
+          <ConnectorPoint PointX="23" PointY="5.59375" />
+        </AssociationConnector>
+        <AssociationConnector Association="Sandler.Models.FK_TBL_OPPORTUNITIES_TBL_OpportunityTypes" >
+          <ConnectorPoint PointX="16.5" PointY="0.59375000000000033" />
+          <ConnectorPoint PointX="23.75" PointY="0.59375000000000033" />
+          <ConnectorPoint PointX="23.75" PointY="3.25" />
+        </AssociationConnector>
+        <AssociationConnector Association="Sandler.Models.FK_TBL_OPPORTUNITIES_TBL_OpportunityWhyLost" >
+          <ConnectorPoint PointX="20.25" PointY="1.9687475000000065" />
+          <ConnectorPoint PointX="23.3437475" PointY="1.9687475000000065" />
+          <ConnectorPoint PointX="23.3437475" PointY="3.25" />
+        </AssociationConnector>
+        <AssociationConnector Association="Sandler.Models.FK_TBL_OPPORTUNITIES_Tbl_ProductType" >
+          <ConnectorPoint PointX="8.875" PointY="3.8768929036458313" />
+          <ConnectorPoint PointX="10.920222228966347" PointY="3.8768929036458308" />
+          <ConnectorPoint PointX="11.086888895633015" PointY="3.8768929036458313" />
+          <ConnectorPoint PointX="23" PointY="3.8768929036458313" />
+        </AssociationConnector>
+        </Diagram>
     </Diagrams>
   </Designer>
 </edmx:Edmx>

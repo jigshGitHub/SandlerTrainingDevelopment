@@ -21,7 +21,7 @@ public partial class CRM_Contacts_Upload : UploaderBasePage
             //var data = from company in UserEntitiesFactory.Get(CurrentUser).Companies
             //           select new { Name = company.COMPANYNAME, Id = company.COMPANIESID };
             var data = from company in UserEntitiesFactory.Get(CurrentUser).Companies
-                       select new { Name = company.COMPANYNAME, Id = company.COMPANYID };
+                       select new { Name = company.COMPANYNAME, Id = company.COMPANIESID };
 
             companyList.DataSource = data;
             companyList.DataTextField = "Name";

@@ -39,7 +39,6 @@ namespace SandlerModels
         public DbSet<TBL_DOCS> TBL_DOCS { get; set; }
         public DbSet<Tbl_DocumentStatus> Tbl_DocumentStatus { get; set; }
         public DbSet<Tbl_FollowUpItemsList> Tbl_FollowUpItemsList { get; set; }
-        public DbSet<TBL_OPPORTUNITIES> TBL_OPPORTUNITIES { get; set; }
         public DbSet<TBL_OPPORTUNITYSTATUS> TBL_OPPORTUNITYSTATUS { get; set; }
         public DbSet<TBL_REGION> TBL_REGION { get; set; }
         public DbSet<TBL_FRANCHISEE_USERS> TBL_FRANCHISEE_USERS { get; set; }
@@ -47,19 +46,23 @@ namespace SandlerModels
         public DbSet<Tbl_IndustryType> Tbl_IndustryType { get; set; }
         public DbSet<Tbl_ProductType> Tbl_ProductType { get; set; }
         public DbSet<Tbl_AppointmentsSource> Tbl_AppointmentsSource { get; set; }
+        public DbSet<TBL_OpportunityTypes> TBL_OpportunityTypes { get; set; }
+        public DbSet<TBL_OpportunityWhyLost> TBL_OpportunityWhyLost { get; set; }
+        public DbSet<TBL_OpportunitySource> TBL_OpportunitySource { get; set; }
+        public DbSet<TBL_OPPORTUNITIES> TBL_OPPORTUNITIES { get; set; }
     
-        public virtual ObjectResult<Opportunity> GetOpportunitiesByUser(Nullable<System.Guid> userId)
+        internal ObjectResult<Company> GetCompaniesByUser(Nullable<System.Guid> userId)
         {
-            ((IObjectContextAdapter)this).ObjectContext.MetadataWorkspace.LoadFromAssembly(typeof(Opportunity).Assembly);
+            ((IObjectContextAdapter)this).ObjectContext.MetadataWorkspace.LoadFromAssembly(typeof(Company).Assembly);
     
             var userIdParameter = userId.HasValue ?
                 new ObjectParameter("userId", userId) :
                 new ObjectParameter("userId", typeof(System.Guid));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Opportunity>("GetOpportunitiesByUser", userIdParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Company>("GetCompaniesByUser", userIdParameter);
         }
     
-        public virtual ObjectResult<Contact> GetContactsByUser(Nullable<System.Guid> userId)
+        internal ObjectResult<Contact> GetContactsByUser(Nullable<System.Guid> userId)
         {
             ((IObjectContextAdapter)this).ObjectContext.MetadataWorkspace.LoadFromAssembly(typeof(Contact).Assembly);
     
@@ -70,15 +73,15 @@ namespace SandlerModels
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Contact>("GetContactsByUser", userIdParameter);
         }
     
-        public virtual ObjectResult<Company> GetCompaniesByUser(Nullable<System.Guid> userId)
+        internal ObjectResult<Opportunity> GetOpportunitiesByUser(Nullable<System.Guid> userId)
         {
-            ((IObjectContextAdapter)this).ObjectContext.MetadataWorkspace.LoadFromAssembly(typeof(Company).Assembly);
+            ((IObjectContextAdapter)this).ObjectContext.MetadataWorkspace.LoadFromAssembly(typeof(Opportunity).Assembly);
     
             var userIdParameter = userId.HasValue ?
                 new ObjectParameter("userId", userId) :
                 new ObjectParameter("userId", typeof(System.Guid));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Company>("GetCompaniesByUser", userIdParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Opportunity>("GetOpportunitiesByUser", userIdParameter);
         }
     }
 }

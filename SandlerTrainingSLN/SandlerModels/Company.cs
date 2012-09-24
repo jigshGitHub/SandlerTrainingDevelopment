@@ -18,39 +18,32 @@ namespace SandlerModels
         public string Region { get; set; }
         public int CoachID { get; set; }
         public string CoachName { get; set; }
-        public int FranchiseeId { get; set; }
         public string FranchiseeName { get; set; }
+        public int COMPANIESID { get; set; }
         public string COMPANYNAME { get; set; }
+        public string CITY { get; set; }
+        public string STATE { get; set; }
+        public string POCLastName { get; set; }
+        public string POCFirstName { get; set; }
+        public string POCPhone { get; set; }
         public Nullable<bool> IsNewCompany { get; set; }
-        public Nullable<System.DateTime> CreationDate { get; set; }
+        public Nullable<int> COMPANYVALUEGOAL { get; set; }
         public Nullable<int> IndustryId { get; set; }
-        public int CONTACTSID { get; set; }
-        public Nullable<int> COMPANYID { get; set; }
-        public string LASTNAME { get; set; }
-        public string FIRSTNAME { get; set; }
-        public string PHONE { get; set; }
-        public string EMAIL { get; set; }
-        public Nullable<bool> IsNewAppointment { get; set; }
-        public Nullable<int> ApptSourceId { get; set; }
-        public Nullable<bool> IsRegisteredForTraining { get; set; }
-        public Nullable<int> CourseId { get; set; }
-        public Nullable<System.DateTime> CourseTrainingDate { get; set; }
+        public string RepLastName { get; set; }
+        public string RepFirstName { get; set; }
         public string DiscussionTopic { get; set; }
         public string ACTIONSTEP { get; set; }
-        public Nullable<System.DateTime> LAST_CONTACT_DATE { get; set; }
-        public Nullable<System.DateTime> NEXT_CONTACT_DATE { get; set; }
+        public Nullable<System.DateTime> LASTCONTACT_DATE { get; set; }
+        public Nullable<System.DateTime> NEXTCONTACT_DATE { get; set; }
+        public Nullable<System.DateTime> CreationDate { get; set; }
+        public Nullable<int> FranchiseeId { get; set; }
         public Nullable<bool> IsActive { get; set; }
-        public Nullable<System.DateTime> UpdatedDate { get; set; }
-        public string UpdatedBy { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }
         public string CreatedBy { get; set; }
-        public Nullable<bool> IsEmailSubscription { get; set; }
-        public Nullable<System.DateTime> Birthday { get; set; }
-        public Nullable<System.DateTime> Anniversary { get; set; }
-        public Nullable<int> CompanyYears { get; set; }
-        public string BossName { get; set; }
-        public Nullable<bool> IsNeedCallBack { get; set; }
-        public Nullable<System.DateTime> CallBackCreatedDate { get; set; }
+        public Nullable<System.DateTime> UpdatedDate { get; set; }
+        public string UpdatedBy { get; set; }
+        public string Address { get; set; }
+        public string Zip { get; set; }
     }
     
 }

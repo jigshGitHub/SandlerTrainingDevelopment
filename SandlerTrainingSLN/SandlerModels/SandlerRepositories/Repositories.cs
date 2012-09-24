@@ -358,4 +358,38 @@ namespace SandlerRepositories
         {
         }
     }
+
+    public partial class OpprtunitySourceRepository : RepositoryBase<TBL_OpportunitySource>
+    {
+        public OpprtunitySourceRepository(IDatabaseFactory dbFactory)
+            : base(dbFactory)
+        {
+        }
+        public OpprtunitySourceRepository()
+            : base(new DBFactory())
+        {
+        }
+    }
+    public partial class OpprtunityTypesRepository : RepositoryBase<TBL_OpportunityTypes>
+    {
+        public OpprtunityTypesRepository(IDatabaseFactory dbFactory)
+            : base(dbFactory)
+        {
+        }
+        public OpprtunityTypesRepository()
+            : base(new DBFactory())
+        {
+        }
+    }
+    public partial class OpprtunityWhyLostRepository : RepositoryBase<TBL_OpportunityWhyLost>
+    {
+        public OpprtunityWhyLostRepository(IDatabaseFactory dbFactory)
+            : base(dbFactory)
+        {
+        }
+        public OpprtunityWhyLostRepository()
+            : base(new DBFactory())
+        {
+        }
+    }
 }
