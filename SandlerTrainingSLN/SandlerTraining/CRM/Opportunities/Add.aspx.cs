@@ -74,7 +74,7 @@ public partial class OpportunityADD : OpportunityBasePage
             }
             else
             {
-                lblResult.Text = "First create the lstBxContacts for the company selected";
+                lblResult.Text = "First create the contacts for the company selected";
             }
         }
     }
@@ -142,19 +142,27 @@ public partial class OpportunityADD : OpportunityBasePage
         opportunity.SALESREPFIRSTNAME = txtSalesRepFName.Text;
         opportunity.SALESREPLASTNAME = txtSalesRepLName.Text;
         opportunity.SALESREPPHONE = txtSalesRepPhone.Text;
-        if(ddlProductStatus.SelectedIndex > 0)
+        if (ddlProductStatus.SelectedIndex > 0)
             opportunity.STATUSID = int.Parse(ddlProductStatus.SelectedValue);
+        else
+            opportunity.STATUSID = null;
         opportunity.VALUE = int.Parse(txtOpportunityValue.Text);
         opportunity.WINPROBABILITY = txtWinProbability.Text;
         opportunity.WEIGHTEDVALUE = (opportunity.VALUE * int.Parse(opportunity.WINPROBABILITY)) / 100;
-        if(drpLstSource.SelectedIndex > 0 )
-            opportunity.SourceID = int.Parse(drpLstSource.SelectedValue);
-        if (drpLstTypes.SelectedIndex > 0)
-            opportunity.TypeID = int.Parse(drpLstTypes.SelectedValue);
-        if (drpLstWhyLost.SelectedIndex > 0)
-            opportunity.WhyLostID = int.Parse(drpLstWhyLost.SelectedValue);
-        opportunity.Description = txtBxDescription.Text;
-        opportunity.Notes = txtBxNotes.Text;
+        if (ddlSource.SelectedIndex > 0)
+            opportunity.SourceID = int.Parse(ddlSource.SelectedValue);
+        else
+            opportunity.SourceID = null;
+        if (ddlTypes.SelectedIndex > 0)
+            opportunity.TypeID = int.Parse(ddlTypes.SelectedValue);
+        else
+            opportunity.TypeID = null;
+        if (ddlWhyLost.SelectedIndex > 0)
+            opportunity.WhyLostID = int.Parse(ddlWhyLost.SelectedValue);
+        else
+            opportunity.WhyLostID = null;
+        opportunity.Description = txtDescription.Text;
+        opportunity.Notes = txtNotes.Text;
         if(!string.IsNullOrEmpty(txtActualValue.Text))
             opportunity.ActualValue = Convert.ToDecimal(txtActualValue.Text);
 
@@ -186,9 +194,25 @@ public partial class OpportunityADD : OpportunityBasePage
         txtSalesRepFName.Text = record.SALESREPFIRSTNAME;
         txtSalesRepLName.Text = record.SALESREPLASTNAME;
         txtSalesRepPhone.Text = record.SALESREPPHONE;
-        ddlProductStatus.SelectedValue = record.STATUSID.ToString();
+        if(record.STATUSID.HasValue)
+            ddlProductStatus.SelectedValue = record.STATUSID.ToString();
         txtWeightedValue.Text = record.WEIGHTEDVALUE.ToString();
         txtWinProbability.Text = record.WINPROBABILITY;
+        txtDescription.Text = record.Description;
+        txtNotes.Text = record.Notes;
+        if (record.SourceID.HasValue)
+            ddlSource.SelectedValue = record.SourceID.ToString();
+        if (record.TypeID.HasValue)
+            ddlTypes.SelectedValue = record.TypeID.ToString();
+        if (record.WhyLostID.HasValue)
+            ddlWhyLost.SelectedValue = record.WhyLostID.ToString();
+        txtActualValue.Text = record.ActualValue.ToString();
+
+        lstBxContacts.Items.FindByValue(record.CONTACTID.ToString()).Selected = true;
+        if (record.SeconadryContactId1.HasValue)
+            lstBxContacts.Items.FindByValue(record.SeconadryContactId1.ToString()).Selected = true;
+        if (record.SeconadryContactId2.HasValue)
+            lstBxContacts.Items.FindByValue(record.SeconadryContactId2.ToString()).Selected = true;
     }
 
     private void ClearFiels()
@@ -208,6 +232,13 @@ public partial class OpportunityADD : OpportunityBasePage
         txtWeightedValue.Text = "";
         txtWinProbability.Text = "";
         CloseDate.Text = "";
+        txtDescription.Text = "";
+        txtNotes.Text = "";
+        txtActualValue.Text = "";
+        ddlSource.SelectedIndex = 0;
+        ddlTypes.SelectedIndex = 0;
+        ddlProductStatus.SelectedIndex = 0;
+        ddlWhyLost.SelectedIndex = 0;
     }
 
     protected void lbtnCancel_Click(object sender, EventArgs e)

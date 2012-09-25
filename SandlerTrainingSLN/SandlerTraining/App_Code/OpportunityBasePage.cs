@@ -102,9 +102,14 @@ public class OpportunityBasePage : BasePage
         return opportunitySource.GetById(id);
     }
 
+    protected virtual Opportunity FillOpportunity(int id)
+    {
+        return UserEntitiesFactory.Get(CurrentUser).Opportunities.Find(delegate(Opportunity o) { return o.ID == id; });
+    }
+
     protected virtual TBL_OPPORTUNITIES Save(TBL_OPPORTUNITIES opportunity)
     {
-        OpportunitiesRepository opportunitySource = new OpportunitiesRepository();
+        OpportunitiesRepository opportunitySource = new OpportunitiesRepository(); ;
         opportunitySource.Add(opportunity);
         UserEntitiesFactory.ReLoad();
         return opportunity;

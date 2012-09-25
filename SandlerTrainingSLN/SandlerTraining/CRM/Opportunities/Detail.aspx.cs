@@ -28,24 +28,28 @@ public partial class OpportunityDETAIL : OpportunityBasePage
 
     private void BindDetails(int ID)
     {
-        TBL_OPPORTUNITIES record = GetOpportunity(ID);
+        //TBL_OPPORTUNITIES record = GetOpportunity(ID);
+        Opportunity record = FillOpportunity(ID);
         lblCloseDate.Text = record.CLOSEDATE.Value.ToShortDateString();
-        TBL_COMPANIES company = GetCompany(record.COMPANYID);
-        TBL_CONTACTS contact = GetContact(record.CONTACTID);
-        lblCompany.Text = company.COMPANYNAME;
-        lblContact.Text = contact.FIRSTNAME + " " + contact.LASTNAME;
-        lblEmail.Text = contact.EMAIL;
+        lblCompany.Text = record.COMPANYNAME;
         lblOppName.Text = record.NAME;
         lblOpportunityID.Text = record.OpportunityID.Value.ToString();
-        lblOpportunityValue.Text = string.Format("{0:C}",record.VALUE);
-        lblPhone.Text = contact.PHONE;
-        Tbl_ProductType product = GetProduct(record.ProductID);
-        lblProduct.Text = product.ProductTypeName;
+        lblOpportunityValue.Text = string.Format("{0:C}", record.VALUE);
+        lblProduct.Text = record.ProductTypeName;
         lblSalesRepFName.Text = record.SALESREPFIRSTNAME;
         lblSalesRepLName.Text = record.SALESREPLASTNAME;
         lblSalesRepPhone.Text = record.SALESREPPHONE;
-        lblStatus.Text = GetAppointment(contact.ApptSourceId.Value).ApptSourceName;
-        lblWeightedValue.Text = string.Format("{0:C}",record.WEIGHTEDVALUE);
-        lblWinProbability.Text = record.WINPROBABILITY;        
+        lblStatus.Text = record.Status;
+        lblWeightedValue.Text = string.Format("{0:C}", record.WEIGHTEDVALUE);
+        lblActualValue.Text = string.Format("{0:C}", record.ActualValue);
+        lblWinProbability.Text = record.WINPROBABILITY;
+        lblDescription.Text = record.Description;
+        lblNotes.Text = record.Notes;
+        lblSource.Text = record.Source;
+        lblType.Text = record.Type;
+        lblWLost.Text = record.WhyLost;
+        lblPrimaryContact.Text = record.PrimaryContactFirstName + " " + record.PrimaryContactLastName;
+        lblSecondaryContact1.Text = record.SeconadryContact1FirstName + " " + record.SeconadryContact1LastName;
+        lblSecondaryContact2.Text = record.SeconadryContact2FirstName + " " + record.SeconadryContact2LastName;
     }
 }

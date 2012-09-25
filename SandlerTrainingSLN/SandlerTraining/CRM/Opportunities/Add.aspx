@@ -6,16 +6,16 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="Server">
     <asp:ToolkitScriptManager ID="ToolkitScriptManager1" runat="server">
     </asp:ToolkitScriptManager>
-    <asp:UpdatePanel ID="updPnl" runat="server">
-        <ContentTemplate>
-            <table>
-                <tr>
-                    <th class="tdTC" style="width: 280px" align="left">
-                        Add Opportunity :
-                    </th>
-                </tr>
-                <tr>
-                    <td style="width: 280px">
+    <table>
+        <tr>
+            <th class="tdTC" style="width: 280px" align="left">
+                Add Opportunity :
+            </th>
+        </tr>
+        <tr>
+            <td style="width: 280px">
+                <asp:UpdatePanel ID="updPnl" runat="server">
+                    <ContentTemplate>
                         <table cellspacing="0" cellpadding="3" rules="cols" id="MainContent_dvOpportunity"
                             style="background-color: White; border-color: #999999; border-width: 1px; border-style: solid;
                             height: 50px; width: 100%; border-collapse: collapse;">
@@ -56,12 +56,12 @@
                                     </asp:RequiredFieldValidator>
                                 </td>
                             </tr>
-                            <tr style="color: Black; background-color: #EEEEEE; white-space: nowrap;">
+                            <tr style="color: Black; background-color: #DCDCDC; white-space: nowrap;">
                                 <td style="white-space: nowrap;">
                                     Opportunity Description :
                                 </td>
                                 <td>
-                                    <asp:TextBox ID="txtBxDescription" TextMode="MultiLine" runat="server" Width="380"></asp:TextBox>
+                                    <asp:TextBox ID="txtDescription" TextMode="MultiLine" runat="server" Width="380"></asp:TextBox>
                                 </td>
                             </tr>
                             <tr style="color: Black; background-color: #EEEEEE; white-space: nowrap;">
@@ -69,7 +69,7 @@
                                     Opportunity Notes :
                                 </td>
                                 <td>
-                                    <asp:TextBox ID="txtBxNotes" TextMode="MultiLine" runat="server" Width="380"></asp:TextBox>
+                                    <asp:TextBox ID="txtNotes" TextMode="MultiLine" runat="server" Width="380"></asp:TextBox>
                                 </td>
                             </tr>
                             <tr style="color: Black; background-color: #DCDCDC; white-space: nowrap;">
@@ -110,8 +110,8 @@
                                     <asp:DropDownList ID="ddlProducts" runat="server" DataSourceID="ProductTypesDS" DataTextField="ProductTypeName"
                                         DataValueField="Id" OnDataBound="ddlCreateDefaultSelection">
                                     </asp:DropDownList>
-                                    <asp:RequiredFieldValidator ID="rfvProduct" ControlToValidate="ddlProducts"
-                                        Display="Dynamic" InitialValue="0" runat="server" ErrorMessage="Please select at least one product from the list.">*
+                                    <asp:RequiredFieldValidator ID="rfvProduct" ControlToValidate="ddlProducts" Display="Dynamic"
+                                        InitialValue="0" runat="server" ErrorMessage="Please Select At Least One Product From The List.">*
                                     </asp:RequiredFieldValidator>
                                     <asp:ObjectDataSource ID="ProductTypesDS" runat="server" SelectMethod="GetWithFranchiseeId"
                                         TypeName="SandlerRepositories.ProductTypesRepository">
@@ -133,12 +133,12 @@
                                         TypeName="SandlerRepositories.OpprtunityStatusRepository"></asp:ObjectDataSource>
                                 </td>
                             </tr>
-                            <tr style="color: Black; background-color: #DCDCDC; white-space: nowrap;">
+                            <tr style="color: Black; background-color: #EEEEEE; white-space: nowrap;">
                                 <td style="white-space: nowrap;">
                                     Opportunity Source :
                                 </td>
                                 <td>
-                                    <asp:DropDownList ID="drpLstSource" runat="server" DataSourceID="OpportunitySourceDS"
+                                    <asp:DropDownList ID="ddlSource" runat="server" DataSourceID="OpportunitySourceDS"
                                         DataTextField="Name" DataValueField="ID" OnDataBound="ddlCreateDefaultSelection">
                                     </asp:DropDownList>
                                     <asp:ObjectDataSource ID="OpportunitySourceDS" runat="server" SelectMethod="GetAll"
@@ -150,19 +150,19 @@
                                     Opportunity Types :
                                 </td>
                                 <td>
-                                    <asp:DropDownList ID="drpLstTypes" runat="server" DataSourceID="OpportunityTypesDS"
+                                    <asp:DropDownList ID="ddlTypes" runat="server" DataSourceID="OpportunityTypesDS"
                                         DataTextField="Name" DataValueField="ID" OnDataBound="ddlCreateDefaultSelection">
                                     </asp:DropDownList>
                                     <asp:ObjectDataSource ID="OpportunityTypesDS" runat="server" SelectMethod="GetAll"
                                         TypeName="SandlerRepositories.OpprtunityTypesRepository"></asp:ObjectDataSource>
                                 </td>
                             </tr>
-                            <tr style="color: Black; background-color: #DCDCDC; white-space: nowrap;">
+                            <tr style="color: Black; background-color: #EEEEEE; white-space: nowrap;">
                                 <td style="white-space: nowrap;">
                                     Why Lost? :
                                 </td>
                                 <td>
-                                    <asp:DropDownList ID="drpLstWhyLost" runat="server" DataSourceID="OpportunityWhyLostDS"
+                                    <asp:DropDownList ID="ddlWhyLost" runat="server" DataSourceID="OpportunityWhyLostDS"
                                         DataTextField="Name" DataValueField="ID" OnDataBound="ddlCreateDefaultSelection">
                                     </asp:DropDownList>
                                     <asp:ObjectDataSource ID="OpportunityWhyLostDS" runat="server" SelectMethod="GetAll"
@@ -201,7 +201,7 @@
                                     <asp:TextBox ID="txtWeightedValue" runat="server" Enabled="false"></asp:TextBox>
                                 </td>
                             </tr>
-                            <tr style="color: Black; background-color: #DCDCDC; white-space: nowrap;">
+                            <tr style="color: Black; background-color: #EEEEEE; white-space: nowrap;">
                                 <td style="white-space: nowrap;">
                                     Actual Value :
                                 </td>
@@ -209,7 +209,7 @@
                                     <asp:TextBox ID="txtActualValue" onkeypress="EnterOnlyNumeric()" runat="server"></asp:TextBox>
                                 </td>
                             </tr>
-                            <tr style="color: Black; background-color: #EEEEEE; white-space: nowrap;">
+                            <tr style="color: Black; background-color: #DCDCDC; white-space: nowrap;">
                                 <td style="white-space: nowrap;">
                                     Close Date :
                                 </td>
@@ -236,28 +236,28 @@
                             </asp:Panel>
                             <tr>
                                 <td colspan="2">
-                                    <asp:LinkButton ID="lbtnAdd" runat="server" CausesValidation="True" Text="Add" ForeColor="Blue"
-                                        Font-Bold="true" OnClick="lbtnAdd_Click"></asp:LinkButton>&nbsp;&nbsp;
-                                    <asp:LinkButton ID="lbtnCancel" runat="server" CausesValidation="False" ForeColor="Blue"
-                                        Font-Bold="true" OnClick="lbtnCancel_Click"></asp:LinkButton>
+                                    <asp:Label ID="lblResult" runat="server" ForeColor="Red"></asp:Label><br />
                                 </td>
                             </tr>
                         </table>
-                    </td>
-                </tr>
-                <tr>
-                    <td style="width: 280px">
-                        <asp:ValidationSummary ID="ValidationSummary1" runat="server" ForeColor="Red" ShowMessageBox="True" />
-                    </td>
-                </tr>
-                <tr>
-                    <td style="width: 280px">
-                        <asp:Label ID="lblResult" runat="server" ForeColor="Red"></asp:Label><br />
-                    </td>
-                </tr>
-            </table>
-        </ContentTemplate>
-    </asp:UpdatePanel>
+                    </ContentTemplate>
+                </asp:UpdatePanel>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <asp:LinkButton ID="lbtnAdd" runat="server" CausesValidation="True" Text="Add" ForeColor="Blue"
+                    Font-Bold="true" OnClick="lbtnAdd_Click"></asp:LinkButton>&nbsp;&nbsp;
+                <asp:LinkButton ID="lbtnCancel" runat="server" CausesValidation="False" ForeColor="Blue"
+                    Font-Bold="true" OnClick="lbtnCancel_Click"></asp:LinkButton>
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 280px">
+                <asp:ValidationSummary ID="ValidationSummary1" runat="server" ForeColor="Red" ShowMessageBox="True" />
+            </td>
+        </tr>
+    </table>
     <script type="text/javascript">
         function BindEvents() {
 
@@ -290,7 +290,7 @@
                             case 110: break; // . number block (Opera 9.63+ maps the "." from the number block to the "N" key (78) !!!)
                             case 190: break; // .
                             default: break;
-                            //$(this).formatCurrency({ colorize: true, negativeFormat: '(%s%n)', roundToDecimalPlace: -1, eventOnDecimalsEntered: true });                                          
+                            //$(this).formatCurrency({ colorize: true, negativeFormat: '(%s%n)', roundToDecimalPlace: -1, eventOnDecimalsEntered: true });                                             
                         }
                     }
                 })
@@ -309,6 +309,18 @@
 
             };
 
+//            $('#<%=lbtnAdd.ClientID%>').click(function () {
+//                var contactsSelected = parseInt($('#<%=lstBxContacts.ClientID%> :selected').length);
+//                log(contactsSelected);
+//                if (contactsSelected > 3) {
+//                    alert('You can not select more than 3 contacts');
+//                    return false;
+//                }
+//            });
+        }
+        $(document).ready(function () {
+            BindEvents();
+
             $('#<%=lbtnAdd.ClientID%>').click(function () {
                 var contactsSelected = parseInt($('#<%=lstBxContacts.ClientID%> :selected').length);
                 log(contactsSelected);
@@ -317,9 +329,6 @@
                     return false;
                 }
             });
-        }
-        $(document).ready(function () {
-            BindEvents();
         });
 
 
