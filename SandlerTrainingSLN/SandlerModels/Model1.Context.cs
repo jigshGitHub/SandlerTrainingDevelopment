@@ -45,22 +45,11 @@ namespace SandlerModels
         public DbSet<Tbl_IndustryType> Tbl_IndustryType { get; set; }
         public DbSet<Tbl_ProductType> Tbl_ProductType { get; set; }
         public DbSet<Tbl_AppointmentsSource> Tbl_AppointmentsSource { get; set; }
+        public DbSet<TBL_COMPANIES> TBL_COMPANIES { get; set; }
+        public DbSet<TBL_OPPORTUNITIES> TBL_OPPORTUNITIES { get; set; }
+        public DbSet<TBL_OpportunitySource> TBL_OpportunitySource { get; set; }
         public DbSet<TBL_OpportunityTypes> TBL_OpportunityTypes { get; set; }
         public DbSet<TBL_OpportunityWhyLost> TBL_OpportunityWhyLost { get; set; }
-        public DbSet<TBL_OpportunitySource> TBL_OpportunitySource { get; set; }
-        public DbSet<TBL_OPPORTUNITIES> TBL_OPPORTUNITIES { get; set; }
-        public DbSet<TBL_COMPANIES> TBL_COMPANIES { get; set; }
-    
-        internal ObjectResult<Company> GetCompaniesByUser(Nullable<System.Guid> userId)
-        {
-            ((IObjectContextAdapter)this).ObjectContext.MetadataWorkspace.LoadFromAssembly(typeof(Company).Assembly);
-    
-            var userIdParameter = userId.HasValue ?
-                new ObjectParameter("userId", userId) :
-                new ObjectParameter("userId", typeof(System.Guid));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Company>("GetCompaniesByUser", userIdParameter);
-        }
     
         internal ObjectResult<Contact> GetContactsByUser(Nullable<System.Guid> userId)
         {
@@ -71,6 +60,17 @@ namespace SandlerModels
                 new ObjectParameter("userId", typeof(System.Guid));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Contact>("GetContactsByUser", userIdParameter);
+        }
+    
+        internal ObjectResult<Company> GetCompaniesByUser(Nullable<System.Guid> userId)
+        {
+            ((IObjectContextAdapter)this).ObjectContext.MetadataWorkspace.LoadFromAssembly(typeof(Company).Assembly);
+    
+            var userIdParameter = userId.HasValue ?
+                new ObjectParameter("userId", userId) :
+                new ObjectParameter("userId", typeof(System.Guid));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Company>("GetCompaniesByUser", userIdParameter);
         }
     
         internal ObjectResult<Opportunity> GetOpportunitiesByUser(Nullable<System.Guid> userId)

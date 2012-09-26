@@ -51,10 +51,10 @@ namespace SandlerModels
     
         internal Tbl_Course Tbl_Course { get; set; }
         internal Tbl_AppointmentsSource Tbl_AppointmentsSource { get; set; }
+        internal TBL_COMPANIES TBL_COMPANIES { get; set; }
         internal ICollection<TBL_OPPORTUNITIES> TBL_OPPORTUNITIES { get; set; }
         internal ICollection<TBL_OPPORTUNITIES> TBL_OPPORTUNITIES1 { get; set; }
         internal ICollection<TBL_OPPORTUNITIES> TBL_OPPORTUNITIES2 { get; set; }
-        internal TBL_COMPANIES TBL_COMPANIES { get; set; }
     }
     
 }

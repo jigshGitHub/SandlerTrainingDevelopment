@@ -369,3 +369,62 @@ WHERE cmp.IsActive = 1
 
 GO
 
+
+/****** Object:  StoredProcedure [dbo].[sp_GetCompaniesByUser]    Script Date: 09/25/2012 22:43:30 ******/
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[sp_GetCompaniesByUser]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[sp_GetCompaniesByUser]
+GO
+
+
+CREATE Procedure [dbo].[sp_GetCompaniesByUser]
+@userId UniqueIdentifier	
+
+AS 
+Begin
+
+	DECLARE @RoleName VARCHAR(256)
+    DECLARE @franchiseeId int
+    
+    Select @RoleName = RoleName From vw_aspnet_Roles r
+    INNER JOIN vw_aspnet_UsersInRoles ur ON ur.RoleId = r.RoleId
+    WHERE ur.UserId = @userId;
+    
+    PRINT @RoleName;
+    
+    IF @RoleName = 'Corporate'
+	Begin
+    
+		Select *  
+		FROM [vw_Companies];
+		
+		Return;
+	END
+	
+	IF @RoleName = 'Coach'
+	BEGIN
+		
+		Select vw.*  
+		FROM [vw_Companies] vw
+		INNER JOIN TBL_COACH ch WITH(NOLOCK) ON ch.ID = vw.CoachId
+		WHERE ch.UserID = @userId;
+		
+	END 
+	
+	IF (@RoleName = 'FranchiseeOwner' OR @RoleName = 'FranchiseeUser')
+	Begin
+		Select @franchiseeId = FranchiseeID From TBL_FRANCHISEE_USERS WITH(NOLOCK)
+		WHERE UserID = @userId;
+		
+		PRINT '@franchiseeId=' + CAST(@franchiseeId as varchar(10));
+		
+		Select vw.*  
+		FROM [vw_Companies] vw
+		INNER JOIN TBL_Franchisee f WITH(NOLOCK) ON f.ID = vw.FranchiseeID
+		WHERE vw.FranchiseeID = @franchiseeId;
+		Return;
+	END	
+	
+End
+
+GO
+

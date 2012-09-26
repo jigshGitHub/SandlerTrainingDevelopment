@@ -75,8 +75,9 @@ public partial class CRM_Companies_Upload : UploaderBasePage
                 System.IO.File.Delete(FileName);
                 pnlFileUpload.Visible = false;
 
-                BindLogGrid();
                 UserEntitiesFactory.ReLoad();
+                BindLogGrid();
+                
             }
         }
         catch (Exception ex)

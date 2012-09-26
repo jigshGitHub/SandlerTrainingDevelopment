@@ -160,7 +160,7 @@ public partial class OpportunityADD : OpportunityBasePage
             opportunity.CLOSEDATE = Convert.ToDateTime(CloseDate.Text);
         opportunity.COMPANYID = int.Parse(ddlCompany.SelectedValue);
         opportunity.NAME = txtOppName.Text;
-        if(ddlProducts.SelectedIndex > 0)
+        if (ddlProducts.SelectedIndex > 0)
             opportunity.ProductID = int.Parse(ddlProducts.SelectedValue);
         opportunity.SALESREPFIRSTNAME = txtSalesRepFName.Text;
         opportunity.SALESREPLASTNAME = txtSalesRepLName.Text;
@@ -186,11 +186,11 @@ public partial class OpportunityADD : OpportunityBasePage
             opportunity.WhyLostID = null;
         opportunity.Description = txtDescription.Text;
         opportunity.Notes = txtNotes.Text;
-        if(!string.IsNullOrEmpty(txtActualValue.Text))
+        if (!string.IsNullOrEmpty(txtActualValue.Text))
             opportunity.ActualValue = Convert.ToDecimal(txtActualValue.Text);
 
         int[] selectedItemIndexes = lstBxContacts.GetSelectedIndices();
-        
+
         opportunity.CONTACTID = int.Parse(lstBxContacts.Items[selectedItemIndexes[0]].Value);
 
         if (selectedItemIndexes.Count() > 1)
@@ -217,7 +217,7 @@ public partial class OpportunityADD : OpportunityBasePage
         txtSalesRepFName.Text = record.SALESREPFIRSTNAME;
         txtSalesRepLName.Text = record.SALESREPLASTNAME;
         txtSalesRepPhone.Text = record.SALESREPPHONE;
-        if(record.STATUSID.HasValue)
+        if (record.STATUSID.HasValue)
             ddlProductStatus.SelectedValue = record.STATUSID.ToString();
         txtWeightedValue.Text = record.WEIGHTEDVALUE.ToString();
         txtWinProbability.Text = record.WINPROBABILITY;
@@ -231,11 +231,31 @@ public partial class OpportunityADD : OpportunityBasePage
             ddlWhyLost.SelectedValue = record.WhyLostID.ToString();
         txtActualValue.Text = record.ActualValue.ToString();
 
-        lstBxContacts.Items.FindByValue(record.CONTACTID.ToString()).Selected = true;
+        ListItem findContact;
+        findContact = lstBxContacts.Items.FindByValue(record.CONTACTID.ToString());
+        if (findContact != null)
+        {
+            lstBxContacts.Items.FindByValue(record.CONTACTID.ToString()).Selected = true;
+            findContact = null;
+        }
         if (record.SeconadryContactId1.HasValue)
-            lstBxContacts.Items.FindByValue(record.SeconadryContactId1.ToString()).Selected = true;
+        {
+            findContact = lstBxContacts.Items.FindByValue(record.SeconadryContactId1.ToString());
+            if (findContact != null)
+            {
+                lstBxContacts.Items.FindByValue(record.SeconadryContactId1.ToString()).Selected = true; 
+                findContact = null;
+            }
+        }
         if (record.SeconadryContactId2.HasValue)
-            lstBxContacts.Items.FindByValue(record.SeconadryContactId2.ToString()).Selected = true;
+        {
+            findContact = lstBxContacts.Items.FindByValue(record.SeconadryContactId2.ToString());
+            if (findContact != null)
+            {
+                lstBxContacts.Items.FindByValue(record.SeconadryContactId2.ToString()).Selected = true;
+                findContact = null;
+            }
+        }
     }
 
     private void ClearFiels()

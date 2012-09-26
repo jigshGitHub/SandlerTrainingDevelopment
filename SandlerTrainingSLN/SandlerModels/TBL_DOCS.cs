@@ -27,8 +27,8 @@ namespace SandlerModels
         public Nullable<System.DateTime> UpdatedDate { get; set; }
     
         internal Tbl_DocumentStatus Tbl_DocumentStatus { get; set; }
-        internal TBL_OPPORTUNITIES TBL_OPPORTUNITIES { get; set; }
         internal TBL_COMPANIES TBL_COMPANIES { get; set; }
+        internal TBL_OPPORTUNITIES TBL_OPPORTUNITIES { get; set; }
     }
     
 }
