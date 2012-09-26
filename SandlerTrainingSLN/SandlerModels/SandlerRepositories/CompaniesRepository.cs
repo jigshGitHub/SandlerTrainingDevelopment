@@ -31,6 +31,10 @@ namespace SandlerRepositories
         {
             return (db.ExecuteDataset("sp_GetNewItemOptions", "NewItemOptions"));
         }
+        public DataSet GetBillingOptions()
+        {
+            return (db.ExecuteDataset("sp_GetBillingOptions", "GetBillingOptions"));
+        }
         public DataSet GetCallBackOptions()
         {
             return (db.ExecuteDataset("sp_GetCallBackOptions", "CallBack"));
@@ -79,21 +83,40 @@ namespace SandlerRepositories
             //get data
             if (_user.Role == SandlerRoles.SiteAdmin || _user.Role == SandlerRoles.Corporate)
             {
+                
                 //Corporate User
                 return db.ExecuteDataset("sp_GetAllCompaniesSearch", "CompaniesSearch",
                     new SqlParameter("@CompanyName", _company.CompanyName),
+                    new SqlParameter("@CompanyOwnership", _company.CompanyOwnership),
+                    new SqlParameter("@CompanyDescription", _company.CompanyDescription),
                     new SqlParameter("@RepLastName", _company.RepLastName),
                     new SqlParameter("@RepFirstName", _company.RepFirstName),
                     new SqlParameter("@IndustryIdList", _company.IndId),
                     new SqlParameter("@TotalCompValue", _company.CompValueGoal),
                     new SqlParameter("@IsNewCompanyIdList", _company.IsNewCompany),
+                    new SqlParameter("@IsSameBillingAdrsList", _company.IsSameBillingAddress),
                     new SqlParameter("@Address", _company.Address),
                     new SqlParameter("@Zip", _company.Zip),
                     new SqlParameter("@City", _company.City),
                     new SqlParameter("@State", _company.State),
+                    new SqlParameter("@Country", _company.Country),
+                    new SqlParameter("@BillingAddress", _company.BillingAddress),
+                    new SqlParameter("@BillingZip", _company.BillingZip),
+                    new SqlParameter("@BillingCity", _company.BillingCity),
+                    new SqlParameter("@BillingState", _company.BillingState),
+                    new SqlParameter("@BillingCountry", _company.BillingCountry),
                     new SqlParameter("@POCLastName", _company.POCLastName),
                     new SqlParameter("@POCFirstName", _company.POCFirstName),
                     new SqlParameter("@POCPhone", _company.POCPhone),
+                    new SqlParameter("@POCDepartment", _company.POCDepartment),
+                    new SqlParameter("@POCEmail", _company.POCEmail),
+                    new SqlParameter("@POCFax", _company.POCFax),
+                    new SqlParameter("@AssistantLastName", _company.AssistantLastName),
+                    new SqlParameter("@AssistantFirstName", _company.AssistantFirstName),
+                    new SqlParameter("@AssistantPhone", _company.AssistantPhone),
+                    new SqlParameter("@Website", _company.WebSite),
+                    new SqlParameter("@EmpQuantity", _company.EmpQuantity),
+                    new SqlParameter("@Notes", _company.Notes),
                     new SqlParameter("@DiscussionTopic", _company.DiscussionTopic),
                     new SqlParameter("@ActionStep", _company.ActionStep),
                     new SqlParameter("@LastContactDate", _company.LastContactDate),
@@ -106,18 +129,36 @@ namespace SandlerRepositories
                 return db.ExecuteDataset("sp_GetAllCompaniesByCoachIdSearch", "CompaniesByCoachIdSearch",
                     new SqlParameter("@CoachId", _user.CoachID.ToString()),
                     new SqlParameter("@CompanyName", _company.CompanyName),
+                    new SqlParameter("@CompanyOwnership", _company.CompanyOwnership),
+                    new SqlParameter("@CompanyDescription", _company.CompanyDescription),
                     new SqlParameter("@RepLastName", _company.RepLastName),
                     new SqlParameter("@RepFirstName", _company.RepFirstName),
                     new SqlParameter("@IndustryIdList", _company.IndId),
                     new SqlParameter("@TotalCompValue", _company.CompValueGoal),
                     new SqlParameter("@IsNewCompanyIdList", _company.IsNewCompany),
+                    new SqlParameter("@IsSameBillingAdrsList", _company.IsSameBillingAddress),
                     new SqlParameter("@Address", _company.Address),
                     new SqlParameter("@Zip", _company.Zip),
                     new SqlParameter("@City", _company.City),
                     new SqlParameter("@State", _company.State),
+                    new SqlParameter("@Country", _company.Country),
+                    new SqlParameter("@BillingAddress", _company.BillingAddress),
+                    new SqlParameter("@BillingZip", _company.BillingZip),
+                    new SqlParameter("@BillingCity", _company.BillingCity),
+                    new SqlParameter("@BillingState", _company.BillingState),
+                    new SqlParameter("@BillingCountry", _company.BillingCountry),
                     new SqlParameter("@POCLastName", _company.POCLastName),
                     new SqlParameter("@POCFirstName", _company.POCFirstName),
                     new SqlParameter("@POCPhone", _company.POCPhone),
+                    new SqlParameter("@POCDepartment", _company.POCDepartment),
+                    new SqlParameter("@POCEmail", _company.POCEmail),
+                    new SqlParameter("@POCFax", _company.POCFax),
+                    new SqlParameter("@AssistantLastName", _company.AssistantLastName),
+                    new SqlParameter("@AssistantFirstName", _company.AssistantFirstName),
+                    new SqlParameter("@AssistantPhone", _company.AssistantPhone),
+                    new SqlParameter("@Website", _company.WebSite),
+                    new SqlParameter("@EmpQuantity", _company.EmpQuantity),
+                    new SqlParameter("@Notes", _company.Notes),
                     new SqlParameter("@DiscussionTopic", _company.DiscussionTopic),
                     new SqlParameter("@ActionStep", _company.ActionStep),
                     new SqlParameter("@LastContactDate", _company.LastContactDate),
@@ -130,18 +171,36 @@ namespace SandlerRepositories
                 return db.ExecuteDataset("sp_GetAllCompaniesByFrIdSearch", "CompaniesByFrIdSearch",
                     new SqlParameter("@FranchiseeId", _user.FranchiseeID.ToString()),
                     new SqlParameter("@CompanyName", _company.CompanyName),
+                    new SqlParameter("@CompanyOwnership", _company.CompanyOwnership),
+                    new SqlParameter("@CompanyDescription", _company.CompanyDescription),
                     new SqlParameter("@RepLastName", _company.RepLastName),
                     new SqlParameter("@RepFirstName", _company.RepFirstName),
                     new SqlParameter("@IndustryIdList", _company.IndId),
                     new SqlParameter("@TotalCompValue", _company.CompValueGoal),
                     new SqlParameter("@IsNewCompanyIdList", _company.IsNewCompany),
+                    new SqlParameter("@IsSameBillingAdrsList", _company.IsSameBillingAddress),
                     new SqlParameter("@Address", _company.Address),
                     new SqlParameter("@Zip", _company.Zip),
                     new SqlParameter("@City", _company.City),
                     new SqlParameter("@State", _company.State),
+                    new SqlParameter("@Country", _company.Country),
+                    new SqlParameter("@BillingAddress", _company.BillingAddress),
+                    new SqlParameter("@BillingZip", _company.BillingZip),
+                    new SqlParameter("@BillingCity", _company.BillingCity),
+                    new SqlParameter("@BillingState", _company.BillingState),
+                    new SqlParameter("@BillingCountry", _company.BillingCountry),
                     new SqlParameter("@POCLastName", _company.POCLastName),
                     new SqlParameter("@POCFirstName", _company.POCFirstName),
                     new SqlParameter("@POCPhone", _company.POCPhone),
+                    new SqlParameter("@POCDepartment", _company.POCDepartment),
+                    new SqlParameter("@POCEmail", _company.POCEmail),
+                    new SqlParameter("@POCFax", _company.POCFax),
+                    new SqlParameter("@AssistantLastName", _company.AssistantLastName),
+                    new SqlParameter("@AssistantFirstName", _company.AssistantFirstName),
+                    new SqlParameter("@AssistantPhone", _company.AssistantPhone),
+                    new SqlParameter("@Website", _company.WebSite),
+                    new SqlParameter("@EmpQuantity", _company.EmpQuantity),
+                    new SqlParameter("@Notes", _company.Notes),
                     new SqlParameter("@DiscussionTopic", _company.DiscussionTopic),
                     new SqlParameter("@ActionStep", _company.ActionStep),
                     new SqlParameter("@LastContactDate", _company.LastContactDate),
@@ -215,14 +274,22 @@ namespace SandlerRepositories
 
             }
         }
-
-
-        public void Insert(string COMPANYNAME, string Address, string City, string State, string Zip,
-            string POCLastName, string POCFirstName, string POCPhone, int Value, int COMPANYVALUEGOAL,
-            //int ID, 
-            int IndID,
-            string RepLastName, string RepFirstName, string DiscussionTopic, string ACTIONSTEP,
-            DateTime LastContact_Date, DateTime NextContact_Date, DateTime CreationDate)
+        
+        public void InsertCompany(
+            string COMPANYNAME, 
+            string CompanyOwnership ,
+            string CompanyDescription,
+            string Address, string City, string State,string Zip,
+            string Country, int BillingValue,
+            string BillingAddress, string BillingCity, string BillingState, string BillingZip,
+            string BillingCountry,
+            string POCLastName, string POCFirstName, string POCPhone, 
+            string POCDepartment , string POCEmail , string POCFax,string AssistantLastName,
+            string AssistantFirstName ,string AssistantPhone ,int Value, 
+            string Website ,int EmpQuantity,int COMPANYVALUEGOAL,
+            int IndID,string RepLastName, string RepFirstName, string DiscussionTopic, string ACTIONSTEP,
+            DateTime LastContact_Date, DateTime NextContact_Date, DateTime CreationDate,string Notes
+            )
         {
 
             //Get the User Session
@@ -232,20 +299,73 @@ namespace SandlerRepositories
             {
                 LastContact_Date = default(System.DateTime).AddYears(1754);
             }
+            if (NextContact_Date.ToString() == "1/1/0001 12:00:00 AM")
+            {
+                NextContact_Date = default(System.DateTime).AddYears(1754);
+            }
+            if (CreationDate.ToString() == "1/1/0001 12:00:00 AM")
+            {
+                CreationDate = default(System.DateTime).AddYears(1754);
+            }
 
+            RepLastName = IsValidStringEntered(RepLastName);
+            RepFirstName = IsValidStringEntered(RepFirstName);
+            DiscussionTopic = IsValidStringEntered(DiscussionTopic);
+            ACTIONSTEP = IsValidStringEntered(ACTIONSTEP);
+            CompanyOwnership = IsValidStringEntered(CompanyOwnership);
+            CompanyDescription = IsValidStringEntered(CompanyDescription);
+            Country = IsValidStringEntered(Country);
+            Website = IsValidStringEntered(Website);
+            Address = IsValidStringEntered(Address);
+            City = IsValidStringEntered(City);
+            State = IsValidStringEntered(State);
+            Zip = IsValidStringEntered(Zip);
+            Country = IsValidStringEntered(Country);
+            BillingAddress = IsValidStringEntered(BillingAddress);
+            BillingCity = IsValidStringEntered(BillingCity);
+            BillingState = IsValidStringEntered(BillingState);
+            BillingZip = IsValidStringEntered(BillingZip);
+            BillingCountry = IsValidStringEntered(BillingCountry);
+            POCDepartment = IsValidStringEntered(POCDepartment);
+            POCEmail = IsValidStringEntered(POCEmail);
+            POCFax = IsValidStringEntered(POCFax);
+            AssistantLastName = IsValidStringEntered(AssistantLastName);
+            AssistantFirstName = IsValidStringEntered(AssistantFirstName);
+            AssistantPhone = IsValidStringEntered(AssistantPhone);
+            Notes = IsValidStringEntered(Notes);
+            POCLastName = IsValidStringEntered(POCLastName);
+            POCFirstName = IsValidStringEntered(POCFirstName);
+            POCPhone = IsValidStringEntered(POCPhone);
+                   
             //Create the record
             db.ExecuteNonQuery("sp_InsertCompany",
                 new SqlParameter("@COMPANYNAME", COMPANYNAME),
+                new SqlParameter("@CompanyOwnership", CompanyOwnership),
+                new SqlParameter("@CompanyDescription", CompanyDescription),
                 new SqlParameter("@Address", Address),
                 new SqlParameter("@City", City),
                 new SqlParameter("@State", State),
                 new SqlParameter("@Zip", Zip),
+                new SqlParameter("@Country", Country),
+                new SqlParameter("@BillingValue", BillingValue),
+                new SqlParameter("@BillingAddress", BillingAddress),
+                new SqlParameter("@BillingCity", BillingCity),
+                new SqlParameter("@BillingState", BillingState),
+                new SqlParameter("@BillingZip", BillingZip),
+                new SqlParameter("@BillingCountry", BillingCountry),
                 new SqlParameter("@POCLastName", POCLastName),
                 new SqlParameter("@POCFirstName", POCFirstName),
                 new SqlParameter("@POCPhone", POCPhone),
+                new SqlParameter("@POCDepartment", POCDepartment),
+                new SqlParameter("@POCEmail", POCEmail),
+                new SqlParameter("@POCFax", POCFax),
+                new SqlParameter("@AssistantLastName", AssistantLastName),
+                new SqlParameter("@AssistantFirstName", AssistantFirstName),
+                new SqlParameter("@AssistantPhone", AssistantPhone),
                 new SqlParameter("@Value", Value),
+                new SqlParameter("@Website", Website),
+                new SqlParameter("@EmpQuantity", EmpQuantity),
                 new SqlParameter("@COMPANYVALUEGOAL", COMPANYVALUEGOAL),
-                //new SqlParameter("@ID", ID),
                 new SqlParameter("@IndID", IndID),
                 new SqlParameter("@RepLastName", RepLastName),
                 new SqlParameter("@RepFirstName", RepFirstName),
@@ -255,38 +375,108 @@ namespace SandlerRepositories
                 new SqlParameter("@NextContact_Date", NextContact_Date),
                 new SqlParameter("@CreationDate", CreationDate),
                 new SqlParameter("@CreatedBy", _user.UserId),
+                new SqlParameter("@Notes", Notes),
                 new SqlParameter("@FranchiseeId", _user.FranchiseeID));
             UserEntitiesFactory.ReLoad();
 
         }
-        public void Update(int COMPANIESID, string COMPANYNAME, string Address, string City, string State, string Zip,
-            string POCLastName, string POCFirstName, string POCPhone, int Value, string COMPANYVALUEGOAL,
-            //int ID, 
-            int IndID,
-            string RepLastName, string RepFirstName, string DiscussionTopic, string ACTIONSTEP,
-            DateTime LastContact_Date, DateTime NextContact_Date, DateTime CreationDate, string updatedBy)
+
+        public string IsValidStringEntered(string EnteredValue)
+        {
+            if (string.IsNullOrEmpty(EnteredValue))
+            {
+                EnteredValue = "";
+            }
+            return EnteredValue;
+        }
+
+        public void Update(int COMPANIESID, string COMPANYNAME,
+            string CompanyOwnership,
+            string CompanyDescription,
+            string Address, string City, string State, string Zip,
+            string Country, int BillingValue,
+            string BillingAddress, string BillingCity, string BillingState, string BillingZip,
+            string BillingCountry,
+            string POCLastName, string POCFirstName, string POCPhone,
+            string POCDepartment, string POCEmail, string POCFax, string AssistantLastName,
+            string AssistantFirstName, string AssistantPhone, int Value,
+            string Website, string EmpQuantity, string COMPANYVALUEGOAL,
+            int IndID, string RepLastName, string RepFirstName, string DiscussionTopic, string ACTIONSTEP,
+            DateTime LastContact_Date, DateTime NextContact_Date, DateTime CreationDate, string updatedBy,string Notes)
         {
 
             if (LastContact_Date.ToString() == "1/1/0001 12:00:00 AM")
             {
                 LastContact_Date = default(System.DateTime).AddYears(1754);
             }
+            if (NextContact_Date.ToString() == "1/1/0001 12:00:00 AM")
+            {
+                NextContact_Date = default(System.DateTime).AddYears(1754);
+            }
+            if (CreationDate.ToString() == "1/1/0001 12:00:00 AM")
+            {
+                CreationDate = default(System.DateTime).AddYears(1754);
+            }
 
-
+            RepLastName = IsValidStringEntered(RepLastName);
+            RepFirstName = IsValidStringEntered(RepFirstName);
+            DiscussionTopic = IsValidStringEntered(DiscussionTopic);
+            ACTIONSTEP = IsValidStringEntered(ACTIONSTEP);
+            CompanyOwnership = IsValidStringEntered(CompanyOwnership);
+            CompanyDescription = IsValidStringEntered(CompanyDescription);
+            Country = IsValidStringEntered(Country);
+            Website = IsValidStringEntered(Website);
+            Address = IsValidStringEntered(Address);
+            City = IsValidStringEntered(City);
+            State = IsValidStringEntered(State);
+            Zip = IsValidStringEntered(Zip);
+            Country = IsValidStringEntered(Country);
+            BillingAddress = IsValidStringEntered(BillingAddress);
+            BillingCity = IsValidStringEntered(BillingCity);
+            BillingState = IsValidStringEntered(BillingState);
+            BillingZip = IsValidStringEntered(BillingZip);
+            BillingCountry = IsValidStringEntered(BillingCountry);
+            POCDepartment = IsValidStringEntered(POCDepartment);
+            POCEmail = IsValidStringEntered(POCEmail);
+            POCFax = IsValidStringEntered(POCFax);
+            AssistantLastName = IsValidStringEntered(AssistantLastName);
+            AssistantFirstName = IsValidStringEntered(AssistantFirstName);
+            AssistantPhone = IsValidStringEntered(AssistantPhone);
+            Notes = IsValidStringEntered(Notes);
+            POCLastName = IsValidStringEntered(POCLastName);
+            POCFirstName = IsValidStringEntered(POCFirstName);
+            POCPhone = IsValidStringEntered(POCPhone);
+            
             //Update Company Details
             db.ExecuteNonQuery("sp_UpdateCompanyDetails",
                 new SqlParameter("@COMPANIESID", COMPANIESID),
                 new SqlParameter("@COMPANYNAME", COMPANYNAME),
+                new SqlParameter("@CompanyOwnership", CompanyOwnership),
+                new SqlParameter("@CompanyDescription", CompanyDescription),
                 new SqlParameter("@Address", Address),
                 new SqlParameter("@City", City),
                 new SqlParameter("@State", State),
                 new SqlParameter("@Zip", Zip),
+                new SqlParameter("@Country", Country),
+                new SqlParameter("@BillingValue", BillingValue),
+                new SqlParameter("@BillingAddress", BillingAddress),
+                new SqlParameter("@BillingCity", BillingCity),
+                new SqlParameter("@BillingState", BillingState),
+                new SqlParameter("@BillingZip", BillingZip),
+                new SqlParameter("@BillingCountry", BillingCountry),
                 new SqlParameter("@POCLastName", POCLastName),
                 new SqlParameter("@POCFirstName", POCFirstName),
                 new SqlParameter("@POCPhone", POCPhone),
+                new SqlParameter("@POCDepartment", POCDepartment),
+                new SqlParameter("@POCEmail", POCEmail),
+                new SqlParameter("@POCFax", POCFax),
+                new SqlParameter("@AssistantLastName", AssistantLastName),
+                new SqlParameter("@AssistantFirstName", AssistantFirstName),
+                new SqlParameter("@AssistantPhone", AssistantPhone),
                 new SqlParameter("@Value", Value),
+                new SqlParameter("@Website", Website),
+                new SqlParameter("@EmpQuantity", EmpQuantity),
                 new SqlParameter("@COMPANYVALUEGOAL", COMPANYVALUEGOAL),
-                //new SqlParameter("@ID", ID),
                 new SqlParameter("@IndID", IndID),
                 new SqlParameter("@RepLastName", RepLastName),
                 new SqlParameter("@RepFirstName", RepFirstName),
@@ -295,7 +485,8 @@ namespace SandlerRepositories
                 new SqlParameter("@LastContact_Date", LastContact_Date),
                 new SqlParameter("@NextContact_Date", NextContact_Date),
                 new SqlParameter("@CreationDate", CreationDate),
-                new SqlParameter("@UpdatedBy", updatedBy));
+                new SqlParameter("@UpdatedBy", updatedBy),
+                new SqlParameter("@Notes", Notes));
 
             UserEntitiesFactory.ReLoad();
 

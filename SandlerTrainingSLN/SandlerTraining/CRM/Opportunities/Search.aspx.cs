@@ -32,13 +32,23 @@ public partial class OpportunitySearch : OpportunityBasePage
         int? productId;
         int? statusId;
         int? contactId;
+        int? sourceId;
+        int? typeId;
+        int? whyLostId;
+        decimal? weightedValue;
+        decimal? actualValue;
 
         if (ddlCompanySearch.SelectedIndex > 0) companyId = int.Parse(ddlCompanySearch.SelectedValue); else companyId = null;
         if (ddlProducts.SelectedIndex > 0) productId = int.Parse(ddlProducts.SelectedValue); else productId = null;
         if (ddlProductStatus.SelectedIndex > 0) statusId = int.Parse(ddlProductStatus.SelectedValue); else statusId = null;
         if (ddlContacts.SelectedIndex > 0) contactId = int.Parse(ddlContacts.SelectedValue); else contactId = null;
+        if (ddlSource.SelectedIndex > 0) sourceId = int.Parse(ddlSource.SelectedValue); else sourceId = null;
+        if (ddlTypes.SelectedIndex > 0) typeId = int.Parse(ddlTypes.SelectedValue); else typeId = null;
+        if (ddlWhyLost.SelectedIndex > 0) whyLostId = int.Parse(ddlWhyLost.SelectedValue); else whyLostId = null;
+        if (!string.IsNullOrEmpty(txtWeightedValue.Text)) weightedValue = decimal.Parse(txtWeightedValue.Text); else weightedValue = null;
+        if (!string.IsNullOrEmpty(txtActualValue.Text)) actualValue = decimal.Parse(txtActualValue.Text); else actualValue = null;
 
-        var data = from record in GetOpportunities(companyId, txtOpportunityID.Text, txtOppName.Text, txtSalesRepFName.Text, txtSalesRepLName.Text, txtSalesRepPhone.Text, productId, statusId, contactId, txtContactPhone.Text, txtEmail.Text)
+        var data = from record in GetOpportunities(companyId, txtOpportunityID.Text, txtOppName.Text,txtDescription.Text,txtNotes.Text, txtSalesRepFName.Text, txtSalesRepLName.Text, txtSalesRepPhone.Text, productId, statusId, contactId,sourceId, typeId, whyLostId, weightedValue,actualValue)
                    select new
                    {
                        ID = record.ID,
@@ -97,6 +107,15 @@ public partial class OpportunitySearch : OpportunityBasePage
                 case "ddlProductStatus":
                     defaultSelection = "--Select status--";
                     break;
+                case "ddlSource":
+                    defaultSelection = "--Select source--";
+                    break;
+                case "ddlTypes":
+                    defaultSelection = "--Select type--";
+                    break;
+                case "ddlWhyLost":
+                    defaultSelection = "--Select whylost?--";
+                    break;
                 default:
                     break;
 
@@ -138,8 +157,8 @@ public partial class OpportunitySearch : OpportunityBasePage
 
     private void SetContact(string phone, string email)
     {
-        txtContactPhone.Text = phone;
-        txtEmail.Text = email;
+        //txtContactPhone.Text = phone;
+        //txtEmail.Text = email;
     }
     #endregion
 
@@ -213,6 +232,27 @@ public partial class OpportunitySearch : OpportunityBasePage
     //    }
     //    return sb.ToString();
     //}
+
+    //In aspx page
+    //$('#<%=ddlContacts.ClientID %>').live('change', function () {
+    //                var contactId = $('#<%=ddlContacts.ClientID %> option:selected').val();
+
+    //                if (contactId != '0') {
+    //                    $.ajax({
+    //                        url: baseUrl + "/api/Contacts/Details/",
+    //                        type: 'GET',
+    //                        contentType: 'application/json',
+    //                        data: { id: contactId },
+    //                        success: function (data) {
+    //                            $('#<%=txtContactPhone.ClientID %>').val(data.PHONE);
+    //                            $('#<%=txtEmail.ClientID %>').val(data.EMAIL);
+    //                        },
+    //                        error: function (xhr, status, somthing) {
+    //                            log(status);
+    //                        }
+    //                    });
+    //                }
+    //});
     #endregion
 
     protected void lbtnSearch_Click(object sender, EventArgs e)

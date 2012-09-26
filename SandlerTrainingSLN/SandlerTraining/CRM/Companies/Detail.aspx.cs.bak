@@ -31,8 +31,6 @@ public partial class CompanyDETAIL : BasePage
         SandlerRepositories.CompaniesRepository companyRepository = new SandlerRepositories.CompaniesRepository();
         System.Data.DataSet ds = companyRepository.GetById(Convert.ToInt32(hidCompanyID.Value));
         CompanyDW.DataSource = ds;
-        //Check for Industry Name - If it is Empty then it means that user have not selected the Industry Type
-        hidIndName.Value = ds.Tables[0].Rows[0]["Industry"].ToString();
         CompanyDW.DataBind();
     }
     protected void CompanyDW_ModeChanging(object sender, DetailsViewModeEventArgs e)
@@ -64,31 +62,10 @@ public partial class CompanyDETAIL : BasePage
     {
         //TB Fields
         string COMPANYNAME = default(System.String);
-        string CompanyOwnership = default(System.String);
-        string CompanyDescription = default(System.String);
-
         string Address = default(System.String);
         string City = default(System.String);
         string State = default(System.String);
         string Zip = default(System.String);
-        string Country = default(System.String);
-
-        string BillingAddress = default(System.String);
-        string BillingCity = default(System.String);
-        string BillingState = default(System.String);
-        string BillingZip = default(System.String);
-        string BillingCountry = default(System.String);
-
-        string POCDepartment = default(System.String);
-        string POCEmail = default(System.String);
-        string POCFax = default(System.String);
-        string AssistantLastName = default(System.String);
-        string AssistantFirstName = default(System.String);
-        string AssistantPhone = default(System.String);
-        string Website = default(System.String);
-        string Notes = default(System.String);
-        string EmpQuantity  = default(System.String);
-        
         string POCLastName = default(System.String);
         string POCFirstName = default(System.String);
         string POCPhone = default(System.String);
@@ -102,8 +79,8 @@ public partial class CompanyDETAIL : BasePage
         System.DateTime LastDate = default(System.DateTime);
         System.DateTime CreationDate = default(System.DateTime);
         //DDL Fields
-        int IndustryID = default(System.Int32);
-        int IsSameBillingId = default(System.Int32); 
+        int IndustryID = default(System.Int32); 
+        //int ProductID=0;
         int NewItemID = default(System.Int32); 
         
         //For Company Name
@@ -113,24 +90,6 @@ public partial class CompanyDETAIL : BasePage
             if ((COMPANYNAMETextBox != null))
             {
                 COMPANYNAME = COMPANYNAMETextBox.Text.Trim();
-            }
-        }
-        //For Company Ownership
-        {
-            TextBox CompOwnershipTextBox = new TextBox();
-            CompOwnershipTextBox = (TextBox)CompanyDW.FindControl("txtOwnership");
-            if ((CompOwnershipTextBox != null))
-            {
-                CompanyOwnership = CompOwnershipTextBox.Text.Trim();
-            }
-        }
-        //For Company Description
-        {
-            TextBox CompDescriptionTextBox = new TextBox();
-            CompDescriptionTextBox = (TextBox)CompanyDW.FindControl("txtCompanyDescription");
-            if ((CompDescriptionTextBox != null))
-            {
-                CompanyDescription = CompDescriptionTextBox.Text.Trim();
             }
         }
         //For Address
@@ -169,60 +128,6 @@ public partial class CompanyDETAIL : BasePage
                 Zip = ZipTextBox.Text.Trim();
             }
         }
-        //For Country
-        {
-            TextBox CountryTextBox = new TextBox();
-            CountryTextBox = (TextBox)CompanyDW.FindControl("txtCountry");
-            if ((CountryTextBox != null))
-            {
-                Country = CountryTextBox.Text.Trim();
-            }
-        }
-        //For Billing Address
-        {
-            TextBox BillingAddressTextBox = new TextBox();
-            BillingAddressTextBox = (TextBox)CompanyDW.FindControl("txtBillingAddress");
-            if ((BillingAddressTextBox != null))
-            {
-                BillingAddress = BillingAddressTextBox.Text.Trim();
-            }
-        }
-        //For Billing City
-        {
-            TextBox BillingCityTextBox = new TextBox();
-            BillingCityTextBox = (TextBox)CompanyDW.FindControl("txtBillingCity");
-            if ((BillingCityTextBox != null))
-            {
-                BillingCity = BillingCityTextBox.Text.Trim();
-            }
-        }
-        //For Billing State
-        {
-            TextBox BillingStateTextBox = new TextBox();
-            BillingStateTextBox = (TextBox)CompanyDW.FindControl("txtBillingState");
-            if ((BillingStateTextBox != null))
-            {
-                BillingState = BillingStateTextBox.Text.Trim();
-            }
-        }
-        //For Billing Zip
-        {
-            TextBox BillingZipTextBox = new TextBox();
-            BillingZipTextBox = (TextBox)CompanyDW.FindControl("txtBillingZip");
-            if ((BillingZipTextBox != null))
-            {
-                BillingZip = BillingZipTextBox.Text.Trim();
-            }
-        }
-        //For Billing Country
-        {
-            TextBox BillingCountryTextBox = new TextBox();
-            BillingCountryTextBox = (TextBox)CompanyDW.FindControl("txtBillingCountry");
-            if ((BillingCountryTextBox != null))
-            {
-                BillingCountry = BillingCountryTextBox.Text.Trim();
-            }
-        }
         //For POC Last Name
         {
             TextBox POCLastNameTextBox = new TextBox();
@@ -241,6 +146,15 @@ public partial class CompanyDETAIL : BasePage
                 POCFirstName = POCFirstNameTextBox.Text.Trim();
             }
         }
+        ////For POC First Name
+        //{
+        //    TextBox POCFirstNameTextBox = new TextBox();
+        //    POCFirstNameTextBox = (TextBox)CompanyDW.FindControl("txtPOCFirstName");
+        //    if ((POCFirstNameTextBox != null))
+        //    {
+        //        POCFirstName = POCFirstNameTextBox.Text.Trim();
+        //    }
+        //}
         //For POC Phone
         {
             TextBox POCPhoneTextBox = new TextBox();
@@ -248,78 +162,6 @@ public partial class CompanyDETAIL : BasePage
             if ((POCPhoneTextBox != null))
             {
                 POCPhone = POCPhoneTextBox.Text.Trim();
-            }
-        }
-        //For POC Department
-        {
-            TextBox POCDepartmentTextBox = new TextBox();
-            POCDepartmentTextBox = (TextBox)CompanyDW.FindControl("txtPOCDepartment");
-            if ((POCDepartmentTextBox != null))
-            {
-                POCDepartment = POCDepartmentTextBox.Text.Trim();
-            }
-        }
-        //For POC Email
-        {
-            TextBox POCEmailTextBox = new TextBox();
-            POCEmailTextBox = (TextBox)CompanyDW.FindControl("txtPOCEmail");
-            if ((POCEmailTextBox != null))
-            {
-                POCEmail = POCEmailTextBox.Text.Trim();
-            }
-        }
-        //For POC Fax
-        {
-            TextBox POCFaxTextBox = new TextBox();
-            POCFaxTextBox = (TextBox)CompanyDW.FindControl("txtPOCFax");
-            if ((POCFaxTextBox != null))
-            {
-                POCFax = POCFaxTextBox.Text.Trim();
-            }
-        }
-        //For Assistant Last Name
-        {
-            TextBox AssistantLastNameTextBox = new TextBox();
-            AssistantLastNameTextBox = (TextBox)CompanyDW.FindControl("txtAssistantLastName");
-            if ((AssistantLastNameTextBox != null))
-            {
-                AssistantLastName = AssistantLastNameTextBox.Text.Trim();
-            }
-        }
-        //For Assistant First Name
-        {
-            TextBox AssistantFirstNameTextBox = new TextBox();
-            AssistantFirstNameTextBox = (TextBox)CompanyDW.FindControl("txtAssistantFirstName");
-            if ((AssistantFirstNameTextBox != null))
-            {
-                AssistantFirstName = AssistantFirstNameTextBox.Text.Trim();
-            }
-        }
-        //For Assistant Phone
-        {
-            TextBox AssistantPhoneTextBox = new TextBox();
-            AssistantPhoneTextBox = (TextBox)CompanyDW.FindControl("txtAssistantPhone");
-            if ((AssistantPhoneTextBox != null))
-            {
-                AssistantPhone = AssistantPhoneTextBox.Text.Trim();
-            }
-        }
-        //For Website
-        {
-            TextBox WebsiteTextBox = new TextBox();
-            WebsiteTextBox = (TextBox)CompanyDW.FindControl("txtWebsite");
-            if ((WebsiteTextBox != null))
-            {
-                Website = WebsiteTextBox.Text.Trim();
-            }
-        }
-        //For Emp Quantity
-        {
-            TextBox EmpQunatityTextBox = new TextBox();
-            EmpQunatityTextBox = (TextBox)CompanyDW.FindControl("txtEmpQuantity");
-            if ((EmpQunatityTextBox != null))
-            {
-                EmpQuantity = EmpQunatityTextBox.Text.Trim();
             }
         }
         //For COMPANY VALUE GOAL
@@ -367,15 +209,6 @@ public partial class CompanyDETAIL : BasePage
                 ACTIONSTEP = ActionStepTextBox.Text.Trim();
             }
         }
-        //For Notes
-        {
-            TextBox NotesTextBox = new TextBox();
-            NotesTextBox = (TextBox)CompanyDW.FindControl("txtNotes");
-            if ((NotesTextBox != null))
-            {
-                Notes = NotesTextBox.Text.Trim();
-            }
-        }
         //For Creation Date
         {
             TextBox CreationDateCal = new TextBox();
@@ -401,6 +234,7 @@ public partial class CompanyDETAIL : BasePage
                     LastDate = Convert.ToDateTime(LastContactDateCal.Text.Trim());
                 }
                 
+
             }
         }
         //For Next Contact Date
@@ -414,6 +248,7 @@ public partial class CompanyDETAIL : BasePage
                     NextDate = Convert.ToDateTime(NextContactDateCal.Text.Trim());
                 }
                 
+
             }
         }
         //For Industry ID
@@ -434,62 +269,14 @@ public partial class CompanyDETAIL : BasePage
                 NewItemID = Convert.ToInt32(NewItemDDList.SelectedValue.ToString());
             }
         }
-        //For Is New Billing Process ID
-        {
-            DropDownList BillingAdrsDDList = new DropDownList();
-            BillingAdrsDDList = (DropDownList)CompanyDW.FindControl("ddlBillingAdrs");
-            if ((BillingAdrsDDList != null))
-            {
-                IsSameBillingId = Convert.ToInt32(BillingAdrsDDList.SelectedValue.ToString());
-            }
-        }
         //Get the User Session
         SandlerRepositories.CompaniesRepository companiesRepository = new SandlerRepositories.CompaniesRepository();
         //Update Company Information
-        companiesRepository.Update 
-            (Convert.ToInt32(hidCompanyID.Value), COMPANYNAME, CompanyOwnership, CompanyDescription, 
-            Address, City, State, Zip, Country, IsSameBillingId, 
-            BillingAddress, BillingCity, BillingState, BillingZip, BillingCountry,
-            POCLastName, POCFirstName, POCPhone, POCDepartment,POCEmail, POCFax,
-            AssistantLastName,AssistantFirstName, AssistantPhone,
-            NewItemID, Website, EmpQuantity, COMPANYVALUEGOAL, 
-            IndustryID, RepLastName, RepFirstName, DiscussionTopic, ACTIONSTEP, LastDate, NextDate, CreationDate, CurrentUser.UserId.ToString(),Notes);
+        companiesRepository.Update(Convert.ToInt32(hidCompanyID.Value), COMPANYNAME, Address, City, State, Zip,POCLastName, POCFirstName, POCPhone, NewItemID, COMPANYVALUEGOAL, 
+                                   IndustryID, RepLastName, RepFirstName, DiscussionTopic, ACTIONSTEP, LastDate, NextDate, CreationDate, CurrentUser.UserId.ToString());
         //Inform the Message
         LblStatus.Text = "Company informaton updated successfully!";
 
-    }
-    protected void ddlBillingAdrs_SelectedIndexChanged(object sender, System.EventArgs e)
-    {
-        //For Billing Adrs DDL
-        DropDownList billingAddressDropDownList = new DropDownList();
-        billingAddressDropDownList = (DropDownList)CompanyDW.FindControl("ddlBillingAdrs");
-        if (billingAddressDropDownList != null)
-        {
-            if (billingAddressDropDownList.SelectedValue == "1")
-            {
-                //Find existing Address Info
-                (CompanyDW.FindControl("txtBillingAddress") as TextBox).Text = (CompanyDW.FindControl("txtAddress") as TextBox).Text;
-                (CompanyDW.FindControl("txtBillingCity") as TextBox).Text = (CompanyDW.FindControl("txtCity") as TextBox).Text;
-                (CompanyDW.FindControl("txtBillingState") as TextBox).Text = (CompanyDW.FindControl("txtState") as TextBox).Text;
-                (CompanyDW.FindControl("txtBillingZip") as TextBox).Text = (CompanyDW.FindControl("txtZip") as TextBox).Text;
-                (CompanyDW.FindControl("txtBillingCountry") as TextBox).Text = (CompanyDW.FindControl("txtCountry") as TextBox).Text;
-                //Also make them readonly true
-                (CompanyDW.FindControl("txtBillingAddress") as TextBox).ReadOnly = true;
-                (CompanyDW.FindControl("txtBillingCity") as TextBox).ReadOnly = true;
-                (CompanyDW.FindControl("txtBillingState") as TextBox).ReadOnly = true;
-                (CompanyDW.FindControl("txtBillingZip") as TextBox).ReadOnly = true;
-                (CompanyDW.FindControl("txtBillingCountry") as TextBox).ReadOnly = true;
-            }
-            else
-            {
-                //Also make them readonly false
-                (CompanyDW.FindControl("txtBillingAddress") as TextBox).ReadOnly = false;
-                (CompanyDW.FindControl("txtBillingCity") as TextBox).ReadOnly = false;
-                (CompanyDW.FindControl("txtBillingState") as TextBox).ReadOnly = false;
-                (CompanyDW.FindControl("txtBillingZip") as TextBox).ReadOnly = false;
-                (CompanyDW.FindControl("txtBillingCountry") as TextBox).ReadOnly = false;
-            }
-        }
     }
     protected void CompanyDW_ItemUpdating(object sender, DetailsViewUpdateEventArgs e)
     {
@@ -506,22 +293,6 @@ public partial class CompanyDETAIL : BasePage
     }
     protected void CompanyDW_DataBound(object sender, EventArgs e)
     {
-
-        //For Industry DDL
-        DropDownList IndDDList = new DropDownList();
-        IndDDList = (DropDownList)CompanyDW.FindControl("ddlIndustry");
-        if (IndDDList != null)
-        {
-            ListItem selectItem = new ListItem("--Select Industry--", "0");
-            IndDDList.Items.Insert(0, selectItem);
-            //Check if coursename is not empty
-            if (string.IsNullOrEmpty(hidIndName.Value))
-            {
-                IndDDList.SelectedIndex = -1;
-            }
-
-        }
-        
         
         //For Next Contact Date - Calendar control
         TextBox NextContactDateCal = new TextBox();
@@ -569,7 +340,7 @@ public partial class CompanyDETAIL : BasePage
             }
 
         }
-        //For Next Contact Date - Label
+        //For Course Trng Date - Label
         Label NextContactDateLabel = new Label();
         NextContactDateLabel = (Label)CompanyDW.FindControl("lblNextContactDate");
         if (NextContactDateLabel != null)
@@ -601,7 +372,6 @@ public partial class CompanyDETAIL : BasePage
                 CreationDateLabel.Text = "";
             }
         }
-
 
     }
 }

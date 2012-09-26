@@ -29,12 +29,35 @@ public partial class OpportunityADD : OpportunityBasePage
         if (!(dropdownList.Items.Count == 0))
         {
             string defaultSelection = "";
+            switch (dropdownList.ID)
+            {
+                case "ddlCompanySearch":
+                    defaultSelection = "--Select company--";
+                    break;
+                case "ddlProducts":
+                    defaultSelection = "--Select product--";
+                    break;
+                case "ddlProductStatus":
+                    defaultSelection = "--Select status--";
+                    break;
+                case "ddlSource":
+                    defaultSelection = "--Select source--";
+                    break;
+                case "ddlTypes":
+                    defaultSelection = "--Select type--";
+                    break;
+                case "ddlWhyLost":
+                    defaultSelection = "--Select whylost?--";
+                    break;
+                default:
+                    break;
 
-            defaultSelection = "--Select One--";
+            }
             ListItem selectItem = new ListItem(defaultSelection, "0");
             dropdownList.Items.Insert(0, selectItem);
         }
     }
+
     protected void ddlCompany_DataBound(object sender, EventArgs e)
     {
         DropDownList ddlCompany = sender as DropDownList;
@@ -74,7 +97,7 @@ public partial class OpportunityADD : OpportunityBasePage
             }
             else
             {
-                lblResult.Text = "First create the contacts for the company selected";
+                lblResult.Text = "First create the contacts for the company selected.";
             }
         }
     }

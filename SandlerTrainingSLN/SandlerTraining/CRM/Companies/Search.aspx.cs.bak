@@ -34,30 +34,10 @@ public partial class CRM_Companies_Search : BasePage
         SandlerModels.DataIntegration.Company searchObj = new SandlerModels.DataIntegration.Company();
         //TB Fields
         string COMPANYNAME = default(System.String);
-        string CompanyOwnership = default(System.String);
-        string CompanyDescription = default(System.String);
         string Address = default(System.String);
         string City = default(System.String);
         string State = default(System.String);
         string Zip = default(System.String);
-        string Country = default(System.String);
-
-        string BillingAddress = default(System.String);
-        string BillingCity = default(System.String);
-        string BillingState = default(System.String);
-        string BillingZip = default(System.String);
-        string BillingCountry = default(System.String);
-
-        string POCDepartment = default(System.String);
-        string POCEmail = default(System.String);
-        string POCFax = default(System.String);
-        string AssistantLastName = default(System.String);
-        string AssistantFirstName = default(System.String);
-        string AssistantPhone = default(System.String);
-        string Website = default(System.String);
-        string Notes = default(System.String);
-        string EmpQuantity = default(System.String);
-
         string POCLastName = default(System.String);
         string POCFirstName = default(System.String);
         string POCPhone = default(System.String);
@@ -74,7 +54,6 @@ public partial class CRM_Companies_Search : BasePage
         //LB Fields
         string IndustryID = "";
         string NewItemID = "";
-        string IsSameBillingId = "";
 
         //For Company Name
         {
@@ -88,34 +67,6 @@ public partial class CRM_Companies_Search : BasePage
                     IsCriteriaExist = true;
                 }
                 searchObj.CompanyName = COMPANYNAME;
-            }
-        }
-        //For Company Ownership
-        {
-            TextBox CompanyOwnershipTextBox = new TextBox();
-            CompanyOwnershipTextBox = (TextBox)dvCompany.FindControl("txtOwnership");
-            if ((CompanyOwnershipTextBox != null))
-            {
-                CompanyOwnership = CompanyOwnershipTextBox.Text.Trim();
-                if (!string.IsNullOrEmpty(CompanyOwnership))
-                {
-                    IsCriteriaExist = true;
-                }
-                searchObj.CompanyOwnership = CompanyOwnership;
-            }
-        }
-        //For Company Description
-        {
-            TextBox CompanyDespTextBox = new TextBox();
-            CompanyDespTextBox = (TextBox)dvCompany.FindControl("txtCompanyDescription");
-            if ((CompanyDespTextBox != null))
-            {
-                CompanyDescription = CompanyDespTextBox.Text.Trim();
-                if (!string.IsNullOrEmpty(CompanyDescription))
-                {
-                    IsCriteriaExist = true;
-                }
-                searchObj.CompanyDescription = CompanyDescription;
             }
         }
         //For Address
@@ -132,20 +83,6 @@ public partial class CRM_Companies_Search : BasePage
                 searchObj.Address = Address;
             }
         }
-        //For Billing Address
-        {
-            TextBox BillingAddressTextBox = new TextBox();
-            BillingAddressTextBox = (TextBox)dvCompany.FindControl("txtBillingAddress");
-            if ((BillingAddressTextBox != null))
-            {
-                BillingAddress = BillingAddressTextBox.Text.Trim();
-                if (!string.IsNullOrEmpty(BillingAddress))
-                {
-                    IsCriteriaExist = true;
-                }
-                searchObj.BillingAddress = BillingAddress;
-            }
-        }
         //For City
         {
             TextBox CityTextBox = new TextBox();
@@ -158,20 +95,6 @@ public partial class CRM_Companies_Search : BasePage
                     IsCriteriaExist = true;
                 }
                 searchObj.City = City;
-            }
-        }
-        //For Billing City
-        {
-            TextBox BillingCityTextBox = new TextBox();
-            BillingCityTextBox = (TextBox)dvCompany.FindControl("txtBillingCity");
-            if ((BillingCityTextBox != null))
-            {
-                BillingCity = BillingCityTextBox.Text.Trim();
-                if (!string.IsNullOrEmpty(BillingCity))
-                {
-                    IsCriteriaExist = true;
-                }
-                searchObj.BillingCity = BillingCity;
             }
         }
         //For State
@@ -188,20 +111,6 @@ public partial class CRM_Companies_Search : BasePage
                 searchObj.State = State;
             }
         }
-        //For Billing State
-        {
-            TextBox BillingStateTextBox = new TextBox();
-            BillingStateTextBox = (TextBox)dvCompany.FindControl("txtBillingState");
-            if ((BillingStateTextBox != null))
-            {
-                BillingState = BillingStateTextBox.Text.Trim();
-                if (!string.IsNullOrEmpty(BillingState))
-                {
-                    IsCriteriaExist = true;
-                }
-                searchObj.BillingState = BillingState;
-            }
-        }
         //For Zip
         {
             TextBox ZipTextBox = new TextBox();
@@ -214,48 +123,6 @@ public partial class CRM_Companies_Search : BasePage
                     IsCriteriaExist = true;
                 }
                 searchObj.Zip = Zip;
-            }
-        }
-        //For Billing Zip
-        {
-            TextBox BillingZipTextBox = new TextBox();
-            BillingZipTextBox = (TextBox)dvCompany.FindControl("txtBillingZip");
-            if ((BillingZipTextBox != null))
-            {
-                BillingZip = BillingZipTextBox.Text.Trim();
-                if (!string.IsNullOrEmpty(BillingZip))
-                {
-                    IsCriteriaExist = true;
-                }
-                searchObj.BillingZip = BillingZip;
-            }
-        }
-        //For Country
-        {
-            TextBox CountryTextBox = new TextBox();
-            CountryTextBox = (TextBox)dvCompany.FindControl("txtCountry");
-            if ((CountryTextBox != null))
-            {
-                Country = CountryTextBox.Text.Trim();
-                if (!string.IsNullOrEmpty(Country))
-                {
-                    IsCriteriaExist = true;
-                }
-                searchObj.Country = Country;
-            }
-        }
-        //For Billing Country
-        {
-            TextBox BillingCountryTextBox = new TextBox();
-            BillingCountryTextBox = (TextBox)dvCompany.FindControl("txtBillingCountry");
-            if ((BillingCountryTextBox != null))
-            {
-                BillingCountry = BillingCountryTextBox.Text.Trim();
-                if (!string.IsNullOrEmpty(BillingCountry))
-                {
-                    IsCriteriaExist = true;
-                }
-                searchObj.BillingCountry = BillingCountry;
             }
         }
         //For POC Last Name
@@ -286,6 +153,7 @@ public partial class CRM_Companies_Search : BasePage
                 searchObj.POCFirstName = POCFirstName;
             }
         }
+
         //For POC Phone
         {
             TextBox POCPhoneTextBox = new TextBox();
@@ -298,118 +166,6 @@ public partial class CRM_Companies_Search : BasePage
                     IsCriteriaExist = true;
                 }
                 searchObj.POCPhone = POCPhone;
-            }
-        }
-        //For POC Department
-        {
-            TextBox POCDepartmentTextBox = new TextBox();
-            POCDepartmentTextBox = (TextBox)dvCompany.FindControl("txtPOCDepartment");
-            if ((POCDepartmentTextBox != null))
-            {
-                POCDepartment = POCDepartmentTextBox.Text.Trim();
-                if (!string.IsNullOrEmpty(POCDepartment))
-                {
-                    IsCriteriaExist = true;
-                }
-                searchObj.POCDepartment = POCDepartment;
-            }
-        }
-        //For POC Email
-        {
-            TextBox POCEmailTextBox = new TextBox();
-            POCEmailTextBox = (TextBox)dvCompany.FindControl("txtPOCEmail");
-            if ((POCEmailTextBox != null))
-            {
-                POCEmail  = POCEmailTextBox.Text.Trim();
-                if (!string.IsNullOrEmpty(POCEmail))
-                {
-                    IsCriteriaExist = true;
-                }
-                searchObj.POCEmail = POCEmail;
-            }
-        }
-        //For POC Fax
-        {
-            TextBox POCFaxTextBox = new TextBox();
-            POCFaxTextBox = (TextBox)dvCompany.FindControl("txtPOCFax");
-            if ((POCFaxTextBox != null))
-            {
-                POCFax = POCFaxTextBox.Text.Trim();
-                if (!string.IsNullOrEmpty(POCFax))
-                {
-                    IsCriteriaExist = true;
-                }
-                searchObj.POCFax = POCFax;
-            }
-        }
-        //For Assistant's Last Name
-        {
-            TextBox AsstLastNameTextBox = new TextBox();
-            AsstLastNameTextBox = (TextBox)dvCompany.FindControl("txtAssistantLastName");
-            if ((AsstLastNameTextBox != null))
-            {
-                AssistantLastName = AsstLastNameTextBox.Text.Trim();
-                if (!string.IsNullOrEmpty(AssistantLastName))
-                {
-                    IsCriteriaExist = true;
-                }
-                searchObj.AssistantLastName = AssistantLastName;
-            }
-        }
-        //For Assistant's First Name
-        {
-            TextBox AsstFirstNameTextBox = new TextBox();
-            AsstFirstNameTextBox = (TextBox)dvCompany.FindControl("txtAssistantFirstName");
-            if ((AsstFirstNameTextBox != null))
-            {
-                AssistantFirstName = AsstFirstNameTextBox.Text.Trim();
-                if (!string.IsNullOrEmpty(AssistantFirstName))
-                {
-                    IsCriteriaExist = true;
-                }
-                searchObj.AssistantFirstName = AssistantFirstName;
-            }
-        }
-        //For Assistant's Phone
-        {
-            TextBox AsstPhoneTextBox = new TextBox();
-            AsstPhoneTextBox = (TextBox)dvCompany.FindControl("txtAssistantPhone");
-            if ((AsstPhoneTextBox != null))
-            {
-                AssistantPhone = AsstPhoneTextBox.Text.Trim();
-                if (!string.IsNullOrEmpty(AssistantPhone))
-                {
-                    IsCriteriaExist = true;
-                }
-                searchObj.AssistantPhone = AssistantPhone;
-            }
-        }
-        //For Website
-        {
-            TextBox WebsiteTextBox = new TextBox();
-            WebsiteTextBox = (TextBox)dvCompany.FindControl("txtWebsite");
-            if ((WebsiteTextBox != null))
-            {
-                Website = WebsiteTextBox.Text.Trim();
-                if (!string.IsNullOrEmpty(Website))
-                {
-                    IsCriteriaExist = true;
-                }
-                searchObj.WebSite = Website;
-            }
-        }
-        //For Emp Quantity
-        {
-            TextBox EmpQuantityTextBox = new TextBox();
-            EmpQuantityTextBox = (TextBox)dvCompany.FindControl("txtEmpQuantity");
-            if ((EmpQuantityTextBox != null))
-            {
-                EmpQuantity = EmpQuantityTextBox.Text.Trim();
-                if (!string.IsNullOrEmpty(EmpQuantity))
-                {
-                    IsCriteriaExist = true;
-                }
-                searchObj.EmpQuantity = EmpQuantity;
             }
         }
         //For COMPANY VALUE GOAL
@@ -483,21 +239,6 @@ public partial class CRM_Companies_Search : BasePage
 
             }
         }
-        //For Notes
-        {
-            TextBox NotesTextBox = new TextBox();
-            NotesTextBox = (TextBox)dvCompany.FindControl("txtNotes");
-            if ((NotesTextBox != null))
-            {
-                Notes  = NotesTextBox.Text.Trim();
-                if (!string.IsNullOrEmpty(Notes))
-                {
-                    IsCriteriaExist = true;
-                }
-                searchObj.Notes = Notes;
-
-            }
-        }
         //For Creation Date
         {
             TextBox CreationDateCal = new TextBox();
@@ -545,31 +286,6 @@ public partial class CRM_Companies_Search : BasePage
                 }
 
 
-            }
-        }
-        //For Is Same Billing Address
-        {
-            ListBox BillingAdrsLB = new ListBox();
-            BillingAdrsLB = (ListBox)dvCompany.FindControl("lstBillingAdrs");
-            if ((BillingAdrsLB != null))
-            {
-                foreach (ListItem listItem in BillingAdrsLB.Items)
-                {
-                    if (listItem.Selected == true)
-                    {
-
-                        if (IsSameBillingId.Length == 0)
-                        {
-                            IsSameBillingId = listItem.Value;
-                        }
-                        else
-                        {
-                            IsSameBillingId = IsSameBillingId + "," + listItem.Value;
-                        }
-                        IsCriteriaExist = true;
-                    }
-                }
-                searchObj.IsSameBillingAddress = IsSameBillingId;
             }
         }
         //For Industry ID

@@ -32,7 +32,6 @@ namespace SandlerModels
         public DbSet<TBL_BlastEmailGroup> TBL_BlastEmailGroup { get; set; }
         public DbSet<TBL_CHART> TBL_CHART { get; set; }
         public DbSet<TBL_COACH> TBL_COACH { get; set; }
-        public DbSet<TBL_COMPANIES> TBL_COMPANIES { get; set; }
         public DbSet<TBL_CONTACTS> TBL_CONTACTS { get; set; }
         public DbSet<TBL_COUNTRY> TBL_COUNTRY { get; set; }
         public DbSet<Tbl_Course> Tbl_Course { get; set; }
@@ -50,6 +49,7 @@ namespace SandlerModels
         public DbSet<TBL_OpportunityWhyLost> TBL_OpportunityWhyLost { get; set; }
         public DbSet<TBL_OpportunitySource> TBL_OpportunitySource { get; set; }
         public DbSet<TBL_OPPORTUNITIES> TBL_OPPORTUNITIES { get; set; }
+        public DbSet<TBL_COMPANIES> TBL_COMPANIES { get; set; }
     
         internal ObjectResult<Company> GetCompaniesByUser(Nullable<System.Guid> userId)
         {

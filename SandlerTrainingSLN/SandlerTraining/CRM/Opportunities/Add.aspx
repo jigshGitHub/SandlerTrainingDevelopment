@@ -239,6 +239,11 @@
                                     <asp:Label ID="lblResult" runat="server" ForeColor="Red"></asp:Label><br />
                                 </td>
                             </tr>
+                            <tr>
+                                <td colspan="2">
+                                    <asp:ValidationSummary ID="ValidationSummary1" runat="server" ForeColor="Red" ShowMessageBox="True" />
+                                </td>
+                            </tr>
                         </table>
                     </ContentTemplate>
                 </asp:UpdatePanel>
@@ -250,11 +255,6 @@
                     Font-Bold="true" OnClick="lbtnAdd_Click"></asp:LinkButton>&nbsp;&nbsp;
                 <asp:LinkButton ID="lbtnCancel" runat="server" CausesValidation="False" ForeColor="Blue"
                     Font-Bold="true" OnClick="lbtnCancel_Click"></asp:LinkButton>
-            </td>
-        </tr>
-        <tr>
-            <td style="width: 280px">
-                <asp:ValidationSummary ID="ValidationSummary1" runat="server" ForeColor="Red" ShowMessageBox="True" />
             </td>
         </tr>
     </table>
@@ -290,7 +290,7 @@
                             case 110: break; // . number block (Opera 9.63+ maps the "." from the number block to the "N" key (78) !!!)
                             case 190: break; // .
                             default: break;
-                            //$(this).formatCurrency({ colorize: true, negativeFormat: '(%s%n)', roundToDecimalPlace: -1, eventOnDecimalsEntered: true });                                             
+                            //$(this).formatCurrency({ colorize: true, negativeFormat: '(%s%n)', roundToDecimalPlace: -1, eventOnDecimalsEntered: true });                                              
                         }
                     }
                 })
@@ -309,21 +309,24 @@
 
             };
 
-//            $('#<%=lbtnAdd.ClientID%>').click(function () {
-//                var contactsSelected = parseInt($('#<%=lstBxContacts.ClientID%> :selected').length);
-//                log(contactsSelected);
-//                if (contactsSelected > 3) {
-//                    alert('You can not select more than 3 contacts');
-//                    return false;
-//                }
-//            });
+            //            $('#<%=lbtnAdd.ClientID%>').click(function () {
+            //                var contactsSelected = parseInt($('#<%=lstBxContacts.ClientID%> :selected').length);
+            //                log(contactsSelected);
+            //                if (contactsSelected > 3) {
+            //                    alert('You can not select more than 3 contacts');
+            //                    return false;
+            //                }
+            //            });
         }
         $(document).ready(function () {
             BindEvents();
 
             $('#<%=lbtnAdd.ClientID%>').click(function () {
                 var contactsSelected = parseInt($('#<%=lstBxContacts.ClientID%> :selected').length);
-                log(contactsSelected);
+                if (contactsSelected == 0) {
+                    alert('First create the contacts for the company selected.');
+                    return false;
+                }
                 if (contactsSelected > 3) {
                     alert('You can not select more than 3 contacts');
                     return false;

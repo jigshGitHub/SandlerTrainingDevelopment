@@ -346,3 +346,26 @@ AND o.IsActive = 1
 
 GO
 
+IF  EXISTS (SELECT * FROM sys.views WHERE object_id = OBJECT_ID(N'[dbo].[vw_Companies]'))
+DROP VIEW [dbo].[vw_Companies]
+GO
+
+Create VIEW [dbo].[vw_Companies]
+
+AS
+
+SELECT r.ID AS RegionID, 
+r.Name AS Region, 
+ch.ID AS CoachID, 
+ch.FirstName + ' ' + ch.LastName AS CoachName,
+f.Name AS FranchiseeName, 
+cmp.* 
+FROM dbo.[TBL_COMPANIES] cmp WITH (NOLOCK)
+INNER JOIN dbo.[TBL_Franchisee] f WITH (NOLOCK) ON cmp.FranchiseeID = f.ID AND f.IsActive = 1
+INNER JOIN dbo.[TBL_COACH] ch WITH (NOLOCK) ON f.CoachID = ch.ID AND ch.IsActive = 1
+INNER JOIN dbo.[TBL_Region] r WITH (NOLOCK) ON ch.RegionID = r.ID AND r.IsActive = 1
+WHERE cmp.IsActive = 1
+
+
+GO
+

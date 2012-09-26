@@ -46,11 +46,29 @@ namespace SandlerModels
         public string UpdatedBy { get; set; }
         public string Address { get; set; }
         public string Zip { get; set; }
+        public string CompanyOwnership { get; set; }
+        public string CompanyDescription { get; set; }
+        public string BillingAddress { get; set; }
+        public string BillingState { get; set; }
+        public string BillingCity { get; set; }
+        public string BillingZip { get; set; }
+        public string BillingCountry { get; set; }
+        public string POCDepartment { get; set; }
+        public string POCEmail { get; set; }
+        public string POCFax { get; set; }
+        public string AssistantLastName { get; set; }
+        public string AssistantFirstName { get; set; }
+        public string AssistantPhone { get; set; }
+        public string Website { get; set; }
+        public Nullable<int> EmpQuantity { get; set; }
+        public string Notes { get; set; }
+        public Nullable<bool> IsSameBillingAddress { get; set; }
+        public string Country { get; set; }
     
-        internal ICollection<TBL_CONTACTS> TBL_CONTACTS { get; set; }
-        internal ICollection<TBL_DOCS> TBL_DOCS { get; set; }
         internal TBL_FRANCHISEE TBL_FRANCHISEE { get; set; }
         internal Tbl_IndustryType Tbl_IndustryType { get; set; }
+        internal ICollection<TBL_CONTACTS> TBL_CONTACTS { get; set; }
+        internal ICollection<TBL_DOCS> TBL_DOCS { get; set; }
         internal ICollection<TBL_OPPORTUNITIES> TBL_OPPORTUNITIES { get; set; }
     }
     

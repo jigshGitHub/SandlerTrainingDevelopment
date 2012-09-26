@@ -47,7 +47,6 @@ namespace SandlerModels
         public Nullable<int> SeconadryContactId2 { get; set; }
         public Nullable<int> SourceID { get; set; }
     
-        internal TBL_COMPANIES TBL_COMPANIES { get; set; }
         internal TBL_CONTACTS TBL_CONTACTS { get; set; }
         internal TBL_CONTACTS TBL_CONTACTS1 { get; set; }
         internal TBL_CONTACTS TBL_CONTACTS2 { get; set; }
@@ -57,6 +56,7 @@ namespace SandlerModels
         internal TBL_OpportunityTypes TBL_OpportunityTypes { get; set; }
         internal TBL_OpportunityWhyLost TBL_OpportunityWhyLost { get; set; }
         internal Tbl_ProductType Tbl_ProductType { get; set; }
+        internal TBL_COMPANIES TBL_COMPANIES { get; set; }
     }
     
 }

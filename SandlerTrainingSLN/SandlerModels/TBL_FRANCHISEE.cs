@@ -16,8 +16,8 @@ namespace SandlerModels
     {
         public TBL_FRANCHISEE()
         {
-            this.TBL_COMPANIES = new HashSet<TBL_COMPANIES>();
             this.TBL_FRANCHISEE_USERS = new HashSet<TBL_FRANCHISEE_USERS>();
+            this.TBL_COMPANIES = new HashSet<TBL_COMPANIES>();
         }
     
         public int ID { get; set; }
@@ -40,9 +40,9 @@ namespace SandlerModels
         public string FaxNumber { get; set; }
     
         internal TBL_COACH TBL_COACH { get; set; }
-        internal ICollection<TBL_COMPANIES> TBL_COMPANIES { get; set; }
         internal TBL_COUNTRY TBL_COUNTRY { get; set; }
         internal ICollection<TBL_FRANCHISEE_USERS> TBL_FRANCHISEE_USERS { get; set; }
+        internal ICollection<TBL_COMPANIES> TBL_COMPANIES { get; set; }
     }
     
 }

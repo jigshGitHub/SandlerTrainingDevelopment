@@ -38,11 +38,10 @@ public class OpportunityBasePage : BasePage
         return (companyId == 0) ? data : data.Where(record => record.COMPANYID == companyId);
     }
 
-    protected virtual IQueryable<Opportunity> GetOpportunities(int? companyId, string opportunityId, string name, string repFirstName, string repLastName, string repPhone, int? productId, int? statusId, int? contactId, string contactPhone, string contactEmail)
+    protected virtual IQueryable<Opportunity> GetOpportunities(int? companyId, string opportunityId, string name, string description, string notes,string repFirstName, string repLastName, string repPhone, int? productId, int? statusId, int? contactId, int?sourceId, int? typeId, int? whyLostId, decimal? weightedValue, decimal? actualValue)
     {
         UserEntities userEntities = UserEntitiesFactory.Get(this.CurrentUser);
         IQueryable<Opportunity> data = userEntities.Opportunities.AsQueryable();
-        //IQueryable<TBL_CONTACTS> contacts = userEntities.Contacts.AsQueryable();
         IQueryable<SandlerModels.Contact> contacts = userEntities.Contacts.AsQueryable();
 
         
@@ -50,28 +49,31 @@ public class OpportunityBasePage : BasePage
         data = SandlerData.IQueryableExtensions.OptionalWhere(data, productId, x => (opp => opp.ProductID == productId));
         data = SandlerData.IQueryableExtensions.OptionalWhere(data, statusId, x => (opp => opp.STATUSID == statusId));
         data = SandlerData.IQueryableExtensions.OptionalWhere(data, contactId, x => (opp => opp.CONTACTID == contactId));
+        data = SandlerData.IQueryableExtensions.OptionalWhere(data, contactId, x => (opp => opp.SeconadryContactId1 == contactId));
+        data = SandlerData.IQueryableExtensions.OptionalWhere(data, contactId, x => (opp => opp.SeconadryContactId2 == contactId));
+        data = SandlerData.IQueryableExtensions.OptionalWhere(data, contactId, x => (opp => opp.CONTACTID == contactId));
+        data = SandlerData.IQueryableExtensions.OptionalWhere(data, sourceId, x => (opp => opp.SourceID == sourceId));
+        data = SandlerData.IQueryableExtensions.OptionalWhere(data, typeId, x => (opp => opp.TypeID == typeId));
+        data = SandlerData.IQueryableExtensions.OptionalWhere(data, whyLostId, x => (opp => opp.WhyLostID == whyLostId));
+        data = SandlerData.IQueryableExtensions.OptionalWhere(data, weightedValue, x => (opp => opp.WEIGHTEDVALUE == weightedValue));
+        data = SandlerData.IQueryableExtensions.OptionalWhere(data, actualValue, x => (opp => opp.ActualValue == actualValue));
 
         if (!string.IsNullOrEmpty(opportunityId))
             data = data.Where(opp => opp.OpportunityID == int.Parse(opportunityId));
         if (!string.IsNullOrEmpty(name))
-            data = data.Where(opp => opp.NAME.Contains(name));
+            data = data.Where(opp => opp.NAME.ToUpper().Contains(name.ToUpper()));
+        if (!string.IsNullOrEmpty(description))
+            data = data.Where(opp => opp.Description.ToUpper().Contains(description.ToUpper()));
+        if (!string.IsNullOrEmpty(notes))
+            data = data.Where(opp => opp.Notes.ToUpper().Contains(notes.ToUpper()));
         if (!string.IsNullOrEmpty(repFirstName))
-            data = data.Where(opp => opp.SALESREPFIRSTNAME.Contains(repFirstName));
+            data = data.Where(opp => opp.SALESREPFIRSTNAME.ToUpper().Contains(repFirstName.ToUpper()));
         if (!string.IsNullOrEmpty(repLastName))
-            data = data.Where(opp => opp.SALESREPLASTNAME.Contains(repLastName));
+            data = data.Where(opp => opp.SALESREPLASTNAME.ToUpper().Contains(repLastName.ToUpper()));
         if (!string.IsNullOrEmpty(repPhone))
             data = data.Where(opp => opp.SALESREPPHONE.Contains(repPhone));
 
-        if (!string.IsNullOrEmpty(contactPhone)){
-            data = from opp in data
-                   from contact in contacts.Where(record => record.PHONE == contactPhone && record.CONTACTSID == opp.CONTACTID)
-                   select opp;
-        }
-        if (!string.IsNullOrEmpty(contactEmail)){
-            data = from opp in data
-                   from contact in contacts.Where(record => record.EMAIL == contactEmail && record.CONTACTSID == opp.CONTACTID)
-                   select opp;
-        }
+        
 
         return data;
     }
