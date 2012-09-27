@@ -13,16 +13,17 @@ using SandlerModels.DataIntegration;
 public partial class GapAnalysisCreate : BasePage
 {
     private IGapAnalysis gaData;
+    private bool ReadOnlyAccess;
 
     public int GAId
     {
         get
         {
-            return int.Parse(ViewState["GAId"].ToString());
+            return int.Parse(Session["GAId"].ToString());
         }
         set
         {
-            ViewState["GAId"] = value;
+            Session["GAId"] = value.ToString();
         }
     }
 
@@ -34,8 +35,10 @@ public partial class GapAnalysisCreate : BasePage
     protected void Page_Load(object sender, EventArgs e)
     {
         lblResult.Text = "";
+        ReadOnlyAccess = IsUserReadOnly(SandlerModels.SandlerUserActions.Add, SandlerModels.SandlerEntities.Opportunity);
         if (!Page.IsPostBack)
-        {
+        {            
+            SetVisibility();
             PopulateData();
             //PopulateSalesRepresentativeData();
         }
@@ -64,6 +67,7 @@ public partial class GapAnalysisCreate : BasePage
             dropdownList.Items.Insert(0, selectItem);
         }
     }
+
     protected void drpLstCompanies_SelectedIndexChanged(object sender, EventArgs e)
     {
         drpLstContacts.Items.Clear();
@@ -86,7 +90,59 @@ public partial class GapAnalysisCreate : BasePage
         if (gaTracker != null)
         {
             GAId = gaTracker.Id;
-            PopulateValues(gaTracker);
+            PopulateValues(gaTracker,false);
+        }
+        else
+        {
+            PopulateValues(gaTracker, true);
+            if (ReadOnlyAccess)
+                lblResult.Text = "There is no report has been generated for the selected company and contact.";
+        }
+    }
+
+    protected void btnViewGapAnalysisReport_Click(object sender, EventArgs e)
+    {
+        int companyId = int.Parse(drpLstCompanies.SelectedValue);
+        int contactId = int.Parse(drpLstContacts.SelectedValue);
+
+        SaveGARecord(companyId, contactId);
+        RenderChart(companyId, contactId);
+        PopulateAsIsToBEFields();
+    }
+
+    protected void btnSaveGapAnalysisReport_Click(object sender, EventArgs e)
+    {
+        SaveDesiredAnnualImprovements();
+    }
+
+    private void SetVisibility()
+    {
+        if (ReadOnlyAccess)
+        {
+            lblViewTitle.Text = "View Gap Analysis Report:";
+            lblAsIsSelectionTitle.Text = "As - Is Selected Data:";
+            lblToBeSelectionTitle.Text = "To - Be Selected Data:";
+            drpListEBGAsIS.Enabled = false;
+            drpListEBGToBe.Enabled = false;
+            drpListQAAsIs.Enabled = false;
+            drpListQAToBe.Enabled = false;
+            drpListSCTAsIs.Enabled = false;
+            drpListSCTToBe.Enabled = false;
+            drpListSEAsIs.Enabled = false;
+            drpListSEToBe.Enabled = false;
+            drpListSQAsIs.Enabled = false;
+            drpListSQToBe.Enabled = false;
+            drpListTCSAsIs.Enabled = false;
+            drpListTCSToBe.Enabled = false;
+            drpLstDAIEBG.Enabled = false;
+            drpLstDAIQA.Enabled = false;
+            drpLstDAIQA.Enabled = false;
+            drpLstDAISCT.Enabled = false;
+            drpLstDAISE.Enabled = false;
+            drpLstDAISQ.Enabled = false;
+            drpLstDAITCS.Enabled = false;
+            //btnReDo.Visible = false;
+            btnSave.Visible = false;
         }
     }
 
@@ -110,20 +166,7 @@ public partial class GapAnalysisCreate : BasePage
             }
         }
     }
-    protected void btnViewGapAnalysisReport_Click(object sender, EventArgs e)
-    {
-        int companyId = int.Parse(drpLstCompanies.SelectedValue);
-        int contactId = int.Parse(drpLstContacts.SelectedValue);
 
-        SaveGARecord(companyId, contactId);
-        RenderChart(companyId, contactId);
-        PopulateAsIsToBEFields();
-    }
-
-    protected void btnSaveGapAnalysisReport_Click(object sender, EventArgs e)
-    {
-        SaveDesiredAnnualImprovements();
-    }
     private void PopulateData()
     {
         drpLstCompanies.DataSource = UserEntitiesFactory.Get(this.CurrentUser).Companies;
@@ -197,23 +240,30 @@ public partial class GapAnalysisCreate : BasePage
 
     }
 
-    private void PopulateValues(SandlerModels.TBL_GA_Tracker gaTracker)
+    private void PopulateValues(SandlerModels.TBL_GA_Tracker gaTracker, bool makeItDefault)
     {
         try
         {
-            drpListSCTAsIs.SelectedValue = gaTracker.AsIsSalesCycleTimeId.Value.ToString();
-            drpListSEAsIs.SelectedValue = gaTracker.AsIsSalesEffId.Value.ToString();
-            drpListSQAsIs.SelectedValue = gaTracker.AsIsSalesQualificationId.Value.ToString();
-            drpListTCSAsIs.SelectedValue = gaTracker.AsIsTrgCostSavingsId.Value.ToString();
-            drpListQAAsIs.SelectedValue = gaTracker.AsIsQuotaAchtId.Value.ToString();
-            drpListEBGAsIS.SelectedValue = gaTracker.AsIsEstBenGainedId.Value.ToString();
+            drpListSCTAsIs.SelectedValue = (makeItDefault) ? "0" : gaTracker.AsIsSalesCycleTimeId.Value.ToString();
+            drpListSEAsIs.SelectedValue = (makeItDefault) ? "0" : gaTracker.AsIsSalesEffId.Value.ToString();
+            drpListSQAsIs.SelectedValue = (makeItDefault) ? "0" : gaTracker.AsIsSalesQualificationId.Value.ToString();
+            drpListTCSAsIs.SelectedValue = (makeItDefault) ? "0" : gaTracker.AsIsTrgCostSavingsId.Value.ToString();
+            drpListQAAsIs.SelectedValue = (makeItDefault) ? "0" : gaTracker.AsIsQuotaAchtId.Value.ToString();
+            drpListEBGAsIS.SelectedValue = (makeItDefault) ? "0" : gaTracker.AsIsEstBenGainedId.Value.ToString();
 
-            drpListSCTToBe.SelectedValue = gaTracker.ToBeSalesCycleTimeId.Value.ToString();
-            drpListSEToBe.SelectedValue = gaTracker.ToBeSalesEffId.Value.ToString();
-            drpListSQToBe.SelectedValue = gaTracker.ToBeSalesQualificationId.Value.ToString();
-            drpListTCSToBe.SelectedValue = gaTracker.ToBeTrgCostSavingsId.Value.ToString();
-            drpListQAToBe.SelectedValue = gaTracker.ToBeQuotaAchtId.Value.ToString();
-            drpListEBGToBe.SelectedValue = gaTracker.ToBeEstBenGainedId.Value.ToString();
+            drpListSCTToBe.SelectedValue = (makeItDefault) ? "0" : gaTracker.ToBeSalesCycleTimeId.Value.ToString();
+            drpListSEToBe.SelectedValue = (makeItDefault) ? "0" : gaTracker.ToBeSalesEffId.Value.ToString();
+            drpListSQToBe.SelectedValue = (makeItDefault) ? "0" : gaTracker.ToBeSalesQualificationId.Value.ToString();
+            drpListTCSToBe.SelectedValue = (makeItDefault) ? "0" : gaTracker.ToBeTrgCostSavingsId.Value.ToString();
+            drpListQAToBe.SelectedValue = (makeItDefault) ? "0" : gaTracker.ToBeQuotaAchtId.Value.ToString();
+            drpListEBGToBe.SelectedValue = (makeItDefault) ? "0" : gaTracker.ToBeEstBenGainedId.Value.ToString();
+
+            drpLstDAIEBG.SelectedItem.Text = (makeItDefault) ? "0" : gaTracker.DesiredAnnualImptEstBenefitsGained;
+            drpLstDAIQA.SelectedItem.Text = (makeItDefault) ? "0" : gaTracker.DesiredAnnualImptQuotaAcht;
+            drpLstDAISCT.SelectedItem.Text = (makeItDefault) ? "0" : gaTracker.DesiredAnnualImptSalesCycleTime;
+            drpLstDAISE.SelectedItem.Text = (makeItDefault) ? "0" : gaTracker.DesiredAnnualImptSalesEfficiency;
+            drpLstDAISQ.SelectedItem.Text = (makeItDefault) ? "0" : gaTracker.DesiredAnnualImptSalesQualfn;
+            drpLstDAITCS.SelectedItem.Text = (makeItDefault) ? "0" : gaTracker.DesiredAnnualImptTrgCstSvgs;
         }
         catch (Exception ex)
         {
@@ -249,14 +299,15 @@ public partial class GapAnalysisCreate : BasePage
     private void SaveDesiredAnnualImprovements()
     {
         GapAnalysisRepository repository = new GapAnalysisRepository();
-        repository.UpdateDesiredAnnualmprovements(GAId, 
-            drpLstDAISCT.SelectedItem.Text, 
-            drpLstDAISE.SelectedItem.Text, 
-            drpLstDAISQ.SelectedItem.Text, 
-            drpLstDAITCS.SelectedItem.Text, 
-            drpLstDAIQA.SelectedItem.Text, 
+        repository.UpdateDesiredAnnualmprovements(GAId,
+            drpLstDAISCT.SelectedItem.Text,
+            drpLstDAISE.SelectedItem.Text,
+            drpLstDAISQ.SelectedItem.Text,
+            drpLstDAITCS.SelectedItem.Text,
+            drpLstDAIQA.SelectedItem.Text,
             drpLstDAIEBG.SelectedItem.Text);
     }
+
     private void RenderChart(int companyId, int contactId)
     {
         Chart gaChart = new Chart();

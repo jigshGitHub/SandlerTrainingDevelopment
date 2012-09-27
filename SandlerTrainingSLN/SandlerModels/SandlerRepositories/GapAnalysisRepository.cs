@@ -21,7 +21,7 @@ namespace SandlerRepositories
 
         public TBL_GA_Tracker GetGATracker(int companyId, int contactId)
         {
-            return GetAll().Where(record => record.CompanyId == companyId && record.ContactId == contactId).SingleOrDefault();
+            return GetAll().Where(record => record.CompanyId == companyId && record.ContactId == contactId).FirstOrDefault();
         }
 
         public DataSet GetData()

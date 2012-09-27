@@ -8,52 +8,52 @@
     <asp:ToolkitScriptManager ID="ToolkitScriptManager1" runat="server">
     </asp:ToolkitScriptManager>
     <asp:Button ID="noShowButton" runat="server" Style="display: none" />
-    <asp:Panel ID="pnlChart" runat="server" Width="60%" Style="display: block">
-        <table width="100%" style="background-color: White; border: 1">
+    <asp:Panel ID="pnlChart" runat="server" Width="80%" Style="display: block">
+        <table style="background-color: White; width: 100%">
             <tr>
-                <td style="width: 10%">
-                    <table style="height: 500px; background-color: #D2F7FF">
+                <td style="width: 13%; background-color: #D2F7FF">
+                    <table style="height: 400px">
                         <tr>
                             <td>
                                 <b>As - Is</b>
                             </td>
                         </tr>
                         <tr>
-                            <td>
-                                <asp:Label ID="lblAsIsSCT" runat="server">test1</asp:Label>
+                            <td style="vertical-align: top">
+                                <asp:Label ID="lblAsIsSCT" runat="server"></asp:Label>
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                <asp:Label ID="lblAsIsSE" runat="server">test2</asp:Label>
+                                <asp:Label ID="lblAsIsSE" runat="server"></asp:Label>
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                <asp:Label ID="lblAsIsSQ" runat="server">test3</asp:Label>
+                                <asp:Label ID="lblAsIsSQ" runat="server"></asp:Label>
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                <asp:Label ID="lblAsIsTCS" runat="server">test3</asp:Label>
+                                <asp:Label ID="lblAsIsTCS" runat="server"></asp:Label>
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                <asp:Label ID="lblAsIsQA" runat="server">test3</asp:Label>
+                                <asp:Label ID="lblAsIsQA" runat="server"></asp:Label>
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                <asp:Label ID="lblAsIsEBG" runat="server">test3</asp:Label>
+                                <asp:Label ID="lblAsIsEBG" runat="server"></asp:Label>
                             </td>
                         </tr>
                     </table>
                 </td>
-                <td style="width: 10%">
-                    <table style="height: 500px">
+                <td style="width: 20%;">
+                    <table style="height: 400px">
                         <tr>
-                            <td>
+                            <td style="padding-bottom: 5px">
                                 <b>Desired Annual Improvement%</b>
                             </td>
                         </tr>
@@ -161,45 +161,45 @@
                         </tr>
                     </table>
                 </td>
-                <td style="width: 70%">
+                <td style="width: 57%;">
                     <div id="chartContainer" runat="server">
                     </div>
                 </td>
-                <td style="width: 10%">
-                    <table style="height: 500px; background-color: #009999">
+                <td style="width: 10%; background-color: #009999">
+                    <table style="height: 400px">
                         <tr>
                             <td>
                                 <b>To - Be</b>
                             </td>
                         </tr>
                         <tr>
-                            <td>
-                                <asp:Label ID="lblToBeSCT" runat="server">test1</asp:Label>
+                            <td style="vertical-align: top">
+                                <asp:Label ID="lblToBeSCT" runat="server"></asp:Label>
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                <asp:Label ID="lblToBeSE" runat="server">test2</asp:Label>
+                                <asp:Label ID="lblToBeSE" runat="server"></asp:Label>
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                <asp:Label ID="lblToBeSQ" runat="server">test3</asp:Label>
+                                <asp:Label ID="lblToBeSQ" runat="server"></asp:Label>
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                <asp:Label ID="lblToBeTCS" runat="server">test3</asp:Label>
+                                <asp:Label ID="lblToBeTCS" runat="server"></asp:Label>
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                <asp:Label ID="lblToBeQA" runat="server">test3</asp:Label>
+                                <asp:Label ID="lblToBeQA" runat="server"></asp:Label>
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                <asp:Label ID="lblToBeEBG" runat="server">test3</asp:Label>
+                                <asp:Label ID="lblToBeEBG" runat="server"></asp:Label>
                             </td>
                         </tr>
                     </table>
@@ -207,19 +207,25 @@
             </tr>
             <tr>
                 <td colspan="4">
-                    <a href="#" id="btnReDo">Edit:</a>As-Is/To-Be Data&nbsp; &nbsp;<asp:LinkButton ID="btnGoToDashBoard"
-                        Text="Save:" runat="server" OnClick="btnSaveGapAnalysisReport_Click"></asp:LinkButton>Gap
-                    Analysis Report
+                    <a href="#" id="btnReDo">Edit</a>&nbsp; &nbsp;<asp:LinkButton ID="btnSave"
+                        Text="Save" runat="server" OnClick="btnSaveGapAnalysisReport_Click"></asp:LinkButton>&nbsp;&nbsp;
+                    <a href="#" id="btnClose">Close</a>
                 </td>
             </tr>
         </table>
     </asp:Panel>
     <asp:ModalPopupExtender ID="pnlChart_ModalPopupExtender" runat="server" DynamicServicePath=""
         Enabled="True" TargetControlID="noShowButton" BackgroundCssClass="modalBackground"
-        OkControlID="btnReDo" CancelControlID="noShowButton" OnCancelScript="onCancel()"
+        OkControlID="btnReDo" CancelControlID="btnClose" OnCancelScript="onCancel()"
         PopupControlID="pnlChart">
     </asp:ModalPopupExtender>
-    <table style="width: 60%">
+    <div id="divProgress" style="width: 150px; text-align: center; vertical-align: middle;
+        position: absolute; bottom: 50%; left: 45%; visibility: hidden; color: blue;
+        background-color: lightblue;">
+        <asp:Image ID="ajaxLoadNotificationImage" runat="server" ImageUrl="~/images/indicator_medium.gif" />Please
+        wait...
+    </div>
+    <table style="width: 80%">
         <tr>
             <td style="width: 100%">
                 <asp:UpdatePanel ID="updPnl" runat="server">
@@ -228,12 +234,14 @@
                             border-style: solid; width: 100%">
                             <tr>
                                 <td align="left" colspan="2">
-                                    <b>Perform Gap Analysis:</b>
+                                    <b>
+                                        <asp:Label ID="lblViewTitle" runat="server">Perform Gap Analysis:</asp:Label>
+                                    </b>
                                 </td>
                             </tr>
                             <tr>
                                 <td colspan="2">
-                                    <asp:Label ID="lblResult" runat="server"></asp:Label>
+                                    <asp:Label ID="lblResult" runat="server" ForeColor="Red"></asp:Label>
                                 </td>
                             </tr>
                             <tr style="color: Black; background-color: #EEEEEE;">
@@ -258,7 +266,9 @@
                             </tr>
                             <tr>
                                 <td colspan="2">
-                                    <b>Select the following "As - Is" data for your Gap Analysis:</b>
+                                    <b>
+                                        <asp:Label ID="lblAsIsSelectionTitle" runat="server">Select the following "As - Is" data for your Gap Analysis:</asp:Label>
+                                    </b>
                                 </td>
                             </tr>
                             <tr style="color: Black; background-color: #EEEEEE">
@@ -317,7 +327,8 @@
                             </tr>
                             <tr>
                                 <td colspan="2">
-                                    <b>Select the following "To - Be" data for your Gap Analysis:</b>
+                                    <b>
+                                        <asp:Label ID="lblToBeSelectionTitle" runat="server">Select the following "To - Be" data for your Gap Analysis:</asp:Label></b>
                                 </td>
                             </tr>
                             <tr style="color: Black; background-color: #EEEEEE">
@@ -388,6 +399,23 @@
     </table>
     <script type="text/javascript">
 
+        Sys.WebForms.PageRequestManager.getInstance().add_beginRequest(BeginRequestHandler);
+        Sys.WebForms.PageRequestManager.getInstance().add_endRequest(EndRequestHandler);
+
+
+        function BeginRequestHandler(sender, args) {
+            var elem = args.get_postBackElement();
+            ShowHideProgress('visible');
+        }
+        function EndRequestHandler(sender, args) {
+            ShowHideProgress('hidden');
+        }
+        function ShowHideProgress(visibility) {
+            var divProgress = $get('divProgress');
+            divProgress.style.visibility = visibility;
+        }
+
+
 
         function onCancel() {
             window.open('Default.aspx', '_self');
@@ -412,6 +440,10 @@
                     return false;
                 }
             });
+
+//            $('#btnReDo').click(function () {
+//                alert('test');
+//            });
         }
 
         function checkAtLeastOnecriteria() {

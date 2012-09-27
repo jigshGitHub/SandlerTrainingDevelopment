@@ -46,7 +46,7 @@ GO
 INSERT [dbo].[TBL_GA_TrainingCostSavings] ([TrngCostSavings], [PercentOfIndustryAve]) VALUES (N'Less than 5%', 5)
 INSERT [dbo].[TBL_GA_TrainingCostSavings] ([TrngCostSavings], [PercentOfIndustryAve]) VALUES (N'5% to 10%', 20)
 INSERT [dbo].[TBL_GA_TrainingCostSavings] ([TrngCostSavings], [PercentOfIndustryAve]) VALUES (N'10% to 15%', 45)
-INSERT [dbo].[TBL_GA_TrainingCostSavings] ([TrngCostSavings], [PercentOfIndustryAve]) VALUES (N'155 to 20%', 70)
+INSERT [dbo].[TBL_GA_TrainingCostSavings] ([TrngCostSavings], [PercentOfIndustryAve]) VALUES (N'15% to 20%', 70)
 INSERT [dbo].[TBL_GA_TrainingCostSavings] ([TrngCostSavings], [PercentOfIndustryAve]) VALUES (N'20%+', 100)
 
 /****** Object:  Table [dbo].[TBL_GA_SalesQualification]    Script Date: 09/26/2012 19:44:22 ******/
