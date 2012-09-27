@@ -118,7 +118,7 @@ namespace Sandler.UI.ChartStructure
         public string enableRotation { get; set; }
         public string showLegend { get; set; }
 
-
+        public int GAId { get; set; }
 
         public Chart()
         {
@@ -336,7 +336,38 @@ namespace Sandler.UI.ChartStructure
 
                         }
                         break;
+                    case ChartID.GapAnalysis:
+                        this.Categories.Add(new Category { Label = "Sales Cycle Time" });
+                        this.Categories.Add(new Category { Label = "Sales Efficiency" });
+                        this.Categories.Add(new Category { Label = "Sales Qualification" });
+                        this.Categories.Add(new Category { Label = "Trng Cost Savings" });
+                        this.Categories.Add(new Category { Label = "Quota Achievement" });
+                        this.Categories.Add(new Category { Label = "Estimated Benifits Gained" });
 
+                        GATracker gaRecord = null;
+                        GapAnalysisRepository gaData = new GapAnalysisRepository();
+
+                        this.DataSetCollection.Add(new ChartDataSet { Color = "0000FF", SeriesName = "As-Is" });
+                        this.DataSetCollection.Add(new ChartDataSet { Color = "8A4B08", SeriesName = "To-Be" });
+
+                        gaRecord = gaData.GetGATrackerById(GAId);
+                        if (gaRecord != null)
+                        {
+                            this.DataSetCollection[0].SetsCollection.Add(new SetValue { Value = gaRecord.AsIsSalesCycleTimePercentVal.Value.ToString(), Link = "GapAnalysisCreate.aspx" });
+                            this.DataSetCollection[0].SetsCollection.Add(new SetValue { Value = gaRecord.AsIsSalesEfficiencyPercentVal.Value.ToString(), Link = "GapAnalysisCreate.aspx" });
+                            this.DataSetCollection[0].SetsCollection.Add(new SetValue { Value = gaRecord.AsIsSalesQualificationPercentVal.ToString(), Link = "GapAnalysisCreate.aspx" });
+                            this.DataSetCollection[0].SetsCollection.Add(new SetValue { Value = gaRecord.AsIsTrngCostSavingsPercentVal.ToString(), Link = "GapAnalysisCreate.aspx" });
+                            this.DataSetCollection[0].SetsCollection.Add(new SetValue { Value = gaRecord.AsIsQuotaAchievementPercentVal.ToString(), Link = "GapAnalysisCreate.aspx" });
+                            this.DataSetCollection[0].SetsCollection.Add(new SetValue { Value = gaRecord.AsIsEstBenefitsGainedPercentVal.ToString(), Link = "GapAnalysisCreate.aspx" });
+
+                            this.DataSetCollection[1].SetsCollection.Add(new SetValue { Value = gaRecord.ToBeSalesCycleTimePercentVal.ToString(), Link = "GapAnalysisCreate.aspx" });
+                            this.DataSetCollection[1].SetsCollection.Add(new SetValue { Value = gaRecord.ToBeSalesEfficiencyPercentVal.ToString(), Link = "GapAnalysisCreate.aspx" });
+                            this.DataSetCollection[1].SetsCollection.Add(new SetValue { Value = gaRecord.ToBeSalesQualificationPercentVal.ToString(), Link = "GapAnalysisCreate.aspx" });
+                            this.DataSetCollection[1].SetsCollection.Add(new SetValue { Value = gaRecord.ToBeTrngCostSavingsPercentVal.ToString(), Link = "GapAnalysisCreate.aspx" });
+                            this.DataSetCollection[1].SetsCollection.Add(new SetValue { Value = gaRecord.ToBeQuotaAchievementPercentVal.ToString(), Link = "GapAnalysisCreate.aspx" });
+                            this.DataSetCollection[1].SetsCollection.Add(new SetValue { Value = gaRecord.ToBeEstBenefitsGainedPercentVal.ToString(), Link = "GapAnalysisCreate.aspx" });
+                        }
+                        break;
                     default:
                         break;
                 }

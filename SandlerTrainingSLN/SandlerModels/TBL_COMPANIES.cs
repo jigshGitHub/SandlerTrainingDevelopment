@@ -19,6 +19,7 @@ namespace SandlerModels
             this.TBL_CONTACTS = new HashSet<TBL_CONTACTS>();
             this.TBL_DOCS = new HashSet<TBL_DOCS>();
             this.TBL_OPPORTUNITIES = new HashSet<TBL_OPPORTUNITIES>();
+            this.TBL_GA_Tracker = new HashSet<TBL_GA_Tracker>();
         }
     
         public int COMPANIESID { get; set; }
@@ -70,6 +71,7 @@ namespace SandlerModels
         internal ICollection<TBL_CONTACTS> TBL_CONTACTS { get; set; }
         internal ICollection<TBL_DOCS> TBL_DOCS { get; set; }
         internal ICollection<TBL_OPPORTUNITIES> TBL_OPPORTUNITIES { get; set; }
+        internal ICollection<TBL_GA_Tracker> TBL_GA_Tracker { get; set; }
     }
     
 }

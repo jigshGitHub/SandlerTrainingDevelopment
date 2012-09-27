@@ -75,6 +75,9 @@
     <Compile Include="DataIntegration\IQueryableExtensions.cs" />
     <Compile Include="DataIntegration\DataModels.cs" />
     <Compile Include="Enums.cs" />
+    <Compile Include="GATracker.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Model1.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -103,6 +106,7 @@
     <Compile Include="SandlerRepositories\DBFactory.cs" />
     <Compile Include="SandlerRepositories\DocumentsRepository.cs" />
     <Compile Include="SandlerRepositories\ForcastingRepository.cs" />
+    <Compile Include="SandlerRepositories\GapAnalysisRepository.cs" />
     <Compile Include="SandlerRepositories\NightProcessRepository.cs" />
     <Compile Include="SandlerRepositories\OpportunityRepository.cs" />
     <Compile Include="SandlerRepositories\Repositories.cs" />
@@ -143,6 +147,27 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="TBL_FRANCHISEE_USERS.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TBL_GA_EstBenefitsGained.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TBL_GA_QuotaAchievement.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TBL_GA_SalesCycleTime.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TBL_GA_SalesEfficiency.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TBL_GA_SalesQualification.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TBL_GA_Tracker.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TBL_GA_TrainingCostSavings.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Tbl_IndustryType.cs">

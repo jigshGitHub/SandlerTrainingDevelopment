@@ -19,6 +19,7 @@ namespace SandlerModels
             this.TBL_OPPORTUNITIES = new HashSet<TBL_OPPORTUNITIES>();
             this.TBL_OPPORTUNITIES1 = new HashSet<TBL_OPPORTUNITIES>();
             this.TBL_OPPORTUNITIES2 = new HashSet<TBL_OPPORTUNITIES>();
+            this.TBL_GA_Tracker = new HashSet<TBL_GA_Tracker>();
         }
     
         public int CONTACTSID { get; set; }
@@ -55,6 +56,7 @@ namespace SandlerModels
         internal ICollection<TBL_OPPORTUNITIES> TBL_OPPORTUNITIES { get; set; }
         internal ICollection<TBL_OPPORTUNITIES> TBL_OPPORTUNITIES1 { get; set; }
         internal ICollection<TBL_OPPORTUNITIES> TBL_OPPORTUNITIES2 { get; set; }
+        internal ICollection<TBL_GA_Tracker> TBL_GA_Tracker { get; set; }
     }
     
 }

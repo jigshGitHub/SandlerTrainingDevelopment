@@ -392,4 +392,20 @@ namespace SandlerRepositories
         {
         }
     }
+    public partial class GapAnalysisRepository : RepositoryBase<TBL_GA_Tracker>
+    {
+        public GapAnalysisRepository(IDatabaseFactory dbFactory)
+            : base(dbFactory)
+        {
+        }
+        public GapAnalysisRepository()
+            : base(new DBFactory())
+        {
+        }
+
+        public GATracker GetGATrackerById(int id)
+        {
+            return (this.DatabaseFactory.Get() as SandlerDBEntities).GetGATrackerById(id).SingleOrDefault();
+        }
+    }
 }

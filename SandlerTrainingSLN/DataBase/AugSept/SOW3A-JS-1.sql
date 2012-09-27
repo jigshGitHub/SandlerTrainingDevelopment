@@ -1,4 +1,4 @@
-/* cole Code for AppointmentsSource */
+/*Exeuted 9/26 11:30PM on 139 */
 
 ALTER TABLE Tbl_AppointmentsSource ADD ColorCode VARCHAR(6);
 GO

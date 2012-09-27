@@ -22,6 +22,13 @@
           <EntitySet Name="Tbl_FollowUpItemsList" EntityType="Sandler.Models.Store.Tbl_FollowUpItemsList" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="TBL_FRANCHISEE" EntityType="Sandler.Models.Store.TBL_FRANCHISEE" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="TBL_FRANCHISEE_USERS" EntityType="Sandler.Models.Store.TBL_FRANCHISEE_USERS" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="TBL_GA_EstBenefitsGained" EntityType="Sandler.Models.Store.TBL_GA_EstBenefitsGained" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="TBL_GA_QuotaAchievement" EntityType="Sandler.Models.Store.TBL_GA_QuotaAchievement" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="TBL_GA_SalesCycleTime" EntityType="Sandler.Models.Store.TBL_GA_SalesCycleTime" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="TBL_GA_SalesEfficiency" EntityType="Sandler.Models.Store.TBL_GA_SalesEfficiency" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="TBL_GA_SalesQualification" EntityType="Sandler.Models.Store.TBL_GA_SalesQualification" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="TBL_GA_Tracker" EntityType="Sandler.Models.Store.TBL_GA_Tracker" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="TBL_GA_TrainingCostSavings" EntityType="Sandler.Models.Store.TBL_GA_TrainingCostSavings" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Tbl_IndustryType" EntityType="Sandler.Models.Store.Tbl_IndustryType" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="TBL_OPPORTUNITIES" EntityType="Sandler.Models.Store.TBL_OPPORTUNITIES" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="TBL_OpportunitySource" EntityType="Sandler.Models.Store.TBL_OpportunitySource" store:Type="Tables" Schema="dbo" />
@@ -98,6 +105,62 @@
           <AssociationSet Name="FK_TBL_FRANCHISEE_USERS_TBL_FRANCHISEE" Association="Sandler.Models.Store.FK_TBL_FRANCHISEE_USERS_TBL_FRANCHISEE">
             <End Role="TBL_FRANCHISEE" EntitySet="TBL_FRANCHISEE" />
             <End Role="TBL_FRANCHISEE_USERS" EntitySet="TBL_FRANCHISEE_USERS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_GA_Tracker_TBL_COMPANIES" Association="Sandler.Models.Store.FK_TBL_GA_Tracker_TBL_COMPANIES">
+            <End Role="TBL_COMPANIES" EntitySet="TBL_COMPANIES" />
+            <End Role="TBL_GA_Tracker" EntitySet="TBL_GA_Tracker" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_GA_Tracker_TBL_CONTACTS" Association="Sandler.Models.Store.FK_TBL_GA_Tracker_TBL_CONTACTS">
+            <End Role="TBL_CONTACTS" EntitySet="TBL_CONTACTS" />
+            <End Role="TBL_GA_Tracker" EntitySet="TBL_GA_Tracker" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_GA_Tracker_TBL_GA_EstBenefitsGained" Association="Sandler.Models.Store.FK_TBL_GA_Tracker_TBL_GA_EstBenefitsGained">
+            <End Role="TBL_GA_EstBenefitsGained" EntitySet="TBL_GA_EstBenefitsGained" />
+            <End Role="TBL_GA_Tracker" EntitySet="TBL_GA_Tracker" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_GA_Tracker_TBL_GA_EstBenefitsGained1" Association="Sandler.Models.Store.FK_TBL_GA_Tracker_TBL_GA_EstBenefitsGained1">
+            <End Role="TBL_GA_EstBenefitsGained" EntitySet="TBL_GA_EstBenefitsGained" />
+            <End Role="TBL_GA_Tracker" EntitySet="TBL_GA_Tracker" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_GA_Tracker_TBL_GA_QuotaAchievement" Association="Sandler.Models.Store.FK_TBL_GA_Tracker_TBL_GA_QuotaAchievement">
+            <End Role="TBL_GA_QuotaAchievement" EntitySet="TBL_GA_QuotaAchievement" />
+            <End Role="TBL_GA_Tracker" EntitySet="TBL_GA_Tracker" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_GA_Tracker_TBL_GA_QuotaAchievement1" Association="Sandler.Models.Store.FK_TBL_GA_Tracker_TBL_GA_QuotaAchievement1">
+            <End Role="TBL_GA_QuotaAchievement" EntitySet="TBL_GA_QuotaAchievement" />
+            <End Role="TBL_GA_Tracker" EntitySet="TBL_GA_Tracker" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_GA_Tracker_TBL_GA_SalesCycleTime" Association="Sandler.Models.Store.FK_TBL_GA_Tracker_TBL_GA_SalesCycleTime">
+            <End Role="TBL_GA_SalesCycleTime" EntitySet="TBL_GA_SalesCycleTime" />
+            <End Role="TBL_GA_Tracker" EntitySet="TBL_GA_Tracker" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_GA_Tracker_TBL_GA_SalesCycleTime1" Association="Sandler.Models.Store.FK_TBL_GA_Tracker_TBL_GA_SalesCycleTime1">
+            <End Role="TBL_GA_SalesCycleTime" EntitySet="TBL_GA_SalesCycleTime" />
+            <End Role="TBL_GA_Tracker" EntitySet="TBL_GA_Tracker" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_GA_Tracker_TBL_GA_SalesEfficiency" Association="Sandler.Models.Store.FK_TBL_GA_Tracker_TBL_GA_SalesEfficiency">
+            <End Role="TBL_GA_SalesEfficiency" EntitySet="TBL_GA_SalesEfficiency" />
+            <End Role="TBL_GA_Tracker" EntitySet="TBL_GA_Tracker" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_GA_Tracker_TBL_GA_SalesEfficiency1" Association="Sandler.Models.Store.FK_TBL_GA_Tracker_TBL_GA_SalesEfficiency1">
+            <End Role="TBL_GA_SalesEfficiency" EntitySet="TBL_GA_SalesEfficiency" />
+            <End Role="TBL_GA_Tracker" EntitySet="TBL_GA_Tracker" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_GA_Tracker_TBL_GA_SalesQualification" Association="Sandler.Models.Store.FK_TBL_GA_Tracker_TBL_GA_SalesQualification">
+            <End Role="TBL_GA_SalesQualification" EntitySet="TBL_GA_SalesQualification" />
+            <End Role="TBL_GA_Tracker" EntitySet="TBL_GA_Tracker" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_GA_Tracker_TBL_GA_SalesQualification1" Association="Sandler.Models.Store.FK_TBL_GA_Tracker_TBL_GA_SalesQualification1">
+            <End Role="TBL_GA_SalesQualification" EntitySet="TBL_GA_SalesQualification" />
+            <End Role="TBL_GA_Tracker" EntitySet="TBL_GA_Tracker" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_GA_Tracker_TBL_GA_TrainingCostSavings" Association="Sandler.Models.Store.FK_TBL_GA_Tracker_TBL_GA_TrainingCostSavings">
+            <End Role="TBL_GA_TrainingCostSavings" EntitySet="TBL_GA_TrainingCostSavings" />
+            <End Role="TBL_GA_Tracker" EntitySet="TBL_GA_Tracker" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_GA_Tracker_TBL_GA_TrainingCostSavings1" Association="Sandler.Models.Store.FK_TBL_GA_Tracker_TBL_GA_TrainingCostSavings1">
+            <End Role="TBL_GA_TrainingCostSavings" EntitySet="TBL_GA_TrainingCostSavings" />
+            <End Role="TBL_GA_Tracker" EntitySet="TBL_GA_Tracker" />
           </AssociationSet>
           <AssociationSet Name="FK_TBL_OPPORTUNITIES_TBL_COMPANIES" Association="Sandler.Models.Store.FK_TBL_OPPORTUNITIES_TBL_COMPANIES">
             <End Role="TBL_COMPANIES" EntitySet="TBL_COMPANIES" />
@@ -452,6 +515,84 @@
           <Property Name="IsEmailSubscription" Type="bit" />
           <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
         </EntityType>
+        <EntityType Name="TBL_GA_EstBenefitsGained">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="EstBenefitsGained" Type="nvarchar" MaxLength="255" />
+          <Property Name="PercentOfIndustryAve" Type="int" />
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="TBL_GA_QuotaAchievement">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="QuotaAchievement" Type="nvarchar" MaxLength="255" />
+          <Property Name="PercentOfIndustryAve" Type="int" />
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="TBL_GA_SalesCycleTime">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="SalesCycleTime" Type="nvarchar" MaxLength="255" />
+          <Property Name="PercentOfIndustryAve" Type="int" />
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="TBL_GA_SalesEfficiency">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="SalesEfficiency" Type="nvarchar" MaxLength="255" />
+          <Property Name="PercentOfIndustryAve" Type="int" />
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="TBL_GA_SalesQualification">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="SalesQualification" Type="nvarchar" MaxLength="255" />
+          <Property Name="PercentOfIndustryAve" Type="int" />
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="TBL_GA_Tracker">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="CompanyId" Type="int" Nullable="false" />
+          <Property Name="ContactId" Type="int" Nullable="false" />
+          <Property Name="AsIsSalesCycleTimeId" Type="int" />
+          <Property Name="AsIsSalesEffId" Type="int" />
+          <Property Name="AsIsSalesQualificationId" Type="int" />
+          <Property Name="AsIsTrgCostSavingsId" Type="int" />
+          <Property Name="AsIsQuotaAchtId" Type="int" />
+          <Property Name="AsIsEstBenGainedId" Type="int" />
+          <Property Name="ToBeSalesCycleTimeId" Type="int" />
+          <Property Name="ToBeSalesEffId" Type="int" />
+          <Property Name="ToBeSalesQualificationId" Type="int" />
+          <Property Name="ToBeTrgCostSavingsId" Type="int" />
+          <Property Name="ToBeQuotaAchtId" Type="int" />
+          <Property Name="ToBeEstBenGainedId" Type="int" />
+          <Property Name="DesiredAnnualImptSalesCycleTime" Type="varchar" MaxLength="50" />
+          <Property Name="DesiredAnnualImptSalesEfficiency" Type="varchar" MaxLength="50" />
+          <Property Name="DesiredAnnualImptSalesQualfn" Type="varchar" MaxLength="50" />
+          <Property Name="DesiredAnnualImptTrgCstSvgs" Type="varchar" MaxLength="50" />
+          <Property Name="DesiredAnnualImptQuotaAcht" Type="varchar" MaxLength="50" />
+          <Property Name="DesiredAnnualImptEstBenefitsGained" Type="varchar" MaxLength="50" />
+          <Property Name="UpdatedDate" Type="datetime" />
+          <Property Name="UpdatedBy" Type="uniqueidentifier" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="CreatedBy" Type="uniqueidentifier" />
+        </EntityType>
+        <EntityType Name="TBL_GA_TrainingCostSavings">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="TrngCostSavings" Type="nvarchar" MaxLength="255" />
+          <Property Name="PercentOfIndustryAve" Type="int" />
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+        </EntityType>
         <EntityType Name="Tbl_IndustryType">
           <Key>
             <PropertyRef Name="IndId" />
@@ -784,6 +925,174 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_TBL_GA_Tracker_TBL_COMPANIES">
+          <End Role="TBL_COMPANIES" Type="Sandler.Models.Store.TBL_COMPANIES" Multiplicity="1" />
+          <End Role="TBL_GA_Tracker" Type="Sandler.Models.Store.TBL_GA_Tracker" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_COMPANIES">
+              <PropertyRef Name="COMPANIESID" />
+            </Principal>
+            <Dependent Role="TBL_GA_Tracker">
+              <PropertyRef Name="CompanyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_GA_Tracker_TBL_CONTACTS">
+          <End Role="TBL_CONTACTS" Type="Sandler.Models.Store.TBL_CONTACTS" Multiplicity="1" />
+          <End Role="TBL_GA_Tracker" Type="Sandler.Models.Store.TBL_GA_Tracker" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_CONTACTS">
+              <PropertyRef Name="CONTACTSID" />
+            </Principal>
+            <Dependent Role="TBL_GA_Tracker">
+              <PropertyRef Name="ContactId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_GA_Tracker_TBL_GA_EstBenefitsGained">
+          <End Role="TBL_GA_EstBenefitsGained" Type="Sandler.Models.Store.TBL_GA_EstBenefitsGained" Multiplicity="0..1" />
+          <End Role="TBL_GA_Tracker" Type="Sandler.Models.Store.TBL_GA_Tracker" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_GA_EstBenefitsGained">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TBL_GA_Tracker">
+              <PropertyRef Name="AsIsEstBenGainedId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_GA_Tracker_TBL_GA_EstBenefitsGained1">
+          <End Role="TBL_GA_EstBenefitsGained" Type="Sandler.Models.Store.TBL_GA_EstBenefitsGained" Multiplicity="0..1" />
+          <End Role="TBL_GA_Tracker" Type="Sandler.Models.Store.TBL_GA_Tracker" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_GA_EstBenefitsGained">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TBL_GA_Tracker">
+              <PropertyRef Name="ToBeEstBenGainedId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_GA_Tracker_TBL_GA_QuotaAchievement">
+          <End Role="TBL_GA_QuotaAchievement" Type="Sandler.Models.Store.TBL_GA_QuotaAchievement" Multiplicity="0..1" />
+          <End Role="TBL_GA_Tracker" Type="Sandler.Models.Store.TBL_GA_Tracker" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_GA_QuotaAchievement">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TBL_GA_Tracker">
+              <PropertyRef Name="AsIsQuotaAchtId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_GA_Tracker_TBL_GA_QuotaAchievement1">
+          <End Role="TBL_GA_QuotaAchievement" Type="Sandler.Models.Store.TBL_GA_QuotaAchievement" Multiplicity="0..1" />
+          <End Role="TBL_GA_Tracker" Type="Sandler.Models.Store.TBL_GA_Tracker" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_GA_QuotaAchievement">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TBL_GA_Tracker">
+              <PropertyRef Name="ToBeQuotaAchtId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_GA_Tracker_TBL_GA_SalesCycleTime">
+          <End Role="TBL_GA_SalesCycleTime" Type="Sandler.Models.Store.TBL_GA_SalesCycleTime" Multiplicity="0..1" />
+          <End Role="TBL_GA_Tracker" Type="Sandler.Models.Store.TBL_GA_Tracker" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_GA_SalesCycleTime">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TBL_GA_Tracker">
+              <PropertyRef Name="AsIsSalesCycleTimeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_GA_Tracker_TBL_GA_SalesCycleTime1">
+          <End Role="TBL_GA_SalesCycleTime" Type="Sandler.Models.Store.TBL_GA_SalesCycleTime" Multiplicity="0..1" />
+          <End Role="TBL_GA_Tracker" Type="Sandler.Models.Store.TBL_GA_Tracker" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_GA_SalesCycleTime">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TBL_GA_Tracker">
+              <PropertyRef Name="ToBeSalesCycleTimeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_GA_Tracker_TBL_GA_SalesEfficiency">
+          <End Role="TBL_GA_SalesEfficiency" Type="Sandler.Models.Store.TBL_GA_SalesEfficiency" Multiplicity="0..1" />
+          <End Role="TBL_GA_Tracker" Type="Sandler.Models.Store.TBL_GA_Tracker" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_GA_SalesEfficiency">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TBL_GA_Tracker">
+              <PropertyRef Name="AsIsSalesEffId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_GA_Tracker_TBL_GA_SalesEfficiency1">
+          <End Role="TBL_GA_SalesEfficiency" Type="Sandler.Models.Store.TBL_GA_SalesEfficiency" Multiplicity="0..1" />
+          <End Role="TBL_GA_Tracker" Type="Sandler.Models.Store.TBL_GA_Tracker" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_GA_SalesEfficiency">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TBL_GA_Tracker">
+              <PropertyRef Name="ToBeSalesEffId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_GA_Tracker_TBL_GA_SalesQualification">
+          <End Role="TBL_GA_SalesQualification" Type="Sandler.Models.Store.TBL_GA_SalesQualification" Multiplicity="0..1" />
+          <End Role="TBL_GA_Tracker" Type="Sandler.Models.Store.TBL_GA_Tracker" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_GA_SalesQualification">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TBL_GA_Tracker">
+              <PropertyRef Name="AsIsSalesQualificationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_GA_Tracker_TBL_GA_SalesQualification1">
+          <End Role="TBL_GA_SalesQualification" Type="Sandler.Models.Store.TBL_GA_SalesQualification" Multiplicity="0..1" />
+          <End Role="TBL_GA_Tracker" Type="Sandler.Models.Store.TBL_GA_Tracker" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_GA_SalesQualification">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TBL_GA_Tracker">
+              <PropertyRef Name="ToBeSalesQualificationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_GA_Tracker_TBL_GA_TrainingCostSavings">
+          <End Role="TBL_GA_TrainingCostSavings" Type="Sandler.Models.Store.TBL_GA_TrainingCostSavings" Multiplicity="0..1" />
+          <End Role="TBL_GA_Tracker" Type="Sandler.Models.Store.TBL_GA_Tracker" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_GA_TrainingCostSavings">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TBL_GA_Tracker">
+              <PropertyRef Name="AsIsTrgCostSavingsId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_GA_Tracker_TBL_GA_TrainingCostSavings1">
+          <End Role="TBL_GA_TrainingCostSavings" Type="Sandler.Models.Store.TBL_GA_TrainingCostSavings" Multiplicity="0..1" />
+          <End Role="TBL_GA_Tracker" Type="Sandler.Models.Store.TBL_GA_Tracker" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_GA_TrainingCostSavings">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TBL_GA_Tracker">
+              <PropertyRef Name="ToBeTrgCostSavingsId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_TBL_OPPORTUNITIES_TBL_COMPANIES">
           <End Role="TBL_COMPANIES" Type="Sandler.Models.Store.TBL_COMPANIES" Multiplicity="1" />
           <End Role="TBL_OPPORTUNITIES" Type="Sandler.Models.Store.TBL_OPPORTUNITIES" Multiplicity="*" />
@@ -909,6 +1218,9 @@
         </Function>
         <Function Name="sp_GetContactsByUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="userId" Type="uniqueidentifier" Mode="In" />
+        </Function>
+        <Function Name="sp_GetGATracker" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="gaId" Type="int" Mode="In" />
         </Function>
         <Function Name="sp_GetOpportunitiesByUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="userId" Type="uniqueidentifier" Mode="In" />
@@ -1058,6 +1370,72 @@
           </FunctionImport>
           <FunctionImport Name="GetOpportunitiesByUser" ReturnType="Collection(Sandler.Models.Opportunity)">
           <Parameter Name="userId" Mode="In" Type="Guid" />
+          </FunctionImport>
+          <EntitySet Name="TBL_GA_EstBenefitsGained" EntityType="Sandler.Models.TBL_GA_EstBenefitsGained" />
+          <EntitySet Name="TBL_GA_QuotaAchievement" EntityType="Sandler.Models.TBL_GA_QuotaAchievement" />
+          <EntitySet Name="TBL_GA_SalesCycleTime" EntityType="Sandler.Models.TBL_GA_SalesCycleTime" />
+          <EntitySet Name="TBL_GA_SalesEfficiency" EntityType="Sandler.Models.TBL_GA_SalesEfficiency" />
+          <EntitySet Name="TBL_GA_SalesQualification" EntityType="Sandler.Models.TBL_GA_SalesQualification" />
+          <EntitySet Name="TBL_GA_Tracker" EntityType="Sandler.Models.TBL_GA_Tracker" />
+          <EntitySet Name="TBL_GA_TrainingCostSavings" EntityType="Sandler.Models.TBL_GA_TrainingCostSavings" />
+          <AssociationSet Name="FK_TBL_GA_Tracker_TBL_COMPANIES" Association="Sandler.Models.FK_TBL_GA_Tracker_TBL_COMPANIES">
+            <End Role="TBL_COMPANIES" EntitySet="TBL_COMPANIES" />
+            <End Role="TBL_GA_Tracker" EntitySet="TBL_GA_Tracker" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_GA_Tracker_TBL_CONTACTS" Association="Sandler.Models.FK_TBL_GA_Tracker_TBL_CONTACTS">
+            <End Role="TBL_CONTACTS" EntitySet="TBL_CONTACTS" />
+            <End Role="TBL_GA_Tracker" EntitySet="TBL_GA_Tracker" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_GA_Tracker_TBL_GA_EstBenefitsGained" Association="Sandler.Models.FK_TBL_GA_Tracker_TBL_GA_EstBenefitsGained">
+            <End Role="TBL_GA_EstBenefitsGained" EntitySet="TBL_GA_EstBenefitsGained" />
+            <End Role="TBL_GA_Tracker" EntitySet="TBL_GA_Tracker" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_GA_Tracker_TBL_GA_EstBenefitsGained1" Association="Sandler.Models.FK_TBL_GA_Tracker_TBL_GA_EstBenefitsGained1">
+            <End Role="TBL_GA_EstBenefitsGained" EntitySet="TBL_GA_EstBenefitsGained" />
+            <End Role="TBL_GA_Tracker" EntitySet="TBL_GA_Tracker" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_GA_Tracker_TBL_GA_QuotaAchievement" Association="Sandler.Models.FK_TBL_GA_Tracker_TBL_GA_QuotaAchievement">
+            <End Role="TBL_GA_QuotaAchievement" EntitySet="TBL_GA_QuotaAchievement" />
+            <End Role="TBL_GA_Tracker" EntitySet="TBL_GA_Tracker" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_GA_Tracker_TBL_GA_QuotaAchievement1" Association="Sandler.Models.FK_TBL_GA_Tracker_TBL_GA_QuotaAchievement1">
+            <End Role="TBL_GA_QuotaAchievement" EntitySet="TBL_GA_QuotaAchievement" />
+            <End Role="TBL_GA_Tracker" EntitySet="TBL_GA_Tracker" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_GA_Tracker_TBL_GA_SalesCycleTime" Association="Sandler.Models.FK_TBL_GA_Tracker_TBL_GA_SalesCycleTime">
+            <End Role="TBL_GA_SalesCycleTime" EntitySet="TBL_GA_SalesCycleTime" />
+            <End Role="TBL_GA_Tracker" EntitySet="TBL_GA_Tracker" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_GA_Tracker_TBL_GA_SalesCycleTime1" Association="Sandler.Models.FK_TBL_GA_Tracker_TBL_GA_SalesCycleTime1">
+            <End Role="TBL_GA_SalesCycleTime" EntitySet="TBL_GA_SalesCycleTime" />
+            <End Role="TBL_GA_Tracker" EntitySet="TBL_GA_Tracker" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_GA_Tracker_TBL_GA_SalesEfficiency" Association="Sandler.Models.FK_TBL_GA_Tracker_TBL_GA_SalesEfficiency">
+            <End Role="TBL_GA_SalesEfficiency" EntitySet="TBL_GA_SalesEfficiency" />
+            <End Role="TBL_GA_Tracker" EntitySet="TBL_GA_Tracker" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_GA_Tracker_TBL_GA_SalesEfficiency1" Association="Sandler.Models.FK_TBL_GA_Tracker_TBL_GA_SalesEfficiency1">
+            <End Role="TBL_GA_SalesEfficiency" EntitySet="TBL_GA_SalesEfficiency" />
+            <End Role="TBL_GA_Tracker" EntitySet="TBL_GA_Tracker" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_GA_Tracker_TBL_GA_SalesQualification" Association="Sandler.Models.FK_TBL_GA_Tracker_TBL_GA_SalesQualification">
+            <End Role="TBL_GA_SalesQualification" EntitySet="TBL_GA_SalesQualification" />
+            <End Role="TBL_GA_Tracker" EntitySet="TBL_GA_Tracker" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_GA_Tracker_TBL_GA_SalesQualification1" Association="Sandler.Models.FK_TBL_GA_Tracker_TBL_GA_SalesQualification1">
+            <End Role="TBL_GA_SalesQualification" EntitySet="TBL_GA_SalesQualification" />
+            <End Role="TBL_GA_Tracker" EntitySet="TBL_GA_Tracker" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_GA_Tracker_TBL_GA_TrainingCostSavings" Association="Sandler.Models.FK_TBL_GA_Tracker_TBL_GA_TrainingCostSavings">
+            <End Role="TBL_GA_TrainingCostSavings" EntitySet="TBL_GA_TrainingCostSavings" />
+            <End Role="TBL_GA_Tracker" EntitySet="TBL_GA_Tracker" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_GA_Tracker_TBL_GA_TrainingCostSavings1" Association="Sandler.Models.FK_TBL_GA_Tracker_TBL_GA_TrainingCostSavings1">
+            <End Role="TBL_GA_TrainingCostSavings" EntitySet="TBL_GA_TrainingCostSavings" />
+            <End Role="TBL_GA_Tracker" EntitySet="TBL_GA_Tracker" />
+          </AssociationSet>
+          <FunctionImport Name="GetGATrackerById" ReturnType="Collection(Sandler.Models.GATracker)">
+            <Parameter Name="gaId" Mode="In" Type="Int32" />
           </FunctionImport>
           </EntityContainer>
         <EntityType Name="aspnet_Membership">
@@ -1219,6 +1597,7 @@
           <NavigationProperty Name="TBL_OPPORTUNITIES" Relationship="Sandler.Models.FK_TBL_OPPORTUNITIES_TBL_CONTACTS" FromRole="TBL_CONTACTS" ToRole="TBL_OPPORTUNITIES" />
           <NavigationProperty Name="TBL_OPPORTUNITIES1" Relationship="Sandler.Models.FK_TBL_OPPORTUNITIES_TBL_CONTACTS1" FromRole="TBL_CONTACTS" ToRole="TBL_OPPORTUNITIES" />
           <NavigationProperty Name="TBL_OPPORTUNITIES2" Relationship="Sandler.Models.FK_TBL_OPPORTUNITIES_TBL_CONTACTS2" FromRole="TBL_CONTACTS" ToRole="TBL_OPPORTUNITIES" />
+          <NavigationProperty Name="TBL_GA_Tracker" Relationship="Sandler.Models.FK_TBL_GA_Tracker_TBL_CONTACTS" FromRole="TBL_CONTACTS" ToRole="TBL_GA_Tracker" />
         </EntityType>
         <EntityType Name="TBL_COUNTRY">
           <Key>
@@ -1767,6 +2146,7 @@
           <NavigationProperty Name="TBL_CONTACTS" Relationship="Sandler.Models.FK_TBL_CONTACTS_TBL_Companies" FromRole="TBL_COMPANIES" ToRole="TBL_CONTACTS" />
           <NavigationProperty Name="TBL_DOCS" Relationship="Sandler.Models.FK_TBL_DOCS_TBL_COMPANIES" FromRole="TBL_COMPANIES" ToRole="TBL_DOCS" />
           <NavigationProperty Name="TBL_OPPORTUNITIES" Relationship="Sandler.Models.FK_TBL_OPPORTUNITIES_TBL_COMPANIES" FromRole="TBL_COMPANIES" ToRole="TBL_OPPORTUNITIES" />
+          <NavigationProperty Name="TBL_GA_Tracker" Relationship="Sandler.Models.FK_TBL_GA_Tracker_TBL_COMPANIES" FromRole="TBL_COMPANIES" ToRole="TBL_GA_Tracker" />
         </EntityType>
         <EntityType Name="TBL_OPPORTUNITIES">
           <Key>
@@ -2017,6 +2397,329 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="TBL_GA_EstBenefitsGained">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="String" Name="EstBenefitsGained" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="PercentOfIndustryAve" />
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="TBL_GA_Tracker" Relationship="Sandler.Models.FK_TBL_GA_Tracker_TBL_GA_EstBenefitsGained" FromRole="TBL_GA_EstBenefitsGained" ToRole="TBL_GA_Tracker" />
+          <NavigationProperty Name="TBL_GA_Tracker1" Relationship="Sandler.Models.FK_TBL_GA_Tracker_TBL_GA_EstBenefitsGained1" FromRole="TBL_GA_EstBenefitsGained" ToRole="TBL_GA_Tracker" />
+        </EntityType>
+        <EntityType Name="TBL_GA_QuotaAchievement">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="String" Name="QuotaAchievement" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="PercentOfIndustryAve" />
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="TBL_GA_Tracker" Relationship="Sandler.Models.FK_TBL_GA_Tracker_TBL_GA_QuotaAchievement" FromRole="TBL_GA_QuotaAchievement" ToRole="TBL_GA_Tracker" />
+          <NavigationProperty Name="TBL_GA_Tracker1" Relationship="Sandler.Models.FK_TBL_GA_Tracker_TBL_GA_QuotaAchievement1" FromRole="TBL_GA_QuotaAchievement" ToRole="TBL_GA_Tracker" />
+        </EntityType>
+        <EntityType Name="TBL_GA_SalesCycleTime">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="String" Name="SalesCycleTime" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="PercentOfIndustryAve" />
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="TBL_GA_Tracker" Relationship="Sandler.Models.FK_TBL_GA_Tracker_TBL_GA_SalesCycleTime" FromRole="TBL_GA_SalesCycleTime" ToRole="TBL_GA_Tracker" />
+          <NavigationProperty Name="TBL_GA_Tracker1" Relationship="Sandler.Models.FK_TBL_GA_Tracker_TBL_GA_SalesCycleTime1" FromRole="TBL_GA_SalesCycleTime" ToRole="TBL_GA_Tracker" />
+        </EntityType>
+        <EntityType Name="TBL_GA_SalesEfficiency">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="String" Name="SalesEfficiency" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="PercentOfIndustryAve" />
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="TBL_GA_Tracker" Relationship="Sandler.Models.FK_TBL_GA_Tracker_TBL_GA_SalesEfficiency" FromRole="TBL_GA_SalesEfficiency" ToRole="TBL_GA_Tracker" />
+          <NavigationProperty Name="TBL_GA_Tracker1" Relationship="Sandler.Models.FK_TBL_GA_Tracker_TBL_GA_SalesEfficiency1" FromRole="TBL_GA_SalesEfficiency" ToRole="TBL_GA_Tracker" />
+        </EntityType>
+        <EntityType Name="TBL_GA_SalesQualification">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="String" Name="SalesQualification" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="PercentOfIndustryAve" />
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="TBL_GA_Tracker" Relationship="Sandler.Models.FK_TBL_GA_Tracker_TBL_GA_SalesQualification" FromRole="TBL_GA_SalesQualification" ToRole="TBL_GA_Tracker" />
+          <NavigationProperty Name="TBL_GA_Tracker1" Relationship="Sandler.Models.FK_TBL_GA_Tracker_TBL_GA_SalesQualification1" FromRole="TBL_GA_SalesQualification" ToRole="TBL_GA_Tracker" />
+        </EntityType>
+        <EntityType Name="TBL_GA_Tracker">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="CompanyId" Nullable="false" />
+          <Property Type="Int32" Name="ContactId" Nullable="false" />
+          <Property Type="Int32" Name="AsIsSalesCycleTimeId" />
+          <Property Type="Int32" Name="AsIsSalesEffId" />
+          <Property Type="Int32" Name="AsIsSalesQualificationId" />
+          <Property Type="Int32" Name="AsIsTrgCostSavingsId" />
+          <Property Type="Int32" Name="AsIsQuotaAchtId" />
+          <Property Type="Int32" Name="AsIsEstBenGainedId" />
+          <Property Type="Int32" Name="ToBeSalesCycleTimeId" />
+          <Property Type="Int32" Name="ToBeSalesEffId" />
+          <Property Type="Int32" Name="ToBeSalesQualificationId" />
+          <Property Type="Int32" Name="ToBeTrgCostSavingsId" />
+          <Property Type="Int32" Name="ToBeQuotaAchtId" />
+          <Property Type="Int32" Name="ToBeEstBenGainedId" />
+          <Property Type="String" Name="DesiredAnnualImptSalesCycleTime" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="DesiredAnnualImptSalesEfficiency" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="DesiredAnnualImptSalesQualfn" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="DesiredAnnualImptTrgCstSvgs" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="DesiredAnnualImptQuotaAcht" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="DesiredAnnualImptEstBenefitsGained" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="UpdatedDate" />
+          <Property Type="Guid" Name="UpdatedBy" />
+          <Property Type="DateTime" Name="CreatedDate" />
+          <Property Type="Guid" Name="CreatedBy" />
+          <NavigationProperty Name="TBL_COMPANIES" Relationship="Sandler.Models.FK_TBL_GA_Tracker_TBL_COMPANIES" FromRole="TBL_GA_Tracker" ToRole="TBL_COMPANIES" />
+          <NavigationProperty Name="TBL_CONTACTS" Relationship="Sandler.Models.FK_TBL_GA_Tracker_TBL_CONTACTS" FromRole="TBL_GA_Tracker" ToRole="TBL_CONTACTS" />
+          <NavigationProperty Name="TBL_GA_EstBenefitsGained" Relationship="Sandler.Models.FK_TBL_GA_Tracker_TBL_GA_EstBenefitsGained" FromRole="TBL_GA_Tracker" ToRole="TBL_GA_EstBenefitsGained" />
+          <NavigationProperty Name="TBL_GA_EstBenefitsGained1" Relationship="Sandler.Models.FK_TBL_GA_Tracker_TBL_GA_EstBenefitsGained1" FromRole="TBL_GA_Tracker" ToRole="TBL_GA_EstBenefitsGained" />
+          <NavigationProperty Name="TBL_GA_QuotaAchievement" Relationship="Sandler.Models.FK_TBL_GA_Tracker_TBL_GA_QuotaAchievement" FromRole="TBL_GA_Tracker" ToRole="TBL_GA_QuotaAchievement" />
+          <NavigationProperty Name="TBL_GA_QuotaAchievement1" Relationship="Sandler.Models.FK_TBL_GA_Tracker_TBL_GA_QuotaAchievement1" FromRole="TBL_GA_Tracker" ToRole="TBL_GA_QuotaAchievement" />
+          <NavigationProperty Name="TBL_GA_SalesCycleTime" Relationship="Sandler.Models.FK_TBL_GA_Tracker_TBL_GA_SalesCycleTime" FromRole="TBL_GA_Tracker" ToRole="TBL_GA_SalesCycleTime" />
+          <NavigationProperty Name="TBL_GA_SalesCycleTime1" Relationship="Sandler.Models.FK_TBL_GA_Tracker_TBL_GA_SalesCycleTime1" FromRole="TBL_GA_Tracker" ToRole="TBL_GA_SalesCycleTime" />
+          <NavigationProperty Name="TBL_GA_SalesEfficiency" Relationship="Sandler.Models.FK_TBL_GA_Tracker_TBL_GA_SalesEfficiency" FromRole="TBL_GA_Tracker" ToRole="TBL_GA_SalesEfficiency" />
+          <NavigationProperty Name="TBL_GA_SalesEfficiency1" Relationship="Sandler.Models.FK_TBL_GA_Tracker_TBL_GA_SalesEfficiency1" FromRole="TBL_GA_Tracker" ToRole="TBL_GA_SalesEfficiency" />
+          <NavigationProperty Name="TBL_GA_SalesQualification" Relationship="Sandler.Models.FK_TBL_GA_Tracker_TBL_GA_SalesQualification" FromRole="TBL_GA_Tracker" ToRole="TBL_GA_SalesQualification" />
+          <NavigationProperty Name="TBL_GA_SalesQualification1" Relationship="Sandler.Models.FK_TBL_GA_Tracker_TBL_GA_SalesQualification1" FromRole="TBL_GA_Tracker" ToRole="TBL_GA_SalesQualification" />
+          <NavigationProperty Name="TBL_GA_TrainingCostSavings" Relationship="Sandler.Models.FK_TBL_GA_Tracker_TBL_GA_TrainingCostSavings" FromRole="TBL_GA_Tracker" ToRole="TBL_GA_TrainingCostSavings" />
+          <NavigationProperty Name="TBL_GA_TrainingCostSavings1" Relationship="Sandler.Models.FK_TBL_GA_Tracker_TBL_GA_TrainingCostSavings1" FromRole="TBL_GA_Tracker" ToRole="TBL_GA_TrainingCostSavings" />
+        </EntityType>
+        <EntityType Name="TBL_GA_TrainingCostSavings">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="String" Name="TrngCostSavings" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="PercentOfIndustryAve" />
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="TBL_GA_Tracker" Relationship="Sandler.Models.FK_TBL_GA_Tracker_TBL_GA_TrainingCostSavings" FromRole="TBL_GA_TrainingCostSavings" ToRole="TBL_GA_Tracker" />
+          <NavigationProperty Name="TBL_GA_Tracker1" Relationship="Sandler.Models.FK_TBL_GA_Tracker_TBL_GA_TrainingCostSavings1" FromRole="TBL_GA_TrainingCostSavings" ToRole="TBL_GA_Tracker" />
+        </EntityType>
+        <Association Name="FK_TBL_GA_Tracker_TBL_COMPANIES">
+          <End Type="Sandler.Models.TBL_COMPANIES" Role="TBL_COMPANIES" Multiplicity="1" />
+          <End Type="Sandler.Models.TBL_GA_Tracker" Role="TBL_GA_Tracker" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_COMPANIES">
+              <PropertyRef Name="COMPANIESID" />
+            </Principal>
+            <Dependent Role="TBL_GA_Tracker">
+              <PropertyRef Name="CompanyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_GA_Tracker_TBL_CONTACTS">
+          <End Type="Sandler.Models.TBL_CONTACTS" Role="TBL_CONTACTS" Multiplicity="1" />
+          <End Type="Sandler.Models.TBL_GA_Tracker" Role="TBL_GA_Tracker" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_CONTACTS">
+              <PropertyRef Name="CONTACTSID" />
+            </Principal>
+            <Dependent Role="TBL_GA_Tracker">
+              <PropertyRef Name="ContactId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_GA_Tracker_TBL_GA_EstBenefitsGained">
+          <End Type="Sandler.Models.TBL_GA_EstBenefitsGained" Role="TBL_GA_EstBenefitsGained" Multiplicity="0..1" />
+          <End Type="Sandler.Models.TBL_GA_Tracker" Role="TBL_GA_Tracker" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_GA_EstBenefitsGained">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TBL_GA_Tracker">
+              <PropertyRef Name="AsIsEstBenGainedId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_GA_Tracker_TBL_GA_EstBenefitsGained1">
+          <End Type="Sandler.Models.TBL_GA_EstBenefitsGained" Role="TBL_GA_EstBenefitsGained" Multiplicity="0..1" />
+          <End Type="Sandler.Models.TBL_GA_Tracker" Role="TBL_GA_Tracker" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_GA_EstBenefitsGained">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TBL_GA_Tracker">
+              <PropertyRef Name="ToBeEstBenGainedId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_GA_Tracker_TBL_GA_QuotaAchievement">
+          <End Type="Sandler.Models.TBL_GA_QuotaAchievement" Role="TBL_GA_QuotaAchievement" Multiplicity="0..1" />
+          <End Type="Sandler.Models.TBL_GA_Tracker" Role="TBL_GA_Tracker" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_GA_QuotaAchievement">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TBL_GA_Tracker">
+              <PropertyRef Name="AsIsQuotaAchtId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_GA_Tracker_TBL_GA_QuotaAchievement1">
+          <End Type="Sandler.Models.TBL_GA_QuotaAchievement" Role="TBL_GA_QuotaAchievement" Multiplicity="0..1" />
+          <End Type="Sandler.Models.TBL_GA_Tracker" Role="TBL_GA_Tracker" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_GA_QuotaAchievement">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TBL_GA_Tracker">
+              <PropertyRef Name="ToBeQuotaAchtId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_GA_Tracker_TBL_GA_SalesCycleTime">
+          <End Type="Sandler.Models.TBL_GA_SalesCycleTime" Role="TBL_GA_SalesCycleTime" Multiplicity="0..1" />
+          <End Type="Sandler.Models.TBL_GA_Tracker" Role="TBL_GA_Tracker" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_GA_SalesCycleTime">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TBL_GA_Tracker">
+              <PropertyRef Name="AsIsSalesCycleTimeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_GA_Tracker_TBL_GA_SalesCycleTime1">
+          <End Type="Sandler.Models.TBL_GA_SalesCycleTime" Role="TBL_GA_SalesCycleTime" Multiplicity="0..1" />
+          <End Type="Sandler.Models.TBL_GA_Tracker" Role="TBL_GA_Tracker" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_GA_SalesCycleTime">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TBL_GA_Tracker">
+              <PropertyRef Name="ToBeSalesCycleTimeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_GA_Tracker_TBL_GA_SalesEfficiency">
+          <End Type="Sandler.Models.TBL_GA_SalesEfficiency" Role="TBL_GA_SalesEfficiency" Multiplicity="0..1" />
+          <End Type="Sandler.Models.TBL_GA_Tracker" Role="TBL_GA_Tracker" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_GA_SalesEfficiency">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TBL_GA_Tracker">
+              <PropertyRef Name="AsIsSalesEffId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_GA_Tracker_TBL_GA_SalesEfficiency1">
+          <End Type="Sandler.Models.TBL_GA_SalesEfficiency" Role="TBL_GA_SalesEfficiency" Multiplicity="0..1" />
+          <End Type="Sandler.Models.TBL_GA_Tracker" Role="TBL_GA_Tracker" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_GA_SalesEfficiency">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TBL_GA_Tracker">
+              <PropertyRef Name="ToBeSalesEffId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_GA_Tracker_TBL_GA_SalesQualification">
+          <End Type="Sandler.Models.TBL_GA_SalesQualification" Role="TBL_GA_SalesQualification" Multiplicity="0..1" />
+          <End Type="Sandler.Models.TBL_GA_Tracker" Role="TBL_GA_Tracker" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_GA_SalesQualification">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TBL_GA_Tracker">
+              <PropertyRef Name="AsIsSalesQualificationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_GA_Tracker_TBL_GA_SalesQualification1">
+          <End Type="Sandler.Models.TBL_GA_SalesQualification" Role="TBL_GA_SalesQualification" Multiplicity="0..1" />
+          <End Type="Sandler.Models.TBL_GA_Tracker" Role="TBL_GA_Tracker" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_GA_SalesQualification">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TBL_GA_Tracker">
+              <PropertyRef Name="ToBeSalesQualificationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_GA_Tracker_TBL_GA_TrainingCostSavings">
+          <End Type="Sandler.Models.TBL_GA_TrainingCostSavings" Role="TBL_GA_TrainingCostSavings" Multiplicity="0..1" />
+          <End Type="Sandler.Models.TBL_GA_Tracker" Role="TBL_GA_Tracker" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_GA_TrainingCostSavings">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TBL_GA_Tracker">
+              <PropertyRef Name="AsIsTrgCostSavingsId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_GA_Tracker_TBL_GA_TrainingCostSavings1">
+          <End Type="Sandler.Models.TBL_GA_TrainingCostSavings" Role="TBL_GA_TrainingCostSavings" Multiplicity="0..1" />
+          <End Type="Sandler.Models.TBL_GA_Tracker" Role="TBL_GA_Tracker" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_GA_TrainingCostSavings">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TBL_GA_Tracker">
+              <PropertyRef Name="ToBeTrgCostSavingsId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="GATracker">
+          <Property Type="String" Name="AsIsEstBenefitsGained" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="ToBeEstBenefitsGained" Nullable="true" MaxLength="255" />
+          <Property Type="Int32" Name="ToBeEstBenefitsGainedPercentVal" Nullable="true" />
+          <Property Type="String" Name="AsIsQuotaAchievement" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="ToBeQuotaAchievement" Nullable="true" MaxLength="255" />
+          <Property Type="Int32" Name="ToBeQuotaAchievementPercentVal" Nullable="true" />
+          <Property Type="String" Name="AsIsSalesCycleTime" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="ToBeSalesCycleTime" Nullable="true" MaxLength="255" />
+          <Property Type="Int32" Name="ToBeSalesCycleTimePercentVal" Nullable="true" />
+          <Property Type="String" Name="AsIsSalesEfficiency" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="ToBeSalesEfficiency" Nullable="true" MaxLength="255" />
+          <Property Type="Int32" Name="ToBeSalesEfficiencyPercentVal" Nullable="true" />
+          <Property Type="String" Name="AsIsSalesQualification" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="ToBeSalesQualification" Nullable="true" MaxLength="255" />
+          <Property Type="Int32" Name="ToBeSalesQualificationPercentVal" Nullable="true" />
+          <Property Type="String" Name="AsIsTrngCostSavings" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="ToBeTrngCostSavings" Nullable="true" MaxLength="255" />
+          <Property Type="Int32" Name="ToBeTrngCostSavingsPercentVal" Nullable="true" />
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="Int32" Name="CompanyId" Nullable="false" />
+          <Property Type="Int32" Name="ContactId" Nullable="false" />
+          <Property Type="Int32" Name="AsIsSalesCycleTimeId" Nullable="true" />
+          <Property Type="Int32" Name="AsIsSalesEffId" Nullable="true" />
+          <Property Type="Int32" Name="AsIsSalesQualificationId" Nullable="true" />
+          <Property Type="Int32" Name="AsIsTrgCostSavingsId" Nullable="true" />
+          <Property Type="Int32" Name="AsIsQuotaAchtId" Nullable="true" />
+          <Property Type="Int32" Name="AsIsEstBenGainedId" Nullable="true" />
+          <Property Type="Int32" Name="ToBeSalesCycleTimeId" Nullable="true" />
+          <Property Type="Int32" Name="ToBeSalesEffId" Nullable="true" />
+          <Property Type="Int32" Name="ToBeSalesQualificationId" Nullable="true" />
+          <Property Type="Int32" Name="ToBeTrgCostSavingsId" Nullable="true" />
+          <Property Type="Int32" Name="ToBeQuotaAchtId" Nullable="true" />
+          <Property Type="Int32" Name="ToBeEstBenGainedId" Nullable="true" />
+          <Property Type="String" Name="DesiredAnnualImptSalesCycleTime" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="DesiredAnnualImptSalesEfficiency" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="DesiredAnnualImptSalesQualfn" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="DesiredAnnualImptTrgCstSvgs" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="DesiredAnnualImptQuotaAcht" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="DesiredAnnualImptEstBenefitsGained" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="UpdatedDate" Nullable="true" Precision="23" />
+          <Property Type="Guid" Name="UpdatedBy" Nullable="true" />
+          <Property Type="DateTime" Name="CreatedDate" Nullable="true" Precision="23" />
+          <Property Type="Guid" Name="CreatedBy" Nullable="true" />
+          <Property Type="Int32" Name="AsIsEstBenefitsGainedPercentVal" Nullable="true" />
+          <Property Type="Int32" Name="AsIsQuotaAchievementPercentVal" Nullable="true" />
+          <Property Type="Int32" Name="AsIsSalesCycleTimePercentVal" Nullable="true" />
+          <Property Type="Int32" Name="AsIsSalesEfficiencyPercentVal" Nullable="true" />
+          <Property Type="Int32" Name="AsIsSalesQualificationPercentVal" Nullable="true" />
+          <Property Type="Int32" Name="AsIsTrngCostSavingsPercentVal" Nullable="true" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2638,6 +3341,146 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="TBL_GA_EstBenefitsGained">
+            <EntityTypeMapping TypeName="Sandler.Models.TBL_GA_EstBenefitsGained">
+              <MappingFragment StoreEntitySet="TBL_GA_EstBenefitsGained">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="PercentOfIndustryAve" ColumnName="PercentOfIndustryAve" />
+                <ScalarProperty Name="EstBenefitsGained" ColumnName="EstBenefitsGained" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_GA_QuotaAchievement">
+            <EntityTypeMapping TypeName="Sandler.Models.TBL_GA_QuotaAchievement">
+              <MappingFragment StoreEntitySet="TBL_GA_QuotaAchievement">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="PercentOfIndustryAve" ColumnName="PercentOfIndustryAve" />
+                <ScalarProperty Name="QuotaAchievement" ColumnName="QuotaAchievement" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_GA_SalesCycleTime">
+            <EntityTypeMapping TypeName="Sandler.Models.TBL_GA_SalesCycleTime">
+              <MappingFragment StoreEntitySet="TBL_GA_SalesCycleTime">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="PercentOfIndustryAve" ColumnName="PercentOfIndustryAve" />
+                <ScalarProperty Name="SalesCycleTime" ColumnName="SalesCycleTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_GA_SalesEfficiency">
+            <EntityTypeMapping TypeName="Sandler.Models.TBL_GA_SalesEfficiency">
+              <MappingFragment StoreEntitySet="TBL_GA_SalesEfficiency">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="PercentOfIndustryAve" ColumnName="PercentOfIndustryAve" />
+                <ScalarProperty Name="SalesEfficiency" ColumnName="SalesEfficiency" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_GA_SalesQualification">
+            <EntityTypeMapping TypeName="Sandler.Models.TBL_GA_SalesQualification">
+              <MappingFragment StoreEntitySet="TBL_GA_SalesQualification">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="PercentOfIndustryAve" ColumnName="PercentOfIndustryAve" />
+                <ScalarProperty Name="SalesQualification" ColumnName="SalesQualification" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_GA_Tracker">
+            <EntityTypeMapping TypeName="Sandler.Models.TBL_GA_Tracker">
+              <MappingFragment StoreEntitySet="TBL_GA_Tracker">
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="DesiredAnnualImptEstBenefitsGained" ColumnName="DesiredAnnualImptEstBenefitsGained" />
+                <ScalarProperty Name="DesiredAnnualImptQuotaAcht" ColumnName="DesiredAnnualImptQuotaAcht" />
+                <ScalarProperty Name="DesiredAnnualImptTrgCstSvgs" ColumnName="DesiredAnnualImptTrgCstSvgs" />
+                <ScalarProperty Name="DesiredAnnualImptSalesQualfn" ColumnName="DesiredAnnualImptSalesQualfn" />
+                <ScalarProperty Name="DesiredAnnualImptSalesEfficiency" ColumnName="DesiredAnnualImptSalesEfficiency" />
+                <ScalarProperty Name="DesiredAnnualImptSalesCycleTime" ColumnName="DesiredAnnualImptSalesCycleTime" />
+                <ScalarProperty Name="ToBeEstBenGainedId" ColumnName="ToBeEstBenGainedId" />
+                <ScalarProperty Name="ToBeQuotaAchtId" ColumnName="ToBeQuotaAchtId" />
+                <ScalarProperty Name="ToBeTrgCostSavingsId" ColumnName="ToBeTrgCostSavingsId" />
+                <ScalarProperty Name="ToBeSalesQualificationId" ColumnName="ToBeSalesQualificationId" />
+                <ScalarProperty Name="ToBeSalesEffId" ColumnName="ToBeSalesEffId" />
+                <ScalarProperty Name="ToBeSalesCycleTimeId" ColumnName="ToBeSalesCycleTimeId" />
+                <ScalarProperty Name="AsIsEstBenGainedId" ColumnName="AsIsEstBenGainedId" />
+                <ScalarProperty Name="AsIsQuotaAchtId" ColumnName="AsIsQuotaAchtId" />
+                <ScalarProperty Name="AsIsTrgCostSavingsId" ColumnName="AsIsTrgCostSavingsId" />
+                <ScalarProperty Name="AsIsSalesQualificationId" ColumnName="AsIsSalesQualificationId" />
+                <ScalarProperty Name="AsIsSalesEffId" ColumnName="AsIsSalesEffId" />
+                <ScalarProperty Name="AsIsSalesCycleTimeId" ColumnName="AsIsSalesCycleTimeId" />
+                <ScalarProperty Name="ContactId" ColumnName="ContactId" />
+                <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_GA_TrainingCostSavings">
+            <EntityTypeMapping TypeName="Sandler.Models.TBL_GA_TrainingCostSavings">
+              <MappingFragment StoreEntitySet="TBL_GA_TrainingCostSavings">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="PercentOfIndustryAve" ColumnName="PercentOfIndustryAve" />
+                <ScalarProperty Name="TrngCostSavings" ColumnName="TrngCostSavings" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="GetGATrackerById" FunctionName="Sandler.Models.Store.sp_GetGATracker">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Sandler.Models.GATracker">
+                <ScalarProperty Name="AsIsEstBenefitsGained" ColumnName="AsIsEstBenefitsGained" />
+                <ScalarProperty Name="ToBeEstBenefitsGained" ColumnName="ToBeEstBenefitsGained" />
+                <ScalarProperty Name="ToBeEstBenefitsGainedPercentVal" ColumnName="ToBeEstBenefitsGainedPercentVal" />
+                <ScalarProperty Name="AsIsQuotaAchievement" ColumnName="AsIsQuotaAchievement" />
+                <ScalarProperty Name="ToBeQuotaAchievement" ColumnName="ToBeQuotaAchievement" />
+                <ScalarProperty Name="ToBeQuotaAchievementPercentVal" ColumnName="ToBeQuotaAchievementPercentVal" />
+                <ScalarProperty Name="AsIsSalesCycleTime" ColumnName="AsIsSalesCycleTime" />
+                <ScalarProperty Name="ToBeSalesCycleTime" ColumnName="ToBeSalesCycleTime" />
+                <ScalarProperty Name="ToBeSalesCycleTimePercentVal" ColumnName="ToBeSalesCycleTimePercentVal" />
+                <ScalarProperty Name="AsIsSalesEfficiency" ColumnName="AsIsSalesEfficiency" />
+                <ScalarProperty Name="ToBeSalesEfficiency" ColumnName="ToBeSalesEfficiency" />
+                <ScalarProperty Name="ToBeSalesEfficiencyPercentVal" ColumnName="ToBeSalesEfficiencyPercentVal" />
+                <ScalarProperty Name="AsIsSalesQualification" ColumnName="AsIsSalesQualification" />
+                <ScalarProperty Name="ToBeSalesQualification" ColumnName="ToBeSalesQualification" />
+                <ScalarProperty Name="ToBeSalesQualificationPercentVal" ColumnName="ToBeSalesQualificationPercentVal" />
+                <ScalarProperty Name="AsIsTrngCostSavings" ColumnName="AsIsTrngCostSavings" />
+                <ScalarProperty Name="ToBeTrngCostSavings" ColumnName="ToBeTrngCostSavings" />
+                <ScalarProperty Name="ToBeTrngCostSavingsPercentVal" ColumnName="ToBeTrngCostSavingsPercentVal" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+                <ScalarProperty Name="ContactId" ColumnName="ContactId" />
+                <ScalarProperty Name="AsIsSalesCycleTimeId" ColumnName="AsIsSalesCycleTimeId" />
+                <ScalarProperty Name="AsIsSalesEffId" ColumnName="AsIsSalesEffId" />
+                <ScalarProperty Name="AsIsSalesQualificationId" ColumnName="AsIsSalesQualificationId" />
+                <ScalarProperty Name="AsIsTrgCostSavingsId" ColumnName="AsIsTrgCostSavingsId" />
+                <ScalarProperty Name="AsIsQuotaAchtId" ColumnName="AsIsQuotaAchtId" />
+                <ScalarProperty Name="AsIsEstBenGainedId" ColumnName="AsIsEstBenGainedId" />
+                <ScalarProperty Name="ToBeSalesCycleTimeId" ColumnName="ToBeSalesCycleTimeId" />
+                <ScalarProperty Name="ToBeSalesEffId" ColumnName="ToBeSalesEffId" />
+                <ScalarProperty Name="ToBeSalesQualificationId" ColumnName="ToBeSalesQualificationId" />
+                <ScalarProperty Name="ToBeTrgCostSavingsId" ColumnName="ToBeTrgCostSavingsId" />
+                <ScalarProperty Name="ToBeQuotaAchtId" ColumnName="ToBeQuotaAchtId" />
+                <ScalarProperty Name="ToBeEstBenGainedId" ColumnName="ToBeEstBenGainedId" />
+                <ScalarProperty Name="DesiredAnnualImptSalesCycleTime" ColumnName="DesiredAnnualImptSalesCycleTime" />
+                <ScalarProperty Name="DesiredAnnualImptSalesEfficiency" ColumnName="DesiredAnnualImptSalesEfficiency" />
+                <ScalarProperty Name="DesiredAnnualImptSalesQualfn" ColumnName="DesiredAnnualImptSalesQualfn" />
+                <ScalarProperty Name="DesiredAnnualImptTrgCstSvgs" ColumnName="DesiredAnnualImptTrgCstSvgs" />
+                <ScalarProperty Name="DesiredAnnualImptQuotaAcht" ColumnName="DesiredAnnualImptQuotaAcht" />
+                <ScalarProperty Name="DesiredAnnualImptEstBenefitsGained" ColumnName="DesiredAnnualImptEstBenefitsGained" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="AsIsEstBenefitsGainedPercentVal" ColumnName="AsIsEstBenefitsGainedPercentVal" />
+                <ScalarProperty Name="AsIsQuotaAchievementPercentVal" ColumnName="AsIsQuotaAchievementPercentVal" />
+                <ScalarProperty Name="AsIsSalesCycleTimePercentVal" ColumnName="AsIsSalesCycleTimePercentVal" />
+                <ScalarProperty Name="AsIsSalesEfficiencyPercentVal" ColumnName="AsIsSalesEfficiencyPercentVal" />
+                <ScalarProperty Name="AsIsSalesQualificationPercentVal" ColumnName="AsIsSalesQualificationPercentVal" />
+                <ScalarProperty Name="AsIsTrngCostSavingsPercentVal" ColumnName="AsIsTrngCostSavingsPercentVal" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -2699,8 +3542,8 @@
           <ConnectorPoint PointX="6.75" PointY="14.547506510416666" />
         </AssociationConnector>
         <AssociationConnector Association="Sandler.Models.FK_TBL_CONTACTS_Tbl_Course" >
-          <ConnectorPoint PointX="15" PointY="15.869863281250002" />
-          <ConnectorPoint PointX="15.75" PointY="15.869863281250002" />
+          <ConnectorPoint PointX="15" PointY="15.966013997395834" />
+          <ConnectorPoint PointX="15.75" PointY="15.966013997395834" />
         </AssociationConnector>
         <AssociationConnector Association="Sandler.Models.FK_TBL_REGION_TBL_COUNTRY" >
           <ConnectorPoint PointX="3" PointY="16.650763417400896" />
@@ -2760,10 +3603,10 @@
         <AssociationConnector Association="Sandler.Models.FK_TBL_FRANCHISEE_USERS_TBL_FRANCHISEE" >
           <ConnectorPoint PointX="9" PointY="16.499410807291667" />
           <ConnectorPoint PointX="9" PointY="17.24924804687501" />
-          <ConnectorPoint PointX="13" PointY="17.24924804687501" />
-          <ConnectorPoint PointX="13" PointY="13.403780962402347" />
+          <ConnectorPoint PointX="13.041666666666666" PointY="17.24924804687501" />
           <ConnectorPoint PointX="13.041666666666666" PointY="13.403780962402347" />
-          <ConnectorPoint PointX="13.208333333333334" PointY="13.403780962402347" />
+          <ConnectorPoint PointX="13.041666666666666" PointY="13.403780962402347" />
+          <ConnectorPoint PointX="13.270833333333334" PointY="13.403780962402347" />
           <ConnectorPoint PointX="13.5" PointY="13.403780962402347" />
         </AssociationConnector>
         <EntityTypeShape EntityType="Sandler.Models.Tbl_IndustryType" Width="1.5" PointX="8.25" PointY="6.875" Height="2.749492187499996" />
@@ -2786,68 +3629,72 @@
           <ConnectorPoint PointX="10.5" PointY="13.874705403645834" />
         </AssociationConnector>
         <AssociationConnector Association="Sandler.Models.FK_TBL_COMPANIES_Tbl_IndustryType" >
-          <ConnectorPoint PointX="9.75" PointY="8.24974609375" />
-          <ConnectorPoint PointX="10.5" PointY="8.24974609375" />
+          <ConnectorPoint PointX="9.75" PointY="8.249746093749998" />
+          <ConnectorPoint PointX="10.5" PointY="8.249746093749998" />
         </AssociationConnector>
         <AssociationConnector Association="Sandler.Models.FK_TBL_CONTACTS_TBL_Companies" >
           <ConnectorPoint PointX="12" PointY="9.7500024999999937" />
+          <ConnectorPoint PointX="13.104166666666666" PointY="9.7500024999999937" />
+          <ConnectorPoint PointX="13.333333333333334" PointY="9.7500024999999937" />
           <ConnectorPoint PointX="15.75" PointY="9.7500024999999937" />
         </AssociationConnector>
         <AssociationConnector Association="Sandler.Models.FK_TBL_DOCS_TBL_COMPANIES" >
-          <ConnectorPoint PointX="12" PointY="8.1562492500000037" />
-          <ConnectorPoint PointX="13.25" PointY="8.1562492500000037" />
+          <ConnectorPoint PointX="12" PointY="10.95213232177734" />
+          <ConnectorPoint PointX="13.25" PointY="10.95213232177734" />
           <ConnectorPoint PointX="13.25" PointY="8.5" />
           <ConnectorPoint PointX="15.416666666666666" PointY="8.5" />
           <ConnectorPoint PointX="15.583333333333334" PointY="8.5" />
           <ConnectorPoint PointX="17.75" PointY="8.5" />
-          <ConnectorPoint PointX="17.75" PointY="9.2589322916666674" />
-          <ConnectorPoint PointX="18.666666666666668" PointY="9.2589322916666674" />
-          <ConnectorPoint PointX="18.833333333333332" PointY="9.2589322916666674" />
-          <ConnectorPoint PointX="21" PointY="9.2589322916666674" />
+          <ConnectorPoint PointX="17.75" PointY="10.125" />
+          <ConnectorPoint PointX="18.666666666666668" PointY="10.125" />
+          <ConnectorPoint PointX="18.833333333333332" PointY="10.125" />
+          <ConnectorPoint PointX="21" PointY="10.125" />
           <ConnectorPoint PointX="21" PointY="10.375" />
         </AssociationConnector>
         <AssociationConnector Association="Sandler.Models.FK_TBL_OPPORTUNITIES_TBL_COMPANIES" >
           <ConnectorPoint PointX="12" PointY="8.65625" />
+          <ConnectorPoint PointX="13.104166666666666" PointY="8.65625" />
+          <ConnectorPoint PointX="13.333333333333334" PointY="8.65625" />
           <ConnectorPoint PointX="15.572916666666666" PointY="8.65625" />
           <ConnectorPoint PointX="15.739583333333334" PointY="8.65625" />
-          <ConnectorPoint PointX="17.666666666666668" PointY="8.65625" />
-          <ConnectorPoint PointX="17.833333333333332" PointY="8.65625" />
+          <ConnectorPoint PointX="17.666666666666668" PointY="8.6562499999999982" />
+          <ConnectorPoint PointX="17.958333333333332" PointY="8.65625" />
           <ConnectorPoint PointX="18.666666666666668" PointY="8.65625" />
           <ConnectorPoint PointX="18.833333333333332" PointY="8.65625" />
           <ConnectorPoint PointX="21" PointY="8.65625" />
         </AssociationConnector>
         <AssociationConnector Association="Sandler.Models.FK_TBL_OPPORTUNITIES_TBL_CONTACTS" >
-          <ConnectorPoint PointX="17.25" PointY="9.7857161458333337" />
-          <ConnectorPoint PointX="18.666666666666668" PointY="9.7857161458333337" />
-          <ConnectorPoint PointX="18.833333333333332" PointY="9.7857161458333337" />
-          <ConnectorPoint PointX="20.916666666666668" PointY="9.7857161458333337" />
-          <ConnectorPoint PointX="21.083333333333332" PointY="9.7857161458333337" />
-          <ConnectorPoint PointX="21.354166666666668" PointY="9.7857161458333337" />
-          <ConnectorPoint PointX="21.520833333333332" PointY="9.7857161458333337" />
-          <ConnectorPoint PointX="21.768225416666667" PointY="9.7857161458333319" />
-          <ConnectorPoint PointX="22.138019583333332" PointY="9.7857161458333337" />
-          <ConnectorPoint PointX="22.15625" PointY="9.7857161458333337" />
-          <ConnectorPoint PointX="22.15625" PointY="9.0089322916666674" />
+          <ConnectorPoint PointX="17.25" PointY="9.7667420377604159" />
+          <ConnectorPoint PointX="17.666666666666668" PointY="9.7667420377604142" />
+          <ConnectorPoint PointX="17.958333333333332" PointY="9.7667420377604159" />
+          <ConnectorPoint PointX="18.666666666666668" PointY="9.7667420377604159" />
+          <ConnectorPoint PointX="18.833333333333332" PointY="9.7667420377604159" />
+          <ConnectorPoint PointX="21.354166666666668" PointY="9.7667420377604159" />
+          <ConnectorPoint PointX="21.520833333333332" PointY="9.7667420377604159" />
+          <ConnectorPoint PointX="21.768225416666667" PointY="9.7667420377604142" />
+          <ConnectorPoint PointX="22.138019583333332" PointY="9.7667420377604159" />
+          <ConnectorPoint PointX="22.21972734375" PointY="9.7667420377604159" />
+          <ConnectorPoint PointX="22.21972734375" PointY="9.0089322916666674" />
         </AssociationConnector>
         <AssociationConnector Association="Sandler.Models.FK_TBL_OPPORTUNITIES_TBL_CONTACTS1" >
-          <ConnectorPoint PointX="17.25" PointY="14.480499674479166" />
-          <ConnectorPoint PointX="21.768225416666667" PointY="14.480499674479166" />
-          <ConnectorPoint PointX="21.934892083333331" PointY="14.480499674479166" />
-          <ConnectorPoint PointX="21.9531225" PointY="14.480499674479166" />
+          <ConnectorPoint PointX="17.25" PointY="14.480499674479162" />
+          <ConnectorPoint PointX="21.768225416666667" PointY="14.480499674479162" />
+          <ConnectorPoint PointX="21.934892083333331" PointY="14.480499674479162" />
+          <ConnectorPoint PointX="21.9531225" PointY="14.480499674479162" />
           <ConnectorPoint PointX="21.9531225" PointY="9.0089322916666674" />
         </AssociationConnector>
         <AssociationConnector Association="Sandler.Models.FK_TBL_OPPORTUNITIES_TBL_CONTACTS2" >
-          <ConnectorPoint PointX="17.25" PointY="9.49107171875" />
-          <ConnectorPoint PointX="18.666666666666668" PointY="9.49107171875" />
-          <ConnectorPoint PointX="18.833333333333332" PointY="9.49107171875" />
-          <ConnectorPoint PointX="20.916666666666668" PointY="9.49107171875" />
-          <ConnectorPoint PointX="21.083333333333332" PointY="9.49107171875" />
-          <ConnectorPoint PointX="21.354166666666668" PointY="9.49107171875" />
-          <ConnectorPoint PointX="21.520833333333332" PointY="9.49107171875" />
-          <ConnectorPoint PointX="21.768225416666667" PointY="9.491071718749998" />
-          <ConnectorPoint PointX="22.239583333333329" PointY="9.49107171875" />
-          <ConnectorPoint PointX="22.3593775" PointY="9.49107171875" />
-          <ConnectorPoint PointX="22.3593775" PointY="9.0089322916666674" />
+          <ConnectorPoint PointX="17.25" PointY="9.3878371647135417" />
+          <ConnectorPoint PointX="17.666666666666668" PointY="9.38783716471354" />
+          <ConnectorPoint PointX="17.958333333333332" PointY="9.3878371647135417" />
+          <ConnectorPoint PointX="18.666666666666668" PointY="9.3878371647135417" />
+          <ConnectorPoint PointX="18.833333333333332" PointY="9.3878371647135417" />
+          <ConnectorPoint PointX="21.354166666666668" PointY="9.3878371647135417" />
+          <ConnectorPoint PointX="21.520833333333332" PointY="9.3878371647135417" />
+          <ConnectorPoint PointX="21.768225416666667" PointY="9.38783716471354" />
+          <ConnectorPoint PointX="22.303060677083337" PointY="9.3878371647135417" />
+          <ConnectorPoint PointX="22.391116171875" PointY="9.3878371647135417" />
+          <ConnectorPoint PointX="22.391116171875" PointY="9.0089322916666674" />
         </AssociationConnector>
         <AssociationConnector Association="Sandler.Models.FK_TBL_DOCS_TBL_OPPORTUNITIES" >
           <ConnectorPoint PointX="21.4375" PointY="9.0089322916666674" />
@@ -2877,6 +3724,132 @@
           <ConnectorPoint PointX="9.25" PointY="0.5" />
           <ConnectorPoint PointX="20.625" PointY="0.5" />
           <ConnectorPoint PointX="21" PointY="0.875" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="Sandler.Models.TBL_GA_EstBenefitsGained" Width="1.5" PointX="20.75" PointY="22" Height="1.9802864583333388" />
+        <EntityTypeShape EntityType="Sandler.Models.TBL_GA_QuotaAchievement" Width="1.5" PointX="20.75" PointY="24.75" Height="1.9802864583333388" />
+        <EntityTypeShape EntityType="Sandler.Models.TBL_GA_SalesCycleTime" Width="1.5" PointX="20.75" PointY="27.5" Height="1.9802864583333388" />
+        <EntityTypeShape EntityType="Sandler.Models.TBL_GA_SalesEfficiency" Width="1.5" PointX="20.75" PointY="30.25" Height="1.9802864583333388" />
+        <EntityTypeShape EntityType="Sandler.Models.TBL_GA_SalesQualification" Width="1.5" PointX="20.75" PointY="33" Height="1.9802864583333388" />
+        <EntityTypeShape EntityType="Sandler.Models.TBL_GA_Tracker" Width="1.5" PointX="23" PointY="10.625" Height="8.51853515625001" />
+        <EntityTypeShape EntityType="Sandler.Models.TBL_GA_TrainingCostSavings" Width="1.5" PointX="20.75" PointY="35.625" Height="1.9802864583333388" />
+        <AssociationConnector Association="Sandler.Models.FK_TBL_GA_Tracker_TBL_COMPANIES" >
+          <ConnectorPoint PointX="12" PointY="14.389390481201174" />
+          <ConnectorPoint PointX="12.958333333333332" PointY="14.389390481201174" />
+          <ConnectorPoint PointX="13.125" PointY="14.389390481201174" />
+          <ConnectorPoint PointX="13.1875" PointY="14.389390481201174" />
+          <ConnectorPoint PointX="13.1875" PointY="8.484375" />
+          <ConnectorPoint PointX="15.401041666666666" PointY="8.484375" />
+          <ConnectorPoint PointX="15.567708333333334" PointY="8.484375" />
+          <ConnectorPoint PointX="17.875" PointY="8.484375" />
+          <ConnectorPoint PointX="17.875" PointY="10.109375" />
+          <ConnectorPoint PointX="18.666666666666668" PointY="10.109375" />
+          <ConnectorPoint PointX="18.833333333333332" PointY="10.109375" />
+          <ConnectorPoint PointX="21.354166666666668" PointY="10.109375" />
+          <ConnectorPoint PointX="21.520833333333332" PointY="10.109375" />
+          <ConnectorPoint PointX="21.768225416666667" PointY="10.109374999999998" />
+          <ConnectorPoint PointX="22.138019583333332" PointY="10.109375" />
+          <ConnectorPoint PointX="23.75" PointY="10.109375" />
+          <ConnectorPoint PointX="23.75" PointY="10.625" />
+        </AssociationConnector>
+        <AssociationConnector Association="Sandler.Models.FK_TBL_GA_Tracker_TBL_CONTACTS" >
+          <ConnectorPoint PointX="17.25" PointY="14.251999511718744" />
+          <ConnectorPoint PointX="21.768225416666667" PointY="14.251999511718742" />
+          <ConnectorPoint PointX="22.138019583333332" PointY="14.251999511718744" />
+          <ConnectorPoint PointX="23" PointY="14.251999511718744" />
+        </AssociationConnector>
+        <AssociationConnector Association="Sandler.Models.FK_TBL_GA_Tracker_TBL_GA_EstBenefitsGained" >
+          <ConnectorPoint PointX="22.152343125" PointY="22" />
+          <ConnectorPoint PointX="22.152343125" PointY="17.648565266927086" />
+          <ConnectorPoint PointX="23" PointY="17.648565266927086" />
+        </AssociationConnector>
+        <AssociationConnector Association="Sandler.Models.FK_TBL_GA_Tracker_TBL_GA_EstBenefitsGained1" >
+          <ConnectorPoint PointX="22.003904374999998" PointY="22" />
+          <ConnectorPoint PointX="22.003904374999998" PointY="15.317047526041662" />
+          <ConnectorPoint PointX="23" PointY="15.317047526041662" />
+        </AssociationConnector>
+        <AssociationConnector Association="Sandler.Models.FK_TBL_GA_Tracker_TBL_GA_QuotaAchievement" >
+          <ConnectorPoint PointX="22.25" PointY="25.740143229166669" />
+          <ConnectorPoint PointX="22.955724791666665" PointY="25.740143229166669" />
+          <ConnectorPoint PointX="23.325517708333333" PointY="25.740143229166669" />
+          <ConnectorPoint PointX="23.361977291666665" PointY="25.740143229166669" />
+          <ConnectorPoint PointX="23.630207083333328" PointY="25.740143229166669" />
+          <ConnectorPoint PointX="23.75" PointY="25.740143229166669" />
+          <ConnectorPoint PointX="23.75" PointY="19.14353515625001" />
+        </AssociationConnector>
+        <AssociationConnector Association="Sandler.Models.FK_TBL_GA_Tracker_TBL_GA_QuotaAchievement1" >
+          <ConnectorPoint PointX="22.25" PointY="25.213819114583341" />
+          <ConnectorPoint PointX="22.955724791666665" PointY="25.213819114583341" />
+          <ConnectorPoint PointX="23.325517708333333" PointY="25.213819114583341" />
+          <ConnectorPoint PointX="23.3437475" PointY="25.213819114583341" />
+          <ConnectorPoint PointX="23.3437475" PointY="19.14353515625001" />
+        </AssociationConnector>
+        <AssociationConnector Association="Sandler.Models.FK_TBL_GA_Tracker_TBL_GA_SalesCycleTime" >
+          <ConnectorPoint PointX="22.25" PointY="28.490143229166669" />
+          <ConnectorPoint PointX="22.955724791666665" PointY="28.490143229166669" />
+          <ConnectorPoint PointX="23.122391458333329" PointY="28.490143229166669" />
+          <ConnectorPoint PointX="23.158851041666669" PointY="28.490143229166669" />
+          <ConnectorPoint PointX="23.325517708333333" PointY="28.490143229166669" />
+          <ConnectorPoint PointX="23.361977291666665" PointY="28.490143229166669" />
+          <ConnectorPoint PointX="23.630207083333328" PointY="28.490143229166669" />
+          <ConnectorPoint PointX="23.869792916666668" PointY="28.490143229166669" />
+          <ConnectorPoint PointX="24.036459583333333" PointY="28.490143229166669" />
+          <ConnectorPoint PointX="24.1562525" PointY="28.490143229166669" />
+          <ConnectorPoint PointX="24.1562525" PointY="19.14353515625001" />
+        </AssociationConnector>
+        <AssociationConnector Association="Sandler.Models.FK_TBL_GA_Tracker_TBL_GA_SalesCycleTime1" >
+          <ConnectorPoint PointX="22.25" PointY="27.963819114583341" />
+          <ConnectorPoint PointX="22.955724791666665" PointY="27.963819114583341" />
+          <ConnectorPoint PointX="23.122391458333329" PointY="27.963819114583341" />
+          <ConnectorPoint PointX="23.14062125" PointY="27.963819114583341" />
+          <ConnectorPoint PointX="23.14062125" PointY="19.14353515625001" />
+        </AssociationConnector>
+        <AssociationConnector Association="Sandler.Models.FK_TBL_GA_Tracker_TBL_GA_SalesEfficiency" >
+          <ConnectorPoint PointX="22.25" PointY="31.240143229166669" />
+          <ConnectorPoint PointX="22.955724791666665" PointY="31.240143229166669" />
+          <ConnectorPoint PointX="23.122391458333329" PointY="31.240143229166669" />
+          <ConnectorPoint PointX="23.158851041666669" PointY="31.240143229166669" />
+          <ConnectorPoint PointX="23.325517708333333" PointY="31.240143229166669" />
+          <ConnectorPoint PointX="23.361977291666665" PointY="31.240143229166669" />
+          <ConnectorPoint PointX="23.52864395833333" PointY="31.240143229166669" />
+          <ConnectorPoint PointX="23.54687375" PointY="31.240143229166669" />
+          <ConnectorPoint PointX="23.54687375" PointY="19.14353515625001" />
+        </AssociationConnector>
+        <AssociationConnector Association="Sandler.Models.FK_TBL_GA_Tracker_TBL_GA_SalesEfficiency1" >
+          <ConnectorPoint PointX="22.25" PointY="30.713819114583341" />
+          <ConnectorPoint PointX="22.955724791666665" PointY="30.713819114583341" />
+          <ConnectorPoint PointX="23.122391458333329" PointY="30.713819114583341" />
+          <ConnectorPoint PointX="23.158851041666669" PointY="30.713819114583341" />
+          <ConnectorPoint PointX="23.325517708333333" PointY="30.713819114583341" />
+          <ConnectorPoint PointX="23.361977291666665" PointY="30.713819114583341" />
+          <ConnectorPoint PointX="23.630207083333328" PointY="30.713819114583341" />
+          <ConnectorPoint PointX="23.95312625" PointY="30.713819114583341" />
+          <ConnectorPoint PointX="23.95312625" PointY="19.14353515625001" />
+        </AssociationConnector>
+        <AssociationConnector Association="Sandler.Models.FK_TBL_GA_Tracker_TBL_GA_SalesQualification" >
+          <ConnectorPoint PointX="22.25" PointY="33.990143229166669" />
+          <ConnectorPoint PointX="23.158851041666669" PointY="33.990143229166669" />
+          <ConnectorPoint PointX="23.325517708333333" PointY="33.990143229166669" />
+          <ConnectorPoint PointX="23.361977291666665" PointY="33.990143229166669" />
+          <ConnectorPoint PointX="23.52864395833333" PointY="33.990143229166669" />
+          <ConnectorPoint PointX="24.35937875" PointY="33.990143229166669" />
+          <ConnectorPoint PointX="24.35937875" PointY="19.14353515625001" />
+        </AssociationConnector>
+        <AssociationConnector Association="Sandler.Models.FK_TBL_GA_Tracker_TBL_GA_SalesQualification1" >
+          <ConnectorPoint PointX="22.25" PointY="33.463819114583345" />
+          <ConnectorPoint PointX="23.039058124999997" PointY="33.463819114583345" />
+          <ConnectorPoint PointX="23.039058124999997" PointY="19.14353515625001" />
+        </AssociationConnector>
+        <AssociationConnector Association="Sandler.Models.FK_TBL_GA_Tracker_TBL_GA_TrainingCostSavings" >
+          <ConnectorPoint PointX="22.25" PointY="36.615143229166669" />
+          <ConnectorPoint PointX="23.242184375" PointY="36.615143229166669" />
+          <ConnectorPoint PointX="23.242184375" PointY="19.14353515625001" />
+        </AssociationConnector>
+        <AssociationConnector Association="Sandler.Models.FK_TBL_GA_Tracker_TBL_GA_TrainingCostSavings1" >
+          <ConnectorPoint PointX="22.25" PointY="36.088819114583345" />
+          <ConnectorPoint PointX="23.158851041666669" PointY="36.088819114583345" />
+          <ConnectorPoint PointX="23.325517708333333" PointY="36.088819114583345" />
+          <ConnectorPoint PointX="23.445310624999998" PointY="36.088819114583345" />
+          <ConnectorPoint PointX="23.445310624999998" PointY="19.14353515625001" />
         </AssociationConnector>
         </Diagram>
     </Diagrams>
