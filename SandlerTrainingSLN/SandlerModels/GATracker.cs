@@ -63,6 +63,9 @@ namespace SandlerModels
         public Nullable<int> AsIsSalesEfficiencyPercentVal { get; set; }
         public Nullable<int> AsIsSalesQualificationPercentVal { get; set; }
         public Nullable<int> AsIsTrngCostSavingsPercentVal { get; set; }
+        public Nullable<decimal> Year1 { get; set; }
+        public Nullable<decimal> Year2 { get; set; }
+        public Nullable<decimal> Year3 { get; set; }
     }
     
 }

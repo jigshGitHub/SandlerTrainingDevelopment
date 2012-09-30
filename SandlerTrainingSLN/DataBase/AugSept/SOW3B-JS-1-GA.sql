@@ -266,6 +266,9 @@ CREATE TABLE [dbo].[TBL_GA_Tracker](
 	[DesiredAnnualImptTrgCstSvgs] [varchar](50) NULL,
 	[DesiredAnnualImptQuotaAcht] [varchar](50) NULL,
 	[DesiredAnnualImptEstBenefitsGained] [varchar](50) NULL,
+	[Year1] [numeric](18, 0) NULL,
+	[Year2] [numeric](18, 0) NULL,
+	[Year3] [numeric](18, 0) NULL, 
 	[UpdatedDate] [datetime] NULL,
 	[UpdatedBy] [uniqueidentifier] NULL,
 	[CreatedDate] [datetime] NULL,
@@ -396,7 +399,7 @@ asIsSE.SalesEfficiency AS AsIsSalesEfficiency, asIsSE.PercentOfIndustryAve As As
 toBeSE.SalesEfficiency AS ToBeSalesEfficiency, toBeSE.PercentOfIndustryAve As ToBeSalesEfficiencyPercentVal,
 asIsSQ.SalesQualification AS AsIsSalesQualification, asIsSQ.PercentOfIndustryAve As AsIsSalesQualificationPercentVal, 
 toBeSQ.SalesQualification AS ToBeSalesQualification, toBeSQ.PercentOfIndustryAve As ToBeSalesQualificationPercentVal,
-toBeTCS.TrngCostSavings AS AsIsTrngCostSavings, toBeTCS.PercentOfIndustryAve As AsIsTrngCostSavingsPercentVal, 
+asIsTCS.TrngCostSavings AS AsIsTrngCostSavings, asIsTCS.PercentOfIndustryAve As AsIsTrngCostSavingsPercentVal, 
 toBeTCS.TrngCostSavings AS ToBeTrngCostSavings, toBeTCS.PercentOfIndustryAve As ToBeTrngCostSavingsPercentVal,
 T.* From TBL_GA_Tracker T WITH (NOLOCK)
 INNER JOIN TBL_GA_EstBenefitsGained asIsESTBG WITH(NOLOCK) ON asisestbg.Id = T.AsIsEstBenGainedId
@@ -424,3 +427,26 @@ AS
 Select * From dbo.[vw_GATracker] Where ID = @gaId;
 GO
 
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[TBL_Trng_Expenditure]') AND type in (N'U'))
+DROP TABLE [dbo].[TBL_Trng_Expenditure]
+GO
+
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[TBL_Trng_Expenditure]') AND type in (N'U'))
+BEGIN
+CREATE TABLE [dbo].[TBL_Trng_Expenditure](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[Range] [varchar](100) NULL,
+	[Factor] [varchar](10) NULL
+) ON [PRIMARY]
+END
+GO
+INSERT [dbo].[TBL_Trng_Expenditure] ( [Range], [Factor]) VALUES ( N'0-25000', N'0.25')
+INSERT [dbo].[TBL_Trng_Expenditure] ( [Range], [Factor]) VALUES ( N'25000-50000', N'0.5')
+INSERT [dbo].[TBL_Trng_Expenditure] ( [Range], [Factor]) VALUES ( N'51000-75000', N'0.75')
+INSERT [dbo].[TBL_Trng_Expenditure] ( [Range], [Factor]) VALUES ( N'76000-100000', N'1')
+INSERT [dbo].[TBL_Trng_Expenditure] ( [Range], [Factor]) VALUES ( N'101000-125000', N'1.25')
+INSERT [dbo].[TBL_Trng_Expenditure] ( [Range], [Factor]) VALUES ( N'126000-150000', N'1.5')
+INSERT [dbo].[TBL_Trng_Expenditure] ( [Range], [Factor]) VALUES ( N'151000-175000', N'1.75')
+INSERT [dbo].[TBL_Trng_Expenditure] ( [Range], [Factor]) VALUES ( N'176000-200000', N'2.0')
+INSERT [dbo].[TBL_Trng_Expenditure] ( [Range], [Factor]) VALUES ( N'201000', N'2.25')
+GO

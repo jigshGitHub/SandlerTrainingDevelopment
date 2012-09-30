@@ -194,6 +194,9 @@
     <Compile Include="TBL_REGION.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="TBL_Trng_Expenditure.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="UserModel.cs" />
   </ItemGroup>
   <ItemGroup>

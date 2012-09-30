@@ -480,6 +480,64 @@ namespace Sandler.UI.ChartStructure
                 SandlerModels.DataIntegration.DataQueries queries = new SandlerModels.DataIntegration.DataQueries();
                 switch (this.Id)
                 {
+                    case ChartID.ReturnOnTrainingInvestment:
+                        int ROIAdjustmentFactor = int.Parse(ConfigurationManager.AppSettings["ROIAdjustmentFactor"]);
+
+                        GapAnalysisRepository reposiroty = new GapAnalysisRepository();
+                        GATracker gaTracker = reposiroty.GetGATrackerById(GAId);
+
+                        double year1ExpVal, year2ExpVal, year3ExpVal, year2AF, year3AF;
+
+                        year1ExpVal = Convert.ToDouble(gaTracker.Year1.Value);
+                        year2ExpVal = Convert.ToDouble(gaTracker.Year2.Value);
+                        year3ExpVal = Convert.ToDouble(gaTracker.Year3.Value);
+
+                        year2AF = GetFactorValue(year2ExpVal);
+                        year3AF = GetFactorValue(year3ExpVal);
+
+                        double scVal, seVal, sqVal, tcsVal, qaVal, ebgVal;
+                        double year1Savings, year1ROIBalance, year2Savings, year2ROIBalance, year3Savings, year3ROIBalance;
+                        string year1ROIPercent, year2ROIPercent, year3ROIPercent;
+
+                        //Year1 Calculations
+                        scVal = (year1ExpVal * (gaTracker.ToBeSalesCycleTimePercentVal.Value - gaTracker.AsIsSalesCycleTimePercentVal.Value) * ROIAdjustmentFactor) / 10000;
+                        seVal = (year1ExpVal * (gaTracker.ToBeSalesEfficiencyPercentVal.Value - gaTracker.AsIsSalesEfficiencyPercentVal.Value) * ROIAdjustmentFactor) / 10000;
+                        sqVal = (year1ExpVal * (gaTracker.ToBeSalesQualificationPercentVal.Value - gaTracker.AsIsSalesQualificationPercentVal.Value) * ROIAdjustmentFactor) / 10000;
+                        tcsVal = (year1ExpVal * (gaTracker.ToBeTrngCostSavingsPercentVal.Value - gaTracker.AsIsTrngCostSavingsPercentVal.Value) * ROIAdjustmentFactor) / 10000;
+                        qaVal = (year1ExpVal * (gaTracker.ToBeQuotaAchievementPercentVal.Value - gaTracker.AsIsQuotaAchievementPercentVal.Value) * ROIAdjustmentFactor) / 10000;
+                        ebgVal = (year1ExpVal * (gaTracker.ToBeEstBenefitsGainedPercentVal.Value - gaTracker.AsIsEstBenefitsGainedPercentVal.Value) * ROIAdjustmentFactor) / 10000;
+                        year1Savings = scVal + seVal + sqVal + tcsVal + qaVal + ebgVal;
+                        year1ROIBalance = year1Savings - year1ExpVal;
+                        year1ROIPercent = ((year1Savings / year1ExpVal * 100)).ToString();
+
+                        //Year2 Calculations
+                        scVal = (year2ExpVal * scVal * (1 + (Convert.ToDouble(gaTracker.DesiredAnnualImptSalesCycleTime) / 100)) / year1ExpVal) * year2AF;
+                        seVal = (year2ExpVal * seVal * (1 + (Convert.ToDouble(gaTracker.DesiredAnnualImptSalesEfficiency) / 100)) / year1ExpVal) * year2AF;
+                        sqVal = (year2ExpVal * sqVal * (1 + (Convert.ToDouble(gaTracker.DesiredAnnualImptSalesQualfn) / 100)) / year1ExpVal) * year2AF;
+                        tcsVal = (year2ExpVal * tcsVal * (1 + (Convert.ToDouble(gaTracker.DesiredAnnualImptTrgCstSvgs) / 100)) / year1ExpVal) * year2AF;
+                        qaVal = (year2ExpVal * qaVal * (1 + (Convert.ToDouble(gaTracker.DesiredAnnualImptQuotaAcht) / 100)) / year1ExpVal) * year2AF;
+                        ebgVal = (year2ExpVal * ebgVal * (1 + (Convert.ToDouble(gaTracker.DesiredAnnualImptEstBenefitsGained) / 100)) / year1ExpVal) * year2AF;
+                        year2Savings = scVal + seVal + sqVal + tcsVal + qaVal + ebgVal;
+                        year2ROIBalance = year2Savings - year2ExpVal;
+                        year2ROIPercent = ((year2Savings / year2ExpVal * 100)).ToString();
+
+                        //Year3 Calculations
+                        scVal = (year3ExpVal * scVal * (1 + (Convert.ToDouble(gaTracker.DesiredAnnualImptSalesCycleTime) / 100)) / year2ExpVal) * year3AF;
+                        seVal = (year3ExpVal * seVal * (1 + (Convert.ToDouble(gaTracker.DesiredAnnualImptSalesEfficiency) / 100)) / year2ExpVal) * year3AF;
+                        sqVal = (year3ExpVal * sqVal * (1 + (Convert.ToDouble(gaTracker.DesiredAnnualImptSalesQualfn) / 100)) / year2ExpVal) * year3AF;
+                        tcsVal = (year3ExpVal * tcsVal * (1 + (Convert.ToDouble(gaTracker.DesiredAnnualImptTrgCstSvgs) / 100)) / year2ExpVal) * year3AF;
+                        qaVal = (year3ExpVal * qaVal * (1 + (Convert.ToDouble(gaTracker.DesiredAnnualImptQuotaAcht) / 100)) / year2ExpVal) * year3AF;
+                        ebgVal = (year3ExpVal * ebgVal * (1 + (Convert.ToDouble(gaTracker.DesiredAnnualImptEstBenefitsGained) / 100)) / year2ExpVal) * year3AF;
+                        year3Savings = scVal + seVal + sqVal + tcsVal + qaVal + ebgVal;
+                        year3ROIBalance = year3Savings - year3ExpVal;
+                        year3ROIPercent = ((year3Savings / year3ExpVal * 100)).ToString();
+
+                        this.SetsCollection.Add(new SetValue { Color = "#008000", Label = "Year1", Value = year1ROIPercent });
+                        this.SetsCollection.Add(new SetValue { Color = "#008000", Label = "Year2", Value = year2ROIPercent });
+                        this.SetsCollection.Add(new SetValue { Color = "#008000", Label = "Year3", Value = year3ROIPercent });
+
+
+                        break;
                     case ChartID.AverageLengthTimeActiveClientsByIndustry:
                         try
                         {
@@ -523,6 +581,42 @@ namespace Sandler.UI.ChartStructure
             {
                 throw ex;
             }
+        }
+
+        public double GetFactorValue(double valueToCompare)
+        {
+            string[] valComparaor = null;
+            double lowerBoundVal, upperBoundVal, factor;
+            factor = 0;
+            TrngExpenditureRepository trgExpRepository = new TrngExpenditureRepository();
+            IEnumerable<TBL_Trng_Expenditure> expFactors = trgExpRepository.GetAll();
+
+
+            foreach (TBL_Trng_Expenditure expFactor in expFactors)
+            {
+                valComparaor = expFactor.Range.Split(new char[] { '-' });
+
+                if (valComparaor.Length > 1)
+                {
+                    lowerBoundVal = Convert.ToDouble(valComparaor.GetValue(0));
+                    upperBoundVal = Convert.ToDouble(valComparaor.GetValue(1));
+                    if (valueToCompare >= lowerBoundVal && valueToCompare <= upperBoundVal)
+                    {
+                        factor = Convert.ToDouble(expFactor.Factor);
+                        break;
+                    }
+                }
+                else
+                {
+                    lowerBoundVal = Convert.ToDouble(valComparaor.GetValue(0));
+                    if (valueToCompare >= lowerBoundVal)
+                    {
+                        factor = Convert.ToDouble(expFactor.Factor);
+                        break;
+                    }
+                }
+            }
+            return factor;
         }
 
         public new string CreateDataSets()

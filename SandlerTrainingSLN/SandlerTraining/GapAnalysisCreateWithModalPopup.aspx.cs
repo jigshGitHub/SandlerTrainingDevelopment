@@ -10,7 +10,7 @@ using Sandler.UI.ChartStructure;
 using InfoSoftGlobal;
 using SandlerRepositories;
 using SandlerModels.DataIntegration;
-public partial class GapAnalysisCreate : BasePage
+public partial class GapAnalysisCreateModalPopup : BasePage
 {
     private IGapAnalysis gaData;
     private bool ReadOnlyAccess;
@@ -27,31 +27,7 @@ public partial class GapAnalysisCreate : BasePage
         }
     }
 
-    public int CompanyId
-    {
-        get
-        {
-            return int.Parse(Session["CompanyId"].ToString());
-        }
-        set
-        {
-            Session["CompanyId"] = value;
-        }
-    }
-
-    public int ContactId
-    {
-        get
-        {
-            return int.Parse(Session["ContactId"].ToString());
-        }
-        set
-        {
-            Session["ContactId"] = value;
-        }
-    }    
-
-    public GapAnalysisCreate()
+    public GapAnalysisCreateModalPopup()
     {
         gaData = new GapAnalysisRepository();
     }
@@ -62,19 +38,9 @@ public partial class GapAnalysisCreate : BasePage
         ReadOnlyAccess = IsUserReadOnly(SandlerModels.SandlerUserActions.Add, SandlerModels.SandlerEntities.Opportunity);
         if (!Page.IsPostBack)
         {
-            BindDefaultControls();
             SetVisibility();
-
-            if (!string.IsNullOrEmpty(Request.QueryString["companyId"]))
-            {
-                CompanyId = int.Parse(Request.QueryString["companyId"]);
-                ContactId = int.Parse(Request.QueryString["contactId"]);
-                BindContacts(CompanyId);
-
-                drpLstCompanies.SelectedValue = CompanyId.ToString();
-                drpLstContacts.SelectedValue = ContactId.ToString();
-                drpLstContacts_SelectedIndexChanged(sender, e);
-            }
+            PopulateData();
+            //PopulateSalesRepresentativeData();
         }
 
     }
@@ -105,7 +71,6 @@ public partial class GapAnalysisCreate : BasePage
     protected void drpLstCompanies_SelectedIndexChanged(object sender, EventArgs e)
     {
         drpLstContacts.Items.Clear();
-        PopulateValues(null, true);
         if (drpLstCompanies.SelectedIndex > 0)
         {
             //Bind drpLstContacts            
@@ -134,45 +99,21 @@ public partial class GapAnalysisCreate : BasePage
                 lblResult.Text = "There is no report has been generated for the selected company and contact.";
         }
     }
-    
+
+    protected void btnViewGapAnalysisReport_Click(object sender, EventArgs e)
+    {
+        int companyId = int.Parse(drpLstCompanies.SelectedValue);
+        int contactId = int.Parse(drpLstContacts.SelectedValue);
+
+        SaveGARecord(companyId, contactId);
+        RenderChart(companyId, contactId);
+        editRoi.HRef = "Roi.aspx?companyId=" + companyId.ToString() + "&contactId=" + contactId;
+        PopulateAsIsToBEFields();
+    }
+
     protected void btnSaveGapAnalysisReport_Click(object sender, EventArgs e)
     {
         SaveDesiredAnnualImprovements();
-        RenderChart();
-        (plotChart.ContentTemplateContainer.FindControl("lblResult") as Label).Text = "Records saved successfully.";
-    }
-
-    protected void lnlNextStep_Click(object sender, CommandEventArgs e)
-    {
-        string commandArg = e.CommandArgument.ToString();
-        string commandName = e.CommandName;
-
-
-        if (commandArg == "1")
-        {
-            (plotChart.ContentTemplateContainer.FindControl("lblResult") as Label).Text = "";
-            int companyId = int.Parse(drpLstCompanies.SelectedValue);
-            int contactId = int.Parse(drpLstContacts.SelectedValue);
-
-            SaveGARecord(companyId, contactId);
-            RenderChart();
-            (plotChart.CustomNavigationTemplateContainer.FindControl("editRoi") as System.Web.UI.HtmlControls.HtmlAnchor).HRef = "Roi.aspx?companyId=" + companyId.ToString() + "&contactId=" + contactId;
-            PopulateAsIsToBEFields();
-            wzGapAnalysis.ActiveStepIndex = int.Parse(commandArg);
-
-        }
-    }
-
-    protected void lnlPrevStep_Click(object sender, CommandEventArgs e)
-    {
-        string commandArg = e.CommandArgument.ToString();
-        string commandName = e.CommandName;
-
-
-        if (commandArg == "0")
-        {            
-            wzGapAnalysis.ActiveStepIndex = int.Parse(commandArg);
-        }
     }
 
     private void SetVisibility()
@@ -194,15 +135,15 @@ public partial class GapAnalysisCreate : BasePage
             drpListSQToBe.Enabled = false;
             drpListTCSAsIs.Enabled = false;
             drpListTCSToBe.Enabled = false;
-            (plotChart.ContentTemplateContainer.FindControl("drpLstDAIEBG") as DropDownList).Enabled = false;
-            (plotChart.ContentTemplateContainer.FindControl("drpLstDAIQA") as DropDownList).Enabled = false;
-            (plotChart.ContentTemplateContainer.FindControl("drpLstDAIQA") as DropDownList).Enabled = false;
-            (plotChart.ContentTemplateContainer.FindControl("drpLstDAISCT") as DropDownList).Enabled = false;
-            (plotChart.ContentTemplateContainer.FindControl("drpLstDAISE") as DropDownList).Enabled = false;
-            (plotChart.ContentTemplateContainer.FindControl("drpLstDAISQ") as DropDownList).Enabled = false;
-            (plotChart.ContentTemplateContainer.FindControl("drpLstDAITCS") as DropDownList).Enabled = false;
+            drpLstDAIEBG.Enabled = false;
+            drpLstDAIQA.Enabled = false;
+            drpLstDAIQA.Enabled = false;
+            drpLstDAISCT.Enabled = false;
+            drpLstDAISE.Enabled = false;
+            drpLstDAISQ.Enabled = false;
+            drpLstDAITCS.Enabled = false;
             //btnReDo.Visible = false;
-            //(plotChart.ContentTemplateContainer.FindControl("btnSave") as LinkButton).Visible = false;
+            btnSave.Visible = false;
         }
     }
 
@@ -227,7 +168,7 @@ public partial class GapAnalysisCreate : BasePage
         }
     }
 
-    private void BindDefaultControls()
+    private void PopulateData()
     {
         drpLstCompanies.DataSource = UserEntitiesFactory.Get(this.CurrentUser).Companies;
         drpLstCompanies.DataTextField = "CompanyName";
@@ -318,12 +259,12 @@ public partial class GapAnalysisCreate : BasePage
             drpListQAToBe.SelectedValue = (makeItDefault) ? "0" : gaTracker.ToBeQuotaAchtId.Value.ToString();
             drpListEBGToBe.SelectedValue = (makeItDefault) ? "0" : gaTracker.ToBeEstBenGainedId.Value.ToString();
 
-            (plotChart.ContentTemplateContainer.FindControl("drpLstDAIEBG") as DropDownList).SelectedValue = (makeItDefault) ? "0" : gaTracker.DesiredAnnualImptEstBenefitsGained;
-            (plotChart.ContentTemplateContainer.FindControl("drpLstDAIQA") as DropDownList).SelectedValue = (makeItDefault) ? "0" : gaTracker.DesiredAnnualImptQuotaAcht;
-            (plotChart.ContentTemplateContainer.FindControl("drpLstDAISCT") as DropDownList).SelectedValue = (makeItDefault) ? "0" : gaTracker.DesiredAnnualImptSalesCycleTime;
-            (plotChart.ContentTemplateContainer.FindControl("drpLstDAISE") as DropDownList).SelectedValue = (makeItDefault) ? "0" : gaTracker.DesiredAnnualImptSalesEfficiency;
-            (plotChart.ContentTemplateContainer.FindControl("drpLstDAISQ") as DropDownList).SelectedValue = (makeItDefault) ? "0" : gaTracker.DesiredAnnualImptSalesQualfn;
-            (plotChart.ContentTemplateContainer.FindControl("drpLstDAITCS") as DropDownList).SelectedValue = (makeItDefault) ? "0" : gaTracker.DesiredAnnualImptTrgCstSvgs;
+            drpLstDAIEBG.SelectedValue = (makeItDefault) ? "0" : gaTracker.DesiredAnnualImptEstBenefitsGained;
+            drpLstDAIQA.SelectedValue = (makeItDefault) ? "0" : gaTracker.DesiredAnnualImptQuotaAcht;
+            drpLstDAISCT.SelectedValue = (makeItDefault) ? "0" : gaTracker.DesiredAnnualImptSalesCycleTime;
+            drpLstDAISE.SelectedValue = (makeItDefault) ? "0" : gaTracker.DesiredAnnualImptSalesEfficiency;
+            drpLstDAISQ.SelectedValue = (makeItDefault) ? "0" : gaTracker.DesiredAnnualImptSalesQualfn;
+            drpLstDAITCS.SelectedValue = (makeItDefault) ? "0" : gaTracker.DesiredAnnualImptTrgCstSvgs;
         }
         catch (Exception ex)
         {
@@ -360,15 +301,15 @@ public partial class GapAnalysisCreate : BasePage
     {
         GapAnalysisRepository repository = new GapAnalysisRepository();
         repository.UpdateDesiredAnnualmprovements(GAId,
-            (plotChart.ContentTemplateContainer.FindControl("drpLstDAISCT") as DropDownList).SelectedValue,
-            (plotChart.ContentTemplateContainer.FindControl("drpLstDAISE") as DropDownList).SelectedValue,
-            (plotChart.ContentTemplateContainer.FindControl("drpLstDAISQ") as DropDownList).SelectedValue,
-            (plotChart.ContentTemplateContainer.FindControl("drpLstDAITCS") as DropDownList).SelectedValue,
-            (plotChart.ContentTemplateContainer.FindControl("drpLstDAIQA") as DropDownList).SelectedValue,
-            (plotChart.ContentTemplateContainer.FindControl("drpLstDAIEBG") as DropDownList).SelectedValue);
+            drpLstDAISCT.SelectedValue,
+            drpLstDAISE.SelectedValue,
+            drpLstDAISQ.SelectedValue,
+            drpLstDAITCS.SelectedValue,
+            drpLstDAIQA.SelectedValue,
+            drpLstDAIEBG.SelectedValue);
     }
 
-    private void RenderChart()
+    private void RenderChart(int companyId, int contactId)
     {
         Chart gaChart = new Chart();
         gaChart.Id = ChartID.GapAnalysis;
@@ -382,33 +323,33 @@ public partial class GapAnalysisCreate : BasePage
         gaChart.Hight = "450";
         gaChart.LoadChart(this.CurrentUser);
         gaChart.CreateChart();
-        (plotChart.ContentTemplateContainer.FindControl("pnlChart") as Panel).FindControl("chartContainer").Controls.Add(new LiteralControl(FusionCharts.RenderChart(gaChart.SWF, "", gaChart.ChartXML, "gaChartlots", gaChart.Width, gaChart.Hight, false, false)));
-        //pnlChart_ModalPopupExtender.Show();
+        pnlChart.FindControl("chartContainer").Controls.Add(new LiteralControl(FusionCharts.RenderChart(gaChart.SWF, "", gaChart.ChartXML, "gaChartlots", gaChart.Width, gaChart.Hight, false, false)));
+        pnlChart_ModalPopupExtender.Show();
     }
 
     private void PopulateAsIsToBEFields()
     {
         SandlerModels.GATracker gaTracker = new GapAnalysisRepository().GetGATrackerById(GAId);
 
-        (plotChart.ContentTemplateContainer.FindControl("lblAsIsEBG") as Label).Text = gaTracker.AsIsEstBenefitsGained;
-        (plotChart.ContentTemplateContainer.FindControl("lblAsIsQA") as Label).Text = gaTracker.AsIsQuotaAchievement;
-        (plotChart.ContentTemplateContainer.FindControl("lblAsIsSCT") as Label).Text = gaTracker.AsIsSalesCycleTime;
-        (plotChart.ContentTemplateContainer.FindControl("lblAsIsSE") as Label).Text = gaTracker.AsIsSalesEfficiency;
-        (plotChart.ContentTemplateContainer.FindControl("lblAsIsSQ") as Label).Text = gaTracker.AsIsSalesQualification;
-        (plotChart.ContentTemplateContainer.FindControl("lblAsIsTCS") as Label).Text = gaTracker.AsIsTrngCostSavings;
-        (plotChart.ContentTemplateContainer.FindControl("lblToBeEBG") as Label).Text = gaTracker.ToBeEstBenefitsGained;
-        (plotChart.ContentTemplateContainer.FindControl("lblToBeQA") as Label).Text = gaTracker.ToBeQuotaAchievement;
-        (plotChart.ContentTemplateContainer.FindControl("lblToBeSCT") as Label).Text = gaTracker.ToBeSalesCycleTime;
-        (plotChart.ContentTemplateContainer.FindControl("lblToBeSE") as Label).Text = gaTracker.ToBeSalesEfficiency;
-        (plotChart.ContentTemplateContainer.FindControl("lblToBeSQ") as Label).Text = gaTracker.ToBeSalesQualification;
-        (plotChart.ContentTemplateContainer.FindControl("lblToBeTCS") as Label).Text = gaTracker.ToBeTrngCostSavings;
+        lblAsIsEBG.Text = gaTracker.AsIsEstBenefitsGained;
+        lblAsIsQA.Text = gaTracker.AsIsQuotaAchievement;
+        lblAsIsSCT.Text = gaTracker.AsIsSalesCycleTime;
+        lblAsIsSE.Text = gaTracker.AsIsSalesEfficiency;
+        lblAsIsSQ.Text = gaTracker.AsIsSalesQualification;
+        lblAsIsTCS.Text = gaTracker.AsIsTrngCostSavings;
+        lblToBeEBG.Text = gaTracker.ToBeEstBenefitsGained;
+        lblToBeQA.Text = gaTracker.ToBeQuotaAchievement;
+        lblToBeSCT.Text = gaTracker.ToBeSalesCycleTime;
+        lblToBeSE.Text = gaTracker.ToBeSalesEfficiency;
+        lblToBeSQ.Text = gaTracker.ToBeSalesQualification;
+        lblToBeTCS.Text = gaTracker.ToBeTrngCostSavings;
 
-        (plotChart.ContentTemplateContainer.FindControl("drpLstDAIEBG") as DropDownList).SelectedValue = gaTracker.DesiredAnnualImptEstBenefitsGained;
-        (plotChart.ContentTemplateContainer.FindControl("drpLstDAIQA") as DropDownList).SelectedValue = gaTracker.DesiredAnnualImptQuotaAcht;
-        (plotChart.ContentTemplateContainer.FindControl("drpLstDAISCT") as DropDownList).SelectedValue = gaTracker.DesiredAnnualImptSalesCycleTime;
-        (plotChart.ContentTemplateContainer.FindControl("drpLstDAISE") as DropDownList).SelectedValue = gaTracker.DesiredAnnualImptSalesEfficiency;
-        (plotChart.ContentTemplateContainer.FindControl("drpLstDAISQ") as DropDownList).SelectedValue = gaTracker.DesiredAnnualImptSalesQualfn;
-        (plotChart.ContentTemplateContainer.FindControl("drpLstDAITCS") as DropDownList).SelectedValue = gaTracker.DesiredAnnualImptTrgCstSvgs;
+        drpLstDAIEBG.SelectedValue = gaTracker.DesiredAnnualImptEstBenefitsGained;
+        drpLstDAIQA.SelectedValue = gaTracker.DesiredAnnualImptQuotaAcht;
+        drpLstDAISCT.SelectedValue = gaTracker.DesiredAnnualImptSalesCycleTime;
+        drpLstDAISE.SelectedValue = gaTracker.DesiredAnnualImptSalesEfficiency;
+        drpLstDAISQ.SelectedValue = gaTracker.DesiredAnnualImptSalesQualfn;
+        drpLstDAITCS.SelectedValue = gaTracker.DesiredAnnualImptTrgCstSvgs;
     }
 
 

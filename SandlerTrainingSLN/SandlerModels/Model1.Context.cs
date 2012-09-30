@@ -57,6 +57,7 @@ namespace SandlerModels
         public DbSet<TBL_GA_SalesQualification> TBL_GA_SalesQualification { get; set; }
         public DbSet<TBL_GA_Tracker> TBL_GA_Tracker { get; set; }
         public DbSet<TBL_GA_TrainingCostSavings> TBL_GA_TrainingCostSavings { get; set; }
+        public DbSet<TBL_Trng_Expenditure> TBL_Trng_Expenditure { get; set; }
     
         internal ObjectResult<Contact> GetContactsByUser(Nullable<System.Guid> userId)
         {

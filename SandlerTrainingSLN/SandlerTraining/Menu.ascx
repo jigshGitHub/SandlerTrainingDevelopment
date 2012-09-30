@@ -38,7 +38,7 @@
                     </li>
                     <li><a id="anchorGapAnalysis" runat="server" href="~/GapAnalysisCreate.aspx">
                         Gap Analysis</a> </li>
-                    <li><a href="#" class="disableLink">ROI&nbsp;&nbsp;</a></li>
+                    <li><a id="anchorROI" runat="server" href="~/ROI.aspx">ROI&nbsp;&nbsp;</a></li>
                     <li><a href="http://assessment.aberdeen.com/gqtJlzBd2X/SAN127/sponsor.aspx" target="_blank">
                         Sandler Training Assessment Tool</a></li>
                     <!--<li><a href="~/Account/Logout.aspx" id="anchorLogout" runat="server">LOGOUT</a>

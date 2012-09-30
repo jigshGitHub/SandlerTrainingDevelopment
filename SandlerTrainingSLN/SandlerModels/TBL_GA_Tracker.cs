@@ -39,6 +39,9 @@ namespace SandlerModels
         public Nullable<System.Guid> UpdatedBy { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }
         public Nullable<System.Guid> CreatedBy { get; set; }
+        public Nullable<decimal> Year1 { get; set; }
+        public Nullable<decimal> Year2 { get; set; }
+        public Nullable<decimal> Year3 { get; set; }
     
         internal TBL_COMPANIES TBL_COMPANIES { get; set; }
         internal TBL_CONTACTS TBL_CONTACTS { get; set; }

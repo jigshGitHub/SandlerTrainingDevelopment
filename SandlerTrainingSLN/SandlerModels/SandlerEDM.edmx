@@ -37,6 +37,13 @@
           <EntitySet Name="TBL_OpportunityWhyLost" EntityType="Sandler.Models.Store.TBL_OpportunityWhyLost" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Tbl_ProductType" EntityType="Sandler.Models.Store.Tbl_ProductType" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="TBL_REGION" EntityType="Sandler.Models.Store.TBL_REGION" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="TBL_Trng_Expenditure" EntityType="Sandler.Models.Store.TBL_Trng_Expenditure" store:Type="Tables" store:Schema="dbo" store:Name="TBL_Trng_Expenditure">
+            <DefiningQuery>SELECT 
+      [TBL_Trng_Expenditure].[Id] AS [Id], 
+      [TBL_Trng_Expenditure].[Range] AS [Range], 
+      [TBL_Trng_Expenditure].[Factor] AS [Factor]
+      FROM [dbo].[TBL_Trng_Expenditure] AS [TBL_Trng_Expenditure]</DefiningQuery>
+          </EntitySet>
           <EntitySet Name="Tbl_YesNoOptions" EntityType="Sandler.Models.Store.Tbl_YesNoOptions" store:Type="Tables" Schema="dbo" />
           <AssociationSet Name="FK__aspnet_Me__UserI__15660868" Association="Sandler.Models.Store.FK__aspnet_Me__UserI__15660868">
             <End Role="aspnet_Users" EntitySet="aspnet_Users" />
@@ -584,6 +591,9 @@
           <Property Name="UpdatedBy" Type="uniqueidentifier" />
           <Property Name="CreatedDate" Type="datetime" />
           <Property Name="CreatedBy" Type="uniqueidentifier" />
+          <Property Name="Year1" Type="numeric" />
+          <Property Name="Year2" Type="numeric" />
+          <Property Name="Year3" Type="numeric" />
         </EntityType>
         <EntityType Name="TBL_GA_TrainingCostSavings">
           <Key>
@@ -712,6 +722,17 @@
           <Property Name="LastUpdatedBy" Type="uniqueidentifier" />
           <Property Name="LastCreatedDate" Type="datetime" />
           <Property Name="LastCreatedBy" Type="uniqueidentifier" />
+        </EntityType>
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'SandlerDB.dbo.TBL_Trng_Expenditure' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+        <EntityType Name="TBL_Trng_Expenditure">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Range" Type="varchar" MaxLength="100" />
+          <Property Name="Factor" Type="varchar" MaxLength="10" />
         </EntityType>
         <EntityType Name="Tbl_YesNoOptions">
           <Key>
@@ -1435,8 +1456,9 @@
             <End Role="TBL_GA_Tracker" EntitySet="TBL_GA_Tracker" />
           </AssociationSet>
           <FunctionImport Name="GetGATrackerById" ReturnType="Collection(Sandler.Models.GATracker)">
-            <Parameter Name="gaId" Mode="In" Type="Int32" />
+          <Parameter Name="gaId" Mode="In" Type="Int32" />
           </FunctionImport>
+          <EntitySet Name="TBL_Trng_Expenditure" EntityType="Sandler.Models.TBL_Trng_Expenditure" />
           </EntityContainer>
         <EntityType Name="aspnet_Membership">
           <Key>
@@ -2490,6 +2512,9 @@
           <NavigationProperty Name="TBL_GA_SalesQualification1" Relationship="Sandler.Models.FK_TBL_GA_Tracker_TBL_GA_SalesQualification1" FromRole="TBL_GA_Tracker" ToRole="TBL_GA_SalesQualification" />
           <NavigationProperty Name="TBL_GA_TrainingCostSavings" Relationship="Sandler.Models.FK_TBL_GA_Tracker_TBL_GA_TrainingCostSavings" FromRole="TBL_GA_Tracker" ToRole="TBL_GA_TrainingCostSavings" />
           <NavigationProperty Name="TBL_GA_TrainingCostSavings1" Relationship="Sandler.Models.FK_TBL_GA_Tracker_TBL_GA_TrainingCostSavings1" FromRole="TBL_GA_Tracker" ToRole="TBL_GA_TrainingCostSavings" />
+          <Property Type="Decimal" Name="Year1" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="Year2" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="Year3" Precision="18" Scale="0" />
         </EntityType>
         <EntityType Name="TBL_GA_TrainingCostSavings">
           <Key>
@@ -2719,7 +2744,18 @@
           <Property Type="Int32" Name="AsIsSalesEfficiencyPercentVal" Nullable="true" />
           <Property Type="Int32" Name="AsIsSalesQualificationPercentVal" Nullable="true" />
           <Property Type="Int32" Name="AsIsTrngCostSavingsPercentVal" Nullable="true" />
+          <Property Type="Decimal" Name="Year1" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="Year2" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="Year3" Nullable="true" Precision="18" Scale="0" />
         </ComplexType>
+        <EntityType Name="TBL_Trng_Expenditure">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Range" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Factor" MaxLength="10" FixedLength="false" Unicode="false" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -3389,6 +3425,9 @@
           <EntitySetMapping Name="TBL_GA_Tracker">
             <EntityTypeMapping TypeName="Sandler.Models.TBL_GA_Tracker">
               <MappingFragment StoreEntitySet="TBL_GA_Tracker">
+                <ScalarProperty Name="Year3" ColumnName="Year3" />
+                <ScalarProperty Name="Year2" ColumnName="Year2" />
+                <ScalarProperty Name="Year1" ColumnName="Year1" />
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
                 <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
                 <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
@@ -3478,9 +3517,21 @@
                 <ScalarProperty Name="AsIsSalesEfficiencyPercentVal" ColumnName="AsIsSalesEfficiencyPercentVal" />
                 <ScalarProperty Name="AsIsSalesQualificationPercentVal" ColumnName="AsIsSalesQualificationPercentVal" />
                 <ScalarProperty Name="AsIsTrngCostSavingsPercentVal" ColumnName="AsIsTrngCostSavingsPercentVal" />
+                <ScalarProperty Name="Year1" ColumnName="Year1" />
+                <ScalarProperty Name="Year2" ColumnName="Year2" />
+                <ScalarProperty Name="Year3" ColumnName="Year3" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="TBL_Trng_Expenditure">
+            <EntityTypeMapping TypeName="Sandler.Models.TBL_Trng_Expenditure">
+              <MappingFragment StoreEntitySet="TBL_Trng_Expenditure">
+                <ScalarProperty Name="Factor" ColumnName="Factor" />
+                <ScalarProperty Name="Range" ColumnName="Range" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -3851,6 +3902,7 @@
           <ConnectorPoint PointX="23.445310624999998" PointY="36.088819114583345" />
           <ConnectorPoint PointX="23.445310624999998" PointY="19.14353515625001" />
         </AssociationConnector>
+        <EntityTypeShape EntityType="Sandler.Models.TBL_Trng_Expenditure" Width="1.5" PointX="0.75" PointY="4.75" Height="1.5956835937500102" />
         </Diagram>
     </Diagrams>
   </Designer>

@@ -248,7 +248,7 @@ namespace SandlerRepositories
 
         public IEnumerable<Opportunity> GetOpportunitiesByUser(Guid userID)
         {
-            return (this.DatabaseFactory.Get() as SandlerDBEntities).GetOpportunitiesByUser(userID); 
+            return (this.DatabaseFactory.Get() as SandlerDBEntities).GetOpportunitiesByUser(userID);
         }
     }
 
@@ -406,6 +406,18 @@ namespace SandlerRepositories
         public GATracker GetGATrackerById(int id)
         {
             return (this.DatabaseFactory.Get() as SandlerDBEntities).GetGATrackerById(id).SingleOrDefault();
+        }
+    }
+
+    public partial class TrngExpenditureRepository : RepositoryBase<TBL_Trng_Expenditure>
+    {
+        public TrngExpenditureRepository(IDatabaseFactory dbFactory)
+            : base(dbFactory)
+        {
+        }
+        public TrngExpenditureRepository()
+            : base(new DBFactory())
+        {
         }
     }
 }

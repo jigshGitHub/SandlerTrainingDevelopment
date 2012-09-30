@@ -30,12 +30,12 @@ namespace SandlerRepositories
             string commandText;
             try
             {
-                commandText = "SELECT SalesCycleTime, [Id] FROM [TBL_GA_SalesCycleTime] ORDER BY SalesCycleTime;" +
-                                "SELECT [SalesEfficiency],[Id] FROM [TBL_GA_SalesEfficiency] ORDER BY SalesEfficiency;" +
-                                "SELECT SalesQualification, Id FROM  [TBL_GA_SalesQualification] ORDER BY SalesQualification;" +
-                                "SELECT [TrngCostSavings],[Id] FROM [TBL_GA_TrainingCostSavings] ORDER BY TrngCostSavings;" +
-                                "SELECT [QuotaAchievement],[Id] FROM [TBL_GA_QuotaAchievement] ORDER BY QuotaAchievement;" +
-                                "SELECT [EstBenefitsGained],[Id] FROM [TBL_GA_EstBenefitsGained] ORDER BY EstBenefitsGained;";
+                commandText = "SELECT SalesCycleTime, [Id] FROM [TBL_GA_SalesCycleTime] ORDER BY Id;" +
+                                "SELECT [SalesEfficiency],[Id] FROM [TBL_GA_SalesEfficiency] ORDER BY Id;" +
+                                "SELECT SalesQualification, Id FROM  [TBL_GA_SalesQualification] ORDER BY Id;" +
+                                "SELECT [TrngCostSavings],[Id] FROM [TBL_GA_TrainingCostSavings] ORDER BY ID;" +
+                                "SELECT [QuotaAchievement],[Id] FROM [TBL_GA_QuotaAchievement] ORDER BY Id;" +
+                                "SELECT [EstBenefitsGained],[Id] FROM [TBL_GA_EstBenefitsGained] ORDER BY Id;";
                 ds = db.ExecuteDataset(commandText);
             }
             catch (Exception ex)
@@ -130,6 +130,28 @@ namespace SandlerRepositories
                 gaRecord.DesiredAnnualImptSalesEfficiency = daiSE;
                 gaRecord.DesiredAnnualImptSalesQualfn = daiSQ;
                 gaRecord.DesiredAnnualImptTrgCstSvgs = daiTCS;
+
+                this.Update(gaRecord);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+
+            }
+        }
+
+        public void UpdateYearExpenditures(int gaId, string year1Value, string year2Value, string year3Value)
+        {
+            TBL_GA_Tracker gaRecord;
+            try
+            {
+                gaRecord = this.GetById(gaId);
+                gaRecord.Year1 = decimal.Parse(year1Value);
+                gaRecord.Year2 = decimal.Parse(year2Value);
+                gaRecord.Year3 = decimal.Parse(year3Value);
 
                 this.Update(gaRecord);
             }
