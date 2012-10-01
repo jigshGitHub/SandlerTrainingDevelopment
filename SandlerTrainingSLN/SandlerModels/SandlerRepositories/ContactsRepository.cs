@@ -71,26 +71,18 @@ namespace SandlerRepositories
             UserModel _user = (UserModel)HttpContext.Current.Session["CurrentUser"];
             SandlerModels.DataIntegration.Contact _contact = (SandlerModels.DataIntegration.Contact)HttpContext.Current.Session["ContactSearchCriteria"];
             //date fields
-            if (_contact.LastContactDate.ToString() == "1/1/0001 12:00:00 AM")
-            {
-                _contact.LastContactDate = default(System.DateTime).AddYears(1754);
-            }
-            if (_contact.NextContactDate.ToString() == "1/1/0001 12:00:00 AM")
-            {
-                _contact.NextContactDate = default(System.DateTime).AddYears(1754);
-            }
-            if (_contact.CourseTrainingDate.ToString() == "1/1/0001 12:00:00 AM")
-            {
-                _contact.CourseTrainingDate = default(System.DateTime).AddYears(1754);
-            }
-            if (_contact.BirthDay.ToString() == "1/1/0001 12:00:00 AM")
-            {
-                _contact.BirthDay = default(System.DateTime).AddYears(1754);
-            }
-            if (_contact.Anniversary.ToString() == "1/1/0001 12:00:00 AM")
-            {
-                _contact.Anniversary = default(System.DateTime).AddYears(1754);
-            }
+
+            _contact.LastContactDate = IsValidDateCheck(_contact.LastContactDate);
+            _contact.NextContactDate = IsValidDateCheck(_contact.NextContactDate);
+            _contact.CourseTrainingDate = IsValidDateCheck(_contact.CourseTrainingDate);
+            _contact.BirthDay = IsValidDateCheck(_contact.BirthDay);
+            _contact.Anniversary = IsValidDateCheck(_contact.Anniversary);
+            _contact.LastContactDate = IsValidDateCheck(_contact.LastContactDate);
+            _contact.LastAttemptedDate = IsValidDateCheck(_contact.LastAttemptedDate);
+            _contact.LastEmailedDate = IsValidDateCheck(_contact.LastEmailedDate);
+            _contact.LetterSentDate = IsValidDateCheck(_contact.LetterSentDate);
+            _contact.LastMeetingDate = IsValidDateCheck(_contact.LastMeetingDate);
+
             //Now perform search based on User role
             if (_user.Role == SandlerRoles.SiteAdmin || _user.Role == SandlerRoles.Corporate)
             {
@@ -98,8 +90,20 @@ namespace SandlerRepositories
                 return db.ExecuteDataset("sp_GetAllContactsSearch", "Contacts",
                     new SqlParameter("@LastName", _contact.LastName),
                     new SqlParameter("@FirstName", _contact.FirstName),
+                    new SqlParameter("@Title", _contact.Title),
+                    new SqlParameter("@ContactsDepartment", _contact.ContactsDepartment),
+                    new SqlParameter("@ContactsRole", _contact.ContactsRole),
                     new SqlParameter("@Phone", _contact.Phone),
+                    new SqlParameter("@MobilePhone", _contact.MobilePhone),
+                    new SqlParameter("@HomePhone", _contact.HomePhone),
+                    new SqlParameter("@Fax", _contact.Fax),
                     new SqlParameter("@Email", _contact.Email),
+                    new SqlParameter("@PersonalEmail", _contact.PersonalEmail),
+                    new SqlParameter("@Address", _contact.Address),
+                    new SqlParameter("@City", _contact.City),
+                    new SqlParameter("@State", _contact.State),
+                    new SqlParameter("@Zip", _contact.Zip),
+                    new SqlParameter("@Country", _contact.Country),
                     new SqlParameter("@IsNewApptIdList", _contact.IsNewApptList),
                     new SqlParameter("@ApptSourceIdList", _contact.ApptSourceList),
                     new SqlParameter("@IsRegForTrainingList", _contact.IsRegisteredForTrainingList),
@@ -111,11 +115,18 @@ namespace SandlerRepositories
                     new SqlParameter("@ActionStep", _contact.ActionStep),
                     new SqlParameter("@LastContactDate", _contact.LastContactDate),
                     new SqlParameter("@NextContactDate", _contact.NextContactDate),
+                    new SqlParameter("@LastAttemptedDate", _contact.LastAttemptedDate),
+                   new SqlParameter("@LastEmailedDate", _contact.LastEmailedDate),
+                   new SqlParameter("@LastMeetingDate", _contact.LastMeetingDate),
+                   new SqlParameter("@LetterSentDate", _contact.LetterSentDate),
                     new SqlParameter("@CourseTrngDate", _contact.CourseTrainingDate),
                     new SqlParameter("@BirthDayDate", _contact.BirthDay),
                     new SqlParameter("@AnniversaryDate", _contact.Anniversary),
                     new SqlParameter("@CompanyYears", _contact.CompanyYears),
-                    new SqlParameter("@BossName", _contact.BossName));
+                    new SqlParameter("@BossName", _contact.BossName),
+                    new SqlParameter("@SpouseName", _contact.SpouseName),
+                   new SqlParameter("@ReferredBy", _contact.ReferredBy),
+                   new SqlParameter("@Notes", _contact.Notes));
             }
             else if (_user.Role == SandlerRoles.Coach)
             {
@@ -124,8 +135,20 @@ namespace SandlerRepositories
                     new SqlParameter("@CoachID", _user.CoachID.ToString()),
                     new SqlParameter("@LastName", _contact.LastName),
                     new SqlParameter("@FirstName", _contact.FirstName),
+                    new SqlParameter("@Title", _contact.Title),
+                    new SqlParameter("@ContactsDepartment", _contact.ContactsDepartment),
+                    new SqlParameter("@ContactsRole", _contact.ContactsRole),
                     new SqlParameter("@Phone", _contact.Phone),
+                    new SqlParameter("@MobilePhone", _contact.MobilePhone),
+                    new SqlParameter("@HomePhone", _contact.HomePhone),
+                    new SqlParameter("@Fax", _contact.Fax),
                     new SqlParameter("@Email", _contact.Email),
+                    new SqlParameter("@PersonalEmail", _contact.PersonalEmail),
+                    new SqlParameter("@Address", _contact.Address),
+                    new SqlParameter("@City", _contact.City),
+                    new SqlParameter("@State", _contact.State),
+                    new SqlParameter("@Zip", _contact.Zip),
+                    new SqlParameter("@Country", _contact.Country),
                     new SqlParameter("@IsNewApptIdList", _contact.IsNewApptList),
                     new SqlParameter("@ApptSourceIdList", _contact.ApptSourceList),
                     new SqlParameter("@IsRegForTrainingList", _contact.IsRegisteredForTrainingList),
@@ -137,11 +160,18 @@ namespace SandlerRepositories
                     new SqlParameter("@ActionStep", _contact.ActionStep),
                     new SqlParameter("@LastContactDate", _contact.LastContactDate),
                     new SqlParameter("@NextContactDate", _contact.NextContactDate),
+                    new SqlParameter("@LastAttemptedDate", _contact.LastAttemptedDate),
+                   new SqlParameter("@LastEmailedDate", _contact.LastEmailedDate),
+                   new SqlParameter("@LastMeetingDate", _contact.LastMeetingDate),
+                   new SqlParameter("@LetterSentDate", _contact.LetterSentDate),
                     new SqlParameter("@CourseTrngDate", _contact.CourseTrainingDate),
                     new SqlParameter("@BirthDayDate", _contact.BirthDay),
                     new SqlParameter("@AnniversaryDate", _contact.Anniversary),
                     new SqlParameter("@CompanyYears", _contact.CompanyYears),
-                    new SqlParameter("@BossName", _contact.BossName));
+                    new SqlParameter("@BossName", _contact.BossName),
+                    new SqlParameter("@SpouseName", _contact.SpouseName),
+                   new SqlParameter("@ReferredBy", _contact.ReferredBy),
+                   new SqlParameter("@Notes", _contact.Notes));
             }
             else if (_user.Role == SandlerRoles.FranchiseeOwner)
             {
@@ -150,8 +180,20 @@ namespace SandlerRepositories
                     new SqlParameter("@FranchiseeID", _user.FranchiseeID.ToString()),
                     new SqlParameter("@LastName", _contact.LastName),
                     new SqlParameter("@FirstName", _contact.FirstName),
+                    new SqlParameter("@Title", _contact.Title),
+                    new SqlParameter("@ContactsDepartment", _contact.ContactsDepartment),
+                    new SqlParameter("@ContactsRole", _contact.ContactsRole),
                     new SqlParameter("@Phone", _contact.Phone),
+                    new SqlParameter("@MobilePhone", _contact.MobilePhone),
+                    new SqlParameter("@HomePhone", _contact.HomePhone),
+                    new SqlParameter("@Fax", _contact.Fax),
                     new SqlParameter("@Email", _contact.Email),
+                    new SqlParameter("@PersonalEmail", _contact.PersonalEmail),
+                    new SqlParameter("@Address", _contact.Address),
+                    new SqlParameter("@City", _contact.City),
+                    new SqlParameter("@State", _contact.State),
+                    new SqlParameter("@Zip", _contact.Zip),
+                    new SqlParameter("@Country", _contact.Country),
                     new SqlParameter("@IsNewApptIdList", _contact.IsNewApptList),
                     new SqlParameter("@ApptSourceIdList", _contact.ApptSourceList),
                     new SqlParameter("@IsRegForTrainingList", _contact.IsRegisteredForTrainingList),
@@ -163,11 +205,18 @@ namespace SandlerRepositories
                     new SqlParameter("@ActionStep", _contact.ActionStep),
                     new SqlParameter("@LastContactDate", _contact.LastContactDate),
                     new SqlParameter("@NextContactDate", _contact.NextContactDate),
+                    new SqlParameter("@LastAttemptedDate", _contact.LastAttemptedDate),
+                   new SqlParameter("@LastEmailedDate", _contact.LastEmailedDate),
+                   new SqlParameter("@LastMeetingDate", _contact.LastMeetingDate),
+                   new SqlParameter("@LetterSentDate", _contact.LetterSentDate),
                     new SqlParameter("@CourseTrngDate", _contact.CourseTrainingDate),
                     new SqlParameter("@BirthDayDate", _contact.BirthDay),
                     new SqlParameter("@AnniversaryDate", _contact.Anniversary),
                     new SqlParameter("@CompanyYears", _contact.CompanyYears),
-                    new SqlParameter("@BossName", _contact.BossName));
+                    new SqlParameter("@BossName", _contact.BossName),
+                    new SqlParameter("@SpouseName", _contact.SpouseName),
+                   new SqlParameter("@ReferredBy", _contact.ReferredBy),
+                   new SqlParameter("@Notes", _contact.Notes));
             }
             else
             {
@@ -176,8 +225,20 @@ namespace SandlerRepositories
                     new SqlParameter("@UserID", _user.UserId.ToString()),
                     new SqlParameter("@LastName", _contact.LastName),
                     new SqlParameter("@FirstName", _contact.FirstName),
+                    new SqlParameter("@Title", _contact.Title),
+                    new SqlParameter("@ContactsDepartment", _contact.ContactsDepartment),
+                    new SqlParameter("@ContactsRole", _contact.ContactsRole),
                     new SqlParameter("@Phone", _contact.Phone),
+                    new SqlParameter("@MobilePhone", _contact.MobilePhone),
+                    new SqlParameter("@HomePhone", _contact.HomePhone),
+                    new SqlParameter("@Fax", _contact.Fax),
                     new SqlParameter("@Email", _contact.Email),
+                    new SqlParameter("@PersonalEmail", _contact.PersonalEmail),
+                    new SqlParameter("@Address", _contact.Address),
+                    new SqlParameter("@City", _contact.City),
+                    new SqlParameter("@State", _contact.State),
+                    new SqlParameter("@Zip", _contact.Zip),
+                    new SqlParameter("@Country", _contact.Country),
                     new SqlParameter("@IsNewApptIdList", _contact.IsNewApptList),
                     new SqlParameter("@ApptSourceIdList", _contact.ApptSourceList),
                     new SqlParameter("@IsRegForTrainingList", _contact.IsRegisteredForTrainingList),
@@ -189,11 +250,18 @@ namespace SandlerRepositories
                     new SqlParameter("@ActionStep", _contact.ActionStep),
                     new SqlParameter("@LastContactDate", _contact.LastContactDate),
                     new SqlParameter("@NextContactDate", _contact.NextContactDate),
+                    new SqlParameter("@LastAttemptedDate", _contact.LastAttemptedDate),
+                   new SqlParameter("@LastEmailedDate", _contact.LastEmailedDate),
+                   new SqlParameter("@LastMeetingDate", _contact.LastMeetingDate),
+                   new SqlParameter("@LetterSentDate", _contact.LetterSentDate),
                     new SqlParameter("@CourseTrngDate", _contact.CourseTrainingDate),
                     new SqlParameter("@BirthDayDate", _contact.BirthDay),
                     new SqlParameter("@AnniversaryDate", _contact.Anniversary),
                     new SqlParameter("@CompanyYears", _contact.CompanyYears),
-                    new SqlParameter("@BossName", _contact.BossName));
+                    new SqlParameter("@BossName", _contact.BossName),
+                    new SqlParameter("@SpouseName", _contact.SpouseName),
+                   new SqlParameter("@ReferredBy", _contact.ReferredBy),
+                   new SqlParameter("@Notes", _contact.Notes));
             }
 
         }
@@ -232,89 +300,146 @@ namespace SandlerRepositories
         {
             return db.ExecuteDataset("sp_GetContactDetails", "ContactByID", new SqlParameter("@ContactID", id));
         }
-        public void Insert(int COMPANIESID, string LastName, string FirstName, string Phone, string Email, int Value,
+
+        public string IsValidStringEntered(string EnteredValue)
+        {
+            if (string.IsNullOrEmpty(EnteredValue))
+            {
+                EnteredValue = "";
+            }
+            return EnteredValue;
+        }
+
+        public void Insert(int COMPANIESID, string LastName, string FirstName,
+            string Title, string ContactsDepartment, string ContactsRole,
+            string Phone, string MobilePhone, string HomePhone, string Fax,
+            string Email, string PersonalEmail, string Address, string City, string State, string Zip, string Country, int Value,
             int ApptSourceId, int RegForTrainingId, int CourseId, DateTime CourseTrngDate, string DiscussionTopic, string ACTIONSTEP,
-            DateTime Last_Contact_Date, DateTime Next_Contact_Date, int CallBackValue, DateTime Birthday, DateTime Anniversary, int CompanyYears, string BossName)
+            DateTime LastAttemptedDate, DateTime Last_Contact_Date, DateTime LastEmailedDate, DateTime LastMeetingDate, DateTime LetterSentDate,
+            DateTime Next_Contact_Date, int CallBackValue, DateTime Birthday, string SpouseName, DateTime Anniversary, int CompanyYears, string BossName,
+            string ReferredBy, string Notes)
         {
 
             UserModel _user = (UserModel)HttpContext.Current.Session["CurrentUser"];
 
-            if (CourseTrngDate.ToString() == "1/1/0001 12:00:00 AM")
-            {
-                CourseTrngDate = default(System.DateTime).AddYears(1754);
-            }
+            CourseTrngDate = IsValidDateCheck(CourseTrngDate);
+            Last_Contact_Date = IsValidDateCheck(Last_Contact_Date);
+            Next_Contact_Date = IsValidDateCheck(Next_Contact_Date);
+            Birthday = IsValidDateCheck(Birthday);
+            Anniversary = IsValidDateCheck(Anniversary);
+            CourseTrngDate = IsValidDateCheck(CourseTrngDate);
+            CourseTrngDate = IsValidDateCheck(CourseTrngDate);
+            LastAttemptedDate = IsValidDateCheck(LastAttemptedDate);
+            LastEmailedDate = IsValidDateCheck(LastEmailedDate);
+            LastMeetingDate = IsValidDateCheck(LastMeetingDate);
+            LetterSentDate = IsValidDateCheck(LetterSentDate);
 
-            if (Last_Contact_Date.ToString() == "1/1/0001 12:00:00 AM")
-            {
-                Last_Contact_Date = default(System.DateTime).AddYears(1754);
-            }
-
-            if (Birthday.ToString() == "1/1/0001 12:00:00 AM")
-            {
-                Birthday = default(System.DateTime).AddYears(1754);
-            }
-
-            if (Anniversary.ToString() == "1/1/0001 12:00:00 AM")
-            {
-                Anniversary = default(System.DateTime).AddYears(1754);
-            }
-
-            if (string.IsNullOrEmpty(BossName))
-            {
-                BossName = "";
-            }
+            ReferredBy = IsValidStringEntered(ReferredBy);
+            Notes = IsValidStringEntered(Notes);
+            SpouseName = IsValidStringEntered(SpouseName);
+            BossName = IsValidStringEntered(BossName);
+            Title = IsValidStringEntered(Title);
+            ContactsDepartment = IsValidStringEntered(ContactsDepartment);
+            ContactsRole = IsValidStringEntered(ContactsRole);
+            Phone = IsValidStringEntered(Phone);
+            MobilePhone = IsValidStringEntered(MobilePhone);
+            HomePhone = IsValidStringEntered(HomePhone);
+            Fax = IsValidStringEntered(Fax);
+            Email = IsValidStringEntered(Email);
+            PersonalEmail = IsValidStringEntered(PersonalEmail);
+            Address = IsValidStringEntered(Address);
+            City = IsValidStringEntered(City);
+            State = IsValidStringEntered(State);
+            Zip = IsValidStringEntered(Zip);
+            Country = IsValidStringEntered(Country);
+            DiscussionTopic = IsValidStringEntered(DiscussionTopic);
+            ACTIONSTEP = IsValidStringEntered(ACTIONSTEP);
 
             //Insert and create contact - Both are Avl
             db.ExecuteNonQuery("sp_InsertContact",
-                new SqlParameter("@COMPANIESID", COMPANIESID), new SqlParameter("@LastName", LastName), new SqlParameter("@FirstName", FirstName),
-                new SqlParameter("@Phone", Phone), new SqlParameter("@Email", Email), new SqlParameter("@Value", Value),
-                new SqlParameter("@ApptSourceId", ApptSourceId), new SqlParameter("@RegForTrainingId", RegForTrainingId),
-                new SqlParameter("@CourseId", CourseId), new SqlParameter("@CourseTrngDate", CourseTrngDate),
-                new SqlParameter("@DiscussionTopic", DiscussionTopic), new SqlParameter("@ACTIONSTEP", ACTIONSTEP),
-                new SqlParameter("@Last_Contact_Date", Last_Contact_Date), new SqlParameter("@Next_Contact_Date", Next_Contact_Date),
-                new SqlParameter("@CreatedBy", _user.UserId), new SqlParameter("@CallBackValue", CallBackValue),
-                new SqlParameter("@Birthday", Birthday),
-                new SqlParameter("@Anniversary", Anniversary),
-                new SqlParameter("@CompanyYears", CompanyYears),
-                new SqlParameter("@BossName", BossName));
-
-
+                new SqlParameter("@COMPANIESID", COMPANIESID),
+                new SqlParameter("@LastName", LastName),
+                new SqlParameter("@FirstName", FirstName), new SqlParameter("@Title", Title),
+                new SqlParameter("@ContactsDepartment", ContactsDepartment), new SqlParameter("@ContactsRole", ContactsRole),
+                new SqlParameter("@Phone", Phone), new SqlParameter("@MobilePhone", MobilePhone),
+                new SqlParameter("@HomePhone", HomePhone), new SqlParameter("@Fax", Fax),
+                new SqlParameter("@Email", Email), new SqlParameter("@PersonalEmail", PersonalEmail),
+                new SqlParameter("@Address", Address), new SqlParameter("@City", City),
+                new SqlParameter("@State", State), new SqlParameter("@Zip", Zip),
+                new SqlParameter("@Country", Country),
+                new SqlParameter("@Value", Value), new SqlParameter("@ApptSourceId", ApptSourceId),
+                new SqlParameter("@RegForTrainingId", RegForTrainingId), new SqlParameter("@CourseId", CourseId),
+                new SqlParameter("@CourseTrngDate", CourseTrngDate), new SqlParameter("@DiscussionTopic", DiscussionTopic),
+                new SqlParameter("@ACTIONSTEP", ACTIONSTEP),
+                new SqlParameter("@LastAttemptedDate", LastAttemptedDate),
+                new SqlParameter("@LastEmailedDate", LastEmailedDate),
+                new SqlParameter("@LastMeetingDate", LastMeetingDate),
+                new SqlParameter("@LetterSentDate", LetterSentDate),
+                new SqlParameter("@Last_Contact_Date", Last_Contact_Date),
+                new SqlParameter("@Next_Contact_Date", Next_Contact_Date), new SqlParameter("@CreatedBy", _user.UserId),
+                new SqlParameter("@CallBackValue", CallBackValue),
+                new SqlParameter("@Birthday", Birthday), new SqlParameter("@Anniversary", Anniversary),
+                new SqlParameter("@CompanyYears", CompanyYears), new SqlParameter("@BossName", BossName),
+                new SqlParameter("@SpouseName", SpouseName),
+                new SqlParameter("@ReferredBy", ReferredBy),
+                new SqlParameter("@Notes", Notes));
 
             UserEntitiesFactory.ReLoad();
         }
 
+        public DateTime IsValidDateCheck(DateTime inputDate)
+        {
+            if (inputDate.ToString() == "1/1/0001 12:00:00 AM")
+            {
+                return default(System.DateTime).AddYears(1754);
+            }
+            return inputDate;
+        }
 
-        public void Update(int Contactsid, int CompanyID, string LastName, string FirstName, string Phone, string Email,
-            string DiscussionTopic, string ActionStep, int IsRegisteredForTrng, int IsNewAppt, int CourseId,
-            int AppsSourceId,
-            DateTime LastDate, DateTime NextDate, DateTime CourseTrngDate, int BlastEmailSubscription, int CallBackValue, DateTime BirthDate, DateTime AnniversaryDate, int CompanyYears, string BossName)
+        public void Update(int Contactsid, int CompanyID, string LastName, string FirstName,
+            string Title, string ContactsDepartment, string ContactsRole, string Phone,
+            string MobilePhone, string HomePhone, string Fax, string Email, string PersonalEmail,
+            string Address, string City, string State, string Zip, string Country,
+            string DiscussionTopic, string ActionStep,
+            DateTime LastAttemptedDate, DateTime LastEmailedDate, DateTime LastMeetingDate, DateTime LetterSentDate,
+            int IsRegisteredForTrng, int IsNewAppt, int CourseId,
+            int AppsSourceId, DateTime LastDate, DateTime NextDate, DateTime CourseTrngDate, int BlastEmailSubscription, int CallBackValue, DateTime BirthDate,
+            DateTime AnniversaryDate, int CompanyYears, string BossName, string SpouseName, string ReferredBy, string Notes)
         {
             UserModel _user = (UserModel)HttpContext.Current.Session["CurrentUser"];
-
-            if (CourseTrngDate.ToString() == "1/1/0001 12:00:00 AM")
-            {
-                CourseTrngDate = default(System.DateTime).AddYears(1754);
-            }
-
-            if (LastDate.ToString() == "1/1/0001 12:00:00 AM")
-            {
-                LastDate = default(System.DateTime).AddYears(1754);
-            }
-
-            if (BirthDate.ToString() == "1/1/0001 12:00:00 AM")
-            {
-                BirthDate = default(System.DateTime).AddYears(1754);
-            }
-
-            if (AnniversaryDate.ToString() == "1/1/0001 12:00:00 AM")
-            {
-                AnniversaryDate = default(System.DateTime).AddYears(1754);
-            }
-
-            if (string.IsNullOrEmpty(BossName))
-            {
-                BossName = "";
-            }
+            //date fields
+            CourseTrngDate = IsValidDateCheck(CourseTrngDate);
+            LastDate = IsValidDateCheck(LastDate);
+            NextDate = IsValidDateCheck(NextDate);
+            BirthDate = IsValidDateCheck(BirthDate);
+            AnniversaryDate = IsValidDateCheck(AnniversaryDate);
+            CourseTrngDate = IsValidDateCheck(CourseTrngDate);
+            CourseTrngDate = IsValidDateCheck(CourseTrngDate);
+            LastAttemptedDate = IsValidDateCheck(LastAttemptedDate);
+            LastEmailedDate = IsValidDateCheck(LastEmailedDate);
+            LastMeetingDate = IsValidDateCheck(LastMeetingDate);
+            LetterSentDate = IsValidDateCheck(LetterSentDate);
+            //string fields
+            ReferredBy = IsValidStringEntered(ReferredBy);
+            Notes = IsValidStringEntered(Notes);
+            SpouseName = IsValidStringEntered(SpouseName);
+            BossName = IsValidStringEntered(BossName);
+            Title = IsValidStringEntered(Title);
+            ContactsDepartment = IsValidStringEntered(ContactsDepartment);
+            ContactsRole = IsValidStringEntered(ContactsRole);
+            Phone = IsValidStringEntered(Phone);
+            MobilePhone = IsValidStringEntered(MobilePhone);
+            HomePhone = IsValidStringEntered(HomePhone);
+            Fax = IsValidStringEntered(Fax);
+            Email = IsValidStringEntered(Email);
+            PersonalEmail = IsValidStringEntered(PersonalEmail);
+            Address = IsValidStringEntered(Address);
+            City = IsValidStringEntered(City);
+            State = IsValidStringEntered(State);
+            Zip = IsValidStringEntered(Zip);
+            Country = IsValidStringEntered(Country);
+            DiscussionTopic = IsValidStringEntered(DiscussionTopic);
+            ActionStep = IsValidStringEntered(ActionStep);
 
             //Both Are Avl
             db.ExecuteNonQuery("sp_UpdateContactDetails",
@@ -322,10 +447,24 @@ namespace SandlerRepositories
                    new SqlParameter("@CompanyID", CompanyID),
                    new SqlParameter("@LastName", LastName),
                    new SqlParameter("@FirstName", FirstName),
+                   new SqlParameter("@Title", Title),
+                   new SqlParameter("@ContactsDepartment", ContactsDepartment),
+                   new SqlParameter("@ContactsRole", ContactsRole),
                    new SqlParameter("@Phone", Phone),
+                   new SqlParameter("@MobilePhone", MobilePhone),
+                   new SqlParameter("@HomePhone", HomePhone),
+                   new SqlParameter("@Fax", Fax),
                    new SqlParameter("@Email", Email),
+                   new SqlParameter("@PersonalEmail", PersonalEmail),
+                   new SqlParameter("@Address", Address), new SqlParameter("@City", City),
+                   new SqlParameter("@State", State), new SqlParameter("@Zip", Zip),
+                   new SqlParameter("@Country", Country),
                    new SqlParameter("@DiscussionTopic", DiscussionTopic),
                    new SqlParameter("@ActionStep", ActionStep),
+                   new SqlParameter("@LastAttemptedDate", LastAttemptedDate),
+                   new SqlParameter("@LastEmailedDate", LastEmailedDate),
+                   new SqlParameter("@LastMeetingDate", LastMeetingDate),
+                   new SqlParameter("@LetterSentDate", LetterSentDate),
                    new SqlParameter("@IsRegisteredForTrng", IsRegisteredForTrng),
                    new SqlParameter("@IsNewAppt", IsNewAppt),
                    new SqlParameter("@CourseId", CourseId),
@@ -339,7 +478,10 @@ namespace SandlerRepositories
                    new SqlParameter("@BirthDate", BirthDate),
                    new SqlParameter("@AnniversaryDate", AnniversaryDate),
                    new SqlParameter("@CompanyYears", CompanyYears),
-                   new SqlParameter("@BossName", BossName));
+                   new SqlParameter("@BossName", BossName),
+                   new SqlParameter("@SpouseName", SpouseName),
+                   new SqlParameter("@ReferredBy", ReferredBy),
+                   new SqlParameter("@Notes", Notes));
 
             UserEntitiesFactory.ReLoad();
         }

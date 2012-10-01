@@ -171,7 +171,7 @@
                                     </tr>
                                     <tr>
                                         <td style="width: 100%">
-                                            <table style="width: 100%" border="1">
+                                            <table style="width: 100%">
                                                 <tr>
                                                     <td style="width: 20%">
                                                         <table style="height: 400px">

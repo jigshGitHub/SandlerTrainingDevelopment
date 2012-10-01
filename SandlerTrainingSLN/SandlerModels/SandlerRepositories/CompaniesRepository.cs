@@ -39,6 +39,12 @@ namespace SandlerRepositories
         {
             return (db.ExecuteDataset("sp_GetCallBackOptions", "CallBack"));
         }
+        public DataSet GetAllFranchisee()
+        {
+            return (db.ExecuteDataset("sp_GetAllFranchisee", "GetAllFranchisees"));
+        }
+
+
         public DataSet GetAllCompanies()
         {
             //Get the User Info
@@ -83,7 +89,7 @@ namespace SandlerRepositories
             //get data
             if (_user.Role == SandlerRoles.SiteAdmin || _user.Role == SandlerRoles.Corporate)
             {
-                
+
                 //Corporate User
                 return db.ExecuteDataset("sp_GetAllCompaniesSearch", "CompaniesSearch",
                     new SqlParameter("@CompanyName", _company.CompanyName),
@@ -274,39 +280,30 @@ namespace SandlerRepositories
 
             }
         }
-        
+
         public void InsertCompany(
-            string COMPANYNAME, 
-            string CompanyOwnership ,
+            string COMPANYNAME,
+            string CompanyOwnership,
             string CompanyDescription,
-            string Address, string City, string State,string Zip,
+            string Address, string City, string State, string Zip,
             string Country, int BillingValue,
             string BillingAddress, string BillingCity, string BillingState, string BillingZip,
             string BillingCountry,
-            string POCLastName, string POCFirstName, string POCPhone, 
-            string POCDepartment , string POCEmail , string POCFax,string AssistantLastName,
-            string AssistantFirstName ,string AssistantPhone ,int Value, 
-            string Website ,int EmpQuantity,int COMPANYVALUEGOAL,
-            int IndID,string RepLastName, string RepFirstName, string DiscussionTopic, string ACTIONSTEP,
-            DateTime LastContact_Date, DateTime NextContact_Date, DateTime CreationDate,string Notes
+            string POCLastName, string POCFirstName, string POCPhone,
+            string POCDepartment, string POCEmail, string POCFax, string AssistantLastName,
+            string AssistantFirstName, string AssistantPhone, int Value,
+            string Website, int EmpQuantity, int COMPANYVALUEGOAL,
+            int IndID, string RepLastName, string RepFirstName, string DiscussionTopic, string ACTIONSTEP,
+            DateTime LastContact_Date, DateTime NextContact_Date, DateTime CreationDate, string Notes
             )
         {
 
             //Get the User Session
             UserModel _user = (UserModel)HttpContext.Current.Session["CurrentUser"];
 
-            if (LastContact_Date.ToString() == "1/1/0001 12:00:00 AM")
-            {
-                LastContact_Date = default(System.DateTime).AddYears(1754);
-            }
-            if (NextContact_Date.ToString() == "1/1/0001 12:00:00 AM")
-            {
-                NextContact_Date = default(System.DateTime).AddYears(1754);
-            }
-            if (CreationDate.ToString() == "1/1/0001 12:00:00 AM")
-            {
-                CreationDate = default(System.DateTime).AddYears(1754);
-            }
+            LastContact_Date = IsValidDateCheck(LastContact_Date);
+            NextContact_Date = IsValidDateCheck(NextContact_Date);
+            CreationDate = IsValidDateCheck(CreationDate);
 
             RepLastName = IsValidStringEntered(RepLastName);
             RepFirstName = IsValidStringEntered(RepFirstName);
@@ -336,7 +333,7 @@ namespace SandlerRepositories
             POCLastName = IsValidStringEntered(POCLastName);
             POCFirstName = IsValidStringEntered(POCFirstName);
             POCPhone = IsValidStringEntered(POCPhone);
-                   
+
             //Create the record
             db.ExecuteNonQuery("sp_InsertCompany",
                 new SqlParameter("@COMPANYNAME", COMPANYNAME),
@@ -381,6 +378,15 @@ namespace SandlerRepositories
 
         }
 
+        public DateTime IsValidDateCheck(DateTime inputDate)
+        {
+            if (inputDate.ToString() == "1/1/0001 12:00:00 AM")
+            {
+                return default(System.DateTime).AddYears(1754);
+            }
+            return inputDate;
+        }
+
         public string IsValidStringEntered(string EnteredValue)
         {
             if (string.IsNullOrEmpty(EnteredValue))
@@ -402,21 +408,12 @@ namespace SandlerRepositories
             string AssistantFirstName, string AssistantPhone, int Value,
             string Website, string EmpQuantity, string COMPANYVALUEGOAL,
             int IndID, string RepLastName, string RepFirstName, string DiscussionTopic, string ACTIONSTEP,
-            DateTime LastContact_Date, DateTime NextContact_Date, DateTime CreationDate, string updatedBy,string Notes)
+            DateTime LastContact_Date, DateTime NextContact_Date, DateTime CreationDate, string updatedBy, string Notes)
         {
 
-            if (LastContact_Date.ToString() == "1/1/0001 12:00:00 AM")
-            {
-                LastContact_Date = default(System.DateTime).AddYears(1754);
-            }
-            if (NextContact_Date.ToString() == "1/1/0001 12:00:00 AM")
-            {
-                NextContact_Date = default(System.DateTime).AddYears(1754);
-            }
-            if (CreationDate.ToString() == "1/1/0001 12:00:00 AM")
-            {
-                CreationDate = default(System.DateTime).AddYears(1754);
-            }
+            LastContact_Date = IsValidDateCheck(LastContact_Date);
+            NextContact_Date = IsValidDateCheck(NextContact_Date);
+            CreationDate = IsValidDateCheck(CreationDate);
 
             RepLastName = IsValidStringEntered(RepLastName);
             RepFirstName = IsValidStringEntered(RepFirstName);
@@ -446,7 +443,7 @@ namespace SandlerRepositories
             POCLastName = IsValidStringEntered(POCLastName);
             POCFirstName = IsValidStringEntered(POCFirstName);
             POCPhone = IsValidStringEntered(POCPhone);
-            
+
             //Update Company Details
             db.ExecuteNonQuery("sp_UpdateCompanyDetails",
                 new SqlParameter("@COMPANIESID", COMPANIESID),

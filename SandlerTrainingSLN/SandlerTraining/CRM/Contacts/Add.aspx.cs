@@ -145,7 +145,6 @@ public partial class ContactADD : BasePage
         {
             ErrorMessage = "Please select Course Training Date to Proceed.";
         }
-        
         if (selectedCourse != "0" && IsRegistered == "0" && CourseTrgDate.ToString() != "1/1/0001 12:00:00 AM")
         {
             ErrorMessage = "Registered for Training is selected as No. Please change your selection to Proceed.";

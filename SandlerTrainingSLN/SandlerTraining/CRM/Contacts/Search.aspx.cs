@@ -40,12 +40,33 @@ public partial class CRM_Contacts_Search : BasePage
         string BossName = default(System.String);
         string DiscussionTopic = default(System.String);
         string ActionStep = default(System.String);
+
+        string Title = default(System.String);
+        string ContactsDepartment = default(System.String);
+        string ContactsRole = default(System.String);
+        string MobilePhone = default(System.String);
+        string HomePhone = default(System.String);
+        string Fax = default(System.String);
+        string PersonalEmail = default(System.String);
+        string Address = default(System.String);
+        string City = default(System.String);
+        string State = default(System.String);
+        string Zip = default(System.String);
+        string Country = default(System.String);
+        string SpouseName = default(System.String);
+        string ReferredBy = default(System.String);
+        string Notes = default(System.String);
+        
         //Date Fields        
         System.DateTime NextDate = default(System.DateTime);
         System.DateTime LastDate = default(System.DateTime);
         System.DateTime CourseTrgDate = default(System.DateTime);
         System.DateTime BirthDay = default(System.DateTime);
         System.DateTime Anniversary = default(System.DateTime);
+        System.DateTime LastAttemptedDate = default(System.DateTime);
+        System.DateTime LastEmailedDate = default(System.DateTime);
+        System.DateTime LastMeetingDate = default(System.DateTime);
+        System.DateTime LetterSentDate = default(System.DateTime);
         //LB Fields
         string CompanyIDList = "";
         string NewApptIDList = "";
@@ -131,7 +152,7 @@ public partial class CRM_Contacts_Search : BasePage
                 searchObj.IsNeedCallBackList = NeedCallBackList;
             }
         }
-        //For Course ID List
+        //For Email Subscription List
         {
             ListBox EmailSubscriptionLB = new ListBox();
             EmailSubscriptionLB = (ListBox)dvContact.FindControl("lbEmailSubscription");
@@ -252,6 +273,67 @@ public partial class CRM_Contacts_Search : BasePage
                 {
                     BirthDay = Convert.ToDateTime(BirthDayDateCal.Text.Trim());
                     searchObj.BirthDay = BirthDay;
+                    IsCriteriaExist = true;
+                }
+
+            }
+        }
+
+        //For Last Attempted Date
+        {
+            TextBox LastAttemptedDateCal = new TextBox();
+            LastAttemptedDateCal = (TextBox)dvContact.FindControl("LastAttemptedDate");
+            if ((LastAttemptedDateCal != null))
+            {
+                if (!string.IsNullOrEmpty(LastAttemptedDateCal.Text))
+                {
+                    LastAttemptedDate = Convert.ToDateTime(LastAttemptedDateCal.Text.Trim());
+                    searchObj.LastAttemptedDate = LastAttemptedDate;
+                    IsCriteriaExist = true;
+                }
+
+            }
+        }
+        //For Last Emailed Date
+        {
+            TextBox LastEmailedDateCal = new TextBox();
+            LastEmailedDateCal = (TextBox)dvContact.FindControl("LastEmailedDate");
+            if ((LastEmailedDateCal != null))
+            {
+                if (!string.IsNullOrEmpty(LastEmailedDateCal.Text))
+                {
+                    LastAttemptedDate = Convert.ToDateTime(LastEmailedDateCal.Text.Trim());
+                    searchObj.LastEmailedDate = LastEmailedDate;
+                    IsCriteriaExist = true;
+                }
+
+            }
+        }
+        //For Last Meeting Date
+        {
+            TextBox LastMeetingDateCal = new TextBox();
+            LastMeetingDateCal = (TextBox)dvContact.FindControl("LastMeetingDate");
+            if ((LastMeetingDateCal != null))
+            {
+                if (!string.IsNullOrEmpty(LastMeetingDateCal.Text))
+                {
+                    LastMeetingDate = Convert.ToDateTime(LastMeetingDateCal.Text.Trim());
+                    searchObj.LastMeetingDate = LastMeetingDate;
+                    IsCriteriaExist = true;
+                }
+
+            }
+        }
+        //For Date Letter Sent Out
+        {
+            TextBox DateLetterSentOutCal = new TextBox();
+            DateLetterSentOutCal = (TextBox)dvContact.FindControl("DateLetterSentOut");
+            if ((DateLetterSentOutCal != null))
+            {
+                if (!string.IsNullOrEmpty(DateLetterSentOutCal.Text))
+                {
+                    LetterSentDate = Convert.ToDateTime(DateLetterSentOutCal.Text.Trim());
+                    searchObj.LetterSentDate = LetterSentDate;
                     IsCriteriaExist = true;
                 }
 
@@ -417,6 +499,221 @@ public partial class CRM_Contacts_Search : BasePage
                 searchObj.BossName = BossName;
             }
         }
+
+        //For Notes
+        {
+            TextBox NotesTextBox = new TextBox();
+            NotesTextBox = (TextBox)dvContact.FindControl("txtNotes");
+            if ((NotesTextBox != null))
+            {
+                Notes = NotesTextBox.Text;
+                if (!string.IsNullOrEmpty(Notes))
+                {
+                    IsCriteriaExist = true;
+                }
+                searchObj.Notes = Notes;
+            }
+        }
+        //For Referred By
+        {
+            TextBox ReferredByTextBox = new TextBox();
+            ReferredByTextBox = (TextBox)dvContact.FindControl("txtReferredBy");
+            if ((ReferredByTextBox != null))
+            {
+                ReferredBy = ReferredByTextBox.Text;
+                if (!string.IsNullOrEmpty(ReferredBy))
+                {
+                    IsCriteriaExist = true;
+                }
+                searchObj.ReferredBy = ReferredBy;
+            }
+        }
+        //For Spouse Name
+        {
+            TextBox SpouseNameTextBox = new TextBox();
+            SpouseNameTextBox = (TextBox)dvContact.FindControl("txtSpouseName");
+            if ((SpouseNameTextBox != null))
+            {
+                SpouseName = SpouseNameTextBox.Text;
+                if (!string.IsNullOrEmpty(SpouseName))
+                {
+                    IsCriteriaExist = true;
+                }
+                searchObj.SpouseName = SpouseName;
+            }
+        }
+        //For Title
+        {
+            TextBox TitleTextBox = new TextBox();
+            TitleTextBox = (TextBox)dvContact.FindControl("txtTitle");
+            if ((TitleTextBox != null))
+            {
+                Title = TitleTextBox.Text;
+                if (!string.IsNullOrEmpty(Title))
+                {
+                    IsCriteriaExist = true;
+                }
+                searchObj.Title = Title;
+            }
+        }
+        //For Contacts Department  
+        {
+            TextBox DepartmentTextBox = new TextBox();
+            DepartmentTextBox = (TextBox)dvContact.FindControl("txtDepartment");
+            if ((DepartmentTextBox != null))
+            {
+                ContactsDepartment = DepartmentTextBox.Text;
+                if (!string.IsNullOrEmpty(ContactsDepartment))
+                {
+                    IsCriteriaExist = true;
+                }
+                searchObj.ContactsDepartment = ContactsDepartment;
+            }
+        }
+        //For Contacts Role
+        {
+            TextBox RoleTextBox = new TextBox();
+            RoleTextBox = (TextBox)dvContact.FindControl("txtRole");
+            if ((RoleTextBox != null))
+            {
+                ContactsRole = RoleTextBox.Text;
+                if (!string.IsNullOrEmpty(ContactsRole))
+                {
+                    IsCriteriaExist = true;
+                }
+                searchObj.ContactsRole = ContactsRole;
+            }
+        }
+        //For Mobile PhoneNumber 
+        {
+            TextBox MobilePhoneNoTextBox = new TextBox();
+            MobilePhoneNoTextBox = (TextBox)dvContact.FindControl("txtMobilePhone");
+            if ((MobilePhoneNoTextBox != null))
+            {
+                MobilePhone = MobilePhoneNoTextBox.Text;
+                if (!string.IsNullOrEmpty(MobilePhone))
+                {
+                    IsCriteriaExist = true;
+                }
+                searchObj.MobilePhone = MobilePhone;
+            }
+        }
+        //For Home PhoneNumber 
+        {
+            TextBox HomePhoneNoTextBox = new TextBox();
+            HomePhoneNoTextBox = (TextBox)dvContact.FindControl("txtHomePhone");
+            if ((HomePhoneNoTextBox != null))
+            {
+                HomePhone = HomePhoneNoTextBox.Text;
+                if (!string.IsNullOrEmpty(HomePhone))
+                {
+                    IsCriteriaExist = true;
+                }
+                searchObj.HomePhone = HomePhone;
+            }
+        }
+        //For Fax
+        {
+            TextBox FaxTextBox = new TextBox();
+            FaxTextBox = (TextBox)dvContact.FindControl("txtFax");
+            if ((FaxTextBox != null))
+            {
+                Fax = FaxTextBox.Text;
+                if (!string.IsNullOrEmpty(Fax))
+                {
+                    IsCriteriaExist = true;
+                }
+                searchObj.Fax = Fax;
+            }
+        }
+        //For PersonalEmail 
+        {
+            TextBox PersonalEmailTextBox = new TextBox();
+            PersonalEmailTextBox = (TextBox)dvContact.FindControl("txtPersonalEmail");
+            if ((PersonalEmailTextBox != null))
+            {
+                PersonalEmail = PersonalEmailTextBox.Text;
+                if (!string.IsNullOrEmpty(PersonalEmail))
+                {
+                    IsCriteriaExist = true;
+                }
+                searchObj.PersonalEmail = PersonalEmail;
+            }
+        }
+        //For Address
+        {
+            TextBox AddressTextBox = new TextBox();
+            AddressTextBox = (TextBox)dvContact.FindControl("txtAddress");
+            if ((AddressTextBox != null))
+            {
+                Address = AddressTextBox.Text.Trim();
+                if (!string.IsNullOrEmpty(Address))
+                {
+                    IsCriteriaExist = true;
+                }
+                searchObj.Address = Address;
+            }
+        }
+        //For City
+        {
+            TextBox CityTextBox = new TextBox();
+            CityTextBox = (TextBox)dvContact.FindControl("txtCity");
+            if ((CityTextBox != null))
+            {
+                City = CityTextBox.Text.Trim();
+                if (!string.IsNullOrEmpty(City))
+                {
+                    IsCriteriaExist = true;
+                }
+                searchObj.City = City;
+            }
+        }
+        //For State
+        {
+            TextBox StateTextBox = new TextBox();
+            StateTextBox = (TextBox)dvContact.FindControl("txtState");
+            if ((StateTextBox != null))
+            {
+                State = StateTextBox.Text.Trim();
+                if (!string.IsNullOrEmpty(State))
+                {
+                    IsCriteriaExist = true;
+                }
+                searchObj.State = State;
+            }
+        }
+        //For Zip
+        {
+            TextBox ZipTextBox = new TextBox();
+            ZipTextBox = (TextBox)dvContact.FindControl("txtZip");
+            if ((ZipTextBox != null))
+            {
+                Zip = ZipTextBox.Text.Trim();
+                if (!string.IsNullOrEmpty(Zip))
+                {
+                    IsCriteriaExist = true;
+                }
+                searchObj.Zip = Zip;
+            }
+        }
+        //For Country
+        {
+            TextBox CountryTextBox = new TextBox();
+            CountryTextBox = (TextBox)dvContact.FindControl("txtCountry");
+            if ((CountryTextBox != null))
+            {
+                Country = CountryTextBox.Text.Trim();
+                if (!string.IsNullOrEmpty(Country))
+                {
+                    IsCriteriaExist = true;
+                }
+                searchObj.Country = Country;
+            }
+        }
+
+
+
+
 
         if (!IsCriteriaExist)
         {

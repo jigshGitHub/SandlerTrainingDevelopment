@@ -15,6 +15,8 @@ using SandlerRepositories;
 
 public partial class Email_BlastEmail : BasePage
 {
+    DataSet ds;
+
     protected void Page_Load(object sender, EventArgs e)
     {
         
@@ -46,7 +48,15 @@ public partial class Email_BlastEmail : BasePage
         //send the Message object back
         return msg;
     }
-
+    protected void lstUserEmailGroup_DataBound(object sender, EventArgs e)
+    {
+        if (lstUserEmailGroup.Items.Count == 0)
+        {
+            ListItem selectItem = new ListItem("No Group created yet", "0");
+            lstUserEmailGroup.Items.Insert(0, selectItem);
+        }
+        
+    }
     /// <summary>
     /// To Validate Email Address
     /// </summary>
@@ -65,14 +75,21 @@ public partial class Email_BlastEmail : BasePage
     private bool IsAtleastOneGroupSelected()
     {
         bool IsSelected = false;
+        //For Blast Email Group
         foreach (ListItem listItem in chkListGroup.Items)
         {
           if (listItem.Selected)
           {
-            
-             IsSelected = true;
-                  
+            IsSelected = true;
           }
+        }
+        //For User's Own Email Group
+        foreach (ListItem listItem in lstUserEmailGroup.Items)
+        {
+            if (listItem.Selected)
+            {
+                IsSelected = true;
+            }
         }
         return IsSelected;
     }
@@ -109,13 +126,12 @@ public partial class Email_BlastEmail : BasePage
                 message.Body = msgFreeTB.Text.Trim();
                 //Set To Address as From by default
                 message.To.Add(message.From);
-                //Now check the group selection by the User
+                //Now check the Blast Email Group(s) selection by the User
                 foreach (ListItem listItem in chkListGroup.Items)
                 {
                     if (listItem.Selected)
                     {
                         //This group is selected so let us get Email Addresses and add them as BCC
-                        DataSet ds;
                         switch (listItem.Text)
                         {
                             case "All Coach":
@@ -150,6 +166,17 @@ public partial class Email_BlastEmail : BasePage
                     }
 
                 }
+                //Now check for User's Own Email Group(s)
+                foreach (ListItem listItem in lstUserEmailGroup.Items)
+                {
+                    if (listItem.Selected)
+                    {
+                        //Go ahead and get Email Addresses for the selected group
+                        ds = bers.GetUserEmailGroupAddresses(Convert.ToInt32(listItem.Value));
+                        message = AddAddresses(ds, message);
+                    }
+                }
+
                 //For Entered Email Addresses
                 if (!string.IsNullOrEmpty(txtEmailAdrs.Text))
                 {
@@ -184,7 +211,7 @@ public partial class Email_BlastEmail : BasePage
                 var sendEmails = Convert.ToBoolean(ConfigurationManager.AppSettings["General.SendBlastEmails"]);
                 if (sendEmails)
                 {
-                    client.Send(message);
+                    //client.Send(message);
                     lblInfo.Text = "Your email has been sent successfully.";
                     lblError.Text = "";
                 }
@@ -198,7 +225,7 @@ public partial class Email_BlastEmail : BasePage
         else
         {
             //User has not selected any group and also Receiver's email adrs textbox is empty so we can not go ahead
-            lblError.Text = "Please select at least one Group as Email receiver or type Email addresses.";
+            lblError.Text = "Please select at least one Group as Email receiver or type Email address(es).";
             lblInfo.Text = "";
 
         }

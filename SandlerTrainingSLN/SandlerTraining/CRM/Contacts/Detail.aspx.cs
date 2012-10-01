@@ -53,6 +53,21 @@ public partial class ContactDETAIL : BasePage
             GetContactDetails();
         }
     }
+
+    public string GetTextBoxData(string controlId)
+    {
+        //First Create the TextBox Control to store the Input Data
+        string inputByUser = ""; 
+        TextBox _tempTextBox = new TextBox();
+        _tempTextBox = (TextBox)ContactDW.FindControl(controlId);
+        if ((_tempTextBox != null))
+        {
+            inputByUser = _tempTextBox.Text;
+        }
+        return inputByUser;
+    }
+
+    
     public void UpdateContactDetails()
     {
         //Get all Details and then update the contact Information
@@ -65,44 +80,96 @@ public partial class ContactDETAIL : BasePage
         int NeedCallBack = default(System.Int32);
         string LastName = default(System.String);
         string FirstName = default(System.String);
+
+        string Title = default(System.String);
+        string ContactsDepartment = default(System.String);
+        string ContactsRole = default(System.String);
+        string MobilePhone = default(System.String);
+        string HomePhone = default(System.String);
+        string Fax = default(System.String);
+        string PersonalEmail = default(System.String);
+        string Address = default(System.String);
+        string City = default(System.String);
+        string State = default(System.String);
+        string Zip = default(System.String);
+        string Country = default(System.String);
+        string SpouseName = default(System.String);
+        string ReferredBy = default(System.String);
+        string Notes = default(System.String);
+
         string Phone = default(System.String);
         string Email = default(System.String);
         string DiscussionTopic = default(System.String);
         string ActionStep = default(System.String);
         int CompanyYears = default(System.Int32);
         string BossName = default(System.String);
+
         System.DateTime NextDate = default(System.DateTime);
         System.DateTime LastDate = default(System.DateTime);
         System.DateTime CourseTrngDate = default(System.DateTime);
         System.DateTime BirthDayDate = default(System.DateTime);
         System.DateTime AnniversaryDate = default(System.DateTime);
+        System.DateTime LastAttemptedDate = default(System.DateTime);
+        System.DateTime LastEmailedDate = default(System.DateTime);
+        System.DateTime LastMeetingDate = default(System.DateTime);
+        System.DateTime LetterSentDate = default(System.DateTime);
+
+        //For Notes
+        Notes = GetTextBoxData("txtNotes");
+
+        //For Referred By
+        ReferredBy = GetTextBoxData("txtReferredBy");
+        
+        //For Spouse Name
+        SpouseName = GetTextBoxData("txtSpouseName");
+        
+        //For Title
+        Title = GetTextBoxData("txtTitle");
+
+        //For Contacts Department  
+        ContactsDepartment = GetTextBoxData("txtDepartment");
+
+        //For Role
+        ContactsRole = GetTextBoxData("txtRole");
+
+
+
+        //For Mobile PhoneNumber 
+        MobilePhone = GetTextBoxData("txtMobilePhone");
+        
+        //For Home PhoneNumber 
+        HomePhone = GetTextBoxData("txtHomePhone");
+        
+        //For Fax
+        Fax = GetTextBoxData("txtFax");
+        
+        //For PersonalEmail 
+        PersonalEmail = GetTextBoxData("txtPersonalEmail");
+        
+        //For Address
+        Address = GetTextBoxData("txtAddress");
+        
+        //For City
+        City = GetTextBoxData("txtCity");
+        
+        //For State
+        State = GetTextBoxData("txtState");
+        
+        //For Zip
+        Zip = GetTextBoxData("txtZip");
+        
+        //For Country
+        Country = GetTextBoxData("txtCountry");
+        
         //For Action Step
-        {
-            TextBox ActionStepTextBox = new TextBox();
-            ActionStepTextBox = (TextBox)ContactDW.FindControl("txtActStep");
-            if ((ActionStepTextBox != null))
-            {
-                ActionStep = ActionStepTextBox.Text;
-            }
-        }
+        ActionStep = GetTextBoxData("txtActStep");
+        
         //For Discussion Topic 
-        {
-            TextBox DiscussionTopicTextBox = new TextBox();
-            DiscussionTopicTextBox = (TextBox)ContactDW.FindControl("txtDiscTopic");
-            if ((DiscussionTopicTextBox != null))
-            {
-                DiscussionTopic = DiscussionTopicTextBox.Text;
-            }
-        }
-        //For PhoneNumber 
-        {
-            TextBox PhoneNoTextBox = new TextBox();
-            PhoneNoTextBox = (TextBox)ContactDW.FindControl("txtPhone");
-            if ((PhoneNoTextBox != null))
-            {
-                Phone = PhoneNoTextBox.Text;
-            }
-        }
+        DiscussionTopic = GetTextBoxData("txtDiscTopic");
+        
+        //For PhoneNumber
+        Phone = GetTextBoxData("txtPhone");
+        
         //For Company ID
         {
             DropDownList CompnayDDList = new DropDownList();
@@ -167,30 +234,60 @@ public partial class ContactDETAIL : BasePage
             }
         }
         //For Last Name
-        {
-            TextBox LastNameTB = new TextBox();
-            LastNameTB = (TextBox)ContactDW.FindControl("txtLastName");
-            if ((LastNameTB != null))
-            {
-                LastName = LastNameTB.Text;
-            }
-        }
+        LastName = GetTextBoxData("txtLastName");
+        
         //For First Name
+        FirstName = GetTextBoxData("txtFirstName");
+        
+        //For Email Address
+        Email = GetTextBoxData("txtEmail");
+        
+        //For Last Attempted  Date
         {
-            TextBox FirstNameTB = new TextBox();
-            FirstNameTB = (TextBox)ContactDW.FindControl("txtFirstName");
-            if ((FirstNameTB != null))
+            TextBox LastAttemptedDateCal = new TextBox();
+            LastAttemptedDateCal = (TextBox)ContactDW.FindControl("LastAttemptedDate");
+            if ((LastAttemptedDateCal != null))
             {
-                FirstName = FirstNameTB.Text;
+                if (!string.IsNullOrEmpty(LastAttemptedDateCal.Text))
+                {
+                    LastAttemptedDate = Convert.ToDateTime(LastAttemptedDateCal.Text.Trim());
+                }
             }
         }
-        //For Email Address
+        //For Last Emailed Date
         {
-            TextBox EmailTB = new TextBox();
-            EmailTB = (TextBox)ContactDW.FindControl("txtEmail");
-            if ((EmailTB != null))
+            TextBox LastEmailedDateCal = new TextBox();
+            LastEmailedDateCal = (TextBox)ContactDW.FindControl("LastEmailedDate");
+            if ((LastEmailedDateCal != null))
             {
-                Email = EmailTB.Text;
+                if (!string.IsNullOrEmpty(LastEmailedDateCal.Text))
+                {
+                    LastEmailedDate = Convert.ToDateTime(LastEmailedDateCal.Text.Trim());
+                }
+            }
+        }
+        //For Last Meeting Date
+        {
+            TextBox LastMeetingDateCal = new TextBox();
+            LastMeetingDateCal = (TextBox)ContactDW.FindControl("LastMeetingDate");
+            if ((LastMeetingDateCal != null))
+            {
+                if (!string.IsNullOrEmpty(LastMeetingDateCal.Text))
+                {
+                    LastMeetingDate = Convert.ToDateTime(LastMeetingDateCal.Text.Trim());
+                }
+            }
+        }
+        //For Date Letter Sent Out
+        {
+            TextBox DateLetterSentOutCal = new TextBox();
+            DateLetterSentOutCal = (TextBox)ContactDW.FindControl("DateLetterSentOut");
+            if ((DateLetterSentOutCal != null))
+            {
+                if (!string.IsNullOrEmpty(DateLetterSentOutCal.Text))
+                {
+                    LetterSentDate = Convert.ToDateTime(DateLetterSentOutCal.Text.Trim());
+                }
             }
         }
         //For Last Contact Date
@@ -274,14 +371,8 @@ public partial class ContactDETAIL : BasePage
         }
 
         //For Boss Name
-        {
-            TextBox BossNameTB = new TextBox();
-            BossNameTB = (TextBox)ContactDW.FindControl("txtBossName");
-            if ((BossNameTB != null))
-            {
-                BossName = BossNameTB.Text;
-            }
-        }
+        BossName = GetTextBoxData("txtBossName");
+        
 
         if (IsNewAppt == 0 && AppsSourceId != 0)
         {
@@ -313,8 +404,9 @@ public partial class ContactDETAIL : BasePage
         {
             //Now Update the Record as validation is Ok
             SandlerRepositories.ContactsRepository contactRepository = new SandlerRepositories.ContactsRepository();
-            contactRepository.Update(Convert.ToInt32(hidContactID.Value), CompanyID, LastName, FirstName, Phone, Email, DiscussionTopic, ActionStep, IsRegisteredForTrng, IsNewAppt, CourseId, AppsSourceId, LastDate, NextDate, CourseTrngDate,
-                BlastEmailSubscription, NeedCallBack, BirthDayDate, AnniversaryDate, CompanyYears, BossName);
+            contactRepository.Update(Convert.ToInt32(hidContactID.Value), CompanyID, LastName, FirstName,Title,ContactsDepartment,ContactsRole,Phone,MobilePhone,HomePhone,Fax, Email,PersonalEmail,Address,City,State,Zip,Country,
+                DiscussionTopic, ActionStep,LastAttemptedDate,LastEmailedDate,LastMeetingDate,LetterSentDate, IsRegisteredForTrng, IsNewAppt, CourseId, AppsSourceId, LastDate, NextDate, CourseTrngDate,
+                BlastEmailSubscription, NeedCallBack, BirthDayDate, AnniversaryDate, CompanyYears, BossName,SpouseName,ReferredBy,Notes);
             LblStatus.Text = "Contact updated successfully!";
         }
 
@@ -455,7 +547,67 @@ public partial class ContactDETAIL : BasePage
             }
 
         }
+        
+        //For Date Last Attempted
+        TextBox LastAttemptedDateCal = new TextBox();
+        LastAttemptedDateCal = (TextBox)ContactDW.FindControl("LastAttemptedDate");
+        if (LastAttemptedDateCal != null)
+        {
+            if (LastAttemptedDateCal.Text == "1/1/1900 12:00:00 AM")
+            {
+                LastAttemptedDateCal.Text = default(System.String);
+            }
+            else
+            {
+                LastAttemptedDateCal.Text = LastAttemptedDateCal.Text.Replace("12:00:00 AM", "");
+            }
+        }
 
+
+        //For Date Last Emailed
+        TextBox LastEmailedDateCal = new TextBox();
+        LastEmailedDateCal = (TextBox)ContactDW.FindControl("LastEmailedDate");
+        if (LastEmailedDateCal != null)
+        {
+            if (LastEmailedDateCal.Text == "1/1/1900 12:00:00 AM")
+            {
+                LastEmailedDateCal.Text = default(System.String);
+            }
+            else
+            {
+                LastEmailedDateCal.Text = LastEmailedDateCal.Text.Replace("12:00:00 AM", "");
+            }
+        }
+
+        //For Date of Last Meeting
+        TextBox LastMeetingDateCal = new TextBox();
+        LastMeetingDateCal = (TextBox)ContactDW.FindControl("LastMeetingDate");
+        if (LastMeetingDateCal != null)
+        {
+            if (LastMeetingDateCal.Text == "1/1/1900 12:00:00 AM")
+            {
+                LastMeetingDateCal.Text = default(System.String);
+            }
+            else
+            {
+                LastMeetingDateCal.Text = LastMeetingDateCal.Text.Replace("12:00:00 AM", "");
+            }
+        }
+        
+        //For Date Letter Sent
+        TextBox DateLetterSentOutCal = new TextBox();
+        DateLetterSentOutCal = (TextBox)ContactDW.FindControl("DateLetterSentOut");
+        if (DateLetterSentOutCal != null)
+        {
+            if (DateLetterSentOutCal.Text == "1/1/1900 12:00:00 AM")
+            {
+                DateLetterSentOutCal.Text = default(System.String);
+            }
+            else
+            {
+                DateLetterSentOutCal.Text = DateLetterSentOutCal.Text.Replace("12:00:00 AM", "");
+            }
+        }
 
 
         //For Course Trng Date - Label
@@ -513,6 +665,51 @@ public partial class ContactDETAIL : BasePage
             if (AnniversaryDateLabel.Text == "1/1/1900")
             {
                 AnniversaryDateLabel.Text = "";
+            }
+        }
+        
+        //For LastAttemptedDate - Label
+        Label LastAttemptedDateLabel = new Label();
+        LastAttemptedDateLabel = (Label)ContactDW.FindControl("lblLastAttemptedDate");
+        if (LastAttemptedDateLabel != null)
+        {
+            if (LastAttemptedDateLabel.Text == "1/1/1900")
+            {
+                LastAttemptedDateLabel.Text = "";
+            }
+        }
+
+
+        //For LastEmailedDate - Label
+        Label LastEmailedDateLabel = new Label();
+        LastEmailedDateLabel = (Label)ContactDW.FindControl("lblLastEmailedDate");
+        if (LastEmailedDateLabel != null)
+        {
+            if (LastEmailedDateLabel.Text == "1/1/1900")
+            {
+                LastEmailedDateLabel.Text = "";
+            }
+        }
+
+        //For LastMeetingDate - Label
+        Label LastMeetingDateLabel = new Label();
+        LastMeetingDateLabel = (Label)ContactDW.FindControl("lblLastMeetingDate");
+        if (LastMeetingDateLabel != null)
+        {
+            if (LastMeetingDateLabel.Text == "1/1/1900")
+            {
+                LastMeetingDateLabel.Text = "";
+            }
+        }
+
+        //For DateLetterSentOut - Label
+        Label DateLetterSentOutLabel = new Label();
+        DateLetterSentOutLabel = (Label)ContactDW.FindControl("lblDateLetterSentOut");
+        if (DateLetterSentOutLabel != null)
+        {
+            if (DateLetterSentOutLabel.Text == "1/1/1900")
+            {
+                DateLetterSentOutLabel.Text = "";
             }
         }
 

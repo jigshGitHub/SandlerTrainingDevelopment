@@ -16,6 +16,7 @@ namespace SandlerModels
         private int coachId;
         private string emailAdrs;
         private string userName;
+        private string franchiseeName;
         public SandlerRoles Role
         {
             get
@@ -68,6 +69,17 @@ namespace SandlerModels
             set
             {
                 franchiseeId = value;
+            }
+        }
+        public string FranchiseeName
+        {
+            get
+            {
+                return franchiseeName;
+            }
+            set
+            {
+                franchiseeName = value;
             }
         }
         public int CoachID

@@ -54,30 +54,136 @@
                                 <asp:Label ID="lblFirstName" runat="server" Text='<%# Bind("FirstName") %>'></asp:Label>
                             </ItemTemplate>
                         </asp:TemplateField>
+                        
+                        <asp:TemplateField HeaderText="Title :">
+                            <EditItemTemplate>
+                                <asp:TextBox ID="txtTitle" MaxLength="50" runat="server" Text='<%# Bind("Title") %>'></asp:TextBox>
+                            </EditItemTemplate>
+                            <ItemTemplate>
+                                <asp:Label ID="lblTitle" runat="server" Text='<%# Bind("Title") %>'></asp:Label>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                        
+                        <asp:TemplateField HeaderText="Contact's Department :">
+                            <EditItemTemplate>
+                                <asp:TextBox ID="txtDepartment" MaxLength="50" runat="server" Text='<%# Bind("ContactsDepartment") %>'></asp:TextBox>
+                            </EditItemTemplate>
+                            <ItemTemplate>
+                                <asp:Label ID="lblDepartment" runat="server" Text='<%# Bind("ContactsDepartment") %>'></asp:Label>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+
+                        <asp:TemplateField HeaderText="Contact's Role :">
+                            <EditItemTemplate>
+                                <asp:TextBox ID="txtRole" MaxLength="50" runat="server" Text='<%# Bind("ContactsRole") %>'></asp:TextBox>
+                            </EditItemTemplate>
+                            <ItemTemplate>
+                                <asp:Label ID="lblRole" runat="server" Text='<%# Bind("ContactsRole") %>'></asp:Label>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+
+
                         <asp:TemplateField HeaderText="Phone :">
                             <EditItemTemplate>
                                 <asp:TextBox ID="txtPhone" MaxLength="50" runat="server" Text='<%# Bind("Phone") %>'></asp:TextBox>
-                                <asp:RequiredFieldValidator ID="rfvPhoneTB" ControlToValidate="txtPhone" Display="Static"
-                                    InitialValue="" runat="server" ErrorMessage="Please Enter Phone to proceed.">
-                    *
-                                </asp:RequiredFieldValidator>
                             </EditItemTemplate>
                             <ItemTemplate>
                                 <asp:Label ID="lblPhone" runat="server" Text='<%# Bind("Phone") %>'></asp:Label>
                             </ItemTemplate>
                         </asp:TemplateField>
+
+                        <asp:TemplateField HeaderText="Mobile Phone :">
+                            <EditItemTemplate>
+                                <asp:TextBox ID="txtMobilePhone" MaxLength="50" runat="server" Text='<%# Bind("MobilePhone") %>'></asp:TextBox>
+                            </EditItemTemplate>
+                            <ItemTemplate>
+                                <asp:Label ID="lblMobilePhone" runat="server" Text='<%# Bind("MobilePhone") %>'></asp:Label>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+
+                        <asp:TemplateField HeaderText="Home Phone :">
+                            <EditItemTemplate>
+                                <asp:TextBox ID="txtHomePhone" MaxLength="50" runat="server" Text='<%# Bind("HomePhone") %>'></asp:TextBox>
+                            </EditItemTemplate>
+                            <ItemTemplate>
+                                <asp:Label ID="lblHomePhone" runat="server" Text='<%# Bind("HomePhone") %>'></asp:Label>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+
+
+                        <asp:TemplateField HeaderText="Fax :">
+                            <EditItemTemplate>
+                                <asp:TextBox ID="txtFax" MaxLength="50" runat="server" Text='<%# Bind("Fax") %>'></asp:TextBox>
+                            </EditItemTemplate>
+                            <ItemTemplate>
+                                <asp:Label ID="lblFax" runat="server" Text='<%# Bind("Fax") %>'></asp:Label>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+
+
                         <asp:TemplateField HeaderText="E-mail :">
                             <EditItemTemplate>
                                 <asp:TextBox ID="txtEmail" MaxLength="50" Width="380px" runat="server" Text='<%# Bind("Email") %>'></asp:TextBox>
-                                <asp:RequiredFieldValidator ID="rfvEmailTB" ControlToValidate="txtEmail" Display="Static"
-                                    InitialValue="" runat="server" ErrorMessage="Please Enter Email to proceed.">*</asp:RequiredFieldValidator>
-                                <asp:RegularExpressionValidator ID="regExpVal" runat="server" ControlToValidate="txtEmail"
-                                    ErrorMessage="Please Enter Valid Email address." ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*">*</asp:RegularExpressionValidator>
+                                <asp:RegularExpressionValidator ID="regExpVal" runat="server" ControlToValidate="txtEmail" ErrorMessage="Please Enter Valid Email address." ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*">*</asp:RegularExpressionValidator>
                             </EditItemTemplate>
                             <ItemTemplate>
                                 <asp:Label ID="lblEmail" runat="server" Text='<%# Bind("Email") %>'></asp:Label>
                             </ItemTemplate>
                         </asp:TemplateField>
+
+                        <asp:TemplateField HeaderText="Personal E-mail :">
+                            <EditItemTemplate>
+                                <asp:TextBox ID="txtPersonalEmail" MaxLength="50" Width="380px" runat="server" Text='<%# Bind("PersonalEmail") %>'></asp:TextBox>
+                                <asp:RegularExpressionValidator ID="regExpValPE" runat="server" ControlToValidate="txtPersonalEmail" ErrorMessage="Please Enter Valid Personal Email address." ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*">*</asp:RegularExpressionValidator>
+                            </EditItemTemplate>
+                            <ItemTemplate>
+                                <asp:Label ID="lblPersonalEmail" runat="server" Text='<%# Bind("PersonalEmail") %>'></asp:Label>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+
+
+                        <asp:TemplateField HeaderText="Contact's Address :">
+                            <EditItemTemplate>
+                                <asp:TextBox ID="txtAddress" Width="380" MaxLength="150" runat="server" Text='<%# Bind("Address") %>'></asp:TextBox>
+                            </EditItemTemplate>
+                            <ItemTemplate>
+                                <asp:Label ID="lblAddress" runat="server" Text='<%# Bind("Address") %>'></asp:Label>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                        <asp:TemplateField HeaderText="Contact's City :">
+                            <EditItemTemplate>
+                                <asp:TextBox ID="txtCity" MaxLength="50" runat="server" Text='<%# Bind("City") %>'></asp:TextBox>
+                                
+                            </EditItemTemplate>
+                            <ItemTemplate>
+                                <asp:Label ID="lblCity" runat="server" Text='<%# Bind("City") %>'></asp:Label>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                        <asp:TemplateField HeaderText="Contact's State :">
+                            <EditItemTemplate>
+                                <asp:TextBox ID="txtState"  MaxLength="50" runat="server" Text='<%# Bind("State") %>'></asp:TextBox>
+                            </EditItemTemplate>
+                            <ItemTemplate>
+                                <asp:Label ID="lblState" runat="server" Text='<%# Bind("State") %>'></asp:Label>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                        <asp:TemplateField HeaderText="Contact's Zip :">
+                            <EditItemTemplate>
+                                <asp:TextBox ID="txtZip"   MaxLength="7" runat="server" Text='<%# Bind("Zip") %>'></asp:TextBox>
+                            </EditItemTemplate>
+                            <ItemTemplate>
+                                <asp:Label ID="lblZip" runat="server" Text='<%# Bind("Zip") %>'></asp:Label>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                        <asp:TemplateField HeaderText="Contact's Country :">
+                            <EditItemTemplate>
+                                <asp:TextBox ID="txtCountry"  runat="server" Text='<%# Bind("Country") %>'></asp:TextBox>
+                            </EditItemTemplate>
+                            <ItemTemplate>
+                                <asp:Label ID="lblCountry" runat="server" Text='<%# Bind("Country") %>'></asp:Label>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                        
                         <asp:TemplateField HeaderText="New Appointment?:">
                             <ItemTemplate>
                                 <asp:Label ID="lblNewAppt" runat="server" Text='<%# Eval("NewApptDescription") %>'></asp:Label>
@@ -137,10 +243,6 @@
                         <asp:TemplateField HeaderText="Discussion Topic :">
                             <EditItemTemplate>
                                 <asp:TextBox ID="txtDiscTopic" runat="server" Text='<%# Bind("DiscussionTopic") %>'></asp:TextBox>
-                                <asp:RequiredFieldValidator ID="rfvDiscTopicTB" ControlToValidate="txtDiscTopic"
-                                    Display="Static" InitialValue="" runat="server" ErrorMessage="Please Enter Discussion Topic to proceed.">
-                    *
-                                </asp:RequiredFieldValidator>
                             </EditItemTemplate>
                             <ItemTemplate>
                                 <asp:Label ID="lblDiscTopic" runat="server" Text='<%# Bind("DiscussionTopic") %>'></asp:Label>
@@ -149,27 +251,65 @@
                         <asp:TemplateField HeaderText="Action Step :">
                             <EditItemTemplate>
                                 <asp:TextBox ID="txtActStep" runat="server" Text='<%# Bind("ACTIONSTEP") %>'></asp:TextBox>
-                                <asp:RequiredFieldValidator ID="rfvActionStepTB" ControlToValidate="txtActStep" Display="Static"
-                                    InitialValue="" runat="server" ErrorMessage="Please Enter Action Step to proceed.">
-                    *
-                                </asp:RequiredFieldValidator>
                             </EditItemTemplate>
                             <ItemTemplate>
                                 <asp:Label ID="lblActStep" runat="server" Text='<%# Bind("ACTIONSTEP") %>'></asp:Label>
                             </ItemTemplate>
                         </asp:TemplateField>
+                        
+                        <asp:TemplateField HeaderText="Date Last Attempted :">
+                            <EditItemTemplate>
+                                <asp:TextBox ID="LastAttemptedDate" Text='<%# Bind("LastAttemptedDate") %>' runat="server" />&nbsp;<asp:Image ID="calanderImageDLA" runat="server" ImageUrl="~/images/calendar.gif" ImageAlign="Middle" />
+                                <asp:CalendarExtender ID="CalendarExtender21" runat="server" TargetControlID="LastAttemptedDate" PopupButtonID="calanderImageDLA" CssClass="calendar"></asp:CalendarExtender>
+                            </EditItemTemplate>
+                            <ItemTemplate>
+                                <asp:Label ID="lblLastAttemptedDate" runat="server" Text='<%# Bind("LastAttemptedDate","{0:d}") %>'></asp:Label>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+
+                        
                         <asp:TemplateField HeaderText="Last Contact Date :">
                             <EditItemTemplate>
-                                <asp:TextBox ID="LastContactDate" Text='<%# Bind("Last_Contact_Date") %>' runat="server" />&nbsp;<asp:Image
-                                    ID="calanderImageLCD" runat="server" ImageUrl="~/images/calendar.gif" ImageAlign="Middle" />
-                                <asp:CalendarExtender ID="CalendarExtender2" runat="server" TargetControlID="LastContactDate"
-                                    PopupButtonID="calanderImageLCD" CssClass="calendar">
-                                </asp:CalendarExtender>
+                                <asp:TextBox ID="LastContactDate" Text='<%# Bind("Last_Contact_Date") %>' runat="server" />&nbsp;<asp:Image ID="calanderImageLCD" runat="server" ImageUrl="~/images/calendar.gif" ImageAlign="Middle" />
+                                <asp:CalendarExtender ID="CalendarExtender2" runat="server" TargetControlID="LastContactDate" PopupButtonID="calanderImageLCD" CssClass="calendar"></asp:CalendarExtender>
                             </EditItemTemplate>
                             <ItemTemplate>
                                 <asp:Label ID="lblLastContactDate" runat="server" Text='<%# Bind("Last_Contact_Date","{0:d}") %>'></asp:Label>
                             </ItemTemplate>
                         </asp:TemplateField>
+                        
+                        
+                        <asp:TemplateField HeaderText="Date Last Emailed :">
+                            <EditItemTemplate>
+                                <asp:TextBox ID="LastEmailedDate" Text='<%# Bind("LastEmailedDate") %>' runat="server" />&nbsp;<asp:Image ID="calanderImageLED" runat="server" ImageUrl="~/images/calendar.gif" ImageAlign="Middle" />
+                                <asp:CalendarExtender ID="CalendarExtender22" runat="server" TargetControlID="LastEmailedDate" PopupButtonID="calanderImageLED" CssClass="calendar"></asp:CalendarExtender>
+                            </EditItemTemplate>
+                            <ItemTemplate>
+                                <asp:Label ID="lblLastEmailedDate" runat="server" Text='<%# Bind("LastEmailedDate","{0:d}") %>'></asp:Label>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+
+
+                         <asp:TemplateField HeaderText="Date of Last Meeting :">
+                            <EditItemTemplate>
+                                <asp:TextBox ID="LastMeetingDate" Text='<%# Bind("LastMeetingDate") %>' runat="server" />&nbsp;<asp:Image ID="calanderImageLMD" runat="server" ImageUrl="~/images/calendar.gif" ImageAlign="Middle" />
+                                <asp:CalendarExtender ID="CalendarExtender23" runat="server" TargetControlID="LastMeetingDate" PopupButtonID="calanderImageLMD" CssClass="calendar"></asp:CalendarExtender>
+                            </EditItemTemplate>
+                            <ItemTemplate>
+                                <asp:Label ID="lblLastMeetingDate" runat="server" Text='<%# Bind("LastMeetingDate","{0:d}") %>'></asp:Label>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+
+                        <asp:TemplateField HeaderText="Date Letter Sent :">
+                            <EditItemTemplate>
+                                <asp:TextBox ID="DateLetterSentOut" Text='<%# Bind("LetterSentDate") %>' runat="server" />&nbsp;<asp:Image ID="calanderImageDLSO" runat="server" ImageUrl="~/images/calendar.gif" ImageAlign="Middle" />
+                                <asp:CalendarExtender ID="CalendarExtender24" runat="server" TargetControlID="DateLetterSentOut" PopupButtonID="calanderImageDLSO" CssClass="calendar"></asp:CalendarExtender>
+                            </EditItemTemplate>
+                            <ItemTemplate>
+                                <asp:Label ID="lblDateLetterSentOut" runat="server" Text='<%# Bind("LetterSentDate","{0:d}") %>'></asp:Label>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                        
                         <asp:TemplateField HeaderText="Next Contact Date :">
                             <EditItemTemplate>
                                 <asp:TextBox ID="NextContactDate" Text='<%# Bind("Next_Contact_Date") %>' runat="server" />&nbsp;<asp:Image
@@ -177,8 +317,7 @@
                                 <asp:CalendarExtender ID="CalendarExtender3" runat="server" TargetControlID="NextContactDate"
                                     PopupButtonID="calanderImageNCD" CssClass="calendar">
                                 </asp:CalendarExtender>
-                                <asp:RequiredFieldValidator ID="NextContactDateRFV" ControlToValidate="NextContactDate"
-                                    runat="server" ErrorMessage="Please Enter Next Contact Date to proceed.">*</asp:RequiredFieldValidator>
+                                
                             </EditItemTemplate>
                             <ItemTemplate>
                                 <asp:Label ID="lblNextContactDate" runat="server" Text='<%# Bind("Next_Contact_Date","{0:d}") %>'></asp:Label>
@@ -218,6 +357,18 @@
                                 <asp:Label ID="lblBirthdayDate" runat="server" Text='<%# Bind("Birthday","{0:d}") %>'></asp:Label>
                             </ItemTemplate>
                         </asp:TemplateField>
+                                                
+                        <asp:TemplateField HeaderText="Spouse's Name :">
+                            <EditItemTemplate>
+                                <asp:TextBox ID="txtSpouseName" runat="server" Text='<%# Bind("SpouseName") %>'></asp:TextBox>
+                            </EditItemTemplate>
+                            <ItemTemplate>
+                                <asp:Label ID="lblSpouseName" runat="server" Text='<%# Bind("SpouseName") %>'></asp:Label>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+
+
+                        
                         <asp:TemplateField HeaderText="Anniversary :">
                             <EditItemTemplate>
                                 <asp:TextBox ID="AnniversaryDate" Text='<%# Bind("Anniversary") %>' runat="server" />&nbsp;<asp:Image
@@ -247,6 +398,26 @@
                                 <asp:Label ID="lblBossName" runat="server" Text='<%# Bind("BossName") %>'></asp:Label>
                             </ItemTemplate>
                         </asp:TemplateField>
+                        
+                        <asp:TemplateField HeaderText="Referred By :">
+                            <EditItemTemplate>
+                                <asp:TextBox ID="txtReferredBy" runat="server" Text='<%# Bind("ReferredBy") %>'></asp:TextBox>
+                            </EditItemTemplate>
+                            <ItemTemplate>
+                                <asp:Label ID="lblReferredBy" runat="server" Text='<%# Bind("ReferredBy") %>'></asp:Label>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                        
+                        <asp:TemplateField HeaderText="Contact's Notes :">
+                            <EditItemTemplate>
+                                <asp:TextBox ID="txtNotes" Width="380" TextMode="MultiLine" Rows="3" runat="server" Text='<%# Bind("Notes") %>'></asp:TextBox>
+                            </EditItemTemplate>
+                            <ItemTemplate>
+                                <asp:Label ID="lblNotes" runat="server" Text='<%# Bind("Notes") %>'></asp:Label>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+
+
                         <asp:TemplateField ShowHeader="False">
                             <ControlStyle Font-Bold="true" />
                             <EditItemTemplate>

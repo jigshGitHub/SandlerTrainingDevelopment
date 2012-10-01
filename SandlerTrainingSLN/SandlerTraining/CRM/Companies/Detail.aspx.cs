@@ -60,6 +60,20 @@ public partial class CompanyDETAIL : BasePage
             GetCompanyDetails();
         }
     }
+
+    public string GetTextBoxData(string controlId)
+    {
+        //First Create the TextBox Control to store the Input Data
+        string inputByUser = "";
+        TextBox _tempTextBox = new TextBox();
+        _tempTextBox = (TextBox)CompanyDW.FindControl(controlId);
+        if ((_tempTextBox != null))
+        {
+            inputByUser = _tempTextBox.Text;
+        }
+        return inputByUser;
+    }
+
     public void UpdateCompanyDetails()
     {
         //TB Fields
@@ -107,275 +121,95 @@ public partial class CompanyDETAIL : BasePage
         int NewItemID = default(System.Int32); 
         
         //For Company Name
-        {
-            TextBox COMPANYNAMETextBox = new TextBox();
-            COMPANYNAMETextBox = (TextBox)CompanyDW.FindControl("txtCompName");
-            if ((COMPANYNAMETextBox != null))
-            {
-                COMPANYNAME = COMPANYNAMETextBox.Text.Trim();
-            }
-        }
+        COMPANYNAME = GetTextBoxData("txtCompName");
+        
         //For Company Ownership
-        {
-            TextBox CompOwnershipTextBox = new TextBox();
-            CompOwnershipTextBox = (TextBox)CompanyDW.FindControl("txtOwnership");
-            if ((CompOwnershipTextBox != null))
-            {
-                CompanyOwnership = CompOwnershipTextBox.Text.Trim();
-            }
-        }
+        CompanyOwnership = GetTextBoxData("txtOwnership");
+        
         //For Company Description
-        {
-            TextBox CompDescriptionTextBox = new TextBox();
-            CompDescriptionTextBox = (TextBox)CompanyDW.FindControl("txtCompanyDescription");
-            if ((CompDescriptionTextBox != null))
-            {
-                CompanyDescription = CompDescriptionTextBox.Text.Trim();
-            }
-        }
+        CompanyDescription = GetTextBoxData("txtCompanyDescription");
+        
         //For Address
-        {
-            TextBox AddressTextBox = new TextBox();
-            AddressTextBox = (TextBox)CompanyDW.FindControl("txtAddress");
-            if ((AddressTextBox != null))
-            {
-                Address = AddressTextBox.Text.Trim();
-            }
-        }
+        Address = GetTextBoxData("txtAddress");
+
         //For City
-        {
-            TextBox CityTextBox = new TextBox();
-            CityTextBox = (TextBox)CompanyDW.FindControl("txtCity");
-            if ((CityTextBox != null))
-            {
-                City = CityTextBox.Text.Trim();
-            }
-        }
+        City = GetTextBoxData("txtCity");
+
         //For State
-        {
-            TextBox StateTextBox = new TextBox();
-            StateTextBox = (TextBox)CompanyDW.FindControl("txtState");
-            if ((StateTextBox != null))
-            {
-                State = StateTextBox.Text.Trim();
-            }
-        }
+        State = GetTextBoxData("txtState");
+
         //For Zip
-        {
-            TextBox ZipTextBox = new TextBox();
-            ZipTextBox = (TextBox)CompanyDW.FindControl("txtZip");
-            if ((ZipTextBox != null))
-            {
-                Zip = ZipTextBox.Text.Trim();
-            }
-        }
+        Zip = GetTextBoxData("txtZip");
+
         //For Country
-        {
-            TextBox CountryTextBox = new TextBox();
-            CountryTextBox = (TextBox)CompanyDW.FindControl("txtCountry");
-            if ((CountryTextBox != null))
-            {
-                Country = CountryTextBox.Text.Trim();
-            }
-        }
+        Country = GetTextBoxData("txtCountry");
+        
         //For Billing Address
-        {
-            TextBox BillingAddressTextBox = new TextBox();
-            BillingAddressTextBox = (TextBox)CompanyDW.FindControl("txtBillingAddress");
-            if ((BillingAddressTextBox != null))
-            {
-                BillingAddress = BillingAddressTextBox.Text.Trim();
-            }
-        }
+        BillingAddress = GetTextBoxData("txtBillingAddress");
+
         //For Billing City
-        {
-            TextBox BillingCityTextBox = new TextBox();
-            BillingCityTextBox = (TextBox)CompanyDW.FindControl("txtBillingCity");
-            if ((BillingCityTextBox != null))
-            {
-                BillingCity = BillingCityTextBox.Text.Trim();
-            }
-        }
+        BillingCity = GetTextBoxData("txtBillingCity");
+
         //For Billing State
-        {
-            TextBox BillingStateTextBox = new TextBox();
-            BillingStateTextBox = (TextBox)CompanyDW.FindControl("txtBillingState");
-            if ((BillingStateTextBox != null))
-            {
-                BillingState = BillingStateTextBox.Text.Trim();
-            }
-        }
+        BillingState = GetTextBoxData("txtBillingState");
+
         //For Billing Zip
-        {
-            TextBox BillingZipTextBox = new TextBox();
-            BillingZipTextBox = (TextBox)CompanyDW.FindControl("txtBillingZip");
-            if ((BillingZipTextBox != null))
-            {
-                BillingZip = BillingZipTextBox.Text.Trim();
-            }
-        }
+        BillingZip = GetTextBoxData("txtBillingZip");
+
         //For Billing Country
-        {
-            TextBox BillingCountryTextBox = new TextBox();
-            BillingCountryTextBox = (TextBox)CompanyDW.FindControl("txtBillingCountry");
-            if ((BillingCountryTextBox != null))
-            {
-                BillingCountry = BillingCountryTextBox.Text.Trim();
-            }
-        }
+        BillingCountry = GetTextBoxData("txtBillingCountry");
+                
         //For POC Last Name
-        {
-            TextBox POCLastNameTextBox = new TextBox();
-            POCLastNameTextBox = (TextBox)CompanyDW.FindControl("txtPOCLastName");
-            if ((POCLastNameTextBox != null))
-            {
-                POCLastName = POCLastNameTextBox.Text.Trim();
-            }
-        }
+        POCLastName = GetTextBoxData("txtPOCLastName");
+        
         //For POC First Name
-        {
-            TextBox POCFirstNameTextBox = new TextBox();
-            POCFirstNameTextBox = (TextBox)CompanyDW.FindControl("txtPOCFirstName");
-            if ((POCFirstNameTextBox != null))
-            {
-                POCFirstName = POCFirstNameTextBox.Text.Trim();
-            }
-        }
+        POCFirstName = GetTextBoxData("txtPOCFirstName");
+        
         //For POC Phone
-        {
-            TextBox POCPhoneTextBox = new TextBox();
-            POCPhoneTextBox = (TextBox)CompanyDW.FindControl("txtPOCPhone");
-            if ((POCPhoneTextBox != null))
-            {
-                POCPhone = POCPhoneTextBox.Text.Trim();
-            }
-        }
+        POCPhone = GetTextBoxData("txtPOCPhone");
+        
         //For POC Department
-        {
-            TextBox POCDepartmentTextBox = new TextBox();
-            POCDepartmentTextBox = (TextBox)CompanyDW.FindControl("txtPOCDepartment");
-            if ((POCDepartmentTextBox != null))
-            {
-                POCDepartment = POCDepartmentTextBox.Text.Trim();
-            }
-        }
+        POCDepartment = GetTextBoxData("txtPOCDepartment");
+        
         //For POC Email
-        {
-            TextBox POCEmailTextBox = new TextBox();
-            POCEmailTextBox = (TextBox)CompanyDW.FindControl("txtPOCEmail");
-            if ((POCEmailTextBox != null))
-            {
-                POCEmail = POCEmailTextBox.Text.Trim();
-            }
-        }
+        POCEmail = GetTextBoxData("txtPOCEmail");
+        
         //For POC Fax
-        {
-            TextBox POCFaxTextBox = new TextBox();
-            POCFaxTextBox = (TextBox)CompanyDW.FindControl("txtPOCFax");
-            if ((POCFaxTextBox != null))
-            {
-                POCFax = POCFaxTextBox.Text.Trim();
-            }
-        }
+        POCFax = GetTextBoxData("txtPOCFax");
+        
         //For Assistant Last Name
-        {
-            TextBox AssistantLastNameTextBox = new TextBox();
-            AssistantLastNameTextBox = (TextBox)CompanyDW.FindControl("txtAssistantLastName");
-            if ((AssistantLastNameTextBox != null))
-            {
-                AssistantLastName = AssistantLastNameTextBox.Text.Trim();
-            }
-        }
+        AssistantLastName = GetTextBoxData("txtAssistantLastName");
+        
         //For Assistant First Name
-        {
-            TextBox AssistantFirstNameTextBox = new TextBox();
-            AssistantFirstNameTextBox = (TextBox)CompanyDW.FindControl("txtAssistantFirstName");
-            if ((AssistantFirstNameTextBox != null))
-            {
-                AssistantFirstName = AssistantFirstNameTextBox.Text.Trim();
-            }
-        }
+        AssistantFirstName = GetTextBoxData("txtAssistantFirstName");
+        
         //For Assistant Phone
-        {
-            TextBox AssistantPhoneTextBox = new TextBox();
-            AssistantPhoneTextBox = (TextBox)CompanyDW.FindControl("txtAssistantPhone");
-            if ((AssistantPhoneTextBox != null))
-            {
-                AssistantPhone = AssistantPhoneTextBox.Text.Trim();
-            }
-        }
+        AssistantPhone = GetTextBoxData("txtAssistantPhone");
+        
         //For Website
-        {
-            TextBox WebsiteTextBox = new TextBox();
-            WebsiteTextBox = (TextBox)CompanyDW.FindControl("txtWebsite");
-            if ((WebsiteTextBox != null))
-            {
-                Website = WebsiteTextBox.Text.Trim();
-            }
-        }
+        Website = GetTextBoxData("txtWebsite");
+        
         //For Emp Quantity
-        {
-            TextBox EmpQunatityTextBox = new TextBox();
-            EmpQunatityTextBox = (TextBox)CompanyDW.FindControl("txtEmpQuantity");
-            if ((EmpQunatityTextBox != null))
-            {
-                EmpQuantity = EmpQunatityTextBox.Text.Trim();
-            }
-        }
+        EmpQuantity = GetTextBoxData("txtEmpQuantity");
+        
         //For COMPANY VALUE GOAL
-        {
-            TextBox CompValueGoalTextBox = new TextBox();
-            CompValueGoalTextBox = (TextBox)CompanyDW.FindControl("txtCOMPANYVALUEGOAL");
-            if ((CompValueGoalTextBox != null))
-            {
-                COMPANYVALUEGOAL = CompValueGoalTextBox.Text.Trim();
-            }
-        }
+        COMPANYVALUEGOAL = GetTextBoxData("txtCOMPANYVALUEGOAL");
+        
         //For Rep Last Name
-        {
-            TextBox RepLastNameTextBox = new TextBox();
-            RepLastNameTextBox = (TextBox)CompanyDW.FindControl("txtRepLastName");
-            if ((RepLastNameTextBox != null))
-            {
-                RepLastName = RepLastNameTextBox.Text.Trim();
-            }
-        }
+        RepLastName = GetTextBoxData("txtRepLastName");
+        
         //For Rep First Name
-        {
-            TextBox RepFirstNameTextBox = new TextBox();
-            RepFirstNameTextBox = (TextBox)CompanyDW.FindControl("txtRepFirstName");
-            if ((RepFirstNameTextBox != null))
-            {
-                RepFirstName = RepFirstNameTextBox.Text.Trim();
-            }
-        }
+        RepFirstName = GetTextBoxData("txtRepFirstName");
+        
         //For Discussion Topic 
-        {
-            TextBox DiscTopicTextBox = new TextBox();
-            DiscTopicTextBox = (TextBox)CompanyDW.FindControl("txtDiscussionTopic");
-            if ((DiscTopicTextBox != null))
-            {
-                DiscussionTopic = DiscTopicTextBox.Text.Trim();
-            }
-        }
+        DiscussionTopic = GetTextBoxData("txtDiscussionTopic");
+        
         //For Action Step
-        {
-            TextBox ActionStepTextBox = new TextBox();
-            ActionStepTextBox = (TextBox)CompanyDW.FindControl("txtACTIONSTEP");
-            if ((ActionStepTextBox != null))
-            {
-                ACTIONSTEP = ActionStepTextBox.Text.Trim();
-            }
-        }
+        ACTIONSTEP = GetTextBoxData("txtACTIONSTEP");
+        
         //For Notes
-        {
-            TextBox NotesTextBox = new TextBox();
-            NotesTextBox = (TextBox)CompanyDW.FindControl("txtNotes");
-            if ((NotesTextBox != null))
-            {
-                Notes = NotesTextBox.Text.Trim();
-            }
-        }
+        Notes = GetTextBoxData("txtNotes");
+        
         //For Creation Date
         {
             TextBox CreationDateCal = new TextBox();
@@ -474,20 +308,20 @@ public partial class CompanyDETAIL : BasePage
                 (CompanyDW.FindControl("txtBillingZip") as TextBox).Text = (CompanyDW.FindControl("txtZip") as TextBox).Text;
                 (CompanyDW.FindControl("txtBillingCountry") as TextBox).Text = (CompanyDW.FindControl("txtCountry") as TextBox).Text;
                 //Also make them readonly true
-                (CompanyDW.FindControl("txtBillingAddress") as TextBox).ReadOnly = true;
-                (CompanyDW.FindControl("txtBillingCity") as TextBox).ReadOnly = true;
-                (CompanyDW.FindControl("txtBillingState") as TextBox).ReadOnly = true;
-                (CompanyDW.FindControl("txtBillingZip") as TextBox).ReadOnly = true;
-                (CompanyDW.FindControl("txtBillingCountry") as TextBox).ReadOnly = true;
+                (CompanyDW.FindControl("txtBillingAddress") as TextBox).Enabled = false;
+                (CompanyDW.FindControl("txtBillingCity") as TextBox).Enabled = false;
+                (CompanyDW.FindControl("txtBillingState") as TextBox).Enabled = false;
+                (CompanyDW.FindControl("txtBillingZip") as TextBox).Enabled = false;
+                (CompanyDW.FindControl("txtBillingCountry") as TextBox).Enabled = false;
             }
             else
             {
                 //Also make them readonly false
-                (CompanyDW.FindControl("txtBillingAddress") as TextBox).ReadOnly = false;
-                (CompanyDW.FindControl("txtBillingCity") as TextBox).ReadOnly = false;
-                (CompanyDW.FindControl("txtBillingState") as TextBox).ReadOnly = false;
-                (CompanyDW.FindControl("txtBillingZip") as TextBox).ReadOnly = false;
-                (CompanyDW.FindControl("txtBillingCountry") as TextBox).ReadOnly = false;
+                (CompanyDW.FindControl("txtBillingAddress") as TextBox).Enabled = true;
+                (CompanyDW.FindControl("txtBillingCity") as TextBox).Enabled = true;
+                (CompanyDW.FindControl("txtBillingState") as TextBox).Enabled = true;
+                (CompanyDW.FindControl("txtBillingZip") as TextBox).Enabled = true;
+                (CompanyDW.FindControl("txtBillingCountry") as TextBox).Enabled = true;
             }
         }
     }

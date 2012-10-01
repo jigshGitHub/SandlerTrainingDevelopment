@@ -125,6 +125,8 @@ public partial class ROI : BasePage
             ContactId = int.Parse(drpLstContacts.SelectedValue);
             PopulateGAPS();
         }
+        else
+            PopulateData(null, true);
     }
 
     protected void lnlNextStep_Click(object sender, CommandEventArgs e)
@@ -161,6 +163,9 @@ public partial class ROI : BasePage
         if (commandArg == "0")
         {
             wzROI.ActiveStepIndex = int.Parse(commandArg);
+
+            (submitROIData.CustomNavigationTemplateContainer.FindControl("lnkNextStep") as LinkButton).Attributes.Add("style", "display:block");
+            (submitROIData.CustomNavigationTemplateContainer.FindControl("editGA") as LinkButton).Attributes.Add("style", "display:block");
         }
     }
 

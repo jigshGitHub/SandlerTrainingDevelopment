@@ -325,8 +325,8 @@ namespace Sandler.UI.ChartStructure
 
                                 //if (actualDollarsBooked > 0 && goalOfDollarsBooked > 0)
                                 //{
-                                this.DataSetCollection[0].SetsCollection.Add(new SetValue { Label = catagory.Label, Value = actualDollarsBooked.ToString(), Link = ChartHelper.GeneratePageLink(catagory.Label, this.DrillChartIds) });
-                                this.DataSetCollection[1].SetsCollection.Add(new SetValue { Label = catagory.Label, Value = ((Convert.ToDouble(actualDollarsBooked) / Convert.ToDouble(goalOfDollarsBooked)) * 100).ToString("#.##"), Link = ChartHelper.GeneratePageLink(catagory.Label, this.DrillChartIds) });
+                                this.DataSetCollection[0].SetsCollection.Add(new SetValue { Label = catagory.Label, Value = actualDollarsBooked.ToString(), Link = ChartHelper.GeneratePageLink("", this.DrillChartIds) });
+                                this.DataSetCollection[1].SetsCollection.Add(new SetValue { Label = catagory.Label, Value = ((Convert.ToDouble(actualDollarsBooked) / Convert.ToDouble(goalOfDollarsBooked)) * 100).ToString("#.##"), Link = ChartHelper.GeneratePageLink("", this.DrillChartIds) });
                                 //}
                             }
                             catch (System.InvalidOperationException)

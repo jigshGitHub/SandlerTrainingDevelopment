@@ -44,7 +44,6 @@ namespace SandlerModels
         public Nullable<decimal> Year3 { get; set; }
     
         internal TBL_COMPANIES TBL_COMPANIES { get; set; }
-        internal TBL_CONTACTS TBL_CONTACTS { get; set; }
         internal TBL_GA_EstBenefitsGained TBL_GA_EstBenefitsGained { get; set; }
         internal TBL_GA_EstBenefitsGained TBL_GA_EstBenefitsGained1 { get; set; }
         internal TBL_GA_QuotaAchievement TBL_GA_QuotaAchievement { get; set; }
@@ -57,6 +56,7 @@ namespace SandlerModels
         internal TBL_GA_SalesQualification TBL_GA_SalesQualification1 { get; set; }
         internal TBL_GA_TrainingCostSavings TBL_GA_TrainingCostSavings { get; set; }
         internal TBL_GA_TrainingCostSavings TBL_GA_TrainingCostSavings1 { get; set; }
+        internal TBL_CONTACTS TBL_CONTACTS { get; set; }
     }
     
 }

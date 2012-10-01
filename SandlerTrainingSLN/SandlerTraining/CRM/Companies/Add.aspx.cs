@@ -57,20 +57,20 @@ public partial class AddCompany : BasePage
                 (dvCompany.FindControl("txtBillingZip") as TextBox).Text = (dvCompany.FindControl("txtZip") as TextBox).Text;
                 (dvCompany.FindControl("txtBillingCountry") as TextBox).Text = (dvCompany.FindControl("txtCountry") as TextBox).Text;
                 //Also make them readonly true
-                (dvCompany.FindControl("txtBillingAddress") as TextBox).ReadOnly = true;
-                (dvCompany.FindControl("txtBillingCity") as TextBox).ReadOnly = true;
-                (dvCompany.FindControl("txtBillingState") as TextBox).ReadOnly = true;
-                (dvCompany.FindControl("txtBillingZip") as TextBox).ReadOnly = true;
-                (dvCompany.FindControl("txtBillingCountry") as TextBox).ReadOnly = true;
+                (dvCompany.FindControl("txtBillingAddress") as TextBox).Enabled = false;
+                (dvCompany.FindControl("txtBillingCity") as TextBox).Enabled = false;
+                (dvCompany.FindControl("txtBillingState") as TextBox).Enabled = false;
+                (dvCompany.FindControl("txtBillingZip") as TextBox).Enabled = false;
+                (dvCompany.FindControl("txtBillingCountry") as TextBox).Enabled = false;
             }
             else
             {
                 //Also make them readonly false
-                (dvCompany.FindControl("txtBillingAddress") as TextBox).ReadOnly = false;
-                (dvCompany.FindControl("txtBillingCity") as TextBox).ReadOnly = false;
-                (dvCompany.FindControl("txtBillingState") as TextBox).ReadOnly = false;
-                (dvCompany.FindControl("txtBillingZip") as TextBox).ReadOnly = false;
-                (dvCompany.FindControl("txtBillingCountry") as TextBox).ReadOnly = false;
+                (dvCompany.FindControl("txtBillingAddress") as TextBox).Enabled = true;
+                (dvCompany.FindControl("txtBillingCity") as TextBox).Enabled = true;
+                (dvCompany.FindControl("txtBillingState") as TextBox).Enabled = true;
+                (dvCompany.FindControl("txtBillingZip") as TextBox).Enabled = true;
+                (dvCompany.FindControl("txtBillingCountry") as TextBox).Enabled = true;
             }
         }
      }

@@ -32,7 +32,6 @@ namespace SandlerModels
         public DbSet<TBL_BlastEmailGroup> TBL_BlastEmailGroup { get; set; }
         public DbSet<TBL_CHART> TBL_CHART { get; set; }
         public DbSet<TBL_COACH> TBL_COACH { get; set; }
-        public DbSet<TBL_CONTACTS> TBL_CONTACTS { get; set; }
         public DbSet<TBL_COUNTRY> TBL_COUNTRY { get; set; }
         public DbSet<Tbl_Course> Tbl_Course { get; set; }
         public DbSet<TBL_DOCS> TBL_DOCS { get; set; }
@@ -58,6 +57,7 @@ namespace SandlerModels
         public DbSet<TBL_GA_Tracker> TBL_GA_Tracker { get; set; }
         public DbSet<TBL_GA_TrainingCostSavings> TBL_GA_TrainingCostSavings { get; set; }
         public DbSet<TBL_Trng_Expenditure> TBL_Trng_Expenditure { get; set; }
+        public DbSet<TBL_CONTACTS> TBL_CONTACTS { get; set; }
     
         internal ObjectResult<Contact> GetContactsByUser(Nullable<System.Guid> userId)
         {

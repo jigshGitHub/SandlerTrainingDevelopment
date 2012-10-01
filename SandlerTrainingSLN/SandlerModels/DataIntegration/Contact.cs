@@ -30,8 +30,275 @@ namespace SandlerModels.DataIntegration
         private string _apptSourceList;
         private string _courseIdList;
         private string _isRegisteredForTrainingList;
+
+        private string _address;
+        private string _zip;
+        private string _city;
+        private string _state;
+        private string _country;
+        private string _notes;
+
+        private string _title;
+        private string _contactsDepartment;
+        private string _contactsRole;
+        private string _mobilePhone;
+        private string _homePhone;
+        private string _fax;
+        private string _personalEmail;
+
+        private DateTime _lastAttemptedDate; 
+        private DateTime _lastEmailedDate;
+        private DateTime _lastMeetingDate;
+        private DateTime _letterSentDate;
+
+        private string _spouseName;
+        private string _referredBy;
+
+
+        public DateTime LetterSentDate
+        {
+            get
+            {
+                return _letterSentDate;
+
+            }
+            set
+            {
+                _letterSentDate = value;
+            }
+        }
+
+        public DateTime LastMeetingDate
+        {
+            get
+            {
+                return _lastMeetingDate;
+
+            }
+            set
+            {
+                _lastMeetingDate = value;
+            }
+        }
         
+        public DateTime LastEmailedDate
+        {
+            get
+            {
+                return _lastEmailedDate;
+
+            }
+            set
+            {
+                _lastEmailedDate = value;
+            }
+        }
         
+        public DateTime LastAttemptedDate
+        {
+            get
+            {
+                return _lastAttemptedDate;
+
+            }
+            set
+            {
+                _lastAttemptedDate = value;
+            }
+        }
+        
+        public string ReferredBy
+        {
+            get
+            {
+                return _referredBy;
+
+            }
+            set
+            {
+                _referredBy = value;
+            }
+        }
+
+        public string SpouseName
+        {
+            get
+            {
+                return _spouseName;
+
+            }
+            set
+            {
+                _spouseName = value;
+            }
+        }
+        
+        public string PersonalEmail
+        {
+            get
+            {
+                return _personalEmail;
+
+            }
+            set
+            {
+                _personalEmail = value;
+            }
+        }
+        
+        public string Fax
+        {
+            get
+            {
+                return _fax;
+
+            }
+            set
+            {
+                _fax = value;
+            }
+        }
+                
+        public string HomePhone
+        {
+            get
+            {
+                return _homePhone;
+
+            }
+            set
+            {
+                _homePhone = value;
+            }
+        }
+
+        public string MobilePhone
+        {
+            get
+            {
+                return _mobilePhone;
+
+            }
+            set
+            {
+                _mobilePhone = value;
+            }
+        }
+
+        public string ContactsRole
+        {
+            get
+            {
+                return _contactsRole;
+
+            }
+            set
+            {
+                _contactsRole = value;
+            }
+        }
+
+        public string ContactsDepartment
+        {
+            get
+            {
+                return _contactsDepartment;
+
+            }
+            set
+            {
+                _contactsDepartment = value;
+            }
+        }
+                
+        public string Title
+        {
+            get
+            {
+                return _title;
+
+            }
+            set
+            {
+                _title = value;
+            }
+        }
+        
+        public string Country
+        {
+            get
+            {
+                return _country;
+
+            }
+            set
+            {
+                _country = value;
+            }
+        }
+
+        public string State
+        {
+            get
+            {
+                return _state;
+            }
+            set
+            {
+                _state = value;
+            }
+        }
+
+        public string City
+        {
+            get
+            {
+                return _city;
+            }
+            set
+            {
+                _city = value;
+            }
+        }
+        
+        public string Address
+        {
+            get
+            {
+                return _address;
+
+            }
+            set
+            {
+                _address = value;
+            }
+        }
+
+        public string Zip
+        {
+            get
+            {
+                return _zip;
+
+            }
+            set
+            {
+                _zip = value;
+            }
+        }
+
+        public string Notes
+        {
+            get
+            {
+                return _notes;
+
+            }
+            set
+            {
+                _notes = value;
+            }
+        }
         
         public string IsRegisteredForTrainingList
         {

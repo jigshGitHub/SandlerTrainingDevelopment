@@ -16,10 +16,10 @@ namespace SandlerModels
     {
         public TBL_CONTACTS()
         {
+            this.TBL_GA_Tracker = new HashSet<TBL_GA_Tracker>();
             this.TBL_OPPORTUNITIES = new HashSet<TBL_OPPORTUNITIES>();
             this.TBL_OPPORTUNITIES1 = new HashSet<TBL_OPPORTUNITIES>();
             this.TBL_OPPORTUNITIES2 = new HashSet<TBL_OPPORTUNITIES>();
-            this.TBL_GA_Tracker = new HashSet<TBL_GA_Tracker>();
         }
     
         public int CONTACTSID { get; set; }
@@ -49,14 +49,33 @@ namespace SandlerModels
         public string BossName { get; set; }
         public Nullable<bool> IsNeedCallBack { get; set; }
         public Nullable<System.DateTime> CallBackCreatedDate { get; set; }
+        public string Title { get; set; }
+        public string ContactsDepartment { get; set; }
+        public string ContactsRole { get; set; }
+        public string MobilePhone { get; set; }
+        public string HomePhone { get; set; }
+        public string Fax { get; set; }
+        public string PersonalEmail { get; set; }
+        public string Address { get; set; }
+        public string City { get; set; }
+        public string State { get; set; }
+        public string Zip { get; set; }
+        public Nullable<System.DateTime> LastAttemptedDate { get; set; }
+        public Nullable<System.DateTime> LastEmailedDate { get; set; }
+        public Nullable<System.DateTime> LastMeetingDate { get; set; }
+        public Nullable<System.DateTime> LetterSentDate { get; set; }
+        public string SpouseName { get; set; }
+        public string ReferredBy { get; set; }
+        public string Notes { get; set; }
+        public string Country { get; set; }
     
-        internal Tbl_Course Tbl_Course { get; set; }
         internal Tbl_AppointmentsSource Tbl_AppointmentsSource { get; set; }
         internal TBL_COMPANIES TBL_COMPANIES { get; set; }
+        internal Tbl_Course Tbl_Course { get; set; }
+        internal ICollection<TBL_GA_Tracker> TBL_GA_Tracker { get; set; }
         internal ICollection<TBL_OPPORTUNITIES> TBL_OPPORTUNITIES { get; set; }
         internal ICollection<TBL_OPPORTUNITIES> TBL_OPPORTUNITIES1 { get; set; }
         internal ICollection<TBL_OPPORTUNITIES> TBL_OPPORTUNITIES2 { get; set; }
-        internal ICollection<TBL_GA_Tracker> TBL_GA_Tracker { get; set; }
     }
     
 }

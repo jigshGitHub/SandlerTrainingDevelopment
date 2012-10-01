@@ -30,6 +30,77 @@ namespace SandlerRepositories
             //Get All Franchisee Addresses
             return db.ExecuteDataset("sp_GetAllFranchiseeAddresses", "AllFranchiseeAddress", new SqlParameter("@RoleName", RoleName));
         }
+
+        #region For Email Group
+        
+        //For NonCorporate User - Start
+        public DataSet GetAllFrOwnerAddressesByFrId()
+        {
+            UserModel _user = (UserModel)HttpContext.Current.Session["CurrentUser"];
+            return db.ExecuteDataset("sp_GetAllFranchiseeAddressesByFrId", "AllFranchiseeAddress", new SqlParameter("@RoleName", SandlerRoles.FranchiseeOwner.ToString()), new SqlParameter("@FranchiseeId", _user.FranchiseeID));
+        }
+        public DataSet GetAllFrUsersAddressesByFrId()
+        {
+            UserModel _user = (UserModel)HttpContext.Current.Session["CurrentUser"];
+            return db.ExecuteDataset("sp_GetAllFranchiseeAddressesByFrId", "AllFranchiseeAddress", new SqlParameter("@RoleName", SandlerRoles.FranchiseeUser.ToString()), new SqlParameter("@FranchiseeId", _user.FranchiseeID));
+        }
+        public DataSet GetAllFrContactsAddressesByFrId()
+        {
+            UserModel _user = (UserModel)HttpContext.Current.Session["CurrentUser"];
+            return db.ExecuteDataset("sp_GetAllContactsAddresses", "ContactAddress", new SqlParameter("@FranchiseeId", _user.FranchiseeID));
+        }
+        public DataSet GetAllCoachAddressesByFrId()
+        {
+            //Get All Franchisee Addresses
+            UserModel _user = (UserModel)HttpContext.Current.Session["CurrentUser"];
+            return db.ExecuteDataset("sp_GetAllCoachAddressesByFrId", "GetAllCoachAddressesByFrId", new SqlParameter("@FranchiseeId", _user.FranchiseeID));
+        }
+        //Non Corporate User - done
+
+        //For Corporate User - Start
+        public DataSet GetAllCoachAddressesByFrId(int ID)
+        {
+            //Get All Franchisee Addresses
+            return db.ExecuteDataset("sp_GetAllCoachAddressesByFrId", "GetAllCoachAddressesByFrId", new SqlParameter("@FranchiseeId", ID));
+        }
+        public DataSet GetAllFrContactsAddressesByFrId(int ID)
+        {
+            return db.ExecuteDataset("sp_GetAllContactsAddresses", "ContactAddress", new SqlParameter("@FranchiseeId", ID));
+        }
+        public DataSet GetAllFrOwnerAddressesByFrId(int ID)
+        {
+            return db.ExecuteDataset("sp_GetAllFranchiseeAddressesByFrId", "AllFranchiseeAddress", new SqlParameter("@RoleName", SandlerRoles.FranchiseeOwner.ToString()), new SqlParameter("@FranchiseeId", ID));
+        }
+        public DataSet GetAllFrUsersAddressesByFrId(int ID)
+        {
+            return db.ExecuteDataset("sp_GetAllFranchiseeAddressesByFrId", "AllFranchiseeAddress", new SqlParameter("@RoleName", SandlerRoles.FranchiseeUser.ToString()), new SqlParameter("@FranchiseeId", ID));
+        }
+        //Corporate User - done       
+        public DataSet GetUserEmailGroup()
+        {
+            //Get the User Info
+            UserModel _user = (UserModel)HttpContext.Current.Session["CurrentUser"];
+            return db.ExecuteDataset("sp_GetUserEmailGroup", "UserEmailGroup", new SqlParameter("@UserId", _user.UserId.ToString()));
+        }
+        public DataSet GetUserEmailGroupAddresses(int grpId)
+        {
+            //Get the User Group Email Addresses Info
+            return db.ExecuteDataset("sp_GetUserEmailGroupAddresses", "UserEmailGroupAdrs", new SqlParameter("@GroupId", grpId));
+        }
+        public void AddGroup(string GroupName, string CoachIds, string FrOwnerIds, string FrUsersIds, string FrContactsIds)
+        {
+            //Get the User Info
+            UserModel _user = (UserModel)HttpContext.Current.Session["CurrentUser"];
+            //Add
+            db.ExecuteNonQuery("sp_AddUserEmailGroup",
+            new SqlParameter("@UserId", _user.UserId.ToString()),
+            new SqlParameter("@GroupName", GroupName), new SqlParameter("@CoachIds", CoachIds),
+            new SqlParameter("@FrOwnerIds", FrOwnerIds), new SqlParameter("@FrUsersIds", FrUsersIds),
+            new SqlParameter("@FrContactsIds", FrContactsIds));
+
+        }
+        #endregion
+
         public DataSet GetAllContactsAddresses()
         {
             //Get All Franchisee Addresses

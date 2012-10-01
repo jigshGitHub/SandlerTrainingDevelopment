@@ -51,6 +51,25 @@ namespace SandlerModels
         public string BossName { get; set; }
         public Nullable<bool> IsNeedCallBack { get; set; }
         public Nullable<System.DateTime> CallBackCreatedDate { get; set; }
+        public string Title { get; set; }
+        public string ContactsDepartment { get; set; }
+        public string ContactsRole { get; set; }
+        public string MobilePhone { get; set; }
+        public string HomePhone { get; set; }
+        public string Fax { get; set; }
+        public string PersonalEmail { get; set; }
+        public string Address { get; set; }
+        public string City { get; set; }
+        public string State { get; set; }
+        public string Zip { get; set; }
+        public Nullable<System.DateTime> LastAttemptedDate { get; set; }
+        public Nullable<System.DateTime> LastEmailedDate { get; set; }
+        public Nullable<System.DateTime> LastMeetingDate { get; set; }
+        public Nullable<System.DateTime> LetterSentDate { get; set; }
+        public string SpouseName { get; set; }
+        public string ReferredBy { get; set; }
+        public string Notes { get; set; }
+        public string Country { get; set; }
     }
     
 }
