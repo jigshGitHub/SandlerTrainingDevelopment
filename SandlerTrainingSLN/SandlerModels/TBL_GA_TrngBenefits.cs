@@ -12,15 +12,15 @@ using System.Collections.Generic;
 
 namespace SandlerModels
 {
-    public partial class TBL_GA_TrainingCostSavings
+    public partial class TBL_GA_TrngBenefits
     {
-        public TBL_GA_TrainingCostSavings()
+        public TBL_GA_TrngBenefits()
         {
             this.TBL_GA_Tracker = new HashSet<TBL_GA_Tracker>();
             this.TBL_GA_Tracker1 = new HashSet<TBL_GA_Tracker>();
         }
     
-        public string TrngCostSavings { get; set; }
+        public string TrngBenefits { get; set; }
         public Nullable<int> PercentOfIndustryAve { get; set; }
         public int Id { get; set; }
     

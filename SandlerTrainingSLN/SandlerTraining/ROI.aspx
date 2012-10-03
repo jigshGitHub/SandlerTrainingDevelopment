@@ -228,7 +228,7 @@
                                                 OnCommand="lnlPrevStep_Click" Visible="True">Edit:ROI Data</asp:LinkButton>
                                         </td>
                                         <td style="width: 25%; text-align: center">
-                                            <a href="" onclick="printData();">Print: ROI Graph</a>
+                                            <asp:LinkButton ID="lnkBtnPrint" runat="server" Visible="false" Text="Print: ROI Graph"></asp:LinkButton>
                                         </td>
                                         <td style="width: 25%; text-align: center">
                                             <asp:LinkButton ID="btnSave" Text="Save: ROI Record" runat="server" OnClick="btnSaveGapAnalysisReport_Click"></asp:LinkButton>

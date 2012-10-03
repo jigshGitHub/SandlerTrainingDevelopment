@@ -33,9 +33,9 @@ namespace SandlerRepositories
                 commandText = "SELECT SalesCycleTime, [Id] FROM [TBL_GA_SalesCycleTime] ORDER BY Id;" +
                                 "SELECT [SalesEfficiency],[Id] FROM [TBL_GA_SalesEfficiency] ORDER BY Id;" +
                                 "SELECT SalesQualification, Id FROM  [TBL_GA_SalesQualification] ORDER BY Id;" +
-                                "SELECT [TrngCostSavings],[Id] FROM [TBL_GA_TrainingCostSavings] ORDER BY ID;" +
+                                "SELECT [SalesRepRetention],[Id] FROM [TBL_GA_SalesRepRetention] ORDER BY ID;" +
                                 "SELECT [QuotaAchievement],[Id] FROM [TBL_GA_QuotaAchievement] ORDER BY Id;" +
-                                "SELECT [EstBenefitsGained],[Id] FROM [TBL_GA_EstBenefitsGained] ORDER BY Id;";
+                                "SELECT [TrngBenefits],[Id] FROM [TBL_GA_TrngBenefits] ORDER BY Id;";
                 ds = db.ExecuteDataset(commandText);
             }
             catch (Exception ex)
@@ -77,20 +77,20 @@ namespace SandlerRepositories
             {
                 gaRecord = (isEditFlg) ? this.GetById(gaId) : new TBL_GA_Tracker();
 
-                gaRecord.AsIsEstBenGainedId = EBGAsISValue;
+                gaRecord.AsIsTrngBenefitsId = EBGAsISValue;
                 gaRecord.AsIsQuotaAchtId = QAAsIsValue;
                 gaRecord.AsIsSalesCycleTimeId = SCTAsIsValue;
                 gaRecord.AsIsSalesEffId = SEAsIsValue;
                 gaRecord.AsIsSalesQualificationId = SQAsIsValue;
-                gaRecord.AsIsTrgCostSavingsId = TCSAsIsValue;
+                gaRecord.AsIsSalesRepRetnId = TCSAsIsValue;
                 gaRecord.CompanyId = companyId;
                 gaRecord.ContactId = contactId;
-                gaRecord.ToBeEstBenGainedId = EBGToBeValue;
+                gaRecord.ToBeTrngBenefitsId = EBGToBeValue;
                 gaRecord.ToBeQuotaAchtId = QAToBeValue;
                 gaRecord.ToBeSalesCycleTimeId = SCTToBeValue;
                 gaRecord.ToBeSalesEffId = SEToBeValue;
                 gaRecord.ToBeSalesQualificationId = SQToBeValue;
-                gaRecord.ToBeTrgCostSavingsId = TCSToBeValue;
+                gaRecord.ToBeSalesRepRetnId = TCSToBeValue;
                 if (isEditFlg)
                 {
                     gaRecord.UpdatedBy = userId;
@@ -124,12 +124,12 @@ namespace SandlerRepositories
             try
             {
                 gaRecord = this.GetById(gaId);
-                gaRecord.DesiredAnnualImptEstBenefitsGained = daiEBG;
+                gaRecord.DesiredAnnualImptTrngBenefits = daiEBG;
                 gaRecord.DesiredAnnualImptQuotaAcht = daiQA;
                 gaRecord.DesiredAnnualImptSalesCycleTime = daiSCT;
                 gaRecord.DesiredAnnualImptSalesEfficiency = daiSE;
                 gaRecord.DesiredAnnualImptSalesQualfn = daiSQ;
-                gaRecord.DesiredAnnualImptTrgCstSvgs = daiTCS;
+                gaRecord.DesiredAnnualImptSalesRepRetention = daiTCS;
 
                 this.Update(gaRecord);
             }

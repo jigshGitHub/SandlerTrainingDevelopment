@@ -49,15 +49,15 @@ namespace SandlerModels
         public DbSet<TBL_OpportunitySource> TBL_OpportunitySource { get; set; }
         public DbSet<TBL_OpportunityTypes> TBL_OpportunityTypes { get; set; }
         public DbSet<TBL_OpportunityWhyLost> TBL_OpportunityWhyLost { get; set; }
-        public DbSet<TBL_GA_EstBenefitsGained> TBL_GA_EstBenefitsGained { get; set; }
         public DbSet<TBL_GA_QuotaAchievement> TBL_GA_QuotaAchievement { get; set; }
         public DbSet<TBL_GA_SalesCycleTime> TBL_GA_SalesCycleTime { get; set; }
         public DbSet<TBL_GA_SalesEfficiency> TBL_GA_SalesEfficiency { get; set; }
         public DbSet<TBL_GA_SalesQualification> TBL_GA_SalesQualification { get; set; }
-        public DbSet<TBL_GA_Tracker> TBL_GA_Tracker { get; set; }
-        public DbSet<TBL_GA_TrainingCostSavings> TBL_GA_TrainingCostSavings { get; set; }
         public DbSet<TBL_Trng_Expenditure> TBL_Trng_Expenditure { get; set; }
         public DbSet<TBL_CONTACTS> TBL_CONTACTS { get; set; }
+        public DbSet<TBL_GA_SalesRepRetention> TBL_GA_SalesRepRetention { get; set; }
+        public DbSet<TBL_GA_Tracker> TBL_GA_Tracker { get; set; }
+        public DbSet<TBL_GA_TrngBenefits> TBL_GA_TrngBenefits { get; set; }
     
         internal ObjectResult<Contact> GetContactsByUser(Nullable<System.Guid> userId)
         {

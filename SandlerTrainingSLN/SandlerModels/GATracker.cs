@@ -14,9 +14,6 @@ namespace SandlerModels
 {
     public partial class GATracker
     {
-        public string AsIsEstBenefitsGained { get; set; }
-        public string ToBeEstBenefitsGained { get; set; }
-        public Nullable<int> ToBeEstBenefitsGainedPercentVal { get; set; }
         public string AsIsQuotaAchievement { get; set; }
         public string ToBeQuotaAchievement { get; set; }
         public Nullable<int> ToBeQuotaAchievementPercentVal { get; set; }
@@ -29,43 +26,46 @@ namespace SandlerModels
         public string AsIsSalesQualification { get; set; }
         public string ToBeSalesQualification { get; set; }
         public Nullable<int> ToBeSalesQualificationPercentVal { get; set; }
-        public string AsIsTrngCostSavings { get; set; }
-        public string ToBeTrngCostSavings { get; set; }
-        public Nullable<int> ToBeTrngCostSavingsPercentVal { get; set; }
         public int Id { get; set; }
         public int CompanyId { get; set; }
         public int ContactId { get; set; }
         public Nullable<int> AsIsSalesCycleTimeId { get; set; }
         public Nullable<int> AsIsSalesEffId { get; set; }
         public Nullable<int> AsIsSalesQualificationId { get; set; }
-        public Nullable<int> AsIsTrgCostSavingsId { get; set; }
         public Nullable<int> AsIsQuotaAchtId { get; set; }
-        public Nullable<int> AsIsEstBenGainedId { get; set; }
         public Nullable<int> ToBeSalesCycleTimeId { get; set; }
         public Nullable<int> ToBeSalesEffId { get; set; }
         public Nullable<int> ToBeSalesQualificationId { get; set; }
-        public Nullable<int> ToBeTrgCostSavingsId { get; set; }
         public Nullable<int> ToBeQuotaAchtId { get; set; }
-        public Nullable<int> ToBeEstBenGainedId { get; set; }
         public string DesiredAnnualImptSalesCycleTime { get; set; }
         public string DesiredAnnualImptSalesEfficiency { get; set; }
         public string DesiredAnnualImptSalesQualfn { get; set; }
-        public string DesiredAnnualImptTrgCstSvgs { get; set; }
         public string DesiredAnnualImptQuotaAcht { get; set; }
-        public string DesiredAnnualImptEstBenefitsGained { get; set; }
         public Nullable<System.DateTime> UpdatedDate { get; set; }
         public Nullable<System.Guid> UpdatedBy { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }
         public Nullable<System.Guid> CreatedBy { get; set; }
-        public Nullable<int> AsIsEstBenefitsGainedPercentVal { get; set; }
         public Nullable<int> AsIsQuotaAchievementPercentVal { get; set; }
         public Nullable<int> AsIsSalesCycleTimePercentVal { get; set; }
         public Nullable<int> AsIsSalesEfficiencyPercentVal { get; set; }
         public Nullable<int> AsIsSalesQualificationPercentVal { get; set; }
-        public Nullable<int> AsIsTrngCostSavingsPercentVal { get; set; }
         public Nullable<decimal> Year1 { get; set; }
         public Nullable<decimal> Year2 { get; set; }
         public Nullable<decimal> Year3 { get; set; }
+        public string AsIsSalesRepRetention { get; set; }
+        public Nullable<int> AsIsSalesRepRetentionPercentVal { get; set; }
+        public string ToBeSalesRepRetention { get; set; }
+        public string AsIsTrngBenefits { get; set; }
+        public Nullable<int> AsIsTrngBenefitsPercentVal { get; set; }
+        public string ToBeTrngBenefits { get; set; }
+        public Nullable<int> ToBeTrngBenefitsPercentVal { get; set; }
+        public Nullable<int> AsIsSalesRepRetnId { get; set; }
+        public Nullable<int> ToBeSalesRepRetnId { get; set; }
+        public Nullable<int> AsIsTrngBenefitsId { get; set; }
+        public Nullable<int> ToBeTrngBenefitsId { get; set; }
+        public string DesiredAnnualImptSalesRepRetention { get; set; }
+        public string DesiredAnnualImptTrngBenefits { get; set; }
+        public Nullable<int> ToBeSalesRepRetentionPercentVal { get; set; }
     }
     
 }

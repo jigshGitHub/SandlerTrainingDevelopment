@@ -64,7 +64,7 @@
 
 <tr style="color: Black; background-color: #EEEEEE; white-space: nowrap;"><td colspan="2" style="height:3px"></td></tr>
 
-<tr style="color: Black; background-color: #DCDCDC; white-space: nowrap;"><td align="center" colspan="2"><asp:Button id="btnSend" Runat="server" Text="Send Email" Style="background-color:#336699;
+<tr style="color: Black; background-color: #DCDCDC; white-space: nowrap;"><td align="center" colspan="2"><asp:Button id="btnSend" Runat="server" Text="Send Email" Style="background-color:#3366cc;
                                 color: #FFFFFF; margin-left:10px" Height="40" Width="120" onclick="btnSend_Click"></asp:Button></td></tr>
 
 <tr><td colspan="2"><asp:Label id="lblInfo" ForeColor="Red" runat="server"></asp:Label></td></tr>

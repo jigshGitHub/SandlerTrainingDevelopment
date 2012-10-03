@@ -209,12 +209,12 @@ public partial class GapAnalysisCreateModalPopup : BasePage
             drpListSQToBe.DataBind();
 
             drpListTCSAsIs.DataSource = data.Tables[3];
-            drpListTCSAsIs.DataTextField = "TrngCostSavings";
+            drpListTCSAsIs.DataTextField = "SalesRepRetention";
             drpListTCSAsIs.DataValueField = "Id";
             drpListTCSAsIs.DataBind();
 
             drpListTCSToBe.DataSource = data.Tables[3];
-            drpListTCSToBe.DataTextField = "TrngCostSavings";
+            drpListTCSToBe.DataTextField = "SalesRepRetention";
             drpListTCSToBe.DataValueField = "Id";
             drpListTCSToBe.DataBind();
 
@@ -229,12 +229,12 @@ public partial class GapAnalysisCreateModalPopup : BasePage
             drpListQAToBe.DataBind();
 
             drpListEBGAsIS.DataSource = data.Tables[5];
-            drpListEBGAsIS.DataTextField = "EstBenefitsGained";
+            drpListEBGAsIS.DataTextField = "TrngBenefits";
             drpListEBGAsIS.DataValueField = "Id";
             drpListEBGAsIS.DataBind();
 
             drpListEBGToBe.DataSource = data.Tables[5];
-            drpListEBGToBe.DataTextField = "EstBenefitsGained";
+            drpListEBGToBe.DataTextField = "TrngBenefits";
             drpListEBGToBe.DataValueField = "Id";
             drpListEBGToBe.DataBind();
         }
@@ -248,23 +248,23 @@ public partial class GapAnalysisCreateModalPopup : BasePage
             drpListSCTAsIs.SelectedValue = (makeItDefault) ? "0" : gaTracker.AsIsSalesCycleTimeId.Value.ToString();
             drpListSEAsIs.SelectedValue = (makeItDefault) ? "0" : gaTracker.AsIsSalesEffId.Value.ToString();
             drpListSQAsIs.SelectedValue = (makeItDefault) ? "0" : gaTracker.AsIsSalesQualificationId.Value.ToString();
-            drpListTCSAsIs.SelectedValue = (makeItDefault) ? "0" : gaTracker.AsIsTrgCostSavingsId.Value.ToString();
+            drpListTCSAsIs.SelectedValue = (makeItDefault) ? "0" : gaTracker.AsIsSalesRepRetnId.Value.ToString();
             drpListQAAsIs.SelectedValue = (makeItDefault) ? "0" : gaTracker.AsIsQuotaAchtId.Value.ToString();
-            drpListEBGAsIS.SelectedValue = (makeItDefault) ? "0" : gaTracker.AsIsEstBenGainedId.Value.ToString();
+            drpListEBGAsIS.SelectedValue = (makeItDefault) ? "0" : gaTracker.AsIsTrngBenefitsId.Value.ToString();
 
             drpListSCTToBe.SelectedValue = (makeItDefault) ? "0" : gaTracker.ToBeSalesCycleTimeId.Value.ToString();
             drpListSEToBe.SelectedValue = (makeItDefault) ? "0" : gaTracker.ToBeSalesEffId.Value.ToString();
             drpListSQToBe.SelectedValue = (makeItDefault) ? "0" : gaTracker.ToBeSalesQualificationId.Value.ToString();
-            drpListTCSToBe.SelectedValue = (makeItDefault) ? "0" : gaTracker.ToBeTrgCostSavingsId.Value.ToString();
+            drpListTCSToBe.SelectedValue = (makeItDefault) ? "0" : gaTracker.ToBeSalesRepRetnId.Value.ToString();
             drpListQAToBe.SelectedValue = (makeItDefault) ? "0" : gaTracker.ToBeQuotaAchtId.Value.ToString();
-            drpListEBGToBe.SelectedValue = (makeItDefault) ? "0" : gaTracker.ToBeEstBenGainedId.Value.ToString();
+            drpListEBGToBe.SelectedValue = (makeItDefault) ? "0" : gaTracker.ToBeTrngBenefitsId.Value.ToString();
 
-            drpLstDAIEBG.SelectedValue = (makeItDefault) ? "0" : gaTracker.DesiredAnnualImptEstBenefitsGained;
+            drpLstDAIEBG.SelectedValue = (makeItDefault) ? "0" : gaTracker.DesiredAnnualImptTrngBenefits;
             drpLstDAIQA.SelectedValue = (makeItDefault) ? "0" : gaTracker.DesiredAnnualImptQuotaAcht;
             drpLstDAISCT.SelectedValue = (makeItDefault) ? "0" : gaTracker.DesiredAnnualImptSalesCycleTime;
             drpLstDAISE.SelectedValue = (makeItDefault) ? "0" : gaTracker.DesiredAnnualImptSalesEfficiency;
             drpLstDAISQ.SelectedValue = (makeItDefault) ? "0" : gaTracker.DesiredAnnualImptSalesQualfn;
-            drpLstDAITCS.SelectedValue = (makeItDefault) ? "0" : gaTracker.DesiredAnnualImptTrgCstSvgs;
+            drpLstDAITCS.SelectedValue = (makeItDefault) ? "0" : gaTracker.DesiredAnnualImptSalesRepRetention;
         }
         catch (Exception ex)
         {
@@ -331,25 +331,25 @@ public partial class GapAnalysisCreateModalPopup : BasePage
     {
         SandlerModels.GATracker gaTracker = new GapAnalysisRepository().GetGATrackerById(GAId);
 
-        lblAsIsEBG.Text = gaTracker.AsIsEstBenefitsGained;
+        lblAsIsEBG.Text = gaTracker.AsIsTrngBenefits;
         lblAsIsQA.Text = gaTracker.AsIsQuotaAchievement;
         lblAsIsSCT.Text = gaTracker.AsIsSalesCycleTime;
         lblAsIsSE.Text = gaTracker.AsIsSalesEfficiency;
         lblAsIsSQ.Text = gaTracker.AsIsSalesQualification;
-        lblAsIsTCS.Text = gaTracker.AsIsTrngCostSavings;
-        lblToBeEBG.Text = gaTracker.ToBeEstBenefitsGained;
+        lblAsIsTCS.Text = gaTracker.AsIsSalesRepRetention;
+        lblToBeEBG.Text = gaTracker.ToBeTrngBenefits;
         lblToBeQA.Text = gaTracker.ToBeQuotaAchievement;
         lblToBeSCT.Text = gaTracker.ToBeSalesCycleTime;
         lblToBeSE.Text = gaTracker.ToBeSalesEfficiency;
         lblToBeSQ.Text = gaTracker.ToBeSalesQualification;
-        lblToBeTCS.Text = gaTracker.ToBeTrngCostSavings;
+        lblToBeTCS.Text = gaTracker.ToBeSalesRepRetention;
 
-        drpLstDAIEBG.SelectedValue = gaTracker.DesiredAnnualImptEstBenefitsGained;
+        drpLstDAIEBG.SelectedValue = gaTracker.DesiredAnnualImptTrngBenefits;
         drpLstDAIQA.SelectedValue = gaTracker.DesiredAnnualImptQuotaAcht;
         drpLstDAISCT.SelectedValue = gaTracker.DesiredAnnualImptSalesCycleTime;
         drpLstDAISE.SelectedValue = gaTracker.DesiredAnnualImptSalesEfficiency;
         drpLstDAISQ.SelectedValue = gaTracker.DesiredAnnualImptSalesQualfn;
-        drpLstDAITCS.SelectedValue = gaTracker.DesiredAnnualImptTrgCstSvgs;
+        drpLstDAITCS.SelectedValue = gaTracker.DesiredAnnualImptSalesRepRetention;
     }
 
 

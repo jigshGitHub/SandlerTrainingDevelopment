@@ -268,12 +268,12 @@ public partial class GapAnalysisCreate : BasePage
             drpListSQToBe.DataBind();
 
             drpListTCSAsIs.DataSource = data.Tables[3];
-            drpListTCSAsIs.DataTextField = "TrngCostSavings";
+            drpListTCSAsIs.DataTextField = "SalesRepRetention";
             drpListTCSAsIs.DataValueField = "Id";
             drpListTCSAsIs.DataBind();
 
             drpListTCSToBe.DataSource = data.Tables[3];
-            drpListTCSToBe.DataTextField = "TrngCostSavings";
+            drpListTCSToBe.DataTextField = "SalesRepRetention";
             drpListTCSToBe.DataValueField = "Id";
             drpListTCSToBe.DataBind();
 
@@ -288,12 +288,12 @@ public partial class GapAnalysisCreate : BasePage
             drpListQAToBe.DataBind();
 
             drpListEBGAsIS.DataSource = data.Tables[5];
-            drpListEBGAsIS.DataTextField = "EstBenefitsGained";
+            drpListEBGAsIS.DataTextField = "TrngBenefits";
             drpListEBGAsIS.DataValueField = "Id";
             drpListEBGAsIS.DataBind();
 
             drpListEBGToBe.DataSource = data.Tables[5];
-            drpListEBGToBe.DataTextField = "EstBenefitsGained";
+            drpListEBGToBe.DataTextField = "TrngBenefits";
             drpListEBGToBe.DataValueField = "Id";
             drpListEBGToBe.DataBind();
         }
@@ -307,23 +307,23 @@ public partial class GapAnalysisCreate : BasePage
             drpListSCTAsIs.SelectedValue = (makeItDefault) ? "0" : gaTracker.AsIsSalesCycleTimeId.Value.ToString();
             drpListSEAsIs.SelectedValue = (makeItDefault) ? "0" : gaTracker.AsIsSalesEffId.Value.ToString();
             drpListSQAsIs.SelectedValue = (makeItDefault) ? "0" : gaTracker.AsIsSalesQualificationId.Value.ToString();
-            drpListTCSAsIs.SelectedValue = (makeItDefault) ? "0" : gaTracker.AsIsTrgCostSavingsId.Value.ToString();
+            drpListTCSAsIs.SelectedValue = (makeItDefault) ? "0" : gaTracker.AsIsSalesRepRetnId.Value.ToString();
             drpListQAAsIs.SelectedValue = (makeItDefault) ? "0" : gaTracker.AsIsQuotaAchtId.Value.ToString();
-            drpListEBGAsIS.SelectedValue = (makeItDefault) ? "0" : gaTracker.AsIsEstBenGainedId.Value.ToString();
+            drpListEBGAsIS.SelectedValue = (makeItDefault) ? "0" : gaTracker.AsIsTrngBenefitsId.Value.ToString();
 
             drpListSCTToBe.SelectedValue = (makeItDefault) ? "0" : gaTracker.ToBeSalesCycleTimeId.Value.ToString();
             drpListSEToBe.SelectedValue = (makeItDefault) ? "0" : gaTracker.ToBeSalesEffId.Value.ToString();
             drpListSQToBe.SelectedValue = (makeItDefault) ? "0" : gaTracker.ToBeSalesQualificationId.Value.ToString();
-            drpListTCSToBe.SelectedValue = (makeItDefault) ? "0" : gaTracker.ToBeTrgCostSavingsId.Value.ToString();
+            drpListTCSToBe.SelectedValue = (makeItDefault) ? "0" : gaTracker.ToBeSalesRepRetnId.Value.ToString();
             drpListQAToBe.SelectedValue = (makeItDefault) ? "0" : gaTracker.ToBeQuotaAchtId.Value.ToString();
-            drpListEBGToBe.SelectedValue = (makeItDefault) ? "0" : gaTracker.ToBeEstBenGainedId.Value.ToString();
+            drpListEBGToBe.SelectedValue = (makeItDefault) ? "0" : gaTracker.ToBeTrngBenefitsId.Value.ToString();
 
-            (plotChart.ContentTemplateContainer.FindControl("drpLstDAIEBG") as DropDownList).SelectedValue = (makeItDefault) ? "0" : gaTracker.DesiredAnnualImptEstBenefitsGained;
+            (plotChart.ContentTemplateContainer.FindControl("drpLstDAIEBG") as DropDownList).SelectedValue = (makeItDefault) ? "0" : gaTracker.DesiredAnnualImptTrngBenefits;
             (plotChart.ContentTemplateContainer.FindControl("drpLstDAIQA") as DropDownList).SelectedValue = (makeItDefault) ? "0" : gaTracker.DesiredAnnualImptQuotaAcht;
             (plotChart.ContentTemplateContainer.FindControl("drpLstDAISCT") as DropDownList).SelectedValue = (makeItDefault) ? "0" : gaTracker.DesiredAnnualImptSalesCycleTime;
             (plotChart.ContentTemplateContainer.FindControl("drpLstDAISE") as DropDownList).SelectedValue = (makeItDefault) ? "0" : gaTracker.DesiredAnnualImptSalesEfficiency;
             (plotChart.ContentTemplateContainer.FindControl("drpLstDAISQ") as DropDownList).SelectedValue = (makeItDefault) ? "0" : gaTracker.DesiredAnnualImptSalesQualfn;
-            (plotChart.ContentTemplateContainer.FindControl("drpLstDAITCS") as DropDownList).SelectedValue = (makeItDefault) ? "0" : gaTracker.DesiredAnnualImptTrgCstSvgs;
+            (plotChart.ContentTemplateContainer.FindControl("drpLstDAITCS") as DropDownList).SelectedValue = (makeItDefault) ? "0" : gaTracker.DesiredAnnualImptSalesRepRetention;
         }
         catch (Exception ex)
         {
@@ -384,31 +384,33 @@ public partial class GapAnalysisCreate : BasePage
         gaChart.CreateChart();
         (plotChart.ContentTemplateContainer.FindControl("pnlChart") as Panel).FindControl("chartContainer").Controls.Add(new LiteralControl(FusionCharts.RenderChart(gaChart.SWF, "", gaChart.ChartXML, "gaChartlots", gaChart.Width, gaChart.Hight, false, false)));
         //pnlChart_ModalPopupExtender.Show();
+        (plotChart.CustomNavigationTemplateContainer.FindControl("lnkBtnPrint") as LinkButton).Visible = true;
+        (plotChart.CustomNavigationTemplateContainer.FindControl("lnkBtnPrint") as LinkButton).OnClientClick = "window.open('ChartPrinter.aspx?drillChartIds=GapAnalysis&GAId=" + GAId + "','_blank','height=450,width=800,status=yes,toolbar=no,scrollbars=yes,menubar=no,location=no');return false;";
     }
 
     private void PopulateAsIsToBEFields()
     {
         SandlerModels.GATracker gaTracker = new GapAnalysisRepository().GetGATrackerById(GAId);
 
-        (plotChart.ContentTemplateContainer.FindControl("lblAsIsEBG") as Label).Text = gaTracker.AsIsEstBenefitsGained;
+        (plotChart.ContentTemplateContainer.FindControl("lblAsIsEBG") as Label).Text = gaTracker.AsIsTrngBenefits;
         (plotChart.ContentTemplateContainer.FindControl("lblAsIsQA") as Label).Text = gaTracker.AsIsQuotaAchievement;
         (plotChart.ContentTemplateContainer.FindControl("lblAsIsSCT") as Label).Text = gaTracker.AsIsSalesCycleTime;
         (plotChart.ContentTemplateContainer.FindControl("lblAsIsSE") as Label).Text = gaTracker.AsIsSalesEfficiency;
         (plotChart.ContentTemplateContainer.FindControl("lblAsIsSQ") as Label).Text = gaTracker.AsIsSalesQualification;
-        (plotChart.ContentTemplateContainer.FindControl("lblAsIsTCS") as Label).Text = gaTracker.AsIsTrngCostSavings;
-        (plotChart.ContentTemplateContainer.FindControl("lblToBeEBG") as Label).Text = gaTracker.ToBeEstBenefitsGained;
+        (plotChart.ContentTemplateContainer.FindControl("lblAsIsTCS") as Label).Text = gaTracker.AsIsSalesRepRetention;
+        (plotChart.ContentTemplateContainer.FindControl("lblToBeEBG") as Label).Text = gaTracker.ToBeTrngBenefits;
         (plotChart.ContentTemplateContainer.FindControl("lblToBeQA") as Label).Text = gaTracker.ToBeQuotaAchievement;
         (plotChart.ContentTemplateContainer.FindControl("lblToBeSCT") as Label).Text = gaTracker.ToBeSalesCycleTime;
         (plotChart.ContentTemplateContainer.FindControl("lblToBeSE") as Label).Text = gaTracker.ToBeSalesEfficiency;
         (plotChart.ContentTemplateContainer.FindControl("lblToBeSQ") as Label).Text = gaTracker.ToBeSalesQualification;
-        (plotChart.ContentTemplateContainer.FindControl("lblToBeTCS") as Label).Text = gaTracker.ToBeTrngCostSavings;
+        (plotChart.ContentTemplateContainer.FindControl("lblToBeTCS") as Label).Text = gaTracker.ToBeSalesRepRetention;
 
-        (plotChart.ContentTemplateContainer.FindControl("drpLstDAIEBG") as DropDownList).SelectedValue = gaTracker.DesiredAnnualImptEstBenefitsGained;
+        (plotChart.ContentTemplateContainer.FindControl("drpLstDAIEBG") as DropDownList).SelectedValue = gaTracker.DesiredAnnualImptTrngBenefits;
         (plotChart.ContentTemplateContainer.FindControl("drpLstDAIQA") as DropDownList).SelectedValue = gaTracker.DesiredAnnualImptQuotaAcht;
         (plotChart.ContentTemplateContainer.FindControl("drpLstDAISCT") as DropDownList).SelectedValue = gaTracker.DesiredAnnualImptSalesCycleTime;
         (plotChart.ContentTemplateContainer.FindControl("drpLstDAISE") as DropDownList).SelectedValue = gaTracker.DesiredAnnualImptSalesEfficiency;
         (plotChart.ContentTemplateContainer.FindControl("drpLstDAISQ") as DropDownList).SelectedValue = gaTracker.DesiredAnnualImptSalesQualfn;
-        (plotChart.ContentTemplateContainer.FindControl("drpLstDAITCS") as DropDownList).SelectedValue = gaTracker.DesiredAnnualImptTrgCstSvgs;
+        (plotChart.ContentTemplateContainer.FindControl("drpLstDAITCS") as DropDownList).SelectedValue = gaTracker.DesiredAnnualImptSalesRepRetention;
     }
 
 

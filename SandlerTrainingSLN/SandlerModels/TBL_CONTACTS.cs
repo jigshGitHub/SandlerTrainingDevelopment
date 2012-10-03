@@ -16,10 +16,10 @@ namespace SandlerModels
     {
         public TBL_CONTACTS()
         {
-            this.TBL_GA_Tracker = new HashSet<TBL_GA_Tracker>();
             this.TBL_OPPORTUNITIES = new HashSet<TBL_OPPORTUNITIES>();
             this.TBL_OPPORTUNITIES1 = new HashSet<TBL_OPPORTUNITIES>();
             this.TBL_OPPORTUNITIES2 = new HashSet<TBL_OPPORTUNITIES>();
+            this.TBL_GA_Tracker = new HashSet<TBL_GA_Tracker>();
         }
     
         public int CONTACTSID { get; set; }
@@ -72,10 +72,10 @@ namespace SandlerModels
         internal Tbl_AppointmentsSource Tbl_AppointmentsSource { get; set; }
         internal TBL_COMPANIES TBL_COMPANIES { get; set; }
         internal Tbl_Course Tbl_Course { get; set; }
-        internal ICollection<TBL_GA_Tracker> TBL_GA_Tracker { get; set; }
         internal ICollection<TBL_OPPORTUNITIES> TBL_OPPORTUNITIES { get; set; }
         internal ICollection<TBL_OPPORTUNITIES> TBL_OPPORTUNITIES1 { get; set; }
         internal ICollection<TBL_OPPORTUNITIES> TBL_OPPORTUNITIES2 { get; set; }
+        internal ICollection<TBL_GA_Tracker> TBL_GA_Tracker { get; set; }
     }
     
 }

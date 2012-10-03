@@ -261,11 +261,11 @@ public partial class ROI : BasePage
     {
         try
         {
-            txtBxEBGGap.Text = (makeItDefault) ? "" : (gaTracker.ToBeEstBenefitsGainedPercentVal - gaTracker.AsIsEstBenefitsGainedPercentVal).ToString();
+            txtBxEBGGap.Text = (makeItDefault) ? "" : (gaTracker.ToBeTrngBenefitsPercentVal - gaTracker.AsIsTrngBenefitsPercentVal).ToString();
             txtBxQAGap.Text = (makeItDefault) ? "" : (gaTracker.ToBeQuotaAchievementPercentVal - gaTracker.AsIsQuotaAchievementPercentVal).ToString();
             txtBxSCTGap.Text = (makeItDefault) ? "" : (gaTracker.ToBeSalesCycleTimePercentVal - gaTracker.AsIsSalesCycleTimePercentVal).ToString();
             txtBxSQGap.Text = (makeItDefault) ? "" : (gaTracker.ToBeSalesQualificationPercentVal - gaTracker.AsIsSalesQualificationPercentVal).ToString();
-            txtBxTCSGap.Text = (makeItDefault) ? "" : (gaTracker.ToBeTrngCostSavingsPercentVal - gaTracker.AsIsTrngCostSavingsPercentVal).ToString();
+            txtBxTCSGap.Text = (makeItDefault) ? "" : (gaTracker.ToBeSalesRepRetentionPercentVal - gaTracker.AsIsSalesRepRetentionPercentVal).ToString();
             txtBxSEGap.Text = (makeItDefault) ? "" : (gaTracker.ToBeSalesEfficiencyPercentVal - gaTracker.AsIsSalesEfficiencyPercentVal).ToString();
 
             txtBxYear1.Text = (makeItDefault) ? "" : gaTracker.Year1.ToString();
@@ -289,6 +289,8 @@ public partial class ROI : BasePage
         chartToLoad.CreateChart();
         plotChart.ContentTemplateContainer.FindControl("chartContainer").Controls.Add(new LiteralControl(InfoSoftGlobal.FusionCharts.RenderChart(chartToLoad.SWF, "", chartToLoad.ChartXML, "gaChartlots", chartToLoad.Width, chartToLoad.Hight, false, false)));
 
+        (plotChart.CustomNavigationTemplateContainer.FindControl("lnkBtnPrint") as LinkButton).Visible = true;
+        (plotChart.CustomNavigationTemplateContainer.FindControl("lnkBtnPrint") as LinkButton).OnClientClick = "window.open('ChartPrinter.aspx?drillChartIds=ReturnOnTrainingInvestment&GAId=" + GAId + "','_blank','height=450,width=800,status=yes,toolbar=no,scrollbars=yes,menubar=no,location=no');return false;";
     }
 
 }

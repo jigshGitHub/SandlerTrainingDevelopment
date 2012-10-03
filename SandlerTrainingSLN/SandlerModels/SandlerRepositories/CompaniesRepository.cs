@@ -502,6 +502,19 @@ namespace SandlerRepositories
             return newAppointments;
         }
 
+        public SqlDataReader GetClosedSalesAnalysis(int month, int year, string userId, string analysisType)
+        {
+            SqlDataReader newAppointments = null;
+            try
+            {
+                newAppointments = db.ExecuteReader("sp_GetClosedSalesAnalysis", new SqlParameter("@month", month), new SqlParameter("@year", year), new SqlParameter("@userId", userId), new SqlParameter("@analysisType", analysisType));
+            }
+            catch (Exception ex)
+            {
+            }
+            return newAppointments;
+        }
+
         public SqlDataReader GetClientsAvgLengthWithIndustries(string userId)
         {
             SqlDataReader newAppointments = null;

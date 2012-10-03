@@ -82,7 +82,9 @@ namespace Sandler.UI.ChartStructure
         SalesCycleTimeDrill4,
         SalesCycleTimeDrill5,
         SalesCycleTimeDrill6,
-        IndustryAve
+        IndustryAve,
+        ClosedSalesAnalysis,
+        ClosedSalesAnalysisBySource
     }
 
     public enum ChartTypes
@@ -139,8 +141,62 @@ namespace Sandler.UI.ChartStructure
 
                 AppointmentSourceRepository appointmentSource;
                 ProductTypesRepository productTypesSource;
+                IEnumerable<Tbl_ProductType> products;
                 switch ((ChartID)Enum.Parse(typeof(ChartID), this.Id.ToString(), true))
                 {
+                    case ChartID.ClosedSalesAnalysis:
+                        productTypesSource = new ProductTypesRepository();
+                        if (currentUser.Role == SandlerRoles.FranchiseeOwner || currentUser.Role == SandlerRoles.FranchiseeUser)
+                            products = productTypesSource.GetWithFranchiseeId(currentUser.FranchiseeID);
+                        else
+                            products = productTypesSource.GetAll();
+                        foreach (var record in products.Where(r => r.IsActive == true).AsEnumerable())
+                        {
+                            this.Categories.Add(new Category { Label = record.ProductTypeName });
+                        }
+
+                        chartParams = new List<ChartParameter>();
+                        chartParams.Add(new ChartParameter { Value = "-2", Color = "8A4B08" });
+                        chartParams.Add(new ChartParameter { Value = "-1", Color = "0000FF" });
+                        chartParams.Add(new ChartParameter { Value = "0", Color = "ff9966" });
+
+                        foreach (ChartParameter parameter in chartParams)
+                        {
+                            try
+                            {
+                                IEnumerable<SandlerModels.DataIntegration.ProductTypeVM> productTypeVMCollection = queries.GetClosedSalesAnalysis(currentUser, DateTime.Now.AddMonths(int.Parse(parameter.Value)).Month,"ProductsSoldBySalesValue");
+                                if (productTypeVMCollection != null)
+                                {
+                                    var clientsWithProducts = from record in productTypeVMCollection
+                                                               select new { Category = record.ProductTypeName, SalesValue = record.AvgPrice };
+
+                                    this.DataSetCollection.Add(new ChartDataSet { Color = parameter.Color, SeriesName = DateTime.Now.AddMonths(int.Parse(parameter.Value)).ToString("MMM") });
+
+                                    foreach (Category category in this.Categories)
+                                    {
+                                        lastDs = this.DataSetCollection.Last();
+                                        lastDs.SetsCollection.Add(new SetValue { Label = category.Label, Link = ChartHelper.GeneratePageLink(lastDs.SeriesName, this.DrillChartIds) });
+                                    }
+
+                                    foreach (var record in clientsWithProducts)
+                                    {
+                                        foreach (SetValue set in lastDs.SetsCollection)
+                                        {
+                                            if (set.Label == record.Category)
+                                                set.Value = record.SalesValue.ToString();
+                                        }
+                                    }
+                                }
+                            }
+                            catch (Exception ex)
+                            {
+                                throw new Exception("Error in ChartID.NewClientsByProductTypeMonth:" + ex.Message);
+                            }
+                        }
+                        //}
+
+                        break;
+                        break;
                     case ChartID.NewAppointmentsBySourceMonth:
                         appointmentSource = new AppointmentSourceRepository();
                         foreach (var record in appointmentSource.GetAll().Where(r => r.IsActive == true).AsEnumerable())
@@ -193,7 +249,7 @@ namespace Sandler.UI.ChartStructure
                     case ChartID.NewClientsByProductTypeMonth:
 
                         productTypesSource = new ProductTypesRepository();
-                        IEnumerable<Tbl_ProductType> products;
+                        
                         if (currentUser.Role == SandlerRoles.FranchiseeOwner || currentUser.Role == SandlerRoles.FranchiseeUser)
                             products = productTypesSource.GetWithFranchiseeId(currentUser.FranchiseeID);
                         else
@@ -340,9 +396,9 @@ namespace Sandler.UI.ChartStructure
                         this.Categories.Add(new Category { Label = "Sales Cycle Time" });
                         this.Categories.Add(new Category { Label = "Sales Efficiency" });
                         this.Categories.Add(new Category { Label = "Sales Qualification" });
-                        this.Categories.Add(new Category { Label = "Trng Cost Savings" });
+                        this.Categories.Add(new Category { Label = "Sales Rep Retention" });
                         this.Categories.Add(new Category { Label = "Quota Achievement" });
-                        this.Categories.Add(new Category { Label = "Estimated Benifits Gained" });
+                        this.Categories.Add(new Category { Label = "Sandler Trng Benefits" });
 
                         GATracker gaRecord = null;
                         GapAnalysisRepository gaData = new GapAnalysisRepository();
@@ -356,16 +412,16 @@ namespace Sandler.UI.ChartStructure
                             this.DataSetCollection[0].SetsCollection.Add(new SetValue { Value = gaRecord.AsIsSalesCycleTimePercentVal.Value.ToString(), Link = "GapAnalysisCreate.aspx" });
                             this.DataSetCollection[0].SetsCollection.Add(new SetValue { Value = gaRecord.AsIsSalesEfficiencyPercentVal.Value.ToString(), Link = "GapAnalysisCreate.aspx" });
                             this.DataSetCollection[0].SetsCollection.Add(new SetValue { Value = gaRecord.AsIsSalesQualificationPercentVal.ToString(), Link = "GapAnalysisCreate.aspx" });
-                            this.DataSetCollection[0].SetsCollection.Add(new SetValue { Value = gaRecord.AsIsTrngCostSavingsPercentVal.ToString(), Link = "GapAnalysisCreate.aspx" });
+                            this.DataSetCollection[0].SetsCollection.Add(new SetValue { Value = gaRecord.AsIsSalesRepRetentionPercentVal.ToString(), Link = "GapAnalysisCreate.aspx" });
                             this.DataSetCollection[0].SetsCollection.Add(new SetValue { Value = gaRecord.AsIsQuotaAchievementPercentVal.ToString(), Link = "GapAnalysisCreate.aspx" });
-                            this.DataSetCollection[0].SetsCollection.Add(new SetValue { Value = gaRecord.AsIsEstBenefitsGainedPercentVal.ToString(), Link = "GapAnalysisCreate.aspx" });
+                            this.DataSetCollection[0].SetsCollection.Add(new SetValue { Value = gaRecord.AsIsTrngBenefitsPercentVal.ToString(), Link = "GapAnalysisCreate.aspx" });
 
                             this.DataSetCollection[1].SetsCollection.Add(new SetValue { Value = gaRecord.ToBeSalesCycleTimePercentVal.ToString(), Link = "GapAnalysisCreate.aspx" });
                             this.DataSetCollection[1].SetsCollection.Add(new SetValue { Value = gaRecord.ToBeSalesEfficiencyPercentVal.ToString(), Link = "GapAnalysisCreate.aspx" });
                             this.DataSetCollection[1].SetsCollection.Add(new SetValue { Value = gaRecord.ToBeSalesQualificationPercentVal.ToString(), Link = "GapAnalysisCreate.aspx" });
-                            this.DataSetCollection[1].SetsCollection.Add(new SetValue { Value = gaRecord.ToBeTrngCostSavingsPercentVal.ToString(), Link = "GapAnalysisCreate.aspx" });
+                            this.DataSetCollection[1].SetsCollection.Add(new SetValue { Value = gaRecord.ToBeSalesRepRetentionPercentVal.ToString(), Link = "GapAnalysisCreate.aspx" });
                             this.DataSetCollection[1].SetsCollection.Add(new SetValue { Value = gaRecord.ToBeQuotaAchievementPercentVal.ToString(), Link = "GapAnalysisCreate.aspx" });
-                            this.DataSetCollection[1].SetsCollection.Add(new SetValue { Value = gaRecord.ToBeEstBenefitsGainedPercentVal.ToString(), Link = "GapAnalysisCreate.aspx" });
+                            this.DataSetCollection[1].SetsCollection.Add(new SetValue { Value = gaRecord.ToBeTrngBenefitsPercentVal.ToString(), Link = "GapAnalysisCreate.aspx" });
                         }
                         break;
                     default:
@@ -503,9 +559,9 @@ namespace Sandler.UI.ChartStructure
                         scVal = (year1ExpVal * (gaTracker.ToBeSalesCycleTimePercentVal.Value - gaTracker.AsIsSalesCycleTimePercentVal.Value) * ROIAdjustmentFactor) / 10000;
                         seVal = (year1ExpVal * (gaTracker.ToBeSalesEfficiencyPercentVal.Value - gaTracker.AsIsSalesEfficiencyPercentVal.Value) * ROIAdjustmentFactor) / 10000;
                         sqVal = (year1ExpVal * (gaTracker.ToBeSalesQualificationPercentVal.Value - gaTracker.AsIsSalesQualificationPercentVal.Value) * ROIAdjustmentFactor) / 10000;
-                        tcsVal = (year1ExpVal * (gaTracker.ToBeTrngCostSavingsPercentVal.Value - gaTracker.AsIsTrngCostSavingsPercentVal.Value) * ROIAdjustmentFactor) / 10000;
+                        tcsVal = (year1ExpVal * (gaTracker.ToBeSalesRepRetentionPercentVal.Value - gaTracker.AsIsSalesRepRetentionPercentVal.Value) * ROIAdjustmentFactor) / 10000;
                         qaVal = (year1ExpVal * (gaTracker.ToBeQuotaAchievementPercentVal.Value - gaTracker.AsIsQuotaAchievementPercentVal.Value) * ROIAdjustmentFactor) / 10000;
-                        ebgVal = (year1ExpVal * (gaTracker.ToBeEstBenefitsGainedPercentVal.Value - gaTracker.AsIsEstBenefitsGainedPercentVal.Value) * ROIAdjustmentFactor) / 10000;
+                        ebgVal = (year1ExpVal * (gaTracker.ToBeTrngBenefitsPercentVal.Value - gaTracker.AsIsTrngBenefitsPercentVal.Value) * ROIAdjustmentFactor) / 10000;
                         year1Savings = scVal + seVal + sqVal + tcsVal + qaVal + ebgVal;
                         year1ROIBalance = year1Savings - year1ExpVal;
                         year1ROIPercent = ((year1Savings / year1ExpVal * 100)).ToString();
@@ -514,9 +570,9 @@ namespace Sandler.UI.ChartStructure
                         scVal = (year2ExpVal * scVal * (1 + (Convert.ToDouble(gaTracker.DesiredAnnualImptSalesCycleTime) / 100)) / year1ExpVal) * year2AF;
                         seVal = (year2ExpVal * seVal * (1 + (Convert.ToDouble(gaTracker.DesiredAnnualImptSalesEfficiency) / 100)) / year1ExpVal) * year2AF;
                         sqVal = (year2ExpVal * sqVal * (1 + (Convert.ToDouble(gaTracker.DesiredAnnualImptSalesQualfn) / 100)) / year1ExpVal) * year2AF;
-                        tcsVal = (year2ExpVal * tcsVal * (1 + (Convert.ToDouble(gaTracker.DesiredAnnualImptTrgCstSvgs) / 100)) / year1ExpVal) * year2AF;
+                        tcsVal = (year2ExpVal * tcsVal * (1 + (Convert.ToDouble(gaTracker.DesiredAnnualImptSalesRepRetention) / 100)) / year1ExpVal) * year2AF;
                         qaVal = (year2ExpVal * qaVal * (1 + (Convert.ToDouble(gaTracker.DesiredAnnualImptQuotaAcht) / 100)) / year1ExpVal) * year2AF;
-                        ebgVal = (year2ExpVal * ebgVal * (1 + (Convert.ToDouble(gaTracker.DesiredAnnualImptEstBenefitsGained) / 100)) / year1ExpVal) * year2AF;
+                        ebgVal = (year2ExpVal * ebgVal * (1 + (Convert.ToDouble(gaTracker.DesiredAnnualImptTrngBenefits) / 100)) / year1ExpVal) * year2AF;
                         year2Savings = scVal + seVal + sqVal + tcsVal + qaVal + ebgVal;
                         year2ROIBalance = year2Savings - year2ExpVal;
                         year2ROIPercent = ((year2Savings / year2ExpVal * 100)).ToString();
@@ -525,9 +581,9 @@ namespace Sandler.UI.ChartStructure
                         scVal = (year3ExpVal * scVal * (1 + (Convert.ToDouble(gaTracker.DesiredAnnualImptSalesCycleTime) / 100)) / year2ExpVal) * year3AF;
                         seVal = (year3ExpVal * seVal * (1 + (Convert.ToDouble(gaTracker.DesiredAnnualImptSalesEfficiency) / 100)) / year2ExpVal) * year3AF;
                         sqVal = (year3ExpVal * sqVal * (1 + (Convert.ToDouble(gaTracker.DesiredAnnualImptSalesQualfn) / 100)) / year2ExpVal) * year3AF;
-                        tcsVal = (year3ExpVal * tcsVal * (1 + (Convert.ToDouble(gaTracker.DesiredAnnualImptTrgCstSvgs) / 100)) / year2ExpVal) * year3AF;
+                        tcsVal = (year3ExpVal * tcsVal * (1 + (Convert.ToDouble(gaTracker.DesiredAnnualImptSalesRepRetention) / 100)) / year2ExpVal) * year3AF;
                         qaVal = (year3ExpVal * qaVal * (1 + (Convert.ToDouble(gaTracker.DesiredAnnualImptQuotaAcht) / 100)) / year2ExpVal) * year3AF;
-                        ebgVal = (year3ExpVal * ebgVal * (1 + (Convert.ToDouble(gaTracker.DesiredAnnualImptEstBenefitsGained) / 100)) / year2ExpVal) * year3AF;
+                        ebgVal = (year3ExpVal * ebgVal * (1 + (Convert.ToDouble(gaTracker.DesiredAnnualImptTrngBenefits) / 100)) / year2ExpVal) * year3AF;
                         year3Savings = scVal + seVal + sqVal + tcsVal + qaVal + ebgVal;
                         year3ROIBalance = year3Savings - year3ExpVal;
                         year3ROIPercent = ((year3Savings / year3ExpVal * 100)).ToString();
@@ -715,6 +771,33 @@ namespace Sandler.UI.ChartStructure
                 IEnumerable<Tbl_ProductType> products;
                 switch (this.Id)
                 {
+                    case ChartID.ClosedSalesAnalysisBySource:
+                        this.Caption = "Sales Value Percentage By Product";
+                        IEnumerable<SandlerModels.DataIntegration.ProductTypeVM> productTypeVMCollection = queries.GetClosedSalesAnalysis(currentUser, DateTime.ParseExact(this.DrillBy, "MMM", null).Month, "ProductsSoldBySalesValue");
+                                
+                        var totalPrice = productTypeVMCollection.Sum(r => r.AvgPrice);
+                        productTypesSource = new ProductTypesRepository();
+
+                        if (currentUser.Role == SandlerRoles.FranchiseeOwner || currentUser.Role == SandlerRoles.FranchiseeUser)
+                            products = productTypesSource.GetWithFranchiseeId(currentUser.FranchiseeID);
+                        else
+                            products = productTypesSource.GetAll().Where(r => r.IsActive == true);
+
+                        foreach (var record in products.AsEnumerable())
+                        {
+                            try
+                            {
+                                if (productTypeVMCollection.Single(r => r.ProductTypeName == record.ProductTypeName) != null)
+                                    this.SetsCollection.Add(new SetValue { Color = record.ColorCode, Label = record.ProductTypeName, Value = (((productTypeVMCollection.Single(r => r.ProductTypeName == record.ProductTypeName).AvgPrice) / totalPrice)*100).ToString() });
+                            }
+                            catch (System.InvalidOperationException)
+                            {
+
+                            }
+                        }
+                        //}
+                        break;
+                        break;
                     case ChartID.NewAppointmentsBySource:
                         //if (queries.GetNewAppointmentSource(currentUser, DateTime.ParseExact(this.DrillBy, "MMM", null).Month) != null)
                         //{

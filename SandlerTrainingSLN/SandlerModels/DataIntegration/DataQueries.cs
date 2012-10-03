@@ -56,7 +56,7 @@ namespace SandlerModels.DataIntegration
             try
             {
                 userEntities = UserEntitiesFactory.Get(currentUser);
-                
+
                 companyRepository = new CompaniesRepository();
                 newClients = companyRepository.GetNewClientsProducts(month, DateTime.Now.Year, currentUser.UserId.ToString());
                 newAppsProducts = new List<ProductTypeVM>();
@@ -77,6 +77,43 @@ namespace SandlerModels.DataIntegration
             }
             return data;
         }
+
+        public IEnumerable<ProductTypeVM> GetClosedSalesAnalysis(UserModel currentUser, int month, string analysisType)
+        {
+            UserEntities userEntities = null;
+            IEnumerable<ProductTypeVM> data = null;
+            CompaniesRepository companyRepository = null;
+            SqlDataReader records;
+            List<ProductTypeVM> products = null;
+            try
+            {
+                userEntities = UserEntitiesFactory.Get(currentUser);
+
+                companyRepository = new CompaniesRepository();
+                records = companyRepository.GetClosedSalesAnalysis(month, DateTime.Now.Year, currentUser.UserId.ToString(), analysisType);
+                if (analysisType == "ProductsSoldBySalesQuantity" || analysisType == "ProductsSoldBySalesValue")
+                    products = new List<ProductTypeVM>();
+                if (records != null)
+                {
+                    while (records.Read())
+                    {
+                        if (analysisType == "ProductsSoldBySalesQuantity")
+                            products.Add(new ProductTypeVM { Count = records.GetInt32(0), ProductTypeName = records.GetString(1) });
+                        if (analysisType == "ProductsSoldBySalesValue")
+                            products.Add(new ProductTypeVM { AvgPrice = Convert.ToDouble(records.GetDecimal(0)), ProductTypeName = records.GetString(1) });
+                    }
+                    records.Close();
+                }
+                data = products.AsEnumerable<ProductTypeVM>();
+                //}
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("exception in DataQueries.GetNewClientsByProductType: " + ex.Message);
+            }
+            return data;
+        }
+
 
         public int GetNewClientCount(UserModel currentUser, int month)
         {
@@ -144,7 +181,7 @@ namespace SandlerModels.DataIntegration
             try
             {
                 userEntities = UserEntitiesFactory.Get(currentUser);
-                
+
                 companyRepository = new CompaniesRepository();
                 newClients = companyRepository.GetNewClientsProducts(month, DateTime.Now.Year, currentUser.UserId.ToString());
                 newAppsProducts = new List<ProductTypeVM>();
@@ -402,5 +439,8 @@ namespace SandlerModels.DataIntegration
             }
             return data;
         }
+
+        
+
     }
 }

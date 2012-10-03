@@ -14,10 +14,10 @@ using SandlerWeb = Sandler.Web;
 
 public abstract class BasePage : System.Web.UI.Page
 {
-    protected string QUERYSTRINGPARAMDRILLCHARTIDS = ConfigurationManager.AppSettings["QueryStringParamDrillChartIDs"];
-    protected string QUERYSTRINGPARAMDRILLBY = ConfigurationManager.AppSettings["QueryStringParamDrillBy"];
-    protected string GENERICCHARTLITERALWIDTH = ConfigurationManager.AppSettings["GenericChartLiteralWidth"];
-    protected string GENERICCHARTLITERALHEIGHT = ConfigurationManager.AppSettings["GenericChartLiteralHeight"];
+    public string QUERYSTRINGPARAMDRILLCHARTIDS = ConfigurationManager.AppSettings["QueryStringParamDrillChartIDs"];
+    public string QUERYSTRINGPARAMDRILLBY = ConfigurationManager.AppSettings["QueryStringParamDrillBy"];
+    public string GENERICCHARTLITERALWIDTH = ConfigurationManager.AppSettings["GenericChartLiteralWidth"];
+    public string GENERICCHARTLITERALHEIGHT = ConfigurationManager.AppSettings["GenericChartLiteralHeight"];
 
     protected int CurrentPage
     {

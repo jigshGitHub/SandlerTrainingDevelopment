@@ -20,32 +20,31 @@ namespace SandlerModels
         public Nullable<int> AsIsSalesCycleTimeId { get; set; }
         public Nullable<int> AsIsSalesEffId { get; set; }
         public Nullable<int> AsIsSalesQualificationId { get; set; }
-        public Nullable<int> AsIsTrgCostSavingsId { get; set; }
         public Nullable<int> AsIsQuotaAchtId { get; set; }
-        public Nullable<int> AsIsEstBenGainedId { get; set; }
         public Nullable<int> ToBeSalesCycleTimeId { get; set; }
         public Nullable<int> ToBeSalesEffId { get; set; }
         public Nullable<int> ToBeSalesQualificationId { get; set; }
-        public Nullable<int> ToBeTrgCostSavingsId { get; set; }
         public Nullable<int> ToBeQuotaAchtId { get; set; }
-        public Nullable<int> ToBeEstBenGainedId { get; set; }
         public string DesiredAnnualImptSalesCycleTime { get; set; }
         public string DesiredAnnualImptSalesEfficiency { get; set; }
         public string DesiredAnnualImptSalesQualfn { get; set; }
-        public string DesiredAnnualImptTrgCstSvgs { get; set; }
         public string DesiredAnnualImptQuotaAcht { get; set; }
-        public string DesiredAnnualImptEstBenefitsGained { get; set; }
+        public Nullable<decimal> Year1 { get; set; }
+        public Nullable<decimal> Year2 { get; set; }
+        public Nullable<decimal> Year3 { get; set; }
         public Nullable<System.DateTime> UpdatedDate { get; set; }
         public Nullable<System.Guid> UpdatedBy { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }
         public Nullable<System.Guid> CreatedBy { get; set; }
-        public Nullable<decimal> Year1 { get; set; }
-        public Nullable<decimal> Year2 { get; set; }
-        public Nullable<decimal> Year3 { get; set; }
+        public Nullable<int> AsIsSalesRepRetnId { get; set; }
+        public Nullable<int> ToBeSalesRepRetnId { get; set; }
+        public Nullable<int> AsIsTrngBenefitsId { get; set; }
+        public Nullable<int> ToBeTrngBenefitsId { get; set; }
+        public string DesiredAnnualImptSalesRepRetention { get; set; }
+        public string DesiredAnnualImptTrngBenefits { get; set; }
     
         internal TBL_COMPANIES TBL_COMPANIES { get; set; }
-        internal TBL_GA_EstBenefitsGained TBL_GA_EstBenefitsGained { get; set; }
-        internal TBL_GA_EstBenefitsGained TBL_GA_EstBenefitsGained1 { get; set; }
+        internal TBL_CONTACTS TBL_CONTACTS { get; set; }
         internal TBL_GA_QuotaAchievement TBL_GA_QuotaAchievement { get; set; }
         internal TBL_GA_QuotaAchievement TBL_GA_QuotaAchievement1 { get; set; }
         internal TBL_GA_SalesCycleTime TBL_GA_SalesCycleTime { get; set; }
@@ -54,9 +53,10 @@ namespace SandlerModels
         internal TBL_GA_SalesEfficiency TBL_GA_SalesEfficiency1 { get; set; }
         internal TBL_GA_SalesQualification TBL_GA_SalesQualification { get; set; }
         internal TBL_GA_SalesQualification TBL_GA_SalesQualification1 { get; set; }
-        internal TBL_GA_TrainingCostSavings TBL_GA_TrainingCostSavings { get; set; }
-        internal TBL_GA_TrainingCostSavings TBL_GA_TrainingCostSavings1 { get; set; }
-        internal TBL_CONTACTS TBL_CONTACTS { get; set; }
+        internal TBL_GA_SalesRepRetention TBL_GA_SalesRepRetention { get; set; }
+        internal TBL_GA_SalesRepRetention TBL_GA_SalesRepRetention1 { get; set; }
+        internal TBL_GA_TrngBenefits TBL_GA_TrngBenefits { get; set; }
+        internal TBL_GA_TrngBenefits TBL_GA_TrngBenefits1 { get; set; }
     }
     
 }

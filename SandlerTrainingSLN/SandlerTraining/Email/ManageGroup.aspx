@@ -63,7 +63,7 @@
      <asp:CustomValidator runat="server" ID="cvListGroup" ClientValidationFunction="ValidateUserGroupList" ErrorMessage="Please select at least one Email Address to be included in the Group.">*</asp:CustomValidator>
      </td></tr>
 
-     <tr style="color: Black; background-color: #EEEEEE;"><td align="center" colspan="2"><asp:Button id="btnCreateGroup" Runat="server" Text="Create Group" Style="background-color:#336699;
+     <tr style="color: Black; background-color: #EEEEEE;"><td align="center" colspan="2"><asp:Button id="btnCreateGroup" Runat="server" Text="Create Group" Style="background-color:#3366cc;
                                 color: #FFFFFF; margin-left:10px" Height="40" 
              Width="120" onclick="btnCreateGroup_Click"></asp:Button></td></tr>
 
@@ -153,7 +153,7 @@
      </td></tr>
 
      <tr id="trCorp8" runat="server" style="color: Black; background-color: #EEEEEE; "><td align="center" colspan="2">
-         <asp:Button id="btnCreateGrpCorp" Runat="server" Text="Create Group" Style="background-color:#336699;
+         <asp:Button id="btnCreateGrpCorp" Runat="server" Text="Create Group" Style="background-color:#3366cc;
                                 color: #FFFFFF; margin-left:10px" Height="40" 
              Width="120" onclick="btnCreateGrpCorp_Click"></asp:Button></td></tr>
 
