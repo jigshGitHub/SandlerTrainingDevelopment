@@ -420,4 +420,15 @@ namespace SandlerRepositories
         {
         }
     }
+    public partial class OppSourceeRepository : RepositoryBase<TBL_OpportunitySource>
+    {
+        public OppSourceeRepository(IDatabaseFactory dbFactory)
+            : base(dbFactory)
+        {
+        }
+        public OppSourceeRepository()
+            : base(new DBFactory())
+        {
+        }
+    }
 }

@@ -21,6 +21,10 @@ namespace Sandler.UI.ChartStructure
         {
             return (string.IsNullOrEmpty(drillBy) && string.IsNullOrEmpty(drillChartIds)) ? "" : string.Format("{0}?{1}={2}&{3}={4}", CHARTPAGE, ConfigurationManager.AppSettings["QueryStringParamDrillChartIDs"], drillChartIds, ConfigurationManager.AppSettings["QueryStringParamDrillBy"], drillBy);
         }
+        public static string GeneratePageLink(string drillBy, string drillChartIds, string chartSubtype)
+        {
+            return (string.IsNullOrEmpty(drillBy) && string.IsNullOrEmpty(drillChartIds)) ? "" : string.Format("{0}?{1}={2}&{3}={4}&SubType={5}", CHARTPAGE, ConfigurationManager.AppSettings["QueryStringParamDrillChartIDs"], drillChartIds, ConfigurationManager.AppSettings["QueryStringParamDrillBy"], drillBy, chartSubtype);
+        }
 
 
     }
@@ -121,7 +125,7 @@ namespace Sandler.UI.ChartStructure
         public string showLegend { get; set; }
 
         public int GAId { get; set; }
-
+        public string SubType { get; set; }
         public Chart()
         {
             this.Categories = new List<Category>();
@@ -150,11 +154,21 @@ namespace Sandler.UI.ChartStructure
                             products = productTypesSource.GetWithFranchiseeId(currentUser.FranchiseeID);
                         else
                             products = productTypesSource.GetAll();
-                        foreach (var record in products.Where(r => r.IsActive == true).AsEnumerable())
-                        {
-                            this.Categories.Add(new Category { Label = record.ProductTypeName });
-                        }
 
+                        if (this.SubType == "SalesValueOppSource" || this.SubType == "SalesQuantityOppSource")
+                        {
+                            foreach (var record in new OppSourceeRepository().GetAll())
+                            {
+                                this.Categories.Add(new Category { Label = record.Name });
+                            }
+                        }
+                        else
+                        {
+                            foreach (var record in products.Where(r => r.IsActive == true).AsEnumerable())
+                            {
+                                this.Categories.Add(new Category { Label = record.ProductTypeName });
+                            }
+                        }
                         chartParams = new List<ChartParameter>();
                         chartParams.Add(new ChartParameter { Value = "-2", Color = "8A4B08" });
                         chartParams.Add(new ChartParameter { Value = "-1", Color = "0000FF" });
@@ -164,18 +178,28 @@ namespace Sandler.UI.ChartStructure
                         {
                             try
                             {
-                                IEnumerable<SandlerModels.DataIntegration.ProductTypeVM> productTypeVMCollection = queries.GetClosedSalesAnalysis(currentUser, DateTime.Now.AddMonths(int.Parse(parameter.Value)).Month,"ProductsSoldBySalesValue");
+                                if (this.SubType == "ProductsSoldBySalesValue")
+                                    this.Caption = "Sales Value By Product (By Month)";
+                                if (this.SubType == "ProductsSoldBySalesQuantity")
+                                    this.Caption = "Sales Quantity By Product (By Month)";
+
+                                if (this.SubType == "SalesValueOppSource")
+                                    this.Caption = "Sales Value By Opportunity Source (By Month)";
+                                if (this.SubType == "SalesQuantityOppSource")
+                                    this.Caption = "Sales Quantity By Opportunity Source (By Month)";
+
+                                IEnumerable<SandlerModels.DataIntegration.ProductTypeVM> productTypeVMCollection = queries.GetClosedSalesAnalysis(currentUser, DateTime.Now.AddMonths(int.Parse(parameter.Value)).Month, this.SubType);
                                 if (productTypeVMCollection != null)
                                 {
                                     var clientsWithProducts = from record in productTypeVMCollection
-                                                               select new { Category = record.ProductTypeName, SalesValue = record.AvgPrice };
+                                                              select new { Category = record.ProductTypeName, SalesValue = record.AvgPrice, SalesQuantity = record.Count };
 
                                     this.DataSetCollection.Add(new ChartDataSet { Color = parameter.Color, SeriesName = DateTime.Now.AddMonths(int.Parse(parameter.Value)).ToString("MMM") });
 
                                     foreach (Category category in this.Categories)
                                     {
                                         lastDs = this.DataSetCollection.Last();
-                                        lastDs.SetsCollection.Add(new SetValue { Label = category.Label, Link = ChartHelper.GeneratePageLink(lastDs.SeriesName, this.DrillChartIds) });
+                                        lastDs.SetsCollection.Add(new SetValue { Label = category.Label, Link = ChartHelper.GeneratePageLink(lastDs.SeriesName, this.DrillChartIds, this.SubType) });
                                     }
 
                                     foreach (var record in clientsWithProducts)
@@ -183,7 +207,17 @@ namespace Sandler.UI.ChartStructure
                                         foreach (SetValue set in lastDs.SetsCollection)
                                         {
                                             if (set.Label == record.Category)
-                                                set.Value = record.SalesValue.ToString();
+                                            {
+                                                if (this.SubType.Contains("Value"))
+                                                {
+                                                    set.Value = record.SalesValue.ToString();
+                                                }
+                                                if (this.SubType.Contains("Quantity"))
+                                                {
+                                                    set.Value = record.SalesQuantity.ToString();
+                                                }
+
+                                            }
                                         }
                                     }
                                 }
@@ -249,7 +283,7 @@ namespace Sandler.UI.ChartStructure
                     case ChartID.NewClientsByProductTypeMonth:
 
                         productTypesSource = new ProductTypesRepository();
-                        
+
                         if (currentUser.Role == SandlerRoles.FranchiseeOwner || currentUser.Role == SandlerRoles.FranchiseeUser)
                             products = productTypesSource.GetWithFranchiseeId(currentUser.FranchiseeID);
                         else
@@ -542,12 +576,13 @@ namespace Sandler.UI.ChartStructure
                         GapAnalysisRepository reposiroty = new GapAnalysisRepository();
                         GATracker gaTracker = reposiroty.GetGATrackerById(GAId);
 
-                        double year1ExpVal, year2ExpVal, year3ExpVal, year2AF, year3AF;
+                        double year1ExpVal, year2ExpVal, year3ExpVal, year1AF, year2AF, year3AF;
 
                         year1ExpVal = Convert.ToDouble(gaTracker.Year1.Value);
                         year2ExpVal = Convert.ToDouble(gaTracker.Year2.Value);
                         year3ExpVal = Convert.ToDouble(gaTracker.Year3.Value);
 
+                        year1AF = GetFactorValue(year1ExpVal);
                         year2AF = GetFactorValue(year2ExpVal);
                         year3AF = GetFactorValue(year3ExpVal);
 
@@ -556,34 +591,34 @@ namespace Sandler.UI.ChartStructure
                         string year1ROIPercent, year2ROIPercent, year3ROIPercent;
 
                         //Year1 Calculations
-                        scVal = (year1ExpVal * (gaTracker.ToBeSalesCycleTimePercentVal.Value - gaTracker.AsIsSalesCycleTimePercentVal.Value) * ROIAdjustmentFactor) / 10000;
-                        seVal = (year1ExpVal * (gaTracker.ToBeSalesEfficiencyPercentVal.Value - gaTracker.AsIsSalesEfficiencyPercentVal.Value) * ROIAdjustmentFactor) / 10000;
-                        sqVal = (year1ExpVal * (gaTracker.ToBeSalesQualificationPercentVal.Value - gaTracker.AsIsSalesQualificationPercentVal.Value) * ROIAdjustmentFactor) / 10000;
-                        tcsVal = (year1ExpVal * (gaTracker.ToBeSalesRepRetentionPercentVal.Value - gaTracker.AsIsSalesRepRetentionPercentVal.Value) * ROIAdjustmentFactor) / 10000;
-                        qaVal = (year1ExpVal * (gaTracker.ToBeQuotaAchievementPercentVal.Value - gaTracker.AsIsQuotaAchievementPercentVal.Value) * ROIAdjustmentFactor) / 10000;
-                        ebgVal = (year1ExpVal * (gaTracker.ToBeTrngBenefitsPercentVal.Value - gaTracker.AsIsTrngBenefitsPercentVal.Value) * ROIAdjustmentFactor) / 10000;
+                        scVal = (year1ExpVal * (gaTracker.ToBeSalesCycleTimePercentVal.Value - gaTracker.AsIsSalesCycleTimePercentVal.Value) * ROIAdjustmentFactor * year1AF) / 10000;
+                        seVal = (year1ExpVal * (gaTracker.ToBeSalesEfficiencyPercentVal.Value - gaTracker.AsIsSalesEfficiencyPercentVal.Value) * ROIAdjustmentFactor * year1AF) / 10000;
+                        sqVal = (year1ExpVal * (gaTracker.ToBeSalesQualificationPercentVal.Value - gaTracker.AsIsSalesQualificationPercentVal.Value) * ROIAdjustmentFactor * year1AF) / 10000;
+                        tcsVal = (year1ExpVal * (gaTracker.ToBeSalesRepRetentionPercentVal.Value - gaTracker.AsIsSalesRepRetentionPercentVal.Value) * ROIAdjustmentFactor * year1AF) / 10000;
+                        qaVal = (year1ExpVal * (gaTracker.ToBeQuotaAchievementPercentVal.Value - gaTracker.AsIsQuotaAchievementPercentVal.Value) * ROIAdjustmentFactor * year1AF) / 10000;
+                        ebgVal = (year1ExpVal * (gaTracker.ToBeTrngBenefitsPercentVal.Value - gaTracker.AsIsTrngBenefitsPercentVal.Value) * ROIAdjustmentFactor * year1AF) / 10000;
                         year1Savings = scVal + seVal + sqVal + tcsVal + qaVal + ebgVal;
                         year1ROIBalance = year1Savings - year1ExpVal;
                         year1ROIPercent = ((year1Savings / year1ExpVal * 100)).ToString();
 
                         //Year2 Calculations
-                        scVal = (year2ExpVal * scVal * (1 + (Convert.ToDouble(gaTracker.DesiredAnnualImptSalesCycleTime) / 100)) / year1ExpVal) * year2AF;
-                        seVal = (year2ExpVal * seVal * (1 + (Convert.ToDouble(gaTracker.DesiredAnnualImptSalesEfficiency) / 100)) / year1ExpVal) * year2AF;
-                        sqVal = (year2ExpVal * sqVal * (1 + (Convert.ToDouble(gaTracker.DesiredAnnualImptSalesQualfn) / 100)) / year1ExpVal) * year2AF;
-                        tcsVal = (year2ExpVal * tcsVal * (1 + (Convert.ToDouble(gaTracker.DesiredAnnualImptSalesRepRetention) / 100)) / year1ExpVal) * year2AF;
-                        qaVal = (year2ExpVal * qaVal * (1 + (Convert.ToDouble(gaTracker.DesiredAnnualImptQuotaAcht) / 100)) / year1ExpVal) * year2AF;
-                        ebgVal = (year2ExpVal * ebgVal * (1 + (Convert.ToDouble(gaTracker.DesiredAnnualImptTrngBenefits) / 100)) / year1ExpVal) * year2AF;
+                        scVal = ((year2ExpVal * scVal * (1 + Convert.ToDouble(gaTracker.DesiredAnnualImptSalesCycleTime) / 100)) / year1ExpVal) * year2AF;
+                        seVal = ((year2ExpVal * seVal * (1 + Convert.ToDouble(gaTracker.DesiredAnnualImptSalesEfficiency) / 100)) / year1ExpVal) * year2AF;
+                        sqVal = ((year2ExpVal * sqVal * (1 + Convert.ToDouble(gaTracker.DesiredAnnualImptSalesQualfn) / 100)) / year1ExpVal) * year2AF;
+                        tcsVal = ((year2ExpVal * tcsVal * (1 + Convert.ToDouble(gaTracker.DesiredAnnualImptSalesRepRetention) / 100)) / year1ExpVal) * year2AF;
+                        qaVal = ((year2ExpVal * qaVal * (1 + Convert.ToDouble(gaTracker.DesiredAnnualImptQuotaAcht) / 100)) / year1ExpVal) * year2AF;
+                        ebgVal = ((year2ExpVal * ebgVal * (1 + Convert.ToDouble(gaTracker.DesiredAnnualImptTrngBenefits) / 100)) / year1ExpVal) * year2AF;
                         year2Savings = scVal + seVal + sqVal + tcsVal + qaVal + ebgVal;
                         year2ROIBalance = year2Savings - year2ExpVal;
                         year2ROIPercent = ((year2Savings / year2ExpVal * 100)).ToString();
 
                         //Year3 Calculations
-                        scVal = (year3ExpVal * scVal * (1 + (Convert.ToDouble(gaTracker.DesiredAnnualImptSalesCycleTime) / 100)) / year2ExpVal) * year3AF;
-                        seVal = (year3ExpVal * seVal * (1 + (Convert.ToDouble(gaTracker.DesiredAnnualImptSalesEfficiency) / 100)) / year2ExpVal) * year3AF;
-                        sqVal = (year3ExpVal * sqVal * (1 + (Convert.ToDouble(gaTracker.DesiredAnnualImptSalesQualfn) / 100)) / year2ExpVal) * year3AF;
-                        tcsVal = (year3ExpVal * tcsVal * (1 + (Convert.ToDouble(gaTracker.DesiredAnnualImptSalesRepRetention) / 100)) / year2ExpVal) * year3AF;
-                        qaVal = (year3ExpVal * qaVal * (1 + (Convert.ToDouble(gaTracker.DesiredAnnualImptQuotaAcht) / 100)) / year2ExpVal) * year3AF;
-                        ebgVal = (year3ExpVal * ebgVal * (1 + (Convert.ToDouble(gaTracker.DesiredAnnualImptTrngBenefits) / 100)) / year2ExpVal) * year3AF;
+                        scVal = ((year3ExpVal * scVal * (1 + Convert.ToDouble(gaTracker.DesiredAnnualImptSalesCycleTime) / 100)) / year2ExpVal) * year3AF;
+                        seVal = ((year3ExpVal * seVal * (1 + Convert.ToDouble(gaTracker.DesiredAnnualImptSalesEfficiency) / 100)) / year2ExpVal) * year3AF;
+                        sqVal = ((year3ExpVal * sqVal * (1 + Convert.ToDouble(gaTracker.DesiredAnnualImptSalesQualfn) / 100)) / year2ExpVal) * year3AF;
+                        tcsVal = ((year3ExpVal * tcsVal * (1 + Convert.ToDouble(gaTracker.DesiredAnnualImptSalesRepRetention) / 100)) / year2ExpVal) * year3AF;
+                        qaVal = ((year3ExpVal * qaVal * (1 + Convert.ToDouble(gaTracker.DesiredAnnualImptQuotaAcht) / 100)) / year2ExpVal) * year3AF;
+                        ebgVal = ((year3ExpVal * ebgVal * (1 + Convert.ToDouble(gaTracker.DesiredAnnualImptTrngBenefits) / 100)) / year2ExpVal) * year3AF;
                         year3Savings = scVal + seVal + sqVal + tcsVal + qaVal + ebgVal;
                         year3ROIBalance = year3Savings - year3ExpVal;
                         year3ROIPercent = ((year3Savings / year3ExpVal * 100)).ToString();
@@ -601,7 +636,7 @@ namespace Sandler.UI.ChartStructure
                             var AverageLengthTimeActiveClientsByIndustry = queries.AverageLengthTimeActiveClientsByIndustry(currentUser);
 
                             IndustryTypeRepository industrySource = new IndustryTypeRepository();
-                                                        
+
                             foreach (var record in industrySource.GetAll().Where(r => r.IsActive == true).AsEnumerable())
                             {
                                 try
@@ -772,10 +807,20 @@ namespace Sandler.UI.ChartStructure
                 switch (this.Id)
                 {
                     case ChartID.ClosedSalesAnalysisBySource:
-                        this.Caption = "Sales Value Percentage By Product";
-                        IEnumerable<SandlerModels.DataIntegration.ProductTypeVM> productTypeVMCollection = queries.GetClosedSalesAnalysis(currentUser, DateTime.ParseExact(this.DrillBy, "MMM", null).Month, "ProductsSoldBySalesValue");
-                                
+                        if (this.SubType == "ProductsSoldBySalesValue")
+                            this.Caption = "Sales Value Percentage By Product";
+                        if (this.SubType == "ProductsSoldBySalesQuantity")
+                            this.Caption = "Sales Quantity Percentage By Product";
+
+                        if (this.SubType == "SalesValueOppSource")
+                            this.Caption = "Sales Value Percentage By Opportunity Source";
+                        if (this.SubType == "SalesQuantityOppSource")
+                            this.Caption = "Sales Quantity Percentage By Opportunity Source";
+
+                        IEnumerable<SandlerModels.DataIntegration.ProductTypeVM> productTypeVMCollection = queries.GetClosedSalesAnalysis(currentUser, DateTime.ParseExact(this.DrillBy, "MMM", null).Month, this.SubType);
+                        colors = new string[] { "CC6600", "9900CC", "FF3300", "0099FF", "00CC66", "FFFF00", "CC6600", "9900CC" };
                         var totalPrice = productTypeVMCollection.Sum(r => r.AvgPrice);
+                        var totalCounts = productTypeVMCollection.Sum(r => r.Count);
                         productTypesSource = new ProductTypesRepository();
 
                         if (currentUser.Role == SandlerRoles.FranchiseeOwner || currentUser.Role == SandlerRoles.FranchiseeUser)
@@ -783,16 +828,51 @@ namespace Sandler.UI.ChartStructure
                         else
                             products = productTypesSource.GetAll().Where(r => r.IsActive == true);
 
-                        foreach (var record in products.AsEnumerable())
+                        if (this.SubType == "SalesValueOppSource" || this.SubType == "SalesQuantityOppSource")
                         {
-                            try
+                            foreach (var record in new OpprtunitySourceRepository().GetAll())
                             {
-                                if (productTypeVMCollection.Single(r => r.ProductTypeName == record.ProductTypeName) != null)
-                                    this.SetsCollection.Add(new SetValue { Color = record.ColorCode, Label = record.ProductTypeName, Value = (((productTypeVMCollection.Single(r => r.ProductTypeName == record.ProductTypeName).AvgPrice) / totalPrice)*100).ToString() });
-                            }
-                            catch (System.InvalidOperationException)
-                            {
+                                try
+                                {
+                                    if (productTypeVMCollection.Single(r => r.ProductTypeName == record.Name) != null)
+                                    {
+                                        if (this.SubType.Contains("Value"))
+                                            this.SetsCollection.Add(new SetValue { Color = colors.GetValue(colorIndex).ToString(), Label = record.Name, Value = (((productTypeVMCollection.Single(r => r.ProductTypeName == record.Name).AvgPrice) / totalPrice) * 100).ToString() });
+                                        else
+                                        {
+                                            this.SetsCollection.Add(new SetValue { Color = colors.GetValue(colorIndex).ToString(), Label = record.Name, Value = ((productTypeVMCollection.Single(r => r.ProductTypeName == record.Name).Count * 100) / totalCounts).ToString() });
+                                        }
+                                    }
+                                }
+                                catch (System.InvalidOperationException)
+                                {
 
+                                }
+                                colorIndex++;
+                            }
+                        }
+                        else
+                        {
+                            int tmpCount = 0;
+                            foreach (var record in products.AsEnumerable())
+                            {
+                                try
+                                {
+                                    if (productTypeVMCollection.Single(r => r.ProductTypeName == record.ProductTypeName) != null)
+                                    {
+                                        if (this.SubType.Contains("Value"))
+                                            this.SetsCollection.Add(new SetValue { Color = record.ColorCode, Label = record.ProductTypeName, Value = (((productTypeVMCollection.Single(r => r.ProductTypeName == record.ProductTypeName).AvgPrice) / totalPrice) * 100).ToString() });
+                                        else
+                                        {
+                                            tmpCount = productTypeVMCollection.Single(r => r.ProductTypeName == record.ProductTypeName).Count;
+                                            this.SetsCollection.Add(new SetValue { Color = record.ColorCode, Label = record.ProductTypeName, Value = ((tmpCount * 100) / totalCounts).ToString() });
+                                        }
+                                    }
+                                }
+                                catch (System.InvalidOperationException)
+                                {
+
+                                }
                             }
                         }
                         //}
@@ -804,7 +884,7 @@ namespace Sandler.UI.ChartStructure
                         var NewAppointmentSource = from record in queries.GetNewAppointmentSource(currentUser, DateTime.ParseExact(this.DrillBy, "MMM", null).Month)
                                                    select new { Category = record.SourceName, Count = record.Count };
 
-                        
+
 
                         appointmentSource = new AppointmentSourceRepository();
                         foreach (var record in appointmentSource.GetAll().Where(r => r.IsActive == true).AsEnumerable())
@@ -885,7 +965,7 @@ namespace Sandler.UI.ChartStructure
                         //{
                         var ContractPriceWithProductTypes = from record in queries.ContractPriceWithProductTypes(currentUser, DateTime.ParseExact(this.DrillBy, "MMM", null).Month)
                                                             select new { Category = record.ProductTypeName, AvgPrice = record.AvgPrice };
-                        
+
                         productTypesSource = new ProductTypesRepository();
 
                         if (currentUser.Role == SandlerRoles.FranchiseeOwner || currentUser.Role == SandlerRoles.FranchiseeUser)

@@ -91,16 +91,19 @@ namespace SandlerModels.DataIntegration
 
                 companyRepository = new CompaniesRepository();
                 records = companyRepository.GetClosedSalesAnalysis(month, DateTime.Now.Year, currentUser.UserId.ToString(), analysisType);
-                if (analysisType == "ProductsSoldBySalesQuantity" || analysisType == "ProductsSoldBySalesValue")
+                if (analysisType == "ProductsSoldBySalesQuantity" || analysisType == "ProductsSoldBySalesValue" || analysisType == "SalesValueOppSource" || analysisType == "SalesQuantityOppSource")
                     products = new List<ProductTypeVM>();
                 if (records != null)
                 {
                     while (records.Read())
                     {
-                        if (analysisType == "ProductsSoldBySalesQuantity")
-                            products.Add(new ProductTypeVM { Count = records.GetInt32(0), ProductTypeName = records.GetString(1) });
-                        if (analysisType == "ProductsSoldBySalesValue")
-                            products.Add(new ProductTypeVM { AvgPrice = Convert.ToDouble(records.GetDecimal(0)), ProductTypeName = records.GetString(1) });
+                        if (!string.IsNullOrEmpty(records.GetValue(0).ToString()) && !string.IsNullOrEmpty(records.GetValue(1).ToString()))
+                        {
+                            if (analysisType == "ProductsSoldBySalesQuantity" || analysisType == "SalesQuantityOppSource")
+                                products.Add(new ProductTypeVM { Count = records.GetInt32(0), ProductTypeName = records.GetString(1) });
+                            if (analysisType == "ProductsSoldBySalesValue" || analysisType == "SalesValueOppSource")
+                                products.Add(new ProductTypeVM { AvgPrice = Convert.ToDouble(records.GetDecimal(0)), ProductTypeName = records.GetString(1) });
+                        }
                     }
                     records.Close();
                 }
@@ -440,7 +443,7 @@ namespace SandlerModels.DataIntegration
             return data;
         }
 
-        
+
 
     }
 }

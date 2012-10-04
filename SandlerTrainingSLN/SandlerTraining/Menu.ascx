@@ -18,8 +18,14 @@
                             New Client Quantity & Average Contract Price (By Month)</a></li>
                         <li><a href="<%=  Page.ResolveClientUrl("~/" + ChartHelper.GeneratePageLink("","ClassHeadcountByCourseIndustryMonth"))  %>">
                             Class Headcount By Course & Industry (By Month)</a></li>
-                        <li><a href="<%=  Page.ResolveClientUrl("~/" + ChartHelper.GeneratePageLink("","ClosedSalesAnalysis"))  %>">
-                            Closed Sales Analysis (By Month)</a></li>
+                        <li><a href="<%=  Page.ResolveClientUrl("~/" + ChartHelper.GeneratePageLink("","ClosedSalesAnalysis","ProductsSoldBySalesValue"))  %>">
+                            Sales Value By Product (By Month)</a></li>
+                        <li><a href="<%=  Page.ResolveClientUrl("~/" + ChartHelper.GeneratePageLink("","ClosedSalesAnalysis","ProductsSoldBySalesQuantity"))  %>">
+                            Sales Quantity By Product (By Month)</a></li>
+                        <li><a href="<%=  Page.ResolveClientUrl("~/" + ChartHelper.GeneratePageLink("","ClosedSalesAnalysis","SalesValueOppSource"))  %>">
+                            Sales Value By Opportunity Source (By Month)</a></li>
+                        <li><a href="<%=  Page.ResolveClientUrl("~/" + ChartHelper.GeneratePageLink("","ClosedSalesAnalysis","SalesQuantityOppSource"))  %>">
+                            Sales Quantity By Opportunity Source (By Month)</a></li>
                         <li><a href="<%=  Page.ResolveClientUrl("~/" + ChartHelper.GeneratePageLink("","AverageLengthTimeActiveClientsByIndustry"))  %>">
                             Average Length of Time for Active Clients (By Industry)</a></li>
                         <li><a href="<%=  Page.ResolveClientUrl("~/" + ChartHelper.GeneratePageLink("","ActualDollarsBookedComparisonGoal"))  %>">
