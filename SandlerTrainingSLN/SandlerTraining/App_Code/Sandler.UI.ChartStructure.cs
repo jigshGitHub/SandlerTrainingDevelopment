@@ -98,6 +98,18 @@ namespace Sandler.UI.ChartStructure
         BarChart
     }
 
+    public enum ChartSubType
+    {
+        ProductsSoldBySalesQuantity,
+        ProductsSoldBySalesValue,
+        SalesValueOppSource,
+        SalesQuantityOppSource,
+        SalesValueOpportunityType,
+        SalesQuantityOpportunityType,
+        SalesValueSalesRep,
+        SalesQuantitySalesRep
+    }
+
     public class Chart : IChart
     {
         public string Caption { get; set; }
@@ -125,7 +137,7 @@ namespace Sandler.UI.ChartStructure
         public string showLegend { get; set; }
 
         public int GAId { get; set; }
-        public string SubType { get; set; }
+        public ChartSubType SubType { get; set; }
         public Chart()
         {
             this.Categories = new List<Category>();
@@ -155,7 +167,7 @@ namespace Sandler.UI.ChartStructure
                         else
                             products = productTypesSource.GetAll();
 
-                        if (this.SubType == "SalesValueOppSource" || this.SubType == "SalesQuantityOppSource")
+                        if (this.SubType == ChartSubType.SalesValueOppSource || this.SubType == ChartSubType.SalesQuantityOppSource)
                         {
                             foreach (var record in new OppSourceeRepository().GetAll())
                             {
