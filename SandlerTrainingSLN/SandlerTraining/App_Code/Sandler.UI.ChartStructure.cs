@@ -190,17 +190,17 @@ namespace Sandler.UI.ChartStructure
                         {
                             try
                             {
-                                if (this.SubType == "ProductsSoldBySalesValue")
+                                if (this.SubType == ChartSubType.ProductsSoldBySalesValue )
                                     this.Caption = "Sales Value By Product (By Month)";
-                                if (this.SubType == "ProductsSoldBySalesQuantity")
+                                if (this.SubType == ChartSubType.ProductsSoldBySalesQuantity )
                                     this.Caption = "Sales Quantity By Product (By Month)";
 
-                                if (this.SubType == "SalesValueOppSource")
+                                if (this.SubType == ChartSubType.SalesValueOppSource)
                                     this.Caption = "Sales Value By Opportunity Source (By Month)";
-                                if (this.SubType == "SalesQuantityOppSource")
+                                if (this.SubType == ChartSubType.SalesQuantityOppSource)
                                     this.Caption = "Sales Quantity By Opportunity Source (By Month)";
 
-                                IEnumerable<SandlerModels.DataIntegration.ProductTypeVM> productTypeVMCollection = queries.GetClosedSalesAnalysis(currentUser, DateTime.Now.AddMonths(int.Parse(parameter.Value)).Month, this.SubType);
+                                IEnumerable<SandlerModels.DataIntegration.ProductTypeVM> productTypeVMCollection = queries.GetClosedSalesAnalysis(currentUser, DateTime.Now.AddMonths(int.Parse(parameter.Value)).Month, this.SubType.ToString());
                                 if (productTypeVMCollection != null)
                                 {
                                     var clientsWithProducts = from record in productTypeVMCollection
@@ -211,7 +211,7 @@ namespace Sandler.UI.ChartStructure
                                     foreach (Category category in this.Categories)
                                     {
                                         lastDs = this.DataSetCollection.Last();
-                                        lastDs.SetsCollection.Add(new SetValue { Label = category.Label, Link = ChartHelper.GeneratePageLink(lastDs.SeriesName, this.DrillChartIds, this.SubType) });
+                                        lastDs.SetsCollection.Add(new SetValue { Label = category.Label, Link = ChartHelper.GeneratePageLink(lastDs.SeriesName, this.DrillChartIds, this.SubType.ToString()) });
                                     }
 
                                     foreach (var record in clientsWithProducts)
@@ -220,11 +220,11 @@ namespace Sandler.UI.ChartStructure
                                         {
                                             if (set.Label == record.Category)
                                             {
-                                                if (this.SubType.Contains("Value"))
+                                                if (this.SubType.ToString().Contains("Value"))
                                                 {
                                                     set.Value = record.SalesValue.ToString();
                                                 }
-                                                if (this.SubType.Contains("Quantity"))
+                                                if (this.SubType.ToString().Contains("Quantity"))
                                                 {
                                                     set.Value = record.SalesQuantity.ToString();
                                                 }
@@ -819,17 +819,17 @@ namespace Sandler.UI.ChartStructure
                 switch (this.Id)
                 {
                     case ChartID.ClosedSalesAnalysisBySource:
-                        if (this.SubType == "ProductsSoldBySalesValue")
+                        if (this.SubType == ChartSubType.ProductsSoldBySalesValue)
                             this.Caption = "Sales Value Percentage By Product";
-                        if (this.SubType == "ProductsSoldBySalesQuantity")
+                        if (this.SubType == ChartSubType.ProductsSoldBySalesQuantity)
                             this.Caption = "Sales Quantity Percentage By Product";
 
-                        if (this.SubType == "SalesValueOppSource")
+                        if (this.SubType == ChartSubType.SalesValueOppSource)
                             this.Caption = "Sales Value Percentage By Opportunity Source";
-                        if (this.SubType == "SalesQuantityOppSource")
+                        if (this.SubType == ChartSubType.SalesQuantityOppSource)
                             this.Caption = "Sales Quantity Percentage By Opportunity Source";
 
-                        IEnumerable<SandlerModels.DataIntegration.ProductTypeVM> productTypeVMCollection = queries.GetClosedSalesAnalysis(currentUser, DateTime.ParseExact(this.DrillBy, "MMM", null).Month, this.SubType);
+                        IEnumerable<SandlerModels.DataIntegration.ProductTypeVM> productTypeVMCollection = queries.GetClosedSalesAnalysis(currentUser, DateTime.ParseExact(this.DrillBy, "MMM", null).Month, this.SubType.ToString());
                         colors = new string[] { "CC6600", "9900CC", "FF3300", "0099FF", "00CC66", "FFFF00", "CC6600", "9900CC" };
                         var totalPrice = productTypeVMCollection.Sum(r => r.AvgPrice);
                         var totalCounts = productTypeVMCollection.Sum(r => r.Count);
@@ -840,7 +840,7 @@ namespace Sandler.UI.ChartStructure
                         else
                             products = productTypesSource.GetAll().Where(r => r.IsActive == true);
 
-                        if (this.SubType == "SalesValueOppSource" || this.SubType == "SalesQuantityOppSource")
+                        if (this.SubType == ChartSubType.SalesValueOppSource || this.SubType == ChartSubType.SalesQuantityOppSource)
                         {
                             foreach (var record in new OpprtunitySourceRepository().GetAll())
                             {
@@ -848,7 +848,7 @@ namespace Sandler.UI.ChartStructure
                                 {
                                     if (productTypeVMCollection.Single(r => r.ProductTypeName == record.Name) != null)
                                     {
-                                        if (this.SubType.Contains("Value"))
+                                        if (this.SubType.ToString().Contains("Value"))
                                             this.SetsCollection.Add(new SetValue { Color = colors.GetValue(colorIndex).ToString(), Label = record.Name, Value = (((productTypeVMCollection.Single(r => r.ProductTypeName == record.Name).AvgPrice) / totalPrice) * 100).ToString() });
                                         else
                                         {
@@ -872,7 +872,7 @@ namespace Sandler.UI.ChartStructure
                                 {
                                     if (productTypeVMCollection.Single(r => r.ProductTypeName == record.ProductTypeName) != null)
                                     {
-                                        if (this.SubType.Contains("Value"))
+                                        if (this.SubType.ToString().Contains("Value"))
                                             this.SetsCollection.Add(new SetValue { Color = record.ColorCode, Label = record.ProductTypeName, Value = (((productTypeVMCollection.Single(r => r.ProductTypeName == record.ProductTypeName).AvgPrice) / totalPrice) * 100).ToString() });
                                         else
                                         {

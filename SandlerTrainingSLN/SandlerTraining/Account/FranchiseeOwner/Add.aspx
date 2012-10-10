@@ -426,7 +426,7 @@
                     self.franchiseeNameRequiredMsg('Franchisee Name is required');
                     self.validationErrors.push(self.franchiseeNameRequiredMsg());
                 }
-                
+
                 if (self.firstName() == '' || self.firstName() == undefined) {
                     self.firstNameRequiredHasError(true);
                     self.firstNameRequiredMsg('First Name is required');

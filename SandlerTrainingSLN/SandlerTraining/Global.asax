@@ -18,7 +18,7 @@
 
         RouteTable.Routes.MapHttpRoute(
              name: "ActionApi",
-             routeTemplate: "api/{controller}/{action}/{id}/",
+             routeTemplate: "api/{controller}/{action}/{id}",
              defaults: new { id = System.Web.Http.RouteParameter.Optional }
          );
         

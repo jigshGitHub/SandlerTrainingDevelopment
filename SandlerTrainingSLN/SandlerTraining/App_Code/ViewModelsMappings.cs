@@ -127,7 +127,6 @@ namespace SandlerViewModelsMappings
             if(franchiseeUser.CountryID > 0)
                 _franchiseeUser.CountryID = franchiseeUser.CountryID;
             _franchiseeUser.ContactNumber = franchiseeUser.ContactNumber;
-            _franchiseeUser.IsEmailSubscription = franchiseeUser.IsEmailSubscription;
         }
 
         public static void ModelToViewModel(FranchiseeUser _franchiseeUser, TBL_FRANCHISEE_USERS franchiseeUser)
