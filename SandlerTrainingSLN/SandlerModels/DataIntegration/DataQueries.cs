@@ -443,7 +443,32 @@ namespace SandlerModels.DataIntegration
             return data;
         }
 
+        public IEnumerable<CostOfSaleVM> GetCostOfSale(UserModel currentUser)
+        {
+            UserEntities userEntities = null;
+            IEnumerable<Opportunity> opportunties = null;
+            IEnumerable<CostOfSaleVM> data = null;
 
+            try
+            {
+                userEntities = UserEntitiesFactory.Get(currentUser);
+                opportunties = userEntities.Opportunities;
+
+                if (userEntities.OpportunitiesCount > 0)
+                {
+                    data = from opportunity in opportunties
+                           group opportunity by new { opportunity.ProductTypeName }
+                               into grp
+                               select new CostOfSaleVM { ProductName = grp.Key.ProductTypeName, Cost = grp.Sum(record => (decimal?)record.ProductCost ?? 0), Revenue = grp.Sum(record => (decimal?)record.VALUE ?? 0) };
+
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("exception in DataQueries.GetCostOfSale: " + ex.Message);
+            }
+            return data;
+        }
 
     }
 }

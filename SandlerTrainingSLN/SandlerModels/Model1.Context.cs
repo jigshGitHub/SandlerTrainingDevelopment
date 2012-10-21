@@ -45,7 +45,6 @@ namespace SandlerModels
         public DbSet<Tbl_ProductType> Tbl_ProductType { get; set; }
         public DbSet<Tbl_AppointmentsSource> Tbl_AppointmentsSource { get; set; }
         public DbSet<TBL_COMPANIES> TBL_COMPANIES { get; set; }
-        public DbSet<TBL_OPPORTUNITIES> TBL_OPPORTUNITIES { get; set; }
         public DbSet<TBL_OpportunitySource> TBL_OpportunitySource { get; set; }
         public DbSet<TBL_OpportunityTypes> TBL_OpportunityTypes { get; set; }
         public DbSet<TBL_OpportunityWhyLost> TBL_OpportunityWhyLost { get; set; }
@@ -58,6 +57,7 @@ namespace SandlerModels
         public DbSet<TBL_GA_SalesRepRetention> TBL_GA_SalesRepRetention { get; set; }
         public DbSet<TBL_GA_Tracker> TBL_GA_Tracker { get; set; }
         public DbSet<TBL_GA_TrngBenefits> TBL_GA_TrngBenefits { get; set; }
+        public DbSet<TBL_OPPORTUNITIES> TBL_OPPORTUNITIES { get; set; }
     
         internal ObjectResult<Contact> GetContactsByUser(Nullable<System.Guid> userId)
         {
@@ -81,17 +81,6 @@ namespace SandlerModels
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Company>("GetCompaniesByUser", userIdParameter);
         }
     
-        internal ObjectResult<Opportunity> GetOpportunitiesByUser(Nullable<System.Guid> userId)
-        {
-            ((IObjectContextAdapter)this).ObjectContext.MetadataWorkspace.LoadFromAssembly(typeof(Opportunity).Assembly);
-    
-            var userIdParameter = userId.HasValue ?
-                new ObjectParameter("userId", userId) :
-                new ObjectParameter("userId", typeof(System.Guid));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Opportunity>("GetOpportunitiesByUser", userIdParameter);
-        }
-    
         internal ObjectResult<GATracker> GetGATrackerById(Nullable<int> gaId)
         {
             ((IObjectContextAdapter)this).ObjectContext.MetadataWorkspace.LoadFromAssembly(typeof(GATracker).Assembly);
@@ -101,6 +90,30 @@ namespace SandlerModels
                 new ObjectParameter("gaId", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GATracker>("GetGATrackerById", gaIdParameter);
+        }
+    
+        internal int DeleteContactsOfUser(Nullable<int> franchiseeId, Nullable<System.Guid> userId)
+        {
+            var franchiseeIdParameter = franchiseeId.HasValue ?
+                new ObjectParameter("franchiseeId", franchiseeId) :
+                new ObjectParameter("franchiseeId", typeof(int));
+    
+            var userIdParameter = userId.HasValue ?
+                new ObjectParameter("userId", userId) :
+                new ObjectParameter("userId", typeof(System.Guid));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("DeleteContactsOfUser", franchiseeIdParameter, userIdParameter);
+        }
+    
+        internal ObjectResult<Opportunity> GetOpportunitiesByUser(Nullable<System.Guid> userId)
+        {
+            ((IObjectContextAdapter)this).ObjectContext.MetadataWorkspace.LoadFromAssembly(typeof(Opportunity).Assembly);
+    
+            var userIdParameter = userId.HasValue ?
+                new ObjectParameter("userId", userId) :
+                new ObjectParameter("userId", typeof(System.Guid));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Opportunity>("GetOpportunitiesByUser", userIdParameter);
         }
     }
 }

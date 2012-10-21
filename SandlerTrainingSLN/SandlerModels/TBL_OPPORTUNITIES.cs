@@ -28,7 +28,7 @@ namespace SandlerModels
         public string SALESREPFIRSTNAME { get; set; }
         public string SALESREPPHONE { get; set; }
         public Nullable<int> STATUSID { get; set; }
-        public Nullable<int> VALUE { get; set; }
+        public Nullable<decimal> VALUE { get; set; }
         public string WINPROBABILITY { get; set; }
         public Nullable<decimal> WEIGHTEDVALUE { get; set; }
         public Nullable<System.DateTime> CLOSEDATE { get; set; }
@@ -46,17 +46,18 @@ namespace SandlerModels
         public Nullable<decimal> ActualValue { get; set; }
         public Nullable<int> SeconadryContactId1 { get; set; }
         public Nullable<int> SeconadryContactId2 { get; set; }
+        public Nullable<decimal> ProductCost { get; set; }
     
         internal TBL_COMPANIES TBL_COMPANIES { get; set; }
+        internal TBL_CONTACTS TBL_CONTACTS { get; set; }
+        internal TBL_CONTACTS TBL_CONTACTS1 { get; set; }
+        internal TBL_CONTACTS TBL_CONTACTS2 { get; set; }
         internal ICollection<TBL_DOCS> TBL_DOCS { get; set; }
         internal TBL_OpportunitySource TBL_OpportunitySource { get; set; }
         internal TBL_OPPORTUNITYSTATUS TBL_OPPORTUNITYSTATUS { get; set; }
         internal TBL_OpportunityTypes TBL_OpportunityTypes { get; set; }
         internal TBL_OpportunityWhyLost TBL_OpportunityWhyLost { get; set; }
         internal Tbl_ProductType Tbl_ProductType { get; set; }
-        internal TBL_CONTACTS TBL_CONTACTS { get; set; }
-        internal TBL_CONTACTS TBL_CONTACTS1 { get; set; }
-        internal TBL_CONTACTS TBL_CONTACTS2 { get; set; }
     }
     
 }

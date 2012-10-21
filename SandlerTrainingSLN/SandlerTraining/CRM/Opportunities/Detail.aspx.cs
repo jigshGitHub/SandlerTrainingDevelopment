@@ -36,6 +36,7 @@ public partial class OpportunityDETAIL : OpportunityBasePage
         lblOpportunityID.Text = record.OpportunityID.Value.ToString();
         lblOpportunityValue.Text = string.Format("{0:C}", record.VALUE);
         lblProduct.Text = record.ProductTypeName;
+        lblProductCost.Text = string.Format("{0:C}", record.ProductCost);
         lblSalesRepFName.Text = record.SALESREPFIRSTNAME;
         lblSalesRepLName.Text = record.SALESREPLASTNAME;
         lblSalesRepPhone.Text = record.SALESREPPHONE;

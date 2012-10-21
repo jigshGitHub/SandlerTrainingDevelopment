@@ -173,7 +173,7 @@ div.menu ul li a
 
 div.menu ul li a:active
 {
-    background-color: #ff800d;
+    background-color: #B99003;
     color: #cfdbe6;
     text-decoration: none;
 }
@@ -302,7 +302,7 @@ div.accountInfo
 
 .menuButtonActive
 {
-    background-color: #ff800d;
+    background-color: #B99003;
 }
 
 a.menuLink
@@ -349,7 +349,7 @@ a.menuLinkActive
     border-style: solid;
     border-width: .15em;
     border-color: #FFFFFF #808080 #808080 #FFFFFF;
-    background-color: #ff800d;
+    background-color: #B99003;
     color: #FFFFFF;
     padding-top: 0.1em;
     padding-left: 0.3em;
@@ -362,7 +362,7 @@ a.menuLinkActive:link
     border-style: solid;
     border-width: .15em;
     border-color: #FFFFFF #808080 #808080 #FFFFFF;
-    background-color: #ff800d;
+    background-color: #B99003;
     color: #FFFFFF;
     padding-top: 0.1em;
     padding-left: 0.3em;
@@ -375,7 +375,7 @@ a.menuLinkActive:visited
     border-style: solid;
     border-width: .15em;
     border-color: #FFFFFF #808080 #808080 #FFFFFF;
-    background-color: #ff800d;
+    background-color: #B99003;
     color: #FFFFFF;
     padding-top: 0.1em;
     padding-left: 0.3em;

@@ -228,8 +228,7 @@
                     <tr style="color: Black; background-color: #DCDCDC; white-space: nowrap;">
                         <td colspan="3">
                             <a id="anchorEdit" runat="server" style="color: Blue; font-weight: bold;">Edit</a>
-                            &nbsp;&nbsp; <a href="Index.aspx" style="font-weight: bold">Delete</a>&nbsp;&nbsp;
-                            <a href="Index.aspx" style="font-weight: bold">Back</a>
+                            &nbsp;&nbsp;<a href="Index.aspx" style="font-weight: bold">Back</a>
                         </td>
                     </tr>
                 </table>

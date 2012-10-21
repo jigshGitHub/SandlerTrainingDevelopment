@@ -217,6 +217,11 @@ namespace SandlerRepositories
         {
             return (this.DatabaseFactory.Get() as SandlerDBEntities).GetContactsByUser(userID);
         }
+
+        public void DeleteContactsOfUser(int franchiseeId, Guid userId)
+        {
+            (this.DatabaseFactory.Get() as SandlerDBEntities).DeleteContactsOfUser(franchiseeId, userId);
+        }
     }
     public class ProductTypesRepository : RepositoryBase<Tbl_ProductType>
     {

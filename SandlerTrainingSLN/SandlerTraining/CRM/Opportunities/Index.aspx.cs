@@ -41,6 +41,7 @@ public partial class OpportunityIndex : OpportunityBasePage
                        SecondaryContact1 = record.SeconadryContact1FirstName + " " + record.SeconadryContact1LastName + ", " + record.SeconadryContact1Email,
                        SecondaryContact2 = record.SeconadryContact2FirstName + " " + record.SeconadryContact2LastName + ", " + record.SeconadryContact2Email,
                        Product = record.ProductTypeName,//GetProduct(record.ProductID).ProductTypeName,
+                       ProductCost = record.ProductCost,
                        Franchisee = record.FranchiseeName,
                        Region = record.Region,
                        OppType = record.Type,

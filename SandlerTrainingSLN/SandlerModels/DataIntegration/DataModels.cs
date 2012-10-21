@@ -41,4 +41,19 @@ namespace SandlerModels.DataIntegration
         public int Count { get; set; }
         public int Months { get; set; }
     }
+
+    public partial class CostOfSaleVM
+    {
+        public int ProductID { get; set; }
+        public string ProductName { get; set; }
+        public decimal Cost { get; set; }
+        public decimal Revenue { get; set; }
+        public decimal Profit
+        {
+            get
+            {
+                return (Revenue - Cost);
+            }
+        }
+    }
 }

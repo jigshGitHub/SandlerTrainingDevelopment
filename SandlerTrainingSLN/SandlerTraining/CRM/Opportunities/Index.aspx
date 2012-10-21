@@ -121,6 +121,8 @@
                                 HeaderText="SecondaryContact2" />
                             <asp:BoundField ItemStyle-HorizontalAlign="Center" HeaderStyle-ForeColor="Blue" DataField="Product"
                                 HeaderText="Product" />
+                            <asp:BoundField ItemStyle-HorizontalAlign="Center" HeaderStyle-ForeColor="Blue" DataField="ProductCost"
+                                HeaderText="ProductCost" DataFormatString="{0:C}" />
                             <asp:BoundField ItemStyle-HorizontalAlign="Center" HeaderStyle-ForeColor="Blue" DataField="OppType"
                                 HeaderText="TypeOfOpportunity" />
                             <asp:BoundField ItemStyle-HorizontalAlign="Center" HeaderStyle-ForeColor="Blue" DataField="WhyLost"

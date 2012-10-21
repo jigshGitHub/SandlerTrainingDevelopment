@@ -20,6 +20,7 @@ public partial class ChartPage : BasePage
         ChartRepository cR;
         SandlerModels.TBL_CHART dbChart;
         IChart chartToLoad;
+        int GAid = (!String.IsNullOrEmpty(Request.QueryString["GAId"])) ? int.Parse(Request.QueryString["GAId"]) : 0;
 
         foreach (string chartId in chartIds)
         {
@@ -37,7 +38,7 @@ public partial class ChartPage : BasePage
 
             if (dbChart.TypeOfChart == "Chart")
             {
-                chartToLoad = new Chart() { SubType = (ChartSubType)Enum.Parse(typeof(ChartSubType), chartSubtype), BGAlpha = dbChart.BgAlpha, BGColor = dbChart.BgColor, CanvasBGAlpha = dbChart.CanvasBgAlpha, CanvasBGColor = dbChart.CanvasBgColor, Caption = dbChart.Caption, SWF = dbChart.SWFile, NumberSuffix = dbChart.NumberSuffix, PieRadius = dbChart.PieRadius, showLabels = dbChart.ShowLabels, showLegend = dbChart.ShowLegend, XaxisName = dbChart.XaxisName, YaxisName = dbChart.YaxisName, Id = idSelected, enableRotation = dbChart.EnableRotation, DrillChartIds = (string.IsNullOrEmpty(dbChart.DrillLevelChartIDs)) ? "" : dbChart.DrillLevelChartIDs, DrillOverride = false, DrillBy = (string.IsNullOrEmpty(Request.QueryString[QUERYSTRINGPARAMDRILLBY])) ? "" : Request.QueryString[QUERYSTRINGPARAMDRILLBY] };
+                chartToLoad = new Chart() { SubType = string.IsNullOrEmpty(chartSubtype) ? ChartSubType.NoSubType : (ChartSubType)Enum.Parse(typeof(ChartSubType), chartSubtype), BGAlpha = dbChart.BgAlpha, BGColor = dbChart.BgColor, CanvasBGAlpha = dbChart.CanvasBgAlpha, CanvasBGColor = dbChart.CanvasBgColor, Caption = dbChart.Caption, SWF = dbChart.SWFile, NumberSuffix = dbChart.NumberSuffix, PieRadius = dbChart.PieRadius, showLabels = dbChart.ShowLabels, showLegend = dbChart.ShowLegend, XaxisName = dbChart.XaxisName, YaxisName = dbChart.YaxisName, Id = idSelected, enableRotation = dbChart.EnableRotation, DrillChartIds = (string.IsNullOrEmpty(dbChart.DrillLevelChartIDs)) ? "" : dbChart.DrillLevelChartIDs, DrillOverride = false, DrillBy = (string.IsNullOrEmpty(Request.QueryString[QUERYSTRINGPARAMDRILLBY])) ? "" : Request.QueryString[QUERYSTRINGPARAMDRILLBY] };
                 chartToLoad.LoadChart(CurrentUser);
                 chartToLoad.CreateChart();
 
@@ -45,7 +46,7 @@ public partial class ChartPage : BasePage
             }
             else if (dbChart.TypeOfChart == "PieChart")
             {
-                chartToLoad = new PieChart() { SubType = (ChartSubType)Enum.Parse(typeof(ChartSubType), chartSubtype), BGAlpha = dbChart.BgAlpha, BGColor = dbChart.BgColor, CanvasBGAlpha = dbChart.CanvasBgAlpha, CanvasBGColor = dbChart.CanvasBgColor, Caption = dbChart.Caption, SWF = dbChart.SWFile, NumberSuffix = dbChart.NumberSuffix, PieRadius = dbChart.PieRadius, showLabels = dbChart.ShowLabels, showLegend = dbChart.ShowLegend, XaxisName = dbChart.XaxisName, YaxisName = dbChart.YaxisName, Id = idSelected, enableRotation = dbChart.EnableRotation, DrillChartIds = (string.IsNullOrEmpty(dbChart.DrillLevelChartIDs)) ? "" : dbChart.DrillLevelChartIDs, DrillOverride = false, DrillBy = (string.IsNullOrEmpty(Request.QueryString[QUERYSTRINGPARAMDRILLBY])) ? "" : Request.QueryString[QUERYSTRINGPARAMDRILLBY] };
+                chartToLoad = new PieChart() { SubType = string.IsNullOrEmpty(chartSubtype) ? ChartSubType.NoSubType : (ChartSubType)Enum.Parse(typeof(ChartSubType), chartSubtype), BGAlpha = dbChart.BgAlpha, BGColor = dbChart.BgColor, CanvasBGAlpha = dbChart.CanvasBgAlpha, CanvasBGColor = dbChart.CanvasBgColor, Caption = dbChart.Caption, SWF = dbChart.SWFile, NumberSuffix = dbChart.NumberSuffix, PieRadius = dbChart.PieRadius, showLabels = dbChart.ShowLabels, showLegend = dbChart.ShowLegend, XaxisName = dbChart.XaxisName, YaxisName = dbChart.YaxisName, Id = idSelected, enableRotation = dbChart.EnableRotation, DrillChartIds = (string.IsNullOrEmpty(dbChart.DrillLevelChartIDs)) ? "" : dbChart.DrillLevelChartIDs, DrillOverride = false, DrillBy = (string.IsNullOrEmpty(Request.QueryString[QUERYSTRINGPARAMDRILLBY])) ? "" : Request.QueryString[QUERYSTRINGPARAMDRILLBY] };
                 ((PieChart)chartToLoad).LoadChart(CurrentUser);
                 ((PieChart)chartToLoad).CreateChart();
 
@@ -53,7 +54,7 @@ public partial class ChartPage : BasePage
             }
             else if (dbChart.TypeOfChart == "BarChart")
             {
-                chartToLoad = new BarChart() { SubType = (ChartSubType)Enum.Parse(typeof(ChartSubType), chartSubtype), BGAlpha = dbChart.BgAlpha, BGColor = dbChart.BgColor, CanvasBGAlpha = dbChart.CanvasBgAlpha, CanvasBGColor = dbChart.CanvasBgColor, Caption = dbChart.Caption, SWF = dbChart.SWFile, NumberSuffix = dbChart.NumberSuffix, PieRadius = dbChart.PieRadius, showLabels = dbChart.ShowLabels, showLegend = dbChart.ShowLegend, XaxisName = dbChart.XaxisName, YaxisName = dbChart.YaxisName, Id = idSelected, enableRotation = dbChart.EnableRotation, DrillChartIds = (string.IsNullOrEmpty(dbChart.DrillLevelChartIDs)) ? "" : dbChart.DrillLevelChartIDs, DrillOverride = false, DrillBy = (string.IsNullOrEmpty(Request.QueryString[QUERYSTRINGPARAMDRILLBY])) ? "" : Request.QueryString[QUERYSTRINGPARAMDRILLBY] };
+                chartToLoad = new BarChart() { SubType = string.IsNullOrEmpty(chartSubtype) ? ChartSubType.NoSubType : (ChartSubType)Enum.Parse(typeof(ChartSubType), chartSubtype), BGAlpha = dbChart.BgAlpha, BGColor = dbChart.BgColor, CanvasBGAlpha = dbChart.CanvasBgAlpha, CanvasBGColor = dbChart.CanvasBgColor, Caption = dbChart.Caption, SWF = dbChart.SWFile, NumberSuffix = dbChart.NumberSuffix, PieRadius = dbChart.PieRadius, showLabels = dbChart.ShowLabels, showLegend = dbChart.ShowLegend, XaxisName = dbChart.XaxisName, YaxisName = dbChart.YaxisName, Id = idSelected, enableRotation = dbChart.EnableRotation, DrillChartIds = (string.IsNullOrEmpty(dbChart.DrillLevelChartIDs)) ? "" : dbChart.DrillLevelChartIDs, DrillOverride = false, DrillBy = (string.IsNullOrEmpty(Request.QueryString[QUERYSTRINGPARAMDRILLBY])) ? "" : Request.QueryString[QUERYSTRINGPARAMDRILLBY] };
                 ((BarChart)chartToLoad).LoadChart(CurrentUser);
                 ((BarChart)chartToLoad).CreateChart();
                 genericChartLiteral.Text = FusionCharts.RenderChart(@"FusionChartLib/" + ((BarChart)chartToLoad).SWF, "", ((BarChart)chartToLoad).ChartXML, genericChartLiteral.ID, genericChartLiteral.Width, genericChartLiteral.Height, false, true); ;

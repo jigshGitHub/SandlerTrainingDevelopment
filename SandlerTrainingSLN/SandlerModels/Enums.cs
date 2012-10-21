@@ -12,6 +12,7 @@ namespace SandlerModels
         FranchiseeOwner,
         FranchiseeUser,
         SiteAdmin,
+        Client,
         Anonymous
     }
 

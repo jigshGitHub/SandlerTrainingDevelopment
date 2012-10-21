@@ -108,13 +108,18 @@ namespace SandlerAPI.Controllers
             }
             return franchiseeUser;
         }
+
         public void Delete(FranchiseeUser franchiseeUser)
         {
             FranchiseeUsersRepository userRepository;
             TBL_FRANCHISEE_USERS franchiseeUserToDelete = null;
             aspnet_Users user;
+            ContactsRepository contactRepository;
             try
             {
+                contactRepository = new ContactsRepository();
+                contactRepository.DeleteContactsOfUser(franchiseeUser.FranchiseeID, new Guid(franchiseeUser.UserID));
+
                 franchiseeUserToDelete = new FranchiseeUsersRepository().GetAll().Where(record => record.FranchiseeID == franchiseeUser.FranchiseeID && record.UserID == new Guid(franchiseeUser.UserID)).SingleOrDefault();
                 userRepository = new FranchiseeUsersRepository();
                 userRepository.Delete(franchiseeUserToDelete);

@@ -85,6 +85,14 @@
                             <asp:Label ID="lblProduct" runat="server" />
                         </td>
                     </tr>
+                    <tr style="color: Black; background-color: #EEEEEE; white-space: nowrap;">
+                        <td style="white-space: nowrap;">
+                            Product Cost:
+                        </td>
+                        <td>
+                            <asp:Label ID="lblProductCost" runat="server" />
+                        </td>
+                    </tr>
                     <tr style="color: Black; background-color: #DCDCDC; white-space: nowrap;">
                         <td style="white-space: nowrap;">
                             Opportunity Status :

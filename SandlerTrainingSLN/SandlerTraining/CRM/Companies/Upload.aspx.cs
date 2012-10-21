@@ -60,6 +60,18 @@ public partial class CRM_Companies_Upload : UploaderBasePage
                         }
 
                     }
+                    catch (System.Data.Entity.Validation.DbEntityValidationException ex)
+                    {
+
+                        foreach (var errors in ex.EntityValidationErrors)
+                        {
+                            foreach (var error in errors.ValidationErrors)
+                            {
+                                throw new Exception(error.PropertyName + " " + error.ErrorMessage);
+                            }
+                        }
+
+                    }
                     catch (Exception ex)
                     {
                         excelRow["Errormessage"] = ex.Message;
@@ -117,7 +129,8 @@ public partial class CRM_Companies_Upload : UploaderBasePage
             company.BillingZip = (excelRow["IsSameBillingAddress"].ToString() == "0") ? excelRow["BillingZip"].ToString() : excelRow["ZIP"].ToString();
             company.BillingCountry = (excelRow["IsSameBillingAddress"].ToString() == "0") ? excelRow["BillingCountry"].ToString() : excelRow["Country"].ToString();
             company.CITY = excelRow["CITY"].ToString();
-            company.CompanyDescription = excelRow["CompanyDescription"].ToString();
+            int lengthToTruncate = excelRow["CompanyDescription"].ToString().Length > 100 ? 100 : excelRow["CompanyDescription"].ToString().Length;
+            company.CompanyDescription = excelRow["CompanyDescription"].ToString().Substring(0, lengthToTruncate);
             company.COMPANYNAME = excelRow["COMPANYNAME"].ToString();
             company.COMPANYVALUEGOAL = string.IsNullOrEmpty(excelRow["COMPANYVALUEGOAL"].ToString()) ? 0 : int.Parse(excelRow["COMPANYVALUEGOAL"].ToString());
             company.Country = excelRow["Country"].ToString();
@@ -128,7 +141,8 @@ public partial class CRM_Companies_Upload : UploaderBasePage
             if (!string.IsNullOrEmpty(excelRow["EmpQuantity"].ToString()))
                 company.EmpQuantity = int.Parse(excelRow["EmpQuantity"].ToString());
             company.FranchiseeId = CurrentUser.FranchiseeID;
-            company.IndustryId = int.Parse(excelRow["IndustryId"].ToString());
+            if(!string.IsNullOrEmpty(excelRow["IndustryId"].ToString()))
+                company.IndustryId = int.Parse(excelRow["IndustryId"].ToString());
             company.IsActive = true;
             if (!string.IsNullOrEmpty(excelRow["IsNewCompany"].ToString()))
                 company.IsNewCompany = (excelRow["IsNewCompany"].ToString() == "0") ? false : true;

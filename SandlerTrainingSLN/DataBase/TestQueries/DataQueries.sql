@@ -25,11 +25,17 @@ select *  from TBL_FRANCHISEE where CoachID = 42
 select * from TBL_FRANCHISEE_USERS where FranchiseeID = 1
 
 -- Companies/Contacts based on FRanchiseeID
+SELECT cmp.COMPANYNAME, C.*
+FROM TBL_CONTACTS AS C WITH (NOLOCK) 
+INNER JOIN TBL_COMPANIES AS CMP WITH (NOLOCK) ON CMP.COMPANIESID = C.COMPANYID
+WHERE     (CMP.FranchiseeId = 21)
+
+
 SELECT u.UserName, cmp.COMPANYNAME, C.*
 FROM TBL_CONTACTS AS C WITH (NOLOCK) 
 INNER JOIN TBL_COMPANIES AS CMP WITH (NOLOCK) ON CMP.COMPANIESID = C.COMPANYID
 INNER JOIN aspnet_Users AS U WITH(NOLOCK) ON U.UserId = C.CreatedBy 
-WHERE     (CMP.FranchiseeId = 1)
+WHERE     (CMP.FranchiseeId = 21)
 
 SELECT u.UserName, cmp.COMPANYNAME, C.*
 FROM TBL_CONTACTS AS C WITH (NOLOCK) 
@@ -54,3 +60,24 @@ Select * from tbl_franchisee_users
 where userid='7A911B6A-20CA-4E64-8411-F10F7B2AA5FD'
 
 Select * from tbl_companies where LASTCONTACT_DATE < GETDATE() - 90
+
+
+select d.* FROM TBL_DOCS d INNER JOIN TBL_Opportunities o WITH(NOLOCK) ON o.Id = OppsId
+					INNER JOIN TBL_Contacts c WITH(NOLOCK) ON c.CONTACTSID = o.CONTACTID
+					INNER JOIN Tbl_Companies cmp WITH(NOLOCK) ON cmp.COMPANIESID = c.COMPANYID
+					WHERE cmp.FranchiseeId = 1 AND c.CreatedBy = 'fd4cce62-2a92-4715-a804-03f5bb957b9b';
+
+select o.* FROM TBL_Opportunities o WITH(NOLOCK) 
+					INNER JOIN TBL_Contacts c WITH(NOLOCK) ON c.CONTACTSID = o.CONTACTID
+					INNER JOIN Tbl_Companies cmp WITH(NOLOCK) ON cmp.COMPANIESID = c.COMPANYID
+					WHERE cmp.FranchiseeId = 1 AND c.CreatedBy = 'fd4cce62-2a92-4715-a804-03f5bb957b9b';
+					
+select c.* FROM TBL_Contacts c WITH(NOLOCK) 
+					INNER JOIN Tbl_Companies cmp WITH(NOLOCK) ON cmp.COMPANIESID = c.COMPANYID
+					WHERE cmp.FranchiseeId = 1 AND c.CreatedBy = 'fd4cce62-2a92-4715-a804-03f5bb957b9b';
+
+exec sp_DeleteDocumentsOfUser 1,'fd4cce62-2a92-4715-a804-03f5bb957b9b';
+
+exec sp_DeleteOpportunitiesOfUser  1,'fd4cce62-2a92-4715-a804-03f5bb957b9b';
+
+exec sp_DeleteContactsOfUser  1,'fd4cce62-2a92-4715-a804-03f5bb957b9b';

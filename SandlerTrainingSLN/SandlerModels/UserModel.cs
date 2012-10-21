@@ -123,5 +123,12 @@ namespace SandlerModels
             emailAdrs = currentUser.Email;
             userName = currentUser.UserName;
         }
+
+        public UserModel(string userName)
+        {
+            currentUser = Membership.GetUser(userName);
+            emailAdrs = currentUser.Email;
+            userName = currentUser.UserName;
+        }
     }
 }

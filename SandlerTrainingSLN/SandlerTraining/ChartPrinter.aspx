@@ -6,6 +6,8 @@
 <head runat="server">
     <title></title>
     <script type="text/javascript" src="<%= Page.ResolveClientUrl("~/Scripts/jquery-1.4.1.min.js") %>"></script>
+     <script type="text/javascript" src="<%= Page.ResolveClientUrl("~/Scripts/plugins.js") %>"></script>
+    
     <script type="text/javascript" src="<%= Page.ResolveClientUrl("~/FusionChartLib/FusionCharts.js") %>"></script>
 </head>
 <body>

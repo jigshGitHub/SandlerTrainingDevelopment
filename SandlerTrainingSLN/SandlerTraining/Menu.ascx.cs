@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
+using System.Configuration;
 
 public partial class Menu : System.Web.UI.UserControl
 {
@@ -24,6 +25,7 @@ public partial class Menu : System.Web.UI.UserControl
                 activeLink.Attributes.Add("class", "menuLinkActive");
 
             SecureNavigation();
+            anchorCostOfSale.HRef = string.Format("{0}?{1}={2}&{3}={4}&SubType={5}", "~/Reports/CostOfSale.aspx", ConfigurationManager.AppSettings["QueryStringParamDrillChartIDs"], "CostOfSale", ConfigurationManager.AppSettings["QueryStringParamDrillBy"], "", "");
         }
     }
 

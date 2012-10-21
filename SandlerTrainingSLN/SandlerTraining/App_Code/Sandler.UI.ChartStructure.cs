@@ -11,6 +11,7 @@ using System.Data.SqlClient;
 using System.Configuration;
 using SandlerData.Models;
 using System.Data.Linq.SqlClient;
+//http://cloford.com/resources/colours/500col.htm for color code
 namespace Sandler.UI.ChartStructure
 {
     public static class ChartHelper
@@ -100,6 +101,7 @@ namespace Sandler.UI.ChartStructure
 
     public enum ChartSubType
     {
+        NoSubType,
         ProductsSoldBySalesQuantity,
         ProductsSoldBySalesValue,
         SalesValueOppSource,
@@ -160,6 +162,23 @@ namespace Sandler.UI.ChartStructure
                 IEnumerable<Tbl_ProductType> products;
                 switch ((ChartID)Enum.Parse(typeof(ChartID), this.Id.ToString(), true))
                 {
+                    case ChartID.CostOfSale:
+                        IEnumerable<SandlerModels.DataIntegration.CostOfSaleVM> costofsaleData = queries.GetCostOfSale(currentUser);
+                        
+                        this.DataSetCollection.Add(new ChartDataSet { Color = "0000FF", SeriesName = "Profit" });//0000FF blue
+                        this.DataSetCollection.Add(new ChartDataSet { Color = "FF8C00", SeriesName = "Cost" });//FF8C00 darkorange
+                        this.DataSetCollection.Add(new ChartDataSet { Color = "32CD32", SeriesName = "Revenue" });//32CD32 Lime green
+
+                        foreach (SandlerModels.DataIntegration.CostOfSaleVM cosRecord in costofsaleData)
+                        {
+                            this.Categories.Add(new Category { Label = cosRecord.ProductName });
+                            this.DataSetCollection[0].SetsCollection.Add(new SetValue { Value = cosRecord.Profit.ToString() });
+                            this.DataSetCollection[1].SetsCollection.Add(new SetValue { Value = cosRecord.Cost.ToString() });
+                            this.DataSetCollection[2].SetsCollection.Add(new SetValue { Value = cosRecord.Revenue.ToString() });
+
+                        }
+
+                        break;
                     case ChartID.ClosedSalesAnalysis:
                         productTypesSource = new ProductTypesRepository();
                         if (currentUser.Role == SandlerRoles.FranchiseeOwner || currentUser.Role == SandlerRoles.FranchiseeUser)
@@ -241,7 +260,6 @@ namespace Sandler.UI.ChartStructure
                         }
                         //}
 
-                        break;
                         break;
                     case ChartID.NewAppointmentsBySourceMonth:
                         appointmentSource = new AppointmentSourceRepository();

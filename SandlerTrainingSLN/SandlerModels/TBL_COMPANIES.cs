@@ -17,9 +17,9 @@ namespace SandlerModels
         public TBL_COMPANIES()
         {
             this.TBL_DOCS = new HashSet<TBL_DOCS>();
-            this.TBL_OPPORTUNITIES = new HashSet<TBL_OPPORTUNITIES>();
             this.TBL_CONTACTS = new HashSet<TBL_CONTACTS>();
             this.TBL_GA_Tracker = new HashSet<TBL_GA_Tracker>();
+            this.TBL_OPPORTUNITIES = new HashSet<TBL_OPPORTUNITIES>();
         }
     
         public int COMPANIESID { get; set; }
@@ -69,9 +69,9 @@ namespace SandlerModels
         internal TBL_FRANCHISEE TBL_FRANCHISEE { get; set; }
         internal Tbl_IndustryType Tbl_IndustryType { get; set; }
         internal ICollection<TBL_DOCS> TBL_DOCS { get; set; }
-        internal ICollection<TBL_OPPORTUNITIES> TBL_OPPORTUNITIES { get; set; }
         internal ICollection<TBL_CONTACTS> TBL_CONTACTS { get; set; }
         internal ICollection<TBL_GA_Tracker> TBL_GA_Tracker { get; set; }
+        internal ICollection<TBL_OPPORTUNITIES> TBL_OPPORTUNITIES { get; set; }
     }
     
 }

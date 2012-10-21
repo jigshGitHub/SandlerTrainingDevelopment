@@ -52,7 +52,7 @@ namespace SandlerModels
         public string SALESREPFIRSTNAME { get; set; }
         public string SALESREPPHONE { get; set; }
         public Nullable<int> STATUSID { get; set; }
-        public Nullable<int> VALUE { get; set; }
+        public Nullable<Decimal> VALUE { get; set; }
         public string WINPROBABILITY { get; set; }
         public Nullable<decimal> WEIGHTEDVALUE { get; set; }
         public Nullable<System.DateTime> CLOSEDATE { get; set; }
@@ -70,6 +70,7 @@ namespace SandlerModels
         public Nullable<decimal> ActualValue { get; set; }
         public Nullable<int> SeconadryContactId1 { get; set; }
         public Nullable<int> SeconadryContactId2 { get; set; }
+        public Nullable<decimal> ProductCost { get; set; }
     }
     
 }

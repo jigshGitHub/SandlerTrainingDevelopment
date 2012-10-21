@@ -197,6 +197,7 @@ public partial class OpportunityADD : OpportunityBasePage
             opportunity.SeconadryContactId1 = int.Parse(lstBxContacts.Items[selectedItemIndexes[1]].Value);
         if (selectedItemIndexes.Count() > 2)
             opportunity.SeconadryContactId2 = int.Parse(lstBxContacts.Items[selectedItemIndexes[2]].Value);
+        opportunity.ProductCost = (string.IsNullOrEmpty(txtProductCost.Text)) ? 0 : Convert.ToDecimal(txtProductCost.Text);
     }
 
     private void BindDetailsToFields(int ID)
@@ -256,6 +257,8 @@ public partial class OpportunityADD : OpportunityBasePage
                 findContact = null;
             }
         }
+        if (record.ProductCost.HasValue)
+            txtProductCost.Text = record.ProductCost.Value.ToString();
     }
 
     private void ClearFiels()
@@ -282,6 +285,7 @@ public partial class OpportunityADD : OpportunityBasePage
         ddlTypes.SelectedIndex = 0;
         ddlProductStatus.SelectedIndex = 0;
         ddlWhyLost.SelectedIndex = 0;
+        txtProductCost.Text = "";
     }
 
     protected void lbtnCancel_Click(object sender, EventArgs e)

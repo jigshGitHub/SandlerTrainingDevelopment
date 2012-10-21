@@ -123,6 +123,14 @@
                             </tr>
                             <tr style="color: Black; background-color: #DCDCDC; white-space: nowrap;">
                                 <td style="white-space: nowrap;">
+                                    Product Cost :
+                                </td>
+                                <td>
+                                    <asp:TextBox ID="txtProductCost" onkeypress="EnterOnlyNumeric()" runat="server"></asp:TextBox>
+                                </td>
+                            </tr>
+                            <tr style="color: Black; background-color: #DCDCDC; white-space: nowrap;">
+                                <td style="white-space: nowrap;">
                                     Opportunity Status :
                                 </td>
                                 <td>
