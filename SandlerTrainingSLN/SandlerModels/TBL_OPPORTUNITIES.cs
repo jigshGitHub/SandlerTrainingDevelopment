@@ -47,6 +47,7 @@ namespace SandlerModels
         public Nullable<int> SeconadryContactId1 { get; set; }
         public Nullable<int> SeconadryContactId2 { get; set; }
         public Nullable<decimal> ProductCost { get; set; }
+        public Nullable<System.DateTime> CreationDate { get; set; }
     
         internal TBL_COMPANIES TBL_COMPANIES { get; set; }
         internal TBL_CONTACTS TBL_CONTACTS { get; set; }

@@ -65,6 +65,7 @@
                             User</a></li>
                         <li><a id="manageEmailSubscription" runat="server" visible="false">Manage Email Subscription</a></li>
                         <li><a href="<%=  Page.ResolveClientUrl("~/Email/ManageGroup.aspx") %>">Create Group</a></li>
+                        <li><a href="<%=  Page.ResolveClientUrl("~/Email/MeetingEnvite.aspx") %>">Send Meeting Envite</a></li>
                     </ul>
                     </li>
                     <li><a id="anchorGapAnalysis" runat="server" href="~/GapAnalysisCreate.aspx">Gap Analysis</a>

@@ -219,6 +219,18 @@
                             </tr>
                             <tr style="color: Black; background-color: #DCDCDC; white-space: nowrap;">
                                 <td style="white-space: nowrap;">
+                                    Creation Date :
+                                </td>
+                                <td>
+                                    <asp:TextBox ID="txtBxCreationDate" runat="server" />&nbsp;<asp:Image ID="Image1"
+                                        runat="server" ImageUrl="~/images/calendar.gif" ImageAlign="Middle" />
+                                    <asp:CalendarExtender ID="CalendarExtender1" runat="server" TargetControlID="txtBxCreationDate" PopupButtonID="Image1"
+                                        CssClass="calendar">
+                                    </asp:CalendarExtender>
+                                </td>
+                            </tr>
+                            <tr style="color: Black; background-color: #DCDCDC; white-space: nowrap;">
+                                <td style="white-space: nowrap;">
                                     Close Date :
                                 </td>
                                 <td>

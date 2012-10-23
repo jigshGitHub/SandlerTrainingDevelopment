@@ -667,6 +667,7 @@
           <Property Name="SeconadryContactId1" Type="int" />
           <Property Name="SeconadryContactId2" Type="int" />
           <Property Name="ProductCost" Type="numeric" />
+          <Property Name="CreationDate" Type="datetime" />
         </EntityType>
         <EntityType Name="TBL_OpportunitySource">
           <Key>
@@ -1439,6 +1440,9 @@
             <Parameter Name="franchiseeId" Mode="In" Type="Int32" />
             <Parameter Name="userId" Mode="In" Type="Guid" />
           </FunctionImport>
+          <FunctionImport Name="GetOpportunitiesByUser" ReturnType="Collection(Sandler.Models.Opportunity)">
+          <Parameter Name="userId" Mode="In" Type="Guid" />
+          </FunctionImport>
           <EntitySet Name="TBL_OPPORTUNITIES" EntityType="Sandler.Models.TBL_OPPORTUNITIES" />
           <AssociationSet Name="FK_TBL_OPPORTUNITIES_TBL_COMPANIES" Association="Sandler.Models.FK_TBL_OPPORTUNITIES_TBL_COMPANIES">
             <End Role="TBL_COMPANIES" EntitySet="TBL_COMPANIES" />
@@ -1480,9 +1484,6 @@
             <End Role="Tbl_ProductType" EntitySet="Tbl_ProductType" />
             <End Role="TBL_OPPORTUNITIES" EntitySet="TBL_OPPORTUNITIES" />
           </AssociationSet>
-          <FunctionImport Name="GetOpportunitiesByUser" ReturnType="Collection(Sandler.Models.Opportunity)">
-            <Parameter Name="userId" Mode="In" Type="Guid" />
-          </FunctionImport>
           </EntityContainer>
         <EntityType Name="aspnet_Membership">
           <Key>
@@ -2096,6 +2097,7 @@
           <Property Type="Int32" Name="SeconadryContactId1" Nullable="true" />
           <Property Type="Int32" Name="SeconadryContactId2" Nullable="true" />
           <Property Type="Decimal" Name="ProductCost" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="DateTime" Name="OppCreationDate" Nullable="true" Precision="23" />
         </ComplexType>
         <EntityType Name="TBL_COMPANIES">
           <Key>
@@ -2689,6 +2691,7 @@
           <Property Type="Int32" Name="SeconadryContactId1" />
           <Property Type="Int32" Name="SeconadryContactId2" />
           <Property Type="Decimal" Name="ProductCost" Precision="18" Scale="0" />
+          <Property Type="DateTime" Name="CreationDate" />
           <NavigationProperty Name="TBL_COMPANIES" Relationship="Sandler.Models.FK_TBL_OPPORTUNITIES_TBL_COMPANIES" FromRole="TBL_OPPORTUNITIES" ToRole="TBL_COMPANIES" />
           <NavigationProperty Name="TBL_CONTACTS" Relationship="Sandler.Models.FK_TBL_OPPORTUNITIES_TBL_CONTACTS" FromRole="TBL_OPPORTUNITIES" ToRole="TBL_CONTACTS" />
           <NavigationProperty Name="TBL_CONTACTS1" Relationship="Sandler.Models.FK_TBL_OPPORTUNITIES_TBL_CONTACTS1" FromRole="TBL_OPPORTUNITIES" ToRole="TBL_CONTACTS" />
@@ -3539,40 +3542,6 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <EntitySetMapping Name="TBL_OPPORTUNITIES">
-            <EntityTypeMapping TypeName="Sandler.Models.TBL_OPPORTUNITIES">
-              <MappingFragment StoreEntitySet="TBL_OPPORTUNITIES">
-                <ScalarProperty Name="ProductCost" ColumnName="ProductCost" />
-                <ScalarProperty Name="SeconadryContactId2" ColumnName="SeconadryContactId2" />
-                <ScalarProperty Name="SeconadryContactId1" ColumnName="SeconadryContactId1" />
-                <ScalarProperty Name="ActualValue" ColumnName="ActualValue" />
-                <ScalarProperty Name="Notes" ColumnName="Notes" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="WhyLostID" ColumnName="WhyLostID" />
-                <ScalarProperty Name="TypeID" ColumnName="TypeID" />
-                <ScalarProperty Name="SourceID" ColumnName="SourceID" />
-                <ScalarProperty Name="OpportunityID" ColumnName="OpportunityID" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
-                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
-                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-                <ScalarProperty Name="CLOSEDATE" ColumnName="CLOSEDATE" />
-                <ScalarProperty Name="WEIGHTEDVALUE" ColumnName="WEIGHTEDVALUE" />
-                <ScalarProperty Name="WINPROBABILITY" ColumnName="WINPROBABILITY" />
-                <ScalarProperty Name="VALUE" ColumnName="VALUE" />
-                <ScalarProperty Name="STATUSID" ColumnName="STATUSID" />
-                <ScalarProperty Name="SALESREPPHONE" ColumnName="SALESREPPHONE" />
-                <ScalarProperty Name="SALESREPFIRSTNAME" ColumnName="SALESREPFIRSTNAME" />
-                <ScalarProperty Name="SALESREPLASTNAME" ColumnName="SALESREPLASTNAME" />
-                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
-                <ScalarProperty Name="NAME" ColumnName="NAME" />
-                <ScalarProperty Name="CONTACTID" ColumnName="CONTACTID" />
-                <ScalarProperty Name="COMPANYID" ColumnName="COMPANYID" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="GetOpportunitiesByUser" FunctionName="Sandler.Models.Store.sp_GetOpportunitiesByUser">
             <ResultMapping>
               <ComplexTypeMapping TypeName="Sandler.Models.Opportunity">
@@ -3633,9 +3602,45 @@
                 <ScalarProperty Name="SeconadryContactId1" ColumnName="SeconadryContactId1" />
                 <ScalarProperty Name="SeconadryContactId2" ColumnName="SeconadryContactId2" />
                 <ScalarProperty Name="ProductCost" ColumnName="ProductCost" />
+                <ScalarProperty Name="OppCreationDate" ColumnName="OppCreationDate" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="TBL_OPPORTUNITIES">
+            <EntityTypeMapping TypeName="Sandler.Models.TBL_OPPORTUNITIES">
+              <MappingFragment StoreEntitySet="TBL_OPPORTUNITIES">
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+                <ScalarProperty Name="ProductCost" ColumnName="ProductCost" />
+                <ScalarProperty Name="SeconadryContactId2" ColumnName="SeconadryContactId2" />
+                <ScalarProperty Name="SeconadryContactId1" ColumnName="SeconadryContactId1" />
+                <ScalarProperty Name="ActualValue" ColumnName="ActualValue" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="WhyLostID" ColumnName="WhyLostID" />
+                <ScalarProperty Name="TypeID" ColumnName="TypeID" />
+                <ScalarProperty Name="SourceID" ColumnName="SourceID" />
+                <ScalarProperty Name="OpportunityID" ColumnName="OpportunityID" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="CLOSEDATE" ColumnName="CLOSEDATE" />
+                <ScalarProperty Name="WEIGHTEDVALUE" ColumnName="WEIGHTEDVALUE" />
+                <ScalarProperty Name="WINPROBABILITY" ColumnName="WINPROBABILITY" />
+                <ScalarProperty Name="VALUE" ColumnName="VALUE" />
+                <ScalarProperty Name="STATUSID" ColumnName="STATUSID" />
+                <ScalarProperty Name="SALESREPPHONE" ColumnName="SALESREPPHONE" />
+                <ScalarProperty Name="SALESREPFIRSTNAME" ColumnName="SALESREPFIRSTNAME" />
+                <ScalarProperty Name="SALESREPLASTNAME" ColumnName="SALESREPLASTNAME" />
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+                <ScalarProperty Name="CONTACTID" ColumnName="CONTACTID" />
+                <ScalarProperty Name="COMPANYID" ColumnName="COMPANYID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -3710,34 +3715,36 @@
           <ConnectorPoint PointX="1.5" PointY="10.375" />
           <ConnectorPoint PointX="2.75" PointY="10.375" />
           <ConnectorPoint PointX="2.75" PointY="13.499410807291667" />
-          <ConnectorPoint PointX="5.791666666666667" PointY="13.499410807291667" />
+          <ConnectorPoint PointX="5.75" PointY="13.499410807291667" />
+          <ConnectorPoint PointX="5.75" PointY="17.124248046875003" />
           <ConnectorPoint PointX="5.791666666666667" PointY="17.124248046875003" />
-          <ConnectorPoint PointX="6.7134499312568128" PointY="17.124248046875003" />
-          <ConnectorPoint PointX="6.8801165979234788" PointY="17.124248046875003" />
+          <ConnectorPoint PointX="5.958333333333333" PointY="17.124248046875003" />
           <ConnectorPoint PointX="8.9166666666666661" PointY="17.124248046875003" />
           <ConnectorPoint PointX="9.0833333333333339" PointY="17.124248046875003" />
           <ConnectorPoint PointX="10.041666666666666" PointY="17.124248046875003" />
           <ConnectorPoint PointX="10.208333333333334" PointY="17.124248046875003" />
-          <ConnectorPoint PointX="12.958333333333332" PointY="17.124248046875003" />
+          <ConnectorPoint PointX="12.916666666666666" PointY="17.124248046875003" />
+          <ConnectorPoint PointX="13.083333333333334" PointY="17.124248046875003" />
           <ConnectorPoint PointX="13.125" PointY="17.124248046875003" />
-          <ConnectorPoint PointX="13.125" PointY="17.124248046875003" />
-          <ConnectorPoint PointX="13.125" PointY="12.906190317741" />
-          <ConnectorPoint PointX="13.166666666666666" PointY="12.906190317741" />
-          <ConnectorPoint PointX="13.333333333333334" PointY="12.906190317741" />
-          <ConnectorPoint PointX="13.5" PointY="12.906190317741" />
+          <ConnectorPoint PointX="13.125" PointY="12.701650390625003" />
+          <ConnectorPoint PointX="13.166666666666666" PointY="12.701650390625003" />
+          <ConnectorPoint PointX="13.333333333333334" PointY="12.701650390625003" />
+          <ConnectorPoint PointX="13.5" PointY="12.701650390625003" />
         </AssociationConnector>
         <AssociationConnector Association="Sandler.Models.FK_TBL_FRANCHISEE_USERS_TBL_COUNTRY" >
           <ConnectorPoint PointX="3" PointY="16.192047526041662" />
-          <ConnectorPoint PointX="3.5" PointY="14.259521484374993" />
-          <ConnectorPoint PointX="5.875" PointY="14.259521484374993" />
-          <ConnectorPoint PointX="5.875" PointY="17.383769531249996" />
-          <ConnectorPoint PointX="10.044569568152763" PointY="16.209857045419671" />
-          <ConnectorPoint PointX="10.205430431847237" PointY="16.209857045419671" />
-          <ConnectorPoint PointX="12.961236234819429" PointY="15.462800859770994" />
-          <ConnectorPoint PointX="13.205430431847235" PointY="15.396603602623054" />
-          <ConnectorPoint PointX="13.25" PointY="15.384521484374993" />
-          <ConnectorPoint PointX="14.25" PointY="14.662822265625" />
-          <ConnectorPoint PointX="14.25" PointY="15.384521484374993" />
+          <ConnectorPoint PointX="3.5" PointY="16.192047526041662" />
+          <ConnectorPoint PointX="3.5" PointY="14.25" />
+          <ConnectorPoint PointX="5.666666666666667" PointY="14.25" />
+          <ConnectorPoint PointX="5.833333333333333" PointY="14.25" />
+          <ConnectorPoint PointX="5.875" PointY="14.25" />
+          <ConnectorPoint PointX="5.875" PointY="17.374248046875003" />
+          <ConnectorPoint PointX="10.041666666666666" PointY="17.374248046875003" />
+          <ConnectorPoint PointX="10.208333333333334" PointY="17.374248046875003" />
+          <ConnectorPoint PointX="13.375" PointY="17.374248046875003" />
+          <ConnectorPoint PointX="13.375" PointY="15.125" />
+          <ConnectorPoint PointX="14.25" PointY="15.125" />
+          <ConnectorPoint PointX="14.25" PointY="14.653300781250007" />
         </AssociationConnector>
         <EntityTypeShape EntityType="Sandler.Models.TBL_FRANCHISEE" Width="1.5" PointX="8.25" PointY="11.25" Height="5.2494108072916674" />
         <AssociationConnector Association="Sandler.Models.FK_TBL_FRANCHISEE_TBL_COACH" >
@@ -3755,15 +3762,15 @@
           <ConnectorPoint PointX="8.25" PointY="14.65625" />
         </AssociationConnector>
         <AssociationConnector Association="Sandler.Models.FK_TBL_FRANCHISEE_USERS_TBL_FRANCHISEE" >
-          <ConnectorPoint PointX="9" PointY="16.50893229166666" />
+          <ConnectorPoint PointX="9" PointY="16.499410807291667" />
           <ConnectorPoint PointX="9" PointY="17.249248046875003" />
           <ConnectorPoint PointX="10.041666666666666" PointY="17.249248046875003" />
           <ConnectorPoint PointX="10.208333333333334" PointY="17.249248046875003" />
-          <ConnectorPoint PointX="13.041666666666666" PointY="17.249248046875003" />
-          <ConnectorPoint PointX="13.041666666666666" PointY="13.82051903387049" />
-          <ConnectorPoint PointX="13.041666666666666" PointY="13.820519033870488" />
-          <ConnectorPoint PointX="13.333333333333334" PointY="13.82051903387049" />
-          <ConnectorPoint PointX="13.5" PointY="13.82051903387049" />
+          <ConnectorPoint PointX="13" PointY="17.249248046875003" />
+          <ConnectorPoint PointX="13" PointY="13.708727585937499" />
+          <ConnectorPoint PointX="13.041666666666666" PointY="13.708727585937497" />
+          <ConnectorPoint PointX="13.333333333333334" PointY="13.708727585937499" />
+          <ConnectorPoint PointX="13.5" PointY="13.708727585937499" />
         </AssociationConnector>
         <EntityTypeShape EntityType="Sandler.Models.Tbl_IndustryType" Width="1.5" PointX="8.25" PointY="6.875" Height="2.749492187499996" />
         <EntityTypeShape EntityType="Sandler.Models.Tbl_ProductType" Width="1.5" PointX="7.375" PointY="1" Height="2.9417936197916674" />
@@ -3773,10 +3780,10 @@
         <EntityTypeShape EntityType="Sandler.Models.TBL_OpportunityTypes" Width="1.5" PointX="18.75" PointY="14.875" Height="2.5571907552083246" />
         <EntityTypeShape EntityType="Sandler.Models.TBL_OpportunityWhyLost" Width="1.5" PointX="18.75" PointY="18.25" Height="2.5571907552083246" />
         <AssociationConnector Association="Sandler.Models.FK_TBL_COMPANIES_TBL_FRANCHISEE" >
-          <ConnectorPoint PointX="9.75" PointY="13.667428522709836" />
-          <ConnectorPoint PointX="10.041666666666666" PointY="13.667428522709836" />
-          <ConnectorPoint PointX="10.208333333333334" PointY="13.667428522709836" />
-          <ConnectorPoint PointX="10.5" PointY="13.667428522709836" />
+          <ConnectorPoint PointX="9.75" PointY="13.874705403645834" />
+          <ConnectorPoint PointX="10.041666666666666" PointY="13.874705403645834" />
+          <ConnectorPoint PointX="10.208333333333334" PointY="13.874705403645834" />
+          <ConnectorPoint PointX="10.5" PointY="13.874705403645834" />
         </AssociationConnector>
         <AssociationConnector Association="Sandler.Models.FK_TBL_COMPANIES_Tbl_IndustryType" >
           <ConnectorPoint PointX="9.75" PointY="8.249746093749998" />
@@ -3785,10 +3792,10 @@
           <ConnectorPoint PointX="10.5" PointY="8.249746093749998" />
         </AssociationConnector>
         <AssociationConnector Association="Sandler.Models.FK_TBL_DOCS_TBL_COMPANIES" >
-          <ConnectorPoint PointX="12" PointY="15.443533756518578" />
-          <ConnectorPoint PointX="12.948977066949798" PointY="15.443533756518576" />
-          <ConnectorPoint PointX="13.208333333333332" PointY="15.443533756518578" />
-          <ConnectorPoint PointX="13.25" PointY="15.443533756518578" />
+          <ConnectorPoint PointX="12" PointY="15.387638032552083" />
+          <ConnectorPoint PointX="12.916666666666666" PointY="15.387638032552081" />
+          <ConnectorPoint PointX="13.208333333333334" PointY="15.387638032552083" />
+          <ConnectorPoint PointX="13.25" PointY="15.387638032552083" />
           <ConnectorPoint PointX="13.25" PointY="8.8071907552083246" />
           <ConnectorPoint PointX="18.666666666666668" PointY="8.8071907552083246" />
           <ConnectorPoint PointX="18.833333333333332" PointY="8.8071907552083246" />
@@ -3824,8 +3831,8 @@
         <EntityTypeShape EntityType="Sandler.Models.TBL_GA_Tracker" Width="1.5" PointX="25.125" PointY="10.75" Height="9.09543945312501" />
         <EntityTypeShape EntityType="Sandler.Models.TBL_GA_TrngBenefits" Width="1.5" PointX="22.875" PointY="15.625" Height="1.9802864583333388" />
         <AssociationConnector Association="Sandler.Models.FK_TBL_GA_Tracker_TBL_COMPANIES" >
-          <ConnectorPoint PointX="12" PointY="11.406222658870494" />
-          <ConnectorPoint PointX="13" PointY="11.406222658870494" />
+          <ConnectorPoint PointX="12" PointY="11.303952695312496" />
+          <ConnectorPoint PointX="13" PointY="11.303952695312496" />
           <ConnectorPoint PointX="13" PointY="8.8228157552083246" />
           <ConnectorPoint PointX="18.666666666666668" PointY="8.8228157552083246" />
           <ConnectorPoint PointX="18.833333333333332" PointY="8.8228157552083246" />
@@ -3833,20 +3840,20 @@
           <ConnectorPoint PointX="20.25" PointY="10.109375" />
           <ConnectorPoint PointX="21.354166666666668" PointY="10.109375" />
           <ConnectorPoint PointX="21.520833333333332" PointY="10.109375" />
-          <ConnectorPoint PointX="21.804942255280416" PointY="10.109374999999998" />
-          <ConnectorPoint PointX="22.109889510560826" PointY="10.109375" />
-          <ConnectorPoint PointX="22.3526049757425" PointY="10.109375" />
-          <ConnectorPoint PointX="22.519271642409166" PointY="10.109375" />
+          <ConnectorPoint PointX="21.964513652433855" PointY="10.109374999999998" />
+          <ConnectorPoint PointX="22.266826348370362" PointY="10.109375" />
+          <ConnectorPoint PointX="22.357488688820105" PointY="10.109375" />
+          <ConnectorPoint PointX="22.524155355486769" PointY="10.109375" />
           <ConnectorPoint PointX="25.875" PointY="10.109375" />
           <ConnectorPoint PointX="25.875" PointY="10.75" />
         </AssociationConnector>
         <AssociationConnector Association="Sandler.Models.FK_TBL_GA_Tracker_TBL_CONTACTS" >
-          <ConnectorPoint PointX="17.25" PointY="17.932403971354166" />
-          <ConnectorPoint PointX="18.588541666666668" PointY="17.932403971354166" />
-          <ConnectorPoint PointX="18.755208333333332" PointY="17.932403971354166" />
-          <ConnectorPoint PointX="22.3526049757425" PointY="17.932403971354166" />
-          <ConnectorPoint PointX="22.519271642409166" PointY="17.932403971354166" />
-          <ConnectorPoint PointX="25.125" PointY="17.932403971354166" />
+          <ConnectorPoint PointX="17.25" PointY="17.927643229166669" />
+          <ConnectorPoint PointX="18.588541666666668" PointY="17.927643229166669" />
+          <ConnectorPoint PointX="18.755208333333332" PointY="17.927643229166669" />
+          <ConnectorPoint PointX="22.357488688820105" PointY="17.927643229166669" />
+          <ConnectorPoint PointX="22.524155355486769" PointY="17.927643229166669" />
+          <ConnectorPoint PointX="25.125" PointY="17.927643229166669" />
         </AssociationConnector>
         <AssociationConnector Association="Sandler.Models.FK_TBL_GA_Tracker_TBL_GA_QuotaAchievement" >
           <ConnectorPoint PointX="18" PointY="21.34375" />
@@ -3877,32 +3884,32 @@
         <AssociationConnector Association="Sandler.Models.FK_TBL_GA_Tracker_TBL_GA_SalesCycleTime" >
           <ConnectorPoint PointX="18.65625" PointY="21.75" />
           <ConnectorPoint PointX="18.65625" PointY="18.088824114583328" />
-          <ConnectorPoint PointX="22.3526049757425" PointY="18.088824114583328" />
-          <ConnectorPoint PointX="22.519271642409166" PointY="18.088824114583328" />
+          <ConnectorPoint PointX="22.357488688820105" PointY="18.088824114583328" />
+          <ConnectorPoint PointX="22.524155355486769" PointY="18.088824114583328" />
           <ConnectorPoint PointX="25.125" PointY="18.088824114583328" />
         </AssociationConnector>
         <AssociationConnector Association="Sandler.Models.FK_TBL_GA_Tracker_TBL_GA_SalesCycleTime1" >
-          <ConnectorPoint PointX="18.671875" PointY="17.775983828125003" />
-          <ConnectorPoint PointX="18.671875" PointY="17.775983828125003" />
-          <ConnectorPoint PointX="22.3526049757425" PointY="17.775983828125003" />
-          <ConnectorPoint PointX="22.519271642409166" PointY="17.775983828125003" />
-          <ConnectorPoint PointX="25.125" PointY="17.775983828125003" />
+          <ConnectorPoint PointX="18.671875" PointY="21.75" />
+          <ConnectorPoint PointX="18.671875" PointY="17.76646234375001" />
+          <ConnectorPoint PointX="22.357488688820105" PointY="17.76646234375001" />
+          <ConnectorPoint PointX="22.524155355486769" PointY="17.76646234375001" />
+          <ConnectorPoint PointX="25.125" PointY="17.76646234375001" />
         </AssociationConnector>
         <AssociationConnector Association="Sandler.Models.FK_TBL_GA_Tracker_TBL_GA_SalesEfficiency" >
-          <ConnectorPoint PointX="22.118743236303331" PointY="18.767212151941763" />
-          <ConnectorPoint PointX="22.118743236303331" PointY="18.767212151941763" />
-          <ConnectorPoint PointX="22.3526049757425" PointY="18.767212151941763" />
-          <ConnectorPoint PointX="22.519271642409166" PointY="18.767212151941763" />
-          <ConnectorPoint PointX="25.125" PointY="18.767212151941763" />
+          <ConnectorPoint PointX="22.138278088613749" PointY="22" />
+          <ConnectorPoint PointX="22.138278088613749" PointY="18.716771765198978" />
+          <ConnectorPoint PointX="22.357488688820105" PointY="18.716771765198978" />
+          <ConnectorPoint PointX="22.524155355486769" PointY="18.716771765198978" />
+          <ConnectorPoint PointX="25.125" PointY="18.716771765198978" />
         </AssociationConnector>
         <AssociationConnector Association="Sandler.Models.FK_TBL_GA_Tracker_TBL_GA_SalesEfficiency1" >
-          <ConnectorPoint PointX="21.934369118151665" PointY="22" />
-          <ConnectorPoint PointX="21.934369118151665" PointY="19.342339044720877" />
-          <ConnectorPoint PointX="22.03540990297" PointY="19.342339044720877" />
-          <ConnectorPoint PointX="22.202076569636663" PointY="19.342339044720877" />
-          <ConnectorPoint PointX="22.3526049757425" PointY="19.342339044720877" />
-          <ConnectorPoint PointX="22.519271642409166" PointY="19.342339044720877" />
-          <ConnectorPoint PointX="25.125" PointY="19.342339044720877" />
+          <ConnectorPoint PointX="21.957415882920621" PointY="22" />
+          <ConnectorPoint PointX="21.957415882920621" PointY="19.312358109161988" />
+          <ConnectorPoint PointX="22.054944755280417" PointY="19.312358109161988" />
+          <ConnectorPoint PointX="22.221611421947081" PointY="19.312358109161988" />
+          <ConnectorPoint PointX="22.357488688820105" PointY="19.312358109161988" />
+          <ConnectorPoint PointX="22.524155355486769" PointY="19.312358109161988" />
+          <ConnectorPoint PointX="25.125" PointY="19.312358109161988" />
         </AssociationConnector>
         <AssociationConnector Association="Sandler.Models.FK_TBL_GA_Tracker_TBL_GA_SalesQualification" >
           <ConnectorPoint PointX="24.375" PointY="22.615143229166669" />
@@ -3930,7 +3937,7 @@
           <ConnectorPoint PointX="24.375" PointY="16.057571614583335" />
           <ConnectorPoint PointX="25.125" PointY="16.057571614583335" />
         </AssociationConnector>
-        <EntityTypeShape EntityType="Sandler.Models.TBL_OPPORTUNITIES" Width="1.5" PointX="21" PointY="0.75" Height="8.3262337239583246" />
+        <EntityTypeShape EntityType="Sandler.Models.TBL_OPPORTUNITIES" Width="1.5" PointX="21" PointY="0.75" Height="8.518535156249996" />
         <AssociationConnector Association="Sandler.Models.FK_TBL_OPPORTUNITIES_TBL_COMPANIES" >
           <ConnectorPoint PointX="12" PointY="8.6509407552083246" />
           <ConnectorPoint PointX="18.666666666666668" PointY="8.6509407552083246" />
@@ -3938,44 +3945,40 @@
           <ConnectorPoint PointX="21" PointY="8.6509407552083246" />
         </AssociationConnector>
         <AssociationConnector Association="Sandler.Models.FK_TBL_OPPORTUNITIES_TBL_CONTACTS" >
-          <ConnectorPoint PointX="17.25" PointY="9.592804861979161" />
-          <ConnectorPoint PointX="18.666666666666668" PointY="9.592804861979161" />
-          <ConnectorPoint PointX="18.833333333333332" PointY="9.592804861979161" />
-          <ConnectorPoint PointX="19.916666666666668" PointY="9.592804861979161" />
-          <ConnectorPoint PointX="20.083333333333332" PointY="9.592804861979161" />
-          <ConnectorPoint PointX="20.166666666666668" PointY="9.592804861979161" />
-          <ConnectorPoint PointX="20.333333333333332" PointY="9.592804861979161" />
-          <ConnectorPoint PointX="21.354166666666668" PointY="9.592804861979161" />
-          <ConnectorPoint PointX="21.520833333333332" PointY="9.592804861979161" />
-          <ConnectorPoint PointX="21.804942255280416" PointY="9.59280486197916" />
-          <ConnectorPoint PointX="22.26613826056083" PointY="9.592804861979161" />
-          <ConnectorPoint PointX="22.309371618151665" PointY="9.592804861979161" />
-          <ConnectorPoint PointX="22.309371618151665" PointY="9.0762337239583246" />
+          <ConnectorPoint PointX="17.25" PointY="9.6889555781249967" />
+          <ConnectorPoint PointX="18.666666666666668" PointY="9.6889555781249967" />
+          <ConnectorPoint PointX="18.833333333333332" PointY="9.6889555781249967" />
+          <ConnectorPoint PointX="19.916666666666668" PointY="9.6889555781249967" />
+          <ConnectorPoint PointX="20.083333333333332" PointY="9.6889555781249967" />
+          <ConnectorPoint PointX="20.166666666666668" PointY="9.6889555781249967" />
+          <ConnectorPoint PointX="20.333333333333332" PointY="9.6889555781249967" />
+          <ConnectorPoint PointX="21.354166666666668" PointY="9.6889555781249967" />
+          <ConnectorPoint PointX="21.520833333333332" PointY="9.6889555781249967" />
+          <ConnectorPoint PointX="21.801624608126978" PointY="9.688955578124995" />
+          <ConnectorPoint PointX="22.266826348370365" PointY="9.6889555781249967" />
+          <ConnectorPoint PointX="22.319139044306873" PointY="9.6889555781249967" />
+          <ConnectorPoint PointX="22.319139044306873" PointY="9.268535156249996" />
         </AssociationConnector>
         <AssociationConnector Association="Sandler.Models.FK_TBL_OPPORTUNITIES_TBL_CONTACTS1" >
           <ConnectorPoint PointX="17.25" PointY="14.480499674479166" />
-          <ConnectorPoint PointX="21.804942255280416" PointY="14.480499674479166" />
-          <ConnectorPoint PointX="21.97160892194708" PointY="14.480499674479166" />
-          <ConnectorPoint PointX="22.026556177227498" PointY="14.480499674479166" />
-          <ConnectorPoint PointX="22.026556177227498" PointY="9.0762337239583246" />
+          <ConnectorPoint PointX="22.047846985767187" PointY="14.480499674479166" />
+          <ConnectorPoint PointX="22.047846985767187" PointY="9.268535156249996" />
         </AssociationConnector>
         <AssociationConnector Association="Sandler.Models.FK_TBL_OPPORTUNITIES_TBL_CONTACTS2" >
-          <ConnectorPoint PointX="17.25" PointY="9.8823424309895813" />
-          <ConnectorPoint PointX="18.666666666666668" PointY="9.8823424309895813" />
-          <ConnectorPoint PointX="18.833333333333332" PointY="9.8823424309895813" />
-          <ConnectorPoint PointX="19.916666666666668" PointY="9.8823424309895813" />
-          <ConnectorPoint PointX="20.083333333333332" PointY="9.8823424309895813" />
-          <ConnectorPoint PointX="20.166666666666668" PointY="9.8823424309895813" />
-          <ConnectorPoint PointX="20.333333333333332" PointY="9.8823424309895813" />
-          <ConnectorPoint PointX="21.354166666666668" PointY="9.8823424309895813" />
-          <ConnectorPoint PointX="21.520833333333332" PointY="9.8823424309895813" />
-          <ConnectorPoint PointX="21.804942255280416" PointY="9.88234243098958" />
-          <ConnectorPoint PointX="22.109889510560826" PointY="9.8823424309895813" />
-          <ConnectorPoint PointX="22.182804927227497" PointY="9.8823424309895813" />
-          <ConnectorPoint PointX="22.182804927227497" PointY="9.0762337239583246" />
+          <ConnectorPoint PointX="17.25" PointY="9.9304177890625" />
+          <ConnectorPoint PointX="18.666666666666668" PointY="9.9304177890625" />
+          <ConnectorPoint PointX="18.833333333333332" PointY="9.9304177890625" />
+          <ConnectorPoint PointX="19.916666666666668" PointY="9.9304177890625" />
+          <ConnectorPoint PointX="20.083333333333332" PointY="9.9304177890625" />
+          <ConnectorPoint PointX="20.166666666666668" PointY="9.9304177890625" />
+          <ConnectorPoint PointX="20.333333333333332" PointY="9.9304177890625" />
+          <ConnectorPoint PointX="21.354166666666668" PointY="9.9304177890625" />
+          <ConnectorPoint PointX="21.520833333333332" PointY="9.9304177890625" />
+          <ConnectorPoint PointX="21.884957941460311" PointY="9.9304177890625" />
+          <ConnectorPoint PointX="21.884957941460311" PointY="9.268535156249996" />
         </AssociationConnector>
         <AssociationConnector Association="Sandler.Models.FK_TBL_DOCS_TBL_OPPORTUNITIES" >
-          <ConnectorPoint PointX="21.4375" PointY="9.0762337239583246" />
+          <ConnectorPoint PointX="21.4375" PointY="9.268535156249996" />
           <ConnectorPoint PointX="21.4375" PointY="10.375" />
         </AssociationConnector>
         <AssociationConnector Association="Sandler.Models.FK_TBL_OPPORTUNITIES_TBL_OpportunitySource" >
@@ -3988,17 +3991,17 @@
         </AssociationConnector>
         <AssociationConnector Association="Sandler.Models.FK_TBL_OPPORTUNITIES_TBL_OpportunityTypes" >
           <ConnectorPoint PointX="20.25" PointY="16.153595377604169" />
-          <ConnectorPoint PointX="21.888275588613748" PointY="16.153595377604169" />
-          <ConnectorPoint PointX="21.888275588613748" PointY="9.0762337239583246" />
+          <ConnectorPoint PointX="22.18349301503703" PointY="16.153595377604169" />
+          <ConnectorPoint PointX="22.18349301503703" PointY="9.268535156249996" />
         </AssociationConnector>
         <AssociationConnector Association="Sandler.Models.FK_TBL_OPPORTUNITIES_TBL_OpportunityWhyLost" >
-          <ConnectorPoint PointX="20.25" PointY="20.074764899964606" />
-          <ConnectorPoint PointX="21.851035784818333" PointY="20.074764899964606" />
-          <ConnectorPoint PointX="22.017702451484997" PointY="20.074764899964606" />
-          <ConnectorPoint PointX="22.03540990297" PointY="20.074764899964606" />
-          <ConnectorPoint PointX="22.202076569636663" PointY="20.074764899964606" />
-          <ConnectorPoint PointX="22.435938309075834" PointY="20.074764899964606" />
-          <ConnectorPoint PointX="22.435938309075834" PointY="9.0762337239583246" />
+          <ConnectorPoint PointX="20.25" PointY="20.059774432185165" />
+          <ConnectorPoint PointX="21.874082549587289" PointY="20.059774432185165" />
+          <ConnectorPoint PointX="22.040749216253953" PointY="20.059774432185165" />
+          <ConnectorPoint PointX="22.054944755280417" PointY="20.059774432185165" />
+          <ConnectorPoint PointX="22.221611421947081" PointY="20.059774432185165" />
+          <ConnectorPoint PointX="22.440822022153437" PointY="20.059774432185165" />
+          <ConnectorPoint PointX="22.440822022153437" PointY="9.268535156249996" />
         </AssociationConnector>
         <AssociationConnector Association="Sandler.Models.FK_TBL_OPPORTUNITIES_Tbl_ProductType" >
           <ConnectorPoint PointX="8.875" PointY="1" />

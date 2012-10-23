@@ -20,16 +20,6 @@ namespace SandlerRepositories
             //Get Groups
             return  db.ExecuteDataset("sp_GetBlastEmailGroupsByRole", "GroupsByRole", new SqlParameter("@Role", _user.Role.ToString()));
         }
-        public DataSet GetMeetingTypeOptions()
-        {
-            //Get All Coach Addresses
-            return db.ExecuteDataset("sp_GetMeetingTypeOptions", "MeetingTypeOptions");
-        }
-        public DataSet GetMeetingFrequencyType()
-        {
-            //Get All Coach Addresses
-            return db.ExecuteDataset("sp_GetMeetingFrequencyType", "GetMeetingFrequencyType");
-        }
         public DataSet GetAllCoachAddresses()
         {
             //Get All Coach Addresses

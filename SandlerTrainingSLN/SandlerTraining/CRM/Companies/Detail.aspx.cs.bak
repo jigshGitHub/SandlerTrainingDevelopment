@@ -436,18 +436,6 @@ public partial class CompanyDETAIL : BasePage
             }
         }
 
-        //For Company Value Goal
-        Label CompValueGoalLabel = new Label();
-        CompValueGoalLabel = (Label)CompanyDW.FindControl("lblCOMPANYVALUEGOAL");
-        if (CompValueGoalLabel != null)
-        {
-            if (CompValueGoalLabel.Text != "")
-            {
-                CompValueGoalLabel.Text = string.Format("{0:C}", Convert.ToDecimal(CompValueGoalLabel.Text));
-
-            }
-        }
-
 
     }
 }

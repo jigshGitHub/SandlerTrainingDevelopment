@@ -159,6 +159,14 @@
                     </tr>
                     <tr style="color: Black; background-color: #DCDCDC; white-space: nowrap;">
                         <td style="white-space: nowrap;">
+                            Creation Date :
+                        </td>
+                        <td>
+                            <asp:Label ID="lblCreationDate" runat="server" />
+                        </td>
+                    </tr>
+                    <tr style="color: Black; background-color: #DCDCDC; white-space: nowrap;">
+                        <td style="white-space: nowrap;">
                             Close Date :
                         </td>
                         <td>

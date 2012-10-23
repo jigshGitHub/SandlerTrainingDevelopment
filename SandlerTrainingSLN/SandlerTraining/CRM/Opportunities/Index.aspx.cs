@@ -32,6 +32,7 @@ public partial class OpportunityIndex : OpportunityBasePage
                        VALUE = record.VALUE,
                        WEIGHTEDVALUE = record.WEIGHTEDVALUE,
                        CloseDate = record.CLOSEDATE,
+                       CreationDate = (record.OppCreationDate.HasValue) ? record.OppCreationDate.Value.ToString():"",
                        SalesRep = record.SALESREPFIRSTNAME + " " + record.SALESREPLASTNAME,
                        Status = record.Status,//GetOpportunityStatus(record.STATUSID.Value).Name,
                        //ContactName = GetContact(record.CONTACTID).FIRSTNAME + GetContact(record.CONTACTID).LASTNAME,

@@ -31,6 +31,7 @@ public partial class OpportunityDETAIL : OpportunityBasePage
         //TBL_OPPORTUNITIES record = GetOpportunity(ID);
         Opportunity record = FillOpportunity(ID);
         lblCloseDate.Text = record.CLOSEDATE.Value.ToShortDateString();
+        lblCreationDate.Text = (record.OppCreationDate.HasValue) ? record.OppCreationDate.Value.ToShortDateString() : "";
         lblCompany.Text = record.COMPANYNAME;
         lblOppName.Text = record.NAME;
         lblOpportunityID.Text = record.OpportunityID.Value.ToString();

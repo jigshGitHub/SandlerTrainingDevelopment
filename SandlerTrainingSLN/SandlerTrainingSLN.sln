@@ -6,7 +6,7 @@ EndProject
 Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "SandlerTraining", "SandlerTraining\", "{18E960A1-14B5-4546-B4F1-70B683B7FA47}"
 	ProjectSection(WebsiteProperties) = preProject
 		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
-		ProjectReferences = "{2A1D302E-BCC9-486C-974D-D849328781AA}|SandlerData.dll;{F3E025CD-1E85-4CF9-865E-87EAEE71B18B}|SandlerControls.dll;{53C1515D-FA71-43B1-B75C-A3E447584FA3}|SandlerModels.dll;"
+		ProjectReferences = "{2A1D302E-BCC9-486C-974D-D849328781AA}|SandlerData.dll;{F3E025CD-1E85-4CF9-865E-87EAEE71B18B}|SandlerControls.dll;{53C1515D-FA71-43B1-B75C-A3E447584FA3}|SandlerModels.dll;{C29C2363-46D8-4DF4-8DD7-D28528CC8DFB}|Ajaxified.dll;"
 		Debug.AspNetCompiler.VirtualPath = "/SandlerTraining"
 		Debug.AspNetCompiler.PhysicalPath = "SandlerTraining\"
 		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\SandlerTraining\"
@@ -29,6 +29,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SandlerModels", "SandlerModels\SandlerModels.csproj", "{53C1515D-FA71-43B1-B75C-A3E447584FA3}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SandlerUpdates", "SandlerUpdates\SandlerUpdates.csproj", "{7FBFD0AD-7DE5-436B-81C8-42E5AA9405B8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ajaxified", "Ajaxified\Ajaxified.csproj", "{C29C2363-46D8-4DF4-8DD7-D28528CC8DFB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -90,6 +92,16 @@ Global
 		{7FBFD0AD-7DE5-436B-81C8-42E5AA9405B8}.Release|Mixed Platforms.Build.0 = Release|x86
 		{7FBFD0AD-7DE5-436B-81C8-42E5AA9405B8}.Release|x86.ActiveCfg = Release|x86
 		{7FBFD0AD-7DE5-436B-81C8-42E5AA9405B8}.Release|x86.Build.0 = Release|x86
+		{C29C2363-46D8-4DF4-8DD7-D28528CC8DFB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C29C2363-46D8-4DF4-8DD7-D28528CC8DFB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C29C2363-46D8-4DF4-8DD7-D28528CC8DFB}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{C29C2363-46D8-4DF4-8DD7-D28528CC8DFB}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{C29C2363-46D8-4DF4-8DD7-D28528CC8DFB}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{C29C2363-46D8-4DF4-8DD7-D28528CC8DFB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C29C2363-46D8-4DF4-8DD7-D28528CC8DFB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C29C2363-46D8-4DF4-8DD7-D28528CC8DFB}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{C29C2363-46D8-4DF4-8DD7-D28528CC8DFB}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{C29C2363-46D8-4DF4-8DD7-D28528CC8DFB}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

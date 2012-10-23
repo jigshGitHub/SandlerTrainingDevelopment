@@ -194,7 +194,8 @@ public partial class Email_BlastEmail : BasePage
                 }
                 //
                 //For Attachment
-                if (!string.IsNullOrEmpty(EmailUpLoad.PostedFile.FileName))
+                if (EmailUpLoad.PostedFile != null)
+                //if (!string.IsNullOrEmpty(EmailUpLoad.PostedFile.FileName))
                 {
                     //We have attachment for this email message
                     System.Net.Mail.Attachment _attachment = new System.Net.Mail.Attachment(EmailUpLoad.PostedFile.FileName, MediaTypeNames.Application.Octet);
@@ -211,7 +212,7 @@ public partial class Email_BlastEmail : BasePage
                 var sendEmails = Convert.ToBoolean(ConfigurationManager.AppSettings["General.SendBlastEmails"]);
                 if (sendEmails)
                 {
-                    //client.Send(message);
+                    client.Send(message);
                     lblInfo.Text = "Your email has been sent successfully.";
                     lblError.Text = "";
                 }

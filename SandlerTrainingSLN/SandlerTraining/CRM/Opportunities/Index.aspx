@@ -109,6 +109,8 @@
                                 HeaderText="Value" DataFormatString="{0:C}" />
                             <asp:BoundField ItemStyle-HorizontalAlign="Center" HeaderStyle-ForeColor="Blue" DataField="CloseDate"
                                 HeaderText="Close Date" DataFormatString="{0:d}" />
+                            <asp:BoundField ItemStyle-HorizontalAlign="Center" HeaderStyle-ForeColor="Blue" DataField="CreationDate"
+                                HeaderText="Creation Date" DataFormatString="{0:d}" />
                             <asp:BoundField ItemStyle-HorizontalAlign="Center" HeaderStyle-ForeColor="Blue" DataField="SalesRep"
                                 HeaderText="Sales Rep" />
                             <asp:BoundField ItemStyle-HorizontalAlign="Center" HeaderStyle-ForeColor="Blue" DataField="Status"

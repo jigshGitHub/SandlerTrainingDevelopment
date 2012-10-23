@@ -158,6 +158,8 @@ public partial class OpportunityADD : OpportunityBasePage
     {
         if (!string.IsNullOrEmpty(CloseDate.Text))
             opportunity.CLOSEDATE = Convert.ToDateTime(CloseDate.Text);
+        if (!string.IsNullOrEmpty(txtBxCreationDate.Text))
+            opportunity.CreationDate = Convert.ToDateTime(txtBxCreationDate.Text);
         opportunity.COMPANYID = int.Parse(ddlCompany.SelectedValue);
         opportunity.NAME = txtOppName.Text;
         if (ddlProducts.SelectedIndex > 0)
@@ -205,6 +207,8 @@ public partial class OpportunityADD : OpportunityBasePage
         TBL_OPPORTUNITIES record = GetOpportunity(ID);
         if (record.CLOSEDATE.HasValue)
             CloseDate.Text = record.CLOSEDATE.Value.ToShortDateString();
+        if (record.CreationDate.HasValue)
+            txtBxCreationDate.Text = record.CreationDate.Value.ToShortDateString();
         ddlCompany.SelectedValue = record.COMPANYID.ToString();
         BindContacts(record.COMPANYID);
         //ddlContacts.SelectedValue = record.CONTACTID.ToString();
@@ -259,6 +263,8 @@ public partial class OpportunityADD : OpportunityBasePage
         }
         if (record.ProductCost.HasValue)
             txtProductCost.Text = record.ProductCost.Value.ToString();
+        if (record.CreationDate.HasValue)
+            txtBxCreationDate.Text = record.CreationDate.Value.ToShortDateString();
     }
 
     private void ClearFiels()
