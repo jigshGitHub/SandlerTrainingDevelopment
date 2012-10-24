@@ -27,6 +27,22 @@ namespace Sandler.UI.ChartStructure
             return (string.IsNullOrEmpty(drillBy) && string.IsNullOrEmpty(drillChartIds)) ? "" : string.Format("{0}?{1}={2}&{3}={4}&SubType={5}", CHARTPAGE, ConfigurationManager.AppSettings["QueryStringParamDrillChartIDs"], drillChartIds, ConfigurationManager.AppSettings["QueryStringParamDrillBy"], drillBy, chartSubtype);
         }
 
+        public static string GetSCTimeLegend(int value)
+        {
+            switch (value)
+            {
+                case 0:
+                    return "Up to 6 months";
+                case 1:
+                    return "6 to 12 months";
+                case 2:
+                    return "12 to 18 months";
+                case 3:
+                    return "18 to 24 motnsh";
+                default:
+                    return "24+ months";
+            }
+        }
 
     }
     public interface IChart
@@ -164,7 +180,7 @@ namespace Sandler.UI.ChartStructure
                 {
                     case ChartID.CostOfSale:
                         IEnumerable<SandlerModels.DataIntegration.CostOfSaleVM> costofsaleData = queries.GetCostOfSale(currentUser);
-                        
+
                         this.DataSetCollection.Add(new ChartDataSet { Color = "0000FF", SeriesName = "Profit" });//0000FF blue
                         this.DataSetCollection.Add(new ChartDataSet { Color = "FF8C00", SeriesName = "Cost" });//FF8C00 darkorange
                         this.DataSetCollection.Add(new ChartDataSet { Color = "32CD32", SeriesName = "Revenue" });//32CD32 Lime green
@@ -209,9 +225,9 @@ namespace Sandler.UI.ChartStructure
                         {
                             try
                             {
-                                if (this.SubType == ChartSubType.ProductsSoldBySalesValue )
+                                if (this.SubType == ChartSubType.ProductsSoldBySalesValue)
                                     this.Caption = "Sales Value By Product (By Month)";
-                                if (this.SubType == ChartSubType.ProductsSoldBySalesQuantity )
+                                if (this.SubType == ChartSubType.ProductsSoldBySalesQuantity)
                                     this.Caption = "Sales Quantity By Product (By Month)";
 
                                 if (this.SubType == ChartSubType.SalesValueOppSource)
@@ -836,6 +852,26 @@ namespace Sandler.UI.ChartStructure
                 IEnumerable<Tbl_ProductType> products;
                 switch (this.Id)
                 {
+                    case ChartID.SalesCycleTimeMain:
+                        IEnumerable<SandlerModels.DataIntegration.SalesCycleTimePortfolioVM> salesCyclePortfolio = queries.GetSalesCycleTimePortfolio(currentUser);
+                        int totalCount = salesCyclePortfolio.Count();
+                        if (salesCyclePortfolio != null)
+                        {
+                            var salesCycleData = from opportunity in salesCyclePortfolio
+                                                 group opportunity by new { opportunity.MultipleOfSixVal }
+                                                     into grp
+                                                     select new { Legend = ChartHelper.GetSCTimeLegend(grp.Key.MultipleOfSixVal), Count = grp.Count() * 100 / totalCount };
+
+                            colors = new string[] { "CC6600", "9900CC", "FF3300", "0099FF", "00CC66", "FFFF00", "CC6600", "9900CC" };
+
+                            foreach (var record in salesCycleData)
+                            {
+                                this.SetsCollection.Add(new SetValue { Color = colors.GetValue(colorIndex).ToString(), Label = record.Legend, Value = record.Count.ToString() });
+                                colorIndex++;
+                            }
+
+                        }
+                        break;
                     case ChartID.ClosedSalesAnalysisBySource:
                         if (this.SubType == ChartSubType.ProductsSoldBySalesValue)
                             this.Caption = "Sales Value Percentage By Product";
@@ -906,7 +942,6 @@ namespace Sandler.UI.ChartStructure
                             }
                         }
                         //}
-                        break;
                         break;
                     case ChartID.NewAppointmentsBySource:
                         //if (queries.GetNewAppointmentSource(currentUser, DateTime.ParseExact(this.DrillBy, "MMM", null).Month) != null)
@@ -1081,7 +1116,8 @@ namespace Sandler.UI.ChartStructure
             StringBuilder chartXML = null;
             try
             {
-                chartXML = new StringBuilder("<chart" + (!(string.IsNullOrEmpty(this.Caption)) ? " caption='" + this.Caption + " (" + this.DrillBy + ")'" : ""));
+                string caption = (string.IsNullOrEmpty(this.DrillBy)) ? this.Caption + "'" : this.Caption + " (" + this.DrillBy + ")'";
+                chartXML = new StringBuilder("<chart" + (!(string.IsNullOrEmpty(this.Caption)) ? " caption='" + caption : ""));
                 chartXML.Append((!(string.IsNullOrEmpty(this.BGColor)) ? " bgColor='" + this.BGColor + "'" : ""));
                 chartXML.Append((!(string.IsNullOrEmpty(this.BGAlpha)) ? " bgAlpha='" + this.BGAlpha + "'" : ""));
                 chartXML.Append((!(string.IsNullOrEmpty(this.CanvasBGColor)) ? " canvasBgColor='" + this.CanvasBGColor + "'" : ""));

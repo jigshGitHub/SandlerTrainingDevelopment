@@ -122,6 +122,7 @@ public partial class Email_BlastEmail : BasePage
                 message.IsBodyHtml = true;
                 //From Address
                 message.From = new MailAddress(_user.EmailAdress);
+                //Subject
                 message.Subject = txtSubject.Text.Trim();
                 message.Body = msgFreeTB.Text.Trim();
                 //Set To Address as From by default
@@ -192,27 +193,28 @@ public partial class Email_BlastEmail : BasePage
                     }
 
                 }
-                //
                 //For Attachment
                 if (EmailUpLoad.PostedFile != null)
-                //if (!string.IsNullOrEmpty(EmailUpLoad.PostedFile.FileName))
                 {
-                    //We have attachment for this email message
-                    System.Net.Mail.Attachment _attachment = new System.Net.Mail.Attachment(EmailUpLoad.PostedFile.FileName, MediaTypeNames.Application.Octet);
-                    // Add time stamp information for the file.
-                    ContentDisposition disposition = _attachment.ContentDisposition;
-                    disposition.CreationDate = System.IO.File.GetCreationTime(EmailUpLoad.PostedFile.FileName);
-                    disposition.ModificationDate = System.IO.File.GetLastWriteTime(EmailUpLoad.PostedFile.FileName);
-                    disposition.ReadDate = System.IO.File.GetLastAccessTime(EmailUpLoad.PostedFile.FileName);
-                    // Add the file attachment to this e-mail message.
-                    message.Attachments.Add(_attachment);
-
+                    if (!string.IsNullOrEmpty(EmailUpLoad.PostedFile.FileName))
+                    {
+                        //We have attachment for this email message
+                        System.Net.Mail.Attachment _attachment = new System.Net.Mail.Attachment(EmailUpLoad.PostedFile.FileName, MediaTypeNames.Application.Octet);
+                        // Add time stamp information for the file.
+                        ContentDisposition disposition = _attachment.ContentDisposition;
+                        disposition.CreationDate = System.IO.File.GetCreationTime(EmailUpLoad.PostedFile.FileName);
+                        disposition.ModificationDate = System.IO.File.GetLastWriteTime(EmailUpLoad.PostedFile.FileName);
+                        disposition.ReadDate = System.IO.File.GetLastAccessTime(EmailUpLoad.PostedFile.FileName);
+                        // Add the file attachment to this e-mail message.
+                        message.Attachments.Add(_attachment);
+                    }
                 }
+                
                 //Send the message
                 var sendEmails = Convert.ToBoolean(ConfigurationManager.AppSettings["General.SendBlastEmails"]);
                 if (sendEmails)
                 {
-                    client.Send(message);
+                    //client.Send(message);
                     lblInfo.Text = "Your email has been sent successfully.";
                     lblError.Text = "";
                 }

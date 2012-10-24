@@ -6,8 +6,6 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" Runat="Server">
 <asp:ToolkitScriptManager ID="ToolkitScriptManager1" runat="server"></asp:ToolkitScriptManager>
-<asp:UpdatePanel ID="updPnl" runat="server">
-<ContentTemplate>
 <table width="100%">
  <tr style="color: Black; background-color: #EEEEEE; white-space: nowrap;">
     <th class="tdTC" style="width: 280px" align="left">Send Meeting Invite : </th>
@@ -154,7 +152,5 @@
  </td>
  </tr>
 </table>
-</ContentTemplate> 
-</asp:UpdatePanel>
 </asp:Content>
 

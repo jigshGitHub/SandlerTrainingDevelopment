@@ -1,3 +1,7 @@
+/*
+Executed on 139 Dt:10/22 11:41PM
+*/
+
 Alter Table TBL_OPPORTUNITIES ADD  ProductCost NUMERIC NULL;
 GO
 Alter Table TBL_OPPORTUNITIES ADD  CreationDate DATETIME NULL;

@@ -34,7 +34,7 @@
                         </ul>
                         </li>
                         <li><a href="">Client</a><ul class="sub_menu">
-                            <li><a id="anchorCostOfSale" runat="server">Cost of Sale</a></li><li><a href="#">Sales
+                            <li><a id="anchorCostOfSale" runat="server">Cost of Sale</a></li><li><a id="anchorSalesCycleTime" runat="server">Sales
                                 Cycle Time</a></li><li><a href="#">Sales Total By Month</a></li><li><a href="#">Sadnler
                                     Sales Rep Retention</a></li><li><a href="#">Pipeline Post Training</a></li><li><a
                                         href="#">Client Sales Rep Retention</a></li><li><a>Client Return On Investment</a></li>

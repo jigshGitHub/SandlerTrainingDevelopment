@@ -470,5 +470,36 @@ namespace SandlerModels.DataIntegration
             return data;
         }
 
+        public IEnumerable<SalesCycleTimePortfolioVM> GetSalesCycleTimePortfolio(UserModel currentUser)
+        {
+            UserEntities userEntities = null;
+            IEnumerable<SalesCycleTimePortfolioVM> data = null;
+            OpportunityRepository oppRpository = null;
+            SqlDataReader opportunities;
+            List<SalesCycleTimePortfolioVM> sctPoftfolio;
+            try
+            {
+                userEntities = UserEntitiesFactory.Get(currentUser);
+
+                oppRpository = new OpportunityRepository();
+                opportunities = oppRpository.GetSalesCyclePortfolioData(currentUser.UserId.ToString());
+                sctPoftfolio = new List<SalesCycleTimePortfolioVM>();
+                if (opportunities != null)
+                {
+                    while (opportunities.Read())
+                    {
+                        sctPoftfolio.Add(new SalesCycleTimePortfolioVM { Id = opportunities.GetInt32(0), OppCreationDate = opportunities.GetDateTime(1), CloseDate = opportunities.GetDateTime(2), DateDiffInMonths = opportunities.GetInt32(3), MultipleOfSixVal = opportunities.GetInt32(4) });
+                    }
+                    opportunities.Close();
+                    data = sctPoftfolio.AsEnumerable<SalesCycleTimePortfolioVM>();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("exception in DataQueries.GetSalesCycleTimePortfolio: " + ex.Message);
+            }
+            return data;
+        }
+
     }
 }

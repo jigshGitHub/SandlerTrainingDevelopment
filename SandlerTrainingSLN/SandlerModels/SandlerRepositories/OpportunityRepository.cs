@@ -12,7 +12,7 @@ using SandlerModels;
 /// </summary>
 namespace SandlerRepositories
 {
-    public class OpportunityRepository
+    public partial class OpportunityRepository
     {
         DBFactory db = new DBFactory();
         public OpportunityRepository()
@@ -51,5 +51,19 @@ namespace SandlerRepositories
             }
             
         }
+
+        public SqlDataReader GetSalesCyclePortfolioData(string userId)
+        {
+            SqlDataReader newAppointments = null;
+            try
+            {
+                newAppointments = db.ExecuteReader("sp_GetSalesCyclePortfolioData", new SqlParameter("@userId", userId));
+            }
+            catch (Exception ex)
+            {
+            }
+            return newAppointments;
+        }
+
     }
 }

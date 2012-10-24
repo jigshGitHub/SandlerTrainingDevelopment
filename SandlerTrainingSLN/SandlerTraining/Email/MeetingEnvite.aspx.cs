@@ -166,7 +166,7 @@ public partial class Email_MeetingEnvite : System.Web.UI.Page
                 //Set To Address as From by default
                 message.To.Add(message.From);
                 //For HTML Body
-                string bodyText = "Meeting Type: {0}\r\n\r\n{1}";
+                string bodyText = "Meeting Type: {0}\r\n\r\n</br></br>{1}";
                 bodyText = string.Format(bodyText,ddlMeetingType.SelectedItem.Text, msgFreeTB.Text.Trim());    
                 AlternateView body = AlternateView.CreateAlternateViewFromString(bodyText, new ContentType("text/html"));
                 message.AlternateViews.Add(body);
@@ -227,17 +227,19 @@ public partial class Email_MeetingEnvite : System.Web.UI.Page
                 }
                 //For Attachment
                 if (EmailUpLoad.PostedFile != null)
-                //if (!string.IsNullOrEmpty(EmailUpLoad.PostedFile.FileName))
                 {
-                    //We have attachment for this email message
-                    System.Net.Mail.Attachment _attachment = new System.Net.Mail.Attachment(EmailUpLoad.PostedFile.FileName, MediaTypeNames.Application.Octet);
-                    // Add time stamp information for the file.
-                    ContentDisposition disposition = _attachment.ContentDisposition;
-                    disposition.CreationDate = System.IO.File.GetCreationTime(EmailUpLoad.PostedFile.FileName);
-                    disposition.ModificationDate = System.IO.File.GetLastWriteTime(EmailUpLoad.PostedFile.FileName);
-                    disposition.ReadDate = System.IO.File.GetLastAccessTime(EmailUpLoad.PostedFile.FileName);
-                    // Add the file attachment to this e-mail message.
-                    message.Attachments.Add(_attachment);
+                    if (!string.IsNullOrEmpty(EmailUpLoad.PostedFile.FileName))
+                    {
+                        //We have attachment for this email message
+                        System.Net.Mail.Attachment _attachment = new System.Net.Mail.Attachment(EmailUpLoad.PostedFile.FileName, MediaTypeNames.Application.Octet);
+                        // Add time stamp information for the file.
+                        ContentDisposition disposition = _attachment.ContentDisposition;
+                        disposition.CreationDate = System.IO.File.GetCreationTime(EmailUpLoad.PostedFile.FileName);
+                        disposition.ModificationDate = System.IO.File.GetLastWriteTime(EmailUpLoad.PostedFile.FileName);
+                        disposition.ReadDate = System.IO.File.GetLastAccessTime(EmailUpLoad.PostedFile.FileName);
+                        // Add the file attachment to this e-mail message.
+                        message.Attachments.Add(_attachment);
+                    }
                 }
                 //Send the message
                 var sendEmails = Convert.ToBoolean(ConfigurationManager.AppSettings["General.SendBlastEmails"]);
@@ -357,6 +359,8 @@ public partial class Email_MeetingEnvite : System.Web.UI.Page
         evt.IsAllDay = allDayEvent;
 
         evt.UID = new Guid().ToString();
+
+        
 
         if (recurrenceDaysInterval > 0)
         {

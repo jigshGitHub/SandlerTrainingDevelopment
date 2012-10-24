@@ -26,6 +26,7 @@ public partial class Menu : System.Web.UI.UserControl
 
             SecureNavigation();
             anchorCostOfSale.HRef = string.Format("{0}?{1}={2}&{3}={4}&SubType={5}", "~/Reports/CostOfSale.aspx", ConfigurationManager.AppSettings["QueryStringParamDrillChartIDs"], "CostOfSale", ConfigurationManager.AppSettings["QueryStringParamDrillBy"], "", "");
+            anchorSalesCycleTime.HRef = string.Format("{0}?{1}={2}&{3}={4}&SubType={5}", "~/ChartPage.aspx", ConfigurationManager.AppSettings["QueryStringParamDrillChartIDs"], "SalesCycleTimeMain", ConfigurationManager.AppSettings["QueryStringParamDrillBy"], "", "");
         }
     }
 

@@ -56,4 +56,13 @@ namespace SandlerModels.DataIntegration
             }
         }
     }
+
+    public partial class SalesCycleTimePortfolioVM
+    {
+        public int Id { get; set; }
+        public DateTime OppCreationDate { get; set; }
+        public DateTime CloseDate { get; set; }
+        public int DateDiffInMonths { get; set; }
+        public int MultipleOfSixVal { get; set; }
+    }
 }
