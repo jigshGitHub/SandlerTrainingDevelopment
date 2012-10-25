@@ -488,18 +488,56 @@ namespace SandlerModels.DataIntegration
                 {
                     while (opportunities.Read())
                     {
-                        sctPoftfolio.Add(new SalesCycleTimePortfolioVM { Id = opportunities.GetInt32(0), OppCreationDate = opportunities.GetDateTime(1), CloseDate = opportunities.GetDateTime(2), DateDiffInMonths = opportunities.GetInt32(3), MultipleOfSixVal = opportunities.GetInt32(4) });
+                        sctPoftfolio.Add(new SalesCycleTimePortfolioVM { Id = opportunities.GetInt32(0), OppCreationDate = opportunities.GetDateTime(1), CloseDate = opportunities.GetDateTime(2), DateDiffInMonths = opportunities.GetInt32(3), MultipleOfSixVal  = opportunities.GetInt32(4) });
                     }
                     opportunities.Close();
-                    data = sctPoftfolio.AsEnumerable<SalesCycleTimePortfolioVM>();
                 }
+                data = sctPoftfolio.AsEnumerable<SalesCycleTimePortfolioVM>();
             }
             catch (Exception ex)
             {
-                throw new Exception("exception in DataQueries.GetSalesCycleTimePortfolio: " + ex.Message);
+                throw new Exception("exception in DataQueries.GetNewClientsByProductType: " + ex.Message);
             }
             return data;
         }
 
+        public IEnumerable<SalesTotalByMonthVM> GetSalesTotalByMonth(UserModel currentUser, int processingYear)
+        {
+            UserEntities userEntities = null;
+            IEnumerable<Opportunity> opportunties = null;
+            IEnumerable<SalesTotalByMonthVM> data = null;
+
+            try
+            {
+                userEntities = UserEntitiesFactory.Get(currentUser);
+                opportunties = userEntities.Opportunities;
+
+                if (userEntities.OpportunitiesCount > 0)
+                {
+                    //data = from opportunity in opportunties
+                    //       group opportunity by new { opportunity.ProductTypeName }
+                    //           into grp
+                    //           select new CostOfSaleVM { ProductName = grp.Key.ProductTypeName, Cost = grp.Sum(record => (decimal?)record.ProductCost ?? 0), Revenue = grp.Sum(record => (decimal?)record.VALUE ?? 0) };
+
+                    if (processingYear == DateTime.Now.Year)
+                    {
+                        data = from opportunity in opportunties
+                                   where opportunity.Status.ToLower() != "closed lost" && opportunity.CLOSEDATE.Value.Year == processingYear && opportunity.CLOSEDATE.Value < DateTime.Now
+                                   select new SalesTotalByMonthVM { CloseDate = opportunity.CLOSEDATE.Value, Id = opportunity.ID, Value = opportunity.VALUE.Value };
+                    }
+                    else
+                    {
+                        data = from opportunity in opportunties
+                               where opportunity.Status.ToLower() == "closed won" && opportunity.CLOSEDATE.Value.Year == processingYear && opportunity.CLOSEDATE.Value < DateTime.Now
+                               select new SalesTotalByMonthVM { CloseDate = opportunity.CLOSEDATE.Value, Id = opportunity.ID, Value = opportunity.VALUE.Value };
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("exception in DataQueries.GetCostOfSale: " + ex.Message);
+            }
+            return data;
+        }
     }
 }

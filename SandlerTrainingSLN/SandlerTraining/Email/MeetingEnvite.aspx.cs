@@ -16,6 +16,7 @@ using DDay.iCal;
 using DDay.Collections;
 using DDay.iCal.Serialization;
 using DDay.iCal.Serialization.iCalendar;
+using eWorld;
 
 
 public partial class Email_MeetingEnvite : System.Web.UI.Page
@@ -178,8 +179,8 @@ public partial class Email_MeetingEnvite : System.Web.UI.Page
                     AlternateView avCal = 
                         AlternateView.CreateAlternateViewFromString(CreateCalendarEvent(message.Subject, 
                         msgFreeTB.Text.Trim(),
-                        GetDateAndTimeTogether(Convert.ToDateTime(StartDate.Text),txtStartTime.Text),
-                        GetDateAndTimeTogether(Convert.ToDateTime(EndDate.Text), txtEndTime.Text), 
+                        GetDateAndTimeTogether(Convert.ToDateTime(StartDate.Text), tpStartTime.PostedTime),
+                        GetDateAndTimeTogether(Convert.ToDateTime(EndDate.Text), tpEndTime.PostedTime), 
                         txtLocation.Text.Trim(), 
                         message.From.Address, 
                         null, 
@@ -190,7 +191,7 @@ public partial class Email_MeetingEnvite : System.Web.UI.Page
                 {
                     AlternateView avCal = AlternateView.CreateAlternateViewFromString(CreateCalendarEvent(message.Subject, 
                         msgFreeTB.Text.Trim(),
-                        GetDateAndTimeTogether(Convert.ToDateTime(StartDate.Text), txtStartTime.Text),
+                        GetDateAndTimeTogether(Convert.ToDateTime(StartDate.Text), tpStartTime.PostedTime),
                         Convert.ToDouble(txtDuration.Text), 
                         txtLocation.Text.Trim(), 
                         message.From.Address, 
@@ -535,7 +536,6 @@ public partial class Email_MeetingEnvite : System.Web.UI.Page
             //hide the RecInfo row
             trRecInfo.Visible = false;
             EndDate.Text = "";
-            txtEndTime.Text = "";
             rfvDuration.Enabled = false;
             rfvRecurrenceCount.Enabled = false;
         }

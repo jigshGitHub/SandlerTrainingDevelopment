@@ -34,16 +34,17 @@
                         </ul>
                         </li>
                         <li><a href="">Client</a><ul class="sub_menu">
-                            <li><a id="anchorCostOfSale" runat="server">Cost of Sale</a></li><li><a id="anchorSalesCycleTime" runat="server">Sales
-                                Cycle Time</a></li><li><a href="#">Sales Total By Month</a></li><li><a href="#">Sadnler
-                                    Sales Rep Retention</a></li><li><a href="#">Pipeline Post Training</a></li><li><a
-                                        href="#">Client Sales Rep Retention</a></li><li><a>Client Return On Investment</a></li>
+                            <li><a id="anchorCostOfSale" runat="server">Cost of Sale</a></li><li><a id="anchorSalesCycleTime"
+                                runat="server">Sales Cycle Time</a></li><li><a id="anchorSalesTotalByMonth" runat="server">
+                                    Sales Total By Month</a></li><li><a href="#">Sadnler Sales Rep Retention</a></li><li>
+                                        <a href="#">Pipeline Post Training</a></li><li><a href="#">Client Sales Rep Retention</a></li><li>
+                                            <a>Client Return On Investment</a></li>
                         </ul>
                         </li>
                         <li><a href="#">Product</a><ul class="sub_menu">
-                            <li><a href="#">Product Margin Contribution</a></li><li><a href="#">Products Sold as a
-                                1st Sale</a></li><li><a href="#">Products Sold by Company</a></li><li><a href="#">Products
-                                    Sold by Rep</a></li><li>
+                            <li><a href="#">Product Margin Contribution</a></li><li><a href="#">Products Sold as
+                                a 1st Sale</a></li><li><a href="#">Products Sold by Company</a></li><li><a href="#">
+                                    Products Sold by Rep</a></li><li>
                         </ul>
                         </li>
                         <li><a href="#">Ad Hoc</a><ul class="sub_menu">
@@ -65,7 +66,8 @@
                             User</a></li>
                         <li><a id="manageEmailSubscription" runat="server" visible="false">Manage Email Subscription</a></li>
                         <li><a href="<%=  Page.ResolveClientUrl("~/Email/ManageGroup.aspx") %>">Create Group</a></li>
-                        <li><a href="<%=  Page.ResolveClientUrl("~/Email/MeetingEnvite.aspx") %>">Send Meeting Envite</a></li>
+                        <li><a href="<%=  Page.ResolveClientUrl("~/Email/MeetingEnvite.aspx") %>">Send Meeting
+                            Envite</a></li>
                     </ul>
                     </li>
                     <li><a id="anchorGapAnalysis" runat="server" href="~/GapAnalysisCreate.aspx">Gap Analysis</a>

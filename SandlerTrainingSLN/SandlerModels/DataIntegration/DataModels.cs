@@ -65,4 +65,11 @@ namespace SandlerModels.DataIntegration
         public int DateDiffInMonths { get; set; }
         public int MultipleOfSixVal { get; set; }
     }
+
+    public partial class SalesTotalByMonthVM
+    {
+        public int Id { get; set; }
+        public DateTime CloseDate { get; set; }
+        public decimal Value { get; set; }
+    }
 }

@@ -44,6 +44,39 @@ namespace Sandler.UI.ChartStructure
             }
         }
 
+        public static string GetMonthName(int number)
+        {
+            switch (number)
+            {
+                case 1:
+                    return "Jan";
+                case 2:
+                    return "Feb";
+                case 3:
+                    return "Mar";
+                case 4:
+                    return "Apr";
+                case 5:
+                    return "May";
+                case 6:
+                    return "Jun";
+                case 7:
+                    return "Jul";
+                case 8:
+                    return "Aug";
+                case 9:
+                    return "Sep";
+                case 10:
+                    return "Oct";
+                case 11:
+                    return "Nov";
+                case 12:
+                    return "Dec";
+                default:
+                    return "";
+            }
+        }
+
     }
     public interface IChart
     {
@@ -178,6 +211,57 @@ namespace Sandler.UI.ChartStructure
                 IEnumerable<Tbl_ProductType> products;
                 switch ((ChartID)Enum.Parse(typeof(ChartID), this.Id.ToString(), true))
                 {
+                    case ChartID.SalesTotalsByMonthQty:
+                        string[] monthNames = System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.MonthNames;
+
+                        foreach (string monthName in monthNames) // writing out
+                        {
+                            if (!string.IsNullOrEmpty(monthName))
+                                this.Categories.Add(new Category { Label = monthName.Substring(0, 3) });
+                        }
+
+                        chartParams = new List<ChartParameter>();
+                        chartParams.Add(new ChartParameter { Value = (DateTime.Now.Year - 2).ToString(), Color = "3300ff" });
+                        chartParams.Add(new ChartParameter { Value = (DateTime.Now.Year - 1).ToString(), Color = "ff6600" });
+                        chartParams.Add(new ChartParameter { Value = DateTime.Now.Year.ToString(), Color = "32df00" });
+                        IEnumerable<SandlerModels.DataIntegration.SalesTotalByMonthVM> salesTotalData;
+                        foreach (ChartParameter parameter in chartParams)
+                        {
+                            try
+                            {
+                                salesTotalData = queries.GetSalesTotalByMonth(currentUser, int.Parse(parameter.Value));
+                                if (salesTotalData != null)
+                                {
+                                    var salesDataForAYear = from opportunity in salesTotalData
+                                                            group opportunity by new { opportunity.CloseDate.Month }
+                                                                into grp
+                                                                select new { Count = grp.Count(), MonthName = ChartHelper.GetMonthName(grp.Key.Month) };
+
+
+                                    this.DataSetCollection.Add(new ChartDataSet { Color = parameter.Color, SeriesName = parameter.Value });
+
+                                    foreach (Category category in this.Categories)
+                                    {
+                                        lastDs = this.DataSetCollection.Last();
+                                        lastDs.SetsCollection.Add(new SetValue { Label = category.Label });
+                                    }
+
+                                    foreach (var record in salesDataForAYear)
+                                    {
+                                        foreach (SetValue set in lastDs.SetsCollection)
+                                        {
+                                            if (set.Label == record.MonthName)
+                                                set.Value = record.Count.ToString();
+                                        }
+                                    }
+                                }
+                                salesTotalData = null;
+                            }
+                            catch (Exception ex)
+                            {
+                            }
+                        }
+                        break;
                     case ChartID.CostOfSale:
                         IEnumerable<SandlerModels.DataIntegration.CostOfSaleVM> costofsaleData = queries.GetCostOfSale(currentUser);
 

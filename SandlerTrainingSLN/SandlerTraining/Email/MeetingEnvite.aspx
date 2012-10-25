@@ -1,7 +1,7 @@
 ﻿<%@ Page Title="Send Meeting Invite" Language="C#" MasterPageFile="~/CRM.master" AutoEventWireup="true" ValidateRequest="false" CodeFile="MeetingEnvite.aspx.cs" Inherits="Email_MeetingEnvite" %>
-<%@ Register TagPrefix="Ajaxified" Assembly="Ajaxified" Namespace="Ajaxified" %>
 <%@ Register TagPrefix="FTB" Namespace="FreeTextBoxControls" Assembly="FreeTextBox" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
+<%@Register TagPrefix="ew"  Namespace="eWorld.UI" Assembly="eWorld.UI, Version=1.9.0.0, Culture=neutral, PublicKeyToken=24d65337282035f2" %>
 <%@ Import Namespace="SandlerRepositories" %>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" Runat="Server">
@@ -47,9 +47,12 @@
     <asp:RequiredFieldValidator ID="rfvStartDate" ControlToValidate="StartDate" Display="Static" InitialValue="" runat="server" ErrorMessage="Please Enter Start Date to proceed.">*</asp:RequiredFieldValidator>
     &nbsp;&nbsp;
     Start Time:
-    <asp:TextBox ID="txtStartTime" runat="server" Text=""></asp:TextBox>
-    <Ajaxified:TimePicker ID="tpStartTime" runat="server" TargetControlID="txtStartTime" TitleCssClass="title" MinuteStep="15" CloseOnSelection="true"></Ajaxified:TimePicker>
-    <asp:RequiredFieldValidator ID="rfvStartTime" ControlToValidate="txtStartTime" Display="Static" InitialValue="" runat="server" ErrorMessage="Please Enter Start Time to proceed.">*</asp:RequiredFieldValidator>
+    <ew:TimePicker ID="tpStartTime" MinuteInterval="FifteenMinutes"  LowerBoundTime="5:00 AM" UpperBoundTime="11:00 PM" ControlDisplay="TextBoxImage" ImageUrl="~/Images/timepicker.gif" runat="server" >
+             <TimeStyle BackColor="#336699" Font-Size="9pt" ForeColor="White"  Width="100"/>
+             <ClearTimeStyle BackColor="White" Font-Size="8pt" />
+             <SelectedTimeStyle BackColor="Yellow" Font-Size="8pt"/>
+    </ew:TimePicker>
+    <asp:RequiredFieldValidator ID="rfvStartTime" ControlToValidate="tpStartTime" Display="Static" InitialValue="" runat="server" ErrorMessage="Please Enter Start Time to proceed.">*</asp:RequiredFieldValidator>
  </td>
  </tr>
 
@@ -62,9 +65,13 @@
     <asp:RequiredFieldValidator ID="rfvEndDate" ControlToValidate="EndDate" Display="Static" InitialValue="" runat="server" ErrorMessage="Please Enter End Date to proceed.">*</asp:RequiredFieldValidator>
     &nbsp;&nbsp;
     End Time:
-    <asp:TextBox ID="txtEndTime" runat="server" Text=""></asp:TextBox>
-    <Ajaxified:TimePicker ID="tpEndTime" runat="server" TargetControlID="txtEndTime" TitleCssClass="title" MinuteStep="15" CloseOnSelection="true"></Ajaxified:TimePicker>
-    <asp:RequiredFieldValidator ID="rfvEndTime" ControlToValidate="txtEndTime" Display="Static" InitialValue="" runat="server" ErrorMessage="Please Enter End Time to proceed.">*</asp:RequiredFieldValidator>
+    <ew:TimePicker ID="tpEndTime" MinuteInterval="FifteenMinutes" LowerBoundTime="5:00 AM" UpperBoundTime="11:00 PM" ControlDisplay="TextBoxImage" ImageUrl="~/Images/timepicker.gif" runat="server" >
+             <TimeStyle BackColor="#336699" Font-Size="9pt" ForeColor="White"  Width="100"/>
+             <ClearTimeStyle BackColor="White" Font-Size="8pt" />
+             <SelectedTimeStyle BackColor="Yellow" Font-Size="8pt"/>
+    </ew:TimePicker>
+
+    <asp:RequiredFieldValidator ID="rfvEndTime" ControlToValidate="tpEndTime" Display="Static" InitialValue="" runat="server" ErrorMessage="Please Enter End Time to proceed.">*</asp:RequiredFieldValidator>
  </td>
  </tr>
 

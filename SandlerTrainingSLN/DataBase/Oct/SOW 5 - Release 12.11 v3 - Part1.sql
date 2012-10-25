@@ -1,3 +1,6 @@
+/*
+Executed on 239 Dt: 10/23
+*/
 INSERT INTO [SandlerDB].[dbo].[TBL_CHART] ([Caption],[SWFile], [ChartID], [TypeOfChart] ,[CanvasBgColor] ,[CanvasBgAlpha] ,[ShowLegend] ,[NumberSuffix] ,[PieRadius] ,[EnableRotation] )
 VALUES ('Sales Cycle Time - Entire Portfolio ','Pie3D.swf','SalesCycleTimeMain','PieChart', 'FFFFFF' ,'100' ,'1' ,'%' ,'100' ,'1' );
 GO
@@ -89,7 +92,7 @@ AS
 		
 	END 
 	
-	SELECT * FROM @Opportunities where CLOSEDATE < GETDATE() order by DateDiffInMonths;
+	SELECT * FROM @Opportunities where CLOSEDATE < GETDATE() AND OppCreationDate IS NOT NULL AND CloseDate IS NOT NULL order by DateDiffInMonths;
 	
 --	select COUNT(id), MultipleOfSix,case MultipleOfSix
 --when 0 then '0 - 6 Months'
