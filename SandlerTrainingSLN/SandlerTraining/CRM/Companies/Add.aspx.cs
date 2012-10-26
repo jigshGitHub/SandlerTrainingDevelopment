@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using SandlerRepositories;
+using SandlerModels;
 
 public partial class AddCompany : BasePage
 {
@@ -38,6 +40,33 @@ public partial class AddCompany : BasePage
             ListItem selectItem = new ListItem("--Select Industry--", "0");
             industryDropDownList.Items.Insert(0, selectItem);
         }
+
+        //Sandler Rep Last Name - It should be Sales for Client
+        TemplateField repLastNameTempField = new TemplateField();
+        repLastNameTempField = dvCompany.Fields.OfType<TemplateField>().Where(f => f.HeaderText == "Sandler Rep Last Name :").FirstOrDefault();
+        if (repLastNameTempField != null)
+        {
+            //Get the User Info
+            UserModel _user = (UserModel)HttpContext.Current.Session["CurrentUser"];
+            if (_user.Role == SandlerRoles.Client)
+            {
+                repLastNameTempField.HeaderText = "Sales Rep Last Name :";
+            }
+        }
+
+        //For Sandler Rep First Name
+        TemplateField repFirstNameTempField = new TemplateField();
+        repFirstNameTempField = dvCompany.Fields.OfType<TemplateField>().Where(f => f.HeaderText == "Sandler Rep First Name :").FirstOrDefault();
+        if (repFirstNameTempField != null)
+        {
+            //Get the User Info
+            UserModel _user = (UserModel)HttpContext.Current.Session["CurrentUser"];
+            if (_user.Role == SandlerRoles.Client)
+            {
+                repFirstNameTempField.HeaderText = "Sales Rep First Name :";
+            }
+        }
+
 
     }
 

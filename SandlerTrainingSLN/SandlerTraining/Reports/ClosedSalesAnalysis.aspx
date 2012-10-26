@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/CRM.master" AutoEventWireup="true"
+﻿<%@ Page Title="Reports-ClosedSalesAnalysis" Language="C#" MasterPageFile="~/CRM.master" AutoEventWireup="true"
     CodeFile="ClosedSalesAnalysis.aspx.cs" Inherits="Reports_ClosedSalesAnalysis" %>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>

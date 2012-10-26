@@ -62,7 +62,7 @@ namespace SandlerRepositories
             }
             else
             {
-                //Franchisee Owner OR Franchisee User
+                //Franchisee Owner OR Franchisee User OR Client - We get by FranchiseeId
                 return db.ExecuteDataset("sp_GetAllCompaniesByFrId", "CompaniesByFrId", new SqlParameter("@FranchiseeId", _user.FranchiseeID));
             }
 
@@ -173,7 +173,7 @@ namespace SandlerRepositories
             }
             else
             {
-                //Franchisee Owner OR Franchisee User
+                //Franchisee Owner OR Franchisee User OR Client
                 return db.ExecuteDataset("sp_GetAllCompaniesByFrIdSearch", "CompaniesByFrIdSearch",
                     new SqlParameter("@FranchiseeId", _user.FranchiseeID.ToString()),
                     new SqlParameter("@CompanyName", _company.CompanyName),
@@ -232,7 +232,7 @@ namespace SandlerRepositories
             }
             else
             {
-                //Franchisee Owner OR Franchisee User
+                //Franchisee Owner OR Franchisee User OR Client
                 return db.ExecuteDataset("sp_GetCompaniesForDDLByFrId", "CompaniesByFrId", new SqlParameter("@FranchiseeId", _user.FranchiseeID));
             }
 

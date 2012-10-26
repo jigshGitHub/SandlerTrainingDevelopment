@@ -38,8 +38,11 @@
         <div class="header">
             <div class="clear hideSkiplink">
                 <uc1:Header ID="Header1" runat="server" />
-                <uc1:CRMSubMenu id="crmSubmenu1" runat="server" />
+                
             </div>
+        </div>
+        <div class="crmSubMenu">
+            <uc1:CRMSubMenu id="crmSubmenu1" runat="server" />
         </div>
         <div class="main" style="background-color: White">
             <asp:ContentPlaceHolder ID="MainContent" runat="server" />

@@ -149,21 +149,6 @@ namespace SandlerRepositories
             return db.ExecuteDataset("sp_GetSubscriptionInfo", "SubscriptionInfo", new SqlParameter("@UserId", UserId), new SqlParameter("@Role", _user.Role.ToString()));
             
         }
-
-        //Create Procedures
-        //sp_GetBlastEmailGroupsByRole
-        //sp_GetAllCoachAddresses
-        //sp_GetAllFranchiseeAddresses(@RoleName)
-        //sp_GetAllContactsAddresses(@FranchiseeId)
-        //sp_GetFranchiseeAddresses(@RoleName,@FranchiseeId)
-        //sp_GetLoggedInUserAddress(@UserId)
-        //sp_UpdateSubscriptionInfo(string UserId, int Response)
-        //sp_GetSubscriptionInfo(string UserId)
-        //sp_GetBlastEmailOptions
-
-        //Update Procedures
-        //sp_InsertContact
-        //sp_GetContactDetails
-        //sp_UpdateContactDetails
+                
     }
 }

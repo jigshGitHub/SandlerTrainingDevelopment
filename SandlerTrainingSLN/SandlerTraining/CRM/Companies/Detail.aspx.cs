@@ -355,8 +355,7 @@ public partial class CompanyDETAIL : BasePage
             }
 
         }
-        
-        
+                
         //For Next Contact Date - Calendar control
         TextBox NextContactDateCal = new TextBox();
         NextContactDateCal = (TextBox)CompanyDW.FindControl("NextContactDate");
@@ -445,6 +444,32 @@ public partial class CompanyDETAIL : BasePage
             {
                 CompValueGoalLabel.Text = string.Format("{0:C}", Convert.ToDecimal(CompValueGoalLabel.Text));
 
+            }
+        }
+
+        //Sandler Rep Last Name - It should be Sales for Client
+        TemplateField repLastNameTempField = new TemplateField();
+        repLastNameTempField = CompanyDW.Fields.OfType<TemplateField>().Where(f => f.HeaderText == "Sandler Rep Last Name :").FirstOrDefault();
+        if (repLastNameTempField != null)
+        {
+            //Get the User Info
+            UserModel _user = (UserModel)HttpContext.Current.Session["CurrentUser"];
+            if (_user.Role == SandlerRoles.Client)
+            {
+                repLastNameTempField.HeaderText = "Sales Rep Last Name :";
+            }
+        }
+
+        //For Sandler Rep First Name
+        TemplateField repFirstNameTempField = new TemplateField();
+        repFirstNameTempField = CompanyDW.Fields.OfType<TemplateField>().Where(f => f.HeaderText == "Sandler Rep First Name :").FirstOrDefault();
+        if (repFirstNameTempField != null)
+        {
+            //Get the User Info
+            UserModel _user = (UserModel)HttpContext.Current.Session["CurrentUser"];
+            if (_user.Role == SandlerRoles.Client)
+            {
+                repFirstNameTempField.HeaderText = "Sales Rep First Name :";
             }
         }
 

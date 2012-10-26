@@ -389,7 +389,7 @@ namespace Sandler.UI.ChartStructure
                                     foreach (Category category in this.Categories)
                                     {
                                         lastDs = this.DataSetCollection.Last();
-                                        lastDs.SetsCollection.Add(new SetValue { Label = category.Label, Link = ChartHelper.GeneratePageLink(lastDs.SeriesName, this.DrillChartIds) });
+                                        lastDs.SetsCollection.Add(new SetValue { Label = category.Label, Link = (currentUser.Role == SandlerRoles.Client) ? "" : ChartHelper.GeneratePageLink(lastDs.SeriesName, this.DrillChartIds) });
                                     }
 
                                     foreach (var record in newAppointments)
@@ -443,7 +443,7 @@ namespace Sandler.UI.ChartStructure
                                     foreach (Category category in this.Categories)
                                     {
                                         lastDs = this.DataSetCollection.Last();
-                                        lastDs.SetsCollection.Add(new SetValue { Label = category.Label, Link = ChartHelper.GeneratePageLink(lastDs.SeriesName, this.DrillChartIds) });
+                                        lastDs.SetsCollection.Add(new SetValue { Label = category.Label, Link = (currentUser.Role == SandlerRoles.Client) ? "" : ChartHelper.GeneratePageLink(lastDs.SeriesName, this.DrillChartIds) });
                                     }
 
                                     foreach (var record in newClientsByProducts)
@@ -482,8 +482,8 @@ namespace Sandler.UI.ChartStructure
 
                                 if (newClients > 0 && aveContractPrice > 0)
                                 {
-                                    this.DataSetCollection[0].SetsCollection.Add(new SetValue { Value = newClients.ToString(), Link = ChartHelper.GeneratePageLink(catagory.Label, this.DrillChartIds) });
-                                    this.DataSetCollection[1].SetsCollection.Add(new SetValue { Value = (aveContractPrice / 5).ToString(), Link = ChartHelper.GeneratePageLink(catagory.Label, this.DrillChartIds) });
+                                    this.DataSetCollection[0].SetsCollection.Add(new SetValue { Value = newClients.ToString(), Link = (currentUser.Role == SandlerRoles.Client) ? "" : ChartHelper.GeneratePageLink(catagory.Label, this.DrillChartIds) });
+                                    this.DataSetCollection[1].SetsCollection.Add(new SetValue { Value = (aveContractPrice / 5).ToString(), Link = (currentUser.Role == SandlerRoles.Client) ? "" : ChartHelper.GeneratePageLink(catagory.Label, this.DrillChartIds) });
                                 }
                             }
                             catch (System.InvalidOperationException)
@@ -512,8 +512,8 @@ namespace Sandler.UI.ChartStructure
 
                                 if (classHeadCountsCourse > 0 && classHeadCountsIndustry > 0)
                                 {
-                                    this.DataSetCollection[0].SetsCollection.Add(new SetValue { Value = classHeadCountsCourse.ToString(), Link = ChartHelper.GeneratePageLink(catagory.Label, this.DrillChartIds) });
-                                    this.DataSetCollection[1].SetsCollection.Add(new SetValue { Value = classHeadCountsIndustry.ToString(), Link = ChartHelper.GeneratePageLink(catagory.Label, this.DrillChartIds) });
+                                    this.DataSetCollection[0].SetsCollection.Add(new SetValue { Value = classHeadCountsCourse.ToString(), Link = (currentUser.Role == SandlerRoles.Client) ? "" : ChartHelper.GeneratePageLink(catagory.Label, this.DrillChartIds) });
+                                    this.DataSetCollection[1].SetsCollection.Add(new SetValue { Value = classHeadCountsIndustry.ToString(), Link = (currentUser.Role == SandlerRoles.Client) ? "" : ChartHelper.GeneratePageLink(catagory.Label, this.DrillChartIds) });
                                 }
                             }
                             catch (System.InvalidOperationException)
@@ -545,8 +545,8 @@ namespace Sandler.UI.ChartStructure
 
                                 //if (actualDollarsBooked > 0 && goalOfDollarsBooked > 0)
                                 //{
-                                this.DataSetCollection[0].SetsCollection.Add(new SetValue { Label = catagory.Label, Value = actualDollarsBooked.ToString(), Link = ChartHelper.GeneratePageLink("", this.DrillChartIds) });
-                                this.DataSetCollection[1].SetsCollection.Add(new SetValue { Label = catagory.Label, Value = ((Convert.ToDouble(actualDollarsBooked) / Convert.ToDouble(goalOfDollarsBooked)) * 100).ToString("#.##"), Link = ChartHelper.GeneratePageLink("", this.DrillChartIds) });
+                                this.DataSetCollection[0].SetsCollection.Add(new SetValue { Label = catagory.Label, Value = actualDollarsBooked.ToString(), Link = (currentUser.Role == SandlerRoles.Client) ? "" : ChartHelper.GeneratePageLink("", this.DrillChartIds) });
+                                this.DataSetCollection[1].SetsCollection.Add(new SetValue { Label = catagory.Label, Value = ((Convert.ToDouble(actualDollarsBooked) / Convert.ToDouble(goalOfDollarsBooked)) * 100).ToString("#.##"), Link = (currentUser.Role == SandlerRoles.Client) ? "" : ChartHelper.GeneratePageLink("", this.DrillChartIds) });
                                 //}
                             }
                             catch (System.InvalidOperationException)
@@ -775,7 +775,7 @@ namespace Sandler.UI.ChartStructure
                                     {
                                         if (record.IndustryTypeName == d.IndustryTypeName)
                                         {
-                                            this.SetsCollection.Add(new SetValue { Color = record.ColorCode, Label = record.IndustryTypeName, Value = d.Count.ToString("#"), Link = ChartHelper.GeneratePageLink("", this.DrillChartIds) });
+                                            this.SetsCollection.Add(new SetValue { Color = record.ColorCode, Label = record.IndustryTypeName, Value = d.Count.ToString("#"), Link = (currentUser.Role == SandlerRoles.Client) ? "" : ChartHelper.GeneratePageLink("", this.DrillChartIds) });
                                             break;
                                         }
                                     }

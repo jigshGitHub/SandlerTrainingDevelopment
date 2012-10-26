@@ -279,7 +279,7 @@
                             </EditItemTemplate>
                             <ItemStyle Wrap="False" />
                         </asp:TemplateField>
-                        <asp:TemplateField HeaderText="Rep Last Name :">
+                        <asp:TemplateField HeaderText="Sandler Rep Last Name :">
                             <EditItemTemplate>
                                 <asp:TextBox ID="txtRepLastName" MaxLength="50" Width="380" runat="server" Text='<%# Bind("RepLastName") %>'></asp:TextBox>
                                 
@@ -288,7 +288,7 @@
                                 <asp:Label ID="lblRepLastName" runat="server" Text='<%# Bind("RepLastName") %>'></asp:Label>
                             </ItemTemplate>
                         </asp:TemplateField>
-                        <asp:TemplateField HeaderText="Rep First Name :">
+                        <asp:TemplateField HeaderText="Sandler Rep First Name :">
                             <EditItemTemplate>
                                 <asp:TextBox ID="txtRepFirstName" MaxLength="50" Width="380" runat="server" Text='<%# Bind("RepFirstName") %>'></asp:TextBox>
                                 

@@ -1,15 +1,16 @@
 ﻿<%@ Import Namespace="Sandler.UI.ChartStructure" %>
 <%@ Control Language="C#" AutoEventWireup="true" CodeFile="Menu.ascx.cs" Inherits="Menu" %>
 <div class="clear hideSkiplink">
-    <table style="width: 100%">
+    <table style="width: 100%; border-color: White; border-style: none; border-width: thin">
         <tr>
-            <td width="20%">
+            <td style="width: 20%">
                 <asp:Image ImageUrl="~/images/header_logo.png" runat="server" ID="Image1" />
             </td>
-            <td style="padding-top: 2.5em" width="80%">
+            <td style="padding-top: 2.5em" width="70%">
                 <ul class="dropdown">
                     <li><a id="anchorDASHBOARD" runat="server" href="Default.aspx">DASHBOARD</a></li>
-                    <li><a id="anchorCHART" runat="server" href="#">REPORTS</a><ul class="sub_menu">
+                    <li><a id="anchorCHART" runat="server" href="#">REPORTS</a><ul id="reportsMenu" runat="server"
+                        class="sub_menu">
                         <li><a href="">Franchisee</a><ul class="sub_menu">
                             <li><a href="<%=  Page.ResolveClientUrl("~/" + ChartHelper.GeneratePageLink("","NewAppointmentsBySourceMonth"))  %>">
                                 New Appointments By Source (By Month)</a></li>
@@ -54,6 +55,7 @@
                         </li>
                     </ul>
                     </li>
+                    <li><a id="anchorBenchmarks" runat="server" href="#">BENCHMARKS</a></li>
                     <li><a href="~/CRM/Companies/Index.aspx" id="anchorCRM" runat="server">CRM</a></li>
                     <li><a id="anchorMyAccount" runat="server" href="#">My Account</a><ul class="sub_menu">
                         <li><a href="<%=  Page.ResolveClientUrl("~/Account/ChangePassword.aspx") %>">Change
@@ -73,11 +75,14 @@
                     <li><a id="anchorGapAnalysis" runat="server" href="~/GapAnalysisCreate.aspx">Gap Analysis</a>
                     </li>
                     <li><a id="anchorROI" runat="server" href="~/ROI.aspx">ROI&nbsp;&nbsp;</a></li>
-                    <li><a href="http://assessment.aberdeen.com/gqtJlzBd2X/SAN127/sponsor.aspx" target="_blank">
-                        Sandler Training Assessment Tool</a></li>
+                    <li><a id="anchorAssessment" runat="server" href="http://assessment.aberdeen.com/gqtJlzBd2X/SAN127/sponsor.aspx"
+                        target="_blank">Sandler Training Assessment Tool</a></li>
                     <!--<li><a href="~/Account/Logout.aspx" id="anchorLogout" runat="server">LOGOUT</a>
                     </li>-->
                 </ul>
+            </td>
+            <td style="width: 10%">
+                <asp:Image ImageUrl="~/images/ABC-DayCare.jpg" runat="server" ID="clientLogo" Visible="false" />
             </td>
         </tr>
     </table>

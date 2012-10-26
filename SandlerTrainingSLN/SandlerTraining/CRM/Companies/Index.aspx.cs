@@ -42,6 +42,13 @@ public partial class CompanyIndex : BasePage
             btnExportExcel.Visible = true;
             companyMenu.MenuEntity.Items.Find(delegate(Sandler.Web.MenuItem item) { return item.Text == "Search"; }).IsVisible = true;
             companyMenu.ReLoadSubMenu();
+            //Get the User Info
+            UserModel _user = (UserModel)HttpContext.Current.Session["CurrentUser"];
+            if(_user.Role == SandlerRoles.Client)
+            {
+                gvCompanies.Columns[4].HeaderText = "Sales Rep";
+            }
+            
         }
 
     }
@@ -63,6 +70,16 @@ public partial class CompanyIndex : BasePage
         System.Web.UI.HtmlTextWriter htmlWrite = new System.Web.UI.HtmlTextWriter(stringWrite);
         gvCompaniesExport.AllowPaging = false;
         gvCompaniesExport.AllowSorting = false;
+        //Get the User Info
+        UserModel _user = (UserModel)HttpContext.Current.Session["CurrentUser"];
+        if (_user.Role == SandlerRoles.Client)
+        {
+            gvCompaniesExport.Columns[4].Visible = false;
+        }
+        else
+        {
+            gvCompaniesExport.Columns[5].Visible = false;
+        }
         gvCompaniesExport.DataBind();
         //Report is the Div which we need to Export - Gridview is under this Div
         Report.RenderControl(htmlWrite);
@@ -71,4 +88,6 @@ public partial class CompanyIndex : BasePage
         this.EnableViewState = true;
         trExport.Visible = false;
     }
+
+    
 }

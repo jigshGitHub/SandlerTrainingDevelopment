@@ -35,9 +35,9 @@ namespace SandlerRepositories
                 {
                     return db.ExecuteDataset("sp_GetAllContactsByCoachID", "Contacts", new SqlParameter("@CoachID", _user.CoachID));
                 }
-                else if (_user.Role == SandlerRoles.FranchiseeOwner)
+                else if (_user.Role == SandlerRoles.FranchiseeOwner || _user.Role == SandlerRoles.Client)
                 {
-                    //now we have to bring records as per role - Franchisee Owner
+                    //now we have to bring records as per role - Franchisee Owner Or Client
                     return db.ExecuteDataset("sp_GetAllContactsByFrID", "Contacts", new SqlParameter("@FranchiseeID", _user.FranchiseeID));
                 }
                 else
@@ -57,6 +57,7 @@ namespace SandlerRepositories
                 }
                 else
                 {
+                    //Only for the Franchisee User
                     System.Data.DataSet ds = db.ExecuteDataset("sp_GetAllContactsForCompByUserID", "Contacts", new SqlParameter("@UserID", _user.UserId), new SqlParameter("@CompanyID", COMPANIESID));
                     return ds;
                 }
@@ -173,9 +174,9 @@ namespace SandlerRepositories
                    new SqlParameter("@ReferredBy", _contact.ReferredBy),
                    new SqlParameter("@Notes", _contact.Notes));
             }
-            else if (_user.Role == SandlerRoles.FranchiseeOwner)
+            else if (_user.Role == SandlerRoles.FranchiseeOwner || _user.Role == SandlerRoles.Client)
             {
-                //now we have to bring records as per role - Franchisee Owner
+                //now we have to bring records as per role - Franchisee Owner OR Client
                 return db.ExecuteDataset("sp_GetAllContactsByFrIDSearch", "Contacts",
                     new SqlParameter("@FranchiseeID", _user.FranchiseeID.ToString()),
                     new SqlParameter("@LastName", _contact.LastName),

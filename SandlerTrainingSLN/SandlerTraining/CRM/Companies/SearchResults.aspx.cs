@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using SandlerRepositories;
+using SandlerModels;
 
 public partial class CRM_Companies_SearchResults : BasePage
 {
@@ -30,6 +32,12 @@ public partial class CRM_Companies_SearchResults : BasePage
         else
         {
             LblStatus.Text = "";
+            //Get the User Info
+            UserModel _user = (UserModel)HttpContext.Current.Session["CurrentUser"];
+            if (_user.Role == SandlerRoles.Client)
+            {
+                gvCompanies.Columns[4].HeaderText = "Sales Rep";
+            }
         }
     }
     protected void gvCompanies_SelectedIndexChanged(object sender, EventArgs e)
@@ -54,6 +62,16 @@ public partial class CRM_Companies_SearchResults : BasePage
         System.Web.UI.HtmlTextWriter htmlWrite = new System.Web.UI.HtmlTextWriter(stringWrite);
         gvCompaniesExport.AllowPaging = false;
         gvCompaniesExport.AllowSorting = false;
+        //Get the User Info
+        UserModel _user = (UserModel)HttpContext.Current.Session["CurrentUser"];
+        if (_user.Role == SandlerRoles.Client)
+        {
+            gvCompaniesExport.Columns[4].Visible = false;
+        }
+        else
+        {
+            gvCompaniesExport.Columns[5].Visible = false;
+        }
         gvCompaniesExport.DataBind();
         //Report is the Div which we need to Export - Gridview is under this Div
         Report.RenderControl(htmlWrite);
@@ -62,4 +80,5 @@ public partial class CRM_Companies_SearchResults : BasePage
         this.EnableViewState = true;
         trExport.Visible = false;
     }
+    
 }

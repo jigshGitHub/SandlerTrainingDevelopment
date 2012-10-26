@@ -20,20 +20,16 @@
             <td colspan="2">
                 <asp:GridView Width="100%" ID="gvCompanies" runat="server" DataSourceID="SearchCompanyDS"
                     AutoGenerateColumns="False" DataKeyNames="COMPANIESID" AllowSorting="true" AllowPaging="true"
-                    PageSize="20" OnSelectedIndexChanged="gvCompanies_SelectedIndexChanged" OnDataBound="gvCompanies_DataBound">
+                    PageSize="20" OnSelectedIndexChanged="gvCompanies_SelectedIndexChanged" 
+                    OnDataBound="gvCompanies_DataBound">
                     <PagerStyle BackColor="#999999" ForeColor="Blue" CssClass="gvPager" HorizontalAlign="Center" />
                     <Columns>
                         <asp:BoundField DataField="COMPANIESID" Visible="False" />
-                        <asp:BoundField ItemStyle-HorizontalAlign="Center" HeaderStyle-ForeColor="Blue" DataField="COMPANYNAME"
-                            HeaderText="Company Name" SortExpression="COMPANYNAME" />
-                        <asp:BoundField ItemStyle-HorizontalAlign="Center" HeaderStyle-ForeColor="Blue" DataField="Industry"
-                            HeaderText="Industry" SortExpression="Industry" />
-                        <asp:BoundField ItemStyle-HorizontalAlign="Center" HeaderStyle-ForeColor="Blue" DataField="Product"
-                            HeaderText="Product" SortExpression="Product" />
-                        <asp:BoundField ItemStyle-HorizontalAlign="Center" HeaderStyle-ForeColor="Blue" DataField="Representative"
-                            HeaderText="Sandler Rep" SortExpression="Representative" />
-                        <asp:BoundField ItemStyle-HorizontalAlign="Center" HeaderStyle-ForeColor="Blue" DataField="TotalCompanyValue"
-                            HeaderText="Total Company Value" SortExpression="TotalCompanyValue" DataFormatString="{0:C}" />
+                        <asp:BoundField ItemStyle-HorizontalAlign="Center" HeaderStyle-ForeColor="Blue" DataField="COMPANYNAME" HeaderText="Company Name" SortExpression="COMPANYNAME" />
+                        <asp:BoundField ItemStyle-HorizontalAlign="Center" HeaderStyle-ForeColor="Blue" DataField="Industry" HeaderText="Industry" SortExpression="Industry" />
+                        <asp:BoundField ItemStyle-HorizontalAlign="Center" HeaderStyle-ForeColor="Blue" DataField="Product" HeaderText="Product" SortExpression="Product" />
+                        <asp:BoundField ItemStyle-HorizontalAlign="Center" HeaderStyle-ForeColor="Blue" DataField="Representative" HeaderText="Sandler Rep" SortExpression="Representative" />
+                        <asp:BoundField ItemStyle-HorizontalAlign="Center" HeaderStyle-ForeColor="Blue" DataField="TotalCompanyValue" HeaderText="Total Company Value" SortExpression="TotalCompanyValue" DataFormatString="{0:C}" />
                         <asp:TemplateField ShowHeader="False">
                             <ItemTemplate>
                                 <asp:LinkButton ID="LinkButton1" runat="server" CausesValidation="False" CommandName="Select"
@@ -54,16 +50,12 @@
                         AutoGenerateColumns="False" DataKeyNames="COMPANIESID">
                         <Columns>
                             <asp:BoundField DataField="COMPANIESID" Visible="False" />
-                            <asp:BoundField ItemStyle-HorizontalAlign="Center" HeaderStyle-ForeColor="Blue" DataField="COMPANYNAME"
-                                HeaderText="Company Name" SortExpression="COMPANYNAME" />
-                            <asp:BoundField ItemStyle-HorizontalAlign="Center" HeaderStyle-ForeColor="Blue" DataField="Industry"
-                                HeaderText="Industry" SortExpression="Industry" />
-                            <asp:BoundField ItemStyle-HorizontalAlign="Center" HeaderStyle-ForeColor="Blue" DataField="Product"
-                                HeaderText="Product" SortExpression="Product" />
-                            <asp:BoundField ItemStyle-HorizontalAlign="Center" HeaderStyle-ForeColor="Blue" DataField="Representative"
-                                HeaderText="Sandler Rep" SortExpression="Representative" />
-                            <asp:BoundField ItemStyle-HorizontalAlign="Center" HeaderStyle-ForeColor="Blue" DataField="TotalCompanyValue"
-                                HeaderText="Total Company Value" SortExpression="TotalCompanyValue" DataFormatString="{0:C}" />
+                            <asp:BoundField ItemStyle-HorizontalAlign="Center" HeaderStyle-ForeColor="Blue" DataField="COMPANYNAME" HeaderText="Company Name" SortExpression="COMPANYNAME" />
+                            <asp:BoundField ItemStyle-HorizontalAlign="Center" HeaderStyle-ForeColor="Blue" DataField="Industry" HeaderText="Industry" SortExpression="Industry" />
+                            <asp:BoundField ItemStyle-HorizontalAlign="Center" HeaderStyle-ForeColor="Blue" DataField="Product" HeaderText="Product" SortExpression="Product" />
+                            <asp:BoundField ItemStyle-HorizontalAlign="Center" HeaderStyle-ForeColor="Blue" DataField="Representative" HeaderText="Sandler Rep" SortExpression="Representative" />
+                            <asp:BoundField ItemStyle-HorizontalAlign="Center" HeaderStyle-ForeColor="Blue" DataField="Representative" HeaderText="Sales Rep" SortExpression="Representative" />
+                            <asp:BoundField ItemStyle-HorizontalAlign="Center" HeaderStyle-ForeColor="Blue" DataField="TotalCompanyValue" HeaderText="Total Company Value" SortExpression="TotalCompanyValue" DataFormatString="{0:C}" />
                             <%--Extra columns only for Export to Excel feature--%>
                             <asp:BoundField ItemStyle-HorizontalAlign="Center" HeaderStyle-ForeColor="Blue" DataField="Website" HeaderText="Website" />
                             <asp:BoundField ItemStyle-HorizontalAlign="Center" HeaderStyle-ForeColor="Blue" DataField="EmpQuantity" HeaderText="Emp Quantity" />

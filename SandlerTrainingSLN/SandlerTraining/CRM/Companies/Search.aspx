@@ -17,7 +17,8 @@
                 <asp:DetailsView ID="dvCompany" runat="server" Width="400px" AutoGenerateRows="False"
                     DefaultMode="Insert" CellPadding="3" BorderStyle="None"
                     BorderWidth="1px" BackColor="White" BorderColor="#999999" GridLines="Vertical"
-                    OnModeChanging="dvCompany_ModeChanging" OnItemInserting="dvCompany_ItemInserting">
+                    OnModeChanging="dvCompany_ModeChanging" 
+                    OnItemInserting="dvCompany_ItemInserting" ondatabound="dvCompany_DataBound">
                     <Fields>
                         <asp:TemplateField HeaderText="Company Name :">
                             <InsertItemTemplate>

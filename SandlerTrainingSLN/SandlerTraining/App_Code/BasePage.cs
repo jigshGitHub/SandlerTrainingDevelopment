@@ -190,6 +190,13 @@ public abstract class BasePage : System.Web.UI.Page
                 {
                     return (entity == SandlerEntities.Coach || entity == SandlerEntities.Region);
                 }
+            case SandlerRoles.Client:
+                if (action == SandlerUserActions.View)
+                    return true;
+                else
+                {
+                    return (entity == SandlerEntities.Coach || entity == SandlerEntities.Region);
+                }
             case SandlerRoles.Coach:
                 if (action == SandlerUserActions.View)
                     return true;

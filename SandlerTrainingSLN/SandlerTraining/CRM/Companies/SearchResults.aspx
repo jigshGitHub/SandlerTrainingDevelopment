@@ -69,8 +69,8 @@
                                 HeaderText="Industry" SortExpression="Industry" />
                             <asp:BoundField ItemStyle-HorizontalAlign="Center" HeaderStyle-ForeColor="Blue" DataField="Product"
                                 HeaderText="Product" SortExpression="Product" />
-                            <asp:BoundField ItemStyle-HorizontalAlign="Center" HeaderStyle-ForeColor="Blue" DataField="Representative"
-                                HeaderText="Sandler Rep" SortExpression="Representative" />
+                            <asp:BoundField ItemStyle-HorizontalAlign="Center" HeaderStyle-ForeColor="Blue" DataField="Representative" HeaderText="Sandler Rep" SortExpression="Representative" />
+                            <asp:BoundField ItemStyle-HorizontalAlign="Center" HeaderStyle-ForeColor="Blue" DataField="Representative" HeaderText="Sales Rep" SortExpression="Representative" />
                             <asp:BoundField ItemStyle-HorizontalAlign="Center" HeaderStyle-ForeColor="Blue" DataField="TotalCompanyValue"
                                 HeaderText="Total Company Value" SortExpression="TotalCompanyValue" DataFormatString="{0:C}" />
                             <%--Extra columns only for Export to Excel feature--%>

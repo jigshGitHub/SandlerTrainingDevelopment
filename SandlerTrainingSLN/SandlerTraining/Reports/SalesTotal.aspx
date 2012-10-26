@@ -1,4 +1,4 @@
-﻿<%@ Page Title="SalesTotal" Language="C#" MasterPageFile="~/CRM.master" AutoEventWireup="true"
+﻿<%@ Page Title="Reports-SalesTotal" Language="C#" MasterPageFile="~/CRM.master" AutoEventWireup="true"
     CodeFile="SalesTotal.aspx.cs" Inherits="Reports_SalesTotal" %>
 
 <%@ Register Src="~/Chart.ascx" TagName="Chart" TagPrefix="uc1" %>

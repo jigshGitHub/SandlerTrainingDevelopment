@@ -39,7 +39,7 @@ namespace SandlerData.Models
                     break;
                 case SandlerRoles.FranchiseeOwner:
                 case SandlerRoles.FranchiseeUser:
-
+                case SandlerRoles.Client:
                     user.FranchiseeID = franchiseeUsersRepository.GetAll().Where(r => r.UserID == user.UserId).SingleOrDefault().FranchiseeID;
                     user.FranchiseeName = franchiseeRepository.GetAll().Where(r => r.ID == user.FranchiseeID).SingleOrDefault().Name;
                     user.CoachID = franchiseeRepository.GetCoach(user.FranchiseeID).ID;

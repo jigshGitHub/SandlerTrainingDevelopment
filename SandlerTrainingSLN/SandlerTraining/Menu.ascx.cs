@@ -20,6 +20,8 @@ public partial class Menu : System.Web.UI.UserControl
                     activeLink = (HtmlAnchor)FindControl("anchorCRM");
                 else if (Page.Title.Contains("My Account"))
                     activeLink = (HtmlAnchor)FindControl("anchorMyAccount");
+                else if (Page.Title.Contains("Reports"))
+                    activeLink = (HtmlAnchor)FindControl("anchorChart");
             }
             if (activeLink != null)
                 activeLink.Attributes.Add("class", "menuLinkActive");
@@ -49,7 +51,7 @@ public partial class Menu : System.Web.UI.UserControl
                 link.HRef = "~/Account/FranchiseeOwner/Index.aspx";
                 link.Visible = true;
             }
-            if (thisPage.CurrentUser.Role == SandlerModels.SandlerRoles.FranchiseeOwner)
+            if (thisPage.CurrentUser.Role == SandlerModels.SandlerRoles.FranchiseeOwner || thisPage.CurrentUser.Role == SandlerModels.SandlerRoles.Client)
             {
                 link = ((HtmlAnchor)FindControl("manageFranchiseeUserAnchor"));
                 link.HRef = "~/Account/FranchiseeUser/Index.aspx";
@@ -60,6 +62,13 @@ public partial class Menu : System.Web.UI.UserControl
                 link = ((HtmlAnchor)FindControl("manageEmailSubscription"));
                 link.HRef = "~/Email/ManageEmailSubscription.aspx";
                 link.Visible = true;
+            }
+            if (thisPage.CurrentUser.Role == SandlerModels.SandlerRoles.Client)
+            {
+                reportsMenu.Attributes.Add("style", "display:none");
+                anchorBenchmarks.Visible = false;
+                anchorAssessment.Visible = false;
+                clientLogo.Visible = true;
             }
         }
     }

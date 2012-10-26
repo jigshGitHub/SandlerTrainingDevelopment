@@ -10,10 +10,10 @@ DECLARE @coachUserId uniqueidentifier
 /* Set all values here */
 
 
-set @user_Name = 'nectclient'--firstname.lastname
-set @_email = 'nectclient@sandler.com'
-set @coachId = 1--
-set @franchisee_name = 'Connecticut Fr';
+set @user_Name = 'MSIRegion1Fr1Client'--firstname.lastname
+set @_email = 'MSIRegion1Fr1Client@sandler.com'
+set @coachId = 10--
+set @franchisee_name = 'Region1Franchise1';
 SET @CurrentTime = GetDate();
 set @User_Id = null;
 
