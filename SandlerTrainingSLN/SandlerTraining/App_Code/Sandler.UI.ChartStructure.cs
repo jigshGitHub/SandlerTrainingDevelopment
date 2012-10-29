@@ -134,7 +134,9 @@ namespace Sandler.UI.ChartStructure
         SalesCycleTimeDrill6,
         IndustryAve,
         ClosedSalesAnalysis,
-        ClosedSalesAnalysisBySource
+        ClosedSalesAnalysisBySource,
+        PipelineOpportunityAnalysis,
+        PipelineOpportunityAnalysisBySource
     }
 
     public enum ChartTypes
@@ -205,6 +207,8 @@ namespace Sandler.UI.ChartStructure
                 AppointmentSourceRepository appointmentSource;
                 ProductTypesRepository productTypesSource;
                 IEnumerable<Tbl_ProductType> products;
+                string searchForNewCompany;
+                string searchCompanies;
                 switch ((ChartID)Enum.Parse(typeof(ChartID), this.Id.ToString(), true))
                 {
                     case ChartID.SalesTotalsByMonthQty:
@@ -289,6 +293,13 @@ namespace Sandler.UI.ChartStructure
                                 this.Categories.Add(new Category { Label = record.Name });
                             }
                         }
+                        else if (this.SubType == ChartSubType.SalesValueOpportunityType || this.SubType == ChartSubType.SalesQuantityOpportunityType)
+                        {
+                            foreach (var record in new OpprtunityTypesRepository().GetAll())
+                            {
+                                this.Categories.Add(new Category { Label = record.Name });
+                            }
+                        }
                         else
                         {
                             foreach (var record in products.Where(r => r.IsActive == true).AsEnumerable())
@@ -300,9 +311,9 @@ namespace Sandler.UI.ChartStructure
                         chartParams.Add(new ChartParameter { Value = "-2", Color = "8A4B08" });
                         chartParams.Add(new ChartParameter { Value = "-1", Color = "0000FF" });
                         chartParams.Add(new ChartParameter { Value = "0", Color = "ff9966" });
-                        string searchForNewCompany = (HttpContext.Current.Session["searchForNewCompany"] == null) ? "" : HttpContext.Current.Session["searchForNewCompany"].ToString();
-                        string searchCompanies = (HttpContext.Current.Session["searchCompanies"] == null) ? "" : HttpContext.Current.Session["searchCompanies"].ToString();
-                                
+                        searchForNewCompany = (HttpContext.Current.Session["searchForNewCompany"] == null) ? "" : HttpContext.Current.Session["searchForNewCompany"].ToString();
+                        searchCompanies = (HttpContext.Current.Session["searchCompanies"] == null) ? "" : HttpContext.Current.Session["searchCompanies"].ToString();
+
                         foreach (ChartParameter parameter in chartParams)
                         {
                             try
@@ -317,11 +328,16 @@ namespace Sandler.UI.ChartStructure
                                 if (this.SubType == ChartSubType.SalesQuantityOppSource)
                                     this.Caption = "Sales Quantity By Opportunity Source (By Month)";
 
-                                IEnumerable<SandlerModels.DataIntegration.ProductTypeVM> productTypeVMCollection = queries.GetClosedSalesAnalysis(currentUser, DateTime.Now.AddMonths(int.Parse(parameter.Value)).Month, this.SubType.ToString(), searchForNewCompany, searchCompanies);
+                                if (this.SubType == ChartSubType.SalesValueOpportunityType)
+                                    this.Caption = "Sales Value By Opportunity Type (By Month)";
+                                if (this.SubType == ChartSubType.SalesQuantityOpportunityType)
+                                    this.Caption = "Sales Quantity By Opportunity Type (By Month)";
+
+                                IEnumerable<SandlerModels.DataIntegration.ClosedSalesVM> productTypeVMCollection = queries.GetClosedSalesAnalysis(currentUser, DateTime.Now.AddMonths(int.Parse(parameter.Value)).Month, this.SubType.ToString(), searchForNewCompany, searchCompanies);
                                 if (productTypeVMCollection != null)
                                 {
                                     var clientsWithProducts = from record in productTypeVMCollection
-                                                              select new { Category = record.ProductTypeName, SalesValue = record.AvgPrice, SalesQuantity = record.Count };
+                                                              select new { Category = record.Name, SalesValue = record.AvgPrice, SalesQuantity = record.Count };
 
                                     this.DataSetCollection.Add(new ChartDataSet { Color = parameter.Color, SeriesName = DateTime.Now.AddMonths(int.Parse(parameter.Value)).ToString("MMM") });
 
@@ -357,6 +373,104 @@ namespace Sandler.UI.ChartStructure
                             catch (Exception ex)
                             {
                                 throw new Exception("Error in ChartID.NewClientsByProductTypeMonth:" + ex.Message);
+                            }
+                        }
+                        //}
+
+                        break;
+                    case ChartID.PipelineOpportunityAnalysis:
+                        productTypesSource = new ProductTypesRepository();
+                        if (currentUser.Role == SandlerRoles.FranchiseeOwner || currentUser.Role == SandlerRoles.FranchiseeUser)
+                            products = productTypesSource.GetWithFranchiseeId(currentUser.FranchiseeID);
+                        else
+                            products = productTypesSource.GetAll();
+
+                        if (this.SubType == ChartSubType.SalesValueOppSource || this.SubType == ChartSubType.SalesQuantityOppSource)
+                        {
+                            foreach (var record in new OppSourceeRepository().GetAll())
+                            {
+                                this.Categories.Add(new Category { Label = record.Name });
+                            }
+                        }
+                        else if (this.SubType == ChartSubType.SalesValueOpportunityType || this.SubType == ChartSubType.SalesQuantityOpportunityType)
+                        {
+                            foreach (var record in new OpprtunityTypesRepository().GetAll())
+                            {
+                                this.Categories.Add(new Category { Label = record.Name });
+                            }
+                        }
+                        else
+                        {
+                            foreach (var record in products.Where(r => r.IsActive == true).AsEnumerable())
+                            {
+                                this.Categories.Add(new Category { Label = record.ProductTypeName });
+                            }
+                        }
+                        chartParams = new List<ChartParameter>();
+                        chartParams.Add(new ChartParameter { Value = "0", Color = "8A4B08" });
+                        chartParams.Add(new ChartParameter { Value = "1", Color = "0000FF" });
+                        chartParams.Add(new ChartParameter { Value = "2", Color = "ff9966" });
+                        searchForNewCompany = (HttpContext.Current.Session["searchForNewCompany"] == null) ? "" : HttpContext.Current.Session["searchForNewCompany"].ToString();
+                        searchCompanies = (HttpContext.Current.Session["searchCompanies"] == null) ? "" : HttpContext.Current.Session["searchCompanies"].ToString();
+
+                        foreach (ChartParameter parameter in chartParams)
+                        {
+                            try
+                            {
+                                if (this.SubType == ChartSubType.ProductsSoldBySalesValue)
+                                    this.Caption = "Sales Value By Product (By Month)";
+                                if (this.SubType == ChartSubType.ProductsSoldBySalesQuantity)
+                                    this.Caption = "Sales Quantity By Product (By Month)";
+
+                                if (this.SubType == ChartSubType.SalesValueOppSource)
+                                    this.Caption = "Sales Value By Opportunity Source (By Month)";
+                                if (this.SubType == ChartSubType.SalesQuantityOppSource)
+                                    this.Caption = "Sales Quantity By Opportunity Source (By Month)";
+
+                                if (this.SubType == ChartSubType.SalesValueOpportunityType)
+                                    this.Caption = "Sales Value By Opportunity Type (By Month)";
+                                if (this.SubType == ChartSubType.SalesQuantityOpportunityType)
+                                    this.Caption = "Sales Quantity By Opportunity Type (By Month)";
+
+                                IEnumerable<SandlerModels.DataIntegration.PipelineOppAnalysisVM> productTypeVMCollection = queries.GetPipelineOpportunityAnalysis(currentUser, DateTime.Now.AddMonths(int.Parse(parameter.Value)).Month, this.SubType.ToString(), searchForNewCompany, searchCompanies);
+                                if (productTypeVMCollection != null)
+                                {
+                                    var clientsWithProducts = from record in productTypeVMCollection
+                                                              select new { Category = record.Name, SalesValue = record.AvgPrice, SalesQuantity = record.Count };
+
+                                    this.DataSetCollection.Add(new ChartDataSet { Color = parameter.Color, SeriesName = DateTime.Now.AddMonths(int.Parse(parameter.Value)).ToString("MMM") });
+
+                                    string link = "";
+                                    foreach (Category category in this.Categories)
+                                    {
+                                        lastDs = this.DataSetCollection.Last();
+                                        link = string.Format("{0}?{1}={2}&{3}={4}&SubType={5}", "PipelineOppAnalysis.aspx", ConfigurationManager.AppSettings["QueryStringParamDrillChartIDs"], this.DrillChartIds, ConfigurationManager.AppSettings["QueryStringParamDrillBy"], lastDs.SeriesName, this.SubType.ToString());
+                                        lastDs.SetsCollection.Add(new SetValue { Label = category.Label, Link = link });
+                                    }
+
+                                    foreach (var record in clientsWithProducts)
+                                    {
+                                        foreach (SetValue set in lastDs.SetsCollection)
+                                        {
+                                            if (set.Label == record.Category)
+                                            {
+                                                if (this.SubType.ToString().Contains("Value"))
+                                                {
+                                                    set.Value = record.SalesValue.ToString();
+                                                }
+                                                if (this.SubType.ToString().Contains("Quantity"))
+                                                {
+                                                    set.Value = record.SalesQuantity.ToString();
+                                                }
+
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                            catch (Exception ex)
+                            {
+                                throw new Exception("Error in ChartID.PipelineOpportunityAnalysis:" + ex.Message);
                             }
                         }
                         //}
@@ -933,7 +1047,9 @@ namespace Sandler.UI.ChartStructure
                 AppointmentSourceRepository appointmentSource = null;
                 ProductTypesRepository productTypesSource = null;
                 string[] colors = null;
-
+                string searchForNewCompany, searchCompanies;
+                var totalPrice = 0.0;
+                var totalCounts = 0;
                 IEnumerable<Tbl_ProductType> products;
                 switch (this.Id)
                 {
@@ -957,7 +1073,7 @@ namespace Sandler.UI.ChartStructure
 
                         }
                         break;
-                    case ChartID.ClosedSalesAnalysisBySource:
+                    case ChartID.PipelineOpportunityAnalysisBySource:
                         if (this.SubType == ChartSubType.ProductsSoldBySalesValue)
                             this.Caption = "Sales Value Percentage By Product";
                         if (this.SubType == ChartSubType.ProductsSoldBySalesQuantity)
@@ -967,13 +1083,20 @@ namespace Sandler.UI.ChartStructure
                             this.Caption = "Sales Value Percentage By Opportunity Source";
                         if (this.SubType == ChartSubType.SalesQuantityOppSource)
                             this.Caption = "Sales Quantity Percentage By Opportunity Source";
-                        string searchForNewCompany = (HttpContext.Current.Session["searchForNewCompany"] == null) ? "" : HttpContext.Current.Session["searchForNewCompany"].ToString();
-                        string searchCompanies = (HttpContext.Current.Session["searchCompanies"] == null) ? "" : HttpContext.Current.Session["searchCompanies"].ToString();
 
-                        IEnumerable<SandlerModels.DataIntegration.ProductTypeVM> productTypeVMCollection = queries.GetClosedSalesAnalysis(currentUser, DateTime.ParseExact(this.DrillBy, "MMM", null).Month, this.SubType.ToString(), searchForNewCompany, searchCompanies);
+
+                        if (this.SubType == ChartSubType.SalesValueOpportunityType)
+                            this.Caption = "Sales Value Percentage By Opportunity Source";
+                        if (this.SubType == ChartSubType.SalesQuantityOpportunityType)
+                            this.Caption = "Sales Quantity Percentage By Opportunity Source";
+
+                        searchForNewCompany = (HttpContext.Current.Session["searchForNewCompany"] == null) ? "" : HttpContext.Current.Session["searchForNewCompany"].ToString();
+                        searchCompanies = (HttpContext.Current.Session["searchCompanies"] == null) ? "" : HttpContext.Current.Session["searchCompanies"].ToString();
+
+                        IEnumerable<SandlerModels.DataIntegration.PipelineOppAnalysisVM> pipelineSalesVMCollection = queries.GetPipelineOpportunityAnalysis(currentUser, DateTime.ParseExact(this.DrillBy, "MMM", null).Month, this.SubType.ToString(), searchForNewCompany, searchCompanies);
                         colors = new string[] { "CC6600", "9900CC", "FF3300", "0099FF", "00CC66", "FFFF00", "CC6600", "9900CC" };
-                        var totalPrice = productTypeVMCollection.Sum(r => r.AvgPrice);
-                        var totalCounts = productTypeVMCollection.Sum(r => r.Count);
+                        totalPrice = pipelineSalesVMCollection.Sum(r => r.AvgPrice);
+                        totalCounts = pipelineSalesVMCollection.Sum(r => r.Count);
                         productTypesSource = new ProductTypesRepository();
 
                         if (currentUser.Role == SandlerRoles.FranchiseeOwner || currentUser.Role == SandlerRoles.FranchiseeUser)
@@ -987,13 +1110,36 @@ namespace Sandler.UI.ChartStructure
                             {
                                 try
                                 {
-                                    if (productTypeVMCollection.Single(r => r.ProductTypeName == record.Name) != null)
+                                    if (pipelineSalesVMCollection.Single(r => r.Name == record.Name) != null)
                                     {
                                         if (this.SubType.ToString().Contains("Value"))
-                                            this.SetsCollection.Add(new SetValue { Color = colors.GetValue(colorIndex).ToString(), Label = record.Name, Value = (((productTypeVMCollection.Single(r => r.ProductTypeName == record.Name).AvgPrice) / totalPrice) * 100).ToString() });
+                                            this.SetsCollection.Add(new SetValue { Color = colors.GetValue(colorIndex).ToString(), Label = record.Name, Value = (((pipelineSalesVMCollection.Single(r => r.Name == record.Name).AvgPrice) / totalPrice) * 100).ToString() });
                                         else
                                         {
-                                            this.SetsCollection.Add(new SetValue { Color = colors.GetValue(colorIndex).ToString(), Label = record.Name, Value = ((productTypeVMCollection.Single(r => r.ProductTypeName == record.Name).Count * 100) / totalCounts).ToString() });
+                                            this.SetsCollection.Add(new SetValue { Color = colors.GetValue(colorIndex).ToString(), Label = record.Name, Value = ((pipelineSalesVMCollection.Single(r => r.Name == record.Name).Count * 100) / totalCounts).ToString() });
+                                        }
+                                    }
+                                }
+                                catch (System.InvalidOperationException)
+                                {
+
+                                }
+                                colorIndex++;
+                            }
+                        }
+                        else if (this.SubType == ChartSubType.SalesValueOpportunityType || this.SubType == ChartSubType.SalesQuantityOpportunityType)
+                        {
+                            foreach (var record in new OpprtunityTypesRepository().GetAll())
+                            {
+                                try
+                                {
+                                    if (pipelineSalesVMCollection.Single(r => r.Name == record.Name) != null)
+                                    {
+                                        if (this.SubType.ToString().Contains("Value"))
+                                            this.SetsCollection.Add(new SetValue { Color = colors.GetValue(colorIndex).ToString(), Label = record.Name, Value = (((pipelineSalesVMCollection.Single(r => r.Name == record.Name).AvgPrice) / totalPrice) * 100).ToString() });
+                                        else
+                                        {
+                                            this.SetsCollection.Add(new SetValue { Color = colors.GetValue(colorIndex).ToString(), Label = record.Name, Value = ((pipelineSalesVMCollection.Single(r => r.Name == record.Name).Count * 100) / totalCounts).ToString() });
                                         }
                                     }
                                 }
@@ -1011,13 +1157,116 @@ namespace Sandler.UI.ChartStructure
                             {
                                 try
                                 {
-                                    if (productTypeVMCollection.Single(r => r.ProductTypeName == record.ProductTypeName) != null)
+                                    if (pipelineSalesVMCollection.Single(r => r.Name == record.ProductTypeName) != null)
                                     {
                                         if (this.SubType.ToString().Contains("Value"))
-                                            this.SetsCollection.Add(new SetValue { Color = record.ColorCode, Label = record.ProductTypeName, Value = (((productTypeVMCollection.Single(r => r.ProductTypeName == record.ProductTypeName).AvgPrice) / totalPrice) * 100).ToString() });
+                                            this.SetsCollection.Add(new SetValue { Color = record.ColorCode, Label = record.ProductTypeName, Value = (((pipelineSalesVMCollection.Single(r => r.Name == record.ProductTypeName).AvgPrice) / totalPrice) * 100).ToString() });
                                         else
                                         {
-                                            tmpCount = productTypeVMCollection.Single(r => r.ProductTypeName == record.ProductTypeName).Count;
+                                            tmpCount = pipelineSalesVMCollection.Single(r => r.Name == record.ProductTypeName).Count;
+                                            this.SetsCollection.Add(new SetValue { Color = record.ColorCode, Label = record.ProductTypeName, Value = ((tmpCount * 100) / totalCounts).ToString() });
+                                        }
+                                    }
+                                }
+                                catch (System.InvalidOperationException)
+                                {
+
+                                }
+                            }
+                        }
+                        //}
+                        break;
+                    case ChartID.ClosedSalesAnalysisBySource:
+                        if (this.SubType == ChartSubType.ProductsSoldBySalesValue)
+                            this.Caption = "Sales Value Percentage By Product";
+                        if (this.SubType == ChartSubType.ProductsSoldBySalesQuantity)
+                            this.Caption = "Sales Quantity Percentage By Product";
+
+                        if (this.SubType == ChartSubType.SalesValueOppSource)
+                            this.Caption = "Sales Value Percentage By Opportunity Source";
+                        if (this.SubType == ChartSubType.SalesQuantityOppSource)
+                            this.Caption = "Sales Quantity Percentage By Opportunity Source";
+
+
+                        if (this.SubType == ChartSubType.SalesValueOpportunityType)
+                            this.Caption = "Sales Value Percentage By Opportunity Source";
+                        if (this.SubType == ChartSubType.SalesQuantityOpportunityType)
+                            this.Caption = "Sales Quantity Percentage By Opportunity Source";
+
+                        searchForNewCompany = (HttpContext.Current.Session["searchForNewCompany"] == null) ? "" : HttpContext.Current.Session["searchForNewCompany"].ToString();
+                        searchCompanies = (HttpContext.Current.Session["searchCompanies"] == null) ? "" : HttpContext.Current.Session["searchCompanies"].ToString();
+
+                        IEnumerable<SandlerModels.DataIntegration.ClosedSalesVM> productTypeVMCollection = queries.GetClosedSalesAnalysis(currentUser, DateTime.ParseExact(this.DrillBy, "MMM", null).Month, this.SubType.ToString(), searchForNewCompany, searchCompanies);
+                        colors = new string[] { "CC6600", "9900CC", "FF3300", "0099FF", "00CC66", "FFFF00", "CC6600", "9900CC" };
+                        totalPrice = productTypeVMCollection.Sum(r => r.AvgPrice);
+                        totalCounts = productTypeVMCollection.Sum(r => r.Count);
+                        productTypesSource = new ProductTypesRepository();
+
+                        if (currentUser.Role == SandlerRoles.FranchiseeOwner || currentUser.Role == SandlerRoles.FranchiseeUser)
+                            products = productTypesSource.GetWithFranchiseeId(currentUser.FranchiseeID);
+                        else
+                            products = productTypesSource.GetAll().Where(r => r.IsActive == true);
+
+                        if (this.SubType == ChartSubType.SalesValueOppSource || this.SubType == ChartSubType.SalesQuantityOppSource)
+                        {
+                            foreach (var record in new OpprtunitySourceRepository().GetAll())
+                            {
+                                try
+                                {
+                                    if (productTypeVMCollection.Single(r => r.Name == record.Name) != null)
+                                    {
+                                        if (this.SubType.ToString().Contains("Value"))
+                                            this.SetsCollection.Add(new SetValue { Color = colors.GetValue(colorIndex).ToString(), Label = record.Name, Value = (((productTypeVMCollection.Single(r => r.Name == record.Name).AvgPrice) / totalPrice) * 100).ToString() });
+                                        else
+                                        {
+                                            this.SetsCollection.Add(new SetValue { Color = colors.GetValue(colorIndex).ToString(), Label = record.Name, Value = ((productTypeVMCollection.Single(r => r.Name == record.Name).Count * 100) / totalCounts).ToString() });
+                                        }
+                                    }
+                                }
+                                catch (System.InvalidOperationException)
+                                {
+
+                                }
+                                colorIndex++;
+                            }
+                        }
+                        else if (this.SubType == ChartSubType.SalesValueOpportunityType || this.SubType == ChartSubType.SalesQuantityOpportunityType)
+                        {
+                            foreach (var record in new OpprtunityTypesRepository().GetAll())
+                            {
+                                try
+                                {
+                                    if (productTypeVMCollection.Single(r => r.Name == record.Name) != null)
+                                    {
+                                        if (this.SubType.ToString().Contains("Value"))
+                                            this.SetsCollection.Add(new SetValue { Color = colors.GetValue(colorIndex).ToString(), Label = record.Name, Value = (((productTypeVMCollection.Single(r => r.Name == record.Name).AvgPrice) / totalPrice) * 100).ToString() });
+                                        else
+                                        {
+                                            this.SetsCollection.Add(new SetValue { Color = colors.GetValue(colorIndex).ToString(), Label = record.Name, Value = ((productTypeVMCollection.Single(r => r.Name == record.Name).Count * 100) / totalCounts).ToString() });
+                                        }
+                                    }
+                                }
+                                catch (System.InvalidOperationException)
+                                {
+
+                                }
+                                colorIndex++;
+                            }
+                        }
+                        else
+                        {
+                            int tmpCount = 0;
+                            foreach (var record in products.AsEnumerable())
+                            {
+                                try
+                                {
+                                    if (productTypeVMCollection.Single(r => r.Name == record.ProductTypeName) != null)
+                                    {
+                                        if (this.SubType.ToString().Contains("Value"))
+                                            this.SetsCollection.Add(new SetValue { Color = record.ColorCode, Label = record.ProductTypeName, Value = (((productTypeVMCollection.Single(r => r.Name == record.ProductTypeName).AvgPrice) / totalPrice) * 100).ToString() });
+                                        else
+                                        {
+                                            tmpCount = productTypeVMCollection.Single(r => r.Name == record.ProductTypeName).Count;
                                             this.SetsCollection.Add(new SetValue { Color = record.ColorCode, Label = record.ProductTypeName, Value = ((tmpCount * 100) / totalCounts).ToString() });
                                         }
                                     }

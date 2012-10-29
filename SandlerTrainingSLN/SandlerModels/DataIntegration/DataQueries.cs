@@ -78,36 +78,73 @@ namespace SandlerModels.DataIntegration
             return data;
         }
 
-        public IEnumerable<ProductTypeVM> GetClosedSalesAnalysis(UserModel currentUser, int month, string analysisType, string searchNewCompanyOnly, string searchCompanyIds)
+        public IEnumerable<ClosedSalesVM> GetClosedSalesAnalysis(UserModel currentUser, int month, string analysisType, string searchNewCompanyOnly, string searchCompanyIds)
         {
             UserEntities userEntities = null;
-            IEnumerable<ProductTypeVM> data = null;
+            IEnumerable<ClosedSalesVM> data = null;
             CompaniesRepository companyRepository = null;
             SqlDataReader records;
-            List<ProductTypeVM> products = null;
+            List<ClosedSalesVM> closedSales = null;
             try
             {
                 userEntities = UserEntitiesFactory.Get(currentUser);
 
                 companyRepository = new CompaniesRepository();
                 records = companyRepository.GetClosedSalesAnalysis(month, DateTime.Now.Year, currentUser.UserId.ToString(), analysisType, searchNewCompanyOnly, searchCompanyIds);
-                if (analysisType == "ProductsSoldBySalesQuantity" || analysisType == "ProductsSoldBySalesValue" || analysisType == "SalesValueOppSource" || analysisType == "SalesQuantityOppSource")
-                    products = new List<ProductTypeVM>();
+                closedSales = new List<ClosedSalesVM>();
                 if (records != null)
                 {
                     while (records.Read())
                     {
                         if (!string.IsNullOrEmpty(records.GetValue(0).ToString()) && !string.IsNullOrEmpty(records.GetValue(1).ToString()))
                         {
-                            if (analysisType == "ProductsSoldBySalesQuantity" || analysisType == "SalesQuantityOppSource")
-                                products.Add(new ProductTypeVM { Count = records.GetInt32(0), ProductTypeName = records.GetString(1) });
-                            if (analysisType == "ProductsSoldBySalesValue" || analysisType == "SalesValueOppSource")
-                                products.Add(new ProductTypeVM { AvgPrice = Convert.ToDouble(records.GetDecimal(0)), ProductTypeName = records.GetString(1) });
+                            if (analysisType == "ProductsSoldBySalesQuantity" || analysisType == "SalesQuantityOppSource" || analysisType == "SalesQuantityOpportunityType")
+                                closedSales.Add(new ClosedSalesVM { Count = records.GetInt32(0), Name = records.GetString(1) });
+                            if (analysisType == "ProductsSoldBySalesValue" || analysisType == "SalesValueOppSource" || analysisType == "SalesValueOpportunityType")
+                                closedSales.Add(new ClosedSalesVM { AvgPrice = Convert.ToDouble(records.GetDecimal(0)), Name = records.GetString(1) });
                         }
                     }
                     records.Close();
                 }
-                data = products.AsEnumerable<ProductTypeVM>();
+                data = closedSales.AsEnumerable<ClosedSalesVM>();
+                //}
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("exception in DataQueries.GetNewClientsByProductType: " + ex.Message);
+            }
+            return data;
+        }
+
+        public IEnumerable<PipelineOppAnalysisVM> GetPipelineOpportunityAnalysis(UserModel currentUser, int month, string analysisType, string searchNewCompanyOnly, string searchCompanyIds)
+        {
+            UserEntities userEntities = null;
+            IEnumerable<PipelineOppAnalysisVM> data = null;
+            CompaniesRepository companyRepository = null;
+            SqlDataReader records;
+            List<PipelineOppAnalysisVM> closedSales = null;
+            try
+            {
+                userEntities = UserEntitiesFactory.Get(currentUser);
+
+                companyRepository = new CompaniesRepository();
+                records = companyRepository.GetPipelineOpportunityAnalysis(month, DateTime.Now.Year, currentUser.UserId.ToString(), analysisType, searchNewCompanyOnly, searchCompanyIds);
+                closedSales = new List<PipelineOppAnalysisVM>();
+                if (records != null)
+                {
+                    while (records.Read())
+                    {
+                        if (!string.IsNullOrEmpty(records.GetValue(0).ToString()) && !string.IsNullOrEmpty(records.GetValue(1).ToString()))
+                        {
+                            if (analysisType == "ProductsSoldBySalesQuantity" || analysisType == "SalesQuantityOppSource" || analysisType == "SalesQuantityOpportunityType")
+                                closedSales.Add(new PipelineOppAnalysisVM { Count = records.GetInt32(0), Name = records.GetString(1) });
+                            if (analysisType == "ProductsSoldBySalesValue" || analysisType == "SalesValueOppSource" || analysisType == "SalesValueOpportunityType")
+                                closedSales.Add(new PipelineOppAnalysisVM { AvgPrice = Convert.ToDouble(records.GetDecimal(0)), Name = records.GetString(1) });
+                        }
+                    }
+                    records.Close();
+                }
+                data = closedSales.AsEnumerable<PipelineOppAnalysisVM>();
                 //}
             }
             catch (Exception ex)

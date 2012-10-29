@@ -517,6 +517,21 @@ namespace SandlerRepositories
             return newAppointments;
         }
 
+        public SqlDataReader GetPipelineOpportunityAnalysis(int month, int year, string userId, string analysisType, string searchNewCompany, string companyIds)
+        {
+            SqlDataReader newAppointments = null;
+            try
+            {
+                object searchNewCompanyParamVal = (string.IsNullOrEmpty(searchNewCompany)) ? DBNull.Value : searchNewCompany as object;
+                object companyIdsParamVal = (string.IsNullOrEmpty(companyIds)) ? DBNull.Value : companyIds as object;
+                newAppointments = db.ExecuteReader("sp_PipelineOpportunityAnalysis", new SqlParameter("@month", month), new SqlParameter("@year", year), new SqlParameter("@userId", userId), new SqlParameter("@analysisType", analysisType), new SqlParameter("@searchNewCompany", searchNewCompanyParamVal), new SqlParameter("@companyIds", companyIdsParamVal));
+            }
+            catch (Exception ex)
+            {
+            }
+            return newAppointments;
+        }
+
         public SqlDataReader GetClientsAvgLengthWithIndustries(string userId)
         {
             SqlDataReader newAppointments = null;

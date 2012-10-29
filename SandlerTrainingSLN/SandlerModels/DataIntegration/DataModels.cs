@@ -25,6 +25,26 @@ namespace SandlerModels.DataIntegration
         public double AvgPrice { get; set; }
     }
 
+    public class ClosedSalesVM
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public bool IsActive { get; set; }
+        public int FranchiseeId { get; set; }
+        public int Count { get; set; }
+        public double AvgPrice { get; set; }
+    }
+
+    public class PipelineOppAnalysisVM
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public bool IsActive { get; set; }
+        public int FranchiseeId { get; set; }
+        public int Count { get; set; }
+        public double AvgPrice { get; set; }
+    }
+
     public partial class CourseVM
     {
         public int CourseId { get; set; }

@@ -36,12 +36,12 @@
                                                 <td style="width: 20%">
                                                     Select 'Closed Sales Analysis' Type:
                                                 </td>
-                                                <td>
+                                                <td><!--<asp:ListItem Text="Sales Rep" Value="SalesRep"></asp:ListItem>-->
                                                     <asp:RadioButtonList ID="radBtnAnalysisType" runat="server">
                                                         <asp:ListItem Text="Product Sold" Value="ProductsSold" Selected="True"></asp:ListItem>
                                                         <asp:ListItem Text="Opportunity Source" Value="OpportunitySource"></asp:ListItem>
                                                         <asp:ListItem Text="Opportunity Type" Value="OpportunityType"></asp:ListItem>
-                                                        <asp:ListItem Text="Sales Rep" Value="SalesRep"></asp:ListItem>
+                                                        
                                                     </asp:RadioButtonList>
                                                 </td>
                                                 <td>
