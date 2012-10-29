@@ -102,14 +102,13 @@ namespace Sandler.UI.ChartStructure
         SalesCycleTimeMain,
         ProspectingResults,
         SalesTotalsByMonthValue,
-        ProductMarginContributionValue,
-        ProductMarginContributionQty,
         RevenueBySourceValue,
         RevenueBySourceQty,
         ProdSoldByRepValue,
         ProdSoldByRepQty,
-        ProductSoldAsSaleValue,
-        ProductSoldAsSaleQty,
+        ProductMarginContributionByProductByMonth,
+        ProductSalesQty,
+        ProductMarginValue,
         ProductSoldByCompValue,
         ProductSoldByCompQty,
         ProductSalesActivityValue,
@@ -211,6 +210,59 @@ namespace Sandler.UI.ChartStructure
                 string searchCompanies;
                 switch ((ChartID)Enum.Parse(typeof(ChartID), this.Id.ToString(), true))
                 {
+                    case ChartID.ProductMarginContributionByProductByMonth:
+                        productTypesSource = new ProductTypesRepository();
+                        
+                        if (currentUser.Role == SandlerRoles.FranchiseeOwner || currentUser.Role == SandlerRoles.FranchiseeUser)
+                            products = productTypesSource.GetWithFranchiseeId(currentUser.FranchiseeID);
+                        else
+                            products = productTypesSource.GetAll();
+
+                        foreach (var record in products.Where(r => r.IsActive == true).AsEnumerable())
+                        {
+                            this.Categories.Add(new Category { Label = record.ProductTypeName });
+                        }
+                        chartParams = new List<ChartParameter>();
+                        chartParams.Add(new ChartParameter { Value = "-2", Color = "3300ff" });
+                        chartParams.Add(new ChartParameter { Value = "-1", Color = "ff6600" });
+                        chartParams.Add(new ChartParameter { Value = "0", Color = "32df00" });
+
+
+                        foreach (ChartParameter parameter in chartParams)
+                        {
+                            try
+                            {
+                                IEnumerable<SandlerModels.DataIntegration.ProductTypeVM> productSalesCollection = queries.GetProductSalesByMonth(currentUser, DateTime.Now.AddMonths(int.Parse(parameter.Value)).Month);
+                                if (productSalesCollection != null)
+                                {
+                                    var productSales = from record in productSalesCollection
+                                                          select new { Category = record.ProductTypeName, Value = record.AvgPrice };
+
+                                    this.DataSetCollection.Add(new ChartDataSet { Color = parameter.Color, SeriesName = DateTime.Now.AddMonths(int.Parse(parameter.Value)).ToString("MMM") });
+
+                                    foreach (Category category in this.Categories)
+                                    {
+                                        lastDs = this.DataSetCollection.Last();
+                                        lastDs.SetsCollection.Add(new SetValue { Label = category.Label, Link = ChartHelper.GeneratePageLink(lastDs.SeriesName, this.DrillChartIds) });
+                                    }
+
+                                    foreach (var record in productSales)
+                                    {
+                                        foreach (SetValue set in lastDs.SetsCollection)
+                                        {
+                                            if (set.Label == record.Category)
+                                                set.Value = record.Value.ToString();
+                                        }
+                                    }
+                                }
+                            }
+                            catch (Exception ex)
+                            {
+                                throw new Exception("Error in ChartID.NewAppointmentsBySourceMonth:" + ex.Message);
+                            }
+                            //}
+                        }
+                        break;
                     case ChartID.SalesTotalsByMonthQty:
                         string[] monthNames = System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.MonthNames;
 
@@ -229,7 +281,7 @@ namespace Sandler.UI.ChartStructure
                         {
                             try
                             {
-                                salesTotalData = queries.GetSalesTotalByMonth(currentUser, int.Parse(parameter.Value));
+                                salesTotalData = queries.GetSalesTotalByYear(currentUser, int.Parse(parameter.Value));
                                 if (salesTotalData != null)
                                 {
                                     var salesDataForAYear = from opportunity in salesTotalData
@@ -1330,6 +1382,60 @@ namespace Sandler.UI.ChartStructure
                             }
                         }
                         //}
+                        break;
+                    case ChartID.ProductMarginValue:
+                        var productSalesValue = from record in queries.GetProductSalesByMonth(currentUser, DateTime.ParseExact(this.DrillBy, "MMM", null).Month)
+                                           select new { Name = record.ProductTypeName, Value = record.AvgPrice };
+
+                        totalPrice = productSalesValue.Sum(r => r.Value);
+
+                        productTypesSource = new ProductTypesRepository();
+
+                        if (currentUser.Role == SandlerRoles.FranchiseeOwner || currentUser.Role == SandlerRoles.FranchiseeUser)
+                            products = productTypesSource.GetWithFranchiseeId(currentUser.FranchiseeID);
+                        else
+                            products = productTypesSource.GetAll().Where(r => r.IsActive == true);
+
+
+                        foreach (var record in products.AsEnumerable())
+                        {
+                            try
+                            {
+                                if (productSalesValue.Single(r => r.Name == record.ProductTypeName) != null)
+                                    this.SetsCollection.Add(new SetValue { Color = record.ColorCode, Label = record.ProductTypeName, Value = (((productSalesValue.Single(r => r.Name == record.ProductTypeName).Value) / totalPrice) * 100).ToString() });
+                            }
+                            catch (System.InvalidOperationException)
+                            {
+
+                            }
+                        }
+                        break;
+                    case ChartID.ProductSalesQty:
+                        var productSalesQty = from record in queries.GetProductSalesByMonth(currentUser, DateTime.ParseExact(this.DrillBy, "MMM", null).Month)
+                                                      select new { Name = record.ProductTypeName, Count = record.Count };
+
+                        totalPrice = productSalesQty.Sum(r => r.Count);
+                        
+                        productTypesSource = new ProductTypesRepository();
+
+                        if (currentUser.Role == SandlerRoles.FranchiseeOwner || currentUser.Role == SandlerRoles.FranchiseeUser)
+                            products = productTypesSource.GetWithFranchiseeId(currentUser.FranchiseeID);
+                        else
+                            products = productTypesSource.GetAll().Where(r => r.IsActive == true);
+
+
+                        foreach (var record in products.AsEnumerable())
+                        {
+                            try
+                            {
+                                if (productSalesQty.Single(r => r.Name == record.ProductTypeName) != null)
+                                    this.SetsCollection.Add(new SetValue { Color = record.ColorCode, Label = record.ProductTypeName, Value = (((productSalesQty.Single(r => r.Name == record.ProductTypeName).Count) / totalPrice) * 100).ToString() });
+                            }
+                            catch (System.InvalidOperationException)
+                            {
+
+                            }
+                        }
                         break;
 
                     case ChartID.NewClientQuantity:

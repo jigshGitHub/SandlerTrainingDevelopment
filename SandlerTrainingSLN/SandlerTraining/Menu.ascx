@@ -43,7 +43,7 @@
                         </ul>
                         </li>
                         <li><a href="#">Product</a><ul class="sub_menu">
-                            <li><a href="#">Product Margin Contribution</a></li><li><a href="#">Products Sold as
+                            <li><a href="<%=  Page.ResolveClientUrl("~/" + ChartHelper.GeneratePageLink("","ProductMarginContributionByProductByMonth"))  %>">Product Margin Contribution</a></li><li><a href="#">Products Sold as
                                 a 1st Sale</a></li><li><a href="#">Products Sold by Company</a></li><li><a href="#">
                                     Products Sold by Rep</a></li><li>
                         </ul>

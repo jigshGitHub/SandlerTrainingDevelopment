@@ -525,7 +525,7 @@ namespace SandlerModels.DataIntegration
                 {
                     while (opportunities.Read())
                     {
-                        sctPoftfolio.Add(new SalesCycleTimePortfolioVM { Id = opportunities.GetInt32(0), OppCreationDate = opportunities.GetDateTime(1), CloseDate = opportunities.GetDateTime(2), DateDiffInMonths = opportunities.GetInt32(3), MultipleOfSixVal  = opportunities.GetInt32(4) });
+                        sctPoftfolio.Add(new SalesCycleTimePortfolioVM { Id = opportunities.GetInt32(0), OppCreationDate = opportunities.GetDateTime(1), CloseDate = opportunities.GetDateTime(2), DateDiffInMonths = opportunities.GetInt32(3), MultipleOfSixVal = opportunities.GetInt32(4) });
                     }
                     opportunities.Close();
                 }
@@ -538,7 +538,7 @@ namespace SandlerModels.DataIntegration
             return data;
         }
 
-        public IEnumerable<SalesTotalByMonthVM> GetSalesTotalByMonth(UserModel currentUser, int processingYear)
+        public IEnumerable<SalesTotalByMonthVM> GetSalesTotalByYear(UserModel currentUser, int processingYear)
         {
             UserEntities userEntities = null;
             IEnumerable<Opportunity> opportunties = null;
@@ -559,8 +559,8 @@ namespace SandlerModels.DataIntegration
                     if (processingYear == DateTime.Now.Year)
                     {
                         data = from opportunity in opportunties
-                                   where opportunity.Status.ToLower() != "closed lost" && opportunity.CLOSEDATE.Value.Year == processingYear && opportunity.CLOSEDATE.Value < DateTime.Now
-                                   select new SalesTotalByMonthVM { CloseDate = opportunity.CLOSEDATE.Value, Id = opportunity.ID, Value = opportunity.VALUE.Value };
+                               where opportunity.Status.ToLower() != "closed lost" && opportunity.CLOSEDATE.Value.Year == processingYear && opportunity.CLOSEDATE.Value < DateTime.Now
+                               select new SalesTotalByMonthVM { CloseDate = opportunity.CLOSEDATE.Value, Id = opportunity.ID, Value = opportunity.VALUE.Value };
                     }
                     else
                     {
@@ -568,6 +568,33 @@ namespace SandlerModels.DataIntegration
                                where opportunity.Status.ToLower() == "closed won" && opportunity.CLOSEDATE.Value.Year == processingYear && opportunity.CLOSEDATE.Value < DateTime.Now
                                select new SalesTotalByMonthVM { CloseDate = opportunity.CLOSEDATE.Value, Id = opportunity.ID, Value = opportunity.VALUE.Value };
                     }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("exception in DataQueries.GetCostOfSale: " + ex.Message);
+            }
+            return data;
+        }
+
+        public IEnumerable<ProductTypeVM> GetProductSalesByMonth(UserModel currentUser, int processingMonth)
+        {
+            UserEntities userEntities = null;
+            IEnumerable<Opportunity> opportunties = null;
+            IEnumerable<ProductTypeVM> data = null;
+
+            try
+            {
+                userEntities = UserEntitiesFactory.Get(currentUser);
+                opportunties = userEntities.Opportunities;
+
+                if (userEntities.OpportunitiesCount > 0)
+                {
+                    data = from opportunity in opportunties
+                           where opportunity.CLOSEDATE.Value.Year == DateTime.Now.Year && opportunity.CLOSEDATE.Value.Month == processingMonth && opportunity.CLOSEDATE.Value < DateTime.Now
+                           group opportunity by new { opportunity.ProductTypeName }
+                               into grp
+                               select new ProductTypeVM { ProductTypeName = grp.Key.ProductTypeName, AvgPrice = double.Parse(grp.Sum(record => record.VALUE.Value).ToString()), Count = grp.Count() };
                 }
             }
             catch (Exception ex)

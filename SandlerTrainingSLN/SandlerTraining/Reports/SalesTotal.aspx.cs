@@ -46,7 +46,7 @@ public partial class Reports_SalesTotal : BasePage
                 columnIndex++;
                 try
                 {
-                    salesTotalData = queries.GetSalesTotalByMonth(CurrentUser, int.Parse(parameter.Value));
+                    salesTotalData = queries.GetSalesTotalByYear(CurrentUser, int.Parse(parameter.Value));
                     if (salesTotalData != null)
                     {
                         var salesDataForAYear = from opportunity in salesTotalData
