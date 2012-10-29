@@ -24,7 +24,7 @@
                                 Average Length of Time for Active Clients (By Industry)</a></li>
                             <li><a href="<%=  Page.ResolveClientUrl("~/" + ChartHelper.GeneratePageLink("","ActualDollarsBookedComparisonGoal"))  %>">
                                 Actual Dollars Booked and Comparison to Goal (By Month)</a></li><!--
-                            <li><a href="=  Page.ResolveClientUrl("~/" + ChartHelper.GeneratePageLink("","ClosedSalesAnalysis","ProductsSoldBySalesValue"))  %>">
+                            <li><a href="  Page.ResolveClientUrl("~/" + ChartHelper.GeneratePageLink("","ClosedSalesAnalysis","ProductsSoldBySalesValue"))  %>">
                                 Sales Value By Product (By Month)</a></li>
                             <li><a href="=  Page.ResolveClientUrl("~/" + ChartHelper.GeneratePageLink("","ClosedSalesAnalysis","ProductsSoldBySalesQuantity"))  %>">
                                 Sales Quantity By Product (By Month)</a></li>
@@ -49,7 +49,7 @@
                         </ul>
                         </li>
                         <li><a href="#">Ad Hoc</a><ul class="sub_menu">
-                            <li><a href="#">Closed Sales Analysis (By Month)</a></li><li><a href="#">Pipeline Analysis
+                            <li><a href="<%=  Page.ResolveClientUrl("~/Reports/ClosedSalesAnalysis.aspx")%>">Closed Sales Analysis (By Month)</a></li><li><a href="#">Pipeline Analysis
                                 (By Month)</a></li>
                         </ul>
                         </li>

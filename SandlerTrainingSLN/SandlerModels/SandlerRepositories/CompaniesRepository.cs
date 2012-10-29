@@ -502,12 +502,14 @@ namespace SandlerRepositories
             return newAppointments;
         }
 
-        public SqlDataReader GetClosedSalesAnalysis(int month, int year, string userId, string analysisType)
+        public SqlDataReader GetClosedSalesAnalysis(int month, int year, string userId, string analysisType, string searchNewCompany, string companyIds)
         {
             SqlDataReader newAppointments = null;
             try
             {
-                newAppointments = db.ExecuteReader("sp_GetClosedSalesAnalysis", new SqlParameter("@month", month), new SqlParameter("@year", year), new SqlParameter("@userId", userId), new SqlParameter("@analysisType", analysisType));
+                object searchNewCompanyParamVal = (string.IsNullOrEmpty(searchNewCompany)) ? DBNull.Value : searchNewCompany as object;
+                object companyIdsParamVal = (string.IsNullOrEmpty(companyIds)) ? DBNull.Value : companyIds as object;
+                newAppointments = db.ExecuteReader("sp_GetClosedSalesAnalysis", new SqlParameter("@month", month), new SqlParameter("@year", year), new SqlParameter("@userId", userId), new SqlParameter("@analysisType", analysisType), new SqlParameter("@searchNewCompany", searchNewCompanyParamVal), new SqlParameter("@companyIds", companyIdsParamVal));
             }
             catch (Exception ex)
             {

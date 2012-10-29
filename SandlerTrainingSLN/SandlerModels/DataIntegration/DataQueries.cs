@@ -78,7 +78,7 @@ namespace SandlerModels.DataIntegration
             return data;
         }
 
-        public IEnumerable<ProductTypeVM> GetClosedSalesAnalysis(UserModel currentUser, int month, string analysisType)
+        public IEnumerable<ProductTypeVM> GetClosedSalesAnalysis(UserModel currentUser, int month, string analysisType, string searchNewCompanyOnly, string searchCompanyIds)
         {
             UserEntities userEntities = null;
             IEnumerable<ProductTypeVM> data = null;
@@ -90,7 +90,7 @@ namespace SandlerModels.DataIntegration
                 userEntities = UserEntitiesFactory.Get(currentUser);
 
                 companyRepository = new CompaniesRepository();
-                records = companyRepository.GetClosedSalesAnalysis(month, DateTime.Now.Year, currentUser.UserId.ToString(), analysisType);
+                records = companyRepository.GetClosedSalesAnalysis(month, DateTime.Now.Year, currentUser.UserId.ToString(), analysisType, searchNewCompanyOnly, searchCompanyIds);
                 if (analysisType == "ProductsSoldBySalesQuantity" || analysisType == "ProductsSoldBySalesValue" || analysisType == "SalesValueOppSource" || analysisType == "SalesQuantityOppSource")
                     products = new List<ProductTypeVM>();
                 if (records != null)

@@ -22,10 +22,6 @@ namespace Sandler.UI.ChartStructure
         {
             return (string.IsNullOrEmpty(drillBy) && string.IsNullOrEmpty(drillChartIds)) ? "" : string.Format("{0}?{1}={2}&{3}={4}", CHARTPAGE, ConfigurationManager.AppSettings["QueryStringParamDrillChartIDs"], drillChartIds, ConfigurationManager.AppSettings["QueryStringParamDrillBy"], drillBy);
         }
-        public static string GeneratePageLink(string drillBy, string drillChartIds, string chartSubtype)
-        {
-            return (string.IsNullOrEmpty(drillBy) && string.IsNullOrEmpty(drillChartIds)) ? "" : string.Format("{0}?{1}={2}&{3}={4}&SubType={5}", CHARTPAGE, ConfigurationManager.AppSettings["QueryStringParamDrillChartIDs"], drillChartIds, ConfigurationManager.AppSettings["QueryStringParamDrillBy"], drillBy, chartSubtype);
-        }
 
         public static string GetSCTimeLegend(int value)
         {
@@ -304,7 +300,9 @@ namespace Sandler.UI.ChartStructure
                         chartParams.Add(new ChartParameter { Value = "-2", Color = "8A4B08" });
                         chartParams.Add(new ChartParameter { Value = "-1", Color = "0000FF" });
                         chartParams.Add(new ChartParameter { Value = "0", Color = "ff9966" });
-
+                        string searchForNewCompany = (HttpContext.Current.Session["searchForNewCompany"] == null) ? "" : HttpContext.Current.Session["searchForNewCompany"].ToString();
+                        string searchCompanies = (HttpContext.Current.Session["searchCompanies"] == null) ? "" : HttpContext.Current.Session["searchCompanies"].ToString();
+                                
                         foreach (ChartParameter parameter in chartParams)
                         {
                             try
@@ -319,7 +317,7 @@ namespace Sandler.UI.ChartStructure
                                 if (this.SubType == ChartSubType.SalesQuantityOppSource)
                                     this.Caption = "Sales Quantity By Opportunity Source (By Month)";
 
-                                IEnumerable<SandlerModels.DataIntegration.ProductTypeVM> productTypeVMCollection = queries.GetClosedSalesAnalysis(currentUser, DateTime.Now.AddMonths(int.Parse(parameter.Value)).Month, this.SubType.ToString());
+                                IEnumerable<SandlerModels.DataIntegration.ProductTypeVM> productTypeVMCollection = queries.GetClosedSalesAnalysis(currentUser, DateTime.Now.AddMonths(int.Parse(parameter.Value)).Month, this.SubType.ToString(), searchForNewCompany, searchCompanies);
                                 if (productTypeVMCollection != null)
                                 {
                                     var clientsWithProducts = from record in productTypeVMCollection
@@ -327,10 +325,13 @@ namespace Sandler.UI.ChartStructure
 
                                     this.DataSetCollection.Add(new ChartDataSet { Color = parameter.Color, SeriesName = DateTime.Now.AddMonths(int.Parse(parameter.Value)).ToString("MMM") });
 
+                                    string link = "";
                                     foreach (Category category in this.Categories)
                                     {
                                         lastDs = this.DataSetCollection.Last();
-                                        lastDs.SetsCollection.Add(new SetValue { Label = category.Label, Link = ChartHelper.GeneratePageLink(lastDs.SeriesName, this.DrillChartIds, this.SubType.ToString()) });
+                                        link = string.Format("{0}?{1}={2}&{3}={4}&SubType={5}", "ClosedSalesAnalysis.aspx", ConfigurationManager.AppSettings["QueryStringParamDrillChartIDs"], this.DrillChartIds, ConfigurationManager.AppSettings["QueryStringParamDrillBy"], lastDs.SeriesName, this.SubType.ToString());
+                                        //lastDs.SetsCollection.Add(new SetValue { Label = category.Label, Link = ChartHelper.GeneratePageLink(lastDs.SeriesName, this.DrillChartIds, this.SubType.ToString()) });
+                                        lastDs.SetsCollection.Add(new SetValue { Label = category.Label, Link = link });
                                     }
 
                                     foreach (var record in clientsWithProducts)
@@ -966,8 +967,10 @@ namespace Sandler.UI.ChartStructure
                             this.Caption = "Sales Value Percentage By Opportunity Source";
                         if (this.SubType == ChartSubType.SalesQuantityOppSource)
                             this.Caption = "Sales Quantity Percentage By Opportunity Source";
+                        string searchForNewCompany = (HttpContext.Current.Session["searchForNewCompany"] == null) ? "" : HttpContext.Current.Session["searchForNewCompany"].ToString();
+                        string searchCompanies = (HttpContext.Current.Session["searchCompanies"] == null) ? "" : HttpContext.Current.Session["searchCompanies"].ToString();
 
-                        IEnumerable<SandlerModels.DataIntegration.ProductTypeVM> productTypeVMCollection = queries.GetClosedSalesAnalysis(currentUser, DateTime.ParseExact(this.DrillBy, "MMM", null).Month, this.SubType.ToString());
+                        IEnumerable<SandlerModels.DataIntegration.ProductTypeVM> productTypeVMCollection = queries.GetClosedSalesAnalysis(currentUser, DateTime.ParseExact(this.DrillBy, "MMM", null).Month, this.SubType.ToString(), searchForNewCompany, searchCompanies);
                         colors = new string[] { "CC6600", "9900CC", "FF3300", "0099FF", "00CC66", "FFFF00", "CC6600", "9900CC" };
                         var totalPrice = productTypeVMCollection.Sum(r => r.AvgPrice);
                         var totalCounts = productTypeVMCollection.Sum(r => r.Count);

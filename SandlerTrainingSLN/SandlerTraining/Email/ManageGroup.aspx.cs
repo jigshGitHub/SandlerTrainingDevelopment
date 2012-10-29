@@ -7,7 +7,7 @@ using System.Web.UI.WebControls;
 using SandlerModels;
 using SandlerModels.DataIntegration;
 
-public partial class Email_ManageGroup : System.Web.UI.Page
+public partial class Email_ManageGroup : BasePage
 {
     string _coachIds = "";
     string _frOwnerIds = "";

@@ -19,7 +19,7 @@ using DDay.iCal.Serialization.iCalendar;
 using eWorld;
 
 
-public partial class Email_MeetingEnvite : System.Web.UI.Page
+public partial class Email_MeetingEnvite : BasePage
 {
     DataSet ds;
     protected void Page_Load(object sender, EventArgs e)

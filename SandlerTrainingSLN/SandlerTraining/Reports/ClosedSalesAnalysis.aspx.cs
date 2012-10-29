@@ -6,13 +6,24 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using SandlerModels.DataIntegration;
 using Sandler.UI.ChartStructure;
+using SandlerRepositories;
+using InfoSoftGlobal;
 public partial class Reports_ClosedSalesAnalysis : BasePage
 {
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)
         {
-            BindCompanies();
+            if (string.IsNullOrEmpty(Request.QueryString[QUERYSTRINGPARAMDRILLBY]))
+            {
+                BindCompanies();
+                radBtnCompanySelection.Items[2].Selected = true;
+            }
+            else
+            {
+                wzGapAnalysis.ActiveStepIndex = 1;
+                PlotSecondIterationGraph(Request.QueryString[QUERYSTRINGPARAMDRILLCHARTIDS], Request.QueryString[QUERYSTRINGPARAMDRILLBY], Request.QueryString["SubType"]);
+            }
         }
 
     }
@@ -21,15 +32,15 @@ public partial class Reports_ClosedSalesAnalysis : BasePage
     {
         string commandArg = e.CommandArgument.ToString();
         string commandName = e.CommandName;
-        ChartSubType subType;
         lblResult.Text = "";
 
         if (commandArg == "1")
         {
             if (IsDataValid())
             {
-                subType = GetAnalysisSubType(); ;
                 wzGapAnalysis.ActiveStepIndex = int.Parse(commandArg);
+
+                PlotFirstIterationGraph();
             }
 
         }
@@ -130,5 +141,70 @@ public partial class Reports_ClosedSalesAnalysis : BasePage
         else 
             return ChartSubType.SalesQuantitySalesRep;
 
+    }
+
+    private string GetNewCompanySelection()
+    {
+        if (radBtnCompanySelection.SelectedItem == null)
+            return "";
+        return (radBtnCompanySelection.SelectedItem.Value == "2") ? "" : radBtnCompanySelection.SelectedItem.Value;
+
+    }
+    private string GetCompaniesSelection()
+    {
+        if (drpLstCompanies.SelectedIndex > 0)
+            return drpLstCompanies.SelectedValue;
+        if (lstCompanies.GetSelectedIndices().Length > 0)
+        {
+            string companies = "";
+            foreach (int index in lstCompanies.GetSelectedIndices())
+            {
+                companies = companies + lstCompanies.Items[index].Value + ",";
+            }
+            return companies.Substring(0,companies.Length - 1);
+        }
+        return "";
+
+    }
+
+    private void PlotFirstIterationGraph()
+    {
+        ChartSubType subType;
+        subType = GetAnalysisSubType();
+        Session["searchForNewCompany"] = GetNewCompanySelection();
+        Session["searchCompanies"] = GetCompaniesSelection();
+
+        SandlerControls.ChartLiteral chartLiteral = new SandlerControls.ChartLiteral();
+        chartLiteral.ID = "chartLiteralClosedSalesAnalysis";
+        chartLiteral.Width = "80%";
+        chartLiteral.Height = "450";
+
+        ChartRepository cR = new ChartRepository();
+        SandlerModels.TBL_CHART dbChart = cR.GetAll().Where(c => c.ChartID == "ClosedSalesAnalysis" && c.IsActive == true).SingleOrDefault();
+
+        Chart chartToLoad = new Chart() { SubType = subType, BGAlpha = dbChart.BgAlpha, BGColor = dbChart.BgColor, CanvasBGAlpha = dbChart.CanvasBgAlpha, CanvasBGColor = dbChart.CanvasBgColor, Caption = dbChart.Caption, SWF = dbChart.SWFile, NumberSuffix = dbChart.NumberSuffix, PieRadius = dbChart.PieRadius, showLabels = dbChart.ShowLabels, showLegend = dbChart.ShowLegend, XaxisName = dbChart.XaxisName, YaxisName = dbChart.YaxisName, Id = ChartID.ClosedSalesAnalysis, enableRotation = dbChart.EnableRotation, DrillChartIds = (string.IsNullOrEmpty(dbChart.DrillLevelChartIDs)) ? "" : dbChart.DrillLevelChartIDs, DrillOverride = false, DrillBy = "" };
+        chartToLoad.LoadChart(CurrentUser);
+        chartToLoad.CreateChart();
+
+        chartLiteral.Text = FusionCharts.RenderChart(Page.ResolveClientUrl("~/FusionChartLib/" + chartToLoad.SWF), "", chartToLoad.ChartXML, "ClosedSalesAnalysis", chartLiteral.Width, chartLiteral.Height, false, true);
+        (plotChart.ContentTemplateContainer.FindControl("chartPanel") as Panel).Controls.Add(chartLiteral);                
+    }
+
+    private void PlotSecondIterationGraph(string chartId, string drillBy, string subType)
+    {
+        SandlerControls.ChartLiteral chartLiteral = new SandlerControls.ChartLiteral();
+        chartLiteral.ID = "chartLiteralClosedSalesAnalysis";
+        chartLiteral.Width = "80%";
+        chartLiteral.Height = "450"; 
+
+        ChartRepository cR = new ChartRepository();
+        SandlerModels.TBL_CHART dbChart = cR.GetAll().Where(c => c.ChartID == chartId && c.IsActive == true).SingleOrDefault();
+
+        PieChart chartToLoad = new PieChart() { SubType = (ChartSubType)Enum.Parse(typeof(ChartSubType), subType), BGAlpha = dbChart.BgAlpha, BGColor = dbChart.BgColor, CanvasBGAlpha = dbChart.CanvasBgAlpha, CanvasBGColor = dbChart.CanvasBgColor, Caption = dbChart.Caption, SWF = dbChart.SWFile, NumberSuffix = dbChart.NumberSuffix, PieRadius = dbChart.PieRadius, showLabels = dbChart.ShowLabels, showLegend = dbChart.ShowLegend, XaxisName = dbChart.XaxisName, YaxisName = dbChart.YaxisName, Id = ChartID.ClosedSalesAnalysisBySource, enableRotation = dbChart.EnableRotation, DrillChartIds = dbChart.DrillLevelChartIDs, DrillOverride = false, DrillBy = drillBy};
+        chartToLoad.LoadChart(CurrentUser);
+        chartToLoad.CreateChart();
+
+        chartLiteral.Text = FusionCharts.RenderChart(Page.ResolveClientUrl("~/FusionChartLib/" + chartToLoad.SWF), "", ((PieChart)chartToLoad).ChartXML, chartLiteral.ID, chartLiteral.Width, chartLiteral.Height, false, true);
+        (plotChart.ContentTemplateContainer.FindControl("chartPanel") as Panel).Controls.Add(chartLiteral);                
     }
 }
