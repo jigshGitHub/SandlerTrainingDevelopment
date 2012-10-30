@@ -141,7 +141,7 @@
      <tr id="trCorp6" runat="server" style="color: Black; background-color: #EEEEEE; ">
          <td>Franchisee Contacts:</td>
          <td>
-            <asp:CheckBoxList ID="chkListFrContactsCorp"  DataSourceID="FrContactsEmailCorpDS"  CellSpacing="8" CellPadding="8" DataTextField="Email" DataValueField="ContactsId" 
+            <asp:CheckBoxList ID="chkListFrContactsCorp"  DataSourceID="FrContactsEmailCorpDS"  CellSpacing="8" CellPadding="8" DataTextField="FullName" DataValueField="ContactsId" 
               RepeatColumns="3"   RepeatLayout="Table" 
 
             runat="server"></asp:CheckBoxList>

@@ -57,7 +57,7 @@ namespace SandlerRepositories
         public DataSet GetAllFrContactsAddressesByFrId()
         {
             UserModel _user = (UserModel)HttpContext.Current.Session["CurrentUser"];
-            return db.ExecuteDataset("sp_GetAllContactsAddresses", "ContactAddress", new SqlParameter("@FranchiseeId", _user.FranchiseeID));
+            return db.ExecuteDataset("sp_GetAllContactsAddressesByFrId", "ContactAddress", new SqlParameter("@FranchiseeId", _user.FranchiseeID));
         }
         public DataSet GetAllCoachAddressesByFrId()
         {
@@ -75,7 +75,7 @@ namespace SandlerRepositories
         }
         public DataSet GetAllFrContactsAddressesByFrId(int ID)
         {
-            return db.ExecuteDataset("sp_GetAllContactsAddresses", "ContactAddress", new SqlParameter("@FranchiseeId", ID));
+            return db.ExecuteDataset("sp_GetAllContactsAddressesByFrId", "ContactAddress", new SqlParameter("@FranchiseeId", ID));
         }
         public DataSet GetAllFrOwnerAddressesByFrId(int ID)
         {
