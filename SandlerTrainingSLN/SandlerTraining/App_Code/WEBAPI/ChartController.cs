@@ -15,7 +15,7 @@ namespace SandlerAPI.Controllers
     public class ChartController : ApiController
     {
 
-        public IChart Get(string id, string strChartIds, string strChartSubType,string strDrillBy, string strUserName, string strGaId)
+        public IChart Get(string id, string strChartIds, string strChartSubType, string strDrillBy, string strUserName, string strGaId, string strSearchParameter)
         {
             string[] chartIds = strChartIds.Split(new char[] { '_' });
             string chartSubtype = strChartSubType;
@@ -37,19 +37,19 @@ namespace SandlerAPI.Controllers
 
                 if (dbChart.TypeOfChart == "Chart")
                 {
-                    chartToLoad = new Chart() { GAId = int.Parse(strGaId), SubType = string.IsNullOrEmpty(chartSubtype) ? ChartSubType.NoSubType : (ChartSubType)Enum.Parse(typeof(ChartSubType), chartSubtype), BGAlpha = dbChart.BgAlpha, BGColor = dbChart.BgColor, CanvasBGAlpha = dbChart.CanvasBgAlpha, CanvasBGColor = dbChart.CanvasBgColor, Caption = dbChart.Caption, SWF = dbChart.SWFile, NumberSuffix = dbChart.NumberSuffix, PieRadius = dbChart.PieRadius, showLabels = dbChart.ShowLabels, showLegend = dbChart.ShowLegend, XaxisName = dbChart.XaxisName, YaxisName = dbChart.YaxisName, Id = idSelected, enableRotation = dbChart.EnableRotation, DrillChartIds = (string.IsNullOrEmpty(dbChart.DrillLevelChartIDs)) ? "" : dbChart.DrillLevelChartIDs, DrillOverride = false, DrillBy = (string.IsNullOrEmpty(strDrillBy)) ? "" : strDrillBy };
+                    chartToLoad = new Chart() { SearchParameter = strSearchParameter, GAId = int.Parse(strGaId), SubType = string.IsNullOrEmpty(chartSubtype) ? ChartSubType.NoSubType : (ChartSubType)Enum.Parse(typeof(ChartSubType), chartSubtype), BGAlpha = dbChart.BgAlpha, BGColor = dbChart.BgColor, CanvasBGAlpha = dbChart.CanvasBgAlpha, CanvasBGColor = dbChart.CanvasBgColor, Caption = dbChart.Caption, SWF = dbChart.SWFile, NumberSuffix = dbChart.NumberSuffix, PieRadius = dbChart.PieRadius, showLabels = dbChart.ShowLabels, showLegend = dbChart.ShowLegend, XaxisName = dbChart.XaxisName, YaxisName = dbChart.YaxisName, Id = idSelected, enableRotation = dbChart.EnableRotation, DrillChartIds = (string.IsNullOrEmpty(dbChart.DrillLevelChartIDs)) ? "" : dbChart.DrillLevelChartIDs, DrillOverride = false, DrillBy = (string.IsNullOrEmpty(strDrillBy)) ? "" : strDrillBy };
                     chartToLoad.LoadChart(CurrentUser);
                     chartToLoad.CreateChart();
                 }
                 else if (dbChart.TypeOfChart == "PieChart")
                 {
-                    chartToLoad = new PieChart() { GAId = int.Parse(strGaId), SubType = string.IsNullOrEmpty(chartSubtype) ? ChartSubType.NoSubType : (ChartSubType)Enum.Parse(typeof(ChartSubType), chartSubtype), BGAlpha = dbChart.BgAlpha, BGColor = dbChart.BgColor, CanvasBGAlpha = dbChart.CanvasBgAlpha, CanvasBGColor = dbChart.CanvasBgColor, Caption = dbChart.Caption, SWF = dbChart.SWFile, NumberSuffix = dbChart.NumberSuffix, PieRadius = dbChart.PieRadius, showLabels = dbChart.ShowLabels, showLegend = dbChart.ShowLegend, XaxisName = dbChart.XaxisName, YaxisName = dbChart.YaxisName, Id = idSelected, enableRotation = dbChart.EnableRotation, DrillChartIds = (string.IsNullOrEmpty(dbChart.DrillLevelChartIDs)) ? "" : dbChart.DrillLevelChartIDs, DrillOverride = false, DrillBy = (string.IsNullOrEmpty(strDrillBy)) ? "" : strDrillBy };
+                    chartToLoad = new PieChart() { SearchParameter = strSearchParameter, GAId = int.Parse(strGaId), SubType = string.IsNullOrEmpty(chartSubtype) ? ChartSubType.NoSubType : (ChartSubType)Enum.Parse(typeof(ChartSubType), chartSubtype), BGAlpha = dbChart.BgAlpha, BGColor = dbChart.BgColor, CanvasBGAlpha = dbChart.CanvasBgAlpha, CanvasBGColor = dbChart.CanvasBgColor, Caption = dbChart.Caption, SWF = dbChart.SWFile, NumberSuffix = dbChart.NumberSuffix, PieRadius = dbChart.PieRadius, showLabels = dbChart.ShowLabels, showLegend = dbChart.ShowLegend, XaxisName = dbChart.XaxisName, YaxisName = dbChart.YaxisName, Id = idSelected, enableRotation = dbChart.EnableRotation, DrillChartIds = (string.IsNullOrEmpty(dbChart.DrillLevelChartIDs)) ? "" : dbChart.DrillLevelChartIDs, DrillOverride = false, DrillBy = (string.IsNullOrEmpty(strDrillBy)) ? "" : strDrillBy };
                     ((PieChart)chartToLoad).LoadChart(CurrentUser);
                     ((PieChart)chartToLoad).CreateChart();
                 }
                 else if (dbChart.TypeOfChart == "BarChart")
                 {
-                    chartToLoad = new BarChart() { GAId = int.Parse(strGaId), SubType = string.IsNullOrEmpty(chartSubtype) ? ChartSubType.NoSubType : (ChartSubType)Enum.Parse(typeof(ChartSubType), chartSubtype), BGAlpha = dbChart.BgAlpha, BGColor = dbChart.BgColor, CanvasBGAlpha = dbChart.CanvasBgAlpha, CanvasBGColor = dbChart.CanvasBgColor, Caption = dbChart.Caption, SWF = dbChart.SWFile, NumberSuffix = dbChart.NumberSuffix, PieRadius = dbChart.PieRadius, showLabels = dbChart.ShowLabels, showLegend = dbChart.ShowLegend, XaxisName = dbChart.XaxisName, YaxisName = dbChart.YaxisName, Id = idSelected, enableRotation = dbChart.EnableRotation, DrillChartIds = (string.IsNullOrEmpty(dbChart.DrillLevelChartIDs)) ? "" : dbChart.DrillLevelChartIDs, DrillOverride = false, DrillBy = (string.IsNullOrEmpty(strDrillBy)) ? "" : strDrillBy };
+                    chartToLoad = new BarChart() { SearchParameter = strSearchParameter, GAId = int.Parse(strGaId), SubType = string.IsNullOrEmpty(chartSubtype) ? ChartSubType.NoSubType : (ChartSubType)Enum.Parse(typeof(ChartSubType), chartSubtype), BGAlpha = dbChart.BgAlpha, BGColor = dbChart.BgColor, CanvasBGAlpha = dbChart.CanvasBgAlpha, CanvasBGColor = dbChart.CanvasBgColor, Caption = dbChart.Caption, SWF = dbChart.SWFile, NumberSuffix = dbChart.NumberSuffix, PieRadius = dbChart.PieRadius, showLabels = dbChart.ShowLabels, showLegend = dbChart.ShowLegend, XaxisName = dbChart.XaxisName, YaxisName = dbChart.YaxisName, Id = idSelected, enableRotation = dbChart.EnableRotation, DrillChartIds = (string.IsNullOrEmpty(dbChart.DrillLevelChartIDs)) ? "" : dbChart.DrillLevelChartIDs, DrillOverride = false, DrillBy = (string.IsNullOrEmpty(strDrillBy)) ? "" : strDrillBy };
                     ((BarChart)chartToLoad).LoadChart(CurrentUser);
                     ((BarChart)chartToLoad).CreateChart();
                 }

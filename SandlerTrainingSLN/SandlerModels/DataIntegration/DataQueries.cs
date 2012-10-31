@@ -656,5 +656,31 @@ namespace SandlerModels.DataIntegration
             }
             return data;
         }
+        public IEnumerable<ProductTypeVM> GetProductSoldBySalesRepByMonth(UserModel currentUser, int processingMonth, string salesRep)
+        {
+            UserEntities userEntities = null;
+            IEnumerable<Opportunity> opportunties = null;
+            IEnumerable<ProductTypeVM> data = null;
+
+            try
+            {
+                userEntities = UserEntitiesFactory.Get(currentUser);
+                opportunties = userEntities.Opportunities;
+
+                if (userEntities.OpportunitiesCount > 0)
+                {
+                    data = from opportunity in opportunties
+                           where opportunity.CLOSEDATE.Value.Year == DateTime.Now.Year && opportunity.CLOSEDATE.Value.Month == processingMonth && opportunity.CLOSEDATE.Value < DateTime.Now
+                           group opportunity by new { salesRep = opportunity.SALESREPFIRSTNAME + " " + opportunity.SALESREPLASTNAME }
+                               into grp
+                               select new ProductTypeVM { ProductTypeName = grp.Key.salesRep, AvgPrice = double.Parse(grp.Sum(record => record.VALUE.Value).ToString()), Count = grp.Count() };
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("exception in DataQueries.GetProductSoldBySalesRepByMonth: " + ex.Message);
+            }
+            return data;
+        }
     }
 }

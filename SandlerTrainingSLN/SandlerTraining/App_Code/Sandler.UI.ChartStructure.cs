@@ -120,6 +120,9 @@ namespace Sandler.UI.ChartStructure
         ProductSoldToCompanyByProductByMonth,
         ProductSalesByCompanyQuantity,
         ProductSalesByCompanyValue,
+        ProductSoldBySalesRepByProductByMonth,
+        ProductSalesBySalesRepQuantity,
+        ProductSalesBySalesRepValue,
         ProductSalesActivityValue,
         ProductSalesActivityQty,
         RetentionRateByExp,
@@ -194,6 +197,7 @@ namespace Sandler.UI.ChartStructure
         public string showLegend { get; set; }
 
         public int GAId { get; set; }
+        public string SearchParameter { get; set; }
         public ChartSubType SubType { get; set; }
         public Chart()
         {
@@ -328,6 +332,60 @@ namespace Sandler.UI.ChartStructure
                     case ChartID.ProductSoldToCompanyByProductByMonth:
                         string companyName = new CompaniesRepository().GetById(long.Parse(GAId.ToString())).COMPANYNAME;
                         this.Caption = this.Caption.Replace("Company Name", companyName);
+                        productTypesSource = new ProductTypesRepository();
+
+                        if (currentUser.Role == SandlerRoles.FranchiseeOwner || currentUser.Role == SandlerRoles.FranchiseeUser)
+                            products = productTypesSource.GetWithFranchiseeId(currentUser.FranchiseeID);
+                        else
+                            products = productTypesSource.GetAll();
+
+                        foreach (var record in products.Where(r => r.IsActive == true).AsEnumerable())
+                        {
+                            this.Categories.Add(new Category { Label = record.ProductTypeName });
+                        }
+                        chartParams = new List<ChartParameter>();
+                        chartParams.Add(new ChartParameter { Value = "-2", Color = "3300ff" });
+                        chartParams.Add(new ChartParameter { Value = "-1", Color = "ff6600" });
+                        chartParams.Add(new ChartParameter { Value = "0", Color = "32df00" });
+
+
+                        foreach (ChartParameter parameter in chartParams)
+                        {
+                            try
+                            {
+                                IEnumerable<SandlerModels.DataIntegration.ProductTypeVM> productSalesCollection = queries.GetProductSoldByCompanyByMonth(currentUser, DateTime.Now.AddMonths(int.Parse(parameter.Value)).Month, this.GAId);
+                                if (productSalesCollection != null)
+                                {
+                                    var productSales = from record in productSalesCollection
+                                                       select new { Category = record.ProductTypeName, Qty = record.Count };
+
+                                    this.DataSetCollection.Add(new ChartDataSet { Color = parameter.Color, SeriesName = DateTime.Now.AddMonths(int.Parse(parameter.Value)).ToString("MMM") });
+
+                                    foreach (Category category in this.Categories)
+                                    {
+                                        lastDs = this.DataSetCollection.Last();
+                                        lastDs.SetsCollection.Add(new SetValue { Label = category.Label, Link = ChartHelper.GeneratePageLink(lastDs.SeriesName, this.DrillChartIds,"SoldByCompany.aspx?companyId=" + this.GAId.ToString() + "&") });
+                                    }
+
+                                    foreach (var record in productSales)
+                                    {
+                                        foreach (SetValue set in lastDs.SetsCollection)
+                                        {
+                                            if (set.Label == record.Category)
+                                                set.Value = record.Qty.ToString();
+                                        }
+                                    }
+                                }
+                            }
+                            catch (Exception ex)
+                            {
+                                throw new Exception("Error in ChartID.ProductSoldToCompanyByProductByMonth:" + ex.Message);
+                            }
+                            //}
+                        }
+                        break;
+                    case ChartID.ProductSoldBySalesRepByProductByMonth:
+                        this.Caption = this.Caption.Replace("Sales Rep", this.SearchParameter);
                         productTypesSource = new ProductTypesRepository();
 
                         if (currentUser.Role == SandlerRoles.FranchiseeOwner || currentUser.Role == SandlerRoles.FranchiseeUser)

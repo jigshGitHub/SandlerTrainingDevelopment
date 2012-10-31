@@ -1,14 +1,14 @@
-﻿<%@ Page Title="Reports-ProductsSoldByCompany" Language="C#" MasterPageFile="~/CRM.master"
-    AutoEventWireup="true" CodeFile="SoldByCompany.aspx.cs" Inherits="Reports_Products_SoldByCompany" %>
+﻿<%@ Page Title="Reports-ProductsSoldBySalesRep" Language="C#" MasterPageFile="~/CRM.master"
+    AutoEventWireup="true" CodeFile="SoldByCompanySalesRep.aspx.cs" Inherits="Reports_Products_SoldByCompanySalesRep" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="Server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="Server">
-    <div id="dialog" title="Report: Product Sold By Company">
+    <div id="dialog" title="Report: Product Sold By Sales Rep">
         <table>
             <tr>
                 <td>
-                    <asp:DropDownList ID="companyList" runat="server" Visible="false">
+                    <asp:DropDownList ID="salesRepList" runat="server" Visible="false">
                     </asp:DropDownList>
                 </td>
             </tr>
@@ -29,7 +29,7 @@
         $(document).ready(function () {
             var href = window.location.href.split('/');
             var baseUrl = href[0] + '//' + href[2] + '/' + href[3];
-            var companyList = $('#<%=companyList.ClientID %>');
+            var salesRepList = $('#<%=salesRepList.ClientID %>');
 
             chartIds = chartIds.split('_');
 
@@ -51,16 +51,16 @@
                 loadChart(chartIds[1], drillBy, searchParameter, 'chartContainer1', 'myChartId1');
             }
             $('#btnGetReport').click(function () {
-                if (companyList.val() > 0) {
+                if (salesRepList.val() > 0) {
 
                     $('#dialog').dialog('close');
                     chartContainer.style.display = "block";
-                    loadChart(chartIds[0], '', companyList.val(), 'chartContainer', 'myChartId');
+                    loadChart(chartIds[0], '', salesRepList.val(), 'chartContainer', 'myChartId');
                     //                    $.ajax({
                     //                        url: baseUrl + "/api/Chart/",
                     //                        type: 'GET',
                     //                        contentType: 'application/json',
-                    //                        data: { id: '', strChartIds: chartIds[0], strChartSubType: chartSubType, strDrillBy: '', strUserName: userName, strGaId: companyList.val() },
+                    //                        data: { id: '', strChartIds: chartIds[0], strChartSubType: chartSubType, strDrillBy: '', strUserName: userName, strGaId: salesRepList.val() },
                     //                        success: function (data) {
                     //                            log(data);
                     //                            var myChart = new FusionCharts(baseUrl + '/FusionChartLib/' + data.SWF, 'myChartId', chartWidth, chartHeight, '0', '1');
@@ -72,6 +72,7 @@
             });
 
             function loadChart(chartId, drillBy, companyId, chartContainer, myChartId) {
+                alert(companyId);
                 $.ajax({
                     url: baseUrl + "/api/Chart/",
                     type: 'GET',
