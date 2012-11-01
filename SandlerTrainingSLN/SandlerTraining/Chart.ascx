@@ -10,7 +10,7 @@
             url: baseUrl + "/api/Chart/",
             type: 'GET',
             contentType: 'application/json',
-            data: { id: '', strChartIds: chartIds, strChartSubType: chartSubType, strDrillBy: '', strUserName: userName, strGaId: gaId , strSearchParameter :''},
+            data: { id: '', strChartIds: chartIds, strChartSubType: chartSubType, strDrillBy: '', strUserName: userName, strSearchParameter: searchParameter },
             success: function (data) {
                 log(data);
                 var myChart = new FusionCharts(baseUrl + '/FusionChartLib/' + data.SWF, 'myChartId', chartWidth, chartHeight, '0', '1');

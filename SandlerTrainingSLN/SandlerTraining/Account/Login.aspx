@@ -22,7 +22,7 @@
                             <span style="color: #FFFFFF">:</span>
                         </td>
                         <td>
-                            <asp:TextBox ID="UserName" MaxLength="20" runat="server" />
+                            <asp:TextBox ID="UserName" MaxLength="100" runat="server" />
                         </td>
                         <td>
                             <asp:Label ID="lblPassword" runat="server" Text="Password" AssociatedControlID="Password"

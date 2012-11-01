@@ -28,7 +28,7 @@ public partial class Reports_Products_SoldByCompany : BasePage
                 companyList.Items.Insert(0, new ListItem("Select company", "0"));
                 companyList.Visible = true;
             }
-            SetUpJScript(Request.QueryString[page.QUERYSTRINGPARAMDRILLCHARTIDS], page.CurrentUser.UserName, page.GENERICCHARTLITERALWIDTH, page.GENERICCHARTLITERALHEIGHT, Request.QueryString[page.QUERYSTRINGPARAMDRILLBY], Request.QueryString["companyId"]);
+            SetUpJScript(Request.QueryString[page.QUERYSTRINGPARAMDRILLCHARTIDS], page.CurrentUser.UserName, page.GENERICCHARTLITERALWIDTH, page.GENERICCHARTLITERALHEIGHT, Request.QueryString[page.QUERYSTRINGPARAMDRILLBY], Request.QueryString["searchParameter"]);
         }
     }
 
@@ -41,7 +41,7 @@ public partial class Reports_Products_SoldByCompany : BasePage
         jScript.Append("var chartHeight='" + ChartHeight + "';");
         jScript.Append("var chartSubType='';");
         jScript.Append("var drillBy='" + drillBy + "';");
-        jScript.Append("var companyId='" + companyId + "';");
+        jScript.Append("var searchParameter='" + companyId + "';");
         jScript.Append("</script>");
         Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "setUpChartAPIProperties", jScript.ToString());
     }

@@ -284,13 +284,13 @@ public partial class ROI : BasePage
 
     private void RenderChart()
     {
-        BarChart chartToLoad = new BarChart() { Width = "100%", Hight = "450", GAId = GAId, BGColor = "FFFFFF", CanvasBGAlpha = "100", CanvasBGColor = "FFFFFF", Caption = "ROI", SWF = @"FusionChartLib/Column3D.swf", showLabels = "0", showLegend = "0", YaxisName = "%", Id = ChartID.ReturnOnTrainingInvestment };
+        BarChart chartToLoad = new BarChart() { Width = "100%", Hight = "450", SearchParameter = GAId.ToString(), BGColor = "FFFFFF", CanvasBGAlpha = "100", CanvasBGColor = "FFFFFF", Caption = "ROI", SWF = @"FusionChartLib/Column3D.swf", showLabels = "0", showLegend = "0", YaxisName = "%", Id = ChartID.ReturnOnTrainingInvestment };
         chartToLoad.LoadChart(CurrentUser);
         chartToLoad.CreateChart();
         plotChart.ContentTemplateContainer.FindControl("chartContainer").Controls.Add(new LiteralControl(InfoSoftGlobal.FusionCharts.RenderChart(chartToLoad.SWF, "", chartToLoad.ChartXML, "gaChartlots", chartToLoad.Width, chartToLoad.Hight, false, false)));
 
         (plotChart.CustomNavigationTemplateContainer.FindControl("lnkBtnPrint") as LinkButton).Visible = true;
-        (plotChart.CustomNavigationTemplateContainer.FindControl("lnkBtnPrint") as LinkButton).OnClientClick = "window.open('ChartPrinter.aspx?drillChartIds=ReturnOnTrainingInvestment&GAId=" + GAId + "','_blank','height=450,width=800,status=yes,toolbar=no,scrollbars=yes,menubar=no,location=no');return false;";
+        (plotChart.CustomNavigationTemplateContainer.FindControl("lnkBtnPrint") as LinkButton).OnClientClick = "window.open('ChartPrinter.aspx?drillChartIds=ReturnOnTrainingInvestment&searchParameter=" + GAId + "','_blank','height=450,width=800,status=yes,toolbar=no,scrollbars=yes,menubar=no,location=no');return false;";
     }
 
 }

@@ -21,7 +21,6 @@ public partial class ChartPage : BasePage
         ChartRepository cR;
         SandlerModels.TBL_CHART dbChart;
         IChart chartToLoad;
-        int GAid = (!String.IsNullOrEmpty(Request.QueryString["GAId"])) ? int.Parse(Request.QueryString["GAId"]) : 0;
 
         foreach (string chartId in chartIds)
         {

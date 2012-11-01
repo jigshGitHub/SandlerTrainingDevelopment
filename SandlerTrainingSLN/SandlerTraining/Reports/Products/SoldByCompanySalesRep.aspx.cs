@@ -24,7 +24,7 @@ public partial class Reports_Products_SoldByCompanySalesRep : BasePage
                 salesRepList.DataTextField = "Name";
                 salesRepList.DataValueField = "Name";
                 salesRepList.DataBind();
-                salesRepList.Items.Insert(0, new ListItem("Select Sales Rep", "0"));
+                salesRepList.Items.Insert(0, new ListItem("Select Sales Rep", ""));
                 salesRepList.Visible = true;
             }
             SetUpJScript(Request.QueryString[page.QUERYSTRINGPARAMDRILLCHARTIDS], page.CurrentUser.UserName, page.GENERICCHARTLITERALWIDTH, page.GENERICCHARTLITERALHEIGHT, Request.QueryString[page.QUERYSTRINGPARAMDRILLBY], Request.QueryString["companyId"]);

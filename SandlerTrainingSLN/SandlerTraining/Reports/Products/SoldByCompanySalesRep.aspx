@@ -36,7 +36,8 @@
             $('#dialog').dialog({
 
                 autoOpen: false,
-                width: 500
+                width: 500,
+                modal: true
 
             });
 
@@ -51,33 +52,20 @@
                 loadChart(chartIds[1], drillBy, searchParameter, 'chartContainer1', 'myChartId1');
             }
             $('#btnGetReport').click(function () {
-                if (salesRepList.val() > 0) {
+                if (salesRepList.val() != '') {
 
                     $('#dialog').dialog('close');
                     chartContainer.style.display = "block";
-                    loadChart(chartIds[0], '', salesRepList.val(), 'chartContainer', 'myChartId');
-                    //                    $.ajax({
-                    //                        url: baseUrl + "/api/Chart/",
-                    //                        type: 'GET',
-                    //                        contentType: 'application/json',
-                    //                        data: { id: '', strChartIds: chartIds[0], strChartSubType: chartSubType, strDrillBy: '', strUserName: userName, strGaId: salesRepList.val() },
-                    //                        success: function (data) {
-                    //                            log(data);
-                    //                            var myChart = new FusionCharts(baseUrl + '/FusionChartLib/' + data.SWF, 'myChartId', chartWidth, chartHeight, '0', '1');
-                    //                            myChart.setXMLData(data.ChartXML);
-                    //                            myChart.render('chartContainer');
-                    //                        }
-                    //                    });
+                    loadChart(chartIds[0], '', salesRepList.val(), 'chartContainer', 'myChartId');                    
                 }
             });
 
-            function loadChart(chartId, drillBy, companyId, chartContainer, myChartId) {
-                alert(companyId);
+            function loadChart(chartId, drillBy, salesRep, chartContainer, myChartId) {                
                 $.ajax({
                     url: baseUrl + "/api/Chart/",
                     type: 'GET',
                     contentType: 'application/json',
-                    data: { id: '', strChartIds: chartId, strChartSubType: chartSubType, strDrillBy: drillBy, strUserName: userName, strGaId: 0, strSearchParameter: companyId },
+                    data: { id: '', strChartIds: chartId, strChartSubType: chartSubType, strDrillBy: drillBy, strUserName: userName, strSearchParameter: salesRep },
                     success: function (data) {
                         log(data);
                         var myChart = new FusionCharts(baseUrl + '/FusionChartLib/' + data.SWF, myChartId, chartWidth, chartHeight, '0', '1');

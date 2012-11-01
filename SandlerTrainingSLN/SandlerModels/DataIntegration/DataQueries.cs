@@ -559,13 +559,13 @@ namespace SandlerModels.DataIntegration
                     if (processingYear == DateTime.Now.Year)
                     {
                         data = from opportunity in opportunties
-                               where opportunity.Status.ToLower() != "closed lost" && opportunity.CLOSEDATE.Value.Year == processingYear && opportunity.CLOSEDATE.Value < DateTime.Now
+                               where opportunity.STATUSID.HasValue == true && opportunity.Status.ToLower() != "closed lost" && opportunity.CLOSEDATE.Value.Year == processingYear && opportunity.CLOSEDATE.Value < DateTime.Now
                                select new SalesTotalByMonthVM { CloseDate = opportunity.CLOSEDATE.Value, Id = opportunity.ID, Value = opportunity.VALUE.Value };
                     }
                     else
                     {
                         data = from opportunity in opportunties
-                               where opportunity.Status.ToLower() == "closed won" && opportunity.CLOSEDATE.Value.Year == processingYear && opportunity.CLOSEDATE.Value < DateTime.Now
+                               where opportunity.STATUSID.HasValue == true && opportunity.Status.ToLower() == "closed won" && opportunity.CLOSEDATE.Value.Year == processingYear && opportunity.CLOSEDATE.Value < DateTime.Now
                                select new SalesTotalByMonthVM { CloseDate = opportunity.CLOSEDATE.Value, Id = opportunity.ID, Value = opportunity.VALUE.Value };
                     }
                 }
@@ -670,10 +670,10 @@ namespace SandlerModels.DataIntegration
                 if (userEntities.OpportunitiesCount > 0)
                 {
                     data = from opportunity in opportunties
-                           where opportunity.CLOSEDATE.Value.Year == DateTime.Now.Year && opportunity.CLOSEDATE.Value.Month == processingMonth && opportunity.CLOSEDATE.Value < DateTime.Now
-                           group opportunity by new { salesRep = opportunity.SALESREPFIRSTNAME + " " + opportunity.SALESREPLASTNAME }
+                           where (opportunity.SALESREPFIRSTNAME + " " + opportunity.SALESREPLASTNAME == salesRep) && opportunity.CLOSEDATE.Value.Year == DateTime.Now.Year && opportunity.CLOSEDATE.Value.Month == processingMonth && opportunity.CLOSEDATE.Value < DateTime.Now
+                           group opportunity by new { opportunity.ProductTypeName }
                                into grp
-                               select new ProductTypeVM { ProductTypeName = grp.Key.salesRep, AvgPrice = double.Parse(grp.Sum(record => record.VALUE.Value).ToString()), Count = grp.Count() };
+                               select new ProductTypeVM { ProductTypeName = grp.Key.ProductTypeName, AvgPrice = double.Parse(grp.Sum(record => record.VALUE.Value).ToString()), Count = grp.Count() };
                 }
             }
             catch (Exception ex)

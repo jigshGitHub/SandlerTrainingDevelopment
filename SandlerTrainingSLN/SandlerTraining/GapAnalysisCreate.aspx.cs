@@ -372,7 +372,7 @@ public partial class GapAnalysisCreate : BasePage
     {
         Chart gaChart = new Chart();
         gaChart.Id = ChartID.GapAnalysis;
-        gaChart.GAId = GAId;
+        gaChart.SearchParameter = GAId.ToString();
         gaChart.SWF = @"FusionChartLib/MSBar3D.swf";
         gaChart.Caption = "Gap Analysis";
         gaChart.CanvasBGColor = "FFFFFF";
@@ -385,7 +385,7 @@ public partial class GapAnalysisCreate : BasePage
         (plotChart.ContentTemplateContainer.FindControl("pnlChart") as Panel).FindControl("chartContainer").Controls.Add(new LiteralControl(FusionCharts.RenderChart(gaChart.SWF, "", gaChart.ChartXML, "gaChartlots", gaChart.Width, gaChart.Hight, false, false)));
         //pnlChart_ModalPopupExtender.Show();
         (plotChart.CustomNavigationTemplateContainer.FindControl("lnkBtnPrint") as LinkButton).Visible = true;
-        (plotChart.CustomNavigationTemplateContainer.FindControl("lnkBtnPrint") as LinkButton).OnClientClick = "window.open('ChartPrinter.aspx?drillChartIds=GapAnalysis&GAId=" + GAId + "','_blank','height=450,width=800,status=yes,toolbar=no,scrollbars=yes,menubar=no,location=no');return false;";
+        (plotChart.CustomNavigationTemplateContainer.FindControl("lnkBtnPrint") as LinkButton).OnClientClick = "window.open('ChartPrinter.aspx?drillChartIds=GapAnalysis&searchParameter=" + GAId + "','_blank','height=450,width=800,status=yes,toolbar=no,scrollbars=yes,menubar=no,location=no');return false;";
     }
 
     private void PopulateAsIsToBEFields()
