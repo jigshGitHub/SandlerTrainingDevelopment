@@ -4,9 +4,11 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using SandlerModels.DataIntegration;
 using System.Text;
-public partial class Reports_Products_SoldByCompanySalesRep : BasePage
+using SandlerModels;
+using SandlerModels.DataIntegration;
+using SandlerRepositories;
+public partial class Reports_Benchmarks_FranchiseeToRegion : BasePage
 {
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -14,18 +16,20 @@ public partial class Reports_Products_SoldByCompanySalesRep : BasePage
         {
             //hdnFrenchiseeID.Value = CurrentUser.FranchiseeID.ToString();
             BasePage page = this.Page as BasePage;
-            
+
             if (string.IsNullOrEmpty(Request.QueryString[page.QUERYSTRINGPARAMDRILLBY]))
             {
-                var data = (from opportunity in UserEntitiesFactory.Get(CurrentUser).Opportunities
-                           select new { Name = opportunity.SALESREPFIRSTNAME + " " + opportunity.SALESREPLASTNAME}).Distinct();
+                var data = (from franchisee in new FranchiseeRepository().GetAll()
+                           from coach in new CoachRepository().GetAll().Where(r => r.ID == franchisee.CoachID)
+                           from region in new RegionRepository().GetAll().Where(r=> r.ID == coach.RegionID && r.ID == CurrentUser.RegionID)
+                            select new { Name = franchisee.Name, Id = franchisee.ID }).Distinct();
 
-                salesRepList.DataSource = data;
-                salesRepList.DataTextField = "Name";
-                salesRepList.DataValueField = "Name";
-                salesRepList.DataBind();
-                salesRepList.Items.Insert(0, new ListItem("Select Sales Rep", ""));
-                salesRepList.Visible = true;
+                franchiseeList.DataSource = data;
+                franchiseeList.DataTextField = "Name";
+                franchiseeList.DataValueField = "Id";
+                franchiseeList.DataBind();
+                franchiseeList.Items.Insert(0, new ListItem("Select franchisee", ""));
+                franchiseeList.Visible = true;
             }
             SetUpJScript(Request.QueryString[page.QUERYSTRINGPARAMDRILLCHARTIDS], page.CurrentUser.UserName, page.GENERICCHARTLITERALWIDTH, page.GENERICCHARTLITERALHEIGHT, Request.QueryString[page.QUERYSTRINGPARAMDRILLBY], Request.QueryString["searchParameter"]);
         }

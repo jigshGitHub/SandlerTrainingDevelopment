@@ -65,5 +65,31 @@ namespace SandlerRepositories
             return newAppointments;
         }
 
+        public SqlDataReader GetBenchMarkSalesFranchiseeData(int month, int year, int franchiseeId)
+        {
+            SqlDataReader data = null;
+            try
+            {
+                data = db.ExecuteReader("sp_GetBenchMarkSalesFranchisee", new SqlParameter("@month", month), new SqlParameter("@year", year), new SqlParameter("@franchiseeId", franchiseeId));
+            }
+            catch (Exception ex)
+            {
+            }
+            return data;
+        }
+
+        public SqlDataReader GetBenchMarkFranchiseeRegionsData(int month, int year, int franchiseeId)
+        {
+            SqlDataReader data = null;
+            try
+            {
+                data = db.ExecuteReader("sp_GetBenchMarkFranchiseeRegions", new SqlParameter("@month", month), new SqlParameter("@year", year), new SqlParameter("@franchiseeId", franchiseeId));
+            }
+            catch (Exception ex)
+            {
+            }
+            return data;
+        }
+
     }
 }

@@ -22,6 +22,8 @@ public partial class Menu : System.Web.UI.UserControl
                     activeLink = (HtmlAnchor)FindControl("anchorMyAccount");
                 else if (Page.Title.Contains("Reports"))
                     activeLink = (HtmlAnchor)FindControl("anchorChart");
+                else if (Page.Title.Contains("Benchmarks"))
+                    activeLink = (HtmlAnchor)FindControl("anchorBenchmarks");
             }
             if (activeLink != null)
                 activeLink.Attributes.Add("class", "menuLinkActive");

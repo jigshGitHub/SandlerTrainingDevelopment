@@ -92,4 +92,11 @@ namespace SandlerModels.DataIntegration
         public DateTime CloseDate { get; set; }
         public decimal Value { get; set; }
     }
+
+    public partial class BenchMarkVM
+    {
+        public int Count { get; set; }
+        public double Value { get; set; }
+        public string KeyGroupId { get; set; }
+    }
 }

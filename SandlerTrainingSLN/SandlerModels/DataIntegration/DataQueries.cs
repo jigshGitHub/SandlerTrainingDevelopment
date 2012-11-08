@@ -577,6 +577,7 @@ namespace SandlerModels.DataIntegration
             return data;
         }
 
+        #region ProductReports Data
         public IEnumerable<ProductTypeVM> GetProductSalesByMonth(UserModel currentUser, int processingMonth)
         {
             UserEntities userEntities = null;
@@ -603,7 +604,6 @@ namespace SandlerModels.DataIntegration
             }
             return data;
         }
-
         public IEnumerable<ProductTypeVM> GetProductFirstSalesByMonth(UserModel currentUser, int processingMonth)
         {
             UserEntities userEntities = null;
@@ -682,5 +682,67 @@ namespace SandlerModels.DataIntegration
             }
             return data;
         }
+        #endregion
+
+        #region BenchMarkReports Data
+        public IEnumerable<BenchMarkVM> GetBenchMarkSalesRepToFranchiseeByMonth(UserModel currentUser, int processingMonth)
+        {
+            SqlDataReader dataReader = null;
+            IEnumerable<BenchMarkVM> data = null;
+            List<BenchMarkVM> lstData;
+            OpportunityRepository oppRepository;
+            try
+            {
+                oppRepository = new OpportunityRepository();
+
+                dataReader = oppRepository.GetBenchMarkSalesFranchiseeData(processingMonth, DateTime.Now.Year, currentUser.FranchiseeID);
+
+                if (dataReader != null)
+                {
+                    lstData = new List<BenchMarkVM>();
+                    while (dataReader.Read())
+                    {
+                        lstData.Add(new BenchMarkVM { KeyGroupId = dataReader["SalesRep"].ToString(), Value = double.Parse(dataReader["TotalValue"].ToString()), Count = int.Parse(dataReader["TotalQty"].ToString()) });
+                    }
+                    dataReader.Close();
+                    data = lstData.AsEnumerable<BenchMarkVM>();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("exception in DataQueries.GetBenchMarkSalesRepToFranchiseeByMonth: " + ex.Message);
+            }
+            return data;
+        }
+        public IEnumerable<BenchMarkVM> GetBenchMarkFranchiseeToRegionsByMonth(UserModel currentUser, int processingMonth)
+        {
+            SqlDataReader dataReader = null;
+            IEnumerable<BenchMarkVM> data = null;
+            List<BenchMarkVM> lstData;
+            OpportunityRepository oppRepository;
+            try
+            {
+                oppRepository = new OpportunityRepository();
+
+                dataReader = oppRepository.GetBenchMarkFranchiseeRegionsData(processingMonth, DateTime.Now.Year, currentUser.FranchiseeID);
+
+                if (dataReader != null)
+                {
+                    lstData = new List<BenchMarkVM>();
+                    while (dataReader.Read())
+                    {
+                        lstData.Add(new BenchMarkVM { KeyGroupId = dataReader["FranchiseeId"].ToString(), Value = double.Parse(dataReader["TotalValue"].ToString()), Count = int.Parse(dataReader["TotalQty"].ToString()) });
+                    }
+                    dataReader.Close();
+                    data = lstData.AsEnumerable<BenchMarkVM>();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("exception in DataQueries.GetBenchMarkFranchiseeToRegionsByMonth: " + ex.Message);
+            }
+            return data;
+        }
+        #endregion
     }
 }

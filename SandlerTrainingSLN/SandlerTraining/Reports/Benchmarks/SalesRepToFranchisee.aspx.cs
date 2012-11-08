@@ -4,9 +4,11 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using SandlerModels.DataIntegration;
 using System.Text;
-public partial class Reports_Products_SoldByCompanySalesRep : BasePage
+using SandlerModels;
+using SandlerModels.DataIntegration;
+
+public partial class Reports_Benchmarks_SalesRepToFranchisee : BasePage
 {
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -14,11 +16,11 @@ public partial class Reports_Products_SoldByCompanySalesRep : BasePage
         {
             //hdnFrenchiseeID.Value = CurrentUser.FranchiseeID.ToString();
             BasePage page = this.Page as BasePage;
-            
+
             if (string.IsNullOrEmpty(Request.QueryString[page.QUERYSTRINGPARAMDRILLBY]))
             {
-                var data = (from opportunity in UserEntitiesFactory.Get(CurrentUser).Opportunities
-                           select new { Name = opportunity.SALESREPFIRSTNAME + " " + opportunity.SALESREPLASTNAME}).Distinct();
+                var data = (from opportunity in new SandlerRepositories.OpportunitiesRepository().GetAll()
+                            select new { Name = opportunity.SALESREPFIRSTNAME + " " + opportunity.SALESREPLASTNAME }).Distinct();
 
                 salesRepList.DataSource = data;
                 salesRepList.DataTextField = "Name";

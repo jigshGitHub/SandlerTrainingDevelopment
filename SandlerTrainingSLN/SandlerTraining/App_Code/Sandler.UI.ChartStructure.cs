@@ -147,7 +147,13 @@ namespace Sandler.UI.ChartStructure
         ClosedSalesAnalysis,
         ClosedSalesAnalysisBySource,
         PipelineOpportunityAnalysis,
-        PipelineOpportunityAnalysisBySource
+        PipelineOpportunityAnalysisBySource,
+        BenchmarkSalesRepFranchisee,
+        BenchmarkSalesRepFranchiseeQty,
+        BenchmarkSalesRepFranchiseeValue,
+        BenchmarkFranchiseeRegion,
+        BenchmarkFranchiseeRegionQty,
+        BenchmarkFranchiseeRegionValue
     }
 
     public enum ChartTypes
@@ -219,8 +225,11 @@ namespace Sandler.UI.ChartStructure
                 IEnumerable<Tbl_ProductType> products;
                 string searchForNewCompany;
                 string searchCompanies;
+                string franchiseeName;
+                string regionName;
                 switch ((ChartID)Enum.Parse(typeof(ChartID), this.Id.ToString(), true))
                 {
+                    #region ProductsReports Logic
                     case ChartID.ProductMarginContributionByProductByMonth:
                         productTypesSource = new ProductTypesRepository();
 
@@ -406,7 +415,7 @@ namespace Sandler.UI.ChartStructure
                         {
                             try
                             {
-                                IEnumerable<SandlerModels.DataIntegration.ProductTypeVM> productSalesCollection = queries.GetProductSoldBySalesRepByMonth(currentUser, DateTime.Now.AddMonths(int.Parse(parameter.Value)).Month,this.SearchParameter);
+                                IEnumerable<SandlerModels.DataIntegration.ProductTypeVM> productSalesCollection = queries.GetProductSoldBySalesRepByMonth(currentUser, DateTime.Now.AddMonths(int.Parse(parameter.Value)).Month, this.SearchParameter);
                                 if (productSalesCollection != null)
                                 {
                                     var productSales = from record in productSalesCollection
@@ -417,7 +426,7 @@ namespace Sandler.UI.ChartStructure
                                     foreach (Category category in this.Categories)
                                     {
                                         lastDs = this.DataSetCollection.Last();
-                                        lastDs.SetsCollection.Add(new SetValue { Label = category.Label, Link = ChartHelper.GeneratePageLink(lastDs.SeriesName, this.DrillChartIds, "SoldByCompany.aspx?searchParameter=" + this.SearchParameter + "&") });
+                                        lastDs.SetsCollection.Add(new SetValue { Label = category.Label, Link = ChartHelper.GeneratePageLink(lastDs.SeriesName, this.DrillChartIds, "SoldByCompanySalesRep.aspx?searchParameter=" + this.SearchParameter + "&") });
                                     }
 
                                     foreach (var record in productSales)
@@ -437,6 +446,9 @@ namespace Sandler.UI.ChartStructure
                             //}
                         }
                         break;
+                    #endregion
+
+                    #region ClientReports Logic
                     case ChartID.SalesTotalsByMonthQty:
                         string[] monthNames = System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.MonthNames;
 
@@ -505,6 +517,89 @@ namespace Sandler.UI.ChartStructure
                         }
 
                         break;
+
+                    #endregion
+
+                    #region BenchmarkReports Logic
+                    case ChartID.BenchmarkSalesRepFranchisee:
+                        try
+                        {
+                            chartParams = new List<ChartParameter>();
+                            chartParams.Add(new ChartParameter { Value = "-2" });
+                            chartParams.Add(new ChartParameter { Value = "-1" });
+                            chartParams.Add(new ChartParameter { Value = "0" });
+
+                            franchiseeName = new FranchiseeRepository().GetById(currentUser.FranchiseeID).Name;
+                            Caption = Caption.Replace("Sales Rep", SearchParameter).Replace("Name", franchiseeName);
+                            IEnumerable<SandlerModels.DataIntegration.BenchMarkVM> salesRepToFranchiseeData;
+
+                            this.DataSetCollection.Add(new ChartDataSet { Color = "4F94CD", SeriesName = "Franchisee" });//4F94CD steelblue3
+                            this.DataSetCollection.Add(new ChartDataSet { Color = "FF8C00", SeriesName = "Rep" });//FF8C00 darkorange
+                            Double totalValue = 0.0;
+                            Double otherSalesRepsTotals = 0.0;
+                            Double salesRepValue = 0.0;
+                            foreach (ChartParameter parameter in chartParams)
+                            {
+                                salesRepToFranchiseeData = queries.GetBenchMarkSalesRepToFranchiseeByMonth(currentUser, DateTime.Now.AddMonths(int.Parse(parameter.Value)).Month);
+                                totalValue = salesRepToFranchiseeData.Sum(r => r.Value);
+
+                                this.Categories.Add(new Category { Label = DateTime.Now.AddMonths(int.Parse(parameter.Value)).ToString("MMM") });
+                                otherSalesRepsTotals = (from record in salesRepToFranchiseeData.Where(r => r.KeyGroupId != SearchParameter)
+                                              select record).Sum(r => r.Value);
+                                this.DataSetCollection[0].SetsCollection.Add(new SetValue { Value = ((otherSalesRepsTotals / totalValue) * 100).ToString("f2"), Link = ChartHelper.GeneratePageLink(DateTime.Now.AddMonths(int.Parse(parameter.Value)).ToString("MMM"), this.DrillChartIds, "SalesRepToFranchisee.aspx?searchParameter=" + this.SearchParameter + "&") });
+
+                                SandlerModels.DataIntegration.BenchMarkVM repRecord = salesRepToFranchiseeData.Where(r => r.KeyGroupId == SearchParameter).SingleOrDefault();
+                                salesRepValue = (repRecord == null) ? 0.0 : repRecord.Value;
+                                this.DataSetCollection[1].SetsCollection.Add(new SetValue { Value = ((salesRepValue / totalValue) * 100).ToString("f2"), Link = ChartHelper.GeneratePageLink(DateTime.Now.AddMonths(int.Parse(parameter.Value)).ToString("MMM"), this.DrillChartIds, "SalesRepToFranchisee.aspx?searchParameter=" + this.SearchParameter + "&") });
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            throw new Exception("Exception in ChartID.BenchmarkSalesRepFranchisee:" + ex.Message);
+                        }
+                        break;
+                    case ChartID.BenchmarkFranchiseeRegion:
+                        try
+                        {
+                            chartParams = new List<ChartParameter>();
+                            chartParams.Add(new ChartParameter { Value = "-2" });
+                            chartParams.Add(new ChartParameter { Value = "-1" });
+                            chartParams.Add(new ChartParameter { Value = "0" });
+
+                            franchiseeName = new FranchiseeRepository().GetById(int.Parse(SearchParameter)).Name;
+                            regionName = new RegionRepository().GetById(currentUser.RegionID).Name;
+                            Caption = Caption.Replace("Region Name", regionName).Replace("Franchisee Name", franchiseeName);
+                            IEnumerable<SandlerModels.DataIntegration.BenchMarkVM> salesFranchiseeToRegionsData;
+
+                            this.DataSetCollection.Add(new ChartDataSet { Color = "32df00", SeriesName = "Region" });
+                            this.DataSetCollection.Add(new ChartDataSet { Color = "4F94CD", SeriesName = "Franchisee" });
+                            
+                            Double totalValue = 0.0;
+                            Double otherFranchiseesTotals = 0.0;
+                            Double franchiseeValue = 0.0;
+                            foreach (ChartParameter parameter in chartParams)
+                            {
+                                salesFranchiseeToRegionsData = queries.GetBenchMarkFranchiseeToRegionsByMonth(currentUser, DateTime.Now.AddMonths(int.Parse(parameter.Value)).Month);
+                                totalValue = salesFranchiseeToRegionsData.Sum(r => r.Value);
+
+                                this.Categories.Add(new Category { Label = DateTime.Now.AddMonths(int.Parse(parameter.Value)).ToString("MMM") });
+                                otherFranchiseesTotals = (from record in salesFranchiseeToRegionsData.Where(r => r.KeyGroupId != SearchParameter)
+                                              select record).Sum(r => r.Value);
+                                this.DataSetCollection[0].SetsCollection.Add(new SetValue { Value = ((otherFranchiseesTotals / totalValue) * 100).ToString("f2"), Link = ChartHelper.GeneratePageLink(DateTime.Now.AddMonths(int.Parse(parameter.Value)).ToString("MMM"), this.DrillChartIds, "FranchiseeToRegion.aspx?searchParameter=" + this.SearchParameter + "&") });
+
+                                SandlerModels.DataIntegration.BenchMarkVM franchiseeRecord = salesFranchiseeToRegionsData.Where(r => r.KeyGroupId == SearchParameter).SingleOrDefault();
+                                franchiseeValue = (franchiseeRecord == null) ? 0.0 : franchiseeRecord.Value;
+                                this.DataSetCollection[1].SetsCollection.Add(new SetValue { Value = ((franchiseeValue / totalValue) * 100).ToString("f2"), Link = ChartHelper.GeneratePageLink(DateTime.Now.AddMonths(int.Parse(parameter.Value)).ToString("MMM"), this.DrillChartIds, "FranchiseeToRegion.aspx?searchParameter=" + this.SearchParameter + "&") });
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            throw new Exception("Exception in ChartID.BenchmarkFranchiseeRegion:" + ex.Message);
+                        }
+                        break;
+                    #endregion
+
+                    #region AdHocReports logic
                     case ChartID.ClosedSalesAnalysis:
                         productTypesSource = new ProductTypesRepository();
                         if (currentUser.Role == SandlerRoles.FranchiseeOwner || currentUser.Role == SandlerRoles.FranchiseeUser)
@@ -702,6 +797,10 @@ namespace Sandler.UI.ChartStructure
                         //}
 
                         break;
+                    #endregion
+
+                    #region FranchiseeReports Logic
+
                     case ChartID.NewAppointmentsBySourceMonth:
                         appointmentSource = new AppointmentSourceRepository();
                         foreach (var record in appointmentSource.GetAll().Where(r => r.IsActive == true).AsEnumerable())
@@ -897,6 +996,8 @@ namespace Sandler.UI.ChartStructure
 
                         }
                         break;
+                    #endregion
+
                     case ChartID.GapAnalysis:
                         this.Categories.Add(new Category { Label = "Sales Cycle Time" });
                         this.Categories.Add(new Category { Label = "Sales Efficiency" });
@@ -1100,6 +1201,8 @@ namespace Sandler.UI.ChartStructure
 
 
                         break;
+
+                    #region FranchiseeReports Logic
                     case ChartID.AverageLengthTimeActiveClientsByIndustry:
                         try
                         {
@@ -1134,6 +1237,7 @@ namespace Sandler.UI.ChartStructure
                             throw new Exception("Error in ChartID.AverageLengthTimeActiveClientsByIndustry:" + ex.Message);
                         }
                         break;
+                    #endregion
 
                     default:
                         break;
@@ -1233,8 +1337,6 @@ namespace Sandler.UI.ChartStructure
 
     public class PieChart : BarChart
     {
-        public List<SetValue> SetsCollection;
-
         public PieChart()
             : base()
         {
@@ -1278,7 +1380,8 @@ namespace Sandler.UI.ChartStructure
                 var totalCounts = 0.0;
                 IEnumerable<Tbl_ProductType> products;
                 string companyName = "";
-                string salesRep = "";
+                string franchiseeName = "";
+                string regionName = "";
                 switch (this.Id)
                 {
                     case ChartID.SalesCycleTimeMain:
@@ -1301,6 +1404,8 @@ namespace Sandler.UI.ChartStructure
 
                         }
                         break;
+
+                    #region AdHocReports logic
                     case ChartID.PipelineOpportunityAnalysisBySource:
                         if (this.SubType == ChartSubType.ProductsSoldBySalesValue)
                             this.Caption = "Sales Value Percentage By Product";
@@ -1507,6 +1612,9 @@ namespace Sandler.UI.ChartStructure
                         }
                         //}
                         break;
+                    #endregion
+
+                    #region FranchiseeReports logic
                     case ChartID.NewAppointmentsBySource:
                         //if (queries.GetNewAppointmentSource(currentUser, DateTime.ParseExact(this.DrillBy, "MMM", null).Month) != null)
                         //{
@@ -1559,6 +1667,115 @@ namespace Sandler.UI.ChartStructure
                         }
                         //}
                         break;
+                    case ChartID.NewClientQuantity:
+                        //if (queries.NewClientsWithProductTypes(currentUser, DateTime.ParseExact(this.DrillBy, "MMM", null).Month) != null)
+                        //{
+                        var NewClientsWithProductTypes = from record in queries.NewClientsWithProductTypes(currentUser, DateTime.ParseExact(this.DrillBy, "MMM", null).Month)
+                                                         select new { Category = record.ProductTypeName, Count = record.Count };
+
+                        productTypesSource = new ProductTypesRepository();
+
+                        if (currentUser.Role == SandlerRoles.FranchiseeOwner || currentUser.Role == SandlerRoles.FranchiseeUser)
+                            products = productTypesSource.GetWithFranchiseeId(currentUser.FranchiseeID);
+                        else
+                            products = productTypesSource.GetAll().Where(r => r.IsActive == true);
+
+                        foreach (var record in products.AsEnumerable())
+                        {
+                            try
+                            {
+                                if (NewClientsWithProductTypes.Single(r => r.Category == record.ProductTypeName) != null)
+                                    this.SetsCollection.Add(new SetValue { Color = record.ColorCode, Label = record.ProductTypeName, Value = NewClientsWithProductTypes.Single(r => r.Category == record.ProductTypeName).Count.ToString() });
+                            }
+                            catch (System.InvalidOperationException)
+                            {
+
+                            }
+                        }
+                        //}
+                        break;
+
+                    case ChartID.ContractPrice:
+
+                        //if (queries.ContractPriceWithProductTypes(currentUser, DateTime.ParseExact(this.DrillBy, "MMM", null).Month) != null)
+                        //{
+                        var ContractPriceWithProductTypes = from record in queries.ContractPriceWithProductTypes(currentUser, DateTime.ParseExact(this.DrillBy, "MMM", null).Month)
+                                                            select new { Category = record.ProductTypeName, AvgPrice = record.AvgPrice };
+
+                        productTypesSource = new ProductTypesRepository();
+
+                        if (currentUser.Role == SandlerRoles.FranchiseeOwner || currentUser.Role == SandlerRoles.FranchiseeUser)
+                            products = productTypesSource.GetWithFranchiseeId(currentUser.FranchiseeID);
+                        else
+                            products = productTypesSource.GetAll().Where(r => r.IsActive == true);
+
+                        foreach (var record in products.AsEnumerable())
+                        {
+                            try
+                            {
+                                if (ContractPriceWithProductTypes.Single(r => r.Category == record.ProductTypeName) != null)
+                                    this.SetsCollection.Add(new SetValue { Color = record.ColorCode, Label = record.ProductTypeName, Value = ((ContractPriceWithProductTypes.Single(r => r.Category == record.ProductTypeName).AvgPrice) / 5).ToString() });
+                            }
+                            catch (System.InvalidOperationException)
+                            {
+
+                            }
+                        }
+                        //}
+                        break;
+                    case ChartID.HeadcountByCourse:
+                        //if (queries.GetHeadcountByCourse(currentUser, DateTime.ParseExact(this.DrillBy, "MMM", null).Month) != null)
+                        //{
+                        var headCountsByCourse = from record in queries.GetHeadcountByCourse(currentUser, DateTime.ParseExact(this.DrillBy, "MMM", null).Month)
+                                                 select new { Course = record.CourseName, Count = record.Count };
+
+                        colors = new string[] { "CC6600", "9900CC", "FF3300", "0099FF", "00CC66", "FFFF00" };
+
+                        CourseRepository courseSource = new CourseRepository();
+                        foreach (var record in courseSource.GetAll().Where(r => r.IsActive == true).AsEnumerable())
+                        {
+                            try
+                            {
+                                if (headCountsByCourse.Single(r => r.Course == record.CourseName) != null)
+                                    this.SetsCollection.Add(new SetValue { Color = colors.GetValue(colorIndex).ToString(), Label = record.CourseName, Value = headCountsByCourse.Single(r => r.Course == record.CourseName).Count.ToString() });
+                            }
+                            catch (System.InvalidOperationException)
+                            {
+
+                            }
+                            colorIndex++;
+                        }
+                        //}
+                        break;
+                    case ChartID.HeadcountByIndustry:
+                        //userEntities = new UserEntities();
+                        //contacts = userEntities.GetContacts(currentUser);
+
+                        //if (queries.GetHeadcountByIndustry(currentUser, DateTime.ParseExact(this.DrillBy, "MMM", null).Month) != null)
+                        //{
+                        var data = from record in queries.GetHeadcountByIndustry(currentUser, DateTime.ParseExact(this.DrillBy, "MMM", null).Month)
+                                   select new { Industry = record.IndustryTypeName, Count = record.Count };
+                        colors = new string[] { "9900CC", "FF3300", "0099FF", "00CC66", "FFFF00" };
+
+                        IndustryTypeRepository industrySource = new IndustryTypeRepository();
+                        foreach (var record in industrySource.GetAll().Where(r => r.IsActive == true).AsEnumerable())
+                        {
+                            try
+                            {
+                                if (data.Single(r => r.Industry == record.IndustryTypeName) != null)
+                                    this.SetsCollection.Add(new SetValue { Color = colors.GetValue(colorIndex).ToString(), Label = record.IndustryTypeName, Value = data.Single(r => r.Industry == record.IndustryTypeName).Count.ToString() });
+                            }
+                            catch (System.InvalidOperationException)
+                            {
+
+                            }
+                            colorIndex++;
+                        }
+                        //}
+                        break;
+                    #endregion
+
+                    #region ProductsReports Logic
                     case ChartID.ProductMarginValue:
                         var productSalesValue = from record in queries.GetProductSalesByMonth(currentUser, DateTime.ParseExact(this.DrillBy, "MMM", null).Month)
                                                 select new { Name = record.ProductTypeName, Value = record.AvgPrice };
@@ -1743,10 +1960,10 @@ namespace Sandler.UI.ChartStructure
                         break;
                     case ChartID.ProductSalesBySalesRepQuantity:
                         try
-                        {                            
+                        {
                             this.Caption = this.Caption.Replace("Sales Rep", SearchParameter);
                             var productSalesBySalesRepQty = from record in queries.GetProductSoldBySalesRepByMonth(currentUser, DateTime.ParseExact(this.DrillBy, "MMM", null).Month, this.SearchParameter)
-                                                           select new { Name = record.ProductTypeName, Count = record.Count };
+                                                            select new { Name = record.ProductTypeName, Count = record.Count };
 
                             totalCounts = productSalesBySalesRepQty.Sum(r => r.Count);
 
@@ -1783,7 +2000,7 @@ namespace Sandler.UI.ChartStructure
                         {
                             this.Caption = this.Caption.Replace("Sales Rep", SearchParameter);
                             var productSalesBtSalesRepValue = from record in queries.GetProductSoldBySalesRepByMonth(currentUser, DateTime.ParseExact(this.DrillBy, "MMM", null).Month, SearchParameter)
-                                                             select new { Name = record.ProductTypeName, Value = record.AvgPrice };
+                                                              select new { Name = record.ProductTypeName, Value = record.AvgPrice };
 
                             totalPrice = productSalesBtSalesRepValue.Sum(r => r.Value);
 
@@ -1813,112 +2030,158 @@ namespace Sandler.UI.ChartStructure
                             throw new Exception("Exception in ChartID.ProductSalesBySalesRepValue:" + ex.Message);
                         }
                         break;
-                    case ChartID.NewClientQuantity:
-                        //if (queries.NewClientsWithProductTypes(currentUser, DateTime.ParseExact(this.DrillBy, "MMM", null).Month) != null)
-                        //{
-                        var NewClientsWithProductTypes = from record in queries.NewClientsWithProductTypes(currentUser, DateTime.ParseExact(this.DrillBy, "MMM", null).Month)
-                                                         select new { Category = record.ProductTypeName, Count = record.Count };
+                    #endregion
 
-                        productTypesSource = new ProductTypesRepository();
+                    #region BenchMarkReports Logic
 
-                        if (currentUser.Role == SandlerRoles.FranchiseeOwner || currentUser.Role == SandlerRoles.FranchiseeUser)
-                            products = productTypesSource.GetWithFranchiseeId(currentUser.FranchiseeID);
-                        else
-                            products = productTypesSource.GetAll().Where(r => r.IsActive == true);
-
-                        foreach (var record in products.AsEnumerable())
+                    case ChartID.BenchmarkSalesRepFranchiseeQty:
+                        double salesRepQty;
+                        try
                         {
-                            try
-                            {
-                                if (NewClientsWithProductTypes.Single(r => r.Category == record.ProductTypeName) != null)
-                                    this.SetsCollection.Add(new SetValue { Color = record.ColorCode, Label = record.ProductTypeName, Value = NewClientsWithProductTypes.Single(r => r.Category == record.ProductTypeName).Count.ToString() });
-                            }
-                            catch (System.InvalidOperationException)
-                            {
+                            franchiseeName = new FranchiseeRepository().GetById(currentUser.FranchiseeID).Name;
+                            Caption = Caption.Replace("Sales Rep", SearchParameter).Replace("Name", franchiseeName);
+                            IEnumerable<SandlerModels.DataIntegration.BenchMarkVM> salesRepToFranchiseeData = queries.GetBenchMarkSalesRepToFranchiseeByMonth(currentUser, DateTime.ParseExact(this.DrillBy, "MMM", null).Month); ;
 
-                            }
+                            totalCounts = salesRepToFranchiseeData.Sum(r => r.Count);
+
+                            this.SetsCollection.Add(new SetValue
+                            {
+                                Color = "4F94CD",
+                                Label = "Franchisee",
+                                Value = ((((from record in salesRepToFranchiseeData.Where(r => r.KeyGroupId != SearchParameter)
+                                            select record).Sum(r => r.Count)) / totalCounts) * 100).ToString()
+                            });
+
+                            SandlerModels.DataIntegration.BenchMarkVM repRecord = salesRepToFranchiseeData.Where(r => r.KeyGroupId == SearchParameter).SingleOrDefault();
+                            salesRepQty = (repRecord == null) ? 0.0 : repRecord.Count;
+
+                            this.SetsCollection.Add(new SetValue
+                            {
+                                Color = "FF8C00",
+                                Label = "Rep",
+                                Value = (( salesRepQty/ totalCounts) * 100).ToString()
+                                
+                            });
+
                         }
-                        //}
+                        catch (Exception ex)
+                        {
+                            throw new Exception("Exception in ChartID.BenchmarkSalesRepFranchiseeQty:" + ex.Message);
+                        }
                         break;
 
-                    case ChartID.ContractPrice:
-
-                        //if (queries.ContractPriceWithProductTypes(currentUser, DateTime.ParseExact(this.DrillBy, "MMM", null).Month) != null)
-                        //{
-                        var ContractPriceWithProductTypes = from record in queries.ContractPriceWithProductTypes(currentUser, DateTime.ParseExact(this.DrillBy, "MMM", null).Month)
-                                                            select new { Category = record.ProductTypeName, AvgPrice = record.AvgPrice };
-
-                        productTypesSource = new ProductTypesRepository();
-
-                        if (currentUser.Role == SandlerRoles.FranchiseeOwner || currentUser.Role == SandlerRoles.FranchiseeUser)
-                            products = productTypesSource.GetWithFranchiseeId(currentUser.FranchiseeID);
-                        else
-                            products = productTypesSource.GetAll().Where(r => r.IsActive == true);
-
-                        foreach (var record in products.AsEnumerable())
+                    case ChartID.BenchmarkSalesRepFranchiseeValue:
+                        double salesRepValue;
+                        try
                         {
-                            try
-                            {
-                                if (ContractPriceWithProductTypes.Single(r => r.Category == record.ProductTypeName) != null)
-                                    this.SetsCollection.Add(new SetValue { Color = record.ColorCode, Label = record.ProductTypeName, Value = ((ContractPriceWithProductTypes.Single(r => r.Category == record.ProductTypeName).AvgPrice) / 5).ToString() });
-                            }
-                            catch (System.InvalidOperationException)
-                            {
+                            franchiseeName = new FranchiseeRepository().GetById(currentUser.FranchiseeID).Name;
+                            Caption = Caption.Replace("Sales Rep", SearchParameter).Replace("Name", franchiseeName);
+                            IEnumerable<SandlerModels.DataIntegration.BenchMarkVM> salesRepToFranchiseeData = queries.GetBenchMarkSalesRepToFranchiseeByMonth(currentUser, DateTime.ParseExact(this.DrillBy, "MMM", null).Month); ;
 
-                            }
+                            totalPrice = salesRepToFranchiseeData.Sum(r => r.Value);
+
+                            this.SetsCollection.Add(new SetValue
+                            {
+                                Color = "4F94CD",
+                                Label = "Franchisee",
+                                Value = ((((from record in salesRepToFranchiseeData.Where(r => r.KeyGroupId != SearchParameter)
+                                            select record).Sum(r => r.Value)) / totalPrice) * 100).ToString()
+                            });
+
+                            SandlerModels.DataIntegration.BenchMarkVM repRecord = salesRepToFranchiseeData.Where(r => r.KeyGroupId == SearchParameter).SingleOrDefault();
+                            salesRepValue = (repRecord == null) ? 0.0 : repRecord.Value;
+
+                            this.SetsCollection.Add(new SetValue
+                            {
+                                Color = "FF8C00",
+                                Label = "Rep",
+                                Value = ((salesRepValue / totalPrice) * 100).ToString()
+                                
+                            });
+
                         }
-                        //}
-                        break;
-                    case ChartID.HeadcountByCourse:
-                        //if (queries.GetHeadcountByCourse(currentUser, DateTime.ParseExact(this.DrillBy, "MMM", null).Month) != null)
-                        //{
-                        var headCountsByCourse = from record in queries.GetHeadcountByCourse(currentUser, DateTime.ParseExact(this.DrillBy, "MMM", null).Month)
-                                                 select new { Course = record.CourseName, Count = record.Count };
-
-                        colors = new string[] { "CC6600", "9900CC", "FF3300", "0099FF", "00CC66", "FFFF00" };
-
-                        CourseRepository courseSource = new CourseRepository();
-                        foreach (var record in courseSource.GetAll().Where(r => r.IsActive == true).AsEnumerable())
+                        catch (Exception ex)
                         {
-                            try
-                            {
-                                if (headCountsByCourse.Single(r => r.Course == record.CourseName) != null)
-                                    this.SetsCollection.Add(new SetValue { Color = colors.GetValue(colorIndex).ToString(), Label = record.CourseName, Value = headCountsByCourse.Single(r => r.Course == record.CourseName).Count.ToString() });
-                            }
-                            catch (System.InvalidOperationException)
-                            {
-
-                            }
-                            colorIndex++;
+                            throw new Exception("Exception in ChartID.BenchmarkSalesRepFranchiseeValue:" + ex.Message);
                         }
-                        //}
                         break;
-                    case ChartID.HeadcountByIndustry:
-                        //userEntities = new UserEntities();
-                        //contacts = userEntities.GetContacts(currentUser);
 
-                        //if (queries.GetHeadcountByIndustry(currentUser, DateTime.ParseExact(this.DrillBy, "MMM", null).Month) != null)
-                        //{
-                        var data = from record in queries.GetHeadcountByIndustry(currentUser, DateTime.ParseExact(this.DrillBy, "MMM", null).Month)
-                                   select new { Industry = record.IndustryTypeName, Count = record.Count };
-                        colors = new string[] { "9900CC", "FF3300", "0099FF", "00CC66", "FFFF00" };
-
-                        IndustryTypeRepository industrySource = new IndustryTypeRepository();
-                        foreach (var record in industrySource.GetAll().Where(r => r.IsActive == true).AsEnumerable())
+                    case ChartID.BenchmarkFranchiseeRegionQty:
+                        double franchiseeQty;
+                        try
                         {
-                            try
-                            {
-                                if (data.Single(r => r.Industry == record.IndustryTypeName) != null)
-                                    this.SetsCollection.Add(new SetValue { Color = colors.GetValue(colorIndex).ToString(), Label = record.IndustryTypeName, Value = data.Single(r => r.Industry == record.IndustryTypeName).Count.ToString() });
-                            }
-                            catch (System.InvalidOperationException)
-                            {
+                            franchiseeName = new FranchiseeRepository().GetById(int.Parse(SearchParameter)).Name;
+                            regionName = new RegionRepository().GetById(currentUser.RegionID).Name;
+                            Caption = Caption.Replace("Region Name", regionName).Replace("Franchisee Name", franchiseeName);
+                            IEnumerable<SandlerModels.DataIntegration.BenchMarkVM> salesFranchiseeToRegionsData = queries.GetBenchMarkFranchiseeToRegionsByMonth(currentUser, DateTime.ParseExact(this.DrillBy, "MMM", null).Month); ;
 
-                            }
-                            colorIndex++;
+                            totalCounts = salesFranchiseeToRegionsData.Sum(r => r.Count);
+
+                            this.SetsCollection.Add(new SetValue
+                            {
+                                Color = "32df00",
+                                Label = "Region",
+                                Value = ((((from record in salesFranchiseeToRegionsData.Where(r => r.KeyGroupId != SearchParameter)
+                                            select record).Sum(r => r.Count)) / totalCounts) * 100).ToString()
+                            });
+
+                            SandlerModels.DataIntegration.BenchMarkVM franchiseeRecord = salesFranchiseeToRegionsData.Where(r => r.KeyGroupId == SearchParameter).SingleOrDefault();
+                            franchiseeQty = (franchiseeRecord == null) ? 0.0 : franchiseeRecord.Count;
+
+                            this.SetsCollection.Add(new SetValue
+                            {
+                                Color = "4F94CD",
+                                Label = "Franchisee",
+                                Value = ((franchiseeQty / totalCounts) * 100).ToString()
+
+                            });
+
                         }
-                        //}
+                        catch (Exception ex)
+                        {
+                            throw new Exception("Exception in ChartID.BenchmarkFranchiseeRegionQty:" + ex.Message);
+                        }
                         break;
+
+                    case ChartID.BenchmarkFranchiseeRegionValue:
+                        double franchiseeValue;
+                        try
+                        {
+                            franchiseeName = new FranchiseeRepository().GetById(int.Parse(SearchParameter)).Name;
+                            regionName = new RegionRepository().GetById(currentUser.RegionID).Name;
+                            Caption = Caption.Replace("Region Name", regionName).Replace("Franchisee Name", franchiseeName);
+                            IEnumerable<SandlerModels.DataIntegration.BenchMarkVM> salesFranchiseeToRegionsData = queries.GetBenchMarkFranchiseeToRegionsByMonth(currentUser, DateTime.ParseExact(this.DrillBy, "MMM", null).Month); ;
+
+                            totalPrice = salesFranchiseeToRegionsData.Sum(r => r.Value);
+
+                            this.SetsCollection.Add(new SetValue
+                            {
+                                Color = "32df00",
+                                Label = "Region",
+                                Value = ((((from record in salesFranchiseeToRegionsData.Where(r => r.KeyGroupId != SearchParameter)
+                                            select record).Sum(r => r.Value)) / totalPrice) * 100).ToString()
+                            });
+
+                            SandlerModels.DataIntegration.BenchMarkVM franchiseeRecord = salesFranchiseeToRegionsData.Where(r => r.KeyGroupId == SearchParameter).SingleOrDefault();
+                            franchiseeValue = (franchiseeRecord == null) ? 0.0 : franchiseeRecord.Value;
+
+                            this.SetsCollection.Add(new SetValue
+                            {
+                                Color = "4F94CD",
+                                Label = "Franchisee",
+                                Value = ((franchiseeValue / totalPrice) * 100).ToString()
+
+                            });
+
+                        }
+                        catch (Exception ex)
+                        {
+                            throw new Exception("Exception in ChartID.BenchmarkFranchiseeRegionValue:" + ex.Message);
+                        }
+                        break;
+
+                    #endregion
+
                     default:
                         break;
                 }

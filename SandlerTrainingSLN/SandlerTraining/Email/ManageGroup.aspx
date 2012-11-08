@@ -55,7 +55,7 @@
      <tr style="color: Black; background-color: #EEEEEE; ">
          <td>Franchisee Contacts:</td>
          <td>
-            <asp:CheckBoxList ID="chkListFrContacts"  DataSourceID="FrContactsEmailDS"  CellSpacing="8" CellPadding="8" DataTextField="Email" DataValueField="ContactsId" RepeatColumns="3"   RepeatLayout="Table"  runat="server"></asp:CheckBoxList>
+            <asp:CheckBoxList ID="chkListFrContacts"  DataSourceID="FrContactsEmailDS"  CellSpacing="8" CellPadding="8" DataTextField="FullName" DataValueField="ContactsId" RepeatColumns="3"   RepeatLayout="Table"  runat="server"></asp:CheckBoxList>
          </td>
      </tr>
 

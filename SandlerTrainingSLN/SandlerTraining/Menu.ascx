@@ -58,7 +58,14 @@
                         </li>
                     </ul>
                     </li>
-                    <li><a id="anchorBenchmarks" runat="server" href="#">BENCHMARKS</a></li>
+                    <li><a id="anchorBenchmarks" runat="server" href="#">BENCHMARKS</a><ul id="Ul1" runat="server"
+                        class="sub_menu">
+                        <li><a href="<%=  Page.ResolveClientUrl("~/" + ChartHelper.GeneratePageLink("","BenchmarkSalesRepFranchisee","Reports/Benchmarks/SalesrepToFranchisee.aspx?"))  %>">
+                            Rep to Franchise</a></li>
+                        <li><a href="<%=  Page.ResolveClientUrl("~/" + ChartHelper.GeneratePageLink("","BenchmarkFranchiseeRegion","Reports/Benchmarks/FranchiseeToRegion.aspx?"))  %>">
+                            Franchise to Region</a></li>
+                    </ul>
+                    </li>
                     <li><a href="~/CRM/Companies/Index.aspx" id="anchorCRM" runat="server">CRM</a></li>
                     <li><a id="anchorMyAccount" runat="server" href="#">My Account</a><ul class="sub_menu">
                         <li><a href="<%=  Page.ResolveClientUrl("~/Account/ChangePassword.aspx") %>">Change

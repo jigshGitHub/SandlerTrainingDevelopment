@@ -17,6 +17,7 @@ namespace SandlerModels
         private string emailAdrs;
         private string userName;
         private string franchiseeName;
+        private int countryId;
         public SandlerRoles Role
         {
             get
@@ -102,6 +103,13 @@ namespace SandlerModels
             set
             {
                 regionId = value;
+            }
+        }
+        public int CountryID
+        {
+            get
+            {
+                return new SandlerRepositories.RegionRepository().GetById(regionId).CountryID;
             }
         }
 
