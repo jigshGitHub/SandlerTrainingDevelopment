@@ -153,7 +153,13 @@ namespace Sandler.UI.ChartStructure
         BenchmarkSalesRepFranchiseeValue,
         BenchmarkFranchiseeRegion,
         BenchmarkFranchiseeRegionQty,
-        BenchmarkFranchiseeRegionValue
+        BenchmarkFranchiseeRegionValue,
+        BenchmarkRegionCountry,
+        BenchmarkRegionCountryQty,
+        BenchmarkRegionCountryValue,
+        BenchmarkCountryAll,
+        BenchmarkCountryAllQty,
+        BenchmarkCountryAllValue
     }
 
     public enum ChartTypes
@@ -223,10 +229,7 @@ namespace Sandler.UI.ChartStructure
                 AppointmentSourceRepository appointmentSource;
                 ProductTypesRepository productTypesSource;
                 IEnumerable<Tbl_ProductType> products;
-                string searchForNewCompany;
-                string searchCompanies;
-                string franchiseeName;
-                string regionName;
+                string searchForNewCompany,searchCompanies,franchiseeName, regionName, countryName;
                 switch ((ChartID)Enum.Parse(typeof(ChartID), this.Id.ToString(), true))
                 {
                     #region ProductsReports Logic
@@ -595,6 +598,83 @@ namespace Sandler.UI.ChartStructure
                         catch (Exception ex)
                         {
                             throw new Exception("Exception in ChartID.BenchmarkFranchiseeRegion:" + ex.Message);
+                        }
+                        break;
+                    case ChartID.BenchmarkRegionCountry:
+                        try
+                        {
+                            chartParams = new List<ChartParameter>();
+                            chartParams.Add(new ChartParameter { Value = "-2" });
+                            chartParams.Add(new ChartParameter { Value = "-1" });
+                            chartParams.Add(new ChartParameter { Value = "0" });
+                                                        
+                            regionName = new RegionRepository().GetById(int.Parse(SearchParameter)).Name;
+                            countryName = new CountryRepository().GetById(currentUser.CountryID).Name;
+                            Caption = Caption.Replace("Region Name", regionName).Replace("Country Name", countryName);
+                            IEnumerable<SandlerModels.DataIntegration.BenchMarkVM> salesRegionToCountryData;
+
+                            this.DataSetCollection.Add(new ChartDataSet { Color = "800080", SeriesName = "Country" });//800080 -- Purple
+                            this.DataSetCollection.Add(new ChartDataSet { Color = "32df00", SeriesName = "Region" });
+
+                            Double totalValue = 0.0;
+                            Double otherRegionsTotal = 0.0;
+                            Double regionValue = 0.0;
+                            foreach (ChartParameter parameter in chartParams)
+                            {
+                                salesRegionToCountryData = queries.GetBenchMarkRegionToCountryByMonth(currentUser, DateTime.Now.AddMonths(int.Parse(parameter.Value)).Month);
+                                totalValue = salesRegionToCountryData.Sum(r => r.Value);
+
+                                this.Categories.Add(new Category { Label = DateTime.Now.AddMonths(int.Parse(parameter.Value)).ToString("MMM") });
+                                otherRegionsTotal = (from record in salesRegionToCountryData.Where(r => r.KeyGroupId != SearchParameter)
+                                                          select record).Sum(r => r.Value);
+                                this.DataSetCollection[0].SetsCollection.Add(new SetValue { Value = ((otherRegionsTotal / totalValue) * 100).ToString("f2"), Link = ChartHelper.GeneratePageLink(DateTime.Now.AddMonths(int.Parse(parameter.Value)).ToString("MMM"), this.DrillChartIds, "RegionToCountry.aspx?searchParameter=" + this.SearchParameter + "&") });
+
+                                SandlerModels.DataIntegration.BenchMarkVM regionRecord = salesRegionToCountryData.Where(r => r.KeyGroupId == SearchParameter).SingleOrDefault();
+                                regionValue = (regionRecord == null) ? 0.0 : regionRecord.Value;
+                                this.DataSetCollection[1].SetsCollection.Add(new SetValue { Value = ((regionValue / totalValue) * 100).ToString("f2"), Link = ChartHelper.GeneratePageLink(DateTime.Now.AddMonths(int.Parse(parameter.Value)).ToString("MMM"), this.DrillChartIds, "RegionToCountry.aspx?searchParameter=" + this.SearchParameter + "&") });
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            throw new Exception("Exception in ChartID.BenchmarkRegionCountry:" + ex.Message);
+                        }
+                        break;
+                    case ChartID.BenchmarkCountryAll:
+                        try
+                        {
+                            chartParams = new List<ChartParameter>();
+                            chartParams.Add(new ChartParameter { Value = "-2" });
+                            chartParams.Add(new ChartParameter { Value = "-1" });
+                            chartParams.Add(new ChartParameter { Value = "0" });
+
+                            countryName = new CountryRepository().GetById(int.Parse(SearchParameter)).Name;
+                            Caption = Caption.Replace("Country Name", countryName);
+                            IEnumerable<SandlerModels.DataIntegration.BenchMarkVM> salesCountryAllData;
+
+                            this.DataSetCollection.Add(new ChartDataSet { Color = "800080", SeriesName = "All" });//800080 -- Purple
+                            this.DataSetCollection.Add(new ChartDataSet { Color = "00CED1", SeriesName = "Country" });//00CED1 -- darkturquoise
+
+                            Double totalValue = 0.0;
+                            Double otherCountriesTotal = 0.0;
+                            Double countryValue = 0.0;
+                            foreach (ChartParameter parameter in chartParams)
+                            {
+                                salesCountryAllData = queries.GetBenchMarkCountryAllByMonth(DateTime.Now.AddMonths(int.Parse(parameter.Value)).Month);
+                                totalValue = salesCountryAllData.Sum(r => r.Value);
+
+                                this.Categories.Add(new Category { Label = DateTime.Now.AddMonths(int.Parse(parameter.Value)).ToString("MMM") });
+                                otherCountriesTotal = (from record in salesCountryAllData.Where(r => r.KeyGroupId != SearchParameter)
+                                                          select record).Sum(r => r.Value);
+                                this.DataSetCollection[0].SetsCollection.Add(new SetValue { Value = ((otherCountriesTotal / totalValue) * 100).ToString("f2"), Link = ChartHelper.GeneratePageLink(DateTime.Now.AddMonths(int.Parse(parameter.Value)).ToString("MMM"), this.DrillChartIds, "CountryToAll.aspx?searchParameter=" + this.SearchParameter + "&") });
+
+                                SandlerModels.DataIntegration.BenchMarkVM franchiseeRecord = salesCountryAllData.Where(r => r.KeyGroupId == SearchParameter).SingleOrDefault();
+                                countryValue = (franchiseeRecord == null) ? 0.0 : franchiseeRecord.Value;
+                                this.DataSetCollection[1].SetsCollection.Add(new SetValue { Value = ((countryValue / totalValue) * 100).ToString("f2"), Link = ChartHelper.GeneratePageLink(DateTime.Now.AddMonths(int.Parse(parameter.Value)).ToString("MMM"), this.DrillChartIds, "CountryToAll.aspx?searchParameter=" + this.SearchParameter + "&") });
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            throw new Exception("Exception in ChartID.BenchmarkCountryAll:" + ex.Message);
                         }
                         break;
                     #endregion
@@ -1382,6 +1462,7 @@ namespace Sandler.UI.ChartStructure
                 string companyName = "";
                 string franchiseeName = "";
                 string regionName = "";
+                string countryName = "";
                 switch (this.Id)
                 {
                     case ChartID.SalesCycleTimeMain:
@@ -2179,7 +2260,150 @@ namespace Sandler.UI.ChartStructure
                             throw new Exception("Exception in ChartID.BenchmarkFranchiseeRegionValue:" + ex.Message);
                         }
                         break;
+                    case ChartID.BenchmarkRegionCountryQty:
+                        double regionQty;
+                        try
+                        {
+                            regionName = new RegionRepository().GetById(int.Parse(SearchParameter)).Name;
+                            countryName = new CountryRepository().GetById(currentUser.CountryID).Name;
+                            Caption = Caption.Replace("Region Name", regionName).Replace("Country Name", countryName);
+                            IEnumerable<SandlerModels.DataIntegration.BenchMarkVM> salesRegionToCountryData = queries.GetBenchMarkRegionToCountryByMonth(currentUser, DateTime.ParseExact(this.DrillBy, "MMM", null).Month); ;
 
+                            totalCounts = salesRegionToCountryData.Sum(r => r.Count);
+
+                            this.SetsCollection.Add(new SetValue
+                            {
+                                Color = "800080",
+                                Label = "Country",
+                                Value = ((((from record in salesRegionToCountryData.Where(r => r.KeyGroupId != SearchParameter)
+                                            select record).Sum(r => r.Count)) / totalCounts) * 100).ToString()
+                            });
+
+                            SandlerModels.DataIntegration.BenchMarkVM regionRecord = salesRegionToCountryData.Where(r => r.KeyGroupId == SearchParameter).SingleOrDefault();
+                            regionQty = (regionRecord == null) ? 0.0 : regionRecord.Count;
+
+                            this.SetsCollection.Add(new SetValue
+                            {
+                                Color = "32df00",
+                                Label = "Region",
+                                Value = ((regionQty / totalCounts) * 100).ToString()
+
+                            });
+
+                        }
+                        catch (Exception ex)
+                        {
+                            throw new Exception("Exception in ChartID.BenchmarkRegionCountryQty:" + ex.Message);
+                        }
+                        break;
+                    case ChartID.BenchmarkRegionCountryValue:
+                        double regionValue;
+                        try
+                        {
+                            regionName = new RegionRepository().GetById(int.Parse(SearchParameter)).Name;
+                            countryName = new CountryRepository().GetById(currentUser.CountryID).Name;
+                            Caption = Caption.Replace("Region Name", regionName).Replace("Country Name", countryName);
+
+                            IEnumerable<SandlerModels.DataIntegration.BenchMarkVM> salesRegionToCountryData = queries.GetBenchMarkRegionToCountryByMonth(currentUser, DateTime.ParseExact(this.DrillBy, "MMM", null).Month);
+
+                            totalPrice = salesRegionToCountryData.Sum(r => r.Value);
+
+                            this.SetsCollection.Add(new SetValue
+                            {
+                                Color = "800080",
+                                Label = "Country",
+                                Value = ((((from record in salesRegionToCountryData.Where(r => r.KeyGroupId != SearchParameter)
+                                            select record).Sum(r => r.Value)) / totalPrice) * 100).ToString()
+                            });
+
+                            SandlerModels.DataIntegration.BenchMarkVM regionRecord = salesRegionToCountryData.Where(r => r.KeyGroupId == SearchParameter).SingleOrDefault();
+                            regionValue = (regionRecord == null) ? 0.0 : regionRecord.Value;
+
+                            this.SetsCollection.Add(new SetValue
+                            {
+                                Color = "32df00",
+                                Label = "Region",
+                                Value = ((regionValue / totalPrice) * 100).ToString()
+
+                            });
+
+                        }
+                        catch (Exception ex)
+                        {
+                            throw new Exception("Exception in ChartID.BenchmarkFranchiseeRegionValue:" + ex.Message);
+                        }
+                        break;
+                    case ChartID.BenchmarkCountryAllQty:
+                        double countryQty;
+                        try
+                        {                            
+                            countryName = new CountryRepository().GetById(int.Parse(SearchParameter)).Name;
+                            Caption = Caption.Replace("Country Name", countryName);
+                            IEnumerable<SandlerModels.DataIntegration.BenchMarkVM> salesCountryAllData = queries.GetBenchMarkCountryAllByMonth( DateTime.ParseExact(this.DrillBy, "MMM", null).Month); ;
+
+                            totalCounts = salesCountryAllData.Sum(r => r.Count);
+
+                            this.SetsCollection.Add(new SetValue
+                            {
+                                Color = "800080",
+                                Label = "All",
+                                Value = ((((from record in salesCountryAllData.Where(r => r.KeyGroupId != SearchParameter)
+                                            select record).Sum(r => r.Count)) / totalCounts) * 100).ToString()
+                            });
+
+                            SandlerModels.DataIntegration.BenchMarkVM countryRecord = salesCountryAllData.Where(r => r.KeyGroupId == SearchParameter).SingleOrDefault();
+                            countryQty = (countryRecord == null) ? 0.0 : countryRecord.Count;
+
+                            this.SetsCollection.Add(new SetValue
+                            {
+                                Color = "00CED1",
+                                Label = "Country",
+                                Value = ((countryQty / totalCounts) * 100).ToString()
+
+                            });
+
+                        }
+                        catch (Exception ex)
+                        {
+                            throw new Exception("Exception in ChartID.BenchmarkRegionCountryQty:" + ex.Message);
+                        }
+                        break;
+                    case ChartID.BenchmarkCountryAllValue:
+                        double countryValue;
+                        try
+                        {
+                            countryName = new CountryRepository().GetById(int.Parse(SearchParameter)).Name;
+                            Caption = Caption.Replace("Country Name", countryName);
+
+                            IEnumerable<SandlerModels.DataIntegration.BenchMarkVM> salesCountryAllData = queries.GetBenchMarkCountryAllByMonth( DateTime.ParseExact(this.DrillBy, "MMM", null).Month);
+
+                            totalPrice = salesCountryAllData.Sum(r => r.Value);
+
+                            this.SetsCollection.Add(new SetValue
+                            {
+                                Color = "800080",
+                                Label = "All",
+                                Value = ((((from record in salesCountryAllData.Where(r => r.KeyGroupId != SearchParameter)
+                                            select record).Sum(r => r.Value)) / totalPrice) * 100).ToString()
+                            });
+
+                            SandlerModels.DataIntegration.BenchMarkVM countryRecord = salesCountryAllData.Where(r => r.KeyGroupId == SearchParameter).SingleOrDefault();
+                            countryValue = (countryRecord == null) ? 0.0 : countryRecord.Value;
+
+                            this.SetsCollection.Add(new SetValue
+                            {
+                                Color = "00CED1",
+                                Label = "Country",
+                                Value = ((countryValue / totalPrice) * 100).ToString()
+
+                            });
+
+                        }
+                        catch (Exception ex)
+                        {
+                            throw new Exception("Exception in ChartID.BenchmarkCountryAllValue:" + ex.Message);
+                        }
+                        break;
                     #endregion
 
                     default:

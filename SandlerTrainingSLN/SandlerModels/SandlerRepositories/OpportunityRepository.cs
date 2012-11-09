@@ -90,6 +90,30 @@ namespace SandlerRepositories
             }
             return data;
         }
+        public SqlDataReader GetBenchMarkRegionCountryData(int month, int year, int regionId)
+        {
+            SqlDataReader data = null;
+            try
+            {
+                data = db.ExecuteReader("sp_GetBenchMarkRegionCountry", new SqlParameter("@month", month), new SqlParameter("@year", year), new SqlParameter("@regionId", regionId));
+            }
+            catch (Exception ex)
+            {
+            }
+            return data;
+        }
+        public SqlDataReader GetBenchMarkCountryAllData(int month, int year)
+        {
+            SqlDataReader data = null;
+            try
+            {
+                data = db.ExecuteReader("sp_GetBenchMarkCountryAll", new SqlParameter("@month", month), new SqlParameter("@year", year));
+            }
+            catch (Exception ex)
+            {
+            }
+            return data;
+        }
 
     }
 }

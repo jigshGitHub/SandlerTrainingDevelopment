@@ -4,7 +4,7 @@ declare @regionId int
 
 
 set @year = 2012
-set @regionId = 8
+set @regionId = 10
 
 
 declare @countryId int
@@ -41,5 +41,6 @@ FROM [vw_Opportunities] vw INNER JOIN TBL_REGION r ON r.ID = vw.RegionID
 WHERE DATEPART(MONTH,vw.CloseDate) = @month AND  DATEPART(YEAR,vw.CloseDate) = @year AND  r.CountryID = @countryId
 group by vw.RegionID;
 
-
-exec [sp_GetBenchMarkRegionCountry] 10,2012,8;
+exec [sp_GetBenchMarkRegionCountry] 9,2012,10;
+exec [sp_GetBenchMarkRegionCountry] 10,2012,10;
+exec [sp_GetBenchMarkRegionCountry] 11,2012,10;

@@ -714,6 +714,7 @@ namespace SandlerModels.DataIntegration
             }
             return data;
         }
+
         public IEnumerable<BenchMarkVM> GetBenchMarkFranchiseeToRegionsByMonth(UserModel currentUser, int processingMonth)
         {
             SqlDataReader dataReader = null;
@@ -740,6 +741,65 @@ namespace SandlerModels.DataIntegration
             catch (Exception ex)
             {
                 throw new Exception("exception in DataQueries.GetBenchMarkFranchiseeToRegionsByMonth: " + ex.Message);
+            }
+            return data;
+        }
+
+        public IEnumerable<BenchMarkVM> GetBenchMarkRegionToCountryByMonth(UserModel currentUser, int processingMonth)
+        {
+            SqlDataReader dataReader = null;
+            IEnumerable<BenchMarkVM> data = null;
+            List<BenchMarkVM> lstData;
+            OpportunityRepository oppRepository;
+            try
+            {
+                oppRepository = new OpportunityRepository();
+
+                dataReader = oppRepository.GetBenchMarkRegionCountryData(processingMonth, DateTime.Now.Year, currentUser.RegionID);
+
+                if (dataReader != null)
+                {
+                    lstData = new List<BenchMarkVM>();
+                    while (dataReader.Read())
+                    {
+                        lstData.Add(new BenchMarkVM { KeyGroupId = dataReader["RegionID"].ToString(), Value = double.Parse(dataReader["TotalValue"].ToString()), Count = int.Parse(dataReader["TotalQty"].ToString()) });
+                    }
+                    dataReader.Close();
+                    data = lstData.AsEnumerable<BenchMarkVM>();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("exception in DataQueries.GetBenchMarkRegionToCountryByMonth: " + ex.Message);
+            }
+            return data;
+        }
+        public IEnumerable<BenchMarkVM> GetBenchMarkCountryAllByMonth(int processingMonth)
+        {
+            SqlDataReader dataReader = null;
+            IEnumerable<BenchMarkVM> data = null;
+            List<BenchMarkVM> lstData;
+            OpportunityRepository oppRepository;
+            try
+            {
+                oppRepository = new OpportunityRepository();
+
+                dataReader = oppRepository.GetBenchMarkCountryAllData(processingMonth, DateTime.Now.Year);
+
+                if (dataReader != null)
+                {
+                    lstData = new List<BenchMarkVM>();
+                    while (dataReader.Read())
+                    {
+                        lstData.Add(new BenchMarkVM { KeyGroupId = dataReader["CountryID"].ToString(), Value = double.Parse(dataReader["TotalValue"].ToString()), Count = int.Parse(dataReader["TotalQty"].ToString()) });
+                    }
+                    dataReader.Close();
+                    data = lstData.AsEnumerable<BenchMarkVM>();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("exception in DataQueries.GetBenchMarkCountryAllByMonth: " + ex.Message);
             }
             return data;
         }
