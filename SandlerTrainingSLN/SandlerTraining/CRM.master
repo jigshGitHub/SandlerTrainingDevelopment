@@ -20,8 +20,8 @@
 </head>
 <body>
     <script type="text/javascript" src="<%= Page.ResolveClientUrl("~/FusionChartLib/FusionCharts.js") %>"></script>
-    <script type="text/javascript" src="<%= Page.ResolveClientUrl("~/FusionChartLib/FusionCharts.HC.js") %>"></script>
     <script type="text/javascript" src="<%= Page.ResolveClientUrl("~/Scripts/jquery-1.4.1.min.js") %>"></script>
+    <script type="text/javascript" src="<%= Page.ResolveClientUrl("~/FusionChartLib/FusionCharts.HC.js") %>"></script>
     <script type="text/javascript" src="<%= Page.ResolveClientUrl("~/Scripts/External.js") %>"></script>
     <script type="text/javascript" src="<%= Page.ResolveClientUrl("~/Scripts/jquery.formatCurrency-1.4.0.min.js") %>"></script>
     <script type="text/javascript" src="<%= Page.ResolveClientUrl("~/Scripts/jquery.calculation.min.js") %>"></script>

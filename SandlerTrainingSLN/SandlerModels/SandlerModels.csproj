@@ -71,6 +71,7 @@
     <Compile Include="DataIntegration\Company.cs" />
     <Compile Include="DataIntegration\Contact.cs" />
     <Compile Include="DataIntegration\DataQueries.cs" />
+    <Compile Include="DataIntegration\Franchisees.cs" />
     <Compile Include="DataIntegration\UserDataEntities.cs" />
     <Compile Include="DataIntegration\IQueryableExtensions.cs" />
     <Compile Include="DataIntegration\DataModels.cs" />
@@ -106,7 +107,9 @@
     <Compile Include="SandlerRepositories\DBFactory.cs" />
     <Compile Include="SandlerRepositories\DocumentsRepository.cs" />
     <Compile Include="SandlerRepositories\ForcastingRepository.cs" />
+    <Compile Include="SandlerRepositories\FranchiseesRepository.cs" />
     <Compile Include="SandlerRepositories\GapAnalysisRepository.cs" />
+    <Compile Include="SandlerRepositories\HomeOfficeReportRepository.cs" />
     <Compile Include="SandlerRepositories\NightProcessRepository.cs" />
     <Compile Include="SandlerRepositories\OpportunityRepository.cs" />
     <Compile Include="SandlerRepositories\Repositories.cs" />
