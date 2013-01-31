@@ -173,8 +173,8 @@ public abstract class BasePage : System.Web.UI.Page
 
         items = new List<SandlerWeb.MenuItem>();
 
-        items.Add(new SandlerWeb.MenuItem { Id = "Search", Text = "Search", Link = "~/CRM/HomeOffice/Search.aspx", IsVisible = true });
-        items.Add(new SandlerWeb.MenuItem { Id = "AddFranchisee", Text = "Add New Franchisee", Link = "~/CRM/HomeOffice/Add.aspx", IsVisible = !IsUserReadOnly(SandlerUserActions.Add, SandlerEntities.Franchisee) });
+        items.Add(new SandlerWeb.MenuItem { Id = "Search", Text = "Detailed Search", Link = "~/CRM/HomeOffice/Search.aspx", IsVisible = true });
+        items.Add(new SandlerWeb.MenuItem { Id = "AddFranchisee", Text = "Add New..", Link = "~/CRM/HomeOffice/Add.aspx", IsVisible = !IsUserReadOnly(SandlerUserActions.Add, SandlerEntities.Franchisee) });
         CRMMenu.Add(new SandlerWeb.Menu { Title = "Franchisee", IsVisible = true, Items = items.Where(item => item.IsVisible == true).ToList() });
 
     }

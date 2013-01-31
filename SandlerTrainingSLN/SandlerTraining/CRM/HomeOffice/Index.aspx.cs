@@ -29,14 +29,14 @@ public partial class CRM_HomeOffice_Index : BasePage
         {
             LblStatus.Text = "There are no Franchisees entered in the System.";
             btnExportExcel.Visible = false;
-            franchiseeMenu.MenuEntity.Items.Find(delegate(Sandler.Web.MenuItem item) { return item.Text == "Search"; }).IsVisible = false;
+            franchiseeMenu.MenuEntity.Items.Find(delegate(Sandler.Web.MenuItem item) { return item.Text == "Detailed Search"; }).IsVisible = false;
             franchiseeMenu.ReLoadSubMenu();
         }
         else
         {
             LblStatus.Text = "";
             btnExportExcel.Visible = true;
-            franchiseeMenu.MenuEntity.Items.Find(delegate(Sandler.Web.MenuItem item) { return item.Text == "Search"; }).IsVisible = true;
+            franchiseeMenu.MenuEntity.Items.Find(delegate(Sandler.Web.MenuItem item) { return item.Text == "Detailed Search"; }).IsVisible = true;
             franchiseeMenu.ReLoadSubMenu();
             
         }

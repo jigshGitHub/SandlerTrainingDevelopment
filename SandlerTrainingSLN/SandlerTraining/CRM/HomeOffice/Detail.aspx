@@ -16,13 +16,14 @@
         </tr>
         <tr>
             <td>
-            <asp:FormView DataKeyNames="ID" ID="FranchiseeFW" runat="server" OnItemUpdating="FranchiseeFW_ItemUpdating"
+            <asp:FormView DataKeyNames="ID" ID="FranchiseeFW" runat="server" OnItemUpdating="FranchiseeFW_ItemUpdating" width="100%"
             OnItemCommand="FranchiseeFW_ItemCommand" OnModeChanging="FranchiseeFW_ModeChanging" OnItemCreated="FranchiseeFW_ItemCreated"
             OnDataBound="FranchiseeFW_DataBound">
                     
                     <EditItemTemplate>
                         <table width="100%">
                              <tr>
+                                 <td style="width:5%"></td>
                                  <td>
                                      <table id="tblFranchiseeInfoET">
                                          <tr>
@@ -32,7 +33,7 @@
                                             <td>Franchisee Name:<td><%# Eval("Name")%></td>
                                          </tr>
                                          <tr style="color: Black; background-color: #EEEEEE; white-space: nowrap;">
-                                            <td>LastName:</td>
+                                            <td>Last Name:</td>
                                             <td>
                                                 <asp:TextBox ID="LastNameTB" MaxLength="50"  Width="150" Text='<%# Bind("LastName") %>' runat="server"></asp:TextBox>
                                                 <asp:RequiredFieldValidator ID="reqFieldValLastNameTB" ControlToValidate="LastNameTB" Display="Static" InitialValue="" runat="server" ErrorMessage="Please Enter LastName to proceed.">*</asp:RequiredFieldValidator>
@@ -40,7 +41,7 @@
 
                                          </tr>
                                          <tr style="color: Black; background-color: #DCDCDC; white-space: nowrap;">
-                                            <td>FirstName:</td>
+                                            <td>First Name:</td>
                                             <td>
                                                 <asp:TextBox ID="FirstNameTB" MaxLength="50" Width="150" Text='<%# Bind("FirstName") %>' runat="server"></asp:TextBox>
                                                 <asp:RequiredFieldValidator ID="rfvFirstNameTB" ControlToValidate="FirstNameTB" Display="Static" InitialValue="" runat="server" ErrorMessage="Please Enter FirstName to proceed.">*</asp:RequiredFieldValidator>
@@ -57,7 +58,7 @@
                                             </td>
                                          </tr>
                                          <tr style="color: Black; background-color: #EEEEEE; white-space: nowrap;">
-                                            <td>Part of a Master Franchisee?:</td>
+                                            <td>Part of a Master Franchise?:</td>
                                              <td>
                                                  <asp:DropDownList ID="ddlPartOfMF" runat="server" DataSourceID="YesNoOptionsInfoDS" 
                                                  DataTextField="Description" DataValueField="Value" SelectedValue='<%# Bind("IsMasterFranchiseeExistsValue") %>'></asp:DropDownList>
@@ -174,10 +175,18 @@
                                                  <asp:DropDownList ID="ddlContrPerm" runat="server" DataSourceID="YesNoOptionsInfoDS" DataTextField="Description" DataValueField="Value" SelectedValue='<%# Bind("IsContractorPermittedValue") %>'></asp:DropDownList>
                                               </td>
                                          </tr>
-
+                                         <tr style="color: Black; background-color: #EEEEEE; white-space: nowrap;">
+                                            <td colspan="2"></td>
+                                         </tr>
+                                         <tr style="color: Black; background-color: #DCDCDC; white-space: nowrap;">
+                                             <td colspan="2">
+                                                <asp:LinkButton ID="LinkButton1" runat="server" CausesValidation="True" CommandName="Update" Text="Update"></asp:LinkButton>&nbsp;&nbsp;
+                                                <asp:LinkButton ID="LinkButton2" runat="server" CausesValidation="False" CommandName="Cancel" Text="Cancel"></asp:LinkButton>
+                                             </td>
+                                         </tr>
                                      </table>
                                  </td>
-                                 <td>&nbsp;&nbsp;</td>
+                                 <td style="width:20%"></td>
                                  <td>
                                      <table id="tblPersonalInfoET">
                                              <tr>
@@ -355,16 +364,13 @@
                                                     <asp:DropDownList ID="ddlHomeCountry" runat="server" DataSourceID="CountryInfoDS" DataTextField="Name" DataValueField="Id" SelectedValue='<%# Bind("HomeCountryValue") %>'></asp:DropDownList>
                                                 </td>
                                              </tr>
+
                                       </table>
                                  </td>
+                                 <td style="width:5%"></td>
                              </tr>
                              
-                             <tr style="color: Black; background-color: #DCDCDC; white-space: nowrap;">
-                                 <td colspan="2">
-                                    <asp:LinkButton ID="LinkButton1" runat="server" CausesValidation="True" CommandName="Update" Text="Update"></asp:LinkButton>&nbsp;&nbsp;
-                                    <asp:LinkButton ID="LinkButton2" runat="server" CausesValidation="False" CommandName="Cancel" Text="Cancel"></asp:LinkButton>
-                                 </td>
-                             </tr>
+                             
                          </table>
                          
                      </EditItemTemplate>
@@ -372,6 +378,7 @@
                     <ItemTemplate>
                         <table width="100%">
                              <tr>
+                                 <td style="width:5%"></td>
                                  <td>
                                      <table id="tblFranchiseeInfoIT">
                                          <tr>
@@ -381,10 +388,10 @@
                                             <td>Franchisee Name:<td><%# Eval("Name")%></td>
                                          </tr>
                                          <tr style="color: Black; background-color: #EEEEEE; white-space: nowrap;">
-                                            <td>LastName:<td><%# Eval("LastName")%></td>
+                                            <td>Last Name:<td><%# Eval("LastName")%></td>
                                          </tr>
                                          <tr style="color: Black; background-color: #DCDCDC; white-space: nowrap;">
-                                            <td>FirstName:</td><td><%# Eval("FirstName")%></td>
+                                            <td>First Name:</td><td><%# Eval("FirstName")%></td>
                                          </tr>
                                          <tr style="color: Black; background-color: #EEEEEE; white-space: nowrap;">
                                             <td>Title:</td><td><%# Eval("Title")%></td>
@@ -393,7 +400,7 @@
                                             <td>Sandler Role:</td><td><%# Eval("SandlerRole")%></td>
                                          </tr>
                                          <tr style="color: Black; background-color: #EEEEEE; white-space: nowrap;">
-                                            <td>Part of a Master Franchisee?:</td><td><%# Eval("IsMasterFranchiseeExists")%></td>
+                                            <td>Part of a Master Franchise?:</td><td><%# Eval("IsMasterFranchiseeExists")%></td>
                                          </tr>
                                          <tr style="color: Black; background-color: #DCDCDC; white-space: nowrap;">
                                             <td>Master Franchisee:</td><td><%# Eval("MasterFrName")%></td>
@@ -463,10 +470,20 @@
                                                 <asp:Label ID="lblContractFormDate" runat="server" Text='<%# Bind("ContractFormDate") %>'></asp:Label>
                                             </td>
                                          </tr>
-                                         
+                                         <tr style="color: Black; background-color: #DCDCDC; white-space: nowrap;">
+                                            <td>Are Contractors Permitted?:</td><td><%# Eval("IsContractorPermitted") %></td>
+                                         </tr>
+                                         <tr style="color: Black; background-color: #EEEEEE; white-space: nowrap;">
+                                            <td colspan="2">&nbsp;</td>
+                                         </tr>
+                                         <tr style="color: Black; background-color: #DCDCDC; white-space: nowrap;">
+                                             <td colspan="2">
+                                                <asp:LinkButton ID="LinkButton1" runat="server" CausesValidation="False" CommandName="Edit" Text="Edit"></asp:LinkButton>&nbsp;&nbsp;<a href="Index.aspx" style="font-weight:bold">Back To Franchisees</a>
+                                             </td>
+                                         </tr>
                                      </table>
                                  </td>
-                                 <td>&nbsp;&nbsp;</td>
+                                 <td style="width:20%"></td>
                                  <td>
                                      <table id="tblPersonalInfoIT">
                                              <tr>
@@ -570,12 +587,9 @@
                                              </tr>
                                       </table>
                                  </td>
+                                 <td style="width:5%"></td>
                              </tr>
-                             <tr style="color: Black; background-color: #EEEEEE; white-space: nowrap;">
-                                 <td colspan="2">
-                                    <asp:LinkButton ID="LinkButton1" runat="server" CausesValidation="False" CommandName="Edit" Text="Edit"></asp:LinkButton>&nbsp;&nbsp;<a href="Index.aspx" style="font-weight:bold">Back To Franchisees</a>
-                                 </td>
-                             </tr>
+                             
                          </table>
                    </ItemTemplate>
             </asp:FormView>

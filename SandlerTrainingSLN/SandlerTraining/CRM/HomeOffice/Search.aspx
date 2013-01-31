@@ -7,7 +7,7 @@
 <asp:ToolkitScriptManager ID="ToolkitScriptManager1" runat="server"></asp:ToolkitScriptManager>
 <asp:UpdatePanel ID="updPnl" runat="server">
     <ContentTemplate>
-   <table id="tblSearchCriteria">
+   <table id="tblSearchCriteria" width="100%">
     <tr>
        <th class="tdTC" align="left">
                 Search Franchisee : Please enter/select at least one criteria to search.
@@ -17,18 +17,20 @@
      <tr>
             <td>
 
-              <asp:FormView ID="FranchiseeFW" runat="server" CellPadding="3" BorderStyle="None" DefaultMode="Insert" 
+              <asp:FormView ID="FranchiseeFW" runat="server" CellPadding="3" BorderStyle="None" DefaultMode="Insert" width="100%"
                     BorderWidth="1px" BackColor="White" BorderColor="#999999" GridLines="Vertical"
                      OnModeChanging="FranchiseeFW_ModeChanging" OnItemInserting="FranchiseeFW_ItemInserting">
                     <InsertItemTemplate>
                                     
                         <table width="100%">
                              <tr>
+                                 <td style="width:5%"></td>
                                  <td>
                                      <table id="tblFranchiseeInfoET">
                                          <tr>
                                             <td colspan="2" style="font-size:large"><b>Franchisee Information:</b></td>
                                          </tr>
+                                            
                                          <tr style="color: Black; background-color: #DCDCDC; white-space: nowrap;">
                                             <td>Franchisee Name:</td>
                                             <td>
@@ -38,7 +40,7 @@
 
                                          </tr>
                                          <tr style="color: Black; background-color: #EEEEEE; white-space: nowrap;">
-                                            <td>LastName:</td>
+                                            <td>Last Name:</td>
                                             <td>
                                                 <asp:TextBox ID="LastNameTB" MaxLength="50"  Width="150" runat="server"></asp:TextBox>
                                                 
@@ -46,7 +48,7 @@
 
                                          </tr>
                                          <tr style="color: Black; background-color: #DCDCDC; white-space: nowrap;">
-                                            <td>FirstName:</td>
+                                            <td>Firs tName:</td>
                                             <td>
                                                 <asp:TextBox ID="FirstNameTB" MaxLength="50" Width="150" runat="server"></asp:TextBox>
                                                 
@@ -63,9 +65,9 @@
                                             </td>
                                          </tr>
                                          <tr style="color: Black; background-color: #EEEEEE; white-space: nowrap;">
-                                            <td>Part of a Master Franchisee?:</td>
+                                            <td>Part of a Master Franchise?:</td>
                                              <td>
-                                                 <asp:ListBox SelectionMode="Multiple" ID="lstPartOfMF" runat="server" DataSourceID="YesNoOptionsInfoDS"  Width="280"
+                                                 <asp:ListBox SelectionMode="Multiple" ID="lstPartOfMF" runat="server" DataSourceID="YesNoOptionsInfoDS" Width="240" Height="40"
                                                  DataTextField="Description" DataValueField="Value"></asp:ListBox>
                                               </td>
                                          </tr>
@@ -78,19 +80,19 @@
                                          <tr style="color: Black; background-color: #EEEEEE; white-space: nowrap;">
                                             <td>Can Print Locally?:</td>
                                              <td>
-                                                 <asp:ListBox SelectionMode="Multiple" ID="lstCanPrintLocally"  Width="280" runat="server" DataSourceID="YesNoOptionsInfoDS" DataTextField="Description" DataValueField="Value"></asp:ListBox>
+                                                 <asp:ListBox SelectionMode="Multiple" ID="lstCanPrintLocally" Width="240" Height="40" runat="server" DataSourceID="YesNoOptionsInfoDS" DataTextField="Description" DataValueField="Value"></asp:ListBox>
                                               </td>
                                          </tr>
                                          <tr style="color: Black; background-color: #DCDCDC; white-space: nowrap;">
                                             <td>Buy from Customer:</td>
                                              <td>
-                                                 <asp:ListBox SelectionMode="Multiple" ID="lstBuyFromCustomer"  Width="280" runat="server" DataSourceID="YesNoOptionsInfoDS" DataTextField="Description" DataValueField="Value"></asp:ListBox>
+                                                 <asp:ListBox SelectionMode="Multiple" ID="lstBuyFromCustomer" Width="240" Height="40" runat="server" DataSourceID="YesNoOptionsInfoDS" DataTextField="Description" DataValueField="Value"></asp:ListBox>
                                               </td>
                                          </tr>
                                          <tr style="color: Black; background-color: #EEEEEE; white-space: nowrap;">
                                             <td>Fixed Price Purchase:</td>
                                              <td>
-                                                 <asp:ListBox SelectionMode="Multiple" ID="lstFixedPricePurchase"  Width="280" runat="server" DataSourceID="YesNoOptionsInfoDS" DataTextField="Description" DataValueField="Value"></asp:ListBox>
+                                                 <asp:ListBox SelectionMode="Multiple" ID="lstFixedPricePurchase" Width="240" Height="40" runat="server" DataSourceID="YesNoOptionsInfoDS" DataTextField="Description" DataValueField="Value"></asp:ListBox>
                                               </td>
                                          </tr>
                                          <tr style="color: Black; background-color: #DCDCDC; white-space: nowrap;">
@@ -102,7 +104,7 @@
                                          <tr style="color: Black; background-color: #EEEEEE; white-space: nowrap;">
                                             <td>Behind in Territory Development:</td>
                                              <td>
-                                                 <asp:ListBox SelectionMode="Multiple" ID="lstBehindTerDev"  Width="280" runat="server" DataSourceID="YesNoOptionsInfoDS" DataTextField="Description" DataValueField="Value"></asp:ListBox>
+                                                 <asp:ListBox SelectionMode="Multiple" ID="lstBehindTerDev" Width="240" Height="40" runat="server" DataSourceID="YesNoOptionsInfoDS" DataTextField="Description" DataValueField="Value"></asp:ListBox>
                                               </td>
                                          </tr>
                                          <tr style="color: Black; background-color: #DCDCDC; white-space: nowrap;">
@@ -178,59 +180,53 @@
                                          <tr style="color: Black; background-color: #DCDCDC; white-space: nowrap;">
                                             <td>Are Contractors Permitted?:</td>
                                              <td>
-                                                 <asp:ListBox SelectionMode="Multiple" ID="lstContrPerm" runat="server"  Width="280" DataSourceID="YesNoOptionsInfoDS" DataTextField="Description" DataValueField="Value"></asp:ListBox>
+                                                 <asp:ListBox  SelectionMode="Multiple" ID="lstContrPerm" runat="server" Width="240" Height="40" DataSourceID="YesNoOptionsInfoDS" DataTextField="Description" DataValueField="Value"></asp:ListBox>
                                               </td>
                                          </tr>
-                                         <tr style="color: Black; background-color: #DCDCDC; white-space: nowrap;">
-                                                <td colspan="2">&nbsp;</td>
-                                                
-                                         </tr>
-                                         <tr style="color: Black; background-color: #DCDCDC; white-space: nowrap;">
-                                                <td colspan="2">&nbsp;</td>
-                                                
-                                         </tr>
-                                         <tr style="color: Black; background-color: #DCDCDC; white-space: nowrap;">
-                                             <td colspan="2">
-                                                <asp:LinkButton ID="LinkButton1" runat="server" CausesValidation="True" CommandName="Insert" Text="Search" ForeColor="Blue" Font-Bold="true"></asp:LinkButton>&nbsp;&nbsp;
-                                                <asp:LinkButton ID="LinkButton2" runat="server" CausesValidation="False" CommandName="Cancel" Text="Clear" ForeColor="Blue" Font-Bold="true"></asp:LinkButton>
-                                             </td>
-                                         </tr>                                  
+                                                                                  
+                                                                      
                                      </table>
                                  </td>
-                                 <td>&nbsp;&nbsp;</td>
+                                 <td style="width:20%"></td>
                                  <td>
                                      <table id="tblPersonalInfoET">
                                              <tr>
                                                 <td colspan="2" style="font-size:large"><b>Personal Information:</b></td>
                                              </tr>
+                                             <tr style="color: Black; background-color: #DCDCDC; white-space: nowrap;">
+                                                 <td colspan="2" align="right" >
+                                                    <asp:LinkButton ID="LinkButton1" runat="server" CausesValidation="True" CommandName="Insert" Text="Search" ForeColor="Blue" Font-Bold="true"></asp:LinkButton>&nbsp;&nbsp;
+                                                    <asp:LinkButton ID="LinkButton2" runat="server" CausesValidation="False" CommandName="Cancel" Text="Clear" ForeColor="Blue" Font-Bold="true"></asp:LinkButton>
+                                                 </td>
+                                             </tr>  
                                              <tr style="color: Black; background-color: #EEEEEE; white-space: nowrap;">
                                                 <td>KOL Member:</td>
                                                 <td>
-                                                    <asp:ListBox SelectionMode="Multiple" ID="lstKOLMember" runat="server"  Width="280" DataSourceID="YesNoOptionsInfoDS" DataTextField="Description" DataValueField="Value"></asp:ListBox>
+                                                    <asp:ListBox SelectionMode="Multiple" ID="lstKOLMember" runat="server" Width="240" Height="60" DataSourceID="YesNoOptionsInfoDS" DataTextField="Description" DataValueField="Value"></asp:ListBox>
                                                 </td>
                                              </tr>
                                              <tr style="color: Black; background-color: #DCDCDC; white-space: nowrap;">
                                                 <td>Advisory Borad:</td>
                                                 <td>
-                                                    <asp:ListBox SelectionMode="Multiple" ID="lstAdvBoard" runat="server"  Width="280" DataSourceID="YesNoOptionsInfoDS" DataTextField="Description" DataValueField="Value"></asp:ListBox>
+                                                    <asp:ListBox SelectionMode="Multiple" ID="lstAdvBoard" runat="server" Width="240" Height="60" DataSourceID="YesNoOptionsInfoDS" DataTextField="Description" DataValueField="Value"></asp:ListBox>
                                                 </td>
                                              </tr>
                                              <tr style="color: Black; background-color: #EEEEEE; white-space: nowrap;">
                                                 <td>Marketing Committee:</td>
                                                 <td>
-                                                    <asp:ListBox SelectionMode="Multiple" ID="lstMktgComt" runat="server"  Width="280" DataSourceID="YesNoOptionsInfoDS" DataTextField="Description" DataValueField="Value"></asp:ListBox>
+                                                    <asp:ListBox SelectionMode="Multiple" ID="lstMktgComt" runat="server" Width="240" Height="60" DataSourceID="YesNoOptionsInfoDS" DataTextField="Description" DataValueField="Value"></asp:ListBox>
                                                 </td>
                                              </tr>
                                              <tr style="color: Black; background-color: #DCDCDC; white-space: nowrap;">
                                                 <td>Using Sandler CRM?:</td>
                                                 <td>
-                                                    <asp:ListBox SelectionMode="Multiple" ID="lstSandlerCRM" runat="server"  Width="280" DataSourceID="YesNoOptionsInfoDS" DataTextField="Description" DataValueField="Value"></asp:ListBox>
+                                                    <asp:ListBox SelectionMode="Multiple" ID="lstSandlerCRM" runat="server" Width="240" Height="60" DataSourceID="YesNoOptionsInfoDS" DataTextField="Description" DataValueField="Value"></asp:ListBox>
                                                 </td>
                                              </tr>
                                              <tr style="color: Black; background-color: #EEEEEE; white-space: nowrap;">
                                                 <td>DHS Award Winner:</td>
                                                 <td>
-                                                    <asp:ListBox SelectionMode="Multiple" ID="lstDHSAward" runat="server"  Width="280" DataSourceID="YesNoOptionsInfoDS" DataTextField="Description" DataValueField="Value"></asp:ListBox>
+                                                    <asp:ListBox SelectionMode="Multiple" ID="lstDHSAward" runat="server" Width="240" Height="40" DataSourceID="YesNoOptionsInfoDS" DataTextField="Description" DataValueField="Value"></asp:ListBox>
                                                 </td>
                                              </tr>
                                              <tr style="color: Black; background-color: #DCDCDC; white-space: nowrap;">
@@ -250,19 +246,19 @@
                                              <tr style="color: Black; background-color: #DCDCDC; white-space: nowrap;">
                                                 <td>Is Sandler Mail Required?:</td>
                                                 <td>
-                                                    <asp:ListBox SelectionMode="Multiple" ID="lstSandlerMail" runat="server"  Width="280" DataSourceID="YesNoOptionsInfoDS" DataTextField="Description" DataValueField="Value"></asp:ListBox>
+                                                    <asp:ListBox SelectionMode="Multiple" ID="lstSandlerMail" runat="server" Width="240" Height="40" DataSourceID="YesNoOptionsInfoDS" DataTextField="Description" DataValueField="Value"></asp:ListBox>
                                                 </td>
                                              </tr>
                                              <tr style="color: Black; background-color: #EEEEEE; white-space: nowrap;">
                                                 <td>Required to submit Financials?:</td>
                                                 <td>
-                                                    <asp:ListBox SelectionMode="Multiple" ID="lstReqFinancials" runat="server"  Width="280" DataSourceID="YesNoOptionsInfoDS" DataTextField="Description" DataValueField="Value"></asp:ListBox>
+                                                    <asp:ListBox SelectionMode="Multiple" ID="lstReqFinancials" runat="server" Width="240" Height="40" DataSourceID="YesNoOptionsInfoDS" DataTextField="Description" DataValueField="Value"></asp:ListBox>
                                                 </td>
                                              </tr>
                                              <tr style="color: Black; background-color: #DCDCDC; white-space: nowrap;">
                                                 <td>Rep Agreement for Global Account?:</td>
                                                 <td>
-                                                    <asp:ListBox SelectionMode="Multiple" ID="lstRepAgreement" runat="server"  Width="280" DataSourceID="YesNoOptionsInfoDS" DataTextField="Description" DataValueField="Value"></asp:ListBox>
+                                                    <asp:ListBox SelectionMode="Multiple" ID="lstRepAgreement" runat="server" Width="240" Height="40" DataSourceID="YesNoOptionsInfoDS" DataTextField="Description" DataValueField="Value"></asp:ListBox>
                                                 </td>
                                              </tr>
                                              <tr style="color: Black; background-color: #EEEEEE; white-space: nowrap;">
@@ -342,7 +338,7 @@
                                             <tr style="color: Black; background-color: #EEEEEE; white-space: nowrap;">
                                                 <td>Same Home Address?:</td>
                                                 <td>
-                                                    <asp:ListBox SelectionMode="Multiple" ID="lstSameHomeAdrs"  Width="280" runat="server" DataSourceID="YesNoOptionsInfoDS" DataTextField="Description" DataValueField="Value"></asp:ListBox>
+                                                    <asp:ListBox SelectionMode="Multiple" ID="lstSameHomeAdrs" Width="240" Height="40" runat="server" DataSourceID="YesNoOptionsInfoDS" DataTextField="Description" DataValueField="Value"></asp:ListBox>
                                                 </td>
                                              </tr>
                                              <tr style="color: Black; background-color: #DCDCDC; white-space: nowrap;">
@@ -378,6 +374,7 @@
                                             
                                       </table>
                                  </td>
+                                 <td style="width:5%"></td>
                              </tr>
                              
                              

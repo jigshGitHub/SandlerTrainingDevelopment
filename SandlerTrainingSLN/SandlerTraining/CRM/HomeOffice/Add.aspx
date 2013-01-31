@@ -19,11 +19,12 @@
                 <td>
                    <asp:FormView DataKeyNames="ID" ID="FranchiseeFW" runat="server" CellPadding="3" BorderStyle="None" OnItemInserted="FranchiseeFW_ItemInserted" OnModeChanging="FranchiseeFW_ModeChanging"
                     BorderWidth="1px" BackColor="White" BorderColor="#999999" GridLines="Vertical" DataSourceID="FranchiseeDataSource"
-                   DefaultMode="Insert" OnDataBound="FranchiseeFW_DataBound">
+                   DefaultMode="Insert" OnDataBound="FranchiseeFW_DataBound" width="100%">
                     <InsertItemTemplate>
                                     
                         <table width="100%">
                              <tr>
+                                 <td style="width:5%"></td>
                                  <td>
                                      <table id="tblFranchiseeInfoET">
                                          <tr>
@@ -38,7 +39,7 @@
 
                                          </tr>
                                          <tr style="color: Black; background-color: #EEEEEE; white-space: nowrap;">
-                                            <td>LastName:</td>
+                                            <td>Last Name:</td>
                                             <td>
                                                 <asp:TextBox ID="LastNameTB" MaxLength="50"  Width="150" Text='<%# Bind("LastName") %>' runat="server"></asp:TextBox>
                                                 <asp:RequiredFieldValidator ID="reqFieldValLastNameTB" ControlToValidate="LastNameTB" Display="Static" InitialValue="" runat="server" ErrorMessage="Please Enter LastName to proceed.">*</asp:RequiredFieldValidator>
@@ -46,7 +47,7 @@
 
                                          </tr>
                                          <tr style="color: Black; background-color: #DCDCDC; white-space: nowrap;">
-                                            <td>FirstName:</td>
+                                            <td>First Name:</td>
                                             <td>
                                                 <asp:TextBox ID="FirstNameTB" MaxLength="50" Width="150" Text='<%# Bind("FirstName") %>' runat="server"></asp:TextBox>
                                                 <asp:RequiredFieldValidator ID="rfvFirstNameTB" ControlToValidate="FirstNameTB" Display="Static" InitialValue="" runat="server" ErrorMessage="Please Enter FirstName to proceed.">*</asp:RequiredFieldValidator>
@@ -63,7 +64,7 @@
                                             </td>
                                          </tr>
                                          <tr style="color: Black; background-color: #EEEEEE; white-space: nowrap;">
-                                            <td>Part of a Master Franchisee?:</td>
+                                            <td>Part of a Master Franchise?:</td>
                                              <td>
                                                  <asp:DropDownList ID="ddlPartOfMF" runat="server" DataSourceID="YesNoOptionsInfoDS" 
                                                  DataTextField="Description" DataValueField="Value" SelectedValue='<%# Bind("IsMasterFranchiseeExistsValue") %>'></asp:DropDownList>
@@ -181,10 +182,15 @@
                                                  <asp:DropDownList ID="ddlContrPerm" runat="server" DataSourceID="YesNoOptionsInfoDS" DataTextField="Description" DataValueField="Value" SelectedValue='<%# Bind("IsContractorPermittedValue") %>'></asp:DropDownList>
                                               </td>
                                          </tr>
-
+                                         <tr style="color: Black; background-color: #EEEEEE; white-space: nowrap;">
+                                             <td colspan="2">
+                                                <asp:LinkButton ID="LinkButton1" runat="server" CausesValidation="True" CommandName="Insert" Text="Add" ForeColor="Blue" Font-Bold="true"></asp:LinkButton>&nbsp;&nbsp;
+                                            <asp:LinkButton ID="LinkButton2" runat="server" CausesValidation="False" CommandName="Cancel"    Text="Back To Franchisees" ForeColor="Blue" Font-Bold="true"></asp:LinkButton>
+                                             </td>
+                                         </tr>
                                      </table>
                                  </td>
-                                 <td>&nbsp;&nbsp;</td>
+                                 <td style="width:20%"></td>
                                  <td>
                                      <table id="tblPersonalInfoET">
                                              <tr>
@@ -364,14 +370,10 @@
                                              </tr>
                                       </table>
                                  </td>
+                                 <td style="width:5%"></td>
                              </tr>
                              
-                             <tr style="color: Black; background-color: #DCDCDC; white-space: nowrap;">
-                                 <td colspan="2">
-                                    <asp:LinkButton ID="LinkButton1" runat="server" CausesValidation="True" CommandName="Insert" Text="Add" ForeColor="Blue" Font-Bold="true"></asp:LinkButton>&nbsp;&nbsp;
-                                <asp:LinkButton ID="LinkButton2" runat="server" CausesValidation="False" CommandName="Cancel"    Text="Back To Franchisees" ForeColor="Blue" Font-Bold="true"></asp:LinkButton>
-                                 </td>
-                             </tr>
+                             
                          </table>
                          
                      </InsertItemTemplate>
