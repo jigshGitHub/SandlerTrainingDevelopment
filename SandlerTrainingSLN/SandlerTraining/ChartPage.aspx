@@ -13,17 +13,17 @@
         $(document).ready(function () {
             var href = window.location.href.split('/');
             var baseUrl = href[0] + '//' + href[2] + '/' + href[3];
-//            $.ajax({
-//                url: baseUrl + "/api/Chart/",
-//                type: 'GET',
-//                contentType: 'application/json',
-//                data: { id: '', strChartIds: 'NewAppointmentsBySourceMonth', chartSubType: '', drillBy: '', userName: 'msipdarling' },
-//                success: function (data) {
-//                    log(data);
-//                    var myChart = new FusionCharts('FusionChartLib/' + data.SWF, 'myChartId', '70%', '400', '0', '1');
-//                    myChart.setXMLData(data.ChartXML);
-//                    myChart.render('chartContainer');
-//                }
-//            });
+            //            $.ajax({
+            //                url: baseUrl + "/api/Chart/",
+            //                type: 'GET',
+            //                contentType: 'application/json',
+            //                data: { id: '', strChartIds: 'NewAppointmentsBySourceMonth', chartSubType: '', drillBy: '', userName: 'msipdarling' },
+            //                success: function (data) {
+            //                    log(data);
+            //                    var myChart = new FusionCharts('FusionChartLib/' + data.SWF, 'myChartId', '70%', '400', '0', '1');
+            //                    myChart.setXMLData(data.ChartXML);
+            //                    myChart.render('chartContainer');
+            //                }
+            //            });
         });</script>
 </asp:Content>

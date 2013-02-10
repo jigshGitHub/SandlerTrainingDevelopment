@@ -12,7 +12,7 @@
                     <li><a id="anchorCHART" runat="server" href="#">REPORTS</a><ul id="reportsMenu" runat="server"
                         class="sub_menu">
                         <li><a href="">Franchisee</a><ul class="sub_menu">
-                            <li><a href="<%=  Page.ResolveClientUrl("~/" + ChartHelper.GeneratePageLink("","NewAppointmentsBySourceMonth"))  %>">
+                            <li><a href="<%=  Page.ResolveClientUrl("~/" + ChartHelper.GeneratePageLink("","NewAppointmentsBySourceMonth","ChartcustomPage.aspx?"))  %>">
                                 New Appointments By Source (By Month)</a></li>
                             <li><a href="<%=  Page.ResolveClientUrl("~/" + ChartHelper.GeneratePageLink("","NewClientsByProductTypeMonth"))  %>">
                                 New Clients By Product Type (By Month)</a></li>

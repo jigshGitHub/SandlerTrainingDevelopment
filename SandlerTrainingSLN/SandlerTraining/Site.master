@@ -28,6 +28,8 @@
     <script type="text/javascript" src="<%= Page.ResolveClientUrl("~/FusionChartLib/FusionCharts.HC.js") %>"></script>
     
     <script type="text/javascript" src="<%= Page.ResolveClientUrl("~/Scripts/jquery.dropdownPlain.js") %>"></script>
+    <script type="text/javascript" src="<%= Page.ResolveClientUrl("~/Scripts/knockout-2.1.0.js") %>"></script>
+    <script type="text/javascript" src="<%= Page.ResolveClientUrl("~/Scripts/knockout-validation.js") %>"></script>
     <script type="text/javascript" src="<%= Page.ResolveClientUrl("~/Scripts/consolelog.min.js") %>"></script>
     <script type="text/javascript" src="<%= Page.ResolveClientUrl("~/Scripts/plugins.js") %>"></script>
     <script type="text/javascript" src="<%= Page.ResolveClientUrl("~/jquery-ui-1.8.23.custom/js/jquery-1.8.0.min.js") %>"></script>

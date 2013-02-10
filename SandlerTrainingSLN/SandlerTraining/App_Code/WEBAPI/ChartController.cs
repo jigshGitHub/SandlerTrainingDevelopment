@@ -15,7 +15,7 @@ namespace SandlerAPI.Controllers
     public class ChartController : ApiController
     {
 
-        public IChart Get(string id, string strChartIds, string strChartSubType, string strDrillBy, string strUserName, string strSearchParameter)
+        public IChart Get(string id, string strChartIds, string strChartSubType, string strDrillBy, string strUserName, string strSearchParameter, [System.Web.Http.ModelBinding.ModelBinder] List<ChartParameter> monthYearCombinations)
         {
             string[] chartIds = strChartIds.Split(new char[] { '_' });
             string chartSubtype = strChartSubType;
@@ -37,7 +37,7 @@ namespace SandlerAPI.Controllers
 
                 if (dbChart.TypeOfChart == "Chart")
                 {
-                    chartToLoad = new Chart() { SearchParameter = strSearchParameter, SubType = string.IsNullOrEmpty(chartSubtype) ? ChartSubType.NoSubType : (ChartSubType)Enum.Parse(typeof(ChartSubType), chartSubtype), BGAlpha = dbChart.BgAlpha, BGColor = dbChart.BgColor, CanvasBGAlpha = dbChart.CanvasBgAlpha, CanvasBGColor = dbChart.CanvasBgColor, Caption = dbChart.Caption, SWF = dbChart.SWFile, NumberSuffix = dbChart.NumberSuffix, PieRadius = dbChart.PieRadius, showLabels = dbChart.ShowLabels, showLegend = dbChart.ShowLegend, XaxisName = dbChart.XaxisName, YaxisName = dbChart.YaxisName, Id = idSelected, enableRotation = dbChart.EnableRotation, DrillChartIds = (string.IsNullOrEmpty(dbChart.DrillLevelChartIDs)) ? "" : dbChart.DrillLevelChartIDs, DrillOverride = false, DrillBy = (string.IsNullOrEmpty(strDrillBy)) ? "" : strDrillBy };
+                    chartToLoad = new Chart() { SearchParameter = strSearchParameter, SubType = string.IsNullOrEmpty(chartSubtype) ? ChartSubType.NoSubType : (ChartSubType)Enum.Parse(typeof(ChartSubType), chartSubtype), BGAlpha = dbChart.BgAlpha, BGColor = dbChart.BgColor, CanvasBGAlpha = dbChart.CanvasBgAlpha, CanvasBGColor = dbChart.CanvasBgColor, Caption = dbChart.Caption, SWF = dbChart.SWFile, NumberSuffix = dbChart.NumberSuffix, PieRadius = dbChart.PieRadius, showLabels = dbChart.ShowLabels, showLegend = dbChart.ShowLegend, XaxisName = dbChart.XaxisName, YaxisName = dbChart.YaxisName, Id = idSelected, enableRotation = dbChart.EnableRotation, DrillChartIds = (string.IsNullOrEmpty(dbChart.DrillLevelChartIDs)) ? "" : dbChart.DrillLevelChartIDs, DrillOverride = false, DrillBy = (string.IsNullOrEmpty(strDrillBy)) ? "" : strDrillBy, MonthYearCombinations = monthYearCombinations };
                     chartToLoad.LoadChart(CurrentUser);
                     chartToLoad.CreateChart();
                 }

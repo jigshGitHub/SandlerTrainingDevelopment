@@ -209,6 +209,7 @@ namespace Sandler.UI.ChartStructure
         public string showLegend { get; set; }
         public string SearchParameter { get; set; }
         public ChartSubType SubType { get; set; }
+        public List<ChartParameter> MonthYearCombinations { get; set; }
         public Chart()
         {
             this.Categories = new List<Category>();
@@ -230,6 +231,7 @@ namespace Sandler.UI.ChartStructure
                 ProductTypesRepository productTypesSource;
                 IEnumerable<Tbl_ProductType> products;
                 string searchForNewCompany,searchCompanies,franchiseeName, regionName, countryName;
+                int yearToProcess, monthToProcess;
                 switch ((ChartID)Enum.Parse(typeof(ChartID), this.Id.ToString(), true))
                 {
                     #region ProductsReports Logic
@@ -888,23 +890,30 @@ namespace Sandler.UI.ChartStructure
                             this.Categories.Add(new Category { Label = record.ApptSourceName });
                         }
 
-                        chartParams = new List<ChartParameter>();
-                        chartParams.Add(new ChartParameter { Value = "-2", Color = "3300ff" });
-                        chartParams.Add(new ChartParameter { Value = "-1", Color = "ff6600" });
-                        chartParams.Add(new ChartParameter { Value = "0", Color = "32df00" });
+                        if (MonthYearCombinations == null)
+                        {
+                            chartParams = new List<ChartParameter>();
+                            chartParams.Add(new ChartParameter { Value = "-2", Color = "3300ff" });
+                            chartParams.Add(new ChartParameter { Value = "-1", Color = "ff6600" });
+                            chartParams.Add(new ChartParameter { Value = "0", Color = "32df00" });
+                        }
+                        else
+                            chartParams = MonthYearCombinations;
 
-
+                        
                         foreach (ChartParameter parameter in chartParams)
                         {
                             try
                             {
-                                IEnumerable<SandlerModels.DataIntegration.AppointmentSourceVM> appointmentSourceVMcollection = queries.GetNewAppointmentSource(currentUser, DateTime.Now.AddMonths(int.Parse(parameter.Value)).Month);
+                                yearToProcess = (string.IsNullOrEmpty(parameter.YearVal)) ? ((DateTime.Now.AddMonths(int.Parse(parameter.Value)).Month > DateTime.Now.Month) ? DateTime.Now.AddYears(-1).Year : DateTime.Now.Year) : int.Parse(parameter.YearVal);
+                                monthToProcess = (MonthYearCombinations == null) ? DateTime.Now.AddMonths(int.Parse(parameter.Value)).Month : int.Parse(parameter.Value);
+                                IEnumerable<SandlerModels.DataIntegration.AppointmentSourceVM> appointmentSourceVMcollection = queries.GetNewAppointmentSource(currentUser, monthToProcess,yearToProcess);
                                 if (appointmentSourceVMcollection != null)
                                 {
                                     var newAppointments = from record in appointmentSourceVMcollection
                                                           select new { Category = record.SourceName, Count = record.Count };
 
-                                    this.DataSetCollection.Add(new ChartDataSet { Color = parameter.Color, SeriesName = DateTime.Now.AddMonths(int.Parse(parameter.Value)).ToString("MMM") });
+                                    this.DataSetCollection.Add(new ChartDataSet { Color = parameter.Color, SeriesName = ChartHelper.GetMonthName(monthToProcess) + " (" + yearToProcess.ToString() + ")"});
 
                                     foreach (Category category in this.Categories)
                                     {
@@ -952,7 +961,10 @@ namespace Sandler.UI.ChartStructure
                         {
                             try
                             {
-                                IEnumerable<SandlerModels.DataIntegration.ProductTypeVM> productTypeVMCollection = queries.GetNewClientsByProductType(currentUser, DateTime.Now.AddMonths(int.Parse(parameter.Value)).Month);
+                                yearToProcess = (DateTime.Now.AddMonths(int.Parse(parameter.Value)).Month > DateTime.Now.Month) ? DateTime.Now.AddYears(-1).Year : DateTime.Now.Year;
+                                monthToProcess = DateTime.Now.AddMonths(int.Parse(parameter.Value)).Month;
+                                
+                                IEnumerable<SandlerModels.DataIntegration.ProductTypeVM> productTypeVMCollection = queries.GetNewClientsByProductType(currentUser, monthToProcess,yearToProcess);
                                 if (productTypeVMCollection != null)
                                 {
                                     var newClientsByProducts = from record in productTypeVMCollection
@@ -997,13 +1009,22 @@ namespace Sandler.UI.ChartStructure
                         {
                             try
                             {
-                                int newClients = queries.GetNewClientCount(currentUser, DateTime.ParseExact(catagory.Label, "MMM", null).Month);
-                                long aveContractPrice = queries.GetAveContractPrice(currentUser, DateTime.ParseExact(catagory.Label, "MMM", null).Month);
+                                yearToProcess = (DateTime.ParseExact(catagory.Label, "MMM", null).Month > DateTime.Now.Month) ? DateTime.Now.AddYears(-1).Year : DateTime.Now.Year;
+                                monthToProcess = DateTime.ParseExact(catagory.Label, "MMM", null).Month;
+
+                                int newClients = queries.GetNewClientCount(currentUser, monthToProcess, yearToProcess);
+                                long aveContractPrice = queries.GetAveContractPrice(currentUser, monthToProcess, yearToProcess);
 
                                 if (newClients > 0 && aveContractPrice > 0)
                                 {
                                     this.DataSetCollection[0].SetsCollection.Add(new SetValue { Value = newClients.ToString(), Link = (currentUser.Role == SandlerRoles.Client) ? "" : ChartHelper.GeneratePageLink(catagory.Label, this.DrillChartIds) });
                                     this.DataSetCollection[1].SetsCollection.Add(new SetValue { Value = (aveContractPrice / 5).ToString(), Link = (currentUser.Role == SandlerRoles.Client) ? "" : ChartHelper.GeneratePageLink(catagory.Label, this.DrillChartIds) });
+                                }
+                                else
+                                {
+                                    this.DataSetCollection[0].SetsCollection.Add(new SetValue());
+                                    this.DataSetCollection[1].SetsCollection.Add(new SetValue());
+                                
                                 }
                             }
                             catch (System.InvalidOperationException)
@@ -1046,6 +1067,9 @@ namespace Sandler.UI.ChartStructure
                         break;
 
                     case ChartID.ActualDollarsBookedComparisonGoal:
+                        this.Categories.Add(new Category { Label = DateTime.Now.AddMonths(-4).ToString("MMM") });
+                        this.Categories.Add(new Category { Label = DateTime.Now.AddMonths(-3).ToString("MMM") });
+                        this.Categories.Add(new Category { Label = DateTime.Now.AddMonths(-2).ToString("MMM") });
                         this.Categories.Add(new Category { Label = DateTime.Now.AddMonths(-1).ToString("MMM") });
                         this.Categories.Add(new Category { Label = DateTime.Now.AddMonths(0).ToString("MMM") });
                         this.Categories.Add(new Category { Label = DateTime.Now.AddMonths(1).ToString("MMM") });
@@ -1463,6 +1487,7 @@ namespace Sandler.UI.ChartStructure
                 string franchiseeName = "";
                 string regionName = "";
                 string countryName = "";
+                int monthToProcess, yearToProcess;
                 switch (this.Id)
                 {
                     case ChartID.SalesCycleTimeMain:
@@ -1697,9 +1722,12 @@ namespace Sandler.UI.ChartStructure
 
                     #region FranchiseeReports logic
                     case ChartID.NewAppointmentsBySource:
+                        monthToProcess = DateTime.ParseExact(this.DrillBy, "MMM", null).Month;
+                        yearToProcess =  (monthToProcess > DateTime.Now.Month) ? DateTime.Now.AddYears(-1).Year : DateTime.Now.Year;
+
                         //if (queries.GetNewAppointmentSource(currentUser, DateTime.ParseExact(this.DrillBy, "MMM", null).Month) != null)
                         //{
-                        var NewAppointmentSource = from record in queries.GetNewAppointmentSource(currentUser, DateTime.ParseExact(this.DrillBy, "MMM", null).Month)
+                        var NewAppointmentSource = from record in queries.GetNewAppointmentSource(currentUser, monthToProcess, yearToProcess)
                                                    select new { Category = record.SourceName, Count = record.Count };
 
 
@@ -1724,7 +1752,10 @@ namespace Sandler.UI.ChartStructure
                     case ChartID.NewClientByProductType:
                         //if (queries.GetNewClientsByProductType(currentUser, DateTime.ParseExact(this.DrillBy, "MMM", null).Month) != null)
                         //{
-                        var NewClientsByProductType = from record in queries.GetNewClientsByProductType(currentUser, DateTime.ParseExact(this.DrillBy, "MMM", null).Month)
+                        monthToProcess = DateTime.ParseExact(this.DrillBy, "MMM", null).Month;
+                        yearToProcess =  (monthToProcess > DateTime.Now.Month) ? DateTime.Now.AddYears(-1).Year : DateTime.Now.Year;
+
+                        var NewClientsByProductType = from record in queries.GetNewClientsByProductType(currentUser,monthToProcess, yearToProcess )
                                                       select new { Category = record.ProductTypeName, Count = record.Count };
                         productTypesSource = new ProductTypesRepository();
 
@@ -2482,8 +2513,6 @@ namespace Sandler.UI.ChartStructure
     {
         public string Color { get; set; }
         public string Value { get; set; }
+        public string YearVal { get; set; }
     }
-
-
-
 }

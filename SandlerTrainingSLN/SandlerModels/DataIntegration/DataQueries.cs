@@ -10,7 +10,7 @@ namespace SandlerModels.DataIntegration
 {
     public class DataQueries
     {
-        public IEnumerable<AppointmentSourceVM> GetNewAppointmentSource(UserModel currentUser, int month)
+        public IEnumerable<AppointmentSourceVM> GetNewAppointmentSource(UserModel currentUser, int month, int year)
         {
             UserEntities userEntities = null;
             IEnumerable<TBL_CONTACTS> contacts = null;
@@ -25,7 +25,7 @@ namespace SandlerModels.DataIntegration
                 if (userEntities.ContactsCount > 0)
                 {
                     contactSource = new ContactsRepository();
-                    newAppointments = contactSource.GetNewAppointments(month, DateTime.Now.Year, currentUser.UserId.ToString());
+                    newAppointments = contactSource.GetNewAppointments(month, year, currentUser.UserId.ToString());
                     newAppsSource = new List<AppointmentSourceVM>();
                     if (newAppointments != null)
                     {
@@ -46,7 +46,7 @@ namespace SandlerModels.DataIntegration
             return data;
         }
 
-        public IEnumerable<ProductTypeVM> GetNewClientsByProductType(UserModel currentUser, int month)
+        public IEnumerable<ProductTypeVM> GetNewClientsByProductType(UserModel currentUser, int month, int year)
         {
             UserEntities userEntities = null;
             IEnumerable<ProductTypeVM> data = null;
@@ -58,7 +58,7 @@ namespace SandlerModels.DataIntegration
                 userEntities = UserEntitiesFactory.Get(currentUser);
 
                 companyRepository = new CompaniesRepository();
-                newClients = companyRepository.GetNewClientsProducts(month, DateTime.Now.Year, currentUser.UserId.ToString());
+                newClients = companyRepository.GetNewClientsProducts(month,year, currentUser.UserId.ToString());
                 newAppsProducts = new List<ProductTypeVM>();
                 if (newClients != null)
                 {
@@ -155,7 +155,7 @@ namespace SandlerModels.DataIntegration
         }
 
 
-        public int GetNewClientCount(UserModel currentUser, int month)
+        public int GetNewClientCount(UserModel currentUser, int month, int year)
         {
             UserEntities userEntities = null;
             int newClientsCount = 0;
@@ -165,7 +165,7 @@ namespace SandlerModels.DataIntegration
             {
                 userEntities = UserEntitiesFactory.Get(currentUser);
                 companyRepository = new CompaniesRepository();
-                newClients = companyRepository.GetNewClientsProducts(month, DateTime.Now.Year, currentUser.UserId.ToString());
+                newClients = companyRepository.GetNewClientsProducts(month, year, currentUser.UserId.ToString());
                 if (newClients != null)
                 {
                     while (newClients.Read())
@@ -185,7 +185,7 @@ namespace SandlerModels.DataIntegration
             return newClientsCount;
         }
 
-        public long GetAveContractPrice(UserModel currentUser, int month)
+        public long GetAveContractPrice(UserModel currentUser, int month, int year)
         {
             UserEntities userEntities = null;
             //IEnumerable<TBL_OPPORTUNITIES> opportunties = null;
@@ -198,7 +198,7 @@ namespace SandlerModels.DataIntegration
 
                 if (userEntities.OpportunitiesCount > 0)
                 {
-                    aveContractPrice = long.Parse((from opportunity in opportunties.Where(record => record.ProductID != 1 && record.IsNewCompany == true && record.CreationDate.Value.Year == DateTime.Now.Year && record.CreationDate.Value.Month == month)
+                    aveContractPrice = long.Parse((from opportunity in opportunties.Where(record => record.ProductID != 1 && record.IsNewCompany == true && record.CreationDate.Value.Year == year && record.CreationDate.Value.Month == month)
                                                    select opportunity.WEIGHTEDVALUE).Sum().Value.ToString());
 
                 }
