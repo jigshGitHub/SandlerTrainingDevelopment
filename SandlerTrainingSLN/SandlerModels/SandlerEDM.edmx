@@ -668,6 +668,12 @@
           <Property Name="SeconadryContactId2" Type="int" />
           <Property Name="ProductCost" Type="numeric" />
           <Property Name="CreationDate" Type="datetime" />
+		  <Property Name="Pain" Type="varchar" MaxLength="100" />
+		  <Property Name="LengthOfProblem" Type="varchar" MaxLength="30" />
+		  <Property Name="Alternatives" Type="varchar" MaxLength="100" />		  
+		  <Property Name="CostToFix" Type="varchar" MaxLength="100" />
+          <Property Name="IsBudgeIdentified" Type="bit" />
+          <Property Name="IsMoveForward" Type="bit" />
         </EntityType>
         <EntityType Name="TBL_OpportunitySource">
           <Key>
@@ -2098,6 +2104,12 @@
           <Property Type="Int32" Name="SeconadryContactId2" Nullable="true" />
           <Property Type="Decimal" Name="ProductCost" Nullable="true" Precision="18" Scale="0" />
           <Property Type="DateTime" Name="OppCreationDate" Nullable="true" Precision="23" />
+          <Property Type="String" Name="Pain" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="LengthofProblem" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="CostToFix" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="Alternatives" Nullable="true" MaxLength="100" />
+          <Property Type="Boolean" Name="IsBudgeIdentified" Nullable="true" />
+          <Property Type="Boolean" Name="IsMoveForward" Nullable="true" />
         </ComplexType>
         <EntityType Name="TBL_COMPANIES">
           <Key>
@@ -2691,7 +2703,12 @@
           <Property Type="Int32" Name="SeconadryContactId1" />
           <Property Type="Int32" Name="SeconadryContactId2" />
           <Property Type="Decimal" Name="ProductCost" Precision="18" Scale="0" />
-          <Property Type="DateTime" Name="CreationDate" />
+          <Property Type="DateTime" Name="CreationDate" /><Property Type="String" Name="Pain" MaxLength="100" FixedLength="false" Unicode="false" />
+		  <Property Type="String" Name="LengthOfProblem" MaxLength="100" FixedLength="false" Unicode="false" />
+		  <Property Type="String" Name="Alternatives" MaxLength="100" FixedLength="false" Unicode="false" />
+		  <Property Type="String" Name="CostToFix" MaxLength="100" FixedLength="false" Unicode="false" />
+		  <Property Type="Boolean" Name="IsBudgeIdentified" />
+		  <Property Type="Boolean" Name="IsMoveForward" />         
           <NavigationProperty Name="TBL_COMPANIES" Relationship="Sandler.Models.FK_TBL_OPPORTUNITIES_TBL_COMPANIES" FromRole="TBL_OPPORTUNITIES" ToRole="TBL_COMPANIES" />
           <NavigationProperty Name="TBL_CONTACTS" Relationship="Sandler.Models.FK_TBL_OPPORTUNITIES_TBL_CONTACTS" FromRole="TBL_OPPORTUNITIES" ToRole="TBL_CONTACTS" />
           <NavigationProperty Name="TBL_CONTACTS1" Relationship="Sandler.Models.FK_TBL_OPPORTUNITIES_TBL_CONTACTS1" FromRole="TBL_OPPORTUNITIES" ToRole="TBL_CONTACTS" />
@@ -3603,6 +3620,12 @@
                 <ScalarProperty Name="SeconadryContactId2" ColumnName="SeconadryContactId2" />
                 <ScalarProperty Name="ProductCost" ColumnName="ProductCost" />
                 <ScalarProperty Name="OppCreationDate" ColumnName="OppCreationDate" />
+                <ScalarProperty Name="Pain" ColumnName="Pain" />
+                <ScalarProperty Name="LengthofProblem" ColumnName="LengthofProblem" />
+                <ScalarProperty Name="CostToFix" ColumnName="CostToFix" />
+                <ScalarProperty Name="Alternatives" ColumnName="Alternatives" />
+                <ScalarProperty Name="IsBudgeIdentified" ColumnName="IsBudgeIdentified" />
+                <ScalarProperty Name="IsMoveForward" ColumnName="IsMoveForward" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -3638,6 +3661,12 @@
                 <ScalarProperty Name="CONTACTID" ColumnName="CONTACTID" />
                 <ScalarProperty Name="COMPANYID" ColumnName="COMPANYID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
+				<ScalarProperty Name="Pain" ColumnName="Pain" />
+				<ScalarProperty Name="LengthOfProblem" ColumnName="LengthOfProblem" />
+				<ScalarProperty Name="Alternatives" ColumnName="Alternatives" />
+				<ScalarProperty Name="CostToFix" ColumnName="CostToFix" />
+				<ScalarProperty Name="IsBudgeIdentified" ColumnName="IsBudgeIdentified" />
+				<ScalarProperty Name="IsMoveForward" ColumnName="IsMoveForward" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

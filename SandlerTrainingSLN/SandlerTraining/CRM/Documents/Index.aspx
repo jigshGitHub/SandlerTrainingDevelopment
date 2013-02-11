@@ -52,19 +52,19 @@
                             <ItemStyle HorizontalAlign="Center" />
                         </asp:TemplateField>
                         <asp:BoundField DataField="docsid" Visible="False" />
-                        <asp:BoundField ItemStyle-HorizontalAlign="Center" DataField="CompanyName" HeaderStyle-ForeColor="Blue"
+                        <asp:BoundField ItemStyle-HorizontalAlign="Left"  HeaderStyle-HorizontalAlign="Left" DataField="CompanyName" HeaderStyle-ForeColor="Blue"
                             HeaderText="Company Name" SortExpression="CompanyName">
                             <ItemStyle HorizontalAlign="Center"></ItemStyle>
                         </asp:BoundField>
-                        <asp:BoundField ItemStyle-HorizontalAlign="Center" DataField="OppName" HeaderStyle-ForeColor="Blue"
+                        <asp:BoundField ItemStyle-HorizontalAlign="Left"  HeaderStyle-HorizontalAlign="Left" DataField="OppName" HeaderStyle-ForeColor="Blue"
                             HeaderText="Opportunity Name" SortExpression="OppName">
                             <ItemStyle HorizontalAlign="Center"></ItemStyle>
                         </asp:BoundField>
-                        <asp:BoundField ItemStyle-HorizontalAlign="Center" DataField="DocStatusText" HeaderText="Document Status"
+                        <asp:BoundField ItemStyle-HorizontalAlign="Left"  HeaderStyle-HorizontalAlign="Left" DataField="DocStatusText" HeaderText="Document Status"
                             HeaderStyle-ForeColor="Blue" SortExpression="DocStatusText">
                             <ItemStyle HorizontalAlign="Center"></ItemStyle>
                         </asp:BoundField>
-                        <asp:BoundField ItemStyle-HorizontalAlign="Center" DataField="updateddate" HeaderText="Last Modify Date"
+                        <asp:BoundField ItemStyle-HorizontalAlign="Left"  HeaderStyle-HorizontalAlign="Left" DataField="updateddate" HeaderText="Last Modify Date"
                             HeaderStyle-ForeColor="Blue" SortExpression="updateddate" DataFormatString="{0:d}">
                             <ItemStyle HorizontalAlign="Center"></ItemStyle>
                         </asp:BoundField>

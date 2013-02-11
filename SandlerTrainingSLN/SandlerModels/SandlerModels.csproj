@@ -112,6 +112,7 @@
     <Compile Include="SandlerRepositories\HomeOfficeReportRepository.cs" />
     <Compile Include="SandlerRepositories\NightProcessRepository.cs" />
     <Compile Include="SandlerRepositories\OpportunityRepository.cs" />
+    <Compile Include="SandlerRepositories\QuickStartRepository.cs" />
     <Compile Include="SandlerRepositories\Repositories.cs" />
     <Compile Include="Tbl_AppointmentsSource.cs">
       <DependentUpon>Model1.tt</DependentUpon>

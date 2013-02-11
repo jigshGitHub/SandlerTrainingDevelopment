@@ -8,7 +8,7 @@ using SandlerRepositories;
 using SandlerModels;
 using System.Data;
 
-public partial class CRM_HomeOffice_SearchResults : System.Web.UI.Page
+public partial class CRM_HomeOffice_SearchResults : BasePage
 {
     protected void Page_Load(object sender, EventArgs e)
     {

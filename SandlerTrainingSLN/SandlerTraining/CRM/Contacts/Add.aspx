@@ -3,6 +3,11 @@
 <%@ Import Namespace="SandlerRepositories" %>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="Server">
     <asp:ToolkitScriptManager ID="ToolkitScriptManager1" runat="server"></asp:ToolkitScriptManager>
+
+    <asp:UpdatePanel id="updPnlContact" runat="server">
+    <ContentTemplate>
+    
+
     <table>
         <tr>
             <th class="tdTC" style="width: 280px" align="left">
@@ -26,13 +31,15 @@
                         <asp:TemplateField HeaderText="Last Name :">
                             <InsertItemTemplate>
                                 <asp:TextBox ID="txtLastName" MaxLength="50" Width="380" runat="server" Text='<%# Bind("LastName") %>'></asp:TextBox>
-                                <asp:RequiredFieldValidator ID="rfvLastNameTB" ControlToValidate="txtLastName" Display="Static" InitialValue="" runat="server" ErrorMessage="Please Enter Last Name to proceed.">*</asp:RequiredFieldValidator>
+                                <label id="mandlbl1" style="color:Red" runat="server">*</label>
+                                <asp:RequiredFieldValidator ID="rfvLastNameTB" ControlToValidate="txtLastName" Display="Static" InitialValue="" runat="server" ErrorMessage="Please Enter Last Name to proceed.">Required field</asp:RequiredFieldValidator>
                             </InsertItemTemplate>
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="First Name :">
                             <InsertItemTemplate>
                                 <asp:TextBox ID="txtFirstName" MaxLength="50" Width="380" runat="server" Text='<%# Bind("FirstName") %>'></asp:TextBox>
-                                <asp:RequiredFieldValidator ID="rfvFirstNameTB" ControlToValidate="txtFirstName" Display="Static" InitialValue="" runat="server" ErrorMessage="Please Enter First Name to proceed.">*</asp:RequiredFieldValidator>
+                                <label id="mandlbl2" style="color:Red" runat="server">*</label>
+                                <asp:RequiredFieldValidator ID="rfvFirstNameTB" ControlToValidate="txtFirstName" Display="Static" InitialValue="" runat="server" ErrorMessage="Please Enter First Name to proceed.">Required field</asp:RequiredFieldValidator>
                             </InsertItemTemplate>
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="Title :">
@@ -332,4 +339,8 @@
             </td>
         </tr>
     </table>
+
+     </ContentTemplate>
+
+    </asp:UpdatePanel>
 </asp:Content>

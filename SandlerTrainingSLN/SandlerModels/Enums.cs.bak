@@ -14,7 +14,8 @@ namespace SandlerModels
         SiteAdmin,
         Client,
         Anonymous,
-        HomeOfficeAdmin
+        HomeOfficeAdmin,
+        HomeOfficeUser,
     }
 
     public enum SandlerUserActions
@@ -34,7 +35,6 @@ namespace SandlerModels
         Coach,
         Region,
         Franchisee,
-        FranchiseeUser,
-        HomeOffice
+        FranchiseeUser
     }
 }

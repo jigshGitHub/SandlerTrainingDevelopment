@@ -51,8 +51,9 @@
                                 <asp:CalendarExtender runat="server" TargetControlID="LastModifyDate" PopupButtonID="calanderImageLMD"
                                     CssClass="calendar">
                                 </asp:CalendarExtender>
+                                <label id="mandlbl1" style="color:Red" runat="server">*</label>
                                 <asp:RequiredFieldValidator ID="LastContactDateRFV" ControlToValidate="LastModifyDate"
-                                    runat="server" ErrorMessage="Please Enter Last Modify Date to proceed.">*</asp:RequiredFieldValidator>
+                                    runat="server" ErrorMessage="Please Enter Last Modify Date to proceed.">Required field</asp:RequiredFieldValidator>
                             </EditItemTemplate>
                             <ItemTemplate>
                                 <asp:Label ID="lblLastContactDate" runat="server" Text='<%# Bind("LastModifyDate","{0:d}") %>'></asp:Label>
@@ -61,6 +62,8 @@
                         <asp:TemplateField HeaderText="Attached Document:">
                             <EditItemTemplate>
                                 <asp:FileUpload ID="UpLoad" Width="275px" runat="server" />
+                                <label id="mandlbl3" style="color:Red" runat="server">*</label>
+                                <asp:RequiredFieldValidator ID="rfvUpLoad" ControlToValidate="UpLoad" Display="Static" InitialValue="" runat="server" ErrorMessage="Please Select upload document to proceed.">Required field</asp:RequiredFieldValidator>
                             </EditItemTemplate>
                             <ItemTemplate>
                                 <asp:HyperLink ID="ModuleLink" runat="server" ForeColor="Blue" Target="_blank" Text='<%# Eval("DocName") %>'></asp:HyperLink>

@@ -113,15 +113,15 @@
                                     OnDataBound="gvDocuments_DataBound">
                                     <PagerStyle BackColor="#999999" ForeColor="Blue" HorizontalAlign="Center" />
                                     <Columns>
-                                        <asp:BoundField ItemStyle-HorizontalAlign="Center" HeaderStyle-ForeColor="Blue" HeaderText="ID"
+                                        <asp:BoundField ItemStyle-HorizontalAlign="Left"  HeaderStyle-HorizontalAlign="Left" HeaderStyle-ForeColor="Blue" HeaderText="ID"
                                             DataField="DOCSID" />
-                                        <asp:BoundField ItemStyle-HorizontalAlign="Center" HeaderStyle-ForeColor="Blue" HeaderText="Document Name"
+                                        <asp:BoundField ItemStyle-HorizontalAlign="Left"  HeaderStyle-HorizontalAlign="Left" HeaderStyle-ForeColor="Blue" HeaderText="Document Name"
                                             DataField="DocumentName" />
-                                        <asp:BoundField ItemStyle-HorizontalAlign="Center" HeaderStyle-ForeColor="Blue" HeaderText="Company"
+                                        <asp:BoundField ItemStyle-HorizontalAlign="Left"  HeaderStyle-HorizontalAlign="Left" HeaderStyle-ForeColor="Blue" HeaderText="Company"
                                             DataField="CompanyName" />
-                                        <asp:BoundField ItemStyle-HorizontalAlign="Center" HeaderStyle-ForeColor="Blue" HeaderText="Opportunity"
+                                        <asp:BoundField ItemStyle-HorizontalAlign="Left"  HeaderStyle-HorizontalAlign="Left" HeaderStyle-ForeColor="Blue" HeaderText="Opportunity"
                                             DataField="OpportunityName" />
-                                        <asp:BoundField ItemStyle-HorizontalAlign="Center" HeaderStyle-ForeColor="Blue" HeaderText="Status"
+                                        <asp:BoundField ItemStyle-HorizontalAlign="Left"  HeaderStyle-HorizontalAlign="Left" HeaderStyle-ForeColor="Blue" HeaderText="Status"
                                             DataField="Status" />
                                         <asp:TemplateField ShowHeader="False">
                                             <ItemTemplate>
@@ -146,15 +146,15 @@
                                         OnDataBound="gvDocuments_DataBound">
                                         <PagerStyle BackColor="#999999" ForeColor="Blue" HorizontalAlign="Center" />
                                         <Columns>
-                                            <asp:BoundField ItemStyle-HorizontalAlign="Center" HeaderStyle-ForeColor="Blue" HeaderText="ID"
+                                            <asp:BoundField ItemStyle-HorizontalAlign="Left"  HeaderStyle-HorizontalAlign="Left" HeaderStyle-ForeColor="Blue" HeaderText="ID"
                                                 DataField="DOCSID" />
-                                            <asp:BoundField ItemStyle-HorizontalAlign="Center" HeaderStyle-ForeColor="Blue" HeaderText="Document Name"
+                                            <asp:BoundField ItemStyle-HorizontalAlign="Left"  HeaderStyle-HorizontalAlign="Left" HeaderStyle-ForeColor="Blue" HeaderText="Document Name"
                                                 DataField="DocumentName" />
-                                            <asp:BoundField ItemStyle-HorizontalAlign="Center" HeaderStyle-ForeColor="Blue" HeaderText="Company"
+                                            <asp:BoundField ItemStyle-HorizontalAlign="Left"  HeaderStyle-HorizontalAlign="Left" HeaderStyle-ForeColor="Blue" HeaderText="Company"
                                                 DataField="CompanyName" />
-                                            <asp:BoundField ItemStyle-HorizontalAlign="Center" HeaderStyle-ForeColor="Blue" HeaderText="Opportunity"
+                                            <asp:BoundField ItemStyle-HorizontalAlign="Left"  HeaderStyle-HorizontalAlign="Left" HeaderStyle-ForeColor="Blue" HeaderText="Opportunity"
                                                 DataField="OpportunityName" />
-                                            <asp:BoundField ItemStyle-HorizontalAlign="Center" HeaderStyle-ForeColor="Blue" HeaderText="Status"
+                                            <asp:BoundField ItemStyle-HorizontalAlign="Left"  HeaderStyle-HorizontalAlign="Left" HeaderStyle-ForeColor="Blue" HeaderText="Status"
                                                 DataField="Status" />
                                         </Columns>
                                         <RowStyle BackColor="#EEEEEE" ForeColor="Black" />

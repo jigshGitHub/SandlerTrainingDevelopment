@@ -53,5 +53,11 @@ public partial class OpportunityDETAIL : OpportunityBasePage
         lblPrimaryContact.Text = record.PrimaryContactFirstName + " " + record.PrimaryContactLastName;
         lblSecondaryContact1.Text = record.SeconadryContact1FirstName + " " + record.SeconadryContact1LastName;
         lblSecondaryContact2.Text = record.SeconadryContact2FirstName + " " + record.SeconadryContact2LastName;
+        lblPain.Text = record.Pain;
+        lblLengthofProblem.Text = record.LengthofProblem;
+        lblAlternatives.Text = record.Alternatives;
+        lblCostToFix.Text = record.CostToFix;
+        lblBudgetIdentified.Text = (record.IsBudgeIdentified.Value) ? "Yes" : "No";
+        lblMoveForward.Text = (record.IsMoveForward.Value) ? "Yes" : "No";
     }
 }

@@ -21,11 +21,11 @@
                     <PagerStyle BackColor="#999999" ForeColor="Blue" CssClass="gridPager" HorizontalAlign="Center" />
                     <Columns>
                         <asp:BoundField DataField="contactsid" Visible="False" />
-                        <asp:BoundField ItemStyle-HorizontalAlign="Center" DataField="FullName" HeaderText="Name" HeaderStyle-ForeColor="Blue" SortExpression="FullName" />
-                        <asp:BoundField ItemStyle-HorizontalAlign="Center" DataField="Phone" HeaderText="Phone"   HeaderStyle-ForeColor="Blue" SortExpression="Phone" />
-                        <asp:BoundField ItemStyle-HorizontalAlign="Center" DataField="Email" HeaderText="E-mail"  HeaderStyle-ForeColor="Blue" SortExpression="Email" />
-                        <asp:BoundField ItemStyle-HorizontalAlign="Center" DataField="COMPANYNAME" HeaderText="Company" HeaderStyle-ForeColor="Blue" SortExpression="COMPANYNAME" />
-                        <asp:BoundField ItemStyle-HorizontalAlign="Center" DataField="LAST_CONTACT_DATE" HeaderText="Last Contact Date" HeaderStyle-ForeColor="Blue" SortExpression="LAST_CONTACT_DATE" DataFormatString="{0:d}"/>
+                        <asp:BoundField ItemStyle-HorizontalAlign="Left"  HeaderStyle-HorizontalAlign="Left" DataField="FullName" HeaderText="Name" HeaderStyle-ForeColor="Blue" SortExpression="FullName" />
+                        <asp:BoundField ItemStyle-HorizontalAlign="Left"  HeaderStyle-HorizontalAlign="Left" DataField="Phone" HeaderText="Phone"   HeaderStyle-ForeColor="Blue" SortExpression="Phone" />
+                        <asp:BoundField ItemStyle-HorizontalAlign="Left"  HeaderStyle-HorizontalAlign="Left" DataField="Email" HeaderText="E-mail"  HeaderStyle-ForeColor="Blue" SortExpression="Email" />
+                        <asp:BoundField ItemStyle-HorizontalAlign="Left"  HeaderStyle-HorizontalAlign="Left" DataField="COMPANYNAME" HeaderText="Company" HeaderStyle-ForeColor="Blue" SortExpression="COMPANYNAME" />
+                        <asp:BoundField ItemStyle-HorizontalAlign="Left"  HeaderStyle-HorizontalAlign="Left" DataField="LAST_CONTACT_DATE" HeaderText="Last Contact Date" HeaderStyle-ForeColor="Blue" SortExpression="LAST_CONTACT_DATE" DataFormatString="{0:d}"/>
                         <asp:TemplateField ShowHeader="False">
                             <ItemTemplate>
                                 <asp:LinkButton ID="LinkButton1" runat="server" CausesValidation="False" CommandName="Select"

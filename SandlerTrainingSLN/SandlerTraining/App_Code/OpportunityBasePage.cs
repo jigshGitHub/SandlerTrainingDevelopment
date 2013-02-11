@@ -38,7 +38,7 @@ public class OpportunityBasePage : BasePage
         return (companyId == 0) ? data : data.Where(record => record.COMPANYID == companyId);
     }
 
-    protected virtual IQueryable<Opportunity> GetOpportunities(int? companyId, string opportunityId, string name, string description, string notes,string repFirstName, string repLastName, string repPhone, int? productId, int? statusId, int? contactId, int?sourceId, int? typeId, int? whyLostId, decimal? weightedValue, decimal? actualValue)
+    protected virtual IQueryable<Opportunity> GetOpportunities(int? companyId, string opportunityId, string name, string description, string notes,string repFirstName, string repLastName, string repPhone, int? productId, int? statusId, int? contactId, int?sourceId, int? typeId, int? whyLostId, decimal? weightedValue, decimal? actualValue, string pain, string lengthOfProblmem, string alternatives, string costTofix, bool isBudgetidentified, bool isMoveForward)
     {
         UserEntities userEntities = UserEntitiesFactory.Get(this.CurrentUser);
         IQueryable<Opportunity> data = userEntities.Opportunities.AsQueryable();
@@ -57,7 +57,7 @@ public class OpportunityBasePage : BasePage
         data = SandlerData.IQueryableExtensions.OptionalWhere(data, whyLostId, x => (opp => opp.WhyLostID == whyLostId));
         data = SandlerData.IQueryableExtensions.OptionalWhere(data, weightedValue, x => (opp => opp.WEIGHTEDVALUE == weightedValue));
         data = SandlerData.IQueryableExtensions.OptionalWhere(data, actualValue, x => (opp => opp.ActualValue == actualValue));
-
+        
         if (!string.IsNullOrEmpty(opportunityId))
             data = data.Where(opp => opp.OpportunityID == int.Parse(opportunityId));
         if (!string.IsNullOrEmpty(name))
@@ -72,6 +72,16 @@ public class OpportunityBasePage : BasePage
             data = data.Where(opp => opp.SALESREPLASTNAME.ToUpper().Contains(repLastName.ToUpper()));
         if (!string.IsNullOrEmpty(repPhone))
             data = data.Where(opp => opp.SALESREPPHONE.Contains(repPhone));
+        if (!string.IsNullOrEmpty(pain))
+            data = data.Where(opp => opp.Pain == pain);
+        if (!string.IsNullOrEmpty(lengthOfProblmem))
+            data = data.Where(opp => opp.LengthofProblem == lengthOfProblmem);
+        if (!string.IsNullOrEmpty(alternatives))
+            data = data.Where(opp => opp.Alternatives == alternatives);
+        if (isBudgetidentified)
+            data = data.Where(opp => opp.IsBudgeIdentified == isBudgetidentified); 
+        if (isMoveForward)
+            data = data.Where(opp => opp.IsMoveForward == isMoveForward);
 
         
 

@@ -173,6 +173,54 @@
                             <asp:Label ID="lblCloseDate" runat="server" />
                         </td>
                     </tr>
+                    <tr style="color: Black; background-color: #DCDCDC; white-space: nowrap;">
+                        <td style="white-space: nowrap;">
+                            Pain :
+                        </td>
+                        <td>
+                            <asp:Label ID="lblPain" runat="server" />
+                        </td>
+                    </tr>
+                    <tr style="color: Black; background-color: #DCDCDC; white-space: nowrap;">
+                        <td style="white-space: nowrap;">
+                            Length of Problem :
+                        </td>
+                        <td>
+                            <asp:Label ID="lblLengthofProblem" runat="server" />
+                        </td>
+                    </tr>
+                    <tr style="color: Black; background-color: #DCDCDC; white-space: nowrap;">
+                        <td style="white-space: nowrap;">
+                            Alternatives :
+                        </td>
+                        <td>
+                            <asp:Label ID="lblAlternatives" runat="server" />
+                        </td>
+                    </tr>
+                    <tr style="color: Black; background-color: #DCDCDC; white-space: nowrap;">
+                        <td style="white-space: nowrap;">
+                            Cost to Fix :
+                        </td>
+                        <td>
+                            <asp:Label ID="lblCostToFix" runat="server" />
+                        </td>
+                    </tr>
+                    <tr style="color: Black; background-color: #DCDCDC; white-space: nowrap;">
+                        <td style="white-space: nowrap;">
+                            Budget Identified?
+                        </td>
+                        <td>
+                            <asp:Label ID="lblBudgetIdentified" runat="server" />
+                        </td>
+                    </tr>
+                    <tr style="color: Black; background-color: #DCDCDC; white-space: nowrap;">
+                        <td style="white-space: nowrap;">
+                            Move Forward? :
+                        </td>
+                        <td>
+                            <asp:Label ID="lblMoveForward" runat="server" />
+                        </td>
+                    </tr>
                     <tr style="color: Black; background-color: #EEEEEE; white-space: nowrap;">
                         <td style="white-space: nowrap;">
                             Contacts :

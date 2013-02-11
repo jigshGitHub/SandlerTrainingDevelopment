@@ -57,7 +57,7 @@
                         </ul>
                         </li>
 
-                        <li><a href="#" id="homeofficeReportAnchor" runat="server" visible="false">Home Office</a>
+                        <li><a href="#">Home Office</a>
                         <ul class="sub_menu">
                             <li><a href="#">Franchisee Report By...</a>
                                 <ul class="sub_menu">
@@ -116,7 +116,6 @@
 
                     <li><a id="a1" runat="server" href="#">CRM</a>
                       <ul class="sub_menu">
-                        <li><a id="quickstartAnchor" runat="server" visible="false">QuickStart</a></li>
                         <li><a href="<%=  Page.ResolveClientUrl("~/CRM/Companies/Index.aspx") %>">Companies</a></li>
                         <li><a href="<%=  Page.ResolveClientUrl("~/CRM/Contacts/Index.aspx") %>">Contacts</a></li>
                         <li><a href="<%=  Page.ResolveClientUrl("~/CRM/Opportunities/Index.aspx") %>">Pipeline</a></li>

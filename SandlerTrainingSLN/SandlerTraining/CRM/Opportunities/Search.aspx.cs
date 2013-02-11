@@ -48,7 +48,7 @@ public partial class OpportunitySearch : OpportunityBasePage
         if (!string.IsNullOrEmpty(txtWeightedValue.Text)) weightedValue = decimal.Parse(txtWeightedValue.Text); else weightedValue = null;
         if (!string.IsNullOrEmpty(txtActualValue.Text)) actualValue = decimal.Parse(txtActualValue.Text); else actualValue = null;
 
-        var data = from record in GetOpportunities(companyId, txtOpportunityID.Text, txtOppName.Text,txtDescription.Text,txtNotes.Text, txtSalesRepFName.Text, txtSalesRepLName.Text, txtSalesRepPhone.Text, productId, statusId, contactId,sourceId, typeId, whyLostId, weightedValue,actualValue)
+        var data = from record in GetOpportunities(companyId, txtOpportunityID.Text, txtOppName.Text,txtDescription.Text,txtNotes.Text, txtSalesRepFName.Text, txtSalesRepLName.Text, txtSalesRepPhone.Text, productId, statusId, contactId,sourceId, typeId, whyLostId, weightedValue,actualValue,txtPain.Text, txtLengthOfProblem.Text, txtAlternatives.Text,txtCostToFix.Text,(ddlBudgetIdentified.SelectedValue == "true") ? true:false,(ddlMoveForward.SelectedValue == "true") ? true:false)
                    select new
                    {
                        ID = record.ID,
@@ -74,7 +74,13 @@ public partial class OpportunitySearch : OpportunityBasePage
                        Description = record.Description,
                        Notes = record.Notes,
                        ActualValue = (record.ActualValue.HasValue) ? record.ActualValue.Value.ToString() : "",
-                       Source = record.Source
+                       Source = record.Source,
+                       Pain = record.Pain,
+                       LengthOfProblem = record.LengthofProblem,
+                       CostToFix = record.CostToFix,
+                       Alternatives = record.Alternatives,
+                       IsBudgeIdentified = record.IsBudgeIdentified,
+                       IsMoveForward = record.IsMoveForward
                    };
         TotalRecords = data.Count();
         lblResultsCount.Text = "Total records found:" + TotalRecords.ToString();

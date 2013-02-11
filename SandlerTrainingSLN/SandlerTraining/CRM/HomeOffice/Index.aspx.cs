@@ -14,7 +14,7 @@ public partial class CRM_HomeOffice_Index : BasePage
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        franchiseeMenu.MenuEntityTitle = "Franchisee";
+        franchiseeMenu.MenuEntityTitle = "HomeOffice";
     }
 
     protected void gvFranchisees_SelectedIndexChanged(object sender, EventArgs e)
@@ -29,17 +29,34 @@ public partial class CRM_HomeOffice_Index : BasePage
         {
             LblStatus.Text = "There are no Franchisees entered in the System.";
             btnExportExcel.Visible = false;
-            franchiseeMenu.MenuEntity.Items.Find(delegate(Sandler.Web.MenuItem item) { return item.Text == "Detailed Search"; }).IsVisible = false;
+            //franchiseeMenu.MenuEntity.Items.Find(delegate(Sandler.Web.MenuItem item) { return item.Text == "Detailed Search"; }).IsVisible = false;
             franchiseeMenu.ReLoadSubMenu();
         }
         else
         {
             LblStatus.Text = "";
             btnExportExcel.Visible = true;
-            franchiseeMenu.MenuEntity.Items.Find(delegate(Sandler.Web.MenuItem item) { return item.Text == "Detailed Search"; }).IsVisible = true;
+            //franchiseeMenu.MenuEntity.Items.Find(delegate(Sandler.Web.MenuItem item) { return item.Text == "Detailed Search"; }).IsVisible = true;
+
+            GridView gridView = (GridView)sender;
+
+            if (gridView.HeaderRow != null && gridView.HeaderRow.Cells.Count > 0)
+            {
+                gridView.HeaderRow.Cells[4].Visible = !IsUserReadOnly(SandlerUserActions.Edit, SandlerEntities.HomeOffice);
+            }
+
+            foreach (GridViewRow row in gvFranchisees.Rows)
+            {
+                row.Cells[4].Visible = !IsUserReadOnly(SandlerUserActions.Edit, SandlerEntities.HomeOffice);
+            }
+
+
             franchiseeMenu.ReLoadSubMenu();
             
         }
+
+
+
     }
     protected void btnExportExcel_Click(object sender, ImageClickEventArgs e)
     {
@@ -56,4 +73,14 @@ public partial class CRM_HomeOffice_Index : BasePage
             ExportToExcel.DownloadReportResults(ds);
         }
    }
+    //protected void gvFranchisees_RowCreated(object sender, GridViewRowEventArgs e)
+    //{
+    //    if (e.Row.RowType == DataControlRowType.DataRow)
+    //    {
+    //        LinkButton viewDetailButton = (LinkButton)e.Row.FindControl("LinkButton1");
+    //        viewDetailButton.Visible = !IsUserReadOnly(SandlerUserActions.Edit, SandlerEntities.HomeOffice);
+    //    }
+
+
+    //}
 }

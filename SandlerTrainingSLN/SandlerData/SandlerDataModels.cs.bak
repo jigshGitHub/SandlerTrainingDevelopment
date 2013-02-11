@@ -46,7 +46,6 @@ namespace SandlerData.Models
                     user.RegionID = coachRepository.GetRegion(user.CoachID).ID;
                     break;
                 case SandlerRoles.SiteAdmin:
-                case SandlerRoles.HomeOfficeAdmin:
                     break;
                 default:
                     break;

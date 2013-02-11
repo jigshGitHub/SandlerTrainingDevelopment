@@ -72,6 +72,12 @@ namespace SandlerModels
         public Nullable<int> SeconadryContactId2 { get; set; }
         public Nullable<decimal> ProductCost { get; set; }
         public Nullable<System.DateTime> OppCreationDate { get; set; }
+        public string Pain { get; set; }
+        public string LengthofProblem { get; set; }
+        public string CostToFix { get; set; }
+        public string Alternatives { get; set; }
+        public Nullable<bool> IsBudgeIdentified { get; set; }
+        public Nullable<bool> IsMoveForward { get; set; }
     }
     
 }

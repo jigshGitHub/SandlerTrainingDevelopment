@@ -170,6 +170,13 @@ public abstract class BasePage : System.Web.UI.Page
         items.Add(new SandlerWeb.MenuItem { Id = "AddDocument", Text = "Attach New Document", Link = "~/CRM/Documents/Add.aspx", IsVisible = !IsUserReadOnly(SandlerUserActions.Add, SandlerEntities.Document) });
 
         CRMMenu.Add(new SandlerWeb.Menu { Title = "Documents", IsVisible = true, Items = items.Where(item => item.IsVisible == true).ToList() });
+
+        items = new List<SandlerWeb.MenuItem>();
+
+        items.Add(new SandlerWeb.MenuItem { Id = "Search", Text = "Detailed Search", Link = "~/CRM/HomeOffice/Search.aspx", IsVisible = true });
+        items.Add(new SandlerWeb.MenuItem { Id = "AddFranchisee", Text = "Add New..", Link = "~/CRM/HomeOffice/Add.aspx", IsVisible = !IsUserReadOnly(SandlerUserActions.Add, SandlerEntities.Franchisee) });
+        CRMMenu.Add(new SandlerWeb.Menu { Title = "Franchisee", IsVisible = true, Items = items.Where(item => item.IsVisible == true).ToList() });
+
     }
 
     protected virtual bool IsUserReadOnly(SandlerUserActions action, SandlerEntities entity)
@@ -203,6 +210,20 @@ public abstract class BasePage : System.Web.UI.Page
                 else
                 {
                     return (entity != SandlerEntities.Franchisee);
+                }
+            case SandlerRoles.HomeOfficeAdmin:
+                if (action == SandlerUserActions.View)
+                    return true;
+                else
+                {
+                    return (entity != SandlerEntities.Franchisee);
+                }
+            case SandlerRoles.HomeOfficeUser:
+                if (action == SandlerUserActions.View)
+                    return true;
+                else
+                {
+                    return (entity == SandlerEntities.Franchisee);
                 }
             default:
                 if (action == SandlerUserActions.View)

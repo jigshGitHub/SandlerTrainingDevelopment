@@ -72,21 +72,6 @@ public partial class Menu : System.Web.UI.UserControl
                 anchorAssessment.Visible = false;
                 clientLogo.Visible = true;
             }
-            //For QuickStart link
-            if (thisPage.CurrentUser.Role == SandlerModels.SandlerRoles.FranchiseeOwner 
-                || thisPage.CurrentUser.Role == SandlerModels.SandlerRoles.FranchiseeUser
-                || thisPage.CurrentUser.Role == SandlerModels.SandlerRoles.Coach)
-            {
-                link = ((HtmlAnchor)FindControl("quickstartAnchor"));
-                link.HRef = "~/CRM/QuickStart/Index.aspx";
-                link.Visible = true;
-            }
-            //Home Office Report Anchor
-            if (thisPage.CurrentUser.Role == SandlerModels.SandlerRoles.HomeOfficeAdmin)
-            {
-                link = ((HtmlAnchor)FindControl("homeofficeReportAnchor"));
-                link.Visible = true;
-            }
         }
     }
 }

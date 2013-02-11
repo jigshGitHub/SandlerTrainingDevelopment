@@ -25,9 +25,8 @@
                         <asp:TemplateField HeaderText="Company Name :">
                             <InsertItemTemplate>
                                 <asp:TextBox ID="txtCompName" MaxLength="50" Width="380" runat="server" Text='<%# Bind("COMPANYNAME") %>'></asp:TextBox>
-                                <asp:RequiredFieldValidator ID="reqFieldValCompNameTB" ControlToValidate="txtCompName" Display="Static" InitialValue="" runat="server" ErrorMessage="Please Enter Company Name to proceed.">
-                    *
-                                </asp:RequiredFieldValidator>
+                                <label id="mandlbl" style="color:Red" runat="server">*</label>
+                                <asp:RequiredFieldValidator ID="reqFieldValCompNameTB" ControlToValidate="txtCompName" Display="Static" InitialValue="" runat="server" ErrorMessage="Please Enter Company Name to proceed.">Required field</asp:RequiredFieldValidator>
                             </InsertItemTemplate>
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="Ownership :">
@@ -273,8 +272,7 @@
         <tr>
             <td style="width: 280px">
                 <asp:Label ID="lblResult" runat="server" ForeColor="Red"></asp:Label><br />
-                <asp:ObjectDataSource ID="ProductDS" runat="server" TypeName="SandlerRepositories.CompaniesRepository"
-                    SelectMethod="GetAllProducts"></asp:ObjectDataSource>
+                <asp:ObjectDataSource ID="ProductDS" runat="server" TypeName="SandlerRepositories.CompaniesRepository" SelectMethod="GetAllProducts"></asp:ObjectDataSource>
                 <asp:ObjectDataSource ID="IndustryDS" runat="server" TypeName="SandlerRepositories.CompaniesRepository"
                     SelectMethod="GetAllIndustries"></asp:ObjectDataSource>
                 <asp:ObjectDataSource ID="NewItemInfoDS" runat="server" TypeName="SandlerRepositories.CompaniesRepository" SelectMethod="GetNewItemOptions"></asp:ObjectDataSource>

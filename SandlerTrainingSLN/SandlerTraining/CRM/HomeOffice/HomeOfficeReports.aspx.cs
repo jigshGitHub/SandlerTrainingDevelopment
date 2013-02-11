@@ -95,7 +95,7 @@ public partial class Reports_HomeOfficeReports : BasePage
     protected void gvReports_DataBound(object sender, EventArgs e)
     {
         GridView gridView = (GridView)sender;
-
+                        
         if (gridView.HeaderRow != null && gridView.HeaderRow.Cells.Count > 0)
         {
             gridView.HeaderRow.Cells[0].Visible = false;

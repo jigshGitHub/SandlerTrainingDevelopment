@@ -13,7 +13,7 @@ public partial class CRM_HomeOffice_Detail : BasePage
     {
         if (!Page.IsPostBack)
         {
-            lblModuleActionHeading.Text = (IsUserReadOnly(SandlerUserActions.Edit, SandlerEntities.Franchisee)) ? "View Franchisee:" : "View/Edit Franchisee:";
+            lblModuleActionHeading.Text = (IsUserReadOnly(SandlerUserActions.Edit, SandlerEntities.HomeOffice)) ? "View HomeOffice Info:" : "View/Edit HomeOfficeInfo:";
             if ((PreviousPage != null))
             {
                 //Find out CompanyID selected by the User
@@ -56,7 +56,7 @@ public partial class CRM_HomeOffice_Detail : BasePage
         FormView dv = sender as FormView;
         if (dv.CurrentMode == FormViewMode.ReadOnly)
             if (dv.FindControl("LinkButton1") != null)
-                (dv.FindControl("LinkButton1") as LinkButton).Visible = !IsUserReadOnly(SandlerUserActions.Edit, SandlerEntities.Franchisee);
+                (dv.FindControl("LinkButton1") as LinkButton).Visible = !IsUserReadOnly(SandlerUserActions.Edit, SandlerEntities.HomeOffice);
     }
     protected void FranchiseeFW_ModeChanging(object sender, FormViewModeEventArgs e)
     {

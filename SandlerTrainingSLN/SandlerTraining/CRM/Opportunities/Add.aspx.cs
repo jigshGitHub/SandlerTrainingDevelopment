@@ -173,7 +173,8 @@ public partial class OpportunityADD : OpportunityBasePage
             opportunity.STATUSID = null;
         opportunity.VALUE = int.Parse(txtOpportunityValue.Text);
         opportunity.WINPROBABILITY = txtWinProbability.Text;
-        opportunity.WEIGHTEDVALUE = (opportunity.VALUE * int.Parse(opportunity.WINPROBABILITY)) / 100;
+        if(!string.IsNullOrEmpty(opportunity.WINPROBABILITY))
+            opportunity.WEIGHTEDVALUE = (opportunity.VALUE * int.Parse(opportunity.WINPROBABILITY)) / 100;
         if (ddlSource.SelectedIndex > 0)
             opportunity.SourceID = int.Parse(ddlSource.SelectedValue);
         else
@@ -200,6 +201,13 @@ public partial class OpportunityADD : OpportunityBasePage
         if (selectedItemIndexes.Count() > 2)
             opportunity.SeconadryContactId2 = int.Parse(lstBxContacts.Items[selectedItemIndexes[2]].Value);
         opportunity.ProductCost = (string.IsNullOrEmpty(txtProductCost.Text)) ? 0 : Convert.ToDecimal(txtProductCost.Text);
+        //Pain related data Feb 10 changes
+        opportunity.Pain = txtPain.Text;
+        opportunity.LengthOfProblem = txtPainLengthProblem.Text;
+        opportunity.Alternatives = txtAlternatives.Text;
+        opportunity.CostToFix = txtCostToFix.Text;
+        opportunity.IsBudgeIdentified = Convert.ToBoolean(ddlBudgetIdentified.SelectedValue);
+        opportunity.IsMoveForward = Convert.ToBoolean(ddlMoveForward.SelectedValue);
     }
 
     private void BindDetailsToFields(int ID)
@@ -265,6 +273,13 @@ public partial class OpportunityADD : OpportunityBasePage
             txtProductCost.Text = record.ProductCost.Value.ToString();
         if (record.CreationDate.HasValue)
             txtBxCreationDate.Text = record.CreationDate.Value.ToShortDateString();
+
+        txtPain.Text = record.Pain;
+        txtPainLengthProblem.Text = record.LengthOfProblem;
+        txtAlternatives.Text = record.Alternatives;
+        txtCostToFix.Text = record.CostToFix;
+        ddlBudgetIdentified.SelectedValue = (record.IsBudgeIdentified.Value) ? "true" : "false";
+        ddlMoveForward.SelectedValue = (record.IsMoveForward.Value) ? "true" : "false";
     }
 
     private void ClearFiels()
