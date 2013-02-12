@@ -25,6 +25,144 @@ public partial class CRM_HomeOffice_Search : BasePage
         //Clear All data entered by the User
         lblResult.Text = "";
     }
+
+    protected void FranchiseeFW_DataBound(object sender, EventArgs e)
+    {
+        
+        //For Work State DDL
+        DropDownList ddlWorkStateDDList = new DropDownList();
+        ddlWorkStateDDList = (DropDownList)FranchiseeFW.FindControl("ddlWorkState");
+        if (ddlWorkStateDDList != null)
+        {
+            ListItem selectItem = new ListItem("-- Select Work State --", "0");
+            ddlWorkStateDDList.Items.Insert(0, selectItem);
+            
+        }
+        //For Work Country DDL
+        DropDownList ddlWorkCountryDDList = new DropDownList();
+        ddlWorkCountryDDList = (DropDownList)FranchiseeFW.FindControl("ddlWorkCountry");
+        if (ddlWorkCountryDDList != null)
+        {
+            ListItem selectItem = new ListItem("--Select Work Country--", "0");
+            ddlWorkCountryDDList.Items.Insert(0, selectItem);
+            
+        }
+        //For Home State DDL
+        DropDownList ddlHomeStateDDList = new DropDownList();
+        ddlHomeStateDDList = (DropDownList)FranchiseeFW.FindControl("ddlHomeState");
+        if (ddlHomeStateDDList != null)
+        {
+            ListItem selectItem = new ListItem("-- Select Home State --", "0");
+            ddlHomeStateDDList.Items.Insert(0, selectItem);
+            
+        }
+        //For Home Country DDL
+        DropDownList ddlHomeCountryDDList = new DropDownList();
+        ddlHomeCountryDDList = (DropDownList)FranchiseeFW.FindControl("ddlHomeCountry");
+        if (ddlHomeCountryDDList != null)
+        {
+            ListItem selectItem = new ListItem("--Select Home Country--", "0");
+            ddlHomeCountryDDList.Items.Insert(0, selectItem);
+            
+        }
+        //For Sandler Role DDL
+        DropDownList ddlSandlerRoleDDList = new DropDownList();
+        ddlSandlerRoleDDList = (DropDownList)FranchiseeFW.FindControl("ddlSandlerRole");
+        if (ddlSandlerRoleDDList != null)
+        {
+            ListItem selectItem = new ListItem("--Select Sandler Role--", "0");
+            ddlSandlerRoleDDList.Items.Insert(0, selectItem);
+            
+        }
+        //For Master Franchisee DDL
+        DropDownList ddlMasterFranchiseeDDList = new DropDownList();
+        ddlMasterFranchiseeDDList = (DropDownList)FranchiseeFW.FindControl("ddlMasterFranchisee");
+        if (ddlMasterFranchiseeDDList != null)
+        {
+            ListItem selectItem = new ListItem("--Select Master Franchisee--", "0");
+            ddlMasterFranchiseeDDList.Items.Insert(0, selectItem);
+            
+        }
+        //Cost Plus Amount DDL
+        DropDownList ddlCostPlusAmtDDList = new DropDownList();
+        ddlCostPlusAmtDDList = (DropDownList)FranchiseeFW.FindControl("ddlCostPlusAmt");
+        if (ddlCostPlusAmtDDList != null)
+        {
+            ListItem selectItem = new ListItem("--Select Cost + Amount--", "0");
+            ddlCostPlusAmtDDList.Items.Insert(0, selectItem);
+            
+        }
+        //Behind Amount DDL
+        DropDownList ddlBehindAmtDDList = new DropDownList();
+        ddlBehindAmtDDList = (DropDownList)FranchiseeFW.FindControl("ddlBehindAmt");
+        if (ddlBehindAmtDDList != null)
+        {
+            ListItem selectItem = new ListItem("--Select Behind Amount--", "0");
+            ddlBehindAmtDDList.Items.Insert(0, selectItem);
+            
+        }
+        //Award Level DDL
+        DropDownList ddlAwardLevelDDList = new DropDownList();
+        ddlAwardLevelDDList = (DropDownList)FranchiseeFW.FindControl("ddlAwardLevel");
+        if (ddlAwardLevelDDList != null)
+        {
+            ListItem selectItem = new ListItem("--Select Award Level--", "0");
+            ddlAwardLevelDDList.Items.Insert(0, selectItem);
+            
+        }
+        //Purchase Level DDL
+        DropDownList ddlPurchaseLevelDDList = new DropDownList();
+        ddlPurchaseLevelDDList = (DropDownList)FranchiseeFW.FindControl("ddlPurchaseLevel");
+        if (ddlPurchaseLevelDDList != null)
+        {
+            ListItem selectItem = new ListItem("--Select Purchase Level--", "0");
+            ddlPurchaseLevelDDList.Items.Insert(0, selectItem);
+            
+        }
+        //Certified Level DDL
+        DropDownList ddlCertifiedLevelDDList = new DropDownList();
+        ddlCertifiedLevelDDList = (DropDownList)FranchiseeFW.FindControl("ddlCertifiedLevel");
+        if (ddlCertifiedLevelDDList != null)
+        {
+            ListItem selectItem = new ListItem("--Select Certified Level--", "0");
+            ddlCertifiedLevelDDList.Items.Insert(0, selectItem);
+            
+        }
+        //Primary Business DDL
+        DropDownList ddlPrimaryBusinessDDList = new DropDownList();
+        ddlPrimaryBusinessDDList = (DropDownList)FranchiseeFW.FindControl("ddlPrimaryBusiness");
+        if (ddlPrimaryBusinessDDList != null)
+        {
+            ListItem selectItem = new ListItem("--Select Primary Business--", "0");
+            ddlPrimaryBusinessDDList.Items.Insert(0, selectItem);
+            
+        }
+        
+    }
+
+    public string ManageDateTimeValue(string _DatevalueFromDB)
+    {
+        if (_DatevalueFromDB == "1/1/1900 12:00:00 AM")
+        {
+            _DatevalueFromDB = default(System.String);
+        }
+        else
+        {
+            _DatevalueFromDB = _DatevalueFromDB.Replace("12:00:00 AM", "");
+        }
+        //send back
+        return _DatevalueFromDB;
+    }
+
+
+    public int GetDropdownListBoxData(string controlId)
+    {
+        DropDownList _tempDDList = new DropDownList();
+        _tempDDList = (DropDownList)FranchiseeFW.FindControl(controlId);
+        //get the value
+        return Convert.ToInt32(_tempDDList.SelectedValue.ToString());
+    }
+
     protected void FranchiseeFW_ItemInserting(object sender, FormViewInsertEventArgs e)
     {
         //let us have search obj and store all user selection in it
@@ -58,712 +196,247 @@ public partial class CRM_HomeOffice_Search : BasePage
         System.DateTime BirthDay = default(System.DateTime);
         System.DateTime Anniversary = default(System.DateTime);
         //DDL Fields
-        string SandlerRoleID = "";
-        string IsPartOfMasterFranchisee = "";
-        string MasterFranchiseeID = "";
-        string IsCanPrintLocally = "";
-        string IsBuyFromCustomer = "";
-        string IsFixedPricePurchase = "";
-        string CostPlusAmountID = "";
-        string IsBehindstringerDev = "";
-        string BehindAmountID = "";
-        string CoachID = "";
-        string AwardLevelID = "";
-        string PurchaseLevelID = "";
-        string PrimaryBusinessID = "";
-        string CertifiedLevelID = "";
-        string IsContractorsPermitted = "";
-        string IsKOLMember = "";
-        string IsAdvBoard = "";
-        string IsMktgCommittee = "";
-        string IsUsingSandlerCRM = "";
-        string IsDHSAwardWinner = "";
-        string IsSandlerMailRequired = "";
-        string IsReqToSubmitFinancials = "";
-        string IsRepAgreementForGlobalAcct = "";
-        string WorkStateID = "";
-        string WorkCountryID = "";
-        string HomeStateID = "";
-        string HomeCountryID = "";
-        string IsSameHomeAddress = "";
+        int SandlerRoleID = default(System.Int32);
+        int IsPartOfMasterFranchisee = default(System.Int32);
+        int MasterFranchiseeID = default(System.Int32);
+        int IsCanPrintLocally = default(System.Int32);
+        int IsBuyFromCustomer = default(System.Int32);
+        int IsFixedPricePurchase = default(System.Int32);
+        int CostPlusAmountID = default(System.Int32);
+        int IsBehindInTerDev = default(System.Int32);
+        int BehindAmountID = default(System.Int32);
+        int CoachID = default(System.Int32);
+        int AwardLevelID = default(System.Int32);
+        int PurchaseLevelID = default(System.Int32);
+        int PrimaryBusinessID = default(System.Int32);
+        int CertifiedLevelID = default(System.Int32);
+        int IsContractorsPermitted = default(System.Int32);
+        int IsKOLMember = default(System.Int32);
+        int IsAdvBoard = default(System.Int32);
+        int IsMktgCommittee = default(System.Int32);
+        int IsUsingSandlerCRM = default(System.Int32);
+        int IsDHSAwardWinner = default(System.Int32);
+        int IsSandlerMailRequired = default(System.Int32);
+        int IsReqToSubmitFinancials = default(System.Int32);
+        int IsRepAgreementForGlobalAcct = default(System.Int32);
+        int WorkStateID = default(System.Int32);
+        int WorkCountryID = default(System.Int32);
+        int HomeStateID = default(System.Int32);
+        int HomeCountryID = default(System.Int32);
+        int IsSameHomeAddress = default(System.Int32);
 
-        //For Sandler Role Id
+        SandlerRoleID = GetDropdownListBoxData("ddlSandlerRole");
+        if (SandlerRoleID != 0)
         {
-            ListBox lstSandlerRoleLB = new ListBox();
-            lstSandlerRoleLB = (ListBox)FranchiseeFW.FindControl("lstSandlerRole");
-            if ((lstSandlerRoleLB != null))
-            {
-                foreach (ListItem listItem in lstSandlerRoleLB.Items)
-                {
-                    if (listItem.Selected == true)
-                    {
-                        if (SandlerRoleID.Length == 0)
-                        {
-                            SandlerRoleID = listItem.Value;
-                        }
-                        else
-                        {
-                            SandlerRoleID = SandlerRoleID + "," + listItem.Value;
-                        }
-                        IsCriteriaExist = true;
-                    }
-                }
-                searchObj.SandlerRoleId = SandlerRoleID;
-            }
+            IsCriteriaExist = true;
+            searchObj.SandlerRoleId = SandlerRoleID.ToString();
         }
-        //For Is Part of Master Franchisee
+        else
         {
-            ListBox lstPartOfMFLB = new ListBox();
-            lstPartOfMFLB = (ListBox)FranchiseeFW.FindControl("lstPartOfMF");
-            if ((lstPartOfMFLB != null))
-            {
-                foreach (ListItem listItem in lstPartOfMFLB.Items)
-                {
-                    if (listItem.Selected == true)
-                    {
-                        if (IsPartOfMasterFranchisee.Length == 0)
-                        {
-                            IsPartOfMasterFranchisee = listItem.Value;
-                        }
-                        else
-                        {
-                            IsPartOfMasterFranchisee = IsPartOfMasterFranchisee + "," + listItem.Value;
-                        }
-                        IsCriteriaExist = true;
-                    }
-                }
-                searchObj.IsMasterFranchiseeExists = IsPartOfMasterFranchisee;
-            }
+            searchObj.SandlerRoleId = "";
         }
-        //For Master Franchisee ID
+        
+        MasterFranchiseeID = GetDropdownListBoxData("ddlMasterFranchisee");
+        if (MasterFranchiseeID != 0)
         {
-            ListBox lstMasterFranchiseeLB = new ListBox();
-            lstMasterFranchiseeLB = (ListBox)FranchiseeFW.FindControl("lstMasterFranchisee");
-            if ((lstMasterFranchiseeLB != null))
-            {
-                foreach (ListItem listItem in lstMasterFranchiseeLB.Items)
-                {
-                    if (listItem.Selected == true)
-                    {
-                        if (MasterFranchiseeID.Length == 0)
-                        {
-                            MasterFranchiseeID = listItem.Value;
-                        }
-                        else
-                        {
-                            MasterFranchiseeID = MasterFranchiseeID + "," + listItem.Value;
-                        }
-                        IsCriteriaExist = true;
-                    }
-                }
-                searchObj.MasterFranchiseeId = MasterFranchiseeID;
-            }
+            IsCriteriaExist = true;
+            searchObj.MasterFranchiseeId = MasterFranchiseeID.ToString();
+        }
+        else
+        {
+            searchObj.MasterFranchiseeId = "";
+        }
+        
+        IsBuyFromCustomer = GetDropdownListBoxData("ddlBuyFromCustomer");
+        if (IsBuyFromCustomer != 0)
+        {
+            IsCriteriaExist = true;
+            searchObj.IsBuyFromCustomer = IsBuyFromCustomer.ToString();
+        }
+        else
+        {
+            searchObj.IsBuyFromCustomer = "";
+        }
+        
+        IsFixedPricePurchase = GetDropdownListBoxData("ddlFixedPricePurchase");
+        if (IsFixedPricePurchase != 0)
+        {
+            IsCriteriaExist = true;
+            searchObj.IsFixedPricePurchase = IsFixedPricePurchase.ToString();
+        }
+        else
+        {
+            searchObj.IsFixedPricePurchase = "";
         }
 
-        //For Can Print Locally
+        CostPlusAmountID = GetDropdownListBoxData("ddlCostPlusAmt");
+        if (CostPlusAmountID != 0)
         {
-            ListBox lstCanPrintLocallyLB = new ListBox();
-            lstCanPrintLocallyLB = (ListBox)FranchiseeFW.FindControl("lstCanPrintLocally");
-            if ((lstCanPrintLocallyLB != null))
-            {
-                foreach (ListItem listItem in lstCanPrintLocallyLB.Items)
-                {
-                    if (listItem.Selected == true)
-                    {
-                        if (IsCanPrintLocally.Length == 0)
-                        {
-                            IsCanPrintLocally = listItem.Value;
-                        }
-                        else
-                        {
-                            IsCanPrintLocally = IsCanPrintLocally + "," + listItem.Value;
-                        }
-                        IsCriteriaExist = true;
-                    }
-                }
-                searchObj.IsCanPrintLocally = IsCanPrintLocally;
-            }
+            IsCriteriaExist = true;
+            searchObj.CostPlusAmountId = CostPlusAmountID.ToString();
         }
-        //For Buy From Customer
+        else
         {
-            ListBox lstBuyFromCustomerLB = new ListBox();
-            lstBuyFromCustomerLB = (ListBox)FranchiseeFW.FindControl("lstBuyFromCustomer");
-            if ((lstBuyFromCustomerLB != null))
-            {
-                foreach (ListItem listItem in lstBuyFromCustomerLB.Items)
-                {
-                    if (listItem.Selected == true)
-                    {
-                        if (IsBuyFromCustomer.Length == 0)
-                        {
-                            IsBuyFromCustomer = listItem.Value;
-                        }
-                        else
-                        {
-                            IsBuyFromCustomer = IsBuyFromCustomer + "," + listItem.Value;
-                        }
-                        IsCriteriaExist = true;
-                    }
-                }
-                searchObj.IsBuyFromCustomer = IsBuyFromCustomer;
-            }
+            searchObj.CostPlusAmountId = "";
         }
 
-        //For Is Fixed Price Purchase
+        IsBehindInTerDev = GetDropdownListBoxData("ddlBehindTerDev");
+        if (IsBehindInTerDev != 0)
         {
-            ListBox lstFixedPricePurchaseLB = new ListBox();
-            lstFixedPricePurchaseLB = (ListBox)FranchiseeFW.FindControl("lstFixedPricePurchase");
-            if ((lstFixedPricePurchaseLB != null))
-            {
-                foreach (ListItem listItem in lstFixedPricePurchaseLB.Items)
-                {
-                    if (listItem.Selected == true)
-                    {
-                        if (IsFixedPricePurchase.Length == 0)
-                        {
-                            IsFixedPricePurchase = listItem.Value;
-                        }
-                        else
-                        {
-                            IsFixedPricePurchase = IsFixedPricePurchase + "," + listItem.Value;
-                        }
-                        IsCriteriaExist = true;
-                    }
-                }
-                searchObj.IsFixedPricePurchase = IsFixedPricePurchase;
-            }
+            IsCriteriaExist = true;
+            searchObj.IsBehindInTerDev = IsBehindInTerDev.ToString();
         }
-        //For Cost Plus Amount 
+        else
         {
-            ListBox lstCostPlusAmtLB = new ListBox();
-            lstCostPlusAmtLB = (ListBox)FranchiseeFW.FindControl("lstCostPlusAmt");
-            if ((lstCostPlusAmtLB != null))
-            {
-                foreach (ListItem listItem in lstCostPlusAmtLB.Items)
-                {
-                    if (listItem.Selected == true)
-                    {
-                        if (CostPlusAmountID.Length == 0)
-                        {
-                            CostPlusAmountID = listItem.Value;
-                        }
-                        else
-                        {
-                            CostPlusAmountID = CostPlusAmountID + "," + listItem.Value;
-                        }
-                        IsCriteriaExist = true;
-                    }
-                }
-                searchObj.CostPlusAmountId = CostPlusAmountID;
-            }
-        }
-        //For Behind in Territory Development
-        {
-            ListBox lstBehindTerDevLB = new ListBox();
-            lstBehindTerDevLB = (ListBox)FranchiseeFW.FindControl("lstBehindTerDev");
-            if ((lstBehindTerDevLB != null))
-            {
-                foreach (ListItem listItem in lstBehindTerDevLB.Items)
-                {
-                    if (listItem.Selected == true)
-                    {
-                        if (IsBehindstringerDev.Length == 0)
-                        {
-                            IsBehindstringerDev = listItem.Value;
-                        }
-                        else
-                        {
-                            IsBehindstringerDev = IsBehindstringerDev + "," + listItem.Value;
-                        }
-                        IsCriteriaExist = true;
-                    }
-                }
-                searchObj.IsBehindInTerDev = IsBehindstringerDev;
-            }
-        }
-        //For Behind Amount
-        {
-            ListBox lstBehindAmtLB = new ListBox();
-            lstBehindAmtLB = (ListBox)FranchiseeFW.FindControl("lstBehindAmt");
-            if ((lstBehindAmtLB != null))
-            {
-                foreach (ListItem listItem in lstBehindAmtLB.Items)
-                {
-                    if (listItem.Selected == true)
-                    {
-                        if (BehindAmountID.Length == 0)
-                        {
-                            BehindAmountID = listItem.Value;
-                        }
-                        else
-                        {
-                            BehindAmountID = BehindAmountID + "," + listItem.Value;
-                        }
-                        IsCriteriaExist = true;
-                    }
-                }
-                searchObj.BehindAmtId = BehindAmountID;
-            }
-        }
-        //For Coach
-        {
-            ListBox lstCoachLB = new ListBox();
-            lstCoachLB = (ListBox)FranchiseeFW.FindControl("lstCoach");
-            if ((lstCoachLB != null))
-            {
-                foreach (ListItem listItem in lstCoachLB.Items)
-                {
-                    if (listItem.Selected == true)
-                    {
-                        if (CoachID.Length == 0)
-                        {
-                            CoachID = listItem.Value;
-                        }
-                        else
-                        {
-                            CoachID = CoachID + "," + listItem.Value;
-                        }
-                        IsCriteriaExist = true;
-                    }
-                }
-                searchObj.CoachId = CoachID;
-            }
-        }
-        //For Award Level
-        {
-            ListBox lstAwardLevelLB = new ListBox();
-            lstAwardLevelLB = (ListBox)FranchiseeFW.FindControl("lstAwardLevel");
-            if ((lstAwardLevelLB != null))
-            {
-                foreach (ListItem listItem in lstAwardLevelLB.Items)
-                {
-                    if (listItem.Selected == true)
-                    {
-                        if (AwardLevelID.Length == 0)
-                        {
-                            AwardLevelID = listItem.Value;
-                        }
-                        else
-                        {
-                            AwardLevelID = AwardLevelID + "," + listItem.Value;
-                        }
-                        IsCriteriaExist = true;
-                    }
-                }
-                searchObj.AwardLevelId = AwardLevelID;
-            }
-        }
-        //For Purchase Level
-        {
-            ListBox lstPurchaseLevelLB = new ListBox();
-            lstPurchaseLevelLB = (ListBox)FranchiseeFW.FindControl("lstPurchaseLevel");
-            if ((lstPurchaseLevelLB != null))
-            {
-                foreach (ListItem listItem in lstPurchaseLevelLB.Items)
-                {
-                    if (listItem.Selected == true)
-                    {
-                        if (PurchaseLevelID.Length == 0)
-                        {
-                            PurchaseLevelID = listItem.Value;
-                        }
-                        else
-                        {
-                            PurchaseLevelID = PurchaseLevelID + "," + listItem.Value;
-                        }
-                        IsCriteriaExist = true;
-                    }
-                }
-                searchObj.PurchaseLevelId = PurchaseLevelID;
-            }
-        }
-        //For Certifield Level
-        {
-            ListBox lstCertifiedLevelLB = new ListBox();
-            lstCertifiedLevelLB = (ListBox)FranchiseeFW.FindControl("lstCertifiedLevel");
-            if ((lstCertifiedLevelLB != null))
-            {
-                foreach (ListItem listItem in lstCertifiedLevelLB.Items)
-                {
-                    if (listItem.Selected == true)
-                    {
-                        if (CertifiedLevelID.Length == 0)
-                        {
-                            CertifiedLevelID = listItem.Value;
-                        }
-                        else
-                        {
-                            CertifiedLevelID = CertifiedLevelID + "," + listItem.Value;
-                        }
-                        IsCriteriaExist = true;
-                    }
-                }
-                searchObj.CertifiedLevelId = CertifiedLevelID;
-            }
-        }
-        //For Primary Business Level
-        {
-            ListBox lstPrimaryBusinessLB = new ListBox();
-            lstPrimaryBusinessLB = (ListBox)FranchiseeFW.FindControl("lstPrimaryBusiness");
-            if ((lstPrimaryBusinessLB != null))
-            {
-                foreach (ListItem listItem in lstPrimaryBusinessLB.Items)
-                {
-                    if (listItem.Selected == true)
-                    {
-                        if (PrimaryBusinessID.Length == 0)
-                        {
-                            PrimaryBusinessID = listItem.Value;
-                        }
-                        else
-                        {
-                            PrimaryBusinessID = PrimaryBusinessID + "," + listItem.Value;
-                        }
-                        IsCriteriaExist = true;
-                    }
-                }
-                searchObj.PrimaryBusinessId = PrimaryBusinessID;
-            }
-        }
-        //For Is Contractor Permitted
-        {
-            ListBox lstContrPermLB = new ListBox();
-            lstContrPermLB = (ListBox)FranchiseeFW.FindControl("lstContrPerm");
-            if ((lstContrPermLB != null))
-            {
-                foreach (ListItem listItem in lstContrPermLB.Items)
-                {
-                    if (listItem.Selected == true)
-                    {
-                        if (IsContractorsPermitted.Length == 0)
-                        {
-                            IsContractorsPermitted = listItem.Value;
-                        }
-                        else
-                        {
-                            IsContractorsPermitted = IsContractorsPermitted + "," + listItem.Value;
-                        }
-                        IsCriteriaExist = true;
-                    }
-                }
-                searchObj.IsContractorPermitted = IsContractorsPermitted;
-            }
-        }
-        //For Is KOL Member
-        {
-            ListBox lstKOLMemberLB = new ListBox();
-            lstKOLMemberLB = (ListBox)FranchiseeFW.FindControl("lstKOLMember");
-            if ((lstKOLMemberLB != null))
-            {
-                foreach (ListItem listItem in lstKOLMemberLB.Items)
-                {
-                    if (listItem.Selected == true)
-                    {
-                        if (IsKOLMember.Length == 0)
-                        {
-                            IsKOLMember = listItem.Value;
-                        }
-                        else
-                        {
-                            IsKOLMember = IsKOLMember + "," + listItem.Value;
-                        }
-                        IsCriteriaExist = true;
-                    }
-                }
-                searchObj.IsKOLMember = IsKOLMember;
-            }
-        }
-        //For Is Adv Board
-        {
-            ListBox lstAdvBoardLB = new ListBox();
-            lstAdvBoardLB = (ListBox)FranchiseeFW.FindControl("lstAdvBoard");
-            if ((lstAdvBoardLB != null))
-            {
-                foreach (ListItem listItem in lstAdvBoardLB.Items)
-                {
-                    if (listItem.Selected == true)
-                    {
-                        if (IsAdvBoard.Length == 0)
-                        {
-                            IsAdvBoard = listItem.Value;
-                        }
-                        else
-                        {
-                            IsAdvBoard = IsAdvBoard + "," + listItem.Value;
-                        }
-                        IsCriteriaExist = true;
-                    }
-                }
-                searchObj.IsAdvBoard = IsAdvBoard;
-            }
-        }
-        //For Is Mktg Committee
-        {
-            ListBox lstMktgComtLB = new ListBox();
-            lstMktgComtLB = (ListBox)FranchiseeFW.FindControl("lstMktgComt");
-            if ((lstMktgComtLB != null))
-            {
-                foreach (ListItem listItem in lstMktgComtLB.Items)
-                {
-                    if (listItem.Selected == true)
-                    {
-                        if (IsMktgCommittee.Length == 0)
-                        {
-                            IsMktgCommittee = listItem.Value;
-                        }
-                        else
-                        {
-                            IsMktgCommittee = IsMktgCommittee + "," + listItem.Value;
-                        }
-                        IsCriteriaExist = true;
-                    }
-                }
-                searchObj.IsMktgCommittee = IsMktgCommittee;
-            }
-        }
-        //For Is Using Sandler CRM
-        {
-            ListBox lstSandlerCRMLB = new ListBox();
-            lstSandlerCRMLB = (ListBox)FranchiseeFW.FindControl("lstSandlerCRM");
-            if ((lstSandlerCRMLB != null))
-            {
-                foreach (ListItem listItem in lstSandlerCRMLB.Items)
-                {
-                    if (listItem.Selected == true)
-                    {
-                        if (IsUsingSandlerCRM.Length == 0)
-                        {
-                            IsUsingSandlerCRM = listItem.Value;
-                        }
-                        else
-                        {
-                            IsUsingSandlerCRM = IsUsingSandlerCRM + "," + listItem.Value;
-                        }
-                        IsCriteriaExist = true;
-                    }
-                }
-                searchObj.IsUsingSandlerCRM = IsUsingSandlerCRM;
-            }
-        }
-        //For Is DHS Award Winner
-        {
-            ListBox lstDHSAwardLB = new ListBox();
-            lstDHSAwardLB = (ListBox)FranchiseeFW.FindControl("lstDHSAward");
-            if ((lstDHSAwardLB != null))
-            {
-                foreach (ListItem listItem in lstDHSAwardLB.Items)
-                {
-                    if (listItem.Selected == true)
-                    {
-                        if (IsDHSAwardWinner.Length == 0)
-                        {
-                            IsDHSAwardWinner = listItem.Value;
-                        }
-                        else
-                        {
-                            IsDHSAwardWinner = IsDHSAwardWinner + "," + listItem.Value;
-                        }
-                        IsCriteriaExist = true;
-                    }
-                }
-                searchObj.IsDHSAwardWinner = IsDHSAwardWinner;
-            }
-        }
-        //For Is Sandler Mail
-        {
-            ListBox lstSandlerMailLB = new ListBox();
-            lstSandlerMailLB = (ListBox)FranchiseeFW.FindControl("lstSandlerMail");
-            if ((lstSandlerMailLB != null))
-            {
-                foreach (ListItem listItem in lstSandlerMailLB.Items)
-                {
-                    if (listItem.Selected == true)
-                    {
-                        if (IsSandlerMailRequired.Length == 0)
-                        {
-                            IsSandlerMailRequired = listItem.Value;
-                        }
-                        else
-                        {
-                            IsSandlerMailRequired = IsSandlerMailRequired + "," + listItem.Value;
-                        }
-                        IsCriteriaExist = true;
-                    }
-                }
-                searchObj.IsSandlerMailRequired = IsSandlerMailRequired;
-            }
-        }
-        //For Req to submit Financials
-        {
-            ListBox lstReqFinancialsLB = new ListBox();
-            lstReqFinancialsLB = (ListBox)FranchiseeFW.FindControl("lstReqFinancials");
-            if ((lstReqFinancialsLB != null))
-            {
-                foreach (ListItem listItem in lstReqFinancialsLB.Items)
-                {
-                    if (listItem.Selected == true)
-                    {
-                        if (IsReqToSubmitFinancials.Length == 0)
-                        {
-                            IsReqToSubmitFinancials = listItem.Value;
-                        }
-                        else
-                        {
-                            IsReqToSubmitFinancials = IsReqToSubmitFinancials + "," + listItem.Value;
-                        }
-                        IsCriteriaExist = true;
-                    }
-                }
-                searchObj.IsReqToSubmitFinancial = IsReqToSubmitFinancials;
-            }
-        }
-        //For Rep Agreement
-        {
-            ListBox lstRepAgreementLB = new ListBox();
-            lstRepAgreementLB = (ListBox)FranchiseeFW.FindControl("lstRepAgreement");
-            if ((lstRepAgreementLB != null))
-            {
-                foreach (ListItem listItem in lstRepAgreementLB.Items)
-                {
-                    if (listItem.Selected == true)
-                    {
-                        if (IsRepAgreementForGlobalAcct.Length == 0)
-                        {
-                            IsRepAgreementForGlobalAcct = listItem.Value;
-                        }
-                        else
-                        {
-                            IsRepAgreementForGlobalAcct = IsRepAgreementForGlobalAcct + "," + listItem.Value;
-                        }
-                        IsCriteriaExist = true;
-                    }
-                }
-                searchObj.IsRepAgreement = IsRepAgreementForGlobalAcct;
-            }
-        }
-        //For Work State
-        {
-            ListBox lstWorkStateLB = new ListBox();
-            lstWorkStateLB = (ListBox)FranchiseeFW.FindControl("lstWorkState");
-            if ((lstWorkStateLB != null))
-            {
-                foreach (ListItem listItem in lstWorkStateLB.Items)
-                {
-                    if (listItem.Selected == true)
-                    {
-                        if (WorkStateID.Length == 0)
-                        {
-                            WorkStateID = listItem.Value;
-                        }
-                        else
-                        {
-                            WorkStateID = WorkStateID + "," + listItem.Value;
-                        }
-                        IsCriteriaExist = true;
-                    }
-                }
-                searchObj.WorkState = WorkStateID;
-            }
+            searchObj.IsBehindInTerDev = "";
         }
 
-        //For Work Country
+        BehindAmountID = GetDropdownListBoxData("ddlBehindAmt");
+        if (BehindAmountID != 0)
         {
-            ListBox lstWorkCountryLB = new ListBox();
-            lstWorkCountryLB = (ListBox)FranchiseeFW.FindControl("lstWorkCountry");
-            if ((lstWorkCountryLB != null))
-            {
-                foreach (ListItem listItem in lstWorkCountryLB.Items)
-                {
-                    if (listItem.Selected == true)
-                    {
-                        if (WorkCountryID.Length == 0)
-                        {
-                            WorkCountryID = listItem.Value;
-                        }
-                        else
-                        {
-                            WorkCountryID = WorkCountryID + "," + listItem.Value;
-                        }
-                        IsCriteriaExist = true;
-                    }
-                }
-                searchObj.WorkCountry = WorkCountryID;
-            }
+            IsCriteriaExist = true;
+            searchObj.BehindAmtId = BehindAmountID.ToString();
+        }
+        else
+        {
+            searchObj.BehindAmtId = "";
+        }
+        
+        CoachID = GetDropdownListBoxData("ddlCoach");
+        if (CoachID != 0)
+        {
+            IsCriteriaExist = true;
+            searchObj.CoachId = CoachID.ToString();
+        }
+        else
+        {
+            searchObj.CoachId = "";
         }
 
-        //For Is Same Home Address
+        AwardLevelID = GetDropdownListBoxData("ddlAwardLevel");
+        if (AwardLevelID != 0)
         {
-            ListBox lstSameHomeAdrsLB = new ListBox();
-            lstSameHomeAdrsLB = (ListBox)FranchiseeFW.FindControl("lstSameHomeAdrs");
-            if ((lstSameHomeAdrsLB != null))
-            {
-                foreach (ListItem listItem in lstSameHomeAdrsLB.Items)
-                {
-                    if (listItem.Selected == true)
-                    {
-                        if (IsSameHomeAddress.Length == 0)
-                        {
-                            IsSameHomeAddress = listItem.Value;
-                        }
-                        else
-                        {
-                            IsSameHomeAddress = IsSameHomeAddress + "," + listItem.Value;
-                        }
-                        IsCriteriaExist = true;
-                    }
-                }
-                searchObj.IsSameHomeAddress = IsSameHomeAddress;
-            }
+            IsCriteriaExist = true;
+            searchObj.AwardLevelId = AwardLevelID.ToString();
         }
-        //For Home State
+        else
         {
-            ListBox lstHomeStateLB = new ListBox();
-            lstHomeStateLB = (ListBox)FranchiseeFW.FindControl("lstHomeState");
-            if ((lstHomeStateLB != null))
-            {
-                foreach (ListItem listItem in lstHomeStateLB.Items)
-                {
-                    if (listItem.Selected == true)
-                    {
-                        if (HomeStateID.Length == 0)
-                        {
-                            HomeStateID = listItem.Value;
-                        }
-                        else
-                        {
-                            HomeStateID = HomeStateID + "," + listItem.Value;
-                        }
-                        IsCriteriaExist = true;
-                    }
-                }
-                searchObj.HomeState = HomeStateID;
-            }
+            searchObj.AwardLevelId = "";
         }
 
-        //For Home Country
+        PurchaseLevelID = GetDropdownListBoxData("ddlPurchaseLevel");
+        if (PurchaseLevelID != 0)
         {
-            ListBox lstHomeCountryLB = new ListBox();
-            lstHomeCountryLB = (ListBox)FranchiseeFW.FindControl("lstHomeCountry");
-            if ((lstHomeCountryLB != null))
-            {
-                foreach (ListItem listItem in lstHomeCountryLB.Items)
-                {
-                    if (listItem.Selected == true)
-                    {
-                        if (HomeCountryID.Length == 0)
-                        {
-                            HomeCountryID = listItem.Value;
-                        }
-                        else
-                        {
-                            HomeCountryID = HomeCountryID + "," + listItem.Value;
-                        }
-                        IsCriteriaExist = true;
-                    }
-                }
-                searchObj.HomeCountry = HomeCountryID;
-            }
+            IsCriteriaExist = true;
+            searchObj.PurchaseLevelId = PurchaseLevelID.ToString();
         }
+        else
+        {
+            searchObj.PurchaseLevelId = "";
+        }
+        
+        PrimaryBusinessID = GetDropdownListBoxData("ddlPrimaryBusiness");
+        if (PrimaryBusinessID != 0)
+        {
+            IsCriteriaExist = true;
+            searchObj.PrimaryBusinessId = PrimaryBusinessID.ToString();
+        }
+        else
+        {
+            searchObj.PrimaryBusinessId = "";
+        }
+        
+        CertifiedLevelID = GetDropdownListBoxData("ddlCertifiedLevel");
+        if (CertifiedLevelID != 0)
+        {
+            IsCriteriaExist = true;
+            searchObj.CertifiedLevelId = CertifiedLevelID.ToString();
+        }
+        else
+        {
+            searchObj.CertifiedLevelId = "";
+        }
+        
+        WorkStateID = GetDropdownListBoxData("ddlWorkState");
+        if (WorkStateID != 0)
+        {
+            IsCriteriaExist = true;
+            searchObj.WorkState = WorkStateID.ToString();
+        }
+        else
+        {
+            searchObj.WorkState = "";
+        }
+        
+        WorkCountryID = GetDropdownListBoxData("ddlWorkCountry");
+        if (WorkCountryID != 0)
+        {
+            IsCriteriaExist = true;
+            searchObj.WorkCountry = WorkCountryID.ToString();
+        }
+        else
+        {
+            searchObj.WorkCountry = "";
+        }
+        
+        HomeStateID = GetDropdownListBoxData("ddlHomeState");
+        if (HomeStateID != 0)
+        {
+            IsCriteriaExist = true;
+            searchObj.HomeState = HomeStateID.ToString();
+        }
+        else
+        {
+            searchObj.HomeState = "";
+        }
+        
+        HomeCountryID = GetDropdownListBoxData("ddlHomeCountry");
+        if (HomeCountryID != 0)
+        {
+            IsCriteriaExist = true;
+            searchObj.HomeCountry = HomeCountryID.ToString();
+        }
+        else
+        {
+            searchObj.HomeCountry = "";
+        }
+
+        IsPartOfMasterFranchisee = GetDropdownListBoxData("ddlPartOfMF");
+        searchObj.IsMasterFranchiseeExists = IsPartOfMasterFranchisee.ToString();
+        
+        IsCanPrintLocally = GetDropdownListBoxData("ddlCanPrintLocally");
+        searchObj.IsCanPrintLocally = IsCanPrintLocally.ToString();
+
+        IsContractorsPermitted = GetDropdownListBoxData("ddlContrPerm");
+        searchObj.IsContractorPermitted = IsContractorsPermitted.ToString();
+
+        IsKOLMember = GetDropdownListBoxData("ddlKOLMember");
+        searchObj.IsKOLMember = IsKOLMember.ToString();
+
+        IsAdvBoard = GetDropdownListBoxData("ddlAdvBoard");
+        searchObj.IsAdvBoard = IsAdvBoard.ToString(); 
+        
+        IsMktgCommittee = GetDropdownListBoxData("ddlMktgComt");
+        searchObj.IsMktgCommittee = IsMktgCommittee.ToString(); 
+        
+        IsUsingSandlerCRM = GetDropdownListBoxData("ddlSandlerCRM");
+        searchObj.IsUsingSandlerCRM = IsUsingSandlerCRM.ToString(); 
+        
+        IsDHSAwardWinner = GetDropdownListBoxData("ddlDHSAward");
+        searchObj.IsDHSAwardWinner = IsDHSAwardWinner.ToString(); 
+        
+        IsSandlerMailRequired = GetDropdownListBoxData("ddlSandlerMail");
+        searchObj.IsSandlerMailRequired = IsSandlerMailRequired.ToString(); 
+        
+        IsReqToSubmitFinancials = GetDropdownListBoxData("ddlReqFinancials");
+        searchObj.IsReqToSubmitFinancial = IsReqToSubmitFinancials.ToString(); 
+        
+        IsRepAgreementForGlobalAcct = GetDropdownListBoxData("ddlRepAgreement");
+        searchObj.IsRepAgreement = IsRepAgreementForGlobalAcct.ToString();
+
+        IsSameHomeAddress = GetDropdownListBoxData("ddlSameHomeAdrs");
+        searchObj.IsSameHomeAddress = IsSameHomeAddress.ToString();
+        
         //For Initial Contract Date
         {
             TextBox InitialContractDateCal = new TextBox();

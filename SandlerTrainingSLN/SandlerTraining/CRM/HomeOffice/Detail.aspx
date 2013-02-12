@@ -29,9 +29,6 @@
                                          <tr>
                                             <td colspan="2" style="font-size:large"><b>Franchisee Information:</b></td>
                                          </tr>
-                                         <tr style="color: Black; background-color: #DCDCDC; white-space: nowrap;">
-                                            <td>Franchisee Name:<td><%# Eval("Name")%></td>
-                                         </tr>
                                          <tr style="color: Black; background-color: #EEEEEE; white-space: nowrap;">
                                             <td>Last Name:</td>
                                             <td>
@@ -383,9 +380,6 @@
                                      <table id="tblFranchiseeInfoIT">
                                          <tr>
                                             <td colspan="2" style="font-size:large"><b>Franchisee Information:</b></td>
-                                         </tr>
-                                         <tr style="color: Black; background-color: #DCDCDC; white-space: nowrap;">
-                                            <td>Franchisee Name:<td><%# Eval("Name")%></td>
                                          </tr>
                                          <tr style="color: Black; background-color: #EEEEEE; white-space: nowrap;">
                                             <td>Last Name:<td><%# Eval("LastName")%></td>

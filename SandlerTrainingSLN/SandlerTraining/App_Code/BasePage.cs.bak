@@ -121,6 +121,10 @@ public abstract class BasePage : System.Web.UI.Page
     protected override void OnPreInit(EventArgs e)
     {
         base.OnPreInit(e);
+        ProfileCommon profile = HttpContext.Current.Profile as ProfileCommon;
+
+        if (!profile.AcceptedAgrements)
+            Response.Redirect("~/AcceptAgreements.aspx");
         if (CurrentUser.RequirePasswordChange && !Request.FilePath.Contains("ChangePassword"))
         {
             CurrentUser = null;
@@ -173,9 +177,9 @@ public abstract class BasePage : System.Web.UI.Page
 
         items = new List<SandlerWeb.MenuItem>();
 
-        items.Add(new SandlerWeb.MenuItem { Id = "Search", Text = "Detailed Search", Link = "~/CRM/HomeOffice/Search.aspx", IsVisible = true });
-        items.Add(new SandlerWeb.MenuItem { Id = "AddFranchisee", Text = "Add New..", Link = "~/CRM/HomeOffice/Add.aspx", IsVisible = !IsUserReadOnly(SandlerUserActions.Add, SandlerEntities.Franchisee) });
-        CRMMenu.Add(new SandlerWeb.Menu { Title = "Franchisee", IsVisible = true, Items = items.Where(item => item.IsVisible == true).ToList() });
+        items.Add(new SandlerWeb.MenuItem { Id = "Search", Text = "Detailed Search", Link = "~/CRM/HomeOffice/Search.aspx", IsVisible = !IsUserReadOnly(SandlerUserActions.Add, SandlerEntities.HomeOffice) });
+        items.Add(new SandlerWeb.MenuItem { Id = "AddFranchisee", Text = "Add New..", Link = "~/CRM/HomeOffice/Add.aspx", IsVisible = !IsUserReadOnly(SandlerUserActions.Add, SandlerEntities.HomeOffice)});
+        CRMMenu.Add(new SandlerWeb.Menu { Title = "HomeOffice", IsVisible = true, Items = items.Where(item => item.IsVisible == true).ToList() });
 
     }
 
@@ -188,49 +192,52 @@ public abstract class BasePage : System.Web.UI.Page
                     return true;
                 else
                 {
-                    return (entity == SandlerEntities.Company || entity == SandlerEntities.Coach || entity == SandlerEntities.Region);
+                    return (
+                        //entity == SandlerEntities.Company || //Removed on 2/10/2013 by BRT
+                        entity == SandlerEntities.Coach 
+                        || entity == SandlerEntities.Region
+                        || entity == SandlerEntities.HomeOffice);
                 }
             case SandlerRoles.FranchiseeOwner:
                 if (action == SandlerUserActions.View)
                     return true;
                 else
                 {
-                    return (entity == SandlerEntities.Coach || entity == SandlerEntities.Region);
+                    return (entity == SandlerEntities.Coach 
+                        || entity == SandlerEntities.Region
+                        || entity == SandlerEntities.HomeOffice);
                 }
             case SandlerRoles.Client:
                 if (action == SandlerUserActions.View)
                     return true;
                 else
                 {
-                    return (entity == SandlerEntities.Coach || entity == SandlerEntities.Region);
+                    return (entity == SandlerEntities.Coach 
+                        || entity == SandlerEntities.Region
+                        || entity == SandlerEntities.HomeOffice);
                 }
             case SandlerRoles.Coach:
                 if (action == SandlerUserActions.View)
                     return true;
                 else
                 {
-                    return (entity != SandlerEntities.Franchisee);
+                    return (entity != SandlerEntities.Franchisee || entity == SandlerEntities.HomeOffice);
                 }
             case SandlerRoles.HomeOfficeAdmin:
                 if (action == SandlerUserActions.View)
                     return true;
                 else
                 {
-                    return (entity != SandlerEntities.Franchisee);
-                }
-            case SandlerRoles.HomeOfficeUser:
-                if (action == SandlerUserActions.View)
-                    return true;
-                else
-                {
-                    return (entity == SandlerEntities.Franchisee);
+                    return (entity != SandlerEntities.HomeOffice);
                 }
             default:
+                //This will be used by Corporate/SiteAdmin Role
                 if (action == SandlerUserActions.View)
                     return true;
                 else
                 {
-                    return (entity != SandlerEntities.Coach);
+                    return (entity != SandlerEntities.Coach 
+                        ||  entity == SandlerEntities.HomeOffice);
                 }
         }
     }

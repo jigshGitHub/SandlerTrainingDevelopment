@@ -50,7 +50,7 @@ namespace SandlerRepositories
             //Get the User Info
             UserModel _user = (UserModel)HttpContext.Current.Session["CurrentUser"];
 
-            if (_user.Role == SandlerRoles.SiteAdmin || _user.Role == SandlerRoles.Corporate)
+            if (_user.Role == SandlerRoles.SiteAdmin || _user.Role == SandlerRoles.Corporate || _user.Role == SandlerRoles.HomeOfficeAdmin)
             {
                 //Corporate User
                 return db.ExecuteDataset("sp_GetAllCompanies", "Companies");
@@ -87,7 +87,7 @@ namespace SandlerRepositories
                 _company.CreationDate = default(System.DateTime).AddYears(1754);
             }
             //get data
-            if (_user.Role == SandlerRoles.SiteAdmin || _user.Role == SandlerRoles.Corporate)
+            if (_user.Role == SandlerRoles.SiteAdmin || _user.Role == SandlerRoles.Corporate || _user.Role == SandlerRoles.HomeOfficeAdmin)
             {
 
                 //Corporate User
@@ -220,7 +220,7 @@ namespace SandlerRepositories
             //Get the User Info
             UserModel _user = (UserModel)HttpContext.Current.Session["CurrentUser"];
 
-            if (_user.Role == SandlerRoles.SiteAdmin || _user.Role == SandlerRoles.Corporate)
+            if (_user.Role == SandlerRoles.SiteAdmin || _user.Role == SandlerRoles.Corporate || _user.Role == SandlerRoles.HomeOfficeAdmin)
             {
                 //Corporate User
                 return db.ExecuteDataset("sp_GetCompaniesForDDL", "Companies");
@@ -247,12 +247,7 @@ namespace SandlerRepositories
         {
             //Get the User Session
             UserModel _user = (UserModel)HttpContext.Current.Session["CurrentUser"];
-            //Create the record
-            //db.ExecuteNonQuery("sp_AddProduct",
-            //    new SqlParameter("@ProductTypeName", ProductTypeName),
-            //    new SqlParameter("@CreatedBy", _user.UserId),
-            //    new SqlParameter("@FranchiseeId", _user.FranchiseeID));
-
+            
             ProductTypesRepository productRepository = new ProductTypesRepository();
 
             Tbl_ProductType newProductType = new Tbl_ProductType();

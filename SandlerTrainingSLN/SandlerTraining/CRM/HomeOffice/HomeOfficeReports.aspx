@@ -17,13 +17,14 @@
     <table id="tblMain" width="100%">     
         <tr>
             <td align="center">
-                       <asp:Label ForeColor="Black" ID="lblreportDisplayName" runat="server"></asp:Label>
+                       <asp:Label ForeColor="Black" Font-Bold="true" ID="lblreportDisplayName" Font-Size="Large" runat="server"></asp:Label>
             </td>   
         </tr>
         <tr>
             <td align="left">
                 <asp:ImageButton ImageUrl="~/images/excel.jpg" runat="server" ToolTip="Export To Excel"
-                    ID="btnExportExcel" OnClick="btnExportExcel_Click" />
+                    ID="btnExportExcel" OnClick="btnExportExcel_Click" />&nbsp;
+                    <asp:Label runat="server" Text="Export To Excel" ID="lblExportToExcel"></asp:Label>
             </td>                        
         </tr>
         <tr>

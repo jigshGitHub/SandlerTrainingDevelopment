@@ -14,9 +14,14 @@ namespace SandlerRepositories
     {
         DBFactory db = new DBFactory();
 
+
+        
         public DataSet sp_GetAllFranchisees()
         {
-            return (db.ExecuteDataset("sp_GetAllFranchisee", "Franchisees"));
+            //Get the User Session
+            UserModel _user = (UserModel)HttpContext.Current.Session["CurrentUser"];
+            return db.ExecuteDataset("sp_GetAllFranchisee", "Franchisees",new SqlParameter("@Role", _user.Role.ToString()));
+
         }
 
         public DataSet GetByFranchiseeId(int FrId)

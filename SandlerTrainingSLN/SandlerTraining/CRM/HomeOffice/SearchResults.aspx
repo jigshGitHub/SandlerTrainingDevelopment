@@ -18,7 +18,7 @@
         <tr>
             <td>
                 <asp:ImageButton ImageUrl="~/images/excel.jpg" runat="server" 
-                    ToolTip="Export To Excel" ID="btnExportExcel" onclick="btnExportExcel_Click" />
+                    ToolTip="Export To Excel" ID="btnExportExcel" onclick="btnExportExcel_Click" />&nbsp;Export To Excel
             </td>
             <td align="right">
                 <asp:Label ID="lblInfo" runat="server" ForeColor="Red"></asp:Label>
@@ -33,10 +33,12 @@
                     <PagerStyle BackColor="#999999" ForeColor="Blue" CssClass="gvPager" HorizontalAlign="Center" />
                     <Columns>
                         <asp:BoundField DataField="ID" Visible="False" />
-                        <asp:BoundField ItemStyle-HorizontalAlign="Left"  HeaderStyle-HorizontalAlign="Left" HeaderStyle-ForeColor="Blue" DataField="Name" HeaderText="Name" SortExpression="Name" />
-                        <asp:BoundField ItemStyle-HorizontalAlign="Left"  HeaderStyle-HorizontalAlign="Left" HeaderStyle-ForeColor="Blue" DataField="LastName" HeaderText="LastName" SortExpression="LastName" />
-                        <asp:BoundField ItemStyle-HorizontalAlign="Left"  HeaderStyle-HorizontalAlign="Left" HeaderStyle-ForeColor="Blue" DataField="FirstName" HeaderText="FirstName" SortExpression="FirstName" />
-                                                
+                        <asp:BoundField ItemStyle-HorizontalAlign="Left"  HeaderStyle-HorizontalAlign="Left" HeaderStyle-ForeColor="Blue" DataField="LastName" HeaderText="Last Name" SortExpression="LastName" />
+                        <asp:BoundField ItemStyle-HorizontalAlign="Left"  HeaderStyle-HorizontalAlign="Left" HeaderStyle-ForeColor="Blue" DataField="FirstName" HeaderText="First Name" SortExpression="FirstName" />
+                        <asp:BoundField ItemStyle-HorizontalAlign="Left"  HeaderStyle-HorizontalAlign="Left" HeaderStyle-ForeColor="Blue" DataField="Name" HeaderText="Franchisee Name" SortExpression="Name" />
+                        <asp:BoundField ItemStyle-HorizontalAlign="Left"  HeaderStyle-HorizontalAlign="Left" HeaderStyle-ForeColor="Blue" DataField="WorkEmail" HeaderText="E-mail"  SortExpression="WorkEmail" />
+                        <asp:BoundField ItemStyle-HorizontalAlign="Left"  HeaderStyle-HorizontalAlign="Left" HeaderStyle-ForeColor="Blue" DataField="OfficePhone" HeaderText="Contact Number" SortExpression="OfficePhone"/>
+                        <asp:BoundField ItemStyle-HorizontalAlign="Left"  HeaderStyle-HorizontalAlign="Left" HeaderStyle-ForeColor="Blue" DataField="LastUpdatedDate" HeaderText="Last Updated" DataFormatString="{0:d}" />
                         <asp:TemplateField ShowHeader="False">
                             <ItemTemplate>
                                 <asp:LinkButton ID="LinkButton1" runat="server" CausesValidation="False" CommandName="Select"

@@ -22,7 +22,8 @@
         <tr>
             <td>
                 <asp:ImageButton ImageUrl="~/images/excel.jpg" runat="server" ToolTip="Export To Excel"
-                    ID="btnExportExcel" OnClick="btnExportExcel_Click" />
+                    ID="btnExportExcel" OnClick="btnExportExcel_Click" />&nbsp;
+                    <asp:Label runat="server" Text="Export To Excel" ID="lblExportToExcel"></asp:Label>
             </td>
         </tr>
         <tr>

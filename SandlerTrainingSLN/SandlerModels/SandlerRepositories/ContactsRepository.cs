@@ -27,7 +27,7 @@ namespace SandlerRepositories
 
             if (COMPANIESID == 0)
             {
-                if (_user.Role == SandlerRoles.SiteAdmin || _user.Role == SandlerRoles.Corporate)
+                if (_user.Role == SandlerRoles.SiteAdmin || _user.Role == SandlerRoles.Corporate || _user.Role == SandlerRoles.HomeOfficeAdmin)
                 {
                     return db.ExecuteDataset("sp_GetAllContacts", "Contacts");
                 }
@@ -85,7 +85,7 @@ namespace SandlerRepositories
             _contact.LastMeetingDate = IsValidDateCheck(_contact.LastMeetingDate);
 
             //Now perform search based on User role
-            if (_user.Role == SandlerRoles.SiteAdmin || _user.Role == SandlerRoles.Corporate)
+            if (_user.Role == SandlerRoles.SiteAdmin || _user.Role == SandlerRoles.Corporate || _user.Role == SandlerRoles.HomeOfficeAdmin)
             {
                 //get data
                 return db.ExecuteDataset("sp_GetAllContactsSearch", "Contacts",

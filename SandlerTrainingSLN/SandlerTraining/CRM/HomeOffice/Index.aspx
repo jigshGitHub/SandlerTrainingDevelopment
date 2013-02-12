@@ -13,12 +13,15 @@
         <tr>
             <td>
                 <asp:ImageButton ImageUrl="~/images/excel.jpg" runat="server" ToolTip="Export To Excel"
-                    ID="btnExportExcel" onclick="btnExportExcel_Click" />
+                    ID="btnExportExcel" onclick="btnExportExcel_Click" />&nbsp;
+                    <asp:Label runat="server" Text="Export To Excel" ID="lblExportToExcel"></asp:Label>
             </td>
-            <td align="center"><b>All Sandler Franchisees, Master Franchisees, Coaches and Associates</b></td>
+            <td align="center" style="font-size:large"><b>All Sandler Franchisees, Master Franchisees, Coaches and Associates</b></td>
         </tr>
         <tr>
             <td colspan="2">
+                <asp:TextBox runat="server" ID="txtGridSearch"></asp:TextBox>
+                <asp:Button runat="server" ID="btnGridSearch" Text="Search" />
                 <asp:GridView Width="100%" ID="gvFranchisees" runat="server" DataSourceID="SearchFranchiseeDS"
                     AutoGenerateColumns="False" DataKeyNames="ID" AllowSorting="true" AllowPaging="true"
                     PageSize="20" OnSelectedIndexChanged="gvFranchisees_SelectedIndexChanged" 
@@ -26,10 +29,12 @@
                     <PagerStyle BackColor="#999999" ForeColor="Blue" CssClass="gvPager" HorizontalAlign="Center" />
                     <Columns>
                         <asp:BoundField DataField="ID" Visible="False" />
-                        <asp:BoundField ItemStyle-HorizontalAlign="Left"  HeaderStyle-HorizontalAlign="Left" HeaderStyle-ForeColor="Blue" DataField="Name" HeaderText="Name" SortExpression="Name" />
-                        <asp:BoundField ItemStyle-HorizontalAlign="Left"  HeaderStyle-HorizontalAlign="Left" HeaderStyle-ForeColor="Blue" DataField="LastName" HeaderText="LastName" SortExpression="LastName" />
-                        <asp:BoundField ItemStyle-HorizontalAlign="Left"  HeaderStyle-HorizontalAlign="Left" HeaderStyle-ForeColor="Blue" DataField="FirstName" HeaderText="FirstName" SortExpression="FirstName" />
-                                                
+                        <asp:BoundField ItemStyle-HorizontalAlign="Left"  HeaderStyle-HorizontalAlign="Left" HeaderStyle-ForeColor="Blue" DataField="LastName" HeaderText="Last Name" SortExpression="LastName" />
+                        <asp:BoundField ItemStyle-HorizontalAlign="Left"  HeaderStyle-HorizontalAlign="Left" HeaderStyle-ForeColor="Blue" DataField="FirstName" HeaderText="First Name" SortExpression="FirstName" />
+                        <asp:BoundField ItemStyle-HorizontalAlign="Left"  HeaderStyle-HorizontalAlign="Left" HeaderStyle-ForeColor="Blue" DataField="Name" HeaderText="Franchisee Name" SortExpression="Name" />
+                        <asp:BoundField ItemStyle-HorizontalAlign="Left"  HeaderStyle-HorizontalAlign="Left" HeaderStyle-ForeColor="Blue" DataField="WorkEmail" HeaderText="E-mail"  SortExpression="WorkEmail" />
+                        <asp:BoundField ItemStyle-HorizontalAlign="Left"  HeaderStyle-HorizontalAlign="Left" HeaderStyle-ForeColor="Blue" DataField="OfficePhone" HeaderText="Contact Number" SortExpression="OfficePhone"/>
+                        <asp:BoundField ItemStyle-HorizontalAlign="Left"  HeaderStyle-HorizontalAlign="Left" HeaderStyle-ForeColor="Blue" DataField="LastUpdatedDate" HeaderText="Last Updated" DataFormatString="{0:d}" />
                         <asp:TemplateField ShowHeader="False">
                             <ItemTemplate>
                                 <asp:LinkButton ID="LinkButton1" runat="server" CausesValidation="False" CommandName="Select"
@@ -50,7 +55,12 @@
         </tr>
         <tr>
             <td>
-                <asp:ObjectDataSource ID="SearchFranchiseeDS" runat="server" TypeName="SandlerRepositories.FranchiseesRepository" SelectMethod="sp_GetAllFranchisees"></asp:ObjectDataSource>
+                <asp:ObjectDataSource ID="SearchFranchiseeDS" runat="server" TypeName="SandlerRepositories.FranchiseesRepository" SelectMethod="sp_GetAllFranchisees" 
+                FilterExpression="(Name LIKE '%{0}%') OR (LastName LIKE '%{0}%') OR (FirstName LIKE '%{0}%') OR (WorkEmail LIKE '%{0}%') OR (OfficePhone LIKE '%{0}%')">
+                  <FilterParameters>
+                        <asp:ControlParameter ControlID="txtGridSearch" PropertyName="Text" Type="String" />
+                  </FilterParameters>
+                </asp:ObjectDataSource>
                 <asp:HiddenField ID="hidFranchiseeID" runat="server" />
             </td>
         </tr>

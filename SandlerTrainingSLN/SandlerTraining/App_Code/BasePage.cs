@@ -121,6 +121,10 @@ public abstract class BasePage : System.Web.UI.Page
     protected override void OnPreInit(EventArgs e)
     {
         base.OnPreInit(e);
+        ProfileCommon profile = HttpContext.Current.Profile as ProfileCommon;
+
+        if (!profile.AcceptedAgrements)
+            Response.Redirect("~/AcceptAgreements.aspx");
         if (CurrentUser.RequirePasswordChange && !Request.FilePath.Contains("ChangePassword"))
         {
             CurrentUser = null;
@@ -224,7 +228,10 @@ public abstract class BasePage : System.Web.UI.Page
                     return true;
                 else
                 {
-                    return (entity != SandlerEntities.HomeOffice);
+                    return (entity != SandlerEntities.HomeOffice
+                        || entity == SandlerEntities.Company
+                        || entity == SandlerEntities.Coach 
+                        || entity == SandlerEntities.Region);
                 }
             default:
                 //This will be used by Corporate/SiteAdmin Role

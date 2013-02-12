@@ -67,7 +67,6 @@ namespace SandlerAPI.Controllers
                     }
                     catch (System.Data.Entity.Validation.DbEntityValidationException ex)
                     {
-
                         UserEntitiesFactory.DeleteUserWithRoles(userName, SandlerRoles.FranchiseeOwner.ToString());
 
                         foreach (var errors in ex.EntityValidationErrors)
@@ -82,25 +81,28 @@ namespace SandlerAPI.Controllers
                     catch (Exception ex)
                     {
                         UserEntitiesFactory.DeleteUserWithRoles(userName, SandlerRoles.FranchiseeOwner.ToString());
+                        throw new Exception(ex.Message);
                     }
-
-                    try
+                    if (franchiseeToSave.ID > 0)
                     {
-                        franchiseeUserToSave = new TBL_FRANCHISEE_USERS();
-                        franchiseeUserToSave.FranchiseeID = franchiseeToSave.ID;
-                        franchiseeUserToSave.IsEmailSubscription = true;
-                        franchiseeUserToSave.UserID = userId;
+                        try
+                        {
+                            franchiseeUserToSave = new TBL_FRANCHISEE_USERS();
+                            franchiseeUserToSave.FranchiseeID = franchiseeToSave.ID;
+                            franchiseeUserToSave.IsEmailSubscription = true;
+                            franchiseeUserToSave.UserID = userId;
 
-                        FranchiseeUserMappings.ViewModelToModel(franchiseeUserToSave, franchisee.FranchiseeUser);
-                        franchisee.FranchiseeUser.UserName = userName;
-                        userRepository.Add(franchiseeUserToSave);
+                            FranchiseeUserMappings.ViewModelToModel(franchiseeUserToSave, franchisee.FranchiseeUser);
+                            franchisee.FranchiseeUser.UserName = userName;
+                            userRepository.Add(franchiseeUserToSave);
+                        }
+                        catch (Exception ex)
+                        {
+                            UserEntitiesFactory.DeleteUserWithRoles(userName, SandlerRoles.FranchiseeOwner.ToString());
+                            repository.Delete(franchiseeToSave);
+                            throw new Exception(ex.Message);
+                        }
                     }
-                    catch (Exception ex)
-                    {
-                        UserEntitiesFactory.DeleteUserWithRoles(userName, SandlerRoles.FranchiseeOwner.ToString()); 
-                        repository.Delete(franchiseeToSave);
-                    }
-
                     //Send email user has been created
                 }
 

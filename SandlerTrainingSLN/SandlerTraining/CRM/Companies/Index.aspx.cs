@@ -33,6 +33,7 @@ public partial class CompanyIndex : BasePage
         {
             LblStatus.Text = "There are no Companies entered in the System.";
             btnExportExcel.Visible = false;
+            lblExportToExcel.Visible = false;
             companyMenu.MenuEntity.Items.Find(delegate(Sandler.Web.MenuItem item) { return item.Text == "Search"; }).IsVisible = false;
             companyMenu.ReLoadSubMenu();
         }
@@ -40,6 +41,7 @@ public partial class CompanyIndex : BasePage
         {
             LblStatus.Text = "";
             btnExportExcel.Visible = true;
+            lblExportToExcel.Visible = true;
             companyMenu.MenuEntity.Items.Find(delegate(Sandler.Web.MenuItem item) { return item.Text == "Search"; }).IsVisible = true;
             companyMenu.ReLoadSubMenu();
             //Get the User Info

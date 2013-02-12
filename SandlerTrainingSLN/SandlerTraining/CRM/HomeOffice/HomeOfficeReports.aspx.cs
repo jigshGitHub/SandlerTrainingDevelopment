@@ -37,6 +37,7 @@ public partial class Reports_HomeOfficeReports : BasePage
             
             LblStatus.Text = "";
             btnExportExcel.Visible = true;
+            lblExportToExcel.Visible = true;
             gvReports.DataSource = ds.Tables[0];
             gvReports.DataBind();
         }
@@ -44,6 +45,7 @@ public partial class Reports_HomeOfficeReports : BasePage
         {
             LblStatus.Text = "There is no data for this report.";
             btnExportExcel.Visible = false;
+            lblExportToExcel.Visible = false;
         }
 
     }
@@ -57,12 +59,14 @@ public partial class Reports_HomeOfficeReports : BasePage
         {
             LblStatus.Text = "";
             btnExportExcel.Visible = true;
+            lblExportToExcel.Visible = true;
             ExportToExcel.DownloadReportResults(ds);
         }
         else
         {
             LblStatus.Text = "There is no data for this report.";
             btnExportExcel.Visible = false;
+            lblExportToExcel.Visible = false;
         }
     }
 

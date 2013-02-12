@@ -479,7 +479,7 @@
                         dataType: "json",
                         contentType: "application/json; charset=utf-8",
                         success: function (response) {
-                            log(response.UserName);
+                            log(response.FranchiseeUser.UserName);
                             $('#resultSummary ul').append('<li>Franchisee with username ' + response.FranchiseeUser.UserName + ' has been created.</li>');
                         },
                         error: function (response, errorText) {

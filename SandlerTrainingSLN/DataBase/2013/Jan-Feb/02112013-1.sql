@@ -1,3 +1,5 @@
+-- Executed on 239 Dt:02/11
+
 ALTER TABLE [dbo].[TBL_OPPORTUNITIES] ADD [Pain] [varchar](100) NULL;
 ALTER TABLE [dbo].[TBL_OPPORTUNITIES] ADD [LengthOfProblem] [varchar](30) NULL;
 ALTER TABLE [dbo].[TBL_OPPORTUNITIES] ADD [Alternatives] [varchar](100) NULL;

@@ -528,7 +528,7 @@
                         dataType: "json",
                         contentType: "application/json; charset=utf-8",
                         success: function (response) {
-                            log(response.UserName);
+                            log(response.FranchiseeUser.UserName);
                             $('#resultSummary ul').append('<li>Franchisee data being updated.</li>');
                         },
                         error: function (response, errorText) {

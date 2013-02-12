@@ -698,6 +698,7 @@
           <Property Name="CreatedDate" Type="datetime" />
           <Property Name="LastUpdateBy" Type="uniqueidentifier" />
           <Property Name="LastUpdatedDate" Type="datetime" />
+		  <Property Name="SortOrder" Type="int" />
         </EntityType>
         <EntityType Name="TBL_OpportunityTypes">
           <Key>
@@ -1698,6 +1699,7 @@
           <Property Type="DateTime" Name="CreatedDate" />
           <Property Type="Guid" Name="LastUpdateBy" />
           <Property Type="DateTime" Name="LastUpdatedDate" />
+		  <Property Type="Int32" Name="SortOrder" />
           <NavigationProperty Name="TBL_OPPORTUNITIES" Relationship="Sandler.Models.FK_TBL_OPPORTUNITIES_TBL_OPPORTUNITYSTATUS" FromRole="TBL_OPPORTUNITYSTATUS" ToRole="TBL_OPPORTUNITIES" />
         </EntityType>
         <EntityType Name="TBL_REGION">
@@ -3039,6 +3041,7 @@
           <EntitySetMapping Name="TBL_OPPORTUNITYSTATUS">
             <EntityTypeMapping TypeName="Sandler.Models.TBL_OPPORTUNITYSTATUS">
               <MappingFragment StoreEntitySet="TBL_OPPORTUNITYSTATUS">
+				<ScalarProperty Name="SortOrder" ColumnName="SortOrder" />
                 <ScalarProperty Name="LastUpdatedDate" ColumnName="LastUpdatedDate" />
                 <ScalarProperty Name="LastUpdateBy" ColumnName="LastUpdateBy" />
                 <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />

@@ -66,7 +66,7 @@ namespace SandlerRepositories
         {
             return dbset.Find(id);
         }
-        public IEnumerable<T> GetAll()
+        public virtual IEnumerable<T> GetAll()
         {
             return dbset.ToList();
         }
@@ -170,6 +170,11 @@ namespace SandlerRepositories
         public OpprtunityStatusRepository()
             : base(new DBFactory())
         {
+        }
+
+        public override IEnumerable<TBL_OPPORTUNITYSTATUS> GetAll()
+        {
+            return base.GetAll().OrderBy(status => status.SortOrder);
         }
     }
     public partial class CompaniesRepository : RepositoryBase<TBL_COMPANIES>

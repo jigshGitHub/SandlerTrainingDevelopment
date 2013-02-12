@@ -20,6 +20,10 @@ public partial class Login : Page
     }
     protected void sandlerLogin_LoggedIn(object sender, EventArgs e)
     {
-        Response.Redirect("~/Default.aspx");
+        //ProfileCommon profile = HttpContext.Current.Profile as ProfileCommon;
+        //if (profile.AcceptedAgrements)
+            Response.Redirect("~/Default.aspx");
+        //else
+        //    Response.Redirect("~/AcceptAgreements.aspx");
     }
 }

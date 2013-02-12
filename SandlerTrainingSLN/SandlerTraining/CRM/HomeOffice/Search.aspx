@@ -19,7 +19,8 @@
 
               <asp:FormView ID="FranchiseeFW" runat="server" CellPadding="3" BorderStyle="None" DefaultMode="Insert" width="100%"
                     BorderWidth="1px" BackColor="White" BorderColor="#999999" GridLines="Vertical"
-                     OnModeChanging="FranchiseeFW_ModeChanging" OnItemInserting="FranchiseeFW_ItemInserting">
+                     OnModeChanging="FranchiseeFW_ModeChanging" 
+                     OnItemInserting="FranchiseeFW_ItemInserting" OnDataBound="FranchiseeFW_DataBound">
                     <InsertItemTemplate>
                                     
                         <table width="100%">
@@ -43,12 +44,10 @@
                                             <td>Last Name:</td>
                                             <td>
                                                 <asp:TextBox ID="LastNameTB" MaxLength="50"  Width="150" runat="server"></asp:TextBox>
-                                                
                                             </td>
-
                                          </tr>
                                          <tr style="color: Black; background-color: #DCDCDC; white-space: nowrap;">
-                                            <td>Firs tName:</td>
+                                            <td>First Name:</td>
                                             <td>
                                                 <asp:TextBox ID="FirstNameTB" MaxLength="50" Width="150" runat="server"></asp:TextBox>
                                                 
@@ -61,62 +60,62 @@
                                          <tr style="color: Black; background-color: #DCDCDC; white-space: nowrap;">
                                             <td>Sandler Role:</td>
                                             <td>
-                                                <asp:ListBox SelectionMode="Multiple" ID="lstSandlerRole" runat="server" DataSourceID="SandlerRoleInfoDS" DataTextField="SandlerRoleText" DataValueField="SandlerRoleId"></asp:ListBox>
+                                                <asp:DropDownList  ID="ddlSandlerRole" runat="server" DataSourceID="SandlerRoleInfoDS" DataTextField="SandlerRoleText" DataValueField="SandlerRoleId"></asp:DropDownList>
                                             </td>
                                          </tr>
                                          <tr style="color: Black; background-color: #EEEEEE; white-space: nowrap;">
                                             <td>Part of a Master Franchise?:</td>
                                              <td>
-                                                 <asp:ListBox SelectionMode="Multiple" ID="lstPartOfMF" runat="server" DataSourceID="YesNoOptionsInfoDS" Width="240" Height="40"
-                                                 DataTextField="Description" DataValueField="Value"></asp:ListBox>
+                                                 <asp:DropDownList  ID="ddlPartOfMF" runat="server" DataSourceID="YesNoOptionsInfoDS" 
+                                                 DataTextField="Description" DataValueField="Value"></asp:DropDownList>
                                               </td>
                                          </tr>
                                          <tr style="color: Black; background-color: #DCDCDC; white-space: nowrap;">
                                             <td>Master Franchisee:</td>
                                             <td>
-                                                <asp:ListBox SelectionMode="Multiple" ID="lstMasterFranchisee" runat="server" DataSourceID="MasterFranchiseeInfoDS" DataTextField="MasterFranchiseeName" DataValueField="MasterFranchiseeId"></asp:ListBox>
+                                                <asp:DropDownList  ID="ddlMasterFranchisee" runat="server" DataSourceID="MasterFranchiseeInfoDS" DataTextField="MasterFranchiseeName" DataValueField="MasterFranchiseeId"></asp:DropDownList>
                                             </td>
                                          </tr>
                                          <tr style="color: Black; background-color: #EEEEEE; white-space: nowrap;">
                                             <td>Can Print Locally?:</td>
                                              <td>
-                                                 <asp:ListBox SelectionMode="Multiple" ID="lstCanPrintLocally" Width="240" Height="40" runat="server" DataSourceID="YesNoOptionsInfoDS" DataTextField="Description" DataValueField="Value"></asp:ListBox>
+                                                 <asp:DropDownList  ID="ddlCanPrintLocally"  runat="server" DataSourceID="YesNoOptionsInfoDS" DataTextField="Description" DataValueField="Value"></asp:DropDownList>
                                               </td>
                                          </tr>
                                          <tr style="color: Black; background-color: #DCDCDC; white-space: nowrap;">
                                             <td>Buy from Customer:</td>
                                              <td>
-                                                 <asp:ListBox SelectionMode="Multiple" ID="lstBuyFromCustomer" Width="240" Height="40" runat="server" DataSourceID="YesNoOptionsInfoDS" DataTextField="Description" DataValueField="Value"></asp:ListBox>
+                                                 <asp:DropDownList  ID="ddlBuyFromCustomer"  runat="server" DataSourceID="YesNoOptionsInfoDS" DataTextField="Description" DataValueField="Value"></asp:DropDownList>
                                               </td>
                                          </tr>
                                          <tr style="color: Black; background-color: #EEEEEE; white-space: nowrap;">
                                             <td>Fixed Price Purchase:</td>
                                              <td>
-                                                 <asp:ListBox SelectionMode="Multiple" ID="lstFixedPricePurchase" Width="240" Height="40" runat="server" DataSourceID="YesNoOptionsInfoDS" DataTextField="Description" DataValueField="Value"></asp:ListBox>
+                                                 <asp:DropDownList  ID="ddlFixedPricePurchase"  runat="server" DataSourceID="YesNoOptionsInfoDS" DataTextField="Description" DataValueField="Value"></asp:DropDownList>
                                               </td>
                                          </tr>
                                          <tr style="color: Black; background-color: #DCDCDC; white-space: nowrap;">
                                             <td>Cost Plus Amount:</td>
                                             <td>
-                                                <asp:ListBox SelectionMode="Multiple" ID="lstCostPlusAmt" runat="server" DataSourceID="CostPlusAmountInfoDS" DataTextField="CostPlusAmountText" DataValueField="CostPlusAmountId"></asp:ListBox>
+                                                <asp:DropDownList  ID="ddlCostPlusAmt" runat="server" DataSourceID="CostPlusAmountInfoDS" DataTextField="CostPlusAmountText" DataValueField="CostPlusAmountId"></asp:DropDownList>
                                             </td>
                                          </tr>
                                          <tr style="color: Black; background-color: #EEEEEE; white-space: nowrap;">
                                             <td>Behind in Territory Development:</td>
                                              <td>
-                                                 <asp:ListBox SelectionMode="Multiple" ID="lstBehindTerDev" Width="240" Height="40" runat="server" DataSourceID="YesNoOptionsInfoDS" DataTextField="Description" DataValueField="Value"></asp:ListBox>
+                                                 <asp:DropDownList  ID="ddlBehindTerDev"  runat="server" DataSourceID="YesNoOptionsInfoDS" DataTextField="Description" DataValueField="Value"></asp:DropDownList>
                                               </td>
                                          </tr>
                                          <tr style="color: Black; background-color: #DCDCDC; white-space: nowrap;">
                                             <td>Select Behind Amount:</td>
                                             <td>
-                                                <asp:ListBox SelectionMode="Multiple" ID="lstBehindAmt" runat="server" DataSourceID="BehindAmountInfoDS" DataTextField="BehindAmountText" DataValueField="BehindAmountId"></asp:ListBox>
+                                                <asp:DropDownList  ID="ddlBehindAmt" runat="server" DataSourceID="BehindAmountInfoDS" DataTextField="BehindAmountText" DataValueField="BehindAmountId"></asp:DropDownList>
                                             </td>
                                          </tr>
                                          <tr style="color: Black; background-color: #EEEEEE; white-space: nowrap;">
                                             <td>Coach-Region:</td>
                                             <td>
-                                                <asp:ListBox SelectionMode="Multiple" ID="lstCoach" runat="server" DataSourceID="CoachOptionsInfoDS" DataTextField="Name" DataValueField="Id"></asp:ListBox>
+                                                <asp:DropDownList  ID="ddlCoach" runat="server" DataSourceID="CoachOptionsInfoDS" DataTextField="Name" DataValueField="Id"></asp:DropDownList>
                                                 
                                             </td>
                                          </tr>
@@ -135,25 +134,25 @@
                                          <tr style="color: Black; background-color: #EEEEEE; white-space: nowrap;">
                                             <td>Award Level:</td>
                                             <td>
-                                                <asp:ListBox SelectionMode="Multiple" ID="lstAwardLevel" runat="server" DataSourceID="AwardLevelInfoDS" DataTextField="AwardLevelText" DataValueField="AwardLevelId" ></asp:ListBox>
+                                                <asp:DropDownList  ID="ddlAwardLevel" runat="server" DataSourceID="AwardLevelInfoDS" DataTextField="AwardLevelText" DataValueField="AwardLevelId" ></asp:DropDownList>
                                             </td>
                                          </tr>
                                          <tr style="color: Black; background-color: #DCDCDC; white-space: nowrap;">
                                             <td>Purchase Level:</td>
                                             <td>
-                                                <asp:ListBox SelectionMode="Multiple" ID="lstPurchaseLevel" runat="server" DataSourceID="PurchaseLevelInfoDS" DataTextField="PurchaseLevelText" DataValueField="PurchaseLevelId" ></asp:ListBox>
+                                                <asp:DropDownList  ID="ddlPurchaseLevel" runat="server" DataSourceID="PurchaseLevelInfoDS" DataTextField="PurchaseLevelText" DataValueField="PurchaseLevelId" ></asp:DropDownList>
                                             </td>
                                          </tr>
                                          <tr style="color: Black; background-color: #EEEEEE; white-space: nowrap;">
                                             <td>Certified Level:</td>
                                             <td>
-                                                <asp:ListBox SelectionMode="Multiple" ID="lstCertifiedLevel" runat="server" DataSourceID="CertifiedLevelInfoDS" DataTextField="CertifiedLevelText" DataValueField="CertifiedLevelId"></asp:ListBox>
+                                                <asp:DropDownList  ID="ddlCertifiedLevel" runat="server" DataSourceID="CertifiedLevelInfoDS" DataTextField="CertifiedLevelText" DataValueField="CertifiedLevelId"></asp:DropDownList>
                                             </td>
                                          </tr>
                                          <tr style="color: Black; background-color: #DCDCDC; white-space: nowrap;">
                                             <td>Primary Business:</td>
                                             <td>
-                                                <asp:ListBox SelectionMode="Multiple" ID="lstPrimaryBusiness" runat="server" DataSourceID="PrimaryBusinessInfoDS" DataTextField="PrimaryBusinessText" DataValueField="PrimaryBusinessId"></asp:ListBox>
+                                                <asp:DropDownList  ID="ddlPrimaryBusiness" runat="server" DataSourceID="PrimaryBusinessInfoDS" DataTextField="PrimaryBusinessText" DataValueField="PrimaryBusinessId"></asp:DropDownList>
                                             </td>
                                          </tr>
                                          <tr style="color: Black; background-color: #EEEEEE; white-space: nowrap;">
@@ -180,7 +179,7 @@
                                          <tr style="color: Black; background-color: #DCDCDC; white-space: nowrap;">
                                             <td>Are Contractors Permitted?:</td>
                                              <td>
-                                                 <asp:ListBox  SelectionMode="Multiple" ID="lstContrPerm" runat="server" Width="240" Height="40" DataSourceID="YesNoOptionsInfoDS" DataTextField="Description" DataValueField="Value"></asp:ListBox>
+                                                 <asp:DropDownList   ID="ddlContrPerm" runat="server"  DataSourceID="YesNoOptionsInfoDS" DataTextField="Description" DataValueField="Value"></asp:DropDownList>
                                               </td>
                                          </tr>
                                                                                   
@@ -202,31 +201,31 @@
                                              <tr style="color: Black; background-color: #EEEEEE; white-space: nowrap;">
                                                 <td>KOL Member:</td>
                                                 <td>
-                                                    <asp:ListBox SelectionMode="Multiple" ID="lstKOLMember" runat="server" Width="240" Height="60" DataSourceID="YesNoOptionsInfoDS" DataTextField="Description" DataValueField="Value"></asp:ListBox>
+                                                    <asp:DropDownList  ID="ddlKOLMember" runat="server"  DataSourceID="YesNoOptionsInfoDS" DataTextField="Description" DataValueField="Value"></asp:DropDownList>
                                                 </td>
                                              </tr>
                                              <tr style="color: Black; background-color: #DCDCDC; white-space: nowrap;">
                                                 <td>Advisory Borad:</td>
                                                 <td>
-                                                    <asp:ListBox SelectionMode="Multiple" ID="lstAdvBoard" runat="server" Width="240" Height="60" DataSourceID="YesNoOptionsInfoDS" DataTextField="Description" DataValueField="Value"></asp:ListBox>
+                                                    <asp:DropDownList  ID="ddlAdvBoard" runat="server"  DataSourceID="YesNoOptionsInfoDS" DataTextField="Description" DataValueField="Value"></asp:DropDownList>
                                                 </td>
                                              </tr>
                                              <tr style="color: Black; background-color: #EEEEEE; white-space: nowrap;">
                                                 <td>Marketing Committee:</td>
                                                 <td>
-                                                    <asp:ListBox SelectionMode="Multiple" ID="lstMktgComt" runat="server" Width="240" Height="60" DataSourceID="YesNoOptionsInfoDS" DataTextField="Description" DataValueField="Value"></asp:ListBox>
+                                                    <asp:DropDownList  ID="ddlMktgComt" runat="server"  DataSourceID="YesNoOptionsInfoDS" DataTextField="Description" DataValueField="Value"></asp:DropDownList>
                                                 </td>
                                              </tr>
                                              <tr style="color: Black; background-color: #DCDCDC; white-space: nowrap;">
                                                 <td>Using Sandler CRM?:</td>
                                                 <td>
-                                                    <asp:ListBox SelectionMode="Multiple" ID="lstSandlerCRM" runat="server" Width="240" Height="60" DataSourceID="YesNoOptionsInfoDS" DataTextField="Description" DataValueField="Value"></asp:ListBox>
+                                                    <asp:DropDownList  ID="ddlSandlerCRM" runat="server"  DataSourceID="YesNoOptionsInfoDS" DataTextField="Description" DataValueField="Value"></asp:DropDownList>
                                                 </td>
                                              </tr>
                                              <tr style="color: Black; background-color: #EEEEEE; white-space: nowrap;">
                                                 <td>DHS Award Winner:</td>
                                                 <td>
-                                                    <asp:ListBox SelectionMode="Multiple" ID="lstDHSAward" runat="server" Width="240" Height="40" DataSourceID="YesNoOptionsInfoDS" DataTextField="Description" DataValueField="Value"></asp:ListBox>
+                                                    <asp:DropDownList  ID="ddlDHSAward" runat="server"  DataSourceID="YesNoOptionsInfoDS" DataTextField="Description" DataValueField="Value"></asp:DropDownList>
                                                 </td>
                                              </tr>
                                              <tr style="color: Black; background-color: #DCDCDC; white-space: nowrap;">
@@ -246,19 +245,19 @@
                                              <tr style="color: Black; background-color: #DCDCDC; white-space: nowrap;">
                                                 <td>Is Sandler Mail Required?:</td>
                                                 <td>
-                                                    <asp:ListBox SelectionMode="Multiple" ID="lstSandlerMail" runat="server" Width="240" Height="40" DataSourceID="YesNoOptionsInfoDS" DataTextField="Description" DataValueField="Value"></asp:ListBox>
+                                                    <asp:DropDownList  ID="ddlSandlerMail" runat="server"  DataSourceID="YesNoOptionsInfoDS" DataTextField="Description" DataValueField="Value"></asp:DropDownList>
                                                 </td>
                                              </tr>
                                              <tr style="color: Black; background-color: #EEEEEE; white-space: nowrap;">
                                                 <td>Required to submit Financials?:</td>
                                                 <td>
-                                                    <asp:ListBox SelectionMode="Multiple" ID="lstReqFinancials" runat="server" Width="240" Height="40" DataSourceID="YesNoOptionsInfoDS" DataTextField="Description" DataValueField="Value"></asp:ListBox>
+                                                    <asp:DropDownList  ID="ddlReqFinancials" runat="server"  DataSourceID="YesNoOptionsInfoDS" DataTextField="Description" DataValueField="Value"></asp:DropDownList>
                                                 </td>
                                              </tr>
                                              <tr style="color: Black; background-color: #DCDCDC; white-space: nowrap;">
                                                 <td>Rep Agreement for Global Account?:</td>
                                                 <td>
-                                                    <asp:ListBox SelectionMode="Multiple" ID="lstRepAgreement" runat="server" Width="240" Height="40" DataSourceID="YesNoOptionsInfoDS" DataTextField="Description" DataValueField="Value"></asp:ListBox>
+                                                    <asp:DropDownList  ID="ddlRepAgreement" runat="server"  DataSourceID="YesNoOptionsInfoDS" DataTextField="Description" DataValueField="Value"></asp:DropDownList>
                                                 </td>
                                              </tr>
                                              <tr style="color: Black; background-color: #EEEEEE; white-space: nowrap;">
@@ -282,7 +281,7 @@
                                              <tr style="color: Black; background-color: #DCDCDC; white-space: nowrap;">
                                                 <td>Work State:</td>
                                                 <td>
-                                                    <asp:ListBox SelectionMode="Multiple" ID="lstWorkState" runat="server" DataSourceID="StateInfoDS" DataTextField="Name" DataValueField="Id"></asp:ListBox>
+                                                    <asp:DropDownList  ID="ddlWorkState" runat="server" DataSourceID="StateInfoDS" DataTextField="Name" DataValueField="Id"></asp:DropDownList>
                                                 </td>
                                              </tr>
                                              <tr style="color: Black; background-color: #EEEEEE; white-space: nowrap;">
@@ -294,7 +293,7 @@
                                              <tr style="color: Black; background-color: #DCDCDC; white-space: nowrap;">
                                                 <td>Work Country:</td>
                                                 <td>
-                                                    <asp:ListBox SelectionMode="Multiple" ID="lstWorkCountry" runat="server" DataSourceID="CountryInfoDS" DataTextField="Name" DataValueField="Id"></asp:ListBox>
+                                                    <asp:DropDownList  ID="ddlWorkCountry" runat="server" DataSourceID="CountryInfoDS" DataTextField="Name" DataValueField="Id"></asp:DropDownList>
                                                 </td>
                                              </tr>
                                              <tr style="color: Black; background-color: #EEEEEE; white-space: nowrap;">
@@ -338,7 +337,7 @@
                                             <tr style="color: Black; background-color: #EEEEEE; white-space: nowrap;">
                                                 <td>Same Home Address?:</td>
                                                 <td>
-                                                    <asp:ListBox SelectionMode="Multiple" ID="lstSameHomeAdrs" Width="240" Height="40" runat="server" DataSourceID="YesNoOptionsInfoDS" DataTextField="Description" DataValueField="Value"></asp:ListBox>
+                                                    <asp:DropDownList  ID="ddlSameHomeAdrs"  runat="server" DataSourceID="YesNoOptionsInfoDS" DataTextField="Description" DataValueField="Value"></asp:DropDownList>
                                                 </td>
                                              </tr>
                                              <tr style="color: Black; background-color: #DCDCDC; white-space: nowrap;">
@@ -356,7 +355,7 @@
                                              <tr style="color: Black; background-color: #DCDCDC; white-space: nowrap;">
                                                 <td>Home State:</td>
                                                 <td>
-                                                    <asp:ListBox SelectionMode="Multiple" ID="lstHomeState" runat="server" DataSourceID="StateInfoDS" DataTextField="Name" DataValueField="Id"></asp:ListBox>
+                                                    <asp:DropDownList  ID="ddlHomeState" runat="server" DataSourceID="StateInfoDS" DataTextField="Name" DataValueField="Id"></asp:DropDownList>
                                                 </td>
                                              </tr>
                                              <tr style="color: Black; background-color: #EEEEEE; white-space: nowrap;">
@@ -368,7 +367,7 @@
                                              <tr style="color: Black; background-color: #DCDCDC; white-space: nowrap;">
                                                 <td>Home Country:</td>
                                                 <td>
-                                                    <asp:ListBox SelectionMode="Multiple" ID="lstHomeCountry" runat="server" DataSourceID="CountryInfoDS" DataTextField="Name" DataValueField="Id"></asp:ListBox>
+                                                    <asp:DropDownList  ID="ddlHomeCountry" runat="server" DataSourceID="CountryInfoDS" DataTextField="Name" DataValueField="Id"></asp:DropDownList>
                                                 </td>
                                              </tr>
                                             
