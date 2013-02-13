@@ -6,7 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 using System.Configuration;
-
+using Sandler.UI.ChartStructure;
 public partial class Menu : System.Web.UI.UserControl
 {
     protected void Page_Load(object sender, EventArgs e)
@@ -28,6 +28,8 @@ public partial class Menu : System.Web.UI.UserControl
             if (activeLink != null)
                 activeLink.Attributes.Add("class", "menuLinkActive");
 
+            ((HtmlAnchor)FindControl("anchorFranchiseeRegion")).HRef = "~/" + ChartHelper.GeneratePageLink("", "BenchmarkFranchiseeRegion", "Reports/Benchmarks/FranchiseeToRegion.aspx?");
+            ((HtmlAnchor)FindControl("anchorRegionCountry")).HRef = "~/" + ChartHelper.GeneratePageLink("", "BenchmarkRegionCountry", "Reports/Benchmarks/RegionToCountry.aspx?");
             SecureNavigation();
             anchorCostOfSale.HRef = string.Format("{0}?{1}={2}&{3}={4}&SubType={5}", "~/Reports/CostOfSale.aspx", ConfigurationManager.AppSettings["QueryStringParamDrillChartIDs"], "CostOfSale", ConfigurationManager.AppSettings["QueryStringParamDrillBy"], "", "");
             anchorSalesCycleTime.HRef = string.Format("{0}?{1}={2}&{3}={4}&SubType={5}", "~/ChartPage.aspx", ConfigurationManager.AppSettings["QueryStringParamDrillChartIDs"], "SalesCycleTimeMain", ConfigurationManager.AppSettings["QueryStringParamDrillBy"], "", "");
@@ -46,6 +48,12 @@ public partial class Menu : System.Web.UI.UserControl
                 link = ((HtmlAnchor)FindControl("manageCoachAnchor"));
                 link.HRef = "~/Account/Coach/Index.aspx";
                 link.Visible = true;
+
+                link = ((HtmlAnchor)FindControl("anchorFranchiseeRegion"));
+                link.Visible = false;
+
+                link = ((HtmlAnchor)FindControl("anchorRegionCountry"));
+                link.Visible = false;
             }
             if (thisPage.CurrentUser.Role == SandlerModels.SandlerRoles.Coach)
             {

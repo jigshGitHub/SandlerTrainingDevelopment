@@ -26,7 +26,7 @@ namespace SandlerModels
         public Nullable<System.DateTime> CreatedDate { get; set; }
         public Nullable<System.Guid> LastUpdateBy { get; set; }
         public Nullable<System.DateTime> LastUpdatedDate { get; set; }
-    
+        public Nullable<System.Int32> SortOrder { get; set; }    
         internal ICollection<TBL_OPPORTUNITIES> TBL_OPPORTUNITIES { get; set; }
     }
     

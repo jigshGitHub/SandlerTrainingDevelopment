@@ -401,6 +401,12 @@ namespace SandlerRepositories
             : base(new DBFactory())
         {
         }
+
+
+        public override IEnumerable<TBL_OpportunityWhyLost> GetAll()
+        {
+            return base.GetAll().OrderBy(status => status.SortOrder);
+        }
     }
     public partial class GapAnalysisRepository : RepositoryBase<TBL_GA_Tracker>
     {

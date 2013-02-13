@@ -101,9 +101,9 @@
                         class="sub_menu">
                         <li><a href="<%=  Page.ResolveClientUrl("~/" + ChartHelper.GeneratePageLink("","BenchmarkSalesRepFranchisee","Reports/Benchmarks/SalesrepToFranchisee.aspx?"))  %>">
                             Rep to Franchise</a></li>
-                        <li><a href="<%=  Page.ResolveClientUrl("~/" + ChartHelper.GeneratePageLink("","BenchmarkFranchiseeRegion","Reports/Benchmarks/FranchiseeToRegion.aspx?"))  %>">
+                        <li><a id="anchorFranchiseeRegion" runat="server">
                             Franchise to Region</a></li>
-                        <li><a href="<%=  Page.ResolveClientUrl("~/" + ChartHelper.GeneratePageLink("","BenchmarkRegionCountry","Reports/Benchmarks/RegionToCountry.aspx?"))  %>">
+                        <li><a id="anchorRegionCountry" runat="server">
                             Region to Country</a></li>
                         <li><a href="<%=  Page.ResolveClientUrl("~/" + ChartHelper.GeneratePageLink("","BenchmarkCountryAll","Reports/Benchmarks/CountryToAll.aspx?"))  %>">
                             Country to "All"</a></li>

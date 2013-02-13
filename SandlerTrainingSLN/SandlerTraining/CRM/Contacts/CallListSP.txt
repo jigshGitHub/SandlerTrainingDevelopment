@@ -1,0 +1,126 @@
+USE [SandlerDB]
+GO
+/****** Object:  StoredProcedure [dbo].[sp_GetCallList]    Script Date: 02/13/2013 00:01:55 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+
+
+
+ALTER  PROCEDURE [dbo].[sp_GetCallList]
+
+	 (
+
+	 @Role varchar(50),
+
+	 @UserId varchar(50),
+
+	 @FranchiseeId int,
+
+	 @RegionId int
+ 
+	)
+
+AS
+
+		
+
+	 if (@Role = 'Corporate' or @Role = 'SiteAdmin')
+
+	 Begin
+
+		 Select ct.lastname + ',' + ct.FirstName as FullName, ct.phone, ct.Email, ct.contactsid ,
+		 ISNULL(ct.discussionTopic,'') as DiscussionTopic ,cp.COMPANYNAME , ct.LAST_CONTACT_DATE  
+
+		 from tbl_contacts ct 
+
+		 join tbl_companies cp on ct.companyid = cp.COMPANIESID
+ 
+		where ct.LAST_CONTACT_DATE is not null and
+
+		 -- Last contact date is within 30 days period
+ 
+		ct.IsNeedCallBack = 1 and ct.LAST_CONTACT_DATE <= (GETDATE()-30)
+
+		 Order by cp.COMPANYNAME
+ 
+	End
+
+    
+
+    if (@Role = 'Coach')
+
+	 Begin
+
+	    Select ct.lastname + ',' + ct.FirstName as FullName, ct.phone, ct.Email, ct.contactsid 	,cp.COMPANYNAME , ct.LAST_CONTACT_DATE,
+	    ISNULL(ct.discussionTopic,'') as DiscussionTopic  
+
+		 from tbl_contacts ct join tbl_companies cp on ct.companyid = cp.COMPANIESID
+
+		 join TBL_FRANCHISEE f on cp.FranchiseeId = f.ID  join TBL_COACH ch on f.CoachID = ch.ID
+
+		 where ct.LAST_CONTACT_DATE is not null and ch.RegionID = @RegionId and
+
+		 -- Last contact date is within 30 days period
+
+		 ct.IsNeedCallBack = 1 and ct.LAST_CONTACT_DATE <= (GETDATE()-30)
+
+		 Order by cp.COMPANYNAME
+ 
+	End
+
+    
+
+    if (@Role = 'FranchiseeOwner' or @Role = 'Client')
+
+    Begin
+
+        Select ct.lastname + ',' + ct.FirstName as FullName, ct.phone, ct.Email, ct.contactsid 	,cp.COMPANYNAME , ct.LAST_CONTACT_DATE ,
+        ISNULL(ct.discussionTopic,'') as DiscussionTopic 
+
+		 from tbl_contacts ct join tbl_companies cp on ct.companyid = cp.COMPANIESID
+
+		 join TBL_FRANCHISEE f on cp.FranchiseeId = f.ID
+
+		 where ct.LAST_CONTACT_DATE is not null and f.ID = @FranchiseeId and
+
+		 -- Last contact date is within 30 days period
+
+		 ct.IsNeedCallBack = 1 and ct.LAST_CONTACT_DATE <= (GETDATE()-30)
+
+		 Order by cp.COMPANYNAME
+ 
+    End
+
+    
+
+    if (@Role = 'FranchiseeUser')
+
+    Begin
+
+        Select ct.lastname + ',' + ct.FirstName as FullName, ct.phone, ct.Email, ct.contactsid 	,cp.COMPANYNAME , ct.LAST_CONTACT_DATE  ,
+        ISNULL(ct.discussionTopic,'') as DiscussionTopic
+
+		 from tbl_contacts ct join tbl_companies cp on ct.companyid = cp.COMPANIESID
+
+		 where ct.LAST_CONTACT_DATE is not null and ct.CreatedBy = @UserId and
+
+		 -- Last contact date is within 30 days period
+
+		 ct.IsNeedCallBack = 1 and ct.LAST_CONTACT_DATE <= (GETDATE()-30)
+
+		 Order by cp.COMPANYNAME
+
+    
+
+    End
+
+    
+
+	 RETURN
+ 
+
+
+

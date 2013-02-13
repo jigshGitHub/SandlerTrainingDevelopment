@@ -13,7 +13,7 @@
             </th>
         </tr>
         <tr>
-            <td style="width: 380px">
+            <td style="width: 480px">
                 <asp:UpdatePanel ID="updPnl" runat="server">
                     <ContentTemplate>
                         <table cellspacing="0" cellpadding="3" rules="cols" id="MainContent_dvOpportunity"
@@ -23,25 +23,40 @@
                                 <td style="white-space: nowrap;">
                                     Company :
                                 </td>
-                                <td style="white-space: nowrap;" colspan="3">
+                                <td style="white-space: nowrap;">
                                     <asp:DropDownList DataSourceID="CompanyDS" DataTextField="CompanyName" DataValueField="CompaniesID"
                                         ID="ddlCompany" runat="server" AutoPostBack="True" OnDataBound="ddlCompany_DataBound"
                                         OnSelectedIndexChanged="ddlCompany_SelectedIndexChanged">
                                     </asp:DropDownList>
+                                    &nbsp; <span id="companyReqAsterik" style="visibility: visible; color: red">*</span>
                                     <asp:RequiredFieldValidator ID="rfvDDLCompany" ControlToValidate="ddlCompany" Display="Dynamic"
                                         InitialValue="0" runat="server" ErrorMessage="Please Select A Company From The List."
-                                        Text="*">
+                                        Text="">
                                     </asp:RequiredFieldValidator>
                                     <asp:ObjectDataSource ID="CompanyDS" runat="server" TypeName="SandlerRepositories.CompaniesRepository"
                                         SelectMethod="GetCompaniesForDDL"></asp:ObjectDataSource>
                                 </td>
                             </tr>
+                            <asp:Panel ID="pnlContacts" runat="server" Visible="false">
+                                <tr style="color: Black; background-color: #EEEEEE; white-space: nowrap;">
+                                    <td style="white-space: nowrap;">
+                                        Select Contacts :
+                                    </td>
+                                    <td>
+                                        <asp:ListBox ID="lstBxContacts" SelectionMode="Multiple" runat="server"></asp:ListBox>
+                                        &nbsp;<span id="contactAsterik" style="visibility: visible; color: red">*</span>
+                                        <asp:RequiredFieldValidator ID="rfvForContacts" ControlToValidate="lstBxContacts"
+                                            Display="Static" InitialValue="" runat="server" ErrorMessage="Please select at least one contact.">
+                                        </asp:RequiredFieldValidator>
+                                    </td>
+                                </tr>
+                            </asp:Panel>
                             <tr style="color: Black; background-color: #DCDCDC; white-space: nowrap;" id="trOpportunityID"
                                 runat="server" visible="false">
                                 <td style="white-space: nowrap;">
                                     Opportunity ID :
                                 </td>
-                                <td colspan="3">
+                                <td>
                                     <asp:TextBox ID="txtOpportunityID" Enabled="false" runat="server"></asp:TextBox>
                                 </td>
                             </tr>
@@ -49,10 +64,11 @@
                                 <td style="white-space: nowrap;">
                                     Opportunity Name :
                                 </td>
-                                <td colspan="3">
-                                    <asp:TextBox ID="txtOppName" MaxLength="50" runat="server" Width="380"></asp:TextBox>
+                                <td>
+                                    <asp:TextBox ID="txtOppName" MaxLength="50" runat="server" Width="380"></asp:TextBox>&nbsp;<span
+                                        id="oppNameAsterik" style="visibility: visible; color: red">*</span>
                                     <asp:RequiredFieldValidator ID="rFVOppNameTB" ControlToValidate="txtOppName" Display="Static"
-                                        InitialValue="" runat="server" ErrorMessage="Please Enter Oppty Name to proceed.">*
+                                        InitialValue="" runat="server" ErrorMessage="Please Enter Oppty Name to proceed.">
                                     </asp:RequiredFieldValidator>
                                 </td>
                             </tr>
@@ -60,7 +76,7 @@
                                 <td style="white-space: nowrap;">
                                     Opportunity Description :
                                 </td>
-                                <td colspan="3">
+                                <td>
                                     <asp:TextBox ID="txtDescription" TextMode="MultiLine" runat="server" Width="380"></asp:TextBox>
                                 </td>
                             </tr>
@@ -68,7 +84,7 @@
                                 <td style="white-space: nowrap;">
                                     Opportunity Notes :
                                 </td>
-                                <td colspan="3">
+                                <td>
                                     <asp:TextBox ID="txtNotes" TextMode="MultiLine" runat="server" Width="380"></asp:TextBox>
                                 </td>
                             </tr>
@@ -77,18 +93,10 @@
                                     Sales Rep Last Name :
                                 </td>
                                 <td>
-                                    <asp:TextBox ID="txtSalesRepLName" MaxLength="30" runat="server" Width="180"></asp:TextBox>
+                                    <asp:TextBox ID="txtSalesRepLName" MaxLength="30" runat="server" Width="180"></asp:TextBox>&nbsp;<span
+                                        id="srlAsterik" style="visibility: visible; color: red">*</span>
                                     <asp:RequiredFieldValidator ID="reqFieldValSRLN" ControlToValidate="txtSalesRepLName"
-                                        Display="Static" InitialValue="" runat="server" ErrorMessage="Please Enter Sales Rep to proceed.">*
-                                    </asp:RequiredFieldValidator>
-                                </td>
-                                <td>
-                                    Pain:
-                                </td>
-                                <td>
-                                    <asp:TextBox ID="txtPain" MaxLength="30" runat="server" Width="280"></asp:TextBox>
-                                    <asp:RequiredFieldValidator ID="txtPainRF" ControlToValidate="txtPain" Display="Static"
-                                        InitialValue="" runat="server" ErrorMessage="Please Enter Pain.">*
+                                        Display="Static" InitialValue="" runat="server" ErrorMessage="Please Enter Sales Rep to proceed.">
                                     </asp:RequiredFieldValidator>
                                 </td>
                             </tr>
@@ -97,16 +105,11 @@
                                     Sales Rep First Name :
                                 </td>
                                 <td>
-                                    <asp:TextBox ID="txtSalesRepFName" MaxLength="50" runat="server" Width="180"></asp:TextBox>
+                                    <asp:TextBox ID="txtSalesRepFName" MaxLength="50" runat="server" Width="180"></asp:TextBox>&nbsp;<span
+                                        id="srfAsterik" style="visibility: visible; color: red">*</span>
                                     <asp:RequiredFieldValidator ID="reqFieldValSRFN" ControlToValidate="txtSalesRepFName"
-                                        Display="Static" InitialValue="" runat="server" ErrorMessage="Please Enter Sales Rep to proceed.">*
+                                        Display="Static" InitialValue="" runat="server" ErrorMessage="Please Enter Sales Rep to proceed.">
                                     </asp:RequiredFieldValidator>
-                                </td>
-                                <td>
-                                    Length of Problem:
-                                </td>
-                                <td>
-                                    <asp:TextBox ID="txtPainLengthProblem" MaxLength="30" runat="server" Width="280"></asp:TextBox>
                                 </td>
                             </tr>
                             <tr style="color: Black; background-color: #DCDCDC; white-space: nowrap;">
@@ -115,12 +118,6 @@
                                 </td>
                                 <td>
                                     <asp:TextBox ID="txtSalesRepPhone" MaxLength="50" Width="180" runat="server"></asp:TextBox>
-                                </td>
-                                <td>
-                                    Alternatives?:
-                                </td>
-                                <td>
-                                    <asp:TextBox ID="txtAlternatives" MaxLength="30" runat="server" Width="280"></asp:TextBox>
                                 </td>
                             </tr>
                             <tr style="color: Black; background-color: #EEEEEE; white-space: nowrap;">
@@ -131,8 +128,9 @@
                                     <asp:DropDownList ID="ddlProducts" runat="server" DataSourceID="ProductTypesDS" DataTextField="ProductTypeName"
                                         DataValueField="Id" OnDataBound="ddlCreateDefaultSelection">
                                     </asp:DropDownList>
+                                    &nbsp;<span id="productAsterik" style="visibility: visible; color: red">*</span>
                                     <asp:RequiredFieldValidator ID="rfvProduct" ControlToValidate="ddlProducts" Display="Dynamic"
-                                        InitialValue="0" runat="server" ErrorMessage="Please Select At Least One Product From The List.">*
+                                        InitialValue="0" runat="server" ErrorMessage="Please Select At Least One Product From The List.">
                                     </asp:RequiredFieldValidator>
                                     <asp:ObjectDataSource ID="ProductTypesDS" runat="server" SelectMethod="GetWithFranchiseeId"
                                         TypeName="SandlerRepositories.ProductTypesRepository">
@@ -141,12 +139,6 @@
                                         </SelectParameters>
                                     </asp:ObjectDataSource>
                                 </td>
-                                <td>
-                                    Perceived Cost to Fix?:
-                                </td>
-                                <td>
-                                    <asp:TextBox ID="txtCostToFix" MaxLength="30" runat="server" Width="180"></asp:TextBox>
-                                </td>
                             </tr>
                             <tr style="color: Black; background-color: #DCDCDC; white-space: nowrap;">
                                 <td style="white-space: nowrap;">
@@ -154,15 +146,6 @@
                                 </td>
                                 <td>
                                     <asp:TextBox ID="txtProductCost" onkeypress="EnterOnlyNumeric()" runat="server"></asp:TextBox>
-                                </td>
-                                <td>
-                                    Budget Identified?:
-                                </td>
-                                <td>
-                                    <asp:DropDownList ID="ddlBudgetIdentified" runat="server">
-                                        <asp:ListItem Value="true" Text="Yes"></asp:ListItem>
-                                        <asp:ListItem Value="false" Text="No"></asp:ListItem>
-                                    </asp:DropDownList>
                                 </td>
                             </tr>
                             <tr style="color: Black; background-color: #DCDCDC; white-space: nowrap;">
@@ -176,21 +159,12 @@
                                     <asp:ObjectDataSource ID="OpportunityStatusDS" runat="server" SelectMethod="GetAll"
                                         TypeName="SandlerRepositories.OpprtunityStatusRepository"></asp:ObjectDataSource>
                                 </td>
-                                <td>
-                                    Move Forward?:
-                                </td>
-                                <td>
-                                    <asp:DropDownList ID="ddlMoveForward" runat="server">
-                                        <asp:ListItem Value="true" Text="Yes"></asp:ListItem>
-                                        <asp:ListItem Value="false" Text="No"></asp:ListItem>
-                                    </asp:DropDownList>
-                                </td>
                             </tr>
                             <tr style="color: Black; background-color: #EEEEEE; white-space: nowrap;">
                                 <td style="white-space: nowrap;">
                                     Opportunity Source :
                                 </td>
-                                <td colspan="3">
+                                <td>
                                     <asp:DropDownList ID="ddlSource" runat="server" DataSourceID="OpportunitySourceDS"
                                         DataTextField="Name" DataValueField="ID" OnDataBound="ddlCreateDefaultSelection">
                                     </asp:DropDownList>
@@ -202,7 +176,7 @@
                                 <td style="white-space: nowrap;">
                                     Opportunity Types :
                                 </td>
-                                <td colspan="3">
+                                <td>
                                     <asp:DropDownList ID="ddlTypes" runat="server" DataSourceID="OpportunityTypesDS"
                                         DataTextField="Name" DataValueField="ID" OnDataBound="ddlCreateDefaultSelection">
                                     </asp:DropDownList>
@@ -214,7 +188,7 @@
                                 <td style="white-space: nowrap;">
                                     Why Lost? :
                                 </td>
-                                <td colspan="3">
+                                <td>
                                     <asp:DropDownList ID="ddlWhyLost" runat="server" DataSourceID="OpportunityWhyLostDS"
                                         DataTextField="Name" DataValueField="ID" OnDataBound="ddlCreateDefaultSelection">
                                     </asp:DropDownList>
@@ -226,10 +200,11 @@
                                 <td style="white-space: nowrap;">
                                     Opportunity Value :
                                 </td>
-                                <td colspan="3">
+                                <td>
                                     <asp:TextBox ID="txtOpportunityValue" onkeypress="EnterOnlyNumeric()" runat="server"></asp:TextBox>
+                                    &nbsp;<span id="oppValAsterik" style="visibility: visible; color: red">*</span>
                                     <asp:RequiredFieldValidator ID="reqFieldValTAVTB" ControlToValidate="txtOpportunityValue"
-                                        Display="Static" InitialValue="" runat="server" ErrorMessage="Please Enter Opportunity Value.">*
+                                        Display="Static" InitialValue="" runat="server" ErrorMessage="Please Enter Opportunity Value.">
                                     </asp:RequiredFieldValidator>
                                 </td>
                             </tr>
@@ -237,7 +212,7 @@
                                 <td style="white-space: nowrap;">
                                     Win Probability % :
                                 </td>
-                                <td colspan="3">
+                                <td>
                                     <asp:TextBox ID="txtWinProbability" onkeypress="EnterOnlyNumeric()" MaxLength="3"
                                         runat="server"></asp:TextBox>
                                 </td>
@@ -246,7 +221,7 @@
                                 <td style="white-space: nowrap;">
                                     Weighted Value :
                                 </td>
-                                <td colspan="3">
+                                <td>
                                     <asp:TextBox ID="txtWeightedValue" runat="server" Enabled="false"></asp:TextBox>
                                 </td>
                             </tr>
@@ -254,7 +229,7 @@
                                 <td style="white-space: nowrap;">
                                     Actual Value :
                                 </td>
-                                <td colspan="3">
+                                <td>
                                     <asp:TextBox ID="txtActualValue" onkeypress="EnterOnlyNumeric()" runat="server"></asp:TextBox>
                                 </td>
                             </tr>
@@ -262,7 +237,7 @@
                                 <td style="white-space: nowrap;">
                                     Creation Date :
                                 </td>
-                                <td colspan="3">
+                                <td>
                                     <asp:TextBox ID="txtBxCreationDate" runat="server" />&nbsp;<asp:Image ID="Image1"
                                         runat="server" ImageUrl="~/images/calendar.gif" ImageAlign="Middle" />
                                     <asp:CalendarExtender ID="CalendarExtender1" runat="server" TargetControlID="txtBxCreationDate"
@@ -274,38 +249,84 @@
                                 <td style="white-space: nowrap;">
                                     Est. Close Date :
                                 </td>
-                                <td colspan="3">
+                                <td>
                                     <asp:TextBox ID="CloseDate" runat="server" />&nbsp;<asp:Image ID="calanderImage"
                                         runat="server" ImageUrl="~/images/calendar.gif" ImageAlign="Middle" />
-                                    <asp:CalendarExtender ID="estCloseDtExtender" runat="server" TargetControlID="CloseDate" PopupButtonID="calanderImage"
-                                        CssClass="calendar">
+                                    <asp:CalendarExtender ID="estCloseDtExtender" runat="server" TargetControlID="CloseDate"
+                                        PopupButtonID="calanderImage" CssClass="calendar">
                                     </asp:CalendarExtender>
+                                    &nbsp;<span id="closeDtAsterik" style="visibility: visible; color: red">*</span>
                                     <asp:RequiredFieldValidator ID="reqFieldValCloseDt" ControlToValidate="CloseDate"
                                         Display="Static" InitialValue="" runat="server" ErrorMessage="Please Enter Est. Close Date.">
-*
+
                                     </asp:RequiredFieldValidator>
                                 </td>
                             </tr>
-                            <asp:Panel ID="pnlContacts" runat="server" Visible="false">
-                                <tr style="color: Black; background-color: #EEEEEE; white-space: nowrap;">
-                                    <td style="white-space: nowrap;">
-                                        Select Contacts :
-                                    </td>
-                                    <td colspan="3">
-                                        <asp:ListBox ID="lstBxContacts" SelectionMode="Multiple" runat="server"></asp:ListBox>
-                                        <asp:RequiredFieldValidator ID="rfvForContacts" ControlToValidate="lstBxContacts"
-                                            Display="Static" InitialValue="" runat="server" ErrorMessage="Please select at least one contact.">*
-                                        </asp:RequiredFieldValidator>
-                                    </td>
-                                </tr>
-                            </asp:Panel>
+                            <tr style="color: Black; background-color: #DCDCDC; white-space: nowrap;">
+                                <td style="white-space: nowrap;">
+                                    Pain:
+                                </td>
+                                <td>
+                                    <asp:TextBox ID="txtPain" MaxLength="30" runat="server" Width="280"></asp:TextBox>&nbsp;<span
+                                        id="painAsterik" style="visibility: visible; color: red">*</span>
+                                    <asp:RequiredFieldValidator ID="txtPainRF" ControlToValidate="txtPain" Display="Static"
+                                        InitialValue="" runat="server" ErrorMessage="Please Enter Pain.">
+                                    </asp:RequiredFieldValidator>
+                                </td>
+                            </tr>
+                            <tr style="color: Black; background-color: #EEEEEE; white-space: nowrap;">
+                                <td style="white-space: nowrap;">
+                                    Length of Problem:
+                                </td>
+                                <td>
+                                    <asp:TextBox ID="txtPainLengthProblem" MaxLength="30" runat="server" Width="280"></asp:TextBox>
+                                </td>
+                            </tr>
+                            <tr style="color: Black; background-color: #DCDCDC; white-space: nowrap;">
+                                <td style="white-space: nowrap;">
+                                    Alternatives?:
+                                </td>
+                                <td>
+                                    <asp:TextBox ID="txtAlternatives" MaxLength="30" runat="server" Width="280"></asp:TextBox>
+                                </td>
+                            </tr>
+                            <tr style="color: Black; background-color: #EEEEEE; white-space: nowrap;">
+                                <td style="white-space: nowrap;">
+                                    Perceived Cost to Fix?:
+                                </td>
+                                <td>
+                                    <asp:TextBox ID="txtCostToFix" MaxLength="30" runat="server" Width="180"></asp:TextBox>
+                                </td>
+                            </tr>
+                            <tr style="color: Black; background-color: #DCDCDC; white-space: nowrap;">
+                                <td style="white-space: nowrap;">
+                                    Budget Identified?:
+                                </td>
+                                <td>
+                                    <asp:DropDownList ID="ddlBudgetIdentified" runat="server">
+                                        <asp:ListItem Value="true" Text="Yes"></asp:ListItem>
+                                        <asp:ListItem Value="false" Text="No"></asp:ListItem>
+                                    </asp:DropDownList>
+                                </td>
+                            </tr>
+                            <tr style="color: Black; background-color: #DCDCDC; white-space: nowrap;">
+                                <td style="white-space: nowrap;">
+                                    Move Forward?:
+                                </td>
+                                <td>
+                                    <asp:DropDownList ID="ddlMoveForward" runat="server">
+                                        <asp:ListItem Value="true" Text="Yes"></asp:ListItem>
+                                        <asp:ListItem Value="false" Text="No"></asp:ListItem>
+                                    </asp:DropDownList>
+                                </td>
+                            </tr>
                             <tr>
-                                <td colspan="4">
+                                <td colspan="2">
                                     <asp:Label ID="lblResult" runat="server" ForeColor="Red"></asp:Label><br />
                                 </td>
                             </tr>
                             <tr>
-                                <td colspan="4">
+                                <td colspan="2">
                                     <asp:ValidationSummary ID="ValidationSummary1" runat="server" ForeColor="Red" ShowMessageBox="True" />
                                 </td>
                             </tr>
@@ -328,13 +349,108 @@
 
             var weightedValue = '#<%=txtWeightedValue.ClientID%>';
             var winProbability = '#<%=txtWinProbability.ClientID %>';
-            var opportunityValue = '#<%=txtOpportunityValue.ClientID %>';
+            var opportunityValueId = '#<%=txtOpportunityValue.ClientID %>';
+            var companyId = '#<%=ddlCompany.ClientID %>';
+            var opportunityNameId = '#<%=txtOppName.ClientID %>';
+            var srlId = '#<%=txtSalesRepLName.ClientID %>';
+            var srfId = '#<%=txtSalesRepFName.ClientID %>';
+            var productId = '#<%=ddlProducts.ClientID %>';
+            var painId = '#<%=txtPain.ClientID %>';
+            var closeDtId = '#<%=CloseDate.ClientID %>';
+            var contactId = '#<%=lstBxContacts.ClientID%>';
+
+            function companySelectionCheck() {
+                if ($('#<%=ddlCompany.ClientID %> :selected').val() == 0)
+                    $(companyReqAsterik).attr('style', 'visibility:visible;color:red');
+                else
+                    $(companyReqAsterik).attr('style', 'visibility:hidden');
+            }
+            function contactSelectionCheck() {
+                if (contactAsterik != undefined) {
+                    if (parseInt($('#<%=lstBxContacts.ClientID%> :selected').length) == 0)
+                        $(contactAsterik).attr('style', 'visibility:visible;color:red');
+                    else
+                        $(contactAsterik).attr('style', 'visibility:hidden');
+                }
+            }
+            function opportunityNameySelectionCheck() {
+                if ($(opportunityNameId).val() == '')
+                    $(oppNameAsterik).attr('style', 'visibility:visible;color:red');
+                else
+                    $(oppNameAsterik).attr('style', 'visibility:hidden');
+            }
+            function srlSelectionCheck() {
+                if ($(srlId).val() == '')
+                    $(srlAsterik).attr('style', 'visibility:visible;color:red');
+                else
+                    $(srlAsterik).attr('style', 'visibility:hidden');
+            }
+            function srfSelectionCheck() {
+                if ($(srfId).val() == '')
+                    $(srfAsterik).attr('style', 'visibility:visible;color:red');
+                else
+                    $(srfAsterik).attr('style', 'visibility:hidden');
+            }
+            function painSelectionCheck() {
+                if ($(painId).val() == '')
+                    $(painAsterik).attr('style', 'visibility:visible;color:red');
+                else
+                    $(painAsterik).attr('style', 'visibility:hidden');
+            }
+            function closeDtSelectionCheck() {
+                if ($(closeDtId).val() == '')
+                    $(closeDtAsterik).attr('style', 'visibility:visible;color:red');
+                else
+                    $(closeDtAsterik).attr('style', 'visibility:hidden');
+
+            }
+            function productSelectionCheck() {
+                if ($('#<%=ddlProducts.ClientID %> :selected').val() == 0)
+                    $(productAsterik).attr('style', 'visibility:visible;color:red');
+                else
+                    $(productAsterik).attr('style', 'visibility:hidden');
+            }
+            function opportunityValueSelectionCheck() {
+                if ($(opportunityValueId).val() == '')
+                    $(oppValAsterik).attr('style', 'visibility:visible;color:red');
+                else
+                    $(oppValAsterik).attr('style', 'visibility:hidden');
+            }
+
+            $(companyId).change(function () {
+                companySelectionCheck();
+            });
+            $(contactId).change(function () {
+                contactSelectionCheck();
+            });
+            $(opportunityNameId).focusout(function () {
+                opportunityNameySelectionCheck();
+            });
+            $(srlId).focusout(function () {
+                srlSelectionCheck();
+            });
+            $(srfId).focusout(function () {
+                srfSelectionCheck();
+            });
+            $(painId).focusout(function () {
+                painSelectionCheck();
+            });
+            $(closeDtId).focusout(function () {
+                closeDtSelectionCheck();
+            });
+            $(productId).change(function () {
+                productSelectionCheck();
+            });
+
             $(winProbability).blur(function () { calculateWeightedValue() });
-            $(opportunityValue)
-            //.formatCurrency({ colorize: true, negativeFormat: '(%s%n)' })
+
+            $(opportunityValueId)
+                .focusout(function () {
+                    opportunityValueSelectionCheck();
+                })
                 .blur(function () {
                     calculateWeightedValue();
-                    // $(this).formatCurrency({ colorize: true, negativeFormat: '(%s%n)', roundToDecimalPlace: 2 });
+
                 })
                 .keyup(function (e) {
                     var e = window.event || e;
@@ -355,7 +471,7 @@
                             case 110: break; // . number block (Opera 9.63+ maps the "." from the number block to the "N" key (78) !!!)
                             case 190: break; // .
                             default: break;
-                            //$(this).formatCurrency({ colorize: true, negativeFormat: '(%s%n)', roundToDecimalPlace: -1, eventOnDecimalsEntered: true });                                                 
+                            //$(this).formatCurrency({ colorize: true, negativeFormat: '(%s%n)', roundToDecimalPlace: -1, eventOnDecimalsEntered: true });                                                               
                         }
                     }
                 })
@@ -369,21 +485,22 @@
             function calculateWeightedValue() {
                 //Reset first 
                 $(weightedValue).val('');
-                log($(opportunityValue).val());
-                $(weightedValue).val(($(opportunityValue).val() * $(winProbability).val()) / 100);
-
+                log($(opportunityValueId).val());
+                $(weightedValue).val(($(opportunityValueId).val() * $(winProbability).val()) / 100);
             };
-
-            //            $('#<%=lbtnAdd.ClientID%>').click(function () {
-            //                var contactsSelected = parseInt($('#<%=lstBxContacts.ClientID%> :selected').length);
-            //                log(contactsSelected);
-            //                if (contactsSelected > 3) {
-            //                    alert('You can not select more than 3 contacts');
-            //                    return false;
-            //                }
-            //            });
+            companySelectionCheck();
+            opportunityNameySelectionCheck();
+            srfSelectionCheck();
+            srfSelectionCheck();
+            painSelectionCheck();
+            closeDtSelectionCheck();
+            productSelectionCheck();
+            opportunityValueSelectionCheck();
+            //contactSelectionCheck();
         }
+
         $(document).ready(function () {
+
             BindEvents();
 
             $('#<%=lbtnAdd.ClientID%>').click(function () {

@@ -171,7 +171,7 @@ public partial class OpportunityADD : OpportunityBasePage
             opportunity.STATUSID = int.Parse(ddlProductStatus.SelectedValue);
         else
             opportunity.STATUSID = null;
-        opportunity.VALUE = int.Parse(txtOpportunityValue.Text);
+        opportunity.VALUE = decimal.Parse(txtOpportunityValue.Text);
         opportunity.WINPROBABILITY = txtWinProbability.Text;
         if(!string.IsNullOrEmpty(opportunity.WINPROBABILITY))
             opportunity.WEIGHTEDVALUE = (opportunity.VALUE * int.Parse(opportunity.WINPROBABILITY)) / 100;

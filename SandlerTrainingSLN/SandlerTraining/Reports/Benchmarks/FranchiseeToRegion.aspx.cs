@@ -19,11 +19,13 @@ public partial class Reports_Benchmarks_FranchiseeToRegion : BasePage
 
             if (string.IsNullOrEmpty(Request.QueryString[page.QUERYSTRINGPARAMDRILLBY]))
             {
-                var data = (from franchisee in new FranchiseeRepository().GetAll()
-                           from coach in new CoachRepository().GetAll().Where(r => r.ID == franchisee.CoachID)
-                           from region in new RegionRepository().GetAll().Where(r=> r.ID == coach.RegionID && r.ID == CurrentUser.RegionID)
+                //var data = (from franchisee in new FranchiseeRepository().GetAll()
+                //           from coach in new CoachRepository().GetAll().Where(r => r.ID == franchisee.CoachID)
+                //           from region in new RegionRepository().GetAll().Where(r=> r.ID == coach.RegionID && r.ID == CurrentUser.RegionID)
+                //            select new { Name = franchisee.Name, Id = franchisee.ID }).Distinct();
+                UserEntities userEntities = UserEntitiesFactory.Get(this.CurrentUser);
+                var data = (from franchisee in userEntities.Franchisees
                             select new { Name = franchisee.Name, Id = franchisee.ID }).Distinct();
-
                 franchiseeList.DataSource = data;
                 franchiseeList.DataTextField = "Name";
                 franchiseeList.DataValueField = "Id";

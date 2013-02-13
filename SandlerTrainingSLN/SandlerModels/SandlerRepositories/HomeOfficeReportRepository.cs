@@ -57,7 +57,7 @@ namespace SandlerRepositories
                     break;
 
                 case "msfr": returnValue = db.ExecuteDataset("sp_GetHomeOfficeReportmsfr", "HomeOfficeReportmsfr", new SqlParameter("@reportType", reportType));
-                    reportDisplayName = "Report of Master Franchisee and Thier Subfranchisees";                                    
+                    reportDisplayName = "Report of Master Franchisee and Their Subfranchisees";                                    
                     break;
 
 
@@ -91,7 +91,7 @@ namespace SandlerRepositories
                     reportDisplayName = "Report of Franchisee by Required Product Purchase Level";                         
                     break;
                 case "frmd": returnValue = db.ExecuteDataset("sp_GetHomeOfficeReportfrmd", "HomeOfficeReportfrmd", new SqlParameter("@reportType", reportType));
-                    reportDisplayName = "Report of Franchisees and Thier Associates";                             
+                    reportDisplayName = "Report of Franchisees and Their Associates";                             
                     break;
                 case "glaa": returnValue = db.ExecuteDataset("sp_GetHomeOfficeReportglaa", "HomeOfficeReportglaa", new SqlParameter("@reportType", reportType));
                     reportDisplayName = "Report of Franchisees with Representative Agreements for Global Accounts";                                 

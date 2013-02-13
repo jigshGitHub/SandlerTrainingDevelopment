@@ -9,7 +9,7 @@
     <table border="0">
         <tr>
             <th class="tdTC" align="left">
-                Create Franchisee :
+                Create Franchisee User:
             </th>
         </tr>
         <tr>

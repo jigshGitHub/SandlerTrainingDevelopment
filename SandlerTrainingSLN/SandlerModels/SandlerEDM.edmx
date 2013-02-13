@@ -723,6 +723,7 @@
           <Property Name="CreatedDate" Type="datetime" />
           <Property Name="LastUpdateBy" Type="uniqueidentifier" />
           <Property Name="LastUpdatedDate" Type="datetime" />
+		  <Property Name="SortOrder" Type="int" />
         </EntityType>
         <EntityType Name="Tbl_ProductType">
           <Key>
@@ -2204,6 +2205,7 @@
           <Property Type="DateTime" Name="CreatedDate" />
           <Property Type="Guid" Name="LastUpdateBy" />
           <Property Type="DateTime" Name="LastUpdatedDate" />
+		  <Property Type="Int32" Name="SortOrder" />
           <NavigationProperty Name="TBL_OPPORTUNITIES" Relationship="Sandler.Models.FK_TBL_OPPORTUNITIES_TBL_OpportunityWhyLost" FromRole="TBL_OpportunityWhyLost" ToRole="TBL_OPPORTUNITIES" />
         </EntityType>
         <Association Name="FK_TBL_COMPANIES_TBL_FRANCHISEE">
@@ -3291,6 +3293,7 @@
           <EntitySetMapping Name="TBL_OpportunityWhyLost">
             <EntityTypeMapping TypeName="Sandler.Models.TBL_OpportunityWhyLost">
               <MappingFragment StoreEntitySet="TBL_OpportunityWhyLost">
+				<ScalarProperty Name="SortOrder" ColumnName="SortOrder" />
                 <ScalarProperty Name="LastUpdatedDate" ColumnName="LastUpdatedDate" />
                 <ScalarProperty Name="LastUpdateBy" ColumnName="LastUpdateBy" />
                 <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />

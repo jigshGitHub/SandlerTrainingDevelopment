@@ -92,7 +92,7 @@ namespace SandlerModels.DataIntegration
         private readonly IEnumerable<SandlerModels.Company> companies;
         public IEnumerable<SandlerModels.Company> Companies
         { get { return companies; } }
-        
+
         private readonly List<SandlerModels.Contact> contacts;
         public List<SandlerModels.Contact> Contacts
         {
@@ -101,7 +101,7 @@ namespace SandlerModels.DataIntegration
                 return contacts;
             }
         }
-        
+
         private readonly List<Opportunity> opportunities;
         public List<Opportunity> Opportunities
         { get { return opportunities; } }
@@ -117,7 +117,7 @@ namespace SandlerModels.DataIntegration
 
         public UserEntities(UserModel user)
         {
-            franchisees = GetFranchisees(user);            
+            franchisees = GetFranchisees(user);
             companies = GetCompaniesByUser(user);
             contacts = GetContactsByUser(user);
             opportunities = GetopportunitiesByUser(user);
@@ -131,13 +131,22 @@ namespace SandlerModels.DataIntegration
         {
             FranchiseeRepository franchiseeSource = new FranchiseeRepository();
             IEnumerable<TBL_FRANCHISEE> franchisees = null;
-            if (user.Role == SandlerRoles.Coach)
+            if (user.Role == SandlerRoles.Coach || user.Role == SandlerRoles.FranchiseeOwner || user.Role == SandlerRoles.FranchiseeUser)
             {
-                franchisees = from franchisee in franchiseeSource.GetAll().Where(record => record.IsActive == true && record.CoachID == user.CoachID)
+                //franchisees = from franchisee in franchiseeSource.GetAll().Where(record => record.IsActive == true && record.CoachID == user.CoachID)
+                //              select franchisee;
+                franchisees = from franchisee in new FranchiseeRepository().GetAll()
+                              from coach in new CoachRepository().GetAll().Where(r => r.ID == franchisee.CoachID)
+                              from region in new RegionRepository().GetAll().Where(r => r.ID == coach.RegionID && r.ID == user.RegionID)
+                              select franchisee;
+            }
+            else if(user.Role == SandlerRoles.Corporate)
+            {
+                franchisees = from franchisee in new FranchiseeRepository().GetAll()
                               select franchisee;
             }
             return franchisees;
-        }        
+        }
         private List<SandlerModels.Company> GetCompaniesByUser(UserModel user)
         {
             CompaniesRepository companiesSource = new CompaniesRepository();
@@ -213,7 +222,7 @@ namespace SandlerModels.DataIntegration
             List<Opportunity> opportunties = null;
             try
             {
-               opportunties = opportunitiesSource.GetOpportunitiesByUser(user.UserId).ToList<Opportunity>();
+                opportunties = opportunitiesSource.GetOpportunitiesByUser(user.UserId).ToList<Opportunity>();
             }
             catch (Exception ex)
             {
@@ -259,7 +268,7 @@ namespace SandlerModels.DataIntegration
             return documents;
         }
         #region IUserEntities Members
-        
+
         public IEnumerable<SandlerModels.Contact> GetNewAppointments(UserModel user)
         {
             IEnumerable<SandlerModels.Contact> newContacts = null;
@@ -274,7 +283,7 @@ namespace SandlerModels.DataIntegration
             }
             return newContacts;
         }
-        
+
         public IEnumerable<SandlerModels.Contact> GetContactsByCompany(UserModel user, int companyId)
         {
             IEnumerable<SandlerModels.Contact> companyContacts = null;
