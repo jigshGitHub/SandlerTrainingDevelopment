@@ -15,7 +15,7 @@ namespace SandlerAPI.Controllers
     [Authorize()]
     public class FranchiseeUserController : ApiController
     {
-        public FranchiseeUser PostFranchisee(FranchiseeUser franchiseeUser)
+        public FranchiseeUser Post(FranchiseeUser franchiseeUser)
         {
             FranchiseeUsersRepository userRepository;
             TBL_FRANCHISEE_USERS franchiseeUserToSave = null;
@@ -26,7 +26,6 @@ namespace SandlerAPI.Controllers
                 userRepository = new FranchiseeUsersRepository();
 
                 userName = franchiseeUser.FirstName.ToLower() + "." + franchiseeUser.LastName.ToLower();
-
                 if (!string.IsNullOrEmpty(franchiseeUser.UserID))
                 {
                     franchiseeUserToSave = userRepository.GetAll().Where(record => record.FranchiseeID == franchiseeUser.FranchiseeID && record.UserID.ToString() == franchiseeUser.UserID).SingleOrDefault();
@@ -36,14 +35,19 @@ namespace SandlerAPI.Controllers
                     UserEntitiesFactory.UpdateUser(franchiseeUser.UserID, franchiseeUser.Email);
                 }
                 else
-                {
-                    if (UserEntitiesFactory.IsUserExits(userName))
+                {                    
+                    try
                     {
-                        userName = userName + UserEntitiesFactory.UsersCount(userName).ToString();
+                        if (UserEntitiesFactory.IsUserExits(userName))
+                        {
+                            userName = userName + UserEntitiesFactory.UsersCount(userName).ToString();
+                        }
+                        userId = UserEntitiesFactory.CreateUserWithRoles(userName, franchiseeUser.Email, SandlerRoles.FranchiseeUser.ToString());
                     }
-
-                    userId = UserEntitiesFactory.CreateUserWithRoles(userName, franchiseeUser.Email, SandlerRoles.FranchiseeUser.ToString());
-
+                    catch (Exception ex)
+                    {
+                        throw new Exception(ex.Message);
+                    }
                     try
                     {
                         franchiseeUserToSave = new TBL_FRANCHISEE_USERS();
@@ -70,7 +74,7 @@ namespace SandlerAPI.Controllers
                     }
                     catch (Exception ex)
                     {
-                        UserEntitiesFactory.DeleteUserWithRoles(userName, SandlerRoles.FranchiseeUser.ToString()); 
+                        UserEntitiesFactory.DeleteUserWithRoles(userName, SandlerRoles.FranchiseeUser.ToString());
                         userRepository.Delete(franchiseeUserToSave);
                     }
 
@@ -81,6 +85,7 @@ namespace SandlerAPI.Controllers
             }
             catch (Exception ex)
             {
+                throw ex;
             }
             return franchiseeUser;
         }

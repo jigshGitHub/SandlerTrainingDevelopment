@@ -259,7 +259,7 @@
                         dataType: "json",
                         contentType: "application/json; charset=utf-8",
                         success: function (response) {
-                            $('#resultSummary ul').append('<li>Franchisee with username ' + response.UserName + ' has been created.</li>');
+                            $('#resultSummary ul').append('<li>Franchisee with userid ' + response.UserName + ' has been created.</li>');
                         },
                         error: function (response, errorText) {
                         }

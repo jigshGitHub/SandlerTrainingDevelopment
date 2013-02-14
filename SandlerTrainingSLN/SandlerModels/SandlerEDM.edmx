@@ -381,7 +381,7 @@
           <Property Name="AssistantPhone" Type="varchar" MaxLength="50" />
           <Property Name="Website" Type="varchar" MaxLength="100" />
           <Property Name="EmpQuantity" Type="int" />
-          <Property Name="Notes" Type="varchar" MaxLength="300" />
+          <Property Name="Notes" Type="varchar" MaxLength="1000" />
           <Property Name="IsSameBillingAddress" Type="bit" />
           <Property Name="Country" Type="varchar" MaxLength="80" />
         </EntityType>
@@ -433,7 +433,7 @@
           <Property Name="LetterSentDate" Type="datetime" />
           <Property Name="SpouseName" Type="varchar" MaxLength="50" />
           <Property Name="ReferredBy" Type="varchar" MaxLength="50" />
-          <Property Name="Notes" Type="varchar" MaxLength="300" />
+          <Property Name="Notes" Type="varchar" MaxLength="1000" />
           <Property Name="Country" Type="varchar" MaxLength="80" />
         </EntityType>
         <EntityType Name="TBL_COUNTRY">
@@ -662,7 +662,7 @@
           <Property Name="TypeID" Type="int" />
           <Property Name="WhyLostID" Type="int" />
           <Property Name="Description" Type="varchar" MaxLength="500" />
-          <Property Name="Notes" Type="varchar" MaxLength="500" />
+          <Property Name="Notes" Type="varchar" MaxLength="1000" />
           <Property Name="ActualValue" Type="numeric" />
           <Property Name="SeconadryContactId1" Type="int" />
           <Property Name="SeconadryContactId2" Type="int" />
@@ -1986,7 +1986,7 @@
           <Property Type="String" Name="AssistantPhone" Nullable="true" MaxLength="50" />
           <Property Type="String" Name="Website" Nullable="true" MaxLength="100" />
           <Property Type="Int32" Name="EmpQuantity" Nullable="true" />
-          <Property Type="String" Name="Notes" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="Notes" Nullable="true" MaxLength="1000" />
           <Property Type="Boolean" Name="IsSameBillingAddress" Nullable="true" />
           <Property Type="String" Name="Country" Nullable="true" MaxLength="80" />
         </ComplexType>
@@ -2045,7 +2045,7 @@
           <Property Type="DateTime" Name="LetterSentDate" Nullable="true" Precision="23" />
           <Property Type="String" Name="SpouseName" Nullable="true" MaxLength="50" />
           <Property Type="String" Name="ReferredBy" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="Notes" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="Notes" Nullable="true" MaxLength="1000" />
           <Property Type="String" Name="Country" Nullable="true" MaxLength="80" />
         </ComplexType>
         <ComplexType Name="Opportunity">
@@ -2101,7 +2101,7 @@
           <Property Type="Int32" Name="TypeID" Nullable="true" />
           <Property Type="Int32" Name="WhyLostID" Nullable="true" />
           <Property Type="String" Name="Description" Nullable="true" MaxLength="500" />
-          <Property Type="String" Name="Notes" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="Notes" Nullable="true" MaxLength="1000" />
           <Property Type="Decimal" Name="ActualValue" Nullable="true" Precision="18" Scale="0" />
           <Property Type="Int32" Name="SeconadryContactId1" Nullable="true" />
           <Property Type="Int32" Name="SeconadryContactId2" Nullable="true" />
@@ -2158,7 +2158,7 @@
           <Property Type="String" Name="AssistantPhone" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="Website" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Type="Int32" Name="EmpQuantity" />
-          <Property Type="String" Name="Notes" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Notes" MaxLength="1000" FixedLength="false" Unicode="false" />
           <Property Type="Boolean" Name="IsSameBillingAddress" />
           <Property Type="String" Name="Country" MaxLength="80" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="TBL_FRANCHISEE" Relationship="Sandler.Models.FK_TBL_COMPANIES_TBL_FRANCHISEE" FromRole="TBL_COMPANIES" ToRole="TBL_FRANCHISEE" />
@@ -2394,7 +2394,7 @@
           <Property Type="DateTime" Name="LetterSentDate" />
           <Property Type="String" Name="SpouseName" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="ReferredBy" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="Notes" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Notes" MaxLength="1000" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="Country" MaxLength="80" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Tbl_AppointmentsSource" Relationship="Sandler.Models.FK_TBL_CONTACTS_Tbl_AppointmentsSource" FromRole="TBL_CONTACTS" ToRole="Tbl_AppointmentsSource" />
           <NavigationProperty Name="TBL_COMPANIES" Relationship="Sandler.Models.FK_TBL_CONTACTS_TBL_Companies" FromRole="TBL_CONTACTS" ToRole="TBL_COMPANIES" />
@@ -2702,7 +2702,7 @@
           <Property Type="Int32" Name="TypeID" />
           <Property Type="Int32" Name="WhyLostID" />
           <Property Type="String" Name="Description" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="Notes" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Notes" MaxLength="1000" FixedLength="false" Unicode="false" />
           <Property Type="Decimal" Name="ActualValue" Precision="18" Scale="0" />
           <Property Type="Int32" Name="SeconadryContactId1" />
           <Property Type="Int32" Name="SeconadryContactId2" />

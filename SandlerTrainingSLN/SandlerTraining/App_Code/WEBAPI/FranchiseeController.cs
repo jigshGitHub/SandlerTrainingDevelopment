@@ -52,7 +52,14 @@ namespace SandlerAPI.Controllers
                         userName = userName + UserEntitiesFactory.UsersCount(userName).ToString();
                     }
 
-                    userId = UserEntitiesFactory.CreateUserWithRoles(userName, franchisee.FranchiseeUser.Email, SandlerRoles.FranchiseeOwner.ToString());
+                    try
+                    {
+                       userId = UserEntitiesFactory.CreateUserWithRoles(userName, franchisee.FranchiseeUser.Email, SandlerRoles.FranchiseeOwner.ToString());
+                    }
+                    catch (Exception ex)
+                    {
+                        throw ex;
+                    }
 
                     try
                     {
