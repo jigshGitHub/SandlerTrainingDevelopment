@@ -137,6 +137,143 @@ public partial class CRM_HomeOffice_Search : BasePage
             ddlPrimaryBusinessDDList.Items.Insert(0, selectItem);
             
         }
+        //Select Coach
+        DropDownList ddlCoachDDList = new DropDownList();
+        ddlCoachDDList = (DropDownList)FranchiseeFW.FindControl("ddlCoach");
+        if (ddlCoachDDList != null)
+        {
+            ListItem selectItem = new ListItem("--Select Coach--", "0");
+            ddlCoachDDList.Items.Insert(0, selectItem);
+
+        }
+        //For Yes/No Options DDL
+        
+        //Part of Master Franchisee
+        DropDownList ddlPartOfMFDDList = new DropDownList();
+        ddlPartOfMFDDList = (DropDownList)FranchiseeFW.FindControl("ddlPartOfMF");
+        if (ddlPartOfMFDDList != null)
+        {
+            ListItem selectItem = new ListItem("--Select Option--", "-1");
+            ddlPartOfMFDDList.Items.Insert(0, selectItem);
+
+        }
+        //Can Print Locally
+        DropDownList ddlCanPrintLocallyDDList = new DropDownList();
+        ddlCanPrintLocallyDDList = (DropDownList)FranchiseeFW.FindControl("ddlCanPrintLocally");
+        if (ddlCanPrintLocallyDDList != null)
+        {
+            ListItem selectItem = new ListItem("--Select Option--", "-1");
+            ddlCanPrintLocallyDDList.Items.Insert(0, selectItem);
+
+        }
+        //Contractor Perm
+        DropDownList ddlContrPermDDList = new DropDownList();
+        ddlContrPermDDList = (DropDownList)FranchiseeFW.FindControl("ddlContrPerm");
+        if (ddlContrPermDDList != null)
+        {
+            ListItem selectItem = new ListItem("--Select Option--", "-1");
+            ddlContrPermDDList.Items.Insert(0, selectItem);
+
+        }
+        //KOL Member
+        DropDownList ddlKOLMemberDDList = new DropDownList();
+        ddlKOLMemberDDList = (DropDownList)FranchiseeFW.FindControl("ddlKOLMember");
+        if (ddlKOLMemberDDList != null)
+        {
+            ListItem selectItem = new ListItem("--Select Option--", "-1");
+            ddlKOLMemberDDList.Items.Insert(0, selectItem);
+
+        }
+        //Adv Board
+        DropDownList ddlAdvBoardDDList = new DropDownList();
+        ddlAdvBoardDDList = (DropDownList)FranchiseeFW.FindControl("ddlAdvBoard");
+        if (ddlAdvBoardDDList != null)
+        {
+            ListItem selectItem = new ListItem("--Select Option--", "-1");
+            ddlAdvBoardDDList.Items.Insert(0, selectItem);
+
+        }
+        //Mktg Committee
+        DropDownList ddlMktgComtDDList = new DropDownList();
+        ddlMktgComtDDList = (DropDownList)FranchiseeFW.FindControl("ddlMktgComt");
+        if (ddlMktgComtDDList != null)
+        {
+            ListItem selectItem = new ListItem("--Select Option--", "-1");
+            ddlMktgComtDDList.Items.Insert(0, selectItem);
+
+        }
+        //Sandler CRM
+        DropDownList ddlSandlerCRMDDList = new DropDownList();
+        ddlSandlerCRMDDList = (DropDownList)FranchiseeFW.FindControl("ddlSandlerCRM");
+        if (ddlSandlerCRMDDList != null)
+        {
+            ListItem selectItem = new ListItem("--Select Option--", "-1");
+            ddlSandlerCRMDDList.Items.Insert(0, selectItem);
+
+        }
+        //DHS Award
+        DropDownList ddlDHSAwardDDList = new DropDownList();
+        ddlDHSAwardDDList = (DropDownList)FranchiseeFW.FindControl("ddlDHSAward");
+        if (ddlDHSAwardDDList != null)
+        {
+            ListItem selectItem = new ListItem("--Select Option--", "-1");
+            ddlDHSAwardDDList.Items.Insert(0, selectItem);
+
+        }
+        //Sandler Mail
+        DropDownList ddlSandlerMailDDList = new DropDownList();
+        ddlSandlerMailDDList = (DropDownList)FranchiseeFW.FindControl("ddlSandlerMail");
+        if (ddlSandlerMailDDList != null)
+        {
+            ListItem selectItem = new ListItem("--Select Option--", "-1");
+            ddlSandlerMailDDList.Items.Insert(0, selectItem);
+
+        }
+        //Req Financials
+        DropDownList ddlReqFinancialsDDList = new DropDownList();
+        ddlReqFinancialsDDList = (DropDownList)FranchiseeFW.FindControl("ddlReqFinancials");
+        if (ddlReqFinancialsDDList != null)
+        {
+            ListItem selectItem = new ListItem("--Select Option--", "-1");
+            ddlReqFinancialsDDList.Items.Insert(0, selectItem);
+
+        }
+        //Rep Agreement
+        DropDownList ddlRepAgreementDDList = new DropDownList();
+        ddlRepAgreementDDList = (DropDownList)FranchiseeFW.FindControl("ddlRepAgreement");
+        if (ddlRepAgreementDDList != null)
+        {
+            ListItem selectItem = new ListItem("--Select Option--", "-1");
+            ddlRepAgreementDDList.Items.Insert(0, selectItem);
+
+        }
+        //Same Home Address
+        DropDownList ddlSameHomeAdrsDDList = new DropDownList();
+        ddlSameHomeAdrsDDList = (DropDownList)FranchiseeFW.FindControl("ddlSameHomeAdrs");
+        if (ddlSameHomeAdrsDDList != null)
+        {
+            ListItem selectItem = new ListItem("--Select Option--", "-1");
+            ddlSameHomeAdrsDDList.Items.Insert(0, selectItem);
+
+        }
+        //Buy from Customer
+        DropDownList ddlBuyFromCustomerDDList = new DropDownList();
+        ddlBuyFromCustomerDDList = (DropDownList)FranchiseeFW.FindControl("ddlBuyFromCustomer");
+        if (ddlBuyFromCustomerDDList != null)
+        {
+            ListItem selectItem = new ListItem("--Select Option--", "-1");
+            ddlBuyFromCustomerDDList.Items.Insert(0, selectItem);
+
+        }
+        //Fixed Price Purchase
+        DropDownList ddlFixedPricePurchaseDDList = new DropDownList();
+        ddlFixedPricePurchaseDDList = (DropDownList)FranchiseeFW.FindControl("ddlFixedPricePurchase");
+        if (ddlFixedPricePurchaseDDList != null)
+        {
+            ListItem selectItem = new ListItem("--Select Option--", "-1");
+            ddlFixedPricePurchaseDDList.Items.Insert(0, selectItem);
+
+        }
         
     }
 
@@ -153,14 +290,28 @@ public partial class CRM_HomeOffice_Search : BasePage
         //send back
         return _DatevalueFromDB;
     }
-
-
+    
     public int GetDropdownListBoxData(string controlId)
     {
         DropDownList _tempDDList = new DropDownList();
         _tempDDList = (DropDownList)FranchiseeFW.FindControl(controlId);
         //get the value
         return Convert.ToInt32(_tempDDList.SelectedValue.ToString());
+    }
+
+    public string GetDDLDataForYesNoOptions(string controlId)
+    {
+        DropDownList _tempDDList = new DropDownList();
+        _tempDDList = (DropDownList)FranchiseeFW.FindControl(controlId);
+        //get the value
+        if (_tempDDList.SelectedItem.Text == "--Select Option--")
+        {
+            return "";
+        }
+        else
+        {
+            return _tempDDList.SelectedValue.ToString();
+        }
     }
 
     protected void FranchiseeFW_ItemInserting(object sender, FormViewInsertEventArgs e)
@@ -224,7 +375,7 @@ public partial class CRM_HomeOffice_Search : BasePage
         int HomeStateID = default(System.Int32);
         int HomeCountryID = default(System.Int32);
         int IsSameHomeAddress = default(System.Int32);
-
+        //Sandler Role
         SandlerRoleID = GetDropdownListBoxData("ddlSandlerRole");
         if (SandlerRoleID != 0)
         {
@@ -235,7 +386,7 @@ public partial class CRM_HomeOffice_Search : BasePage
         {
             searchObj.SandlerRoleId = "";
         }
-        
+        //Master Franchisee
         MasterFranchiseeID = GetDropdownListBoxData("ddlMasterFranchisee");
         if (MasterFranchiseeID != 0)
         {
@@ -246,29 +397,7 @@ public partial class CRM_HomeOffice_Search : BasePage
         {
             searchObj.MasterFranchiseeId = "";
         }
-        
-        IsBuyFromCustomer = GetDropdownListBoxData("ddlBuyFromCustomer");
-        if (IsBuyFromCustomer != 0)
-        {
-            IsCriteriaExist = true;
-            searchObj.IsBuyFromCustomer = IsBuyFromCustomer.ToString();
-        }
-        else
-        {
-            searchObj.IsBuyFromCustomer = "";
-        }
-        
-        IsFixedPricePurchase = GetDropdownListBoxData("ddlFixedPricePurchase");
-        if (IsFixedPricePurchase != 0)
-        {
-            IsCriteriaExist = true;
-            searchObj.IsFixedPricePurchase = IsFixedPricePurchase.ToString();
-        }
-        else
-        {
-            searchObj.IsFixedPricePurchase = "";
-        }
-
+        //Cost Plus Amount
         CostPlusAmountID = GetDropdownListBoxData("ddlCostPlusAmt");
         if (CostPlusAmountID != 0)
         {
@@ -279,7 +408,7 @@ public partial class CRM_HomeOffice_Search : BasePage
         {
             searchObj.CostPlusAmountId = "";
         }
-
+        //Is Behind in Ter Dev
         IsBehindInTerDev = GetDropdownListBoxData("ddlBehindTerDev");
         if (IsBehindInTerDev != 0)
         {
@@ -290,7 +419,7 @@ public partial class CRM_HomeOffice_Search : BasePage
         {
             searchObj.IsBehindInTerDev = "";
         }
-
+        //Behind Amt
         BehindAmountID = GetDropdownListBoxData("ddlBehindAmt");
         if (BehindAmountID != 0)
         {
@@ -301,7 +430,7 @@ public partial class CRM_HomeOffice_Search : BasePage
         {
             searchObj.BehindAmtId = "";
         }
-        
+        //For Coach
         CoachID = GetDropdownListBoxData("ddlCoach");
         if (CoachID != 0)
         {
@@ -312,7 +441,7 @@ public partial class CRM_HomeOffice_Search : BasePage
         {
             searchObj.CoachId = "";
         }
-
+        //For Award Level
         AwardLevelID = GetDropdownListBoxData("ddlAwardLevel");
         if (AwardLevelID != 0)
         {
@@ -323,7 +452,7 @@ public partial class CRM_HomeOffice_Search : BasePage
         {
             searchObj.AwardLevelId = "";
         }
-
+        //For Purchase Level
         PurchaseLevelID = GetDropdownListBoxData("ddlPurchaseLevel");
         if (PurchaseLevelID != 0)
         {
@@ -334,7 +463,7 @@ public partial class CRM_HomeOffice_Search : BasePage
         {
             searchObj.PurchaseLevelId = "";
         }
-        
+        //For Primary Business
         PrimaryBusinessID = GetDropdownListBoxData("ddlPrimaryBusiness");
         if (PrimaryBusinessID != 0)
         {
@@ -345,7 +474,7 @@ public partial class CRM_HomeOffice_Search : BasePage
         {
             searchObj.PrimaryBusinessId = "";
         }
-        
+        //For Certified Level
         CertifiedLevelID = GetDropdownListBoxData("ddlCertifiedLevel");
         if (CertifiedLevelID != 0)
         {
@@ -356,7 +485,7 @@ public partial class CRM_HomeOffice_Search : BasePage
         {
             searchObj.CertifiedLevelId = "";
         }
-        
+        //For Work State
         WorkStateID = GetDropdownListBoxData("ddlWorkState");
         if (WorkStateID != 0)
         {
@@ -367,7 +496,7 @@ public partial class CRM_HomeOffice_Search : BasePage
         {
             searchObj.WorkState = "";
         }
-        
+        //For Work Country
         WorkCountryID = GetDropdownListBoxData("ddlWorkCountry");
         if (WorkCountryID != 0)
         {
@@ -378,7 +507,7 @@ public partial class CRM_HomeOffice_Search : BasePage
         {
             searchObj.WorkCountry = "";
         }
-        
+        //For Home State
         HomeStateID = GetDropdownListBoxData("ddlHomeState");
         if (HomeStateID != 0)
         {
@@ -389,7 +518,7 @@ public partial class CRM_HomeOffice_Search : BasePage
         {
             searchObj.HomeState = "";
         }
-        
+        //For Home Country
         HomeCountryID = GetDropdownListBoxData("ddlHomeCountry");
         if (HomeCountryID != 0)
         {
@@ -400,43 +529,146 @@ public partial class CRM_HomeOffice_Search : BasePage
         {
             searchObj.HomeCountry = "";
         }
-
-        IsPartOfMasterFranchisee = GetDropdownListBoxData("ddlPartOfMF");
-        searchObj.IsMasterFranchiseeExists = IsPartOfMasterFranchisee.ToString();
-        
-        IsCanPrintLocally = GetDropdownListBoxData("ddlCanPrintLocally");
-        searchObj.IsCanPrintLocally = IsCanPrintLocally.ToString();
-
-        IsContractorsPermitted = GetDropdownListBoxData("ddlContrPerm");
-        searchObj.IsContractorPermitted = IsContractorsPermitted.ToString();
-
-        IsKOLMember = GetDropdownListBoxData("ddlKOLMember");
-        searchObj.IsKOLMember = IsKOLMember.ToString();
-
-        IsAdvBoard = GetDropdownListBoxData("ddlAdvBoard");
-        searchObj.IsAdvBoard = IsAdvBoard.ToString(); 
-        
-        IsMktgCommittee = GetDropdownListBoxData("ddlMktgComt");
-        searchObj.IsMktgCommittee = IsMktgCommittee.ToString(); 
-        
-        IsUsingSandlerCRM = GetDropdownListBoxData("ddlSandlerCRM");
-        searchObj.IsUsingSandlerCRM = IsUsingSandlerCRM.ToString(); 
-        
-        IsDHSAwardWinner = GetDropdownListBoxData("ddlDHSAward");
-        searchObj.IsDHSAwardWinner = IsDHSAwardWinner.ToString(); 
-        
-        IsSandlerMailRequired = GetDropdownListBoxData("ddlSandlerMail");
-        searchObj.IsSandlerMailRequired = IsSandlerMailRequired.ToString(); 
-        
-        IsReqToSubmitFinancials = GetDropdownListBoxData("ddlReqFinancials");
-        searchObj.IsReqToSubmitFinancial = IsReqToSubmitFinancials.ToString(); 
-        
-        IsRepAgreementForGlobalAcct = GetDropdownListBoxData("ddlRepAgreement");
-        searchObj.IsRepAgreement = IsRepAgreementForGlobalAcct.ToString();
-
-        IsSameHomeAddress = GetDropdownListBoxData("ddlSameHomeAdrs");
-        searchObj.IsSameHomeAddress = IsSameHomeAddress.ToString();
-        
+        //Is part of Master Franchisee
+        if (GetDDLDataForYesNoOptions("ddlPartOfMF") != "")
+        {
+            IsCriteriaExist = true;
+            searchObj.IsMasterFranchiseeExists = GetDDLDataForYesNoOptions("ddlPartOfMF");
+        }
+        else
+        {
+            searchObj.IsMasterFranchiseeExists = "";
+        }
+        //Can Print Locally?
+        if (GetDDLDataForYesNoOptions("ddlCanPrintLocally") != "")
+        {
+            IsCriteriaExist = true;
+            searchObj.IsCanPrintLocally = GetDDLDataForYesNoOptions("ddlCanPrintLocally");
+        }
+        else
+        {
+            searchObj.IsCanPrintLocally = "";
+        }
+        //Is Contractor Permitted?
+        if (GetDDLDataForYesNoOptions("ddlContrPerm") != "")
+        {
+            IsCriteriaExist = true;
+            searchObj.IsContractorPermitted = GetDDLDataForYesNoOptions("ddlContrPerm");
+        }
+        else
+        {
+            searchObj.IsContractorPermitted = "";
+        }
+        //Is KOL Member?
+        if (GetDDLDataForYesNoOptions("ddlKOLMember") != "")
+        {
+            IsCriteriaExist = true;
+            searchObj.IsKOLMember = GetDDLDataForYesNoOptions("ddlKOLMember");
+        }
+        else
+        {
+            searchObj.IsKOLMember = "";
+        }
+        //Is Adv Board?
+        if (GetDDLDataForYesNoOptions("ddlAdvBoard") != "")
+        {
+            IsCriteriaExist = true;
+            searchObj.IsAdvBoard = GetDDLDataForYesNoOptions("ddlAdvBoard");
+        }
+        else
+        {
+            searchObj.IsAdvBoard = "";
+        }
+        //Is Mktg Committee?
+        if (GetDDLDataForYesNoOptions("ddlMktgComt") != "")
+        {
+            IsCriteriaExist = true;
+            searchObj.IsMktgCommittee = GetDDLDataForYesNoOptions("ddlMktgComt");
+        }
+        else
+        {
+            searchObj.IsMktgCommittee = "";
+        }
+        //Is using Sandler CRM?
+        if (GetDDLDataForYesNoOptions("ddlSandlerCRM") != "")
+        {
+            IsCriteriaExist = true;
+            searchObj.IsUsingSandlerCRM = GetDDLDataForYesNoOptions("ddlSandlerCRM");
+        }
+        else
+        {
+            searchObj.IsUsingSandlerCRM = "";
+        }
+        //Is DHS Award Winner
+        if (GetDDLDataForYesNoOptions("ddlDHSAward") != "")
+        {
+            IsCriteriaExist = true;
+            searchObj.IsDHSAwardWinner = GetDDLDataForYesNoOptions("ddlDHSAward");
+        }
+        else
+        {
+            searchObj.IsDHSAwardWinner = "";
+        }
+        //Is Sandler Mail Required?
+        if (GetDDLDataForYesNoOptions("ddlSandlerMail") != "")
+        {
+            IsCriteriaExist = true;
+            searchObj.IsSandlerMailRequired = GetDDLDataForYesNoOptions("ddlSandlerMail");
+        }
+        else
+        {
+            searchObj.IsSandlerMailRequired = "";
+        }
+        //Is Req to Submit Financials
+        if (GetDDLDataForYesNoOptions("ddlReqFinancials") != "")
+        {
+            IsCriteriaExist = true;
+            searchObj.IsReqToSubmitFinancial = GetDDLDataForYesNoOptions("ddlReqFinancials");
+        }
+        else
+        {
+            searchObj.IsReqToSubmitFinancial = "";
+        }
+        //Is Rep Agreement for Global Account
+        if (GetDDLDataForYesNoOptions("ddlRepAgreement") != "")
+        {
+            IsCriteriaExist = true;
+            searchObj.IsRepAgreement = GetDDLDataForYesNoOptions("ddlRepAgreement");
+        }
+        else
+        {
+            searchObj.IsRepAgreement = "";
+        }
+        //Is Rep Agreement for Global Account
+        if (GetDDLDataForYesNoOptions("ddlSameHomeAdrs") != "")
+        {
+            IsCriteriaExist = true;
+            searchObj.IsSameHomeAddress = GetDDLDataForYesNoOptions("ddlSameHomeAdrs");
+        }
+        else
+        {
+            searchObj.IsSameHomeAddress = "";
+        }
+        //Buy From Customer
+        if (GetDDLDataForYesNoOptions("ddlBuyFromCustomer") != "")
+        {
+            IsCriteriaExist = true;
+            searchObj.IsBuyFromCustomer = GetDDLDataForYesNoOptions("ddlBuyFromCustomer");
+        }
+        else
+        {
+            searchObj.IsBuyFromCustomer = "";
+        }
+        //Fixed Price Purchase
+        if (GetDDLDataForYesNoOptions("ddlFixedPricePurchase") != "")
+        {
+            IsCriteriaExist = true;
+            searchObj.IsFixedPricePurchase = GetDDLDataForYesNoOptions("ddlFixedPricePurchase");
+        }
+        else
+        {
+            searchObj.IsFixedPricePurchase = "";
+        }
         //For Initial Contract Date
         {
             TextBox InitialContractDateCal = new TextBox();

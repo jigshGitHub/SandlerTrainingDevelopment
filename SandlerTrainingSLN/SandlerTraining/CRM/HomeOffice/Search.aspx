@@ -31,15 +31,6 @@
                                          <tr>
                                             <td colspan="2" style="font-size:large"><b>Franchisee Information:</b></td>
                                          </tr>
-                                            
-                                         <tr style="color: Black; background-color: #DCDCDC; white-space: nowrap;">
-                                            <td>Franchisee Name:</td>
-                                            <td>
-                                                <asp:TextBox ID="FranchiseeNameTB" MaxLength="250"  Width="250"  runat="server"></asp:TextBox>
-                                                
-                                            </td>
-
-                                         </tr>
                                          <tr style="color: Black; background-color: #EEEEEE; white-space: nowrap;">
                                             <td>Last Name:</td>
                                             <td>
@@ -116,6 +107,13 @@
                                             <td>Coach-Region:</td>
                                             <td>
                                                 <asp:DropDownList  ID="ddlCoach" runat="server" DataSourceID="CoachOptionsInfoDS" DataTextField="Name" DataValueField="Id"></asp:DropDownList>
+                                                
+                                            </td>
+                                         </tr>
+                                         <tr style="color: Black; background-color: #DCDCDC; white-space: nowrap;">
+                                            <td>Franchise Name:</td>
+                                            <td>
+                                                <asp:TextBox ID="FranchiseeNameTB" MaxLength="250"  Width="250"  runat="server"></asp:TextBox>
                                                 
                                             </td>
                                          </tr>

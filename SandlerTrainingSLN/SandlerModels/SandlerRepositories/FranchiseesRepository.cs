@@ -199,7 +199,7 @@ namespace SandlerRepositories
         int IsAdvBoard, int IsMktgCommittee, int IsUsingSandlerCRM, 
         int IsDHSAwardWinner, int IsSandlerMailRequired, int IsReqToSubmitFinancials, 
         int IsRepAgreementForGlobalAcct, int WorkStateID,int WorkCountryID,
-        int HomeStateID,int HomeCountryID,int IsSameHomeAddress,int FrId)
+        int HomeStateID, int HomeCountryID, int IsSameHomeAddress, int FrId, string FranchiseName)
         {
 
             InitialContractDate = IsValidDateCheck(InitialContractDate);
@@ -226,6 +226,7 @@ namespace SandlerRepositories
             HomeAddress = IsValidStringEntered(HomeAddress);
             HomeCity = IsValidStringEntered(HomeCity);
             HomeZip = IsValidStringEntered(HomeZip);
+            FranchiseName = IsValidStringEntered(FranchiseName);
             
             //Update Franchisee Details
             db.ExecuteNonQuery("sp_UpdateFranchiseeDetails",
@@ -281,7 +282,8 @@ namespace SandlerRepositories
                 new SqlParameter("@HomeStateID", HomeStateID),
                 new SqlParameter("@HomeCountryID", HomeCountryID),
                 new SqlParameter("@IsSameHomeAddress", IsSameHomeAddress),
-                new SqlParameter("@FrId", FrId));
+                new SqlParameter("@FrId", FrId),
+                new SqlParameter("@FranchiseName",FranchiseName));
 
             UserEntitiesFactory.ReLoad();
 

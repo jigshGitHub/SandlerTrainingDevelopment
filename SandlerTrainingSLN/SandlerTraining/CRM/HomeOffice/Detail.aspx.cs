@@ -13,7 +13,7 @@ public partial class CRM_HomeOffice_Detail : BasePage
     {
         if (!Page.IsPostBack)
         {
-            lblModuleActionHeading.Text = (IsUserReadOnly(SandlerUserActions.Edit, SandlerEntities.HomeOffice)) ? "View HomeOffice Info:" : "View/Edit HomeOfficeInfo:";
+            lblModuleActionHeading.Text = (IsUserReadOnly(SandlerUserActions.Edit, SandlerEntities.HomeOffice)) ? "View Home Office Information:" : "View/Edit Home Office Information:";
             if ((PreviousPage != null))
             {
                 //Find out CompanyID selected by the User
@@ -126,6 +126,7 @@ public partial class CRM_HomeOffice_Detail : BasePage
         string HomeAddress = default(System.String);
         string HomeCity = default(System.String);
         string HomeZip = default(System.String);
+        string FranchiseName = default(System.String);
         //Date Fields        
         System.DateTime InitialContractDate = default(System.DateTime);
         System.DateTime RenewalDate = default(System.DateTime);
@@ -228,7 +229,8 @@ public partial class CRM_HomeOffice_Detail : BasePage
         HomeCity = GetTextBoxData("txtHomeCity");
         //For HomeZip 
         HomeZip = GetTextBoxData("txtHomeZip");
-
+        //For Franchise Name
+        FranchiseName = GetTextBoxData("txtFranchiseName");
         //For Initial Contract Date
         {
             TextBox IntCntDateCal = new TextBox();
@@ -334,7 +336,7 @@ public partial class CRM_HomeOffice_Detail : BasePage
          IsAdvBoard, IsMktgCommittee, IsUsingSandlerCRM,
          IsDHSAwardWinner, IsSandlerMailRequired, IsReqToSubmitFinancials,
          IsRepAgreementForGlobalAcct, WorkStateID, WorkCountryID,
-         HomeStateID, HomeCountryID, IsSameHomeAddress, Convert.ToInt32(hidFranchiseeID.Value));
+         HomeStateID, HomeCountryID, IsSameHomeAddress, Convert.ToInt32(hidFranchiseeID.Value), FranchiseName);
 
         //Inform the Message
         LblStatus.Text = "Franchisee informaton updated successfully!";

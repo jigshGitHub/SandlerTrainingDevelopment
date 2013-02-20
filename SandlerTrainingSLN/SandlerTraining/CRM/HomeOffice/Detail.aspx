@@ -33,7 +33,7 @@
                                             <td>Last Name:</td>
                                             <td>
                                                 <asp:TextBox ID="LastNameTB" MaxLength="50"  Width="150" Text='<%# Bind("LastName") %>' runat="server"></asp:TextBox>
-                                                <asp:RequiredFieldValidator ID="reqFieldValLastNameTB" ControlToValidate="LastNameTB" Display="Static" InitialValue="" runat="server" ErrorMessage="Please Enter LastName to proceed.">*</asp:RequiredFieldValidator>
+                                                <asp:RequiredFieldValidator ID="reqFieldValLastNameTB" ControlToValidate="LastNameTB" Display="Static" InitialValue="" runat="server" ErrorMessage="Please Enter Last Name to proceed.">*</asp:RequiredFieldValidator>
                                             </td>
 
                                          </tr>
@@ -41,7 +41,7 @@
                                             <td>First Name:</td>
                                             <td>
                                                 <asp:TextBox ID="FirstNameTB" MaxLength="50" Width="150" Text='<%# Bind("FirstName") %>' runat="server"></asp:TextBox>
-                                                <asp:RequiredFieldValidator ID="rfvFirstNameTB" ControlToValidate="FirstNameTB" Display="Static" InitialValue="" runat="server" ErrorMessage="Please Enter FirstName to proceed.">*</asp:RequiredFieldValidator>
+                                                <asp:RequiredFieldValidator ID="rfvFirstNameTB" ControlToValidate="FirstNameTB" Display="Static" InitialValue="" runat="server" ErrorMessage="Please Enter First Name to proceed.">*</asp:RequiredFieldValidator>
                                             </td>
                                          </tr>
                                          <tr style="color: Black; background-color: #EEEEEE; white-space: nowrap;">
@@ -108,6 +108,11 @@
                                             <td>
                                                 <asp:DropDownList ID="ddlCoach" runat="server" DataSourceID="CoachOptionsInfoDS" DataTextField="Name" DataValueField="Id" SelectedValue='<%# Bind("CoachId") %>'></asp:DropDownList>
                                             </td>
+                                         </tr>
+                                         <tr style="color: Black; background-color: #DCDCDC; white-space: nowrap;">
+                                            <td>Franchise Name:</td>
+                                            <td><asp:TextBox ID="txtFranchiseName" MaxLength="50" Width="250" Text='<%# Bind("Name") %>' runat="server"></asp:TextBox></td>
+                                            <asp:RequiredFieldValidator ID="rfvFrName" ControlToValidate="txtFranchiseName" Display="Static" InitialValue="" runat="server" ErrorMessage="Please Enter Franchise Name to proceed.">*</asp:RequiredFieldValidator>
                                          </tr>
                                          <tr style="color: Black; background-color: #DCDCDC; white-space: nowrap;">
                                             <td>Office Phone:</td>
@@ -422,6 +427,9 @@
                                          </tr>
                                          <tr style="color: Black; background-color: #EEEEEE; white-space: nowrap;">
                                             <td>Region:</td><td><%# Eval("RegionName")%></td>
+                                         </tr>
+                                          <tr style="color: Black; background-color: #EEEEEE; white-space: nowrap;">
+                                            <td>Franchise Name:</td><td><%# Eval("Name")%></td>
                                          </tr>
                                          <tr style="color: Black; background-color: #DCDCDC; white-space: nowrap;">
                                             <td>Office Phone:</td><td><%# Eval("OfficePhone")%></td>
