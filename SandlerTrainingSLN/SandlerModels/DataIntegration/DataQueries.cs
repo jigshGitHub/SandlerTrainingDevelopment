@@ -12,31 +12,24 @@ namespace SandlerModels.DataIntegration
     {
         public IEnumerable<AppointmentSourceVM> GetNewAppointmentSource(UserModel currentUser, int month, int year)
         {
-            UserEntities userEntities = null;
-            IEnumerable<TBL_CONTACTS> contacts = null;
             IEnumerable<AppointmentSourceVM> data = null;
             ContactsRepository contactSource;
             SqlDataReader newAppointments;
             List<AppointmentSourceVM> newAppsSource;
             try
             {
-                userEntities = UserEntitiesFactory.Get(currentUser);
-
-                if (userEntities.ContactsCount > 0)
+                contactSource = new ContactsRepository();
+                newAppointments = contactSource.GetNewAppointments(month, year, currentUser.UserId.ToString());
+                newAppsSource = new List<AppointmentSourceVM>();
+                if (newAppointments != null)
                 {
-                    contactSource = new ContactsRepository();
-                    newAppointments = contactSource.GetNewAppointments(month, year, currentUser.UserId.ToString());
-                    newAppsSource = new List<AppointmentSourceVM>();
-                    if (newAppointments != null)
+                    while (newAppointments.Read())
                     {
-                        while (newAppointments.Read())
-                        {
-                            newAppsSource.Add(new AppointmentSourceVM { Count = newAppointments.GetInt32(0), SourceName = newAppointments.GetString(1) });
-                        }
-                        newAppointments.Close();
+                        newAppsSource.Add(new AppointmentSourceVM { Count = newAppointments.GetInt32(0), SourceName = newAppointments.GetString(1) });
                     }
-                    data = newAppsSource.AsEnumerable<AppointmentSourceVM>();
+                    newAppointments.Close();
                 }
+                data = newAppsSource.AsEnumerable<AppointmentSourceVM>();
             }
             catch (Exception ex)
             {
@@ -48,15 +41,12 @@ namespace SandlerModels.DataIntegration
 
         public IEnumerable<ProductTypeVM> GetNewClientsByProductType(UserModel currentUser, int month, int year)
         {
-            UserEntities userEntities = null;
             IEnumerable<ProductTypeVM> data = null;
             CompaniesRepository companyRepository = null;
             SqlDataReader newClients;
             List<ProductTypeVM> newAppsProducts;
             try
-            {
-                userEntities = UserEntitiesFactory.Get(currentUser);
-
+            {               
                 companyRepository = new CompaniesRepository();
                 newClients = companyRepository.GetNewClientsProducts(month,year, currentUser.UserId.ToString());
                 newAppsProducts = new List<ProductTypeVM>();
@@ -80,15 +70,12 @@ namespace SandlerModels.DataIntegration
 
         public IEnumerable<ClosedSalesVM> GetClosedSalesAnalysis(UserModel currentUser, int month, string analysisType, string searchNewCompanyOnly, string searchCompanyIds)
         {
-            UserEntities userEntities = null;
             IEnumerable<ClosedSalesVM> data = null;
             CompaniesRepository companyRepository = null;
             SqlDataReader records;
             List<ClosedSalesVM> closedSales = null;
             try
             {
-                userEntities = UserEntitiesFactory.Get(currentUser);
-
                 companyRepository = new CompaniesRepository();
                 records = companyRepository.GetClosedSalesAnalysis(month, DateTime.Now.Year, currentUser.UserId.ToString(), analysisType, searchNewCompanyOnly, searchCompanyIds);
                 closedSales = new List<ClosedSalesVM>();
@@ -118,15 +105,12 @@ namespace SandlerModels.DataIntegration
 
         public IEnumerable<PipelineOppAnalysisVM> GetPipelineOpportunityAnalysis(UserModel currentUser, int month, string analysisType, string searchNewCompanyOnly, string searchCompanyIds)
         {
-            UserEntities userEntities = null;
             IEnumerable<PipelineOppAnalysisVM> data = null;
             CompaniesRepository companyRepository = null;
             SqlDataReader records;
             List<PipelineOppAnalysisVM> closedSales = null;
             try
             {
-                userEntities = UserEntitiesFactory.Get(currentUser);
-
                 companyRepository = new CompaniesRepository();
                 records = companyRepository.GetPipelineOpportunityAnalysis(month, DateTime.Now.Year, currentUser.UserId.ToString(), analysisType, searchNewCompanyOnly, searchCompanyIds);
                 closedSales = new List<PipelineOppAnalysisVM>();
@@ -157,13 +141,11 @@ namespace SandlerModels.DataIntegration
 
         public int GetNewClientCount(UserModel currentUser, int month, int year)
         {
-            UserEntities userEntities = null;
             int newClientsCount = 0;
             CompaniesRepository companyRepository = null;
             SqlDataReader newClients;
             try
             {
-                userEntities = UserEntitiesFactory.Get(currentUser);
                 companyRepository = new CompaniesRepository();
                 newClients = companyRepository.GetNewClientsProducts(month, year, currentUser.UserId.ToString());
                 if (newClients != null)
@@ -187,16 +169,14 @@ namespace SandlerModels.DataIntegration
 
         public long GetAveContractPrice(UserModel currentUser, int month, int year)
         {
-            UserEntities userEntities = null;
-            //IEnumerable<TBL_OPPORTUNITIES> opportunties = null;
+            OpportunitiesRepository opportunitiesSource = new OpportunitiesRepository();
             List<Opportunity> opportunties = null;
             long aveContractPrice = 0;
             try
             {
-                userEntities = UserEntitiesFactory.Get(currentUser);
-                opportunties = userEntities.Opportunities;
+                opportunties = opportunitiesSource.GetOpportunitiesByUser(currentUser.UserId).ToList<Opportunity>();
 
-                if (userEntities.OpportunitiesCount > 0)
+                if (opportunties.Count > 0)
                 {
                     aveContractPrice = long.Parse((from opportunity in opportunties.Where(record => record.ProductID != 1 && record.IsNewCompany == true && record.CreationDate.Value.Year == year && record.CreationDate.Value.Month == month)
                                                    select opportunity.WEIGHTEDVALUE).Sum().Value.ToString());
@@ -212,16 +192,12 @@ namespace SandlerModels.DataIntegration
 
         public IEnumerable<ProductTypeVM> NewClientsWithProductTypes(UserModel currentUser, int month)
         {
-            UserEntities userEntities = null;
-            //IEnumerable<TBL_OPPORTUNITIES> opportunties = null;
             IEnumerable<ProductTypeVM> data = null;
             CompaniesRepository companyRepository = null;
             SqlDataReader newClients;
             List<ProductTypeVM> newAppsProducts;
             try
             {
-                userEntities = UserEntitiesFactory.Get(currentUser);
-
                 companyRepository = new CompaniesRepository();
                 newClients = companyRepository.GetNewClientsProducts(month, DateTime.Now.Year, currentUser.UserId.ToString());
                 newAppsProducts = new List<ProductTypeVM>();
@@ -248,16 +224,15 @@ namespace SandlerModels.DataIntegration
 
         public IEnumerable<ProductTypeVM> ContractPriceWithProductTypes(UserModel currentUser, int month)
         {
-            UserEntities userEntities = null;
-            IEnumerable<Opportunity> opportunties = null;
             IEnumerable<ProductTypeVM> data = null;
-
+            OpportunitiesRepository opportunitiesSource = new OpportunitiesRepository();
+            List<Opportunity> opportunties = null;
+           
             try
             {
-                userEntities = UserEntitiesFactory.Get(currentUser);
-                opportunties = userEntities.Opportunities;
+                opportunties = opportunitiesSource.GetOpportunitiesByUser(currentUser.UserId).ToList<Opportunity>();
 
-                if (userEntities.OpportunitiesCount > 0)
+                if (opportunties.Count > 0)
                 {
                     data = from opportunity in opportunties
                            from company in new CompaniesRepository().GetAll().Where(c => c.IsActive == true &&
@@ -280,19 +255,18 @@ namespace SandlerModels.DataIntegration
 
         public int GetClassHeadCountsCourse(UserModel currentUser, int month)
         {
-            UserEntities userEntities = null;
-            //IEnumerable<TBL_CONTACTS> contacts = null;
-            IEnumerable<SandlerModels.Contact> contacts = null;
             int classHeadCountsCourse = 0;
+            ContactsRepository contactsSource = new ContactsRepository();
+            List<SandlerModels.Contact> contactsList = null;
+            
             try
             {
-                userEntities = UserEntitiesFactory.Get(currentUser);
-                contacts = userEntities.Contacts;
+                contactsList = contactsSource.GetContactsByUser(currentUser.UserId).ToList<SandlerModels.Contact>();
 
-                if (userEntities.ContactsCount > 0)
+                if (contactsList.Count > 0)
                 {
 
-                    classHeadCountsCourse = (from contact in contacts.Where(record => record.IsRegisteredForTraining == true &&
+                    classHeadCountsCourse = (from contact in contactsList.Where(record => record.IsRegisteredForTraining == true &&
                                             record.CourseId != null &&
                                             record.CourseTrainingDate.Value.Year == DateTime.Now.Year &&
                                             record.CourseTrainingDate.Value.Month == month)
@@ -308,18 +282,16 @@ namespace SandlerModels.DataIntegration
 
         public int GetClassHeadCountsIndustry(UserModel currentUser, int month)
         {
-            UserEntities userEntities = null;
-            //IEnumerable<TBL_CONTACTS> contacts = null;
-            IEnumerable<SandlerModels.Contact> contacts = null;
+            ContactsRepository contactsSource = new ContactsRepository();
+            List<SandlerModels.Contact> contactsList = null;
             int classHeadCountsIndustry = 0;
             try
             {
-                userEntities = UserEntitiesFactory.Get(currentUser);
-                contacts = userEntities.Contacts;
+                contactsList = contactsSource.GetContactsByUser(currentUser.UserId).ToList<SandlerModels.Contact>();
 
-                if (userEntities.ContactsCount > 0)
+                if (contactsList.Count > 0)
                 {
-                    classHeadCountsIndustry = (from contact in contacts.Where(record => record.IsRegisteredForTraining == true &&
+                    classHeadCountsIndustry = (from contact in contactsList.Where(record => record.IsRegisteredForTraining == true &&
                                                record.IndustryId.HasValue &&
                                                record.CourseTrainingDate.Value.Year == DateTime.Now.Year &&
                                                record.CourseTrainingDate.Value.Month == month)
@@ -335,16 +307,15 @@ namespace SandlerModels.DataIntegration
 
         public long GetActualDollarsBooked(UserModel currentUser, int month)
         {
-            UserEntities userEntities = null;
-            //IEnumerable<TBL_OPPORTUNITIES> opportunties = null;
-            IEnumerable<Opportunity> opportunties = null;
             long actualDollarsBooked = 0;
+            OpportunitiesRepository opportunitiesSource = new OpportunitiesRepository();
+            List<Opportunity> opportunties = null;
+            
             try
             {
-                userEntities = UserEntitiesFactory.Get(currentUser);
-                opportunties = userEntities.Opportunities;
+                opportunties = opportunitiesSource.GetOpportunitiesByUser(currentUser.UserId).ToList<Opportunity>();
 
-                if (userEntities.OpportunitiesCount > 0)
+                if (opportunties.Count > 0)
                 {
                     actualDollarsBooked = long.Parse((from record in opportunties
                                                       where (record.CLOSEDATE.Value.Year == DateTime.Now.Year &&
@@ -362,16 +333,14 @@ namespace SandlerModels.DataIntegration
 
         public long GetGoalOfDollarsBooked(UserModel currentUser, int month)
         {
-            UserEntities userEntities = null;
-            //IEnumerable<TBL_OPPORTUNITIES> opportunties = null;
-            IEnumerable<Opportunity> opportunties = null;
             long goalOfDollarsBooked = 0;
+            OpportunitiesRepository opportunitiesSource = new OpportunitiesRepository();
+            List<Opportunity> opportunties = null;
+
             try
             {
-                userEntities = UserEntitiesFactory.Get(currentUser);
-                opportunties = userEntities.Opportunities;
-
-                if (userEntities.OpportunitiesCount > 0)
+                opportunties = opportunitiesSource.GetOpportunitiesByUser(currentUser.UserId).ToList<Opportunity>();
+                if (opportunties .Count> 0)
                 {
                     goalOfDollarsBooked = long.Parse((from record in opportunties
                                                       where (record.CLOSEDATE.Value.Year == DateTime.Now.Year && record.CLOSEDATE.Value.Month == month)
@@ -387,19 +356,17 @@ namespace SandlerModels.DataIntegration
 
         public IEnumerable<CourseVM> GetHeadcountByCourse(UserModel currentUser, int month)
         {
-            UserEntities userEntities = null;
-            //IEnumerable<TBL_CONTACTS> contacts = null;
-            IEnumerable<SandlerModels.Contact> contacts = null;
             IEnumerable<CourseVM> data = null;
+            ContactsRepository contactsSource = new ContactsRepository();
+            List<SandlerModels.Contact> contactsList = null;
+                
             try
             {
-                userEntities = UserEntitiesFactory.Get(currentUser);
-                contacts = userEntities.Contacts;
-
-                if (userEntities.ContactsCount > 0)
+                contactsList = contactsSource.GetContactsByUser(currentUser.UserId).ToList<SandlerModels.Contact>();
+                if (contactsList.Count > 0)
                 {
 
-                    data = from record in contacts.Where(record => record.IsRegisteredForTraining == true &&
+                    data = from record in contactsList.Where(record => record.IsRegisteredForTraining == true &&
                            record.CourseTrainingDate.Value.Year == DateTime.Now.Year &&
                            record.CourseTrainingDate.Value.Month == month)
                            from course in new CourseRepository().GetAll().Where(c => c.IsActive == true && c.CourseId == record.CourseId)
@@ -417,17 +384,16 @@ namespace SandlerModels.DataIntegration
 
         public IEnumerable<IndustryVM> GetHeadcountByIndustry(UserModel currentUser, int month)
         {
-            UserEntities userEntities = null;
-            //IEnumerable<TBL_CONTACTS> contacts = null;
-            IEnumerable<SandlerModels.Contact> contacts = null;
             IEnumerable<IndustryVM> data = null;
+            ContactsRepository contactsSource = new ContactsRepository();
+            List<SandlerModels.Contact> contactsList = null;
+
             try
             {
-                userEntities = UserEntitiesFactory.Get(currentUser);
-                contacts = userEntities.Contacts;
-                if (userEntities.ContactsCount > 0)
+                contactsList = contactsSource.GetContactsByUser(currentUser.UserId).ToList<SandlerModels.Contact>();
+                if (contactsList.Count > 0)
                 {
-                    data = from contact in contacts.Where(record => record.IsRegisteredForTraining == true &&
+                    data = from contact in contactsList.Where(record => record.IsRegisteredForTraining == true &&
                         record.CourseTrainingDate.Value.Year == DateTime.Now.Year &&
                         record.CourseTrainingDate.Value.Month == month)
                            from industry in new IndustryTypeRepository().GetAll().Where(i => i.IsActive == true && i.IndId == contact.IndustryId)
@@ -445,8 +411,6 @@ namespace SandlerModels.DataIntegration
 
         public IEnumerable<IndustryVM> AverageLengthTimeActiveClientsByIndustry(UserModel currentUser)
         {
-            UserEntities userEntities = null;
-            IEnumerable<SandlerModels.Company> companies = null;
             IndustryTypeRepository industrySource = null;
             IEnumerable<IndustryVM> data = null;
             CompaniesRepository companySource = null;
@@ -454,8 +418,6 @@ namespace SandlerModels.DataIntegration
             SqlDataReader clientsIndustrySource;
             try
             {
-                userEntities = UserEntitiesFactory.Get(currentUser);
-                companies = userEntities.Companies;
 
                 industrySource = new IndustryTypeRepository();
 
@@ -482,16 +444,14 @@ namespace SandlerModels.DataIntegration
 
         public IEnumerable<CostOfSaleVM> GetCostOfSale(UserModel currentUser)
         {
-            UserEntities userEntities = null;
-            IEnumerable<Opportunity> opportunties = null;
             IEnumerable<CostOfSaleVM> data = null;
-
+             OpportunitiesRepository opportunitiesSource = new OpportunitiesRepository();
+            List<Opportunity> opportunties = null;
+                
             try
             {
-                userEntities = UserEntitiesFactory.Get(currentUser);
-                opportunties = userEntities.Opportunities;
-
-                if (userEntities.OpportunitiesCount > 0)
+                opportunties = opportunitiesSource.GetOpportunitiesByUser(currentUser.UserId).ToList<Opportunity>();
+                if (opportunties.Count > 0)
                 {
                     data = from opportunity in opportunties
                            group opportunity by new { opportunity.ProductTypeName }
@@ -509,15 +469,12 @@ namespace SandlerModels.DataIntegration
 
         public IEnumerable<SalesCycleTimePortfolioVM> GetSalesCycleTimePortfolio(UserModel currentUser)
         {
-            UserEntities userEntities = null;
             IEnumerable<SalesCycleTimePortfolioVM> data = null;
             OpportunityRepository oppRpository = null;
             SqlDataReader opportunities;
             List<SalesCycleTimePortfolioVM> sctPoftfolio;
             try
             {
-                userEntities = UserEntitiesFactory.Get(currentUser);
-
                 oppRpository = new OpportunityRepository();
                 opportunities = oppRpository.GetSalesCyclePortfolioData(currentUser.UserId.ToString());
                 sctPoftfolio = new List<SalesCycleTimePortfolioVM>();
@@ -540,22 +497,15 @@ namespace SandlerModels.DataIntegration
 
         public IEnumerable<SalesTotalByMonthVM> GetSalesTotalByYear(UserModel currentUser, int processingYear)
         {
-            UserEntities userEntities = null;
-            IEnumerable<Opportunity> opportunties = null;
             IEnumerable<SalesTotalByMonthVM> data = null;
-
+             OpportunitiesRepository opportunitiesSource = new OpportunitiesRepository();
+            List<Opportunity> opportunties = null;
+               
             try
             {
-                userEntities = UserEntitiesFactory.Get(currentUser);
-                opportunties = userEntities.Opportunities;
-
-                if (userEntities.OpportunitiesCount > 0)
+                 opportunties = opportunitiesSource.GetOpportunitiesByUser(currentUser.UserId).ToList<Opportunity>();
+                 if (opportunties.Count > 0)
                 {
-                    //data = from opportunity in opportunties
-                    //       group opportunity by new { opportunity.ProductTypeName }
-                    //           into grp
-                    //           select new CostOfSaleVM { ProductName = grp.Key.ProductTypeName, Cost = grp.Sum(record => (decimal?)record.ProductCost ?? 0), Revenue = grp.Sum(record => (decimal?)record.VALUE ?? 0) };
-
                     if (processingYear == DateTime.Now.Year)
                     {
                         data = from opportunity in opportunties
@@ -580,16 +530,14 @@ namespace SandlerModels.DataIntegration
         #region ProductReports Data
         public IEnumerable<ProductTypeVM> GetProductSalesByMonth(UserModel currentUser, int processingMonth)
         {
-            UserEntities userEntities = null;
-            IEnumerable<Opportunity> opportunties = null;
             IEnumerable<ProductTypeVM> data = null;
-
+             OpportunitiesRepository opportunitiesSource = new OpportunitiesRepository();
+            List<Opportunity> opportunties = null;
+            
             try
             {
-                userEntities = UserEntitiesFactory.Get(currentUser);
-                opportunties = userEntities.Opportunities;
-
-                if (userEntities.OpportunitiesCount > 0)
+                 opportunties = opportunitiesSource.GetOpportunitiesByUser(currentUser.UserId).ToList<Opportunity>();
+                 if (opportunties.Count > 0)
                 {
                     data = from opportunity in opportunties
                            where opportunity.CLOSEDATE.Value.Year == DateTime.Now.Year && opportunity.CLOSEDATE.Value.Month == processingMonth && opportunity.CLOSEDATE.Value < DateTime.Now
@@ -606,16 +554,15 @@ namespace SandlerModels.DataIntegration
         }
         public IEnumerable<ProductTypeVM> GetProductFirstSalesByMonth(UserModel currentUser, int processingMonth)
         {
-            UserEntities userEntities = null;
-            IEnumerable<Opportunity> opportunties = null;
             IEnumerable<ProductTypeVM> data = null;
 
+            OpportunitiesRepository opportunitiesSource = new OpportunitiesRepository();
+            List<Opportunity> opportunties = null;
             try
             {
-                userEntities = UserEntitiesFactory.Get(currentUser);
-                opportunties = userEntities.Opportunities;
+                opportunties = opportunitiesSource.GetOpportunitiesByUser(currentUser.UserId).ToList<Opportunity>();
 
-                if (userEntities.OpportunitiesCount > 0)
+                if (opportunties.Count > 0)
                 {
                     data = from opportunity in opportunties
                            where opportunity.IsNewCompany == true && opportunity.CLOSEDATE.Value.Year == DateTime.Now.Year && opportunity.CLOSEDATE.Value.Month == processingMonth && opportunity.CLOSEDATE.Value < DateTime.Now
@@ -632,16 +579,14 @@ namespace SandlerModels.DataIntegration
         }
         public IEnumerable<ProductTypeVM> GetProductSoldByCompanyByMonth(UserModel currentUser, int processingMonth, int companyId)
         {
-            UserEntities userEntities = null;
-            IEnumerable<Opportunity> opportunties = null;
             IEnumerable<ProductTypeVM> data = null;
-
+            OpportunitiesRepository opportunitiesSource = new OpportunitiesRepository();
+            List<Opportunity> opportunties = null;
             try
             {
-                userEntities = UserEntitiesFactory.Get(currentUser);
-                opportunties = userEntities.Opportunities;
+                opportunties = opportunitiesSource.GetOpportunitiesByUser(currentUser.UserId).ToList<Opportunity>();
 
-                if (userEntities.OpportunitiesCount > 0)
+                if (opportunties.Count > 0)
                 {
                     data = from opportunity in opportunties
                            where opportunity.COMPANYID == companyId && opportunity.CLOSEDATE.Value.Year == DateTime.Now.Year && opportunity.CLOSEDATE.Value.Month == processingMonth && opportunity.CLOSEDATE.Value < DateTime.Now
@@ -658,16 +603,14 @@ namespace SandlerModels.DataIntegration
         }
         public IEnumerable<ProductTypeVM> GetProductSoldBySalesRepByMonth(UserModel currentUser, int processingMonth, string salesRep)
         {
-            UserEntities userEntities = null;
-            IEnumerable<Opportunity> opportunties = null;
             IEnumerable<ProductTypeVM> data = null;
-
+            OpportunitiesRepository opportunitiesSource = new OpportunitiesRepository();
+            List<Opportunity> opportunties = null;
             try
             {
-                userEntities = UserEntitiesFactory.Get(currentUser);
-                opportunties = userEntities.Opportunities;
+                opportunties = opportunitiesSource.GetOpportunitiesByUser(currentUser.UserId).ToList<Opportunity>();
 
-                if (userEntities.OpportunitiesCount > 0)
+                if (opportunties.Count > 0)
                 {
                     data = from opportunity in opportunties
                            where (opportunity.SALESREPFIRSTNAME + " " + opportunity.SALESREPLASTNAME == salesRep) && opportunity.CLOSEDATE.Value.Year == DateTime.Now.Year && opportunity.CLOSEDATE.Value.Month == processingMonth && opportunity.CLOSEDATE.Value < DateTime.Now

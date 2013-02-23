@@ -24,21 +24,21 @@ namespace SandlerModels.DataIntegration
         private static UserEntities userEntities;
 
         private static object syncLock = new object();
-        public static UserEntities Get(UserModel user)
-        {
-            if (userEntities == null)
-            {
-                lock (syncLock)
-                {
-                    if (userEntities == null)
-                    {
-                        userEntities = new UserEntities(user);
-                    }
-                }
-            }
+        //public static UserEntities Get(UserModel user)
+        //{
+        //    if (userEntities == null)
+        //    {
+        //        lock (syncLock)
+        //        {
+        //            if (userEntities == null)
+        //            {
+        //                userEntities = new UserEntities(user);
+        //            }
+        //        }
+        //    }
 
-            return userEntities;
-        }
+        //    return userEntities;
+        //}
 
         public static void ReLoad()
         {

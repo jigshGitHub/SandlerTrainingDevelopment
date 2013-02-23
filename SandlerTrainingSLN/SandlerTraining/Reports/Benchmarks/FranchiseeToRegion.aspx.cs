@@ -23,7 +23,6 @@ public partial class Reports_Benchmarks_FranchiseeToRegion : BasePage
                 //           from coach in new CoachRepository().GetAll().Where(r => r.ID == franchisee.CoachID)
                 //           from region in new RegionRepository().GetAll().Where(r=> r.ID == coach.RegionID && r.ID == CurrentUser.RegionID)
                 //            select new { Name = franchisee.Name, Id = franchisee.ID }).Distinct();
-                UserEntities userEntities = UserEntitiesFactory.Get(this.CurrentUser);
                 var data = (from franchisee in userEntities.Franchisees
                             select new { Name = franchisee.Name, Id = franchisee.ID }).Distinct();
                 franchiseeList.DataSource = data;

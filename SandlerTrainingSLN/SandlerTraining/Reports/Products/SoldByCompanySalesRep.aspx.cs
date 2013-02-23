@@ -17,7 +17,7 @@ public partial class Reports_Products_SoldByCompanySalesRep : BasePage
             
             if (string.IsNullOrEmpty(Request.QueryString[page.QUERYSTRINGPARAMDRILLBY]))
             {
-                var data = (from opportunity in UserEntitiesFactory.Get(CurrentUser).Opportunities
+                var data = (from opportunity in userEntities.Opportunities
                            select new { Name = opportunity.SALESREPFIRSTNAME + " " + opportunity.SALESREPLASTNAME}).Distinct();
 
                 salesRepList.DataSource = data;

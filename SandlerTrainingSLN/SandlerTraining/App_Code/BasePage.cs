@@ -6,6 +6,7 @@ using System.Web.Security;
 using SandlerModels;
 using SandlerData.Models;
 using System.Configuration;
+using SandlerModels.DataIntegration;
 
 using SandlerWeb = Sandler.Web;
 /// <summary>
@@ -91,6 +92,7 @@ public abstract class BasePage : System.Web.UI.Page
             ViewState["TotalRecords"] = value;
         }
     }
+    public UserEntities userEntities;
     public List<SandlerWeb.Menu> CRMMenu;
     public string UserSessionKey
     {
@@ -147,6 +149,7 @@ public abstract class BasePage : System.Web.UI.Page
 
     protected override void OnLoad(EventArgs e)
     {
+        userEntities = new UserEntities(CurrentUser);
         base.OnLoad(e);
 
         CRMMenu = new List<SandlerWeb.Menu>();

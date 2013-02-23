@@ -12,7 +12,6 @@ using System.Configuration;
 public class OpportunityBasePage : BasePage
 {
     protected int OpportunityID;
-
     public int CompanyID
     {
         get
@@ -26,21 +25,16 @@ public class OpportunityBasePage : BasePage
     }
     public OpportunityBasePage()
     {
-        //
-        // TODO: Add constructor logic here
-        //
     }
 
     protected virtual IQueryable<Opportunity> GetOpportunities(int companyId)
     {
-        UserEntities userEntities = UserEntitiesFactory.Get(this.CurrentUser);
         IQueryable<Opportunity> data = userEntities.Opportunities.AsQueryable();
         return (companyId == 0) ? data : data.Where(record => record.COMPANYID == companyId);
     }
 
     protected virtual IQueryable<Opportunity> GetOpportunities(int? companyId, string opportunityId, string name, string description, string notes,string repFirstName, string repLastName, string repPhone, int? productId, int? statusId, int? contactId, int?sourceId, int? typeId, int? whyLostId, decimal? weightedValue, decimal? actualValue, string pain, string lengthOfProblmem, string alternatives, string costTofix, bool isBudgetidentified, bool isMoveForward)
     {
-        UserEntities userEntities = UserEntitiesFactory.Get(this.CurrentUser);
         IQueryable<Opportunity> data = userEntities.Opportunities.AsQueryable();
         IQueryable<SandlerModels.Contact> contacts = userEntities.Contacts.AsQueryable();
 
@@ -92,14 +86,10 @@ public class OpportunityBasePage : BasePage
     {
         return new CompaniesRepository().GetById(long.Parse(companyId.ToString()));
     }
-    //protected virtual IEnumerable<TBL_CONTACTS> GetContactsByCompany(int companyId)
-    //{
-    //    return UserEntitiesFactory.Get(CurrentUser).GetContactsByCompany(CurrentUser, companyId);
-    //}
 
     protected virtual IEnumerable<SandlerModels.Contact> GetContactsByCompany(int companyId)
     {
-        return UserEntitiesFactory.Get(CurrentUser).GetContactsByCompany(CurrentUser, companyId);
+        return userEntities.GetContactsByCompany(CurrentUser, companyId);
     }
 
     protected virtual TBL_CONTACTS GetContact(long contactId)
@@ -116,7 +106,7 @@ public class OpportunityBasePage : BasePage
 
     protected virtual Opportunity FillOpportunity(int id)
     {
-        return UserEntitiesFactory.Get(CurrentUser).Opportunities.Find(delegate(Opportunity o) { return o.ID == id; });
+        return userEntities.Opportunities.Find(delegate(Opportunity o) { return o.ID == id; });
     }
 
     protected virtual TBL_OPPORTUNITIES Save(TBL_OPPORTUNITIES opportunity)

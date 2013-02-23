@@ -88,12 +88,12 @@ public partial class Reports_PipelineOppAnalysis : BasePage
 
     private void BindCompanies()
     {
-        drpLstCompanies.DataSource = UserEntitiesFactory.Get(this.CurrentUser).Companies;
+        drpLstCompanies.DataSource = userEntities.Companies;
         drpLstCompanies.DataTextField = "CompanyName";
         drpLstCompanies.DataValueField = "COMPANIESID";
         drpLstCompanies.DataBind();
 
-        lstCompanies.DataSource = UserEntitiesFactory.Get(this.CurrentUser).Companies;
+        lstCompanies.DataSource = userEntities.Companies;
         lstCompanies.DataTextField = "CompanyName";
         lstCompanies.DataValueField = "COMPANIESID";
         lstCompanies.DataBind();

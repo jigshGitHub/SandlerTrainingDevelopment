@@ -21,7 +21,7 @@ public partial class Reports_Benchmarks_SalesRepToFranchisee : BasePage
             {
                 //var data = (from opportunity in new SandlerRepositories.OpportunitiesRepository().GetAll()
                 //            select new { Name = opportunity.SALESREPFIRSTNAME + " " + opportunity.SALESREPLASTNAME }).Distinct();
-                UserEntities userEntities = UserEntitiesFactory.Get(this.CurrentUser);
+                
                 var data = (from opportunity in userEntities.Opportunities
                            select new { Name = opportunity.SALESREPFIRSTNAME + " " + opportunity.SALESREPLASTNAME }).Distinct();
                 salesRepList.DataSource = data;

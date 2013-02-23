@@ -14,7 +14,6 @@ public partial class GapAnalysisCreate : BasePage
 {
     private IGapAnalysis gaData;
     private bool ReadOnlyAccess;
-
     public int GAId
     {
         get
@@ -208,7 +207,7 @@ public partial class GapAnalysisCreate : BasePage
 
     private void BindContacts(int companyId)
     {
-        IEnumerable<SandlerModels.Contact> companyContacts = UserEntitiesFactory.Get(this.CurrentUser).Contacts.Where(record => record.COMPANYID == companyId);
+        IEnumerable<SandlerModels.Contact> companyContacts = userEntities.Contacts.Where(record => record.COMPANYID == companyId);
         if (companyContacts != null)
         {
             var data = from records in companyContacts
@@ -229,7 +228,7 @@ public partial class GapAnalysisCreate : BasePage
 
     private void BindDefaultControls()
     {
-        drpLstCompanies.DataSource = UserEntitiesFactory.Get(this.CurrentUser).Companies;
+        drpLstCompanies.DataSource = userEntities.Companies;
         drpLstCompanies.DataTextField = "CompanyName";
         drpLstCompanies.DataValueField = "COMPANIESID";
         drpLstCompanies.DataBind();

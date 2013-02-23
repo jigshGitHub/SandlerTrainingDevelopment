@@ -17,7 +17,7 @@ public partial class Reports_Products_SoldByCompany : BasePage
             
             if (string.IsNullOrEmpty(Request.QueryString[page.QUERYSTRINGPARAMDRILLBY]))
             {
-                var data = from company in UserEntitiesFactory.Get(CurrentUser).Companies
+                var data = from company in userEntities.Companies
                                select company;
                            //select new { Name = company.COMPANYNAME, Id = company.COMPANIESID };
 

@@ -17,6 +17,7 @@ public partial class ROI : BasePage
         repository = new GapAnalysisRepository();
     }
 
+
     public int GAId
     {
         get
@@ -208,7 +209,7 @@ public partial class ROI : BasePage
 
     private void BindCompanies()
     {
-        drpLstCompanies.DataSource = UserEntitiesFactory.Get(this.CurrentUser).Companies;
+        drpLstCompanies.DataSource = userEntities.Companies;
         drpLstCompanies.DataTextField = "CompanyName";
         drpLstCompanies.DataValueField = "COMPANIESID";
         drpLstCompanies.DataBind();
@@ -216,7 +217,7 @@ public partial class ROI : BasePage
 
     private void BindContacts(int companyId)
     {
-        IEnumerable<SandlerModels.Contact> companyContacts = UserEntitiesFactory.Get(this.CurrentUser).Contacts.Where(record => record.COMPANYID == companyId);
+        IEnumerable<SandlerModels.Contact> companyContacts = userEntities.Contacts.Where(record => record.COMPANYID == companyId);
         if (companyContacts != null)
         {
             var data = from records in companyContacts
