@@ -45,10 +45,10 @@ namespace SandlerRepositories
         }
 
 
-        public DataSet GetAllCompanies()
+        public DataSet GetAllCompanies(UserModel _user)
         {
             //Get the User Info
-            UserModel _user = (UserModel)HttpContext.Current.Session["CurrentUser"];
+            
 
             if (_user.Role == SandlerRoles.SiteAdmin || _user.Role == SandlerRoles.Corporate || _user.Role == SandlerRoles.HomeOfficeAdmin)
             {
@@ -68,10 +68,10 @@ namespace SandlerRepositories
 
         }
 
-        public DataSet GetCompaniesForSearch()
+        public DataSet GetCompaniesForSearch(UserModel _user)
         {
             //Get the User Info
-            UserModel _user = (UserModel)HttpContext.Current.Session["CurrentUser"];
+            
             SandlerModels.DataIntegration.Company _company = (SandlerModels.DataIntegration.Company)HttpContext.Current.Session["CompanySearchCriteria"];
 
             if (_company.LastContactDate.ToString() == "1/1/0001 12:00:00 AM")
@@ -215,10 +215,10 @@ namespace SandlerRepositories
             }
         }
 
-        public DataSet GetCompaniesForDDL()
+        public DataSet GetCompaniesForDDL(UserModel _user)
         {
             //Get the User Info
-            UserModel _user = (UserModel)HttpContext.Current.Session["CurrentUser"];
+            
 
             if (_user.Role == SandlerRoles.SiteAdmin || _user.Role == SandlerRoles.Corporate || _user.Role == SandlerRoles.HomeOfficeAdmin)
             {
@@ -243,10 +243,10 @@ namespace SandlerRepositories
             return db.ExecuteDataset("sp_GetCompanyDetails", "CompanyByID", new SqlParameter("@COMPANIESID", id));
         }
 
-        public void AddProduct(string ProductTypeName, string colorCode)
+        public void AddProduct(string ProductTypeName, string colorCode, UserModel _user)
         {
             //Get the User Session
-            UserModel _user = (UserModel)HttpContext.Current.Session["CurrentUser"];
+            
             
             ProductTypesRepository productRepository = new ProductTypesRepository();
 
@@ -289,12 +289,12 @@ namespace SandlerRepositories
             string AssistantFirstName, string AssistantPhone, int Value,
             string Website, int EmpQuantity, int COMPANYVALUEGOAL,
             int IndID, string RepLastName, string RepFirstName, string DiscussionTopic, string ACTIONSTEP,
-            DateTime LastContact_Date, DateTime NextContact_Date, DateTime CreationDate, string Notes
+            DateTime LastContact_Date, DateTime NextContact_Date, DateTime CreationDate, string Notes, UserModel _user
             )
         {
 
             //Get the User Session
-            UserModel _user = (UserModel)HttpContext.Current.Session["CurrentUser"];
+            
 
             LastContact_Date = IsValidDateCheck(LastContact_Date);
             NextContact_Date = IsValidDateCheck(NextContact_Date);

@@ -21,6 +21,10 @@ public partial class CRM_Contacts_Search : BasePage
 
         }
     }
+    protected void CompanyDS_Selecting(object sender, ObjectDataSourceSelectingEventArgs e)
+    {
+        e.InputParameters["_user"] = CurrentUser;
+    }
     protected void dvContact_ModeChanging(object sender, DetailsViewModeEventArgs e)
     {
         //Clear All data entered by the User
@@ -726,7 +730,7 @@ public partial class CRM_Contacts_Search : BasePage
             //Now first check if data is available for the supplied search criteria
             SandlerRepositories.ContactsRepository contactsRepository = new SandlerRepositories.ContactsRepository();
             //Update Company Information
-            DataSet ds = contactsRepository.GetAllForSearch(); 
+            DataSet ds = contactsRepository.GetAllForSearch(CurrentUser); 
             if (ds.Tables[0].Rows.Count > 0)
             {
                 //we have data so go ahead and show the SearchResults page

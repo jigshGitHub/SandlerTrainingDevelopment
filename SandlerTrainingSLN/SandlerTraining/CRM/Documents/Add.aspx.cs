@@ -20,6 +20,14 @@ public partial class DocumentADD : BasePage
         lblResult.Text = "Document attached Successfully!";
 
     }
+    protected void CompanyDS_Selecting(object sender, ObjectDataSourceSelectingEventArgs e)
+    {
+        e.InputParameters["_user"] = CurrentUser;
+    }
+    protected void OpprtunityDS_Selecting(object sender, ObjectDataSourceSelectingEventArgs e)
+    {
+        e.InputParameters["_user"] = CurrentUser;
+    }
     protected void ddlCompany_DataBound(object sender, System.EventArgs e)
     {
         if (!(ddlCompany.Items.Count == 0))
@@ -116,7 +124,7 @@ public partial class DocumentADD : BasePage
         }
         if (!e.Cancel)
         {
-            new SandlerRepositories.DocumentsRepository().Insert(Convert.ToInt32(ddlOpportunity.SelectedValue), Convert.ToInt32(ddlCompany.SelectedValue), DocStatus, DocName, LastModifyDate);
+            new SandlerRepositories.DocumentsRepository().Insert(Convert.ToInt32(ddlOpportunity.SelectedValue), Convert.ToInt32(ddlCompany.SelectedValue), DocStatus, DocName, LastModifyDate,CurrentUser);
             lblResult.Text = "Document attached Successfully!";
         }
 

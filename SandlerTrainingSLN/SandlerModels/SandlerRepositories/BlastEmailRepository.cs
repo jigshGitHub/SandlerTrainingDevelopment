@@ -13,10 +13,10 @@ namespace SandlerRepositories
     public partial class BlastEmailRepository
     {
         DBFactory db = new DBFactory();
-        public DataSet GetBlastEmailGroupsByRole()
+        public DataSet GetBlastEmailGroupsByRole(UserModel _user)
         {
             //Get the User Session
-            UserModel _user = (UserModel)HttpContext.Current.Session["CurrentUser"];
+            
             //Get Groups
             return  db.ExecuteDataset("sp_GetBlastEmailGroupsByRole", "GroupsByRole", new SqlParameter("@Role", _user.Role.ToString()));
         }
@@ -44,25 +44,25 @@ namespace SandlerRepositories
         #region For Email Group
         
         //For NonCorporate User - Start
-        public DataSet GetAllFrOwnerAddressesByFrId()
+        public DataSet GetAllFrOwnerAddressesByFrId(UserModel _user)
         {
-            UserModel _user = (UserModel)HttpContext.Current.Session["CurrentUser"];
+            
             return db.ExecuteDataset("sp_GetAllFranchiseeAddressesByFrId", "AllFranchiseeAddress", new SqlParameter("@RoleName", SandlerRoles.FranchiseeOwner.ToString()), new SqlParameter("@FranchiseeId", _user.FranchiseeID));
         }
-        public DataSet GetAllFrUsersAddressesByFrId()
+        public DataSet GetAllFrUsersAddressesByFrId(UserModel _user)
         {
-            UserModel _user = (UserModel)HttpContext.Current.Session["CurrentUser"];
+            
             return db.ExecuteDataset("sp_GetAllFranchiseeAddressesByFrId", "AllFranchiseeAddress", new SqlParameter("@RoleName", SandlerRoles.FranchiseeUser.ToString()), new SqlParameter("@FranchiseeId", _user.FranchiseeID));
         }
-        public DataSet GetAllFrContactsAddressesByFrId()
+        public DataSet GetAllFrContactsAddressesByFrId(UserModel _user)
         {
-            UserModel _user = (UserModel)HttpContext.Current.Session["CurrentUser"];
+            
             return db.ExecuteDataset("sp_GetAllContactsAddressesByFrId", "ContactAddress", new SqlParameter("@FranchiseeId", _user.FranchiseeID));
         }
-        public DataSet GetAllCoachAddressesByFrId()
+        public DataSet GetAllCoachAddressesByFrId(UserModel _user)
         {
             //Get All Franchisee Addresses
-            UserModel _user = (UserModel)HttpContext.Current.Session["CurrentUser"];
+            
             return db.ExecuteDataset("sp_GetAllCoachAddressesByFrId", "GetAllCoachAddressesByFrId", new SqlParameter("@FranchiseeId", _user.FranchiseeID));
         }
         //Non Corporate User - done
@@ -86,10 +86,10 @@ namespace SandlerRepositories
             return db.ExecuteDataset("sp_GetAllFranchiseeAddressesByFrId", "AllFranchiseeAddress", new SqlParameter("@RoleName", SandlerRoles.FranchiseeUser.ToString()), new SqlParameter("@FranchiseeId", ID));
         }
         //Corporate User - done       
-        public DataSet GetUserEmailGroup()
+        public DataSet GetUserEmailGroup(UserModel _user)
         {
             //Get the User Info
-            UserModel _user = (UserModel)HttpContext.Current.Session["CurrentUser"];
+            
             return db.ExecuteDataset("sp_GetUserEmailGroup", "UserEmailGroup", new SqlParameter("@UserId", _user.UserId.ToString()));
         }
         public DataSet GetUserEmailGroupAddresses(int grpId)
@@ -97,10 +97,10 @@ namespace SandlerRepositories
             //Get the User Group Email Addresses Info
             return db.ExecuteDataset("sp_GetUserEmailGroupAddresses", "UserEmailGroupAdrs", new SqlParameter("@GroupId", grpId));
         }
-        public void AddGroup(string GroupName, string CoachIds, string FrOwnerIds, string FrUsersIds, string FrContactsIds)
+        public void AddGroup(string GroupName, string CoachIds, string FrOwnerIds, string FrUsersIds, string FrContactsIds, UserModel _user)
         {
             //Get the User Info
-            UserModel _user = (UserModel)HttpContext.Current.Session["CurrentUser"];
+            
             //Add
             db.ExecuteNonQuery("sp_AddUserEmailGroup",
             new SqlParameter("@UserId", _user.UserId.ToString()),
@@ -111,11 +111,11 @@ namespace SandlerRepositories
         }
         #endregion
 
-        public DataSet GetAllContactsAddresses()
+        public DataSet GetAllContactsAddresses(UserModel _user)
         {
             //Get All Franchisee Addresses
             int FrId = 0;
-            UserModel _user = (UserModel)HttpContext.Current.Session["CurrentUser"];
+            
             if ((_user.Role == SandlerRoles.Corporate) || (_user.Role == SandlerRoles.SiteAdmin))
             {
                 return db.ExecuteDataset("sp_GetAllContactsAddresses", "ContactAddress", new SqlParameter("@FranchiseeId", FrId));
@@ -136,16 +136,16 @@ namespace SandlerRepositories
             //Get Franchisee Addresses
             return db.ExecuteDataset("sp_GetLoggedInUserAddress", "LoggedinUserAddress", new SqlParameter("@UserId", UserId));
         }
-        public void UpdateSubscriptionInfo(string UserId, string Response)
+        public void UpdateSubscriptionInfo(string UserId, string Response, UserModel _user)
         {
             //Update the Subscription Information
-            UserModel _user = (UserModel)HttpContext.Current.Session["CurrentUser"];
+            
             db.ExecuteNonQuery("sp_UpdateSubscriptionInfo", new SqlParameter("@UserId", UserId),  new SqlParameter("@Response", Response),new SqlParameter("@Role", _user.Role.ToString()));
         }
-        public DataSet GetSubscriptionInfo(string UserId)
+        public DataSet GetSubscriptionInfo(string UserId, UserModel _user)
         {
             //Get User Subscirption Info
-            UserModel _user = (UserModel)HttpContext.Current.Session["CurrentUser"];
+            
             return db.ExecuteDataset("sp_GetSubscriptionInfo", "SubscriptionInfo", new SqlParameter("@UserId", UserId), new SqlParameter("@Role", _user.Role.ToString()));
             
         }

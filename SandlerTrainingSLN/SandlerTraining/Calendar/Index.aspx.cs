@@ -88,7 +88,7 @@ public partial class Calendar_Index : BasePage
 
         if (!e.Cancel)
         {
-            new SandlerRepositories.CalendarRepository().Add(FollowUpDate,Description,Phone);
+            new SandlerRepositories.CalendarRepository().Add(FollowUpDate,Description,Phone,CurrentUser);
             lblResult.Text = "Followup Item added Successfully for " + FollowUpDateCal.Text.Replace("12:00:00 AM", "")+" !";
             //Clear exisitng entry for Description and Phone
             Phonetxt.Text = "";
@@ -102,7 +102,7 @@ public partial class Calendar_Index : BasePage
     private DataTable GetEvents()
     {
         //Get Events Info for logged in User
-        System.Data.DataSet ds = new SandlerRepositories.CalendarRepository().GetAllEvents();
+        System.Data.DataSet ds = new SandlerRepositories.CalendarRepository().GetAllEvents(CurrentUser);
         //return the datatable from above dataset                
         return ds.Tables[0];
     }

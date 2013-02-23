@@ -33,7 +33,7 @@ public partial class Header : System.Web.UI.UserControl
 
     protected void HeadLoginStatus_LoggingOut(object sender, LoginCancelEventArgs e)
     {
-        Session["CurrentUser"] = null;
+        Session[System.Web.Security.Membership.GetUser(HttpContext.Current.User.Identity.Name).ProviderUserKey.ToString()] = null;
         UserEntitiesFactory.ReLoad();
     }
 }

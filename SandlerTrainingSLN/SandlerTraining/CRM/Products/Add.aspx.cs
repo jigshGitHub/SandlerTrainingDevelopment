@@ -21,6 +21,10 @@ public partial class CRM_Product_Add : BasePage
         lblResult.Text = "Product created Successfully!";
 
     }
+    protected void InsertOperation_Selecting(object sender, ObjectDataSourceMethodEventArgs e)
+    {
+        e.InputParameters["_user"] = CurrentUser;
+    }
     protected void dvProduct_ModeChanging(object sender, DetailsViewModeEventArgs e)
     {
         if (e.CancelingEdit)

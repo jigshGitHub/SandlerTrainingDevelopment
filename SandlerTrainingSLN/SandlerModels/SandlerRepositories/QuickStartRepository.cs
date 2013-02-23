@@ -19,10 +19,10 @@ namespace SandlerRepositories
             return (db.ExecuteDataset("sp_GetYesNoOptions", "GetYesNoOptions"));
         }
 
-        public DataSet GetProductTypeByRole()
+        public DataSet GetProductTypeByRole(UserModel _user)
         {
             //Get the User Session
-            UserModel _user = (UserModel)HttpContext.Current.Session["CurrentUser"];
+            
             //Get All Events for this user
             return db.ExecuteDataset("sp_GetProductTypeByRole", "GetProdcutTypes", new SqlParameter("@Role", _user.Role.ToString()), new SqlParameter("@FranchiseeId", _user.FranchiseeID));
         }
@@ -55,11 +55,11 @@ namespace SandlerRepositories
                 int ProductID, int OppStatusID,
                 int OppSourceID,int OppTypeID,
                 string OPPVALUE, string ACTIONSTEP,
-                DateTime NextContactDate, DateTime OppCloseDate)
+                DateTime NextContactDate, DateTime OppCloseDate, UserModel _user)
         {
 
             //Get the User Session
-            UserModel _user = (UserModel)HttpContext.Current.Session["CurrentUser"];
+            
             //For Date Fields
             NextContactDate = IsValidDateCheck(NextContactDate);
             OppCloseDate = IsValidDateCheck(OppCloseDate);

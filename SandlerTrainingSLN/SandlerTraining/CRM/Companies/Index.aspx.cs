@@ -20,7 +20,10 @@ public partial class CompanyIndex : BasePage
         }
     }
 
-    
+    protected void SearchCompanyDS_Selecting(object sender, ObjectDataSourceSelectingEventArgs e)
+    {
+        e.InputParameters["_user"] = CurrentUser;
+    }
 
     protected void gvCompanies_SelectedIndexChanged(object sender, EventArgs e)
     {
@@ -45,8 +48,8 @@ public partial class CompanyIndex : BasePage
             companyMenu.MenuEntity.Items.Find(delegate(Sandler.Web.MenuItem item) { return item.Text == "Search"; }).IsVisible = true;
             companyMenu.ReLoadSubMenu();
             //Get the User Info
-            UserModel _user = (UserModel)HttpContext.Current.Session["CurrentUser"];
-            if(_user.Role == SandlerRoles.Client)
+            
+            if(CurrentUser.Role == SandlerRoles.Client)
             {
                 gvCompanies.Columns[4].HeaderText = "Sales Rep";
             }
@@ -73,8 +76,8 @@ public partial class CompanyIndex : BasePage
         gvCompaniesExport.AllowPaging = false;
         gvCompaniesExport.AllowSorting = false;
         //Get the User Info
-        UserModel _user = (UserModel)HttpContext.Current.Session["CurrentUser"];
-        if (_user.Role == SandlerRoles.Client)
+        
+        if (CurrentUser.Role == SandlerRoles.Client)
         {
             gvCompaniesExport.Columns[4].Visible = false;
         }

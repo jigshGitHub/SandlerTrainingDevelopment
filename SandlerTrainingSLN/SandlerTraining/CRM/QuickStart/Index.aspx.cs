@@ -16,6 +16,14 @@ public partial class CRM_QuickStart_Index : BasePage
         lblResult.Text = "Company,Contact and Opportunity record (All-in-one) created Successfully!";
 
     }
+    protected void ProductTypesDS_Selecting(object sender, ObjectDataSourceSelectingEventArgs e)
+    {
+        e.InputParameters["_user"] = CurrentUser;
+    }
+    protected void InsertOperation_Selecting(object sender, ObjectDataSourceMethodEventArgs e)
+    {
+        e.InputParameters["_user"] = CurrentUser;
+    }
     protected void dvQuickStart_ModeChanging(object sender, DetailsViewModeEventArgs e)
     {
         if (e.CancelingEdit)

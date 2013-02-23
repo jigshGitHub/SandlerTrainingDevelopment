@@ -453,8 +453,9 @@
         </tr>
         <tr>
             <td colspan="2">
-                <asp:ObjectDataSource ID="CompanyDS" runat="server" TypeName="SandlerRepositories.CompaniesRepository"
-                    SelectMethod="GetCompaniesForDDL"></asp:ObjectDataSource>
+                <asp:ObjectDataSource ID="CompanyDS" runat="server" TypeName="SandlerRepositories.CompaniesRepository" SelectMethod="GetCompaniesForDDL" OnSelecting="CompanyDS_Selecting">
+                    <SelectParameters><asp:Parameter Name="_user"  /></SelectParameters>
+                </asp:ObjectDataSource>
                 <asp:ObjectDataSource ID="NewItemInfoDS" runat="server" TypeName="SandlerRepositories.CompaniesRepository"
                     SelectMethod="GetNewItemOptions"></asp:ObjectDataSource>
                 <asp:ObjectDataSource ID="ApptSourceDS" runat="server" TypeName="SandlerRepositories.ContactsRepository"

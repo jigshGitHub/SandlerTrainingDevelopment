@@ -23,6 +23,10 @@ public partial class ContactDETAIL : BasePage
             }
         }
     }
+    protected void CompanyDS_Selecting(object sender, ObjectDataSourceSelectingEventArgs e)
+    {
+        e.InputParameters["_user"] = CurrentUser;
+    }
     protected void Cancel_Click(object sender, EventArgs e)
     {
         Server.Transfer("~/CRM/Contacts/Index.aspx");
@@ -406,7 +410,7 @@ public partial class ContactDETAIL : BasePage
             SandlerRepositories.ContactsRepository contactRepository = new SandlerRepositories.ContactsRepository();
             contactRepository.Update(Convert.ToInt32(hidContactID.Value), CompanyID, LastName, FirstName,Title,ContactsDepartment,ContactsRole,Phone,MobilePhone,HomePhone,Fax, Email,PersonalEmail,Address,City,State,Zip,Country,
                 DiscussionTopic, ActionStep,LastAttemptedDate,LastEmailedDate,LastMeetingDate,LetterSentDate, IsRegisteredForTrng, IsNewAppt, CourseId, AppsSourceId, LastDate, NextDate, CourseTrngDate,
-                BlastEmailSubscription, NeedCallBack, BirthDayDate, AnniversaryDate, CompanyYears, BossName,SpouseName,ReferredBy,Notes);
+                BlastEmailSubscription, NeedCallBack, BirthDayDate, AnniversaryDate, CompanyYears, BossName,SpouseName,ReferredBy,Notes,CurrentUser);
             LblStatus.Text = "Contact updated successfully!";
         }
 

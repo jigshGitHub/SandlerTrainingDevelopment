@@ -42,6 +42,10 @@ public partial class DocumentDETAIL : BasePage
     {
         //No code required
     }
+    protected void OpprtunityDS_Selecting(object sender, ObjectDataSourceSelectingEventArgs e)
+    {
+        e.InputParameters["_user"] = CurrentUser;
+    }
     protected void DocumentDW_ItemUpdating(object sender, DetailsViewUpdateEventArgs e)
     {
         //wE COME HERE AFTER UPDATE IS DONE NOW NOW AGAIN CHANGEMODE AND GET DETAILS
@@ -126,7 +130,7 @@ public partial class DocumentDETAIL : BasePage
 
         }
         //Now Update
-        new SandlerRepositories.DocumentsRepository().Update(Convert.ToInt32(hidDocumentID.Value), OppsID, DocName, DocStatus, LastModifyDate);
+        new SandlerRepositories.DocumentsRepository().Update(Convert.ToInt32(hidDocumentID.Value), OppsID, DocName, DocStatus, LastModifyDate,CurrentUser);
     }
     protected void DocumentDW_DataBound(object sender, EventArgs e)
     {

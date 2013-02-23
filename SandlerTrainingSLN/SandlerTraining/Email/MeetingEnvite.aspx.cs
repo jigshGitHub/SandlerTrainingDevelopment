@@ -26,6 +26,14 @@ public partial class Email_MeetingEnvite : BasePage
     {
 
     }
+    protected void BlastEmailGroupsDS_Selecting(object sender, ObjectDataSourceSelectingEventArgs e)
+    {
+        e.InputParameters["_user"] = CurrentUser;
+    }
+    protected void UserGroupDS_Selecting(object sender, ObjectDataSourceSelectingEventArgs e)
+    {
+        e.InputParameters["_user"] = CurrentUser;
+    }
     /// <summary>
     /// This method is used to Add addresses as BCC in the Mail Message
     /// </summary>
@@ -144,7 +152,7 @@ public partial class Email_MeetingEnvite : BasePage
             try
             {
                 //Get the User Info
-                UserModel _user = (UserModel)HttpContext.Current.Session["CurrentUser"];
+                
                 BlastEmailRepository bers = new BlastEmailRepository();
                 //mail client
                 var client = new SmtpClient();
@@ -159,7 +167,7 @@ public partial class Email_MeetingEnvite : BasePage
                 MailMessage message = new MailMessage();
                 message.IsBodyHtml = true;
                 //From Address
-                message.From = new MailAddress(_user.EmailAdress);
+                message.From = new MailAddress(CurrentUser.EmailAdress);
                 //For Priority
                 message.Priority = MailPriority.High;
                 //Meeting Subject

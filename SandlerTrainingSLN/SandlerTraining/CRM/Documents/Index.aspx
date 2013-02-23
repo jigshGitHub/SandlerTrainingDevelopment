@@ -87,8 +87,9 @@
         </tr>
         <tr>
             <td>
-                <asp:ObjectDataSource ID="CompanyDS" runat="server" TypeName="SandlerRepositories.CompaniesRepository"
-                    SelectMethod="GetCompaniesForDDL"></asp:ObjectDataSource>
+                <asp:ObjectDataSource ID="CompanyDS" runat="server" TypeName="SandlerRepositories.CompaniesRepository" SelectMethod="GetCompaniesForDDL" OnSelecting="CompanyDS_Selecting">
+                    <SelectParameters><asp:Parameter Name="_user"  /></SelectParameters>
+                </asp:ObjectDataSource>
                 <asp:ObjectDataSource ID="DocumentsDS" runat="server" TypeName="SandlerRepositories.DocumentsRepository"
                     SelectMethod="GetByOppsId">
                     <SelectParameters>
@@ -100,9 +101,10 @@
         <tr>
             <td>
                 <asp:ObjectDataSource ID="OpprtunityDS" runat="server" TypeName="SandlerRepositories.OpportunityRepository"
-                    SelectMethod="GetByCompId">
+                    SelectMethod="GetByCompId" OnSelecting="OpprtunityDS_Selecting">
                     <SelectParameters>
                         <asp:ControlParameter ControlID="ddlCompany" Name="COMPANIESID" Type="Int32" />
+                        <asp:Parameter Name="_user"  />
                     </SelectParameters>
                 </asp:ObjectDataSource>
                 <asp:HiddenField ID="hidDocumentID" runat="server" />

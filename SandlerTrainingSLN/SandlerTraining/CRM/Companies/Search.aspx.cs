@@ -633,7 +633,7 @@ public partial class CRM_Companies_Search : BasePage
             //Now first check if data is available for the supplied search criteria
             SandlerRepositories.CompaniesRepository companiesRepository = new SandlerRepositories.CompaniesRepository();
             //Update Company Information
-            DataSet ds = companiesRepository.GetCompaniesForSearch();
+            DataSet ds = companiesRepository.GetCompaniesForSearch(CurrentUser);
             if (ds.Tables[0].Rows.Count > 0)
             {
                 //we have data so go ahead and show the SearchResults page
@@ -661,8 +661,8 @@ public partial class CRM_Companies_Search : BasePage
         if (repLastNameTempField != null)
         {
             //Get the User Info
-            UserModel _user = (UserModel)HttpContext.Current.Session["CurrentUser"];
-            if (_user.Role == SandlerRoles.Client)
+            
+            if (CurrentUser.Role == SandlerRoles.Client)
             {
                 repLastNameTempField.HeaderText = "Sales Rep Last Name :";
             }
@@ -674,8 +674,8 @@ public partial class CRM_Companies_Search : BasePage
         if (repFirstNameTempField != null)
         {
             //Get the User Info
-            UserModel _user = (UserModel)HttpContext.Current.Session["CurrentUser"];
-            if (_user.Role == SandlerRoles.Client)
+            
+            if (CurrentUser.Role == SandlerRoles.Client)
             {
                 repFirstNameTempField.HeaderText = "Sales Rep First Name :";
             }

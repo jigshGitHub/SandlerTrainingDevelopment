@@ -117,9 +117,10 @@
                 <asp:ObjectDataSource ID="DocStatusDS" runat="server" TypeName="SandlerRepositories.DocumentsRepository"
                     SelectMethod="GetDocStatus"></asp:ObjectDataSource>
                 <asp:ObjectDataSource ID="OpprtunityDS" runat="server" TypeName="SandlerRepositories.OpportunityRepository"
-                    SelectMethod="GetByCompId">
+                    SelectMethod="GetByCompId" OnSelecting="OpprtunityDS_Selecting">
                     <SelectParameters>
                         <asp:ControlParameter ControlID="hidCompanyID" Name="COMPANIESID" Type="Int32" />
+                         <asp:Parameter Name="_user"  />
                     </SelectParameters>
                 </asp:ObjectDataSource>
             </td>

@@ -77,8 +77,12 @@
 
 <tr>
 <td>
-<asp:ObjectDataSource ID="BlastEmailGroupsDS" runat="server" TypeName="SandlerRepositories.BlastEmailRepository"  SelectMethod="GetBlastEmailGroupsByRole"></asp:ObjectDataSource>
-<asp:ObjectDataSource ID="UserGroupDS" runat="server" TypeName="SandlerRepositories.BlastEmailRepository"  SelectMethod="GetUserEmailGroup"></asp:ObjectDataSource>
+<asp:ObjectDataSource ID="BlastEmailGroupsDS" runat="server" TypeName="SandlerRepositories.BlastEmailRepository"  SelectMethod="GetBlastEmailGroupsByRole" OnSelecting="BlastEmailGroupsDS_Selecting">
+    <SelectParameters><asp:Parameter Name="_user"  /></SelectParameters>
+</asp:ObjectDataSource>
+<asp:ObjectDataSource ID="UserGroupDS" runat="server" TypeName="SandlerRepositories.BlastEmailRepository"  SelectMethod="GetUserEmailGroup" OnSelecting="UserGroupDS_Selecting">
+    <SelectParameters><asp:Parameter Name="_user"  /></SelectParameters>
+</asp:ObjectDataSource>
 </td>
 </tr>
 

@@ -21,6 +21,14 @@ public partial class Email_BlastEmail : BasePage
     {
         
     }
+    protected void BlastEmailGroupsDS_Selecting(object sender, ObjectDataSourceSelectingEventArgs e)
+    {
+        e.InputParameters["_user"] = CurrentUser;
+    }
+    protected void UserGroupDS_Selecting(object sender, ObjectDataSourceSelectingEventArgs e)
+    {
+        e.InputParameters["_user"] = CurrentUser;
+    }
     /// <summary>
     /// This method is used to Add addresses as BCC in the Mail Message
     /// </summary>
@@ -106,7 +114,7 @@ public partial class Email_BlastEmail : BasePage
             try
             {
                 //Get the User Info
-                UserModel _user = (UserModel)HttpContext.Current.Session["CurrentUser"];
+                
                 BlastEmailRepository bers = new BlastEmailRepository();
                 //mail client
                 var client = new SmtpClient();
@@ -121,7 +129,7 @@ public partial class Email_BlastEmail : BasePage
                 MailMessage message = new MailMessage();
                 message.IsBodyHtml = true;
                 //From Address
-                message.From = new MailAddress(_user.EmailAdress);
+                message.From = new MailAddress(CurrentUser.EmailAdress);
                 //Subject
                 message.Subject = txtSubject.Text.Trim();
                 message.Body = msgFreeTB.Text.Trim();
@@ -144,7 +152,7 @@ public partial class Email_BlastEmail : BasePage
                                 message = AddAddresses(ds, message);
                                 break;
                             case "Franchisee Owner":
-                                ds = bers.GetFranchiseeAddresses("FranchiseeOwner", _user.FranchiseeID);
+                                ds = bers.GetFranchiseeAddresses("FranchiseeOwner", CurrentUser.FranchiseeID);
                                 message = AddAddresses(ds, message);
                                 break;
                             case "All Franchisee Users":
@@ -152,12 +160,12 @@ public partial class Email_BlastEmail : BasePage
                                 message = AddAddresses(ds, message);
                                 break;
                             case "Franchisee Users":
-                                ds = bers.GetFranchiseeAddresses("FranchiseeUser", _user.FranchiseeID);
+                                ds = bers.GetFranchiseeAddresses("FranchiseeUser", CurrentUser.FranchiseeID);
                                 message = AddAddresses(ds, message);
                                 break;
                             case "All Franchisee Contacts":
                             case "Franchisee Contacts":
-                                ds = bers.GetAllContactsAddresses();
+                                ds = bers.GetAllContactsAddresses(CurrentUser);
                                 message = AddAddresses(ds, message);
                                 break;
                             default:

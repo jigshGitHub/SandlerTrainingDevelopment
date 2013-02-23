@@ -26,7 +26,14 @@ public partial class DocumentIndex : BasePage
     {
 
     }
-
+    protected void OpprtunityDS_Selecting(object sender, ObjectDataSourceSelectingEventArgs e)
+    {
+        e.InputParameters["_user"] = CurrentUser;
+    }
+    protected void CompanyDS_Selecting(object sender, ObjectDataSourceSelectingEventArgs e)
+    {
+        e.InputParameters["_user"] = CurrentUser;
+    }
 
     protected void ddlCompany_DataBound(object sender, System.EventArgs e)
     {

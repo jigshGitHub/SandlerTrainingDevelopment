@@ -20,8 +20,8 @@ public partial class CRM_HomeOffice_Index : BasePage
     {
         franchiseeMenu.MenuEntityTitle = "HomeOffice";
         
-        UserModel _user = (UserModel)HttpContext.Current.Session["CurrentUser"];
-        if(_user.Role == SandlerRoles.HomeOfficeAdmin)
+        
+        if (CurrentUser.Role == SandlerRoles.HomeOfficeAdmin)
         {txtGridSearch.Visible = false;
        btnGridSearch.Visible = false;}
        
@@ -37,7 +37,10 @@ public partial class CRM_HomeOffice_Index : BasePage
             gvFranchisees.Sort(sortingExpression, sortingDirection);
         }
     }
-
+    protected void SearchFranchiseeDS_Selecting(object sender, ObjectDataSourceSelectingEventArgs e)
+    {
+        e.InputParameters["_user"] = CurrentUser;
+    }
     protected void gv_Sorting(object sender, GridViewSortEventArgs e)
     {
         sortingDirection = e.SortDirection;
@@ -84,7 +87,7 @@ public partial class CRM_HomeOffice_Index : BasePage
     {
         FranchiseesRepository frRepository = new FranchiseesRepository();
         DataSet ds = new DataSet();
-        ds = frRepository.sp_GetAllFranchisees();
+        ds = frRepository.sp_GetAllFranchisees(CurrentUser);
         if (ds.Tables[0].Rows.Count > 0)
         {
             LblStatus.Text = "";

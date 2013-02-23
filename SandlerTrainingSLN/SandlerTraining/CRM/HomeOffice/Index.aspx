@@ -55,11 +55,12 @@
         </tr>
         <tr>
             <td>
-                <asp:ObjectDataSource ID="SearchFranchiseeDS" runat="server" TypeName="SandlerRepositories.FranchiseesRepository" SelectMethod="sp_GetAllFranchisees" 
-                FilterExpression="(Name LIKE '%{0}%') OR (LastName LIKE '%{0}%') OR (FirstName LIKE '%{0}%') OR (WorkEmail LIKE '%{0}%') OR (OfficePhone LIKE '%{0}%')">
+                <asp:ObjectDataSource ID="SearchFranchiseeDS" runat="server" TypeName="SandlerRepositories.FranchiseesRepository" SelectMethod="sp_GetAllFranchisees" OnSelecting="SearchFranchiseeDS_Selecting"
+                FilterExpression="([Franchise Name] LIKE '%{0}%') OR ([Last Name] LIKE '%{0}%') OR ([First Name] LIKE '%{0}%') OR (WorkEmail LIKE '%{0}%') OR (OfficePhone LIKE '%{0}%')">
                   <FilterParameters>
                         <asp:ControlParameter ControlID="txtGridSearch" PropertyName="Text" Type="String" />
                   </FilterParameters>
+                  <SelectParameters><asp:Parameter Name="_user"  /></SelectParameters>
                 </asp:ObjectDataSource>
                 <asp:HiddenField ID="hidFranchiseeID" runat="server" />
             </td>

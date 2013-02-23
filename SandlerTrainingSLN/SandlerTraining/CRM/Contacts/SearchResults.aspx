@@ -118,8 +118,9 @@
         </tr>
         <tr>
             <td colspan="2">
-                <asp:ObjectDataSource ID="SearchContactDS" runat="server" TypeName="SandlerRepositories.ContactsRepository"
-                    SelectMethod="GetAllForSearch"></asp:ObjectDataSource>
+                <asp:ObjectDataSource ID="SearchContactDS" runat="server" TypeName="SandlerRepositories.ContactsRepository" SelectMethod="GetAllForSearch" OnSelecting="SearchContactDS_Selecting">
+                    <SelectParameters><asp:Parameter Name="_user"  /></SelectParameters>
+                    </asp:ObjectDataSource>
                 <asp:HiddenField ID="hidContactID" runat="server" />
             </td>
         </tr>

@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.Security;
+using SandlerModels.DataIntegration;
 public partial class Login : Page
 {
     protected void Page_Load(object sender, EventArgs e)
@@ -20,6 +21,7 @@ public partial class Login : Page
     }
     protected void sandlerLogin_LoggedIn(object sender, EventArgs e)
     {
+        UserEntitiesFactory.ReLoad();
         //ProfileCommon profile = HttpContext.Current.Profile as ProfileCommon;
         //if (profile.AcceptedAgrements)
             Response.Redirect("~/Default.aspx");

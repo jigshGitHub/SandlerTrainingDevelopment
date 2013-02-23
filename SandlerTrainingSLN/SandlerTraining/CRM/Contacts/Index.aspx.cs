@@ -17,6 +17,14 @@ public partial class ContactIndex : BasePage
         }
 
     }
+    protected void ContactDS_Selecting(object sender, ObjectDataSourceSelectingEventArgs e)
+    {
+        e.InputParameters["_user"] = CurrentUser;
+    }
+    protected void CompaniesDS_Selecting(object sender, ObjectDataSourceSelectingEventArgs e)
+    {
+        e.InputParameters["_user"] = CurrentUser;
+    }
     protected void ddlCompanies_DataBound(object sender, EventArgs e)
     {
         if (!(ddlCompanies.Items.Count == 0))

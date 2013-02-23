@@ -18,7 +18,10 @@ public partial class OpportunitySearch : OpportunityBasePage
             //BindContacts(0);
         }
     }
-
+    protected void CompanyDS_Selecting(object sender, ObjectDataSourceSelectingEventArgs e)
+    {
+        e.InputParameters["_user"] = CurrentUser;
+    }
     protected void Page_Prerender(object sender, EventArgs e)
     {
         //opportunityMenu.MenuEntity.Items.Find(delegate(Sandler.Web.MenuItem item) { return item.Text == "Search"; }).IsVisible = !pnlSearch.Visible;

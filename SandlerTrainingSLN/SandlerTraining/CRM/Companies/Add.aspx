@@ -279,7 +279,7 @@
 
                 <asp:ObjectDataSource ID="BillingAddressDS" runat="server" TypeName="SandlerRepositories.CompaniesRepository" SelectMethod="GetBillingOptions"></asp:ObjectDataSource>
 
-                <asp:ObjectDataSource ID="CompanyDataSource" runat="server" InsertMethod="InsertCompany"
+                <asp:ObjectDataSource ID="CompanyDataSource" runat="server" InsertMethod="InsertCompany" OnInserting="InsertOperation_Selecting"
                     TypeName="SandlerRepositories.CompaniesRepository">
                     <InsertParameters>
                         <asp:ControlParameter ControlID="dvCompany" Name="COMPANYNAME" PropertyName="SelectedValue" />
@@ -318,7 +318,7 @@
                         <asp:ControlParameter ControlID="dvCompany" Name="NextContact_Date" PropertyName="SelectedValue" />
                         <asp:ControlParameter ControlID="dvCompany" Name="CreationDate" PropertyName="SelectedValue" />
                         <asp:ControlParameter ControlID="dvCompany" Name="Notes" PropertyName="SelectedValue" />
-
+                        <asp:Parameter Name="_user"  />
                     </InsertParameters>
                 </asp:ObjectDataSource>
             </td>

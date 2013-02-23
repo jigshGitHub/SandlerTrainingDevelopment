@@ -22,6 +22,10 @@ public partial class AddCompany : BasePage
         lblResult.Text = "Company created Successfully!";
 
     }
+    protected void InsertOperation_Selecting(object sender, ObjectDataSourceMethodEventArgs e)
+    {
+        e.InputParameters["_user"] = CurrentUser;
+    }
     protected void dvCompany_ModeChanging(object sender, DetailsViewModeEventArgs e)
     {
         if (e.CancelingEdit)
@@ -47,8 +51,8 @@ public partial class AddCompany : BasePage
         if (repLastNameTempField != null)
         {
             //Get the User Info
-            UserModel _user = (UserModel)HttpContext.Current.Session["CurrentUser"];
-            if (_user.Role == SandlerRoles.Client)
+            
+            if (CurrentUser.Role == SandlerRoles.Client)
             {
                 repLastNameTempField.HeaderText = "Sales Rep Last Name :";
             }
@@ -60,8 +64,8 @@ public partial class AddCompany : BasePage
         if (repFirstNameTempField != null)
         {
             //Get the User Info
-            UserModel _user = (UserModel)HttpContext.Current.Session["CurrentUser"];
-            if (_user.Role == SandlerRoles.Client)
+            
+            if (CurrentUser.Role == SandlerRoles.Client)
             {
                 repFirstNameTempField.HeaderText = "Sales Rep First Name :";
             }

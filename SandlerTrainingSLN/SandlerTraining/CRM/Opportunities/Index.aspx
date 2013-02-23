@@ -23,8 +23,9 @@
                                 ID="ddlCompany" runat="server" AutoPostBack="True" OnDataBound="ddlCreateDefaultSelection"
                                 OnSelectedIndexChanged="ddlCompany_SelectedIndexChanged">
                             </asp:DropDownList>
-                            <asp:ObjectDataSource ID="CompanyDS" runat="server" TypeName="SandlerRepositories.CompaniesRepository"
-                                SelectMethod="GetCompaniesForDDL"></asp:ObjectDataSource>
+                            <asp:ObjectDataSource ID="CompanyDS" runat="server" TypeName="SandlerRepositories.CompaniesRepository" SelectMethod="GetCompaniesForDDL" OnSelecting="CompanyDS_Selecting">
+                                        <SelectParameters><asp:Parameter Name="_user"  /></SelectParameters>
+                                    </asp:ObjectDataSource>
                         </td>
                     </tr>
                     <tr>

@@ -180,13 +180,15 @@
         <tr>
         <td>
             <asp:Label ID="lblResult" runat="server" ForeColor="Red"></asp:Label><br />
-            <asp:ObjectDataSource ID="ProductTypesDS" runat="server" SelectMethod="GetProductTypeByRole" TypeName="SandlerRepositories.QuickStartRepository"></asp:ObjectDataSource>
+            <asp:ObjectDataSource ID="ProductTypesDS" runat="server" SelectMethod="GetProductTypeByRole" TypeName="SandlerRepositories.QuickStartRepository" OnSelecting="ProductTypesDS_Selecting">
+                <SelectParameters><asp:Parameter Name="_user"  /></SelectParameters>
+            </asp:ObjectDataSource>
             <asp:ObjectDataSource ID="OpportunityStatusDS" runat="server" SelectMethod="GetAll" TypeName="SandlerRepositories.OpprtunityStatusRepository"></asp:ObjectDataSource>
             <asp:ObjectDataSource ID="OpportunitySourceDS" runat="server" SelectMethod="GetAll" TypeName="SandlerRepositories.OpprtunitySourceRepository"></asp:ObjectDataSource>
             <asp:ObjectDataSource ID="OpportunityTypesDS" runat="server" SelectMethod="GetAll"  TypeName="SandlerRepositories.OpprtunityTypesRepository"></asp:ObjectDataSource>
             <asp:ObjectDataSource ID="GetYesNoOptionsDS" runat="server" SelectMethod="GetYesNoOptions"  TypeName="SandlerRepositories.QuickStartRepository"></asp:ObjectDataSource>
             
-            <asp:ObjectDataSource ID="QuickStartDataSource" runat="server" InsertMethod="InsertQuickStartRecord" TypeName="SandlerRepositories.QuickStartRepository">
+            <asp:ObjectDataSource ID="QuickStartDataSource" runat="server" InsertMethod="InsertQuickStartRecord" TypeName="SandlerRepositories.QuickStartRepository" OnInserting="InsertOperation_Selecting">
                     <InsertParameters>
                         <asp:ControlParameter ControlID="dvQuickStart" Name="COMPANYNAME" PropertyName="SelectedValue" />
                         <asp:ControlParameter ControlID="dvQuickStart" Name="FirstName" PropertyName="SelectedValue" />
@@ -208,6 +210,7 @@
                         <asp:ControlParameter ControlID="dvQuickStart" Name="ACTIONSTEP" PropertyName="SelectedValue" />
                         <asp:ControlParameter ControlID="dvQuickStart" Name="NextContactDate" PropertyName="SelectedValue" />
                         <asp:ControlParameter ControlID="dvQuickStart" Name="OppCloseDate" PropertyName="SelectedValue" />
+                        <asp:Parameter Name="_user"  />
                    </InsertParameters>
            </asp:ObjectDataSource>
             

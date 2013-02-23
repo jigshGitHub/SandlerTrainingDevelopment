@@ -19,7 +19,10 @@ public partial class OpportunityIndex : OpportunityBasePage
             BindOpportunitiesForAComnpany(0);
         }
     }
-
+    protected void CompanyDS_Selecting(object sender, ObjectDataSourceSelectingEventArgs e)
+    {
+        e.InputParameters["_user"] = CurrentUser;
+    }
     private void BindOpportunitiesForAComnpany(int companyId)
     {
         var data = from record in GetOpportunities(companyId)

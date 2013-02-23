@@ -284,7 +284,9 @@
         <tr>
             <td style="width: 280px">
                 <asp:Label ID="lblResult" runat="server" ForeColor="Red"></asp:Label><br />
-                <asp:ObjectDataSource ID="CompanyDS" runat="server" TypeName="SandlerRepositories.CompaniesRepository" SelectMethod="GetCompaniesForDDL"></asp:ObjectDataSource>
+                <asp:ObjectDataSource ID="CompanyDS" runat="server" TypeName="SandlerRepositories.CompaniesRepository" SelectMethod="GetCompaniesForDDL" OnSelecting="CompanyDS_Selecting">
+                    <SelectParameters><asp:Parameter Name="_user"  /></SelectParameters>
+                </asp:ObjectDataSource>
                 <asp:ObjectDataSource ID="NewItemInfoDS" runat="server" TypeName="SandlerRepositories.CompaniesRepository" SelectMethod="GetNewItemOptions"></asp:ObjectDataSource>
                 
                 <asp:ObjectDataSource ID="CallBackInfoDS" runat="server" TypeName="SandlerRepositories.CompaniesRepository" SelectMethod="GetCallBackOptions"></asp:ObjectDataSource>
@@ -292,7 +294,7 @@
                 <asp:ObjectDataSource ID="ApptSourceDS" runat="server" TypeName="SandlerRepositories.ContactsRepository"  SelectMethod="GetApptSourceOptions"></asp:ObjectDataSource>
                 <asp:ObjectDataSource ID="RegForTrainingDS" runat="server" TypeName="SandlerRepositories.ContactsRepository" SelectMethod="GetRegForTrainingOptions"></asp:ObjectDataSource>
                 <asp:ObjectDataSource ID="CourseDS" runat="server" TypeName="SandlerRepositories.ContactsRepository" SelectMethod="GetCourseInfo"></asp:ObjectDataSource>
-                <asp:ObjectDataSource ID="ContactDataSource" runat="server" InsertMethod="Insert"
+                <asp:ObjectDataSource ID="ContactDataSource" runat="server" InsertMethod="Insert" OnInserting="InsertOperation_Selecting"
                     TypeName="SandlerRepositories.ContactsRepository">
                     <InsertParameters>
                         <asp:ControlParameter ControlID="dvContact" Name="COMPANIESID" PropertyName="SelectedValue" />
@@ -333,7 +335,7 @@
                         <asp:ControlParameter ControlID="dvContact" Name="BossName" PropertyName="SelectedValue" />
                         <asp:ControlParameter ControlID="dvContact" Name="ReferredBy" PropertyName="SelectedValue" />
                         <asp:ControlParameter ControlID="dvContact" Name="Notes" PropertyName="SelectedValue" />
-
+                        <asp:Parameter Name="_user"  />
                     </InsertParameters>
                 </asp:ObjectDataSource>
             </td>

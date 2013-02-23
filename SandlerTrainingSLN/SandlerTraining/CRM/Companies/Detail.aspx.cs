@@ -21,6 +21,7 @@ public partial class CompanyDETAIL : BasePage
             }
         }
     }
+    
     protected void Cancel_Click(object sender, EventArgs e)
     {
         Server.Transfer("~/CRM/Companies/Index.aspx");
@@ -453,8 +454,8 @@ public partial class CompanyDETAIL : BasePage
         if (repLastNameTempField != null)
         {
             //Get the User Info
-            UserModel _user = (UserModel)HttpContext.Current.Session["CurrentUser"];
-            if (_user.Role == SandlerRoles.Client)
+            
+            if (CurrentUser.Role == SandlerRoles.Client)
             {
                 repLastNameTempField.HeaderText = "Sales Rep Last Name :";
             }
@@ -466,8 +467,8 @@ public partial class CompanyDETAIL : BasePage
         if (repFirstNameTempField != null)
         {
             //Get the User Info
-            UserModel _user = (UserModel)HttpContext.Current.Session["CurrentUser"];
-            if (_user.Role == SandlerRoles.Client)
+            
+            if (CurrentUser.Role == SandlerRoles.Client)
             {
                 repFirstNameTempField.HeaderText = "Sales Rep First Name :";
             }

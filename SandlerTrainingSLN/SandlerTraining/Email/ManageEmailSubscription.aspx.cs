@@ -24,13 +24,13 @@ public partial class Email_ManageEmailSubscription : BasePage
     /// <param name="e"></param>
     protected void btnUpdateSub_Click(object sender, EventArgs e)
     {
-        UserModel _user = (UserModel)HttpContext.Current.Session["CurrentUser"];
+        
         //Update the Response.
         string response = rdbOptions.SelectedValue;
         //set response - true or false based on user selection
         response = (response == "0") ? "false" : "true"; 
         //Now Update the subscription Info
-        new SandlerRepositories.BlastEmailRepository().UpdateSubscriptionInfo(_user.UserId.ToString(),response);
+        new SandlerRepositories.BlastEmailRepository().UpdateSubscriptionInfo(CurrentUser.UserId.ToString(), response,CurrentUser);
         LblStatus.Text = "Blast Email Subscription updated successfully!";
         ShowCurrentSubscriptionInfo();
      }
@@ -38,8 +38,8 @@ public partial class Email_ManageEmailSubscription : BasePage
     public void ShowCurrentSubscriptionInfo()
     {
         //Update Subscription status
-        UserModel _user = (UserModel)HttpContext.Current.Session["CurrentUser"];
-        System.Data.DataSet ds = new SandlerRepositories.BlastEmailRepository().GetSubscriptionInfo(_user.UserId.ToString());
+        
+        System.Data.DataSet ds = new SandlerRepositories.BlastEmailRepository().GetSubscriptionInfo(CurrentUser.UserId.ToString(),CurrentUser);
         string SubscriptionInfo = ds.Tables[0].Rows[0]["IsEmailSubscription"].ToString();
         //To do - Check subscription for the User and update below message
         if (SubscriptionInfo.ToUpper() == "TRUE")

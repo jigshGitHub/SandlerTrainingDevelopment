@@ -19,8 +19,8 @@ public partial class Email_ManageGroup : BasePage
         if (!Page.IsPostBack)
         {
             //Check for the User Role
-            UserModel _user = (UserModel)HttpContext.Current.Session["CurrentUser"];
-            if (_user.Role == SandlerRoles.Corporate)
+            
+            if (CurrentUser.Role == SandlerRoles.Corporate)
             {
                 NonCorporate.Visible = false;
                 //Hide Addresses Rows - It will be visible when user selects the Franchisee
@@ -29,7 +29,7 @@ public partial class Email_ManageGroup : BasePage
             else
             {
                 Corporate.Visible = false;
-                lblFranchisee.Text = _user.FranchiseeName;
+                lblFranchisee.Text = CurrentUser.FranchiseeName;
             }
         }
     }
@@ -222,7 +222,7 @@ public partial class Email_ManageGroup : BasePage
                 _frUsersIds = GetSelectedList(chkListFrUsers);
                 _frContactsIds = GetSelectedListSpl(chkListFrContacts);
                 //Now Save the Info
-                new SandlerRepositories.BlastEmailRepository().AddGroup(txtGroupName.Text.Trim(), _coachIds, _frOwnerIds, _frUsersIds, _frContactsIds);
+                new SandlerRepositories.BlastEmailRepository().AddGroup(txtGroupName.Text.Trim(), _coachIds, _frOwnerIds, _frUsersIds, _frContactsIds,CurrentUser);
                 lblError.Text = "Group added successfully. This will be available when you compose message using Send Email feature.";
             }
             catch
@@ -254,7 +254,7 @@ public partial class Email_ManageGroup : BasePage
                 _frUsersIds = GetSelectedList(chkListFrUsersCorp);
                 _frContactsIds = GetSelectedListSpl(chkListFrContactsCorp);
                 //Now Save the Info
-                new SandlerRepositories.BlastEmailRepository().AddGroup(txtGroupNameCorp.Text.Trim(), _coachIds, _frOwnerIds, _frUsersIds, _frContactsIds);
+                new SandlerRepositories.BlastEmailRepository().AddGroup(txtGroupNameCorp.Text.Trim(), _coachIds, _frOwnerIds, _frUsersIds, _frContactsIds,CurrentUser);
                 lblErrorCorp.Text = "Group added successfully. This will be available when you compose message using Send Email feature.";
             }
             catch

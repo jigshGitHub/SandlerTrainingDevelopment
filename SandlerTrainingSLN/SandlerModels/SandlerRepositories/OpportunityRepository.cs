@@ -34,11 +34,11 @@ namespace SandlerRepositories
             }
             return opportunties;
         }
-        
-        public DataSet GetByCompId(int COMPANIESID)
+
+        public DataSet GetByCompId(int COMPANIESID, UserModel _user)
         {
             //Get the User Info
-            UserModel _user = (UserModel)HttpContext.Current.Session["CurrentUser"];
+            
             if (_user.Role != SandlerRoles.FranchiseeUser)
             {
                 System.Data.DataSet ds = db.ExecuteDataset("sp_GetAllOpportunitiesByID", "Opportunities", new SqlParameter("@CompanyID", COMPANIESID));

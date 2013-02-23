@@ -23,6 +23,10 @@ public partial class CRM_Companies_SearchResults : BasePage
             }
         }
     }
+    protected void SearchCompanyDS_Selecting(object sender, ObjectDataSourceSelectingEventArgs e)
+    {
+        e.InputParameters["_user"] = CurrentUser;
+    }
     protected void gvCompanies_DataBound(object sender, EventArgs e)
     {
         if (gvCompanies.Rows.Count == 0)
@@ -33,8 +37,8 @@ public partial class CRM_Companies_SearchResults : BasePage
         {
             LblStatus.Text = "";
             //Get the User Info
-            UserModel _user = (UserModel)HttpContext.Current.Session["CurrentUser"];
-            if (_user.Role == SandlerRoles.Client)
+            
+            if (CurrentUser.Role == SandlerRoles.Client)
             {
                 gvCompanies.Columns[4].HeaderText = "Sales Rep";
             }
@@ -63,8 +67,8 @@ public partial class CRM_Companies_SearchResults : BasePage
         gvCompaniesExport.AllowPaging = false;
         gvCompaniesExport.AllowSorting = false;
         //Get the User Info
-        UserModel _user = (UserModel)HttpContext.Current.Session["CurrentUser"];
-        if (_user.Role == SandlerRoles.Client)
+        
+        if (CurrentUser.Role == SandlerRoles.Client)
         {
             gvCompaniesExport.Columns[4].Visible = false;
         }

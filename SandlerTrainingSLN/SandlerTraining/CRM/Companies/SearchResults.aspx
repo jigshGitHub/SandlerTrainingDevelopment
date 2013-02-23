@@ -120,8 +120,9 @@
         </tr>
         <tr>
             <td colspan="2">
-                <asp:ObjectDataSource ID="SearchCompanyDS" runat="server" TypeName="SandlerRepositories.CompaniesRepository"
-                    SelectMethod="GetCompaniesForSearch"></asp:ObjectDataSource>
+                <asp:ObjectDataSource ID="SearchCompanyDS" runat="server" TypeName="SandlerRepositories.CompaniesRepository" SelectMethod="GetCompaniesForSearch" OnSelecting="SearchCompanyDS_Selecting">
+                    <SelectParameters><asp:Parameter Name="_user"  /></SelectParameters>
+                    </asp:ObjectDataSource>
                 <asp:HiddenField ID="hidCompanyID" runat="server" />
             </td>
         </tr>

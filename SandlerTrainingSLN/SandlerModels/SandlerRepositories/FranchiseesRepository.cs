@@ -15,11 +15,11 @@ namespace SandlerRepositories
         DBFactory db = new DBFactory();
 
 
-        
-        public DataSet sp_GetAllFranchisees()
+
+        public DataSet sp_GetAllFranchisees(UserModel _user)
         {
             //Get the User Session
-            UserModel _user = (UserModel)HttpContext.Current.Session["CurrentUser"];
+            
             return db.ExecuteDataset("sp_GetAllFranchisee", "Franchisees",new SqlParameter("@Role", _user.Role.ToString()));
 
         }
@@ -303,12 +303,12 @@ namespace SandlerRepositories
             string WorkZip, int WorkCountryValue, string SpouseName,
             DateTime BirthDay, DateTime Anniversary, int YearswithCompany, string HomePhone, string AlternateEmail, 
             int IsSameHomeAddressValue, string HomeAddress,
-            string HomeCity, int HomeStateValue, string HomeZip, int HomeCountryValue
+            string HomeCity, int HomeStateValue, string HomeZip, int HomeCountryValue, UserModel _user
             )
         {
 
             //Get the User Session
-            UserModel _user = (UserModel)HttpContext.Current.Session["CurrentUser"];
+            
 
             InitialContractDate = IsValidDateCheck(InitialContractDate);
             RenewalDate = IsValidDateCheck(RenewalDate);

@@ -21,9 +21,9 @@ namespace SandlerRepositories
         //    // TODO: Add constructor logic here
         //    //
         //}
-        public DataSet GetAll(int COMPANIESID)
+        public DataSet GetAll(int COMPANIESID, UserModel _user)
         {
-            UserModel _user = (UserModel)HttpContext.Current.Session["CurrentUser"];
+            
 
             if (COMPANIESID == 0)
             {
@@ -66,10 +66,10 @@ namespace SandlerRepositories
 
         }
 
-        public DataSet GetAllForSearch()
+        public DataSet GetAllForSearch(UserModel _user)
         {
             //get the User Info
-            UserModel _user = (UserModel)HttpContext.Current.Session["CurrentUser"];
+            
             SandlerModels.DataIntegration.Contact _contact = (SandlerModels.DataIntegration.Contact)HttpContext.Current.Session["ContactSearchCriteria"];
             //date fields
 
@@ -267,10 +267,10 @@ namespace SandlerRepositories
 
         }
 
-        public DataSet GetCallList()
+        public DataSet GetCallList(UserModel _user)
         {
             //Get the User Session
-            UserModel _user = (UserModel)HttpContext.Current.Session["CurrentUser"];
+            
             //Get Call List for this user
             return db.ExecuteDataset("sp_GetCallList", "GetCallList",
                 new SqlParameter("@Role", _user.Role.ToString()), new SqlParameter("@UserId", _user.UserId.ToString()),
@@ -318,10 +318,10 @@ namespace SandlerRepositories
             int ApptSourceId, int RegForTrainingId, int CourseId, DateTime CourseTrngDate, string DiscussionTopic, string ACTIONSTEP,
             DateTime LastAttemptedDate, DateTime Last_Contact_Date, DateTime LastEmailedDate, DateTime LastMeetingDate, DateTime LetterSentDate,
             DateTime Next_Contact_Date, int CallBackValue, DateTime Birthday, string SpouseName, DateTime Anniversary, int CompanyYears, string BossName,
-            string ReferredBy, string Notes)
+            string ReferredBy, string Notes, UserModel _user)
         {
 
-            UserModel _user = (UserModel)HttpContext.Current.Session["CurrentUser"];
+            
 
             CourseTrngDate = IsValidDateCheck(CourseTrngDate);
             Last_Contact_Date = IsValidDateCheck(Last_Contact_Date);
@@ -405,9 +405,9 @@ namespace SandlerRepositories
             DateTime LastAttemptedDate, DateTime LastEmailedDate, DateTime LastMeetingDate, DateTime LetterSentDate,
             int IsRegisteredForTrng, int IsNewAppt, int CourseId,
             int AppsSourceId, DateTime LastDate, DateTime NextDate, DateTime CourseTrngDate, int BlastEmailSubscription, int CallBackValue, DateTime BirthDate,
-            DateTime AnniversaryDate, int CompanyYears, string BossName, string SpouseName, string ReferredBy, string Notes)
+            DateTime AnniversaryDate, int CompanyYears, string BossName, string SpouseName, string ReferredBy, string Notes, UserModel _user)
         {
-            UserModel _user = (UserModel)HttpContext.Current.Session["CurrentUser"];
+            
             //date fields
             CourseTrngDate = IsValidDateCheck(CourseTrngDate);
             LastDate = IsValidDateCheck(LastDate);

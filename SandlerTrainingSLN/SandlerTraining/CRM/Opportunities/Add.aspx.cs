@@ -23,6 +23,10 @@ public partial class OpportunityADD : OpportunityBasePage
         }
         lblResult.Text = "";
     }
+    protected void CompanyDS_Selecting(object sender, ObjectDataSourceSelectingEventArgs e)
+    {
+        e.InputParameters["_user"] = CurrentUser;
+    }
     protected void ddlCreateDefaultSelection(object sender, EventArgs e)
     {
         DropDownList dropdownList = sender as DropDownList;

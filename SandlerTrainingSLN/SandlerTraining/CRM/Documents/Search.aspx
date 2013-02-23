@@ -31,8 +31,9 @@
                                             <asp:DropDownList DataSourceID="CompanyDS" DataTextField="CompanyName" DataValueField="CompaniesID"
                                                 ID="ddlCompanySearch" runat="server" OnDataBound="ddlCreateDefaultSelection">
                                             </asp:DropDownList>
-                                            <asp:ObjectDataSource ID="CompanyDS" runat="server" TypeName="SandlerRepositories.CompaniesRepository"
-                                                SelectMethod="GetCompaniesForDDL"></asp:ObjectDataSource>
+                                            <asp:ObjectDataSource ID="CompanyDS" runat="server" TypeName="SandlerRepositories.CompaniesRepository" SelectMethod="GetCompaniesForDDL" OnSelecting="CompanyDS_Selecting">
+                                                <SelectParameters><asp:Parameter Name="_user"  /></SelectParameters>
+                                            </asp:ObjectDataSource>
                                         </td>
                                     </tr>
                                     <tr style="color: Black; background-color: #DCDCDC; white-space: nowrap;" runat="server">

@@ -11,7 +11,10 @@ public partial class CRM_Documents_Search : BasePage
     {
 
     }
-
+    protected void CompanyDS_Selecting(object sender, ObjectDataSourceSelectingEventArgs e)
+    {
+        e.InputParameters["_user"] = CurrentUser;
+    }
     protected void Page_Prerender(object sender, EventArgs e)
     {
         pnlResults.Visible = !pnlSearch.Visible;

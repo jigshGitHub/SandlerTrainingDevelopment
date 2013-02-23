@@ -25,7 +25,10 @@ public partial class CRM_HomeOffice_Add : BasePage
         //send back
         return _DatevalueFromDB;
     }
-
+    protected void InsertOperation_Selecting(object sender, ObjectDataSourceMethodEventArgs e)
+    {
+        e.InputParameters["_user"] = CurrentUser;
+    }
     protected void FranchiseeFW_ItemInserted(object sender, FormViewInsertedEventArgs e)
     {
         lblResult.Text = "Franchisee created Successfully!";

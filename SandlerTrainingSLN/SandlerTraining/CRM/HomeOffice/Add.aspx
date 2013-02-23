@@ -405,7 +405,7 @@
                 <asp:ObjectDataSource ID="CertifiedLevelInfoDS" runat="server" TypeName="SandlerRepositories.FranchiseesRepository" SelectMethod="GetCertifiedLevelOptions"></asp:ObjectDataSource>
                 <asp:ObjectDataSource ID="PrimaryBusinessInfoDS" runat="server" TypeName="SandlerRepositories.FranchiseesRepository" SelectMethod="GetPrimaryBusinessOptions"></asp:ObjectDataSource>
                 
-                 <asp:ObjectDataSource ID="FranchiseeDataSource" runat="server" InsertMethod="InsertFranchisee" TypeName="SandlerRepositories.FranchiseesRepository">
+                 <asp:ObjectDataSource ID="FranchiseeDataSource" runat="server" InsertMethod="InsertFranchisee" TypeName="SandlerRepositories.FranchiseesRepository" OnInserting="InsertOperation_Selecting">
                     <InsertParameters>
                         <asp:ControlParameter ControlID="FranchiseeFW" Name="Name" PropertyName="SelectedValue" />
                         <asp:ControlParameter ControlID="FranchiseeFW" Name="LastName" PropertyName="SelectedValue" />
@@ -459,7 +459,7 @@
                         <asp:ControlParameter ControlID="FranchiseeFW" Name="HomeStateValue" PropertyName="SelectedValue" />
                         <asp:ControlParameter ControlID="FranchiseeFW" Name="HomeZip" PropertyName="SelectedValue" />
                         <asp:ControlParameter ControlID="FranchiseeFW" Name="HomeCountryValue" PropertyName="SelectedValue" />
-
+                        <asp:Parameter Name="_user"  />
                     </InsertParameters>
                 </asp:ObjectDataSource>
 

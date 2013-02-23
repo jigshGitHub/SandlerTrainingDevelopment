@@ -16,6 +16,14 @@ public partial class ContactADD : BasePage
         lblResult.Text = "Contact created Successfully!";
 
     }
+    protected void CompanyDS_Selecting(object sender, ObjectDataSourceSelectingEventArgs e)
+    {
+        e.InputParameters["_user"] = CurrentUser;
+    }
+    protected void InsertOperation_Selecting(object sender, ObjectDataSourceMethodEventArgs e)
+    {
+        e.InputParameters["_user"] = CurrentUser;
+    }
     protected void dvContact_ModeChanging(object sender, DetailsViewModeEventArgs e)
     {
         if (e.CancelingEdit)

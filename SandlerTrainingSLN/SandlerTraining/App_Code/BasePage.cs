@@ -18,6 +18,7 @@ public abstract class BasePage : System.Web.UI.Page
     public string QUERYSTRINGPARAMDRILLBY = ConfigurationManager.AppSettings["QueryStringParamDrillBy"];
     public string GENERICCHARTLITERALWIDTH = ConfigurationManager.AppSettings["GenericChartLiteralWidth"];
     public string GENERICCHARTLITERALHEIGHT = ConfigurationManager.AppSettings["GenericChartLiteralHeight"];
+    private string userSessionKey;
 
     protected int CurrentPage
     {
@@ -91,10 +92,17 @@ public abstract class BasePage : System.Web.UI.Page
         }
     }
     public List<SandlerWeb.Menu> CRMMenu;
+    public string UserSessionKey
+    {
+        get
+        {
+            return userSessionKey;
+        }
 
+    }
     public BasePage()
     {
-        
+        userSessionKey = Membership.GetUser(HttpContext.Current.User.Identity.Name).ProviderUserKey.ToString();
     }
 
 
@@ -102,19 +110,19 @@ public abstract class BasePage : System.Web.UI.Page
     {
         get
         {
-            UserModel user = Session["CurrentUser"] as UserModel;
+            UserModel user = Session[UserSessionKey] as UserModel;
             if (user == null)
             {
                 user = new UserModel();
                 new UserDataModel().Load(user);
 
-                Session["CurrentUser"] = user;
+                Session[UserSessionKey] = user;
             }
             return user;
         }
         set
         {
-            Session["CurrentUser"] = value;
+            Session[UserSessionKey] = value;
         }
     }
 

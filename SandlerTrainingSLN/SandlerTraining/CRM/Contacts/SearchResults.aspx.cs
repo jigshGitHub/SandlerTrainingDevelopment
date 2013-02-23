@@ -21,6 +21,10 @@ public partial class CRM_Contacts_SearchResults : BasePage
             }
         }
     }
+    protected void SearchContactDS_Selecting(object sender, ObjectDataSourceSelectingEventArgs e)
+    {
+        e.InputParameters["_user"] = CurrentUser;
+    }
     protected void gvContacts_DataBound(object sender, EventArgs e)
     {
         if (gvContacts.Rows.Count == 0)
