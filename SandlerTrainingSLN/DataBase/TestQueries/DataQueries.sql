@@ -20,7 +20,7 @@ INNER JOIN TBL_Region AS r ON r.ID = c.RegionID
 --where f.CoachID=10
 order by f.name;
 
-select * from aspnet_Users where UserName='judah.domke'
+select * from aspnet_Users where UserName='nectfo'
 select *  from TBL_FRANCHISEE where CoachID = 42
 select * from TBL_FRANCHISEE_USERS where FranchiseeID = 1
 
@@ -57,7 +57,7 @@ DatePart(Day,CreatedDate) = DatePart(Day,GetDate())
 --delete from tbl_franchisee where id = 24
 
 Select * from tbl_franchisee_users
-where userid='7A911B6A-20CA-4E64-8411-F10F7B2AA5FD'
+where userid='72305985-4171-4C6C-A796-4AFD870DA716'
 
 Select * from tbl_companies where LASTCONTACT_DATE < GETDATE() - 90
 

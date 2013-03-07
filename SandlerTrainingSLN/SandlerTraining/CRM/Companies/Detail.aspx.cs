@@ -46,18 +46,21 @@ public partial class CompanyDETAIL : BasePage
         {
             CompanyDW.ChangeMode(DetailsViewMode.Edit);
             LblStatus.Text = "";
+            LblStatus1.Text = "";
             GetCompanyDetails();
 
         }
         else if (e.CommandName == "Update")
         {
             LblStatus.Text = "";
+            LblStatus1.Text = "";
             UpdateCompanyDetails();
         }
         else if (e.CommandName == "Cancel")
         {
             CompanyDW.ChangeMode(DetailsViewMode.ReadOnly);
             LblStatus.Text = "";
+            LblStatus1.Text = "";
             GetCompanyDetails();
         }
     }
@@ -291,6 +294,7 @@ public partial class CompanyDETAIL : BasePage
             IndustryID, RepLastName, RepFirstName, DiscussionTopic, ACTIONSTEP, LastDate, NextDate, CreationDate, CurrentUser.UserId.ToString(),Notes);
         //Inform the Message
         LblStatus.Text = "Company informaton updated successfully!";
+        LblStatus1.Text = "Company informaton updated successfully!";
 
     }
     protected void ddlBillingAdrs_SelectedIndexChanged(object sender, System.EventArgs e)
@@ -338,6 +342,8 @@ public partial class CompanyDETAIL : BasePage
         if (dv.CurrentMode == DetailsViewMode.ReadOnly)
             if(dv.FindControl("LinkButton1")!= null)
                 (dv.FindControl("LinkButton1")as LinkButton).Visible = !IsUserReadOnly(SandlerUserActions.Edit, SandlerEntities.Company);
+            if (dv.FindControl("LinkButton11") != null)
+                (dv.FindControl("LinkButton11") as LinkButton).Visible = !IsUserReadOnly(SandlerUserActions.Edit, SandlerEntities.Company);
     }
     protected void CompanyDW_DataBound(object sender, EventArgs e)
     {

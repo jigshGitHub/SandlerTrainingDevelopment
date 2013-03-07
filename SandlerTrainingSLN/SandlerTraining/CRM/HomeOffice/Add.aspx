@@ -35,7 +35,8 @@
                                             <td>Last Name:</td>
                                             <td>
                                                 <asp:TextBox ID="LastNameTB" MaxLength="50"  Width="150" Text='<%# Bind("LastName") %>' runat="server"></asp:TextBox>
-                                                <asp:RequiredFieldValidator ID="reqFieldValLastNameTB" ControlToValidate="LastNameTB" Display="Static" InitialValue="" runat="server" ErrorMessage="Please Enter LastName to proceed.">*</asp:RequiredFieldValidator>
+                                                <label id="mandlbl" style="color:Red" runat="server">*</label>
+                                                <asp:RequiredFieldValidator ID="reqFieldValLastNameTB" ControlToValidate="LastNameTB" Display="Static" InitialValue="" runat="server" ErrorMessage="Please Enter Last Name to proceed.">Required field</asp:RequiredFieldValidator>
                                             </td>
 
                                          </tr>
@@ -43,7 +44,8 @@
                                             <td>First Name:</td>
                                             <td>
                                                 <asp:TextBox ID="FirstNameTB" MaxLength="50" Width="150" Text='<%# Bind("FirstName") %>' runat="server"></asp:TextBox>
-                                                <asp:RequiredFieldValidator ID="rfvFirstNameTB" ControlToValidate="FirstNameTB" Display="Static" InitialValue="" runat="server" ErrorMessage="Please Enter FirstName to proceed.">*</asp:RequiredFieldValidator>
+                                                <label id="LmandLbl2" style="color:Red" runat="server">*</label>
+                                                <asp:RequiredFieldValidator ID="rfvFirstNameTB" ControlToValidate="FirstNameTB" Display="Static" InitialValue="" runat="server" ErrorMessage="Please Enter First Name to proceed.">Required field</asp:RequiredFieldValidator>
                                             </td>
                                          </tr>
                                          <tr style="color: Black; background-color: #EEEEEE; white-space: nowrap;">
@@ -109,14 +111,28 @@
                                             <td>Coach-Region:</td>
                                             <td>
                                                 <asp:DropDownList ID="ddlCoach" runat="server" DataSourceID="CoachOptionsInfoDS" DataTextField="Name" DataValueField="Id" SelectedValue='<%# Bind("CoachId") %>'></asp:DropDownList>
-                                                <asp:RequiredFieldValidator ID="rfvCoach" ControlToValidate="ddlCoach"  InitialValue="0" Display="Static" runat="server" ErrorMessage="Please Select Coach to proceed.">*</asp:RequiredFieldValidator>
+                                                <label id="mandLbl3" style="color:Red" runat="server">*</label>
+                                                <asp:RequiredFieldValidator ID="rfvCoach" ControlToValidate="ddlCoach"  InitialValue="0" Display="Static" runat="server" ErrorMessage="Please Select Coach to proceed.">Required field</asp:RequiredFieldValidator>
                                             </td>
                                          </tr>
-                                          <tr style="color: Black; background-color: #DCDCDC; white-space: nowrap;">
+                                         <tr style="color: Black; background-color:  #DCDCDC; white-space: nowrap;">
+                                            <td>Territory:</td>
+                                            <td><asp:TextBox ID="txtTerritory" MaxLength="120" Width="150" Text='<%# Bind("Territory") %>' runat="server"></asp:TextBox></td>
+                                         </tr>
+                                         <tr style="color: Black; background-color: #EEEEEE; white-space: nowrap;">
+                                            <td>Business Focus Area:</td>
+                                            <td><asp:TextBox ID="txtBusinessFocusArea" MaxLength="50" Width="150" Text='<%# Bind("BusinessFocusArea") %>' runat="server"></asp:TextBox></td>
+                                         </tr>
+                                         <tr style="color: Black; background-color:  #DCDCDC; white-space: nowrap;">
+                                            <td>Closest Metro Area:</td>
+                                            <td><asp:TextBox ID="txtClosestMetro" MaxLength="50" Width="150" Text='<%# Bind("ClosestMetroArea") %>' runat="server"></asp:TextBox></td>
+                                         </tr>
+                                         <tr style="color: Black; background-color: #EEEEEE; white-space: nowrap;">
                                             <td>Franchise Name:</td>
                                             <td>
                                                 <asp:TextBox ID="FranchiseeNameTB" MaxLength="250"  Width="250" Text='<%# Bind("Name") %>' runat="server"></asp:TextBox>
-                                                <asp:RequiredFieldValidator ID="rfvFranchiseeName" ControlToValidate="FranchiseeNameTB" Display="Static" InitialValue="" runat="server" ErrorMessage="Please Enter Franchisee Name to proceed.">*</asp:RequiredFieldValidator>
+                                                <label id="mandLbl4" style="color:Red" runat="server">*</label>
+                                                <asp:RequiredFieldValidator ID="rfvFranchiseeName" ControlToValidate="FranchiseeNameTB" Display="Static" InitialValue="" runat="server" ErrorMessage="Please Enter Franchisee Name to proceed.">Required field</asp:RequiredFieldValidator>
                                             </td>
                                          </tr>
                                          <tr style="color: Black; background-color: #DCDCDC; white-space: nowrap;">
@@ -259,37 +275,37 @@
                                                 </td>
                                              </tr>
                                              <tr style="color: Black; background-color: #EEEEEE; white-space: nowrap;">
-                                                <td>Work Email:</td>
+                                                <td>Primary Office Email:</td>
                                                 <td>
                                                     <asp:TextBox ID="txtWorkEmail" MaxLength="80" Width="150" runat="server" Text='<%# Bind("WorkEmail") %>'></asp:TextBox>
                                                 </td>
                                              </tr>
                                              <tr style="color: Black; background-color: #DCDCDC; white-space: nowrap;">
-                                                <td>Work Address:</td>
+                                                <td>Primary Office Address:</td>
                                                 <td>
                                                     <asp:TextBox ID="txtWorkAddress" MaxLength="200" Width="250" runat="server" Text='<%# Bind("WorkAddress") %>'></asp:TextBox>
                                                 </td>
                                              </tr>
                                              <tr style="color: Black; background-color: #EEEEEE; white-space: nowrap;">
-                                                <td>Work City:</td>
+                                                <td>Primary Office City:</td>
                                                 <td>
                                                     <asp:TextBox ID="txtWorkCity" MaxLength="50" Width="150" runat="server" Text='<%# Bind("WorkCity") %>'></asp:TextBox>
                                                 </td>
                                              </tr>
                                              <tr style="color: Black; background-color: #DCDCDC; white-space: nowrap;">
-                                                <td>Work State:</td>
+                                                <td>Primary Office State:</td>
                                                 <td>
                                                     <asp:DropDownList ID="ddlWorkState" runat="server" DataSourceID="StateInfoDS" DataTextField="Name" DataValueField="Id" SelectedValue='<%# Bind("WorkStateValue") %>'></asp:DropDownList>
                                                 </td>
                                              </tr>
                                              <tr style="color: Black; background-color: #EEEEEE; white-space: nowrap;">
-                                                <td>Work Zip:</td>
+                                                <td>Primary Office Zip:</td>
                                                 <td>
                                                     <asp:TextBox ID="txtWorkZip" MaxLength="50" Width="150" runat="server" Text='<%# Bind("WorkZip") %>'></asp:TextBox>
                                                 </td>
                                              </tr>
                                              <tr style="color: Black; background-color: #DCDCDC; white-space: nowrap;">
-                                                <td>Work Country:</td>
+                                                <td>Primary Office Country:</td>
                                                 <td>
                                                     <asp:DropDownList ID="ddlWorkCountry" runat="server" DataSourceID="CountryInfoDS" DataTextField="Name" DataValueField="Id" SelectedValue='<%# Bind("WorkCountryValue") %>'></asp:DropDownList>
                                                 </td>
@@ -459,6 +475,9 @@
                         <asp:ControlParameter ControlID="FranchiseeFW" Name="HomeStateValue" PropertyName="SelectedValue" />
                         <asp:ControlParameter ControlID="FranchiseeFW" Name="HomeZip" PropertyName="SelectedValue" />
                         <asp:ControlParameter ControlID="FranchiseeFW" Name="HomeCountryValue" PropertyName="SelectedValue" />
+                        <asp:ControlParameter ControlID="FranchiseeFW" Name="Territory" PropertyName="SelectedValue" />
+                        <asp:ControlParameter ControlID="FranchiseeFW" Name="BusinessFocusArea" PropertyName="SelectedValue" />
+                        <asp:ControlParameter ControlID="FranchiseeFW" Name="ClosestMetroArea" PropertyName="SelectedValue" />
                         <asp:Parameter Name="_user"  />
                     </InsertParameters>
                 </asp:ObjectDataSource>

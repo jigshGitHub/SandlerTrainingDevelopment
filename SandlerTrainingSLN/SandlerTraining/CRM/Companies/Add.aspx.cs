@@ -44,7 +44,6 @@ public partial class AddCompany : BasePage
             ListItem selectItem = new ListItem("--Select Industry--", "0");
             industryDropDownList.Items.Insert(0, selectItem);
         }
-
         //Sandler Rep Last Name - It should be Sales for Client
         TemplateField repLastNameTempField = new TemplateField();
         repLastNameTempField = dvCompany.Fields.OfType<TemplateField>().Where(f => f.HeaderText == "Sandler Rep Last Name :").FirstOrDefault();
@@ -57,7 +56,6 @@ public partial class AddCompany : BasePage
                 repLastNameTempField.HeaderText = "Sales Rep Last Name :";
             }
         }
-
         //For Sandler Rep First Name
         TemplateField repFirstNameTempField = new TemplateField();
         repFirstNameTempField = dvCompany.Fields.OfType<TemplateField>().Where(f => f.HeaderText == "Sandler Rep First Name :").FirstOrDefault();
@@ -70,7 +68,35 @@ public partial class AddCompany : BasePage
                 repFirstNameTempField.HeaderText = "Sales Rep First Name :";
             }
         }
+        //Find out Loggedin User's First and Last Name for Auto Polulatation
+        SandlerRepositories.CompaniesRepository companyRepository = new SandlerRepositories.CompaniesRepository();
+        System.Data.DataSet ds = companyRepository.GetFirstLastNameInfo(CurrentUser.UserId.ToString());
 
+        string FName = "";
+        string LName = "";
+
+        if (ds.Tables[0].Rows.Count > 0)
+        {
+            FName = ds.Tables[0].Rows[0].ItemArray[0].ToString();
+            LName = ds.Tables[0].Rows[0].ItemArray[1].ToString();
+
+        }
+        //For Next Contact Date - Calendar control
+        TextBox RepLastNameTextBox  = new TextBox();
+        RepLastNameTextBox = (TextBox)dvCompany.FindControl("txtRepLastName");
+        if (RepLastNameTextBox != null)
+        {
+            RepLastNameTextBox.Text = LName;
+
+        }
+        //For Next Contact Date - Calendar control
+        TextBox RepFirstNameTextBox = new TextBox();
+        RepFirstNameTextBox = (TextBox)dvCompany.FindControl("txtRepFirstName");
+        if (RepFirstNameTextBox != null)
+        {
+            RepFirstNameTextBox.Text = FName;
+
+        }
 
     }
 

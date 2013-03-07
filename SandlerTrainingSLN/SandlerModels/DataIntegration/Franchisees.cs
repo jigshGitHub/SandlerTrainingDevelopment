@@ -54,6 +54,10 @@ namespace SandlerModels.DataIntegration
         private string _IsBehindInTerDev;
         private string _CostPlusAmountId;
         private string _BehindAmtId;
+
+        private string _territory;
+        private string _businessFocusArea;
+        private string _closestMetro;
         
         private DateTime _initialContractDate;
         private DateTime _renewalDate;
@@ -62,6 +66,48 @@ namespace SandlerModels.DataIntegration
         private DateTime _initialTrngDate;
         private DateTime _birthDay;
         private DateTime _anniversary;
+
+
+        public string ClosestMetro
+        {
+            get
+            {
+                return _closestMetro;
+
+            }
+            set
+            {
+                _closestMetro = value;
+            }
+        }
+
+
+        public string BusinessFocusArea
+        {
+            get
+            {
+                return _businessFocusArea;
+
+            }
+            set
+            {
+                _businessFocusArea = value;
+            }
+        }
+
+
+        public string Territory
+        {
+            get
+            {
+                return _territory;
+
+            }
+            set
+            {
+                _territory = value;
+            }
+        }
 
         public DateTime InitialContractDate
         {

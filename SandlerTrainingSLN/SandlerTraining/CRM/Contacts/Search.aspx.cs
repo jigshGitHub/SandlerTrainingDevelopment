@@ -29,6 +29,7 @@ public partial class CRM_Contacts_Search : BasePage
     {
         //Clear All data entered by the User
         lblResult.Text = "";
+        lblResult1.Text = "";
     }
     protected void dvContact_ItemInserting(object sender, DetailsViewInsertEventArgs e)
     {
@@ -60,6 +61,10 @@ public partial class CRM_Contacts_Search : BasePage
         string SpouseName = default(System.String);
         string ReferredBy = default(System.String);
         string Notes = default(System.String);
+
+        string TrainingCourseName = default(System.String);
+        string HowManyAttended = default(System.String);
+        string CompanyNameWhereTrainingConducted = default(System.String);
         
         //Date Fields        
         System.DateTime NextDate = default(System.DateTime);
@@ -715,14 +720,57 @@ public partial class CRM_Contacts_Search : BasePage
             }
         }
 
+        //For Training Course Name
+        {
+            TextBox TrainingCourseNameTextBox = new TextBox();
+            TrainingCourseNameTextBox = (TextBox)dvContact.FindControl("txtTrainingCourseName");
+            if ((TrainingCourseNameTextBox != null))
+            {
+                TrainingCourseName = TrainingCourseNameTextBox.Text.Trim();
+                if (!string.IsNullOrEmpty(TrainingCourseName))
+                {
+                    IsCriteriaExist = true;
+                }
+                searchObj.TrainingCourseName = TrainingCourseName;
+            }
+        }
 
+        //For Training Course Name
+        {
+            TextBox CompanyNameWhereTrainingConductedTextBox = new TextBox();
+            CompanyNameWhereTrainingConductedTextBox = (TextBox)dvContact.FindControl("txtCompanyNameWhereTrainingConducted");
+            if ((CompanyNameWhereTrainingConductedTextBox != null))
+            {
+                CompanyNameWhereTrainingConducted = CompanyNameWhereTrainingConductedTextBox.Text.Trim();
+                if (!string.IsNullOrEmpty(CompanyNameWhereTrainingConducted))
+                {
+                    IsCriteriaExist = true;
+                }
+                searchObj.CompanyNameWhereTrainingConducted = CompanyNameWhereTrainingConducted;
+            }
+        }
 
+        //For How Many Attended?
+        {
+            TextBox HowManyAttendedTextBox = new TextBox();
+            HowManyAttendedTextBox = (TextBox)dvContact.FindControl("txtHowManyAttended");
+            if ((HowManyAttendedTextBox != null))
+            {
+                HowManyAttended = HowManyAttendedTextBox.Text.Trim();
+                if (!string.IsNullOrEmpty(HowManyAttended))
+                {
+                    IsCriteriaExist = true;
+                }
+                searchObj.HowManyAttended = HowManyAttended;
+            }
+        }
 
 
         if (!IsCriteriaExist)
         {
             e.Cancel = true;
             lblResult.Text = "Please enter/select at lease one criteria for search.";
+            lblResult1.Text = "Please enter/select at lease one criteria for search.";
         }
         else
         {
@@ -736,6 +784,7 @@ public partial class CRM_Contacts_Search : BasePage
                 //we have data so go ahead and show the SearchResults page
                 Session["ContactSearchCount"] = ds.Tables[0].Rows.Count;
                 lblResult.Text = "";
+                lblResult1.Text = "";
                 //Now go the the Search Results Page
                 Response.Redirect("~/CRM/Contacts/SearchResults.aspx");
 
@@ -744,6 +793,7 @@ public partial class CRM_Contacts_Search : BasePage
             {
                 e.Cancel = true;
                 lblResult.Text = "There are no results matching with your criteria.";
+                lblResult1.Text = "There are no results matching with your criteria.";
             }
 
         }

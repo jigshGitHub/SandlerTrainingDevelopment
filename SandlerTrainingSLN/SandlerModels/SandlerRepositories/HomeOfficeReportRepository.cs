@@ -82,7 +82,7 @@ namespace SandlerRepositories
                     reportDisplayName = "Report of Sandler E-mail Required by Franchisee";             
                     break;
                 case "zcbt": returnValue = db.ExecuteDataset("sp_GetHomeOfficeReportzcbt", "HomeOfficeReportzcbt", new SqlParameter("@reportType", reportType));
-                    reportDisplayName = "Report of Franchisee Zip Codes by Territory";                 
+                    reportDisplayName = "Report of Franchisee by Territory";                 
                     break;
                 case "msfc": returnValue = db.ExecuteDataset("sp_GetHomeOfficeReportmsfc", "HomeOfficeReportmsfc", new SqlParameter("@reportType", reportType));
                     reportDisplayName = "Report of Franchisee Who Must Submit Financials";                     

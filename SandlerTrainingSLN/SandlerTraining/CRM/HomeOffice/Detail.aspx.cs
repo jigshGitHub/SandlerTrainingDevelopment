@@ -57,6 +57,8 @@ public partial class CRM_HomeOffice_Detail : BasePage
         if (dv.CurrentMode == FormViewMode.ReadOnly)
             if (dv.FindControl("LinkButton1") != null)
                 (dv.FindControl("LinkButton1") as LinkButton).Visible = !IsUserReadOnly(SandlerUserActions.Edit, SandlerEntities.HomeOffice);
+            if (dv.FindControl("LinkButton5") != null)
+                (dv.FindControl("LinkButton5") as LinkButton).Visible = !IsUserReadOnly(SandlerUserActions.Edit, SandlerEntities.HomeOffice);
     }
     protected void FranchiseeFW_ModeChanging(object sender, FormViewModeEventArgs e)
     {
@@ -68,18 +70,21 @@ public partial class CRM_HomeOffice_Detail : BasePage
         {
             FranchiseeFW.ChangeMode(FormViewMode.Edit);
             LblStatus.Text = "";
+            LblStatus1.Text = "";
             GetFranchiseeDetails();
 
         }
         else if (e.CommandName == "Update")
         {
             LblStatus.Text = "";
+            LblStatus1.Text = "";
             UpdateFranchiseeDetails();
         }
         else if (e.CommandName == "Cancel")
         {
             FranchiseeFW.ChangeMode(FormViewMode.ReadOnly);
             LblStatus.Text = "";
+            LblStatus1.Text = "";
             GetFranchiseeDetails();
         }
     }
@@ -127,6 +132,11 @@ public partial class CRM_HomeOffice_Detail : BasePage
         string HomeCity = default(System.String);
         string HomeZip = default(System.String);
         string FranchiseName = default(System.String);
+
+        string Territory = default(System.String);
+        string BusinessFocusArea = default(System.String);
+        string ClosestMetro = default(System.String);
+
         //Date Fields        
         System.DateTime InitialContractDate = default(System.DateTime);
         System.DateTime RenewalDate = default(System.DateTime);
@@ -231,6 +241,12 @@ public partial class CRM_HomeOffice_Detail : BasePage
         HomeZip = GetTextBoxData("txtHomeZip");
         //For Franchise Name
         FranchiseName = GetTextBoxData("txtFranchiseName");
+        //For Territory
+        Territory = GetTextBoxData("txtTerritory");
+        //For BusinessFocusArea
+        BusinessFocusArea = GetTextBoxData("txtBusinessFocusArea");
+        //For ClosestMetro
+        ClosestMetro = GetTextBoxData("txtClosestMetro");
         //For Initial Contract Date
         {
             TextBox IntCntDateCal = new TextBox();
@@ -336,10 +352,12 @@ public partial class CRM_HomeOffice_Detail : BasePage
          IsAdvBoard, IsMktgCommittee, IsUsingSandlerCRM,
          IsDHSAwardWinner, IsSandlerMailRequired, IsReqToSubmitFinancials,
          IsRepAgreementForGlobalAcct, WorkStateID, WorkCountryID,
-         HomeStateID, HomeCountryID, IsSameHomeAddress, Convert.ToInt32(hidFranchiseeID.Value), FranchiseName);
+         HomeStateID, HomeCountryID, IsSameHomeAddress, Convert.ToInt32(hidFranchiseeID.Value), FranchiseName,
+         Territory,BusinessFocusArea,ClosestMetro);
 
         //Inform the Message
         LblStatus.Text = "Franchisee informaton updated successfully!";
+        LblStatus1.Text = "Franchisee informaton updated successfully!";
 
     }
 

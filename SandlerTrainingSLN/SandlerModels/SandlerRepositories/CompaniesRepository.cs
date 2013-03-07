@@ -44,6 +44,10 @@ namespace SandlerRepositories
             return (db.ExecuteDataset("sp_GetAllFranchisee", "GetAllFranchisees"));
         }
 
+        public DataSet GetFirstLastNameInfo(string Userid)
+        {
+            return db.ExecuteDataset("sp_GetLoggedinUserFirstLastName", "FirstLastName", new SqlParameter("@UserId", Userid));
+        }
 
         public DataSet GetAllCompanies(UserModel _user)
         {

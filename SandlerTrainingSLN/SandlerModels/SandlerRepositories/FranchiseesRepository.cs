@@ -169,7 +169,10 @@ namespace SandlerRepositories
                 new SqlParameter("@WorkCountryID", _frs.WorkCountry),
                 new SqlParameter("@HomeStateID ", _frs.HomeState),
                 new SqlParameter("@HomeCountryID", _frs.HomeCountry),
-                new SqlParameter("@IsSameHomeAddress", _frs.IsSameHomeAddress)); 
+                new SqlParameter("@IsSameHomeAddress", _frs.IsSameHomeAddress),
+                new SqlParameter("@Territory", _frs.Territory),
+                new SqlParameter("@BusinessFocusArea", _frs.BusinessFocusArea),
+                new SqlParameter("@ClosestMetroArea", _frs.ClosestMetro)); 
                     
             
         }
@@ -199,7 +202,8 @@ namespace SandlerRepositories
         int IsAdvBoard, int IsMktgCommittee, int IsUsingSandlerCRM, 
         int IsDHSAwardWinner, int IsSandlerMailRequired, int IsReqToSubmitFinancials, 
         int IsRepAgreementForGlobalAcct, int WorkStateID,int WorkCountryID,
-        int HomeStateID, int HomeCountryID, int IsSameHomeAddress, int FrId, string FranchiseName)
+        int HomeStateID, int HomeCountryID, int IsSameHomeAddress, int FrId, string FranchiseName,
+        string Territory, string BusinessFocusArea, string ClosestMetroArea)
         {
 
             InitialContractDate = IsValidDateCheck(InitialContractDate);
@@ -227,6 +231,9 @@ namespace SandlerRepositories
             HomeCity = IsValidStringEntered(HomeCity);
             HomeZip = IsValidStringEntered(HomeZip);
             FranchiseName = IsValidStringEntered(FranchiseName);
+            Territory = IsValidStringEntered(Territory);
+            BusinessFocusArea = IsValidStringEntered(BusinessFocusArea);
+            ClosestMetroArea = IsValidStringEntered(ClosestMetroArea);
             
             //Update Franchisee Details
             db.ExecuteNonQuery("sp_UpdateFranchiseeDetails",
@@ -283,7 +290,10 @@ namespace SandlerRepositories
                 new SqlParameter("@HomeCountryID", HomeCountryID),
                 new SqlParameter("@IsSameHomeAddress", IsSameHomeAddress),
                 new SqlParameter("@FrId", FrId),
-                new SqlParameter("@FranchiseName",FranchiseName));
+                new SqlParameter("@FranchiseName",FranchiseName),
+                new SqlParameter("@Territory", Territory),
+                new SqlParameter("@BusinessFocusArea", BusinessFocusArea),
+                new SqlParameter("@ClosestMetroArea", ClosestMetroArea));
 
             UserEntitiesFactory.ReLoad();
 
@@ -303,7 +313,10 @@ namespace SandlerRepositories
             string WorkZip, int WorkCountryValue, string SpouseName,
             DateTime BirthDay, DateTime Anniversary, int YearswithCompany, string HomePhone, string AlternateEmail, 
             int IsSameHomeAddressValue, string HomeAddress,
-            string HomeCity, int HomeStateValue, string HomeZip, int HomeCountryValue, UserModel _user
+            string HomeCity, int HomeStateValue, string HomeZip, int HomeCountryValue, 
+            string Territory,
+            string BusinessFocusArea,
+            string ClosestMetroArea,UserModel _user
             )
         {
 
@@ -334,6 +347,9 @@ namespace SandlerRepositories
             HomeAddress = IsValidStringEntered(HomeAddress);
             HomeCity = IsValidStringEntered(HomeCity);
             HomeZip = IsValidStringEntered(HomeZip);
+            Territory = IsValidStringEntered(Territory);
+            BusinessFocusArea = IsValidStringEntered(BusinessFocusArea);
+            ClosestMetroArea = IsValidStringEntered(ClosestMetroArea);
 
             //Create the record
             db.ExecuteNonQuery("sp_InsertFranchisee",
@@ -389,7 +405,10 @@ namespace SandlerRepositories
                  new SqlParameter("@WorkCountryID", WorkCountryValue),
                  new SqlParameter("@HomeStateID", HomeStateValue),
                  new SqlParameter("@HomeCountryID", HomeCountryValue),
-                 new SqlParameter("@IsSameHomeAddress", IsSameHomeAddressValue));
+                 new SqlParameter("@IsSameHomeAddress", IsSameHomeAddressValue),
+                 new SqlParameter("@Territory", Territory),
+                 new SqlParameter("@BusinessFocusArea", BusinessFocusArea),
+                 new SqlParameter("@ClosestMetroArea", ClosestMetroArea));
 
             UserEntitiesFactory.ReLoad();
 

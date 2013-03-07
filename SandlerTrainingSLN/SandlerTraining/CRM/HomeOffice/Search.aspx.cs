@@ -24,6 +24,7 @@ public partial class CRM_HomeOffice_Search : BasePage
     {
         //Clear All data entered by the User
         lblResult.Text = "";
+        lblResult1.Text = "";
     }
 
     protected void FranchiseeFW_DataBound(object sender, EventArgs e)
@@ -338,6 +339,9 @@ public partial class CRM_HomeOffice_Search : BasePage
         string HomeAddress = default(System.String);
         string HomeCity = default(System.String);
         string HomeZip = default(System.String);
+        string Territory = default(System.String);
+        string BusinessFocusArea = default(System.String);
+        string ClosestMetro = default(System.String);
         //Date Fields        
         System.DateTime InitialContractDate = default(System.DateTime);
         System.DateTime RenewalDate = default(System.DateTime);
@@ -767,8 +771,48 @@ public partial class CRM_HomeOffice_Search : BasePage
                 }
             }
         }
-
-
+        //For Territory
+        {
+            TextBox txtTerritoryTBBox = new TextBox();
+            txtTerritoryTBBox = (TextBox)FranchiseeFW.FindControl("txtTerritory");
+            if ((txtTerritoryTBBox != null))
+            {
+                Territory = txtTerritoryTBBox.Text.Trim();
+                if (!string.IsNullOrEmpty(Territory))
+                {
+                    IsCriteriaExist = true;
+                }
+                searchObj.Territory = Territory;
+            }
+        }
+        //For Business Focus Area
+        {
+            TextBox txtBusinessFocusAreaTBBox = new TextBox();
+            txtBusinessFocusAreaTBBox = (TextBox)FranchiseeFW.FindControl("txtBusinessFocusArea");
+            if ((txtBusinessFocusAreaTBBox != null))
+            {
+                BusinessFocusArea = txtBusinessFocusAreaTBBox.Text.Trim();
+                if (!string.IsNullOrEmpty(BusinessFocusArea))
+                {
+                    IsCriteriaExist = true;
+                }
+                searchObj.BusinessFocusArea = BusinessFocusArea;
+            }
+        }
+        //For Closest Metro
+        {
+            TextBox txtClosestMetroTBBox = new TextBox();
+            txtClosestMetroTBBox = (TextBox)FranchiseeFW.FindControl("txtClosestMetro");
+            if ((txtClosestMetroTBBox != null))
+            {
+                ClosestMetro = txtClosestMetroTBBox.Text.Trim();
+                if (!string.IsNullOrEmpty(ClosestMetro))
+                {
+                    IsCriteriaExist = true;
+                }
+                searchObj.ClosestMetro = ClosestMetro;
+            }
+        }
         //For Franchisee Name
         {
             TextBox FranchiseeNameTBBox = new TextBox();
@@ -1026,6 +1070,7 @@ public partial class CRM_HomeOffice_Search : BasePage
         {
             e.Cancel = true;
             lblResult.Text = "Please enter/select at lease one criteria for search.";
+            lblResult1.Text = "Please enter/select at lease one criteria for search.";
         }
         else
         {
@@ -1039,6 +1084,7 @@ public partial class CRM_HomeOffice_Search : BasePage
                 //we have data so go ahead and show the SearchResults page
                 Session["FranchiseeSearchCount"] = ds.Tables[0].Rows.Count;
                 lblResult.Text = "";
+                lblResult1.Text = "";
                 //Now go the the Search Results Page
                 Response.Redirect("~/CRM/HomeOffice/SearchResults.aspx");
 
@@ -1047,6 +1093,7 @@ public partial class CRM_HomeOffice_Search : BasePage
             {
                 e.Cancel = true;
                 lblResult.Text = "There are no results matching with your criteria.";
+                lblResult1.Text = "There are no results matching with your criteria.";
             }
 
         }

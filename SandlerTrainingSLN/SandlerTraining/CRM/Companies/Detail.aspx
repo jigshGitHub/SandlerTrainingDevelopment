@@ -14,6 +14,14 @@
             </th>
         </tr>
         <tr>
+            <td colspan="2">&nbsp;</td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <asp:Label CssClass="resultLabel" ID="LblStatus1" ForeColor="Red" runat="server"></asp:Label>
+            </td>
+        </tr>
+        <tr>
             <td>
                 <asp:DetailsView AutoGenerateRows="False" DataKeyNames="COMPANIESID" ID="CompanyDW"
                     runat="server" Width="675px" OnItemCommand="CompanyDW_ItemCommand" OnModeChanging="CompanyDW_ModeChanging"
@@ -21,6 +29,21 @@
                     OnDataBound="CompanyDW_DataBound">
                     <Fields>
                         <asp:BoundField DataField="COMPANIESID" Visible="False" />
+                        
+                        <asp:TemplateField ShowHeader="False">
+                            <ControlStyle Font-Bold="true" />
+                            <EditItemTemplate>
+                                <asp:LinkButton ID="LinkButton11" runat="server" CausesValidation="True" CommandName="Update"
+                                    Text="Update"></asp:LinkButton>&nbsp;&nbsp;
+                                <asp:LinkButton ID="LinkButton12" runat="server" CausesValidation="False" CommandName="Cancel"
+                                    Text="Cancel"></asp:LinkButton>
+                            </EditItemTemplate>
+                            <ItemTemplate>
+                                <asp:LinkButton ID="LinkButton11" runat="server" CausesValidation="False" CommandName="Edit"
+                                    Text="Edit"></asp:LinkButton>&nbsp;&nbsp;<a href="Index.aspx" style="font-weight:bold">Back To Companies</a>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+
                         
                         <asp:TemplateField HeaderText="Company Name :">
                             <EditItemTemplate>
@@ -385,9 +408,7 @@
             </td>
         </tr>        
         <tr>
-            <td colspan="2">
-                &nbsp;
-            </td>
+            <td colspan="2">&nbsp;</td>
         </tr>
         <tr>
             <td colspan="2">

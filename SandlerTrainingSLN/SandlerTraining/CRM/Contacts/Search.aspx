@@ -20,6 +20,14 @@
                     OnModeChanging="dvContact_ModeChanging"
                     OnItemInserting="dvContact_ItemInserting">
                     <Fields>
+                        <asp:TemplateField ShowHeader="False">
+                            <InsertItemTemplate>
+                                <asp:LinkButton ID="LinkButton11" runat="server" CausesValidation="True" CommandName="Insert"
+                                    Text="Search" ForeColor="Blue" Font-Bold="true"></asp:LinkButton>&nbsp;&nbsp;
+                                <asp:LinkButton ID="LinkButton12" runat="server" CausesValidation="False" CommandName="Cancel"
+                                    Text="Clear" ForeColor="Blue" Font-Bold="true"></asp:LinkButton>
+                            </InsertItemTemplate>
+                        </asp:TemplateField>
                         <asp:TemplateField HeaderText="Select Company:">
                             <InsertItemTemplate>
                                 <asp:ListBox ID="lbCompany" runat="server" SelectionMode="Multiple"  Rows="5"  Width="280" DataSourceID="CompanyDS" DataTextField="COMPANYNAME" DataValueField="COMPANIESID"></asp:ListBox>
@@ -144,6 +152,21 @@
                             <InsertItemTemplate>
                                 <asp:TextBox ID="CourseTrngDate" runat="server" />&nbsp;<asp:Image ID="calanderImageCTD" runat="server" ImageUrl="~/images/calendar.gif" ImageAlign="Middle" />
                                 <asp:CalendarExtender ID="CalendarExtender1" runat="server" TargetControlID="CourseTrngDate" PopupButtonID="calanderImageCTD" CssClass="calendar"></asp:CalendarExtender>
+                            </InsertItemTemplate>
+                        </asp:TemplateField>
+                        <asp:TemplateField HeaderText="Training Course Name :">
+                            <InsertItemTemplate>
+                                <asp:TextBox ID="txtTrainingCourseName" Width="380" runat="server"></asp:TextBox>
+                            </InsertItemTemplate>
+                        </asp:TemplateField>
+                        <asp:TemplateField HeaderText="How Many Attended? :">
+                            <InsertItemTemplate>
+                                <asp:TextBox ID="txtHowManyAttended" onkeypress="EnterOnlyNumeric()"  MaxLength="5"  Width="380" runat="server"></asp:TextBox>
+                             </InsertItemTemplate>
+                        </asp:TemplateField>
+                        <asp:TemplateField HeaderText="Company Name where Training conducted :">
+                            <InsertItemTemplate>
+                                <asp:TextBox ID="txtCompanyNameWhereTrainingConducted" Width="380" runat="server"></asp:TextBox>
                             </InsertItemTemplate>
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="Discussion Topic :">
@@ -275,6 +298,7 @@
                 </asp:DetailsView>
             </td>
         </tr>
+        <tr><td><asp:Label ID="lblResult1" runat="server" ForeColor="Red"></asp:Label></td></tr>
         <tr>
             <td style="width: 280px">
                 <asp:ValidationSummary ID="ValidationSummary1" runat="server" Forecolor="Red" ShowMessageBox="True" />

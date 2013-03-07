@@ -127,7 +127,10 @@ namespace SandlerRepositories
                     new SqlParameter("@BossName", _contact.BossName),
                     new SqlParameter("@SpouseName", _contact.SpouseName),
                    new SqlParameter("@ReferredBy", _contact.ReferredBy),
-                   new SqlParameter("@Notes", _contact.Notes));
+                   new SqlParameter("@Notes", _contact.Notes),
+                   new SqlParameter("@TrainingCourseName", _contact.TrainingCourseName),
+                   new SqlParameter("@HowManyAttended", _contact.HowManyAttended),
+                   new SqlParameter("@CompanyNameWhereTrainingConducted", _contact.CompanyNameWhereTrainingConducted));
             }
             else if (_user.Role == SandlerRoles.Coach)
             {
@@ -172,7 +175,10 @@ namespace SandlerRepositories
                     new SqlParameter("@BossName", _contact.BossName),
                     new SqlParameter("@SpouseName", _contact.SpouseName),
                    new SqlParameter("@ReferredBy", _contact.ReferredBy),
-                   new SqlParameter("@Notes", _contact.Notes));
+                   new SqlParameter("@Notes", _contact.Notes),
+                   new SqlParameter("@TrainingCourseName", _contact.TrainingCourseName),
+                   new SqlParameter("@HowManyAttended", _contact.HowManyAttended),
+                   new SqlParameter("@CompanyNameWhereTrainingConducted", _contact.CompanyNameWhereTrainingConducted));
             }
             else if (_user.Role == SandlerRoles.FranchiseeOwner || _user.Role == SandlerRoles.Client)
             {
@@ -217,7 +223,10 @@ namespace SandlerRepositories
                     new SqlParameter("@BossName", _contact.BossName),
                     new SqlParameter("@SpouseName", _contact.SpouseName),
                    new SqlParameter("@ReferredBy", _contact.ReferredBy),
-                   new SqlParameter("@Notes", _contact.Notes));
+                   new SqlParameter("@Notes", _contact.Notes),
+                   new SqlParameter("@TrainingCourseName", _contact.TrainingCourseName),
+                   new SqlParameter("@HowManyAttended", _contact.HowManyAttended),
+                   new SqlParameter("@CompanyNameWhereTrainingConducted", _contact.CompanyNameWhereTrainingConducted));
             }
             else
             {
@@ -262,7 +271,10 @@ namespace SandlerRepositories
                     new SqlParameter("@BossName", _contact.BossName),
                     new SqlParameter("@SpouseName", _contact.SpouseName),
                    new SqlParameter("@ReferredBy", _contact.ReferredBy),
-                   new SqlParameter("@Notes", _contact.Notes));
+                   new SqlParameter("@Notes", _contact.Notes),
+                   new SqlParameter("@TrainingCourseName", _contact.TrainingCourseName),
+                   new SqlParameter("@HowManyAttended", _contact.HowManyAttended),
+                   new SqlParameter("@CompanyNameWhereTrainingConducted", _contact.CompanyNameWhereTrainingConducted));
             }
 
         }
@@ -318,7 +330,8 @@ namespace SandlerRepositories
             int ApptSourceId, int RegForTrainingId, int CourseId, DateTime CourseTrngDate, string DiscussionTopic, string ACTIONSTEP,
             DateTime LastAttemptedDate, DateTime Last_Contact_Date, DateTime LastEmailedDate, DateTime LastMeetingDate, DateTime LetterSentDate,
             DateTime Next_Contact_Date, int CallBackValue, DateTime Birthday, string SpouseName, DateTime Anniversary, int CompanyYears, string BossName,
-            string ReferredBy, string Notes, UserModel _user)
+            string ReferredBy, string Notes,
+            string TrainingCourseName, int HowManyAttended, string CompanyNameWhereTrainingConducted, UserModel _user)
         {
 
             
@@ -355,6 +368,8 @@ namespace SandlerRepositories
             Country = IsValidStringEntered(Country);
             DiscussionTopic = IsValidStringEntered(DiscussionTopic);
             ACTIONSTEP = IsValidStringEntered(ACTIONSTEP);
+            TrainingCourseName = IsValidStringEntered(TrainingCourseName);
+            CompanyNameWhereTrainingConducted = IsValidStringEntered(CompanyNameWhereTrainingConducted);
 
             //Insert and create contact - Both are Avl
             db.ExecuteNonQuery("sp_InsertContact",
@@ -383,7 +398,10 @@ namespace SandlerRepositories
                 new SqlParameter("@CompanyYears", CompanyYears), new SqlParameter("@BossName", BossName),
                 new SqlParameter("@SpouseName", SpouseName),
                 new SqlParameter("@ReferredBy", ReferredBy),
-                new SqlParameter("@Notes", Notes));
+                new SqlParameter("@Notes", Notes),
+                new SqlParameter("@TrainingCourseName", TrainingCourseName),
+                new SqlParameter("@HowManyAttended", HowManyAttended),
+                new SqlParameter("@CompanyNameWhereTrainingConducted", CompanyNameWhereTrainingConducted));
 
             UserEntitiesFactory.ReLoad();
         }
@@ -405,7 +423,8 @@ namespace SandlerRepositories
             DateTime LastAttemptedDate, DateTime LastEmailedDate, DateTime LastMeetingDate, DateTime LetterSentDate,
             int IsRegisteredForTrng, int IsNewAppt, int CourseId,
             int AppsSourceId, DateTime LastDate, DateTime NextDate, DateTime CourseTrngDate, int BlastEmailSubscription, int CallBackValue, DateTime BirthDate,
-            DateTime AnniversaryDate, int CompanyYears, string BossName, string SpouseName, string ReferredBy, string Notes, UserModel _user)
+            DateTime AnniversaryDate, int CompanyYears, string BossName, string SpouseName, string ReferredBy, string Notes,
+            string TrainingCourseName, int HowManyAttended, string CompanyNameWhereTrainingConducted, UserModel _user)
         {
             
             //date fields
@@ -441,6 +460,8 @@ namespace SandlerRepositories
             Country = IsValidStringEntered(Country);
             DiscussionTopic = IsValidStringEntered(DiscussionTopic);
             ActionStep = IsValidStringEntered(ActionStep);
+            TrainingCourseName = IsValidStringEntered(TrainingCourseName);
+            CompanyNameWhereTrainingConducted = IsValidStringEntered(CompanyNameWhereTrainingConducted);
 
             //Both Are Avl
             db.ExecuteNonQuery("sp_UpdateContactDetails",
@@ -482,7 +503,10 @@ namespace SandlerRepositories
                    new SqlParameter("@BossName", BossName),
                    new SqlParameter("@SpouseName", SpouseName),
                    new SqlParameter("@ReferredBy", ReferredBy),
-                   new SqlParameter("@Notes", Notes));
+                   new SqlParameter("@Notes", Notes),
+                   new SqlParameter("@TrainingCourseName", TrainingCourseName),
+                new SqlParameter("@HowManyAttended", HowManyAttended),
+                new SqlParameter("@CompanyNameWhereTrainingConducted", CompanyNameWhereTrainingConducted));
 
             UserEntitiesFactory.ReLoad();
         }

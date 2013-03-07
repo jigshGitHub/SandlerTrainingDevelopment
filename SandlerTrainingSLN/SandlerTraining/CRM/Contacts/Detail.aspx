@@ -13,12 +13,37 @@
             </th>
         </tr>
         <tr>
+            <td colspan="2">
+                &nbsp;
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <asp:Label CssClass="resultLabel" ID="LblStatus1" ForeColor="Red" runat="server"></asp:Label>
+            </td>
+        </tr>
+        <tr>
             <td>
                 <asp:DetailsView AutoGenerateRows="False" DataKeyNames="CONTACTSID" ID="ContactDW"
                     runat="server" Width="675px" OnItemCommand="ContactDW_ItemCommand" OnModeChanging="ContactDW_ModeChanging"
                     OnItemUpdating="ContactDW_ItemUpdating" OnDataBound="ContactDW_DataBound" OnItemCreated="ContactDW_ItemCreated">
                     <Fields>
                         <asp:BoundField DataField="CONTACTSID" Visible="False" />
+                        <asp:TemplateField ShowHeader="False">
+                            <ControlStyle Font-Bold="true" />
+                            <EditItemTemplate>
+                                <asp:LinkButton ID="LinkButton11" runat="server" CausesValidation="True" CommandName="Update"
+                                    Text="Update"></asp:LinkButton>&nbsp;&nbsp;
+                                <asp:LinkButton ID="LinkButton12" runat="server" CausesValidation="False" CommandName="Cancel"
+                                    Text="Cancel"></asp:LinkButton>
+                            </EditItemTemplate>
+                            <ItemTemplate>
+                                <asp:LinkButton ID="LinkButton11" runat="server" CausesValidation="False" CommandName="Edit"
+                                    Text="Edit"></asp:LinkButton>&nbsp;&nbsp;<a href="Index.aspx" style="font-weight: bold">Back
+                                        To Contacts</a>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                        
                         <asp:TemplateField HeaderText="Company :">
                             <ItemTemplate>
                                 <asp:Label ID="lblCompany" runat="server" Text='<%# Eval("COMPANYNAME") %>'></asp:Label>
@@ -238,6 +263,31 @@
                                 <asp:Label ID="lblCourseTrngDate" runat="server" Text='<%# Bind("CourseTrainingDate","{0:d}") %>'></asp:Label>
                             </ItemTemplate>
                         </asp:TemplateField>
+                        <asp:TemplateField HeaderText="Training Course Name :">
+                            <EditItemTemplate>
+                                <asp:TextBox ID="txtTrainingCourseName" Width="380" runat="server" Text='<%# Bind("TrainingCourseName") %>'></asp:TextBox>
+                            </EditItemTemplate>
+                            <ItemTemplate>
+                                <asp:Label ID="lblTrainingCourseName" runat="server" Text='<%# Bind("TrainingCourseName") %>'></asp:Label>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                        <asp:TemplateField HeaderText="How Many Attended? :">
+                            <EditItemTemplate>
+                                <asp:TextBox ID="txtHowManyAttended" onkeypress="EnterOnlyNumeric()" MaxLength="5" runat="server"
+                                    Text='<%# Bind("HowManyAttended") %>'></asp:TextBox>
+                            </EditItemTemplate>
+                            <ItemTemplate>
+                                <asp:Label ID="lblHowManyAttended" runat="server" Text='<%# Bind("HowManyAttended") %>'></asp:Label>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                        <asp:TemplateField HeaderText="Company Name where Training conducted :">
+                            <EditItemTemplate>
+                                <asp:TextBox ID="txtCompanyNameWhereTrainingConducted" Width="380" runat="server" Text='<%# Bind("CompanyNameWhereTrainingConducted") %>'></asp:TextBox>
+                            </EditItemTemplate>
+                            <ItemTemplate>
+                                <asp:Label ID="lblCompanyNameWhereTrainingConducted" runat="server" Text='<%# Bind("CompanyNameWhereTrainingConducted") %>'></asp:Label>
+                            </ItemTemplate>
+                        </asp:TemplateField>
                         <asp:TemplateField HeaderText="Discussion Topic :">
                             <EditItemTemplate>
                                 <asp:TextBox ID="txtDiscTopic" runat="server" Text='<%# Bind("DiscussionTopic") %>'></asp:TextBox>
@@ -246,6 +296,8 @@
                                 <asp:Label ID="lblDiscTopic" runat="server" Text='<%# Bind("DiscussionTopic") %>'></asp:Label>
                             </ItemTemplate>
                         </asp:TemplateField>
+
+
                         <asp:TemplateField HeaderText="Action Step :">
                             <EditItemTemplate>
                                 <asp:TextBox ID="txtActStep" runat="server" Text='<%# Bind("ACTIONSTEP") %>'></asp:TextBox>

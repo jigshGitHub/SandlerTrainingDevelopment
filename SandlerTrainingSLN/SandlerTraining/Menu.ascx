@@ -61,17 +61,22 @@
                         <ul class="sub_menu">
                             <li><a href="#">Franchisee Report By...</a>
                                 <ul class="sub_menu">
-                                    <li><a href="<%=  Page.ResolveClientUrl("~/CRM/HomeOffice/HomeOfficeReports.aspx?reportName=frbycoach")%>">Coach</a></li>
-                                    <li><a href="<%=  Page.ResolveClientUrl("~/CRM/HomeOffice/HomeOfficeReports.aspx?reportName=frbyregion")%>">Region</a></li>
-                                    <li><a href="<%=  Page.ResolveClientUrl("~/CRM/HomeOffice/HomeOfficeReports.aspx?reportName=frbystate")%>">State</a></li>
-                                    <li><a href="<%=  Page.ResolveClientUrl("~/CRM/HomeOffice/HomeOfficeReports.aspx?reportName=frbycountry")%>">Country/Province</a></li>
-                                    <li><a href="<%=  Page.ResolveClientUrl("~/CRM/HomeOffice/HomeOfficeReports.aspx?reportName=frbyawlevel")%>">Award Level</a></li>
-                                    <li><a href="<%=  Page.ResolveClientUrl("~/CRM/HomeOffice/HomeOfficeReports.aspx?reportName=frbytrngdate")%>">Initial Trng Date</a></li>
-                                    <li><a href="<%=  Page.ResolveClientUrl("~/CRM/HomeOffice/HomeOfficeReports.aspx?reportName=frbycontdetails")%>">Contract Details</a></li>
+                                <li><a href="<%=  Page.ResolveClientUrl("~/CRM/HomeOffice/HomeOfficeReports.aspx?reportName=frbyawlevel")%>">Award Level</a></li>
                                     <li><a href="<%=  Page.ResolveClientUrl("~/CRM/HomeOffice/HomeOfficeReports.aspx?reportName=frbybusarea")%>">Business Area</a></li>
                                     <li><a href="<%=  Page.ResolveClientUrl("~/CRM/HomeOffice/HomeOfficeReports.aspx?reportName=frbycertlevel")%>">Certification Level</a></li>
+                                    <li><a href="<%=  Page.ResolveClientUrl("~/CRM/HomeOffice/HomeOfficeReports.aspx?reportName=frbycoach")%>">Coach</a></li>
+                                      <li><a href="<%=  Page.ResolveClientUrl("~/CRM/HomeOffice/HomeOfficeReports.aspx?reportName=frbycontdetails")%>">Contract Details</a></li>
+                                    <li><a href="<%=  Page.ResolveClientUrl("~/CRM/HomeOffice/HomeOfficeReports.aspx?reportName=ctra")%>">Contractors Allowed?</a></li>
+                                    <li><a href="<%=  Page.ResolveClientUrl("~/CRM/HomeOffice/HomeOfficeReports.aspx?reportName=frbycountry")%>">Country/Province</a></li>
+                                    <li><a href="<%=  Page.ResolveClientUrl("~/CRM/HomeOffice/HomeOfficeReports.aspx?reportName=frbytrngdate")%>">Initial Training Date</a></li>
+                                    <li><a href="<%=  Page.ResolveClientUrl("~/CRM/HomeOffice/HomeOfficeReports.aspx?reportName=msfc")%>">Must Submit Financials</a></li>
+                                    <li><a href="<%=  Page.ResolveClientUrl("~/CRM/HomeOffice/HomeOfficeReports.aspx?reportName=prpl")%>">Product Purchase Levels</a></li>
+                                    <li><a href="<%=  Page.ResolveClientUrl("~/CRM/HomeOffice/HomeOfficeReports.aspx?reportName=frbyregion")%>">Region</a></li>
+                                    <li><a href="<%=  Page.ResolveClientUrl("~/CRM/HomeOffice/HomeOfficeReports.aspx?reportName=sere")%>">Sandler Email Required?</a></li>
+                                    <li><a href="<%=  Page.ResolveClientUrl("~/CRM/HomeOffice/HomeOfficeReports.aspx?reportName=frbystate")%>">State</a></li>
                                     <li><a href="<%=  Page.ResolveClientUrl("~/CRM/HomeOffice/HomeOfficeReports.aspx?reportName=frbyusingcrm")%>">Using Sandler CRM</a></li>
-                                </ul>
+                                     <li><a href="<%=  Page.ResolveClientUrl("~/CRM/HomeOffice/HomeOfficeReports.aspx?reportName=zcbt")%>">Territory</a></li>
+                               </ul>
                             </li>
                             <li><a href="<%=  Page.ResolveClientUrl("~/CRM/HomeOffice/HomeOfficeReports.aspx?reportName=mfrd")%>">Master Franchisee Details</a></li>
                             <li><a href="<%=  Page.ResolveClientUrl("~/CRM/HomeOffice/HomeOfficeReports.aspx?reportName=msfr")%>">Master/Sub Franchisees</a></li>
@@ -82,19 +87,11 @@
                                         <li><a href="<%=  Page.ResolveClientUrl("~/CRM/HomeOffice/HomeOfficeReports.aspx?reportName=msrbymktgcom")%>">Marketing Committee</a></li>
                                 </ul>
                             </li>
-                            <li><a href="<%=  Page.ResolveClientUrl("~/CRM/HomeOffice/HomeOfficeReports.aspx?reportName=dhsa")%>">David H. Sandler Award</a></li>
-                            <li><a href="<%=  Page.ResolveClientUrl("~/CRM/HomeOffice/HomeOfficeReports.aspx?reportName=ctra")%>">Contractors Allowed?</a></li>
-                            <li><a href="<%=  Page.ResolveClientUrl("~/CRM/HomeOffice/HomeOfficeReports.aspx?reportName=sere")%>">Sandler Email Required?</a></li>
-                            <li><a href="<%=  Page.ResolveClientUrl("~/CRM/HomeOffice/HomeOfficeReports.aspx?reportName=zcbt")%>">Zip Codes By Territory</a></li>
-                            <li><a href="<%=  Page.ResolveClientUrl("~/CRM/HomeOffice/HomeOfficeReports.aspx?reportName=msfc")%>">Must Submit Financials</a></li>
-                            <li><a href="<%=  Page.ResolveClientUrl("~/CRM/HomeOffice/HomeOfficeReports.aspx?reportName=prpl")%>">Product Purchase Levels</a></li>
+                            <li><a href="<%=  Page.ResolveClientUrl("~/CRM/HomeOffice/HomeOfficeReports.aspx?reportName=dhsa")%>">David H. Sandler Award</a></li>                            
                             <li><a href="<%=  Page.ResolveClientUrl("~/CRM/HomeOffice/HomeOfficeReports.aspx?reportName=frmd")%>">Franchisee Member Details</a></li>
                             <li><a href="<%=  Page.ResolveClientUrl("~/CRM/HomeOffice/HomeOfficeReports.aspx?reportName=glaa")%>">Global Account Agreement</a></li>
                         </ul>
                         </li>
-
-
-
                     </ul>
                     </li>
                     <li><a id="anchorBenchmarks" runat="server" href="#">BENCHMARKS</a><ul id="Ul1" runat="server"
@@ -117,10 +114,10 @@
                     <li><a id="a1" runat="server" href="#">CRM</a>
                       <ul class="sub_menu">
                         <li><a id="quickstartAnchor" runat="server" visible="false">QuickStart</a></li>
-                        <li><a href="<%=  Page.ResolveClientUrl("~/CRM/Companies/Index.aspx") %>">Companies</a></li>
-                        <li><a href="<%=  Page.ResolveClientUrl("~/CRM/Contacts/Index.aspx") %>">Contacts</a></li>
-                        <li><a href="<%=  Page.ResolveClientUrl("~/CRM/Opportunities/Index.aspx") %>">Pipeline</a></li>
-                        <li><a href="<%=  Page.ResolveClientUrl("~/CRM/Documents/Index.aspx") %>">Documents</a></li>
+                        <li><a id="companyAnchor" runat="server">Companies</a></li>
+                        <li><a id="contactAnchor" runat="server">Contacts</a></li>
+                        <li><a id="oppsAnchor" runat="server">Pipeline</a></li>
+                        <li><a id="documentAnchor" runat="server">Documents</a></li>
                         <li><a href="<%=  Page.ResolveClientUrl("~/CRM/HomeOffice/Index.aspx") %>">Home Office</a></li>
                       </ul>
                     </li>

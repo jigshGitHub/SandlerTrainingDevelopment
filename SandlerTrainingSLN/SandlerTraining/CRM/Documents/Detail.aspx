@@ -13,12 +13,36 @@
             </th>
         </tr>
         <tr>
+            <td style="height: 70">
+                <br />
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <asp:Label CssClass="resultLabel" ID="LblStatus1" ForeColor="Red" runat="server"></asp:Label>
+            </td>
+        </tr>
+        <tr>
             <td>
                 <asp:DetailsView AutoGenerateRows="False" DataKeyNames="DocsID" ID="DocumentDW" runat="server"
                     Width="675px" OnItemCommand="DocumentDW_ItemCommand" OnModeChanging="DocumentDW_ModeChanging"
                     OnItemUpdating="DocumentDW_ItemUpdating" OnDataBound="DocumentDW_DataBound">
                     <Fields>
                         <asp:BoundField DataField="DocsID" Visible="False" />
+                        <asp:TemplateField ShowHeader="False">
+                            <ControlStyle Font-Bold="true" />
+                            <EditItemTemplate>
+                                <asp:LinkButton ID="LinkButton11" runat="server" CausesValidation="True" CommandName="Update"
+                                    Text="Update"></asp:LinkButton>&nbsp;&nbsp;
+                                <asp:LinkButton ID="LinkButton12" runat="server" CausesValidation="False" CommandName="Cancel"
+                                    Text="Cancel"></asp:LinkButton>
+                            </EditItemTemplate>
+                            <ItemTemplate>
+                                <asp:LinkButton ID="LinkButton11" runat="server" CausesValidation="False" CommandName="Edit"
+                                    Text="Edit"></asp:LinkButton>&nbsp;&nbsp;<a href="Index.aspx" style="font-weight: bold">Go
+                                        Back to Documents</a>
+                            </ItemTemplate>
+                        </asp:TemplateField>
                         <asp:TemplateField HeaderText="Company :">
                             <ItemTemplate>
                                 <asp:Label ID="lblCompany" runat="server" Text='<%# Eval("CompanyName") %>'></asp:Label>

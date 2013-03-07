@@ -41,12 +41,14 @@ public partial class ContactDETAIL : BasePage
         {
             ContactDW.ChangeMode(DetailsViewMode.Edit);
             LblStatus.Text = "";
+            LblStatus1.Text = "";
             GetContactDetails();
 
         }
         else if (e.CommandName == "Update")
         {
             LblStatus.Text = "";
+            LblStatus1.Text = "";
             UpdateContactDetails();
 
         }
@@ -54,6 +56,7 @@ public partial class ContactDETAIL : BasePage
         {
             ContactDW.ChangeMode(DetailsViewMode.ReadOnly);
             LblStatus.Text = "";
+            LblStatus1.Text = "";
             GetContactDetails();
         }
     }
@@ -108,6 +111,10 @@ public partial class ContactDETAIL : BasePage
         int CompanyYears = default(System.Int32);
         string BossName = default(System.String);
 
+        string TrainingCourseName = default(System.String);
+        int HowManyAttended = default(System.Int32);
+        string CompanyNameWhereTrainingConducted = default(System.String);
+
         System.DateTime NextDate = default(System.DateTime);
         System.DateTime LastDate = default(System.DateTime);
         System.DateTime CourseTrngDate = default(System.DateTime);
@@ -117,6 +124,12 @@ public partial class ContactDETAIL : BasePage
         System.DateTime LastEmailedDate = default(System.DateTime);
         System.DateTime LastMeetingDate = default(System.DateTime);
         System.DateTime LetterSentDate = default(System.DateTime);
+
+        //For Training Course Name
+        TrainingCourseName = GetTextBoxData("txtTrainingCourseName");
+
+        //For Company Name Where Training Conducted
+        CompanyNameWhereTrainingConducted = GetTextBoxData("txtCompanyNameWhereTrainingConducted");
 
         //For Notes
         Notes = GetTextBoxData("txtNotes");
@@ -135,9 +148,7 @@ public partial class ContactDETAIL : BasePage
 
         //For Role
         ContactsRole = GetTextBoxData("txtRole");
-
-
-
+        
         //For Mobile PhoneNumber 
         MobilePhone = GetTextBoxData("txtMobilePhone");
         
@@ -374,6 +385,21 @@ public partial class ContactDETAIL : BasePage
             }
         }
 
+        //For How Many Attended
+        {
+            TextBox HowManyAttendedTB = new TextBox();
+            HowManyAttendedTB = (TextBox)ContactDW.FindControl("txtHowManyAttended");
+            if ((HowManyAttendedTB != null))
+            {
+                if (!string.IsNullOrEmpty(HowManyAttendedTB.Text))
+                {
+                    HowManyAttended = Convert.ToInt32(HowManyAttendedTB.Text);
+                }
+
+            }
+        }
+
+
         //For Boss Name
         BossName = GetTextBoxData("txtBossName");
         
@@ -410,8 +436,9 @@ public partial class ContactDETAIL : BasePage
             SandlerRepositories.ContactsRepository contactRepository = new SandlerRepositories.ContactsRepository();
             contactRepository.Update(Convert.ToInt32(hidContactID.Value), CompanyID, LastName, FirstName,Title,ContactsDepartment,ContactsRole,Phone,MobilePhone,HomePhone,Fax, Email,PersonalEmail,Address,City,State,Zip,Country,
                 DiscussionTopic, ActionStep,LastAttemptedDate,LastEmailedDate,LastMeetingDate,LetterSentDate, IsRegisteredForTrng, IsNewAppt, CourseId, AppsSourceId, LastDate, NextDate, CourseTrngDate,
-                BlastEmailSubscription, NeedCallBack, BirthDayDate, AnniversaryDate, CompanyYears, BossName,SpouseName,ReferredBy,Notes,CurrentUser);
+                BlastEmailSubscription, NeedCallBack, BirthDayDate, AnniversaryDate, CompanyYears, BossName, SpouseName, ReferredBy, Notes, TrainingCourseName, HowManyAttended, CompanyNameWhereTrainingConducted,CurrentUser);
             LblStatus.Text = "Contact updated successfully!";
+            LblStatus1.Text = "Contact updated successfully!";
         }
 
 
@@ -726,6 +753,8 @@ public partial class ContactDETAIL : BasePage
         if (dv.CurrentMode == DetailsViewMode.ReadOnly)
             if (dv.FindControl("LinkButton1") != null)
                 (dv.FindControl("LinkButton1") as LinkButton).Visible = !IsUserReadOnly(SandlerUserActions.Edit, SandlerEntities.Contact);
+            if (dv.FindControl("LinkButton11") != null)
+                (dv.FindControl("LinkButton11") as LinkButton).Visible = !IsUserReadOnly(SandlerUserActions.Edit, SandlerEntities.Contact);
 
     }
 }

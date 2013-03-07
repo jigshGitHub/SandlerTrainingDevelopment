@@ -152,11 +152,25 @@
                                 <asp:CalendarExtender ID="CalendarExtender1" runat="server" TargetControlID="CourseTrngDate" PopupButtonID="calanderImageCTD" CssClass="calendar"></asp:CalendarExtender>
                             </InsertItemTemplate>
                         </asp:TemplateField>
+                        <asp:TemplateField HeaderText="Training Course Name :">
+                            <InsertItemTemplate>
+                                <asp:TextBox ID="txtTrngCourseName" Width="380" runat="server" Text='<%# Bind("TrainingCourseName") %>'></asp:TextBox>
+                             </InsertItemTemplate>
+                        </asp:TemplateField>
+                        <asp:TemplateField HeaderText="How Many Attended? :">
+                            <InsertItemTemplate>
+                                <asp:TextBox ID="txtHowManyAttended" onkeypress="EnterOnlyNumeric()" MaxLength="5" Width="380" runat="server" Text='<%# Bind("HowManyAttended") %>'></asp:TextBox>
+                             </InsertItemTemplate>
+                        </asp:TemplateField>
+                        <asp:TemplateField HeaderText="Company Name where Training conducted :">
+                            <InsertItemTemplate>
+                                <asp:TextBox ID="txtCompanyNameWhereTrainingConducted" Width="380" runat="server" Text='<%# Bind("CompanyNameWhereTrainingConducted") %>'></asp:TextBox>
+                             </InsertItemTemplate>
+                        </asp:TemplateField>
                         <asp:TemplateField HeaderText="Discussion Topic :">
                             <InsertItemTemplate>
                                 <asp:TextBox ID="txtDiscTopic" Width="380" runat="server" Text='<%# Bind("DiscussionTopic") %>'></asp:TextBox>
-                               
-                            </InsertItemTemplate>
+                             </InsertItemTemplate>
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="Action Step :">
                             <InsertItemTemplate>
@@ -335,6 +349,10 @@
                         <asp:ControlParameter ControlID="dvContact" Name="BossName" PropertyName="SelectedValue" />
                         <asp:ControlParameter ControlID="dvContact" Name="ReferredBy" PropertyName="SelectedValue" />
                         <asp:ControlParameter ControlID="dvContact" Name="Notes" PropertyName="SelectedValue" />
+                        <asp:ControlParameter ControlID="dvContact" Name="TrainingCourseName" PropertyName="SelectedValue" />
+                        <asp:ControlParameter ControlID="dvContact" Name="HowManyAttended" PropertyName="SelectedValue" />
+                        <asp:ControlParameter ControlID="dvContact" Name="CompanyNameWhereTrainingConducted" PropertyName="SelectedValue" />
+                        
                         <asp:Parameter Name="_user"  />
                     </InsertParameters>
                 </asp:ObjectDataSource>

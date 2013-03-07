@@ -54,7 +54,49 @@ namespace SandlerModels.DataIntegration
         private string _spouseName;
         private string _referredBy;
 
+        private string _trainingCourseName;
+        private string _companyNameWhereTrainingConducted;
+        private string _howManyAttended;
 
+        public string HowManyAttended
+        {
+            get
+            {
+                return _howManyAttended;
+
+            }
+            set
+            {
+                _howManyAttended = value;
+            }
+        }
+        
+        public string CompanyNameWhereTrainingConducted
+        {
+            get
+            {
+                return _companyNameWhereTrainingConducted;
+
+            }
+            set
+            {
+                _companyNameWhereTrainingConducted = value;
+            }
+        }
+        
+        public string TrainingCourseName
+        {
+            get
+            {
+                return _trainingCourseName;
+
+            }
+            set
+            {
+                _trainingCourseName = value;
+            }
+        }
+        
         public DateTime LetterSentDate
         {
             get

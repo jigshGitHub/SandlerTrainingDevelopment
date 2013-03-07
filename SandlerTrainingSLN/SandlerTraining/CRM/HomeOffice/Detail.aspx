@@ -15,6 +15,11 @@
             </th>
         </tr>
         <tr>
+            <td colspan="2">
+                <asp:Label CssClass="resultLabel" ID="LblStatus1" ForeColor="Red" runat="server"></asp:Label>
+            </td>
+        </tr>
+        <tr>
             <td>
             <asp:FormView DataKeyNames="ID" ID="FranchiseeFW" runat="server" OnItemUpdating="FranchiseeFW_ItemUpdating" width="100%"
             OnItemCommand="FranchiseeFW_ItemCommand" OnModeChanging="FranchiseeFW_ModeChanging" OnItemCreated="FranchiseeFW_ItemCreated"
@@ -29,11 +34,18 @@
                                          <tr>
                                             <td colspan="2" style="font-size:large"><b>Franchisee Information:</b></td>
                                          </tr>
+                                         <tr style="color: Black; background-color: #DCDCDC; white-space: nowrap;">
+                                             <td colspan="2">
+                                                <asp:LinkButton ID="LinkButton3" runat="server" CausesValidation="True" CommandName="Update" Text="Update"></asp:LinkButton>&nbsp;&nbsp;
+                                                <asp:LinkButton ID="LinkButton4" runat="server" CausesValidation="False" CommandName="Cancel" Text="Cancel"></asp:LinkButton>
+                                             </td>
+                                         </tr>
                                          <tr style="color: Black; background-color: #EEEEEE; white-space: nowrap;">
                                             <td>Last Name:</td>
                                             <td>
                                                 <asp:TextBox ID="LastNameTB" MaxLength="50"  Width="150" Text='<%# Bind("LastName") %>' runat="server"></asp:TextBox>
-                                                <asp:RequiredFieldValidator ID="reqFieldValLastNameTB" ControlToValidate="LastNameTB" Display="Static" InitialValue="" runat="server" ErrorMessage="Please Enter Last Name to proceed.">*</asp:RequiredFieldValidator>
+                                                <label id="mandlbl" style="color:Red" runat="server">*</label>
+                                                <asp:RequiredFieldValidator ID="reqFieldValLastNameTB" ControlToValidate="LastNameTB" Display="Static" InitialValue="" runat="server" ErrorMessage="Please Enter Last Name to proceed.">Required field</asp:RequiredFieldValidator>
                                             </td>
 
                                          </tr>
@@ -41,7 +53,8 @@
                                             <td>First Name:</td>
                                             <td>
                                                 <asp:TextBox ID="FirstNameTB" MaxLength="50" Width="150" Text='<%# Bind("FirstName") %>' runat="server"></asp:TextBox>
-                                                <asp:RequiredFieldValidator ID="rfvFirstNameTB" ControlToValidate="FirstNameTB" Display="Static" InitialValue="" runat="server" ErrorMessage="Please Enter First Name to proceed.">*</asp:RequiredFieldValidator>
+                                                <label id="mandlbl2" style="color:Red" runat="server">*</label>
+                                                <asp:RequiredFieldValidator ID="rfvFirstNameTB" ControlToValidate="FirstNameTB" Display="Static" InitialValue="" runat="server" ErrorMessage="Please Enter First Name to proceed.">Required field</asp:RequiredFieldValidator>
                                             </td>
                                          </tr>
                                          <tr style="color: Black; background-color: #EEEEEE; white-space: nowrap;">
@@ -110,9 +123,26 @@
                                             </td>
                                          </tr>
                                          <tr style="color: Black; background-color: #DCDCDC; white-space: nowrap;">
+                                            <td>Territory:</td>
+                                            <td><asp:TextBox ID="txtTerritory" MaxLength="120" Width="200" Text='<%# Bind("Territory") %>' runat="server"></asp:TextBox></td>
+                                            
+                                         </tr>
+                                         <tr style="color: Black; background-color: #EEEEEE; white-space: nowrap;">
+                                            <td>Business Focus Area:</td>
+                                            <td><asp:TextBox ID="txtBusinessFocusArea" MaxLength="50" Width="200" Text='<%# Bind("BusinessFocusArea") %>' runat="server"></asp:TextBox></td>
+                                            
+                                         </tr>
+                                         <tr style="color: Black; background-color: #DCDCDC; white-space: nowrap;">
+                                            <td>Closest Metro Area:</td>
+                                            <td><asp:TextBox ID="txtClosestMetro" MaxLength="50" Width="200" Text='<%# Bind("ClosestMetroArea") %>' runat="server"></asp:TextBox></td>
+                                            
+                                         </tr>
+                                         <tr style="color: Black; background-color: #EEEEEE; white-space: nowrap;">
                                             <td>Franchise Name:</td>
-                                            <td><asp:TextBox ID="txtFranchiseName" MaxLength="50" Width="250" Text='<%# Bind("Name") %>' runat="server"></asp:TextBox></td>
-                                            <asp:RequiredFieldValidator ID="rfvFrName" ControlToValidate="txtFranchiseName" Display="Static" InitialValue="" runat="server" ErrorMessage="Please Enter Franchise Name to proceed.">*</asp:RequiredFieldValidator>
+                                            <td><asp:TextBox ID="txtFranchiseName" MaxLength="50" Width="250" Text='<%# Bind("Name") %>' runat="server"></asp:TextBox>
+                                            <label id="mandLbl3" style="color:Red" runat="server">*</label>
+                                            <asp:RequiredFieldValidator ID="rfvFrName" ControlToValidate="txtFranchiseName" Display="Static" InitialValue="" runat="server" ErrorMessage="Please Enter Franchise Name to proceed.">Required field</asp:RequiredFieldValidator>
+                                            </td>
                                          </tr>
                                          <tr style="color: Black; background-color: #DCDCDC; white-space: nowrap;">
                                             <td>Office Phone:</td>
@@ -188,9 +218,9 @@
                                          </tr>
                                      </table>
                                  </td>
-                                 <td style="width:20%"></td>
+                                 <td style="width:15%"></td>
                                  <td>
-                                     <table id="tblPersonalInfoET">
+                                     <table id="tblPersonalInfoET"  width="100%">
                                              <tr>
                                                 <td colspan="2" style="font-size:large"><b>Personal Information:</b></td>
                                              </tr>
@@ -257,37 +287,37 @@
                                                 </td>
                                              </tr>
                                              <tr style="color: Black; background-color: #EEEEEE; white-space: nowrap;">
-                                                <td>Work Email:</td>
+                                                <td>Primary Office Email:</td>
                                                 <td>
                                                     <asp:TextBox ID="txtWorkEmail" MaxLength="80" Width="150" runat="server" Text='<%# Bind("WorkEmail") %>'></asp:TextBox>
                                                 </td>
                                              </tr>
                                              <tr style="color: Black; background-color: #DCDCDC; white-space: nowrap;">
-                                                <td>Work Address:</td>
+                                                <td>Primary Office Address:</td>
                                                 <td>
                                                     <asp:TextBox ID="txtWorkAddress" MaxLength="200" Width="250" runat="server" Text='<%# Bind("WorkAddress") %>'></asp:TextBox>
                                                 </td>
                                              </tr>
                                              <tr style="color: Black; background-color: #EEEEEE; white-space: nowrap;">
-                                                <td>Work City:</td>
+                                                <td>Primary Office City:</td>
                                                 <td>
                                                     <asp:TextBox ID="txtWorkCity" MaxLength="50" Width="150" runat="server" Text='<%# Bind("WorkCity") %>'></asp:TextBox>
                                                 </td>
                                              </tr>
                                              <tr style="color: Black; background-color: #DCDCDC; white-space: nowrap;">
-                                                <td>Work State:</td>
+                                                <td>Primary Office State:</td>
                                                 <td>
                                                     <asp:DropDownList ID="ddlWorkState" runat="server" DataSourceID="StateInfoDS" DataTextField="Name" DataValueField="Id" SelectedValue='<%# Bind("WorkStateValue") %>'></asp:DropDownList>
                                                 </td>
                                              </tr>
                                              <tr style="color: Black; background-color: #EEEEEE; white-space: nowrap;">
-                                                <td>Work Zip:</td>
+                                                <td>Primary Office Zip:</td>
                                                 <td>
                                                     <asp:TextBox ID="txtWorkZip" MaxLength="50" Width="150" runat="server" Text='<%# Bind("WorkZip") %>'></asp:TextBox>
                                                 </td>
                                              </tr>
                                              <tr style="color: Black; background-color: #DCDCDC; white-space: nowrap;">
-                                                <td>Work Country:</td>
+                                                <td>Primary Office Country:</td>
                                                 <td>
                                                     <asp:DropDownList ID="ddlWorkCountry" runat="server" DataSourceID="CountryInfoDS" DataTextField="Name" DataValueField="Id" SelectedValue='<%# Bind("WorkCountryValue") %>'></asp:DropDownList>
                                                 </td>
@@ -371,11 +401,8 @@
                                  </td>
                                  <td style="width:5%"></td>
                              </tr>
-                             
-                             
                          </table>
-                         
-                     </EditItemTemplate>
+                    </EditItemTemplate>
                                          
                     <ItemTemplate>
                         <table width="100%">
@@ -385,6 +412,11 @@
                                      <table id="tblFranchiseeInfoIT">
                                          <tr>
                                             <td colspan="2" style="font-size:large"><b>Franchisee Information:</b></td>
+                                         </tr>
+                                         <tr style="color: Black; background-color: #DCDCDC; white-space: nowrap;">
+                                             <td colspan="2">
+                                                <asp:LinkButton ID="LinkButton5" runat="server" CausesValidation="False" CommandName="Edit" Text="Edit"></asp:LinkButton>&nbsp;&nbsp;<a href="Index.aspx" style="font-weight:bold">Back To Franchisees</a>
+                                             </td>
                                          </tr>
                                          <tr style="color: Black; background-color: #EEEEEE; white-space: nowrap;">
                                             <td>Last Name:<td><%# Eval("LastName")%></td>
@@ -413,72 +445,79 @@
                                          <tr style="color: Black; background-color: #EEEEEE; white-space: nowrap;">
                                             <td>Fixed Price Purchase:</td><td><%# Eval("IsFixedPricePurchase")%></td>
                                          </tr>
-                                         <tr style="color: Black; background-color: #EEEEEE; white-space: nowrap;">
+                                         <tr style="color: Black; background-color: #DCDCDC; white-space: nowrap;">
                                             <td>Cost Plus Amount:</td><td><%# Eval("CostPlusAmount")%></td>
                                          </tr>
-                                         <tr style="color: Black; background-color: #DCDCDC; white-space: nowrap;">
+                                         <tr style="color: Black; background-color: #EEEEEE; white-space: nowrap;">
                                             <td>Behind in Territory Development?:</td><td><%# Eval("IsBehindInTerDev")%></td>
                                          </tr>
-                                         <tr style="color: Black; background-color: #EEEEEE; white-space: nowrap;">
+                                         <tr style="color: Black; background-color: #DCDCDC; white-space: nowrap;">
                                             <td>Select Behind Amount:</td><td><%# Eval("BehindAmount")%></td>
                                          </tr>
-                                         <tr style="color: Black; background-color: #DCDCDC; white-space: nowrap;">
+                                         <tr style="color: Black; background-color: #EEEEEE; white-space: nowrap;">
                                             <td>Coach:</td><td><%# Eval("CoachName")%></td>
                                          </tr>
-                                         <tr style="color: Black; background-color: #EEEEEE; white-space: nowrap;">
+                                         <tr style="color: Black; background-color: #DCDCDC; white-space: nowrap;">
                                             <td>Region:</td><td><%# Eval("RegionName")%></td>
                                          </tr>
-                                          <tr style="color: Black; background-color: #EEEEEE; white-space: nowrap;">
+                                         <tr style="color: Black; background-color: #EEEEEE; white-space: nowrap;">
+                                            <td>Territory:</td><td><%# Eval("Territory")%></td>
+                                         </tr>
+                                         <tr style="color: Black; background-color: #DCDCDC; white-space: nowrap;">
+                                            <td>Business Focus Area:</td><td><%# Eval("BusinessFocusArea")%></td>
+                                         </tr>
+                                         <tr style="color: Black; background-color: #EEEEEE; white-space: nowrap;">
+                                            <td>Closest Metro Area:</td><td><%# Eval("ClosestMetroArea")%></td>
+                                         </tr>
+                                         <tr style="color: Black; background-color: #DCDCDC; white-space: nowrap;">
                                             <td>Franchise Name:</td><td><%# Eval("Name")%></td>
                                          </tr>
-                                         <tr style="color: Black; background-color: #DCDCDC; white-space: nowrap;">
+                                         <tr style="color: Black; background-color: #EEEEEE; white-space: nowrap;">
                                             <td>Office Phone:</td><td><%# Eval("OfficePhone")%></td>
                                          </tr>
-                                         <tr style="color: Black; background-color: #EEEEEE; white-space: nowrap;">
+                                         <tr style="color: Black; background-color: #DCDCDC; white-space: nowrap;">
                                             <td>Mobile Phone:</td><td><%# Eval("MobilePhone")%></td>
                                          </tr>
-                                         <tr style="color: Black; background-color: #DCDCDC; white-space: nowrap;">
+                                         <tr style="color: Black; background-color: #EEEEEE; white-space: nowrap;">
                                             <td>Fax:</td><td><%# Eval("Fax")%></td>
                                          </tr>
-                                         <tr style="color: Black; background-color: #EEEEEE; white-space: nowrap;">
+                                         <tr style="color: Black; background-color: #DCDCDC; white-space: nowrap;">
                                             <td>Award Level:</td><td><%# Eval("AwardLevel")%></td>
                                          </tr>
-                                         <tr style="color: Black; background-color: #DCDCDC; white-space: nowrap;">
+                                         <tr style="color: Black; background-color: #EEEEEE; white-space: nowrap;">
                                             <td>Purchase Level:</td><td><%# Eval("PurchaseLevel")%></td>
                                          </tr>
-                                         <tr style="color: Black; background-color: #EEEEEE; white-space: nowrap;">
+                                         <tr style="color: Black; background-color: #DCDCDC; white-space: nowrap;">
                                             <td>Certified Level:</td><td><%# Eval("CertifiedLevel")%></td>
                                          </tr>
-                                         <tr style="color: Black; background-color: #DCDCDC; white-space: nowrap;">
+                                         <tr style="color: Black; background-color: #EEEEEE; white-space: nowrap;">
                                             <td>Primary Business:</td><td><%# Eval("PrimaryBusiness")%></td>
                                          </tr>
-                                         <tr style="color: Black; background-color: #EEEEEE; white-space: nowrap;">
+                                         <tr style="color: Black; background-color: #DCDCDC; white-space: nowrap;">
                                             <td>Initial Contract Date:</td>
                                             <td>
                                                 <asp:Label ID="lblInitialContractDate" runat="server" Text='<%# Bind("InitialContractDate") %>'></asp:Label>
                                             </td>
-                                            
                                          </tr>
-                                         <tr style="color: Black; background-color: #DCDCDC; white-space: nowrap;">
+                                         <tr style="color: Black; background-color: #EEEEEE; white-space: nowrap;">
                                             <td>Renewal Date:</td>
                                             <td>
                                                 <asp:Label ID="lblRenewalDate" runat="server" Text='<%# Bind("RenewalDate") %>'></asp:Label>
                                             </td>
-                                            
                                          </tr>
-                                         <tr style="color: Black; background-color: #EEEEEE; white-space: nowrap;">
+                                         <tr style="color: Black; background-color: #DCDCDC; white-space: nowrap;">
                                             <td>Contract Form Date:</td>
                                             <td>
                                                 <asp:Label ID="lblContractFormDate" runat="server" Text='<%# Bind("ContractFormDate") %>'></asp:Label>
                                             </td>
                                          </tr>
-                                         <tr style="color: Black; background-color: #DCDCDC; white-space: nowrap;">
+                                         <tr style="color: Black; background-color: #EEEEEE; white-space: nowrap;">
                                             <td>Are Contractors Permitted?:</td><td><%# Eval("IsContractorPermitted") %></td>
                                          </tr>
-                                         <tr style="color: Black; background-color: #EEEEEE; white-space: nowrap;">
+                                         <tr style="color: Black; background-color: #DCDCDC; white-space: nowrap;">
                                             <td colspan="2">&nbsp;</td>
                                          </tr>
-                                         <tr style="color: Black; background-color: #DCDCDC; white-space: nowrap;">
+                                         <tr style="color: Black; background-color: #EEEEEE; white-space: nowrap;">
                                              <td colspan="2">
                                                 <asp:LinkButton ID="LinkButton1" runat="server" CausesValidation="False" CommandName="Edit" Text="Edit"></asp:LinkButton>&nbsp;&nbsp;<a href="Index.aspx" style="font-weight:bold">Back To Franchisees</a>
                                              </td>
@@ -528,22 +567,22 @@
                                                 <td>Rep agreement for Global Account?:</td><td><%# Eval("IsRepAgreement")%></td>
                                              </tr>
                                              <tr style="color: Black; background-color: #EEEEEE; white-space: nowrap;">
-                                                <td>Work Email:</td><td><%# Eval("WorkEmail")%></td>
+                                                <td>Primary Office Email:</td><td><%# Eval("WorkEmail")%></td>
                                              </tr>
                                              <tr style="color: Black; background-color: #DCDCDC; white-space: nowrap;">
-                                                <td>Work Address:</td><td><%# Eval("WorkAddress")%></td>
+                                                <td>Primary Office Address:</td><td><%# Eval("WorkAddress")%></td>
                                              </tr>
                                              <tr style="color: Black; background-color: #EEEEEE; white-space: nowrap;">
-                                                <td>Work City:</td><td><%# Eval("WorkCity")%></td>
+                                                <td>Primary Office City:</td><td><%# Eval("WorkCity")%></td>
                                              </tr>
                                              <tr style="color: Black; background-color: #DCDCDC; white-space: nowrap;">
-                                                <td>Work State:</td><td><%# Eval("WorkState")%></td>
+                                                <td>Primary Office State:</td><td><%# Eval("WorkState")%></td>
                                              </tr>
                                              <tr style="color: Black; background-color: #EEEEEE; white-space: nowrap;">
-                                                <td>Work Zip:</td><td><%# Eval("WorkZip")%></td>
+                                                <td>Primary Office Zip:</td><td><%# Eval("WorkZip")%></td>
                                              </tr>
                                              <tr style="color: Black; background-color: #DCDCDC; white-space: nowrap;">
-                                                <td>Work Country:</td><td><%# Eval("WorkCountry")%></td>
+                                                <td>Primary Office Country:</td><td><%# Eval("WorkCountry")%></td>
                                              </tr>
                                              <tr style="color: Black; background-color: #EEEEEE; white-space: nowrap;">
                                                 <td>Spouse's Name:</td><td><%# Eval("SpouseName")%></td>

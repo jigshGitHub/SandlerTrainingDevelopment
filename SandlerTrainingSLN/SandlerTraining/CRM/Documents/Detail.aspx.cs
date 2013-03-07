@@ -58,18 +58,21 @@ public partial class DocumentDETAIL : BasePage
         {
             DocumentDW.ChangeMode(DetailsViewMode.Edit);
             LblStatus.Text = "";
+            LblStatus1.Text = "";
             GetDocumentDetails();
 
         }
         else if (e.CommandName == "Update")
         {
             LblStatus.Text = "";
+            LblStatus1.Text = "";
             UpdateDocumentDetails();
         }
         else if (e.CommandName == "Cancel")
         {
             DocumentDW.ChangeMode(DetailsViewMode.ReadOnly);
             LblStatus.Text = "";
+            LblStatus1.Text = "";
             GetDocumentDetails();
         }
     }

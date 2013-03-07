@@ -43,6 +43,21 @@ public partial class Menu : System.Web.UI.UserControl
         if (thisPage != null)
         {
             HtmlAnchor link = null;
+
+            //Need to show all time except HomeOfficeAdmin user
+            link = ((HtmlAnchor)FindControl("companyAnchor"));
+            link.HRef = "~/CRM/Companies/Index.aspx";
+
+            link = ((HtmlAnchor)FindControl("contactAnchor"));
+            link.HRef = "~/CRM/Contacts/Index.aspx";
+
+            link = ((HtmlAnchor)FindControl("oppsAnchor"));
+            link.HRef = "~/CRM/Opportunities/Index.aspx";
+
+            link = ((HtmlAnchor)FindControl("documentAnchor"));
+            link.HRef = "~/CRM/Documents/Index.aspx";
+
+
             if (thisPage.CurrentUser.Role == SandlerModels.SandlerRoles.Corporate)
             {
                 link = ((HtmlAnchor)FindControl("manageCoachAnchor"));
@@ -94,6 +109,18 @@ public partial class Menu : System.Web.UI.UserControl
             {
                 link = ((HtmlAnchor)FindControl("homeofficeReportAnchor"));
                 link.Visible = true;
+
+                link = ((HtmlAnchor)FindControl("companyAnchor"));
+                link.Visible = false;
+
+                link = ((HtmlAnchor)FindControl("contactAnchor"));
+                link.Visible = false;
+
+                link = ((HtmlAnchor)FindControl("oppsAnchor"));
+                link.Visible = false;
+
+                link = ((HtmlAnchor)FindControl("documentAnchor"));
+                link.Visible = false;
             }
         }
     }
