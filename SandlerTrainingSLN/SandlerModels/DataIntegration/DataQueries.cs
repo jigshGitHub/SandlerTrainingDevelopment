@@ -225,30 +225,31 @@ namespace SandlerModels.DataIntegration
         public IEnumerable<ProductTypeVM> ContractPriceWithProductTypes(UserModel currentUser, int month)
         {
             IEnumerable<ProductTypeVM> data = null;
-            OpportunitiesRepository opportunitiesSource = new OpportunitiesRepository();
-            List<Opportunity> opportunties = null;
-           
+            CompaniesRepository companyRepository = null;
+            SqlDataReader newClients;
+            List<ProductTypeVM> newAppsProducts;
             try
             {
-                opportunties = opportunitiesSource.GetOpportunitiesByUser(currentUser.UserId).ToList<Opportunity>();
-
-                if (opportunties.Count > 0)
+                companyRepository = new CompaniesRepository();
+                newClients = companyRepository.GetNewClientsProducts(month, DateTime.Now.Year, currentUser.UserId.ToString());
+                newAppsProducts = new List<ProductTypeVM>();
+                if (newClients != null)
                 {
-                    data = from opportunity in opportunties
-                           from company in new CompaniesRepository().GetAll().Where(c => c.IsActive == true &&
-                               c.IsNewCompany == true &&
-                               c.COMPANIESID == opportunity.COMPANYID &&
-                               c.CreationDate.Value.Year == DateTime.Now.Year && c.CreationDate.Value.Month == month)
-                           from product in new ProductTypesRepository().GetAll().Where(p => p.IsActive == true && opportunity.ProductID == p.Id && p.ProductTypeName != "Assessment")
-                           group opportunity by new { product.ProductTypeName }
-                               into grp
-                               select new ProductTypeVM { ProductTypeName = grp.Key.ProductTypeName, AvgPrice = double.Parse(grp.Sum(record => record.WEIGHTEDVALUE).ToString()) };
-
+                    while (newClients.Read())
+                    {
+                        if (newClients.GetString(1) != "Assessment")
+                        {
+                            newAppsProducts.Add(new ProductTypeVM { AvgPrice = double.Parse (newClients[2].ToString()), ProductTypeName = newClients.GetString(1) });
+                        }
+                    }
+                    newClients.Close();
                 }
+                data = newAppsProducts.AsEnumerable<ProductTypeVM>();
+                //}
             }
             catch (Exception ex)
             {
-                throw new Exception("exception in DataQueries.ContractPriceWithProductTypes: " + ex.Message);
+                throw new Exception("exception in DataQueries.NewClientsWithProductTypes: " + ex.Message);
             }
             return data;
         }

@@ -918,7 +918,7 @@ namespace Sandler.UI.ChartStructure
                                     foreach (Category category in this.Categories)
                                     {
                                         lastDs = this.DataSetCollection.Last();
-                                        lastDs.SetsCollection.Add(new SetValue { Label = category.Label, Link = (currentUser.Role == SandlerRoles.Client) ? "" : ChartHelper.GeneratePageLink(lastDs.SeriesName, this.DrillChartIds) });
+                                        lastDs.SetsCollection.Add(new SetValue { Label = category.Label, Link = (currentUser.Role == SandlerRoles.Client) ? "" : ChartHelper.GeneratePageLink(ChartHelper.GetMonthName(monthToProcess), this.DrillChartIds) });
                                     }
 
                                     foreach (var record in newAppointments)
@@ -1488,6 +1488,7 @@ namespace Sandler.UI.ChartStructure
                 string regionName = "";
                 string countryName = "";
                 int monthToProcess, yearToProcess;
+                double avgValue;
                 switch (this.Id)
                 {
                     case ChartID.SalesCycleTimeMain:
@@ -1730,7 +1731,7 @@ namespace Sandler.UI.ChartStructure
                         var NewAppointmentSource = from record in queries.GetNewAppointmentSource(currentUser, monthToProcess, yearToProcess)
                                                    select new { Category = record.SourceName, Count = record.Count };
 
-
+                        totalCount = NewAppointmentSource.Sum(r => r.Count);
 
                         appointmentSource = new AppointmentSourceRepository();
                         foreach (var record in appointmentSource.GetAll().Where(r => r.IsActive == true).AsEnumerable())
@@ -1738,7 +1739,11 @@ namespace Sandler.UI.ChartStructure
                             try
                             {
                                 if (NewAppointmentSource.Single(r => r.Category == record.ApptSourceName) != null)
-                                    this.SetsCollection.Add(new SetValue { Color = record.ColorCode, Label = record.ApptSourceName, Value = NewAppointmentSource.Single(r => r.Category == record.ApptSourceName).Count.ToString() });
+                                {
+                                    avgValue = NewAppointmentSource.Single(r => r.Category == record.ApptSourceName).Count * 100;
+                                    avgValue = Math.Round(avgValue/totalCount,2);
+                                    this.SetsCollection.Add(new SetValue { Color = record.ColorCode, Label = record.ApptSourceName, Value = avgValue.ToString("#.##") });
+                                }
                             }
                             catch (System.InvalidOperationException)
                             {
@@ -1757,6 +1762,7 @@ namespace Sandler.UI.ChartStructure
 
                         var NewClientsByProductType = from record in queries.GetNewClientsByProductType(currentUser,monthToProcess, yearToProcess )
                                                       select new { Category = record.ProductTypeName, Count = record.Count };
+                        totalCount = NewClientsByProductType.Sum(r => r.Count);
                         productTypesSource = new ProductTypesRepository();
 
                         if (currentUser.Role == SandlerRoles.FranchiseeOwner || currentUser.Role == SandlerRoles.FranchiseeUser)
@@ -1770,7 +1776,11 @@ namespace Sandler.UI.ChartStructure
                             try
                             {
                                 if (NewClientsByProductType.Single(r => r.Category == record.ProductTypeName) != null)
-                                    this.SetsCollection.Add(new SetValue { Color = record.ColorCode, Label = record.ProductTypeName, Value = NewClientsByProductType.Single(r => r.Category == record.ProductTypeName).Count.ToString() });
+                                {
+                                    avgValue = NewClientsByProductType.Single(r => r.Category == record.ProductTypeName).Count * 100;
+                                    avgValue = Math.Round(avgValue / totalCount, 2);
+                                    this.SetsCollection.Add(new SetValue { Color = record.ColorCode, Label = record.ProductTypeName, Value = avgValue.ToString("#.##")});
+                                }
                             }
                             catch (System.InvalidOperationException)
                             {
@@ -1786,7 +1796,7 @@ namespace Sandler.UI.ChartStructure
                                                          select new { Category = record.ProductTypeName, Count = record.Count };
 
                         productTypesSource = new ProductTypesRepository();
-
+                        totalCount = NewClientsWithProductTypes.Sum(r => r.Count);
                         if (currentUser.Role == SandlerRoles.FranchiseeOwner || currentUser.Role == SandlerRoles.FranchiseeUser)
                             products = productTypesSource.GetWithFranchiseeId(currentUser.FranchiseeID);
                         else
@@ -1797,7 +1807,11 @@ namespace Sandler.UI.ChartStructure
                             try
                             {
                                 if (NewClientsWithProductTypes.Single(r => r.Category == record.ProductTypeName) != null)
-                                    this.SetsCollection.Add(new SetValue { Color = record.ColorCode, Label = record.ProductTypeName, Value = NewClientsWithProductTypes.Single(r => r.Category == record.ProductTypeName).Count.ToString() });
+                                {
+                                    avgValue = NewClientsWithProductTypes.Single(r => r.Category == record.ProductTypeName).Count * 100;
+                                    avgValue = Math.Round(avgValue / totalCount, 2);
+                                    this.SetsCollection.Add(new SetValue { Color = record.ColorCode, Label = record.ProductTypeName, Value = avgValue.ToString("#.##") });
+                                }
                             }
                             catch (System.InvalidOperationException)
                             {
@@ -1815,7 +1829,7 @@ namespace Sandler.UI.ChartStructure
                                                             select new { Category = record.ProductTypeName, AvgPrice = record.AvgPrice };
 
                         productTypesSource = new ProductTypesRepository();
-
+                        totalPrice = ContractPriceWithProductTypes.Sum(r => r.AvgPrice);
                         if (currentUser.Role == SandlerRoles.FranchiseeOwner || currentUser.Role == SandlerRoles.FranchiseeUser)
                             products = productTypesSource.GetWithFranchiseeId(currentUser.FranchiseeID);
                         else
@@ -1826,7 +1840,11 @@ namespace Sandler.UI.ChartStructure
                             try
                             {
                                 if (ContractPriceWithProductTypes.Single(r => r.Category == record.ProductTypeName) != null)
-                                    this.SetsCollection.Add(new SetValue { Color = record.ColorCode, Label = record.ProductTypeName, Value = ((ContractPriceWithProductTypes.Single(r => r.Category == record.ProductTypeName).AvgPrice) / 5).ToString() });
+                                {
+                                    avgValue = ContractPriceWithProductTypes.Single(r => r.Category == record.ProductTypeName).AvgPrice * 100;
+                                    avgValue = Math.Round(avgValue / totalPrice, 2);
+                                    this.SetsCollection.Add(new SetValue { Color = record.ColorCode, Label = record.ProductTypeName, Value = avgValue.ToString("#.##") });
+                                }
                             }
                             catch (System.InvalidOperationException)
                             {
@@ -1840,7 +1858,7 @@ namespace Sandler.UI.ChartStructure
                         //{
                         var headCountsByCourse = from record in queries.GetHeadcountByCourse(currentUser, DateTime.ParseExact(this.DrillBy, "MMM", null).Month)
                                                  select new { Course = record.CourseName, Count = record.Count };
-
+                        totalCount = headCountsByCourse.Sum(r => r.Count);
                         colors = new string[] { "CC6600", "9900CC", "FF3300", "0099FF", "00CC66", "FFFF00" };
 
                         CourseRepository courseSource = new CourseRepository();
@@ -1849,7 +1867,11 @@ namespace Sandler.UI.ChartStructure
                             try
                             {
                                 if (headCountsByCourse.Single(r => r.Course == record.CourseName) != null)
-                                    this.SetsCollection.Add(new SetValue { Color = colors.GetValue(colorIndex).ToString(), Label = record.CourseName, Value = headCountsByCourse.Single(r => r.Course == record.CourseName).Count.ToString() });
+                                {
+                                    avgValue = headCountsByCourse.Single(r => r.Course == record.CourseName).Count * 100;
+                                    avgValue = Math.Round(avgValue/totalCount,2);
+                                    this.SetsCollection.Add(new SetValue { Color = colors.GetValue(colorIndex).ToString(), Label = record.CourseName, Value = avgValue.ToString("#.##") });
+                                }
                             }
                             catch (System.InvalidOperationException)
                             {
@@ -1860,13 +1882,9 @@ namespace Sandler.UI.ChartStructure
                         //}
                         break;
                     case ChartID.HeadcountByIndustry:
-                        //userEntities = new UserEntities();
-                        //contacts = userEntities.GetContacts(currentUser);
-
-                        //if (queries.GetHeadcountByIndustry(currentUser, DateTime.ParseExact(this.DrillBy, "MMM", null).Month) != null)
-                        //{
                         var data = from record in queries.GetHeadcountByIndustry(currentUser, DateTime.ParseExact(this.DrillBy, "MMM", null).Month)
                                    select new { Industry = record.IndustryTypeName, Count = record.Count };
+                        totalCount = data.Sum(r => r.Count);
                         colors = new string[] { "9900CC", "FF3300", "0099FF", "00CC66", "FFFF00" };
 
                         IndustryTypeRepository industrySource = new IndustryTypeRepository();
@@ -1875,7 +1893,11 @@ namespace Sandler.UI.ChartStructure
                             try
                             {
                                 if (data.Single(r => r.Industry == record.IndustryTypeName) != null)
-                                    this.SetsCollection.Add(new SetValue { Color = colors.GetValue(colorIndex).ToString(), Label = record.IndustryTypeName, Value = data.Single(r => r.Industry == record.IndustryTypeName).Count.ToString() });
+                                {
+                                    avgValue = data.Single(r => r.Industry == record.IndustryTypeName).Count * 100;
+                                    avgValue = Math.Round(avgValue / totalCount, 2);
+                                    this.SetsCollection.Add(new SetValue { Color = colors.GetValue(colorIndex).ToString(), Label = record.IndustryTypeName, Value =  avgValue.ToString("#.##") });
+                                }
                             }
                             catch (System.InvalidOperationException)
                             {
@@ -1907,7 +1929,11 @@ namespace Sandler.UI.ChartStructure
                             try
                             {
                                 if (productSalesValue.Single(r => r.Name == record.ProductTypeName) != null)
-                                    this.SetsCollection.Add(new SetValue { Color = record.ColorCode, Label = record.ProductTypeName, Value = (((productSalesValue.Single(r => r.Name == record.ProductTypeName).Value) / totalPrice) * 100).ToString() });
+                                {
+                                    avgValue = productSalesValue.Single(r => r.Name == record.ProductTypeName).Value * 100;
+                                    avgValue = Math.Round(avgValue / totalPrice, 2);
+                                    this.SetsCollection.Add(new SetValue { Color = record.ColorCode, Label = record.ProductTypeName, Value = avgValue.ToString("#.##") });
+                                }
                             }
                             catch (System.InvalidOperationException)
                             {
@@ -1934,7 +1960,11 @@ namespace Sandler.UI.ChartStructure
                             try
                             {
                                 if (productSalesQty.Single(r => r.Name == record.ProductTypeName) != null)
-                                    this.SetsCollection.Add(new SetValue { Color = record.ColorCode, Label = record.ProductTypeName, Value = (((productSalesQty.Single(r => r.Name == record.ProductTypeName).Count) / totalPrice) * 100).ToString() });
+                                {
+                                    avgValue = productSalesQty.Single(r => r.Name == record.ProductTypeName).Count * 100;
+                                    avgValue = Math.Round(avgValue / totalPrice, 2);
+                                    this.SetsCollection.Add(new SetValue { Color = record.ColorCode, Label = record.ProductTypeName, Value = avgValue.ToString("#.##") });
+                                }
                             }
                             catch (System.InvalidOperationException)
                             {
@@ -1961,7 +1991,11 @@ namespace Sandler.UI.ChartStructure
                             try
                             {
                                 if (productFirstSalesValue.Single(r => r.Name == record.ProductTypeName) != null)
-                                    this.SetsCollection.Add(new SetValue { Color = record.ColorCode, Label = record.ProductTypeName, Value = (((productFirstSalesValue.Single(r => r.Name == record.ProductTypeName).Value) / totalPrice) * 100).ToString() });
+                                {
+                                    avgValue = productFirstSalesValue.Single(r => r.Name == record.ProductTypeName).Value*100;
+                                    avgValue = Math.Round(avgValue/totalPrice,2);
+                                    this.SetsCollection.Add(new SetValue { Color = record.ColorCode, Label = record.ProductTypeName, Value = avgValue.ToString("#.##") });
+                                }
                             }
                             catch (System.InvalidOperationException)
                             {
