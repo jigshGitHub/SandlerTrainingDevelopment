@@ -482,6 +482,7 @@ td
     color: white;
     vertical-align: top;
     width: 50%;
+    font-size: 1.0em;
 }
 
 .changePassword h2
@@ -492,8 +493,8 @@ td
 
 .changePassword .failureNotification
 {
-    font-size: 1.2em;
-    color: #003366;
+	font-size: 1.0em;
+	color: white;
 }
 
 .accountInfo .submitButton

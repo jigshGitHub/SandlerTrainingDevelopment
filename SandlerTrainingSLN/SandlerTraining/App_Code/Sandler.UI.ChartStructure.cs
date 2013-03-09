@@ -1896,7 +1896,7 @@ namespace Sandler.UI.ChartStructure
                                 {
                                     avgValue = data.Single(r => r.Industry == record.IndustryTypeName).Count * 100;
                                     avgValue = Math.Round(avgValue / totalCount, 2);
-                                    this.SetsCollection.Add(new SetValue { Color = colors.GetValue(colorIndex).ToString(), Label = record.IndustryTypeName, Value =  avgValue.ToString("#.##") });
+                                    this.SetsCollection.Add(new SetValue { Color = record.ColorCode, Label = record.IndustryTypeName, Value =  avgValue.ToString("#.##") });
                                 }
                             }
                             catch (System.InvalidOperationException)

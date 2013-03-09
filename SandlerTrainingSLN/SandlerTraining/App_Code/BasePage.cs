@@ -138,7 +138,7 @@ public abstract class BasePage : System.Web.UI.Page
         if (CurrentUser.RequirePasswordChange && !Request.FilePath.Contains("ChangePassword"))
         {
             CurrentUser = null;
-            Response.Redirect("~/Account/ChangePassword.aspx");
+            Response.Redirect("~/Account/ChangePassword.aspx?intialPasswordChange=true");
         }
     }
 
