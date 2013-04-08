@@ -25,15 +25,15 @@ namespace SandlerRepositories
                 new SqlParameter("@RegionId", _user.RegionID));
         }
 
-        public void Add(DateTime FollowUpDate, string Description, string Phone, UserModel _user)
+        public void Add(DateTime FollowUpDate, string Description, string Topic, string Phone, UserModel _user)
         {
-            //Get the User Info
             
             //Add
             db.ExecuteNonQuery("sp_AddFollowUpItem", 
             new SqlParameter("@UserId", _user.UserId.ToString()),
             new SqlParameter("@FollowUpDate", FollowUpDate),
             new SqlParameter("@Description", Description),
+            new SqlParameter("@Topic", Topic),
             new SqlParameter("@Phone", Phone));
             
         }

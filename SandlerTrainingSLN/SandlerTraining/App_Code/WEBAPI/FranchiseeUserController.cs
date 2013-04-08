@@ -40,7 +40,7 @@ namespace SandlerAPI.Controllers
                     {
                         if (UserEntitiesFactory.IsUserExits(userName))
                         {
-                            userName = userName + UserEntitiesFactory.UsersCount(userName).ToString();
+                            userName = UserEntitiesFactory.GetUsername(userName);
                         }
                         userId = UserEntitiesFactory.CreateUserWithRoles(userName, franchiseeUser.Email, SandlerRoles.FranchiseeUser.ToString());
                     }

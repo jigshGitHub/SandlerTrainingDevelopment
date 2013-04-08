@@ -12,7 +12,7 @@
             <th colspan="3" class="tdTC"  align="left">My Calendar : </th>
         </tr>
         <tr style="color: Black; table-layout: fixed;">
-        <td  valign="top" style="width:70%;">
+            <td  valign="top" style="width:65%;">
                 <ECalendar:EventCalendar ID="EventCal" runat="server" BackColor="White" BorderColor="Silver" 
                     BorderWidth="1px" Font-Names="Verdana"
                     Font-Size="9pt" ForeColor="Black" 
@@ -32,15 +32,15 @@
                 </ECalendar:EventCalendar>
 
         </td>
-        <td style="width:1%"></td>
-        <td valign="top">
+            <td style="width:1%"></td>
+            <td valign="top">
                 <asp:Label ID="lblInfo" runat="server"  Font-Bold="true"></asp:Label>
                 <asp:GridView ID="gvSelectedDateEvents" runat="server" AutoGenerateColumns="false" Width="100%">
                 <RowStyle BackColor="#EEEEEE" ForeColor="Black" />
                 <AlternatingRowStyle BackColor="#DCDCDC" />
                 <Columns>
-                    <%--<asp:BoundField ItemStyle-HorizontalAlign="Center" HeaderStyle-ForeColor="Blue" DataField="Date" HeaderText="Date" SortExpression="Date" DataFormatString="{0:d}" />--%>
-                    <asp:BoundField ItemStyle-HorizontalAlign="Center" ItemStyle-Wrap="true" HeaderStyle-ForeColor="Blue" DataField="Description" HeaderText="Description" SortExpression="Description" />
+                    <asp:BoundField ItemStyle-HorizontalAlign="Center" ItemStyle-Wrap="true" HeaderStyle-ForeColor="Blue" DataField="Description" HeaderText="Name" SortExpression="Description" />
+                    <asp:BoundField ItemStyle-HorizontalAlign="Center" ItemStyle-Wrap="true" HeaderStyle-ForeColor="Blue" DataField="Topic" HeaderText="Topic" SortExpression="Topic" />
                     <asp:BoundField ItemStyle-HorizontalAlign="Center" HeaderStyle-ForeColor="Blue" DataField="Phone" HeaderText="Phone" SortExpression="Phone" />
                 </Columns> 
                 </asp:GridView>
@@ -68,20 +68,23 @@
                                 <asp:RequiredFieldValidator ID="FollowUpDateRFV" ControlToValidate="FollowUpDate" runat="server" ErrorMessage="Please Enter Follow up Date to proceed.">*</asp:RequiredFieldValidator>
                             </InsertItemTemplate>
                         </asp:TemplateField>
-                        
+                        <asp:TemplateField HeaderText="Topic :">
+                            <InsertItemTemplate>
+                                <asp:TextBox ID="txtTopic" MaxLength="50" Width="280" runat="server" Text='<%# Bind("Topic") %>'></asp:TextBox>
+                                <asp:RequiredFieldValidator ID="rfvTopicTB" ControlToValidate="txtTopic" Display="Static" InitialValue="" runat="server" ErrorMessage="Please Enter Topic to proceed.">*</asp:RequiredFieldValidator>
+                            </InsertItemTemplate>
+                        </asp:TemplateField>
                         <asp:TemplateField HeaderText="Description :">
                             <InsertItemTemplate>
                                 <asp:TextBox ID="txtDescription" MaxLength="50" Width="280" runat="server" Text='<%# Bind("Description") %>'></asp:TextBox>
                                 <asp:RequiredFieldValidator ID="rfvDescriptionTB" ControlToValidate="txtDescription" Display="Static" InitialValue="" runat="server" ErrorMessage="Please Enter Description to proceed.">*</asp:RequiredFieldValidator>
                             </InsertItemTemplate>
                         </asp:TemplateField>
-                        
                         <asp:TemplateField HeaderText="Phone :">
                             <InsertItemTemplate>
                                 <asp:TextBox ID="txtPhone" MaxLength="50" Width="280" runat="server" Text='<%# Bind("Phone") %>'></asp:TextBox>
                             </InsertItemTemplate>
                         </asp:TemplateField>
-                        
                         <asp:TemplateField ShowHeader="False">
                             <InsertItemTemplate>
                                 <asp:LinkButton ID="LinkButton1" runat="server" CausesValidation="True" CommandName="Insert" Text="Add" ForeColor="Blue" Font-Bold="true"></asp:LinkButton>&nbsp;&nbsp;

@@ -38,6 +38,7 @@ public partial class Reports_HomeOfficeReports : BasePage
             LblStatus.Text = "";
             btnExportExcel.Visible = true;
             lblExportToExcel.Visible = true;
+           // Session["dt"] = ds.Tables[0];
             gvReports.DataSource = ds.Tables[0];
             gvReports.DataBind();
         }
@@ -110,54 +111,108 @@ public partial class Reports_HomeOfficeReports : BasePage
             row.Cells[0].Visible = false;
         }
     }
-    protected void gvReports_PageIndexChanging(object sender, GridViewPageEventArgs e)
-    {
-        gvReports.PageIndex = e.NewPageIndex;
-         LoadReport();
-    }
-    protected void gvReports_Sorting(object sender, GridViewSortEventArgs e)
-    {
-        string sortExpression = e.SortExpression;
+    
 
-        if (GridViewSortDirection == SortDirection.Ascending)
-        {
-            GridViewSortDirection = SortDirection.Descending;
-            SortGridView(sortExpression, DESCENDING);
-        }
-        else
-        {
-            GridViewSortDirection = SortDirection.Ascending;
-            SortGridView(sortExpression, ASCENDING);
-        }
-
-     }
-    private void SortGridView(string sortExpression, string direction)
-    {
-        //  You can cache the DataTable for improving performance
-        LoadReport();
-        DataTable dt = gvReports.DataSource as DataTable;
-        DataView dv = new DataView(dt);
-        dv.Sort = sortExpression + direction;
-
-        gvReports.DataSource = dv;
-        gvReports.DataBind();
-
-    }
-    private const string ASCENDING = " ASC";
-    private const string DESCENDING = " DESC";
-
-    public SortDirection GridViewSortDirection
+    public String sortExpression
     {
         get
         {
-            if (ViewState["sortDirection"] == null)
-                ViewState["sortDirection"] = SortDirection.Ascending;
-
-            return (SortDirection)ViewState["sortDirection"];
+            if (ViewState["sortExpression"] == null)
+            {
+                ViewState["sortExpression"] = Convert.ToString(gvReports.Columns[0].SortExpression);
+            }
+            return Convert.ToString(ViewState["sortExpression"]);
         }
         set
         {
-            ViewState["sortDirection"] = value;
+            ViewState["sortExpression"] = value;
         }
     }
+
+    public String sortDirection
+    {
+        get
+        {
+
+            if (ViewState["sortDirection"] == null)
+            {
+                ViewState["sortDirection"] = SortDirection.Descending;
+            }
+            if (Convert.ToString(ViewState["sortDirection"]) == Convert.ToString(SortDirection.Descending))
+            {
+                return "DESC";
+            }
+            {
+                return "ASC";
+            }
+
+        }
+        set
+        {
+            if (value == "ASC")
+            {
+                ViewState["sortDirection"] = SortDirection.Ascending;
+            }
+            else
+            {
+                ViewState["sortDirection"] = SortDirection.Descending;
+            }
+
+
+        }
+
+    }
+    protected void gvReports_PageIndexChanging(object sender, GridViewPageEventArgs e)
+    {
+        gvReports.PageIndex = e.NewPageIndex;
+      
+        SortGridView(sortExpression, sortDirection);
+    }
+
+
+    protected void gvReports_Sorting(object sender, GridViewSortEventArgs e)
+    {
+        if (sortExpression != e.SortExpression)
+        {
+            //its a new sort expression so default it to ascending
+            sortDirection = "";
+        }
+
+        sortExpression = e.SortExpression;
+
+        if (sortDirection == "ASC")
+        {
+            sortDirection = "DESC";
+        }
+        else
+        {
+            sortDirection = "ASC";
+        }
+        SortGridView(sortExpression, sortDirection);
+
+
+    }
+
+    private void SortGridView(string sortExpression, string direction)
+    {
+
+        //GetFormVars();
+        LoadReport();
+
+        DataTable dt = gvReports.DataSource as DataTable;
+        DataView dv = new DataView(dt);
+        if (sortExpression != null && sortExpression != "")
+        {
+            dv.Sort = sortExpression + " " + direction;
+        }
+        //else dv.Sort = DataRowID + " " + direction;
+
+        gvReports.DataSource = dv;
+
+        gvReports.DataBind();
+
+
+    }
+
+    
 }

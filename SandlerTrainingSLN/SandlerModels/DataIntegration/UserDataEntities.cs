@@ -71,9 +71,23 @@ namespace SandlerModels.DataIntegration
             return (Membership.GetUser(userName) != null);
         }
 
-        public static int UsersCount(string userName)
+        public static string GetUsername(string userName)
         {
-            return Membership.FindUsersByName(userName).Count;
+
+            string checkUserName = userName;
+            for (int count = 0; count < Membership.GetAllUsers().Count; )
+            {
+                if (Membership.FindUsersByName(checkUserName).Count == 0)
+                {
+                    return checkUserName;
+                }
+                else
+                {
+                    count++;
+                    checkUserName = userName + count.ToString();
+                }
+            }
+            return userName;
         }
     }
 

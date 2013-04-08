@@ -34,6 +34,34 @@ public partial class Email_ManageGroup : BasePage
         }
     }
 
+    protected void CoachEmailDS_Selecting(object sender, ObjectDataSourceSelectingEventArgs e)
+    {
+        e.InputParameters["_user"] = CurrentUser;
+    }
+
+    protected void FrOwnerEmailDS_Selecting(object sender, ObjectDataSourceSelectingEventArgs e)
+    {
+        e.InputParameters["_user"] = CurrentUser;
+    }
+
+    protected void FrUsersEmailDS_Selecting(object sender, ObjectDataSourceSelectingEventArgs e)
+    {
+        e.InputParameters["_user"] = CurrentUser;
+    }
+
+    protected void FrContactsEmailDS_Selecting(object sender, ObjectDataSourceSelectingEventArgs e)
+    {
+        e.InputParameters["_user"] = CurrentUser;
+    }
+
+    protected void FranchiseeDS_Selecting(object sender, ObjectDataSourceSelectingEventArgs e)
+    {
+        e.InputParameters["_user"] = CurrentUser;
+    }
+
+    
+
+
     public void SetResetRowPosition(bool status)
     {
         //Rows

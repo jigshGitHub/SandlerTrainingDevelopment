@@ -39,9 +39,9 @@ namespace SandlerRepositories
         {
             return (db.ExecuteDataset("sp_GetCallBackOptions", "CallBack"));
         }
-        public DataSet GetAllFranchisee()
+        public DataSet GetAllFranchisee(UserModel _user)
         {
-            return (db.ExecuteDataset("sp_GetAllFranchisee", "GetAllFranchisees"));
+            return (db.ExecuteDataset("sp_GetAllFranchisee", "GetAllFranchisees",new SqlParameter("@Role", _user.Role.ToString())));
         }
 
         public DataSet GetFirstLastNameInfo(string Userid)
@@ -280,6 +280,17 @@ namespace SandlerRepositories
             }
         }
 
+        public DataSet GetUserLogInformation(string UserId, string SessionId, int EntryExitActivity)
+        {
+            return db.ExecuteDataset("sp_GetUserLogInformaton", "UserLogInfo", new SqlParameter("@UserId", UserId), new SqlParameter("@SessionId", SessionId), new SqlParameter("@EntryExitActivity", EntryExitActivity));
+        }
+        
+        public void UpdateUserLog(string UserId, string SessionId, int EntryExitActivity)
+        {
+            //Create the record
+            db.ExecuteNonQuery("sp_UpdateUserLog", new SqlParameter("@UserId", UserId),new SqlParameter("@SessionId", SessionId),new SqlParameter("@EntryExitActivity", EntryExitActivity));
+        }
+                
         public void InsertCompany(
             string COMPANYNAME,
             string CompanyOwnership,

@@ -57,6 +57,19 @@ namespace ExtendedControls
             set { ViewState["Description"] = value; }
         }
 
+        // Gets or sets the Topic in the DataTable
+        public string Topic
+        {
+            get
+            {
+                if (ViewState["Topic"] == null)
+                    return string.Empty;
+                else
+                    return (ViewState["Topic"].ToString());
+            }
+            set { ViewState["Topic"] = value; }
+        }
+
         // Gets or sets the Phone in the DataTable
         public string Phone
         {

@@ -35,6 +35,13 @@ public partial class Calendar_Index : BasePage
             {
                 Descriptiontxt.Text = "";
             }
+            //For Topic
+            TextBox Topictxt = new TextBox();
+            Topictxt = (TextBox)dvFollowupItem.FindControl("txtTopic");
+            if ((Topictxt != null))
+            {
+                Topictxt.Text = "";
+            }
             //For Phone
             TextBox Phonetxt = new TextBox();
             Phonetxt = (TextBox)dvFollowupItem.FindControl("txtPhone");
@@ -49,6 +56,7 @@ public partial class Calendar_Index : BasePage
     protected void dvFollowupItem_ItemInserting(object sender, DetailsViewInsertEventArgs e)
     {
         string Description = "";
+        string Topic = "";
         string Phone = "";
         System.DateTime FollowUpDate = default(System.DateTime);
         
@@ -74,6 +82,17 @@ public partial class Calendar_Index : BasePage
             }
 
         }
+        //For Topic
+        TextBox Topictxt = new TextBox();
+        Topictxt = (TextBox)dvFollowupItem.FindControl("txtTopic");
+        if ((Topictxt != null))
+        {
+            if (!string.IsNullOrEmpty(Topictxt.Text))
+            {
+                Topic = Topictxt.Text.Trim();
+            }
+
+        }
         //For Phone
         TextBox Phonetxt = new TextBox();
         Phonetxt = (TextBox)dvFollowupItem.FindControl("txtPhone");
@@ -88,11 +107,12 @@ public partial class Calendar_Index : BasePage
 
         if (!e.Cancel)
         {
-            new SandlerRepositories.CalendarRepository().Add(FollowUpDate,Description,Phone,CurrentUser);
+            new SandlerRepositories.CalendarRepository().Add(FollowUpDate, Description, Topic,Phone, CurrentUser);
             lblResult.Text = "Followup Item added Successfully for " + FollowUpDateCal.Text.Replace("12:00:00 AM", "")+" !";
             //Clear exisitng entry for Description and Phone
             Phonetxt.Text = "";
             Descriptiontxt.Text = "";
+            Topictxt.Text = "";
             //Rebind the Calendar 
             GetDataAndDisplay();
         }
@@ -117,6 +137,7 @@ public partial class Calendar_Index : BasePage
         lblInfo.Text = "";
         EventCal.Date = "Date";
         EventCal.Description = "Description";
+        EventCal.Topic = "Topic";
         EventCal.Phone = "Phone";
         //Bind the result and display the calendar info
         EventCal.EventSource = GetEvents();
@@ -137,6 +158,7 @@ public partial class Calendar_Index : BasePage
                     //add cells in the row
                     dr[EventCal.Date] = drEvent[EventCal.Date];
                     dr[EventCal.Description] = drEvent[EventCal.Description];
+                    dr[EventCal.Topic] = drEvent[EventCal.Topic];
                     dr[EventCal.Phone] = drEvent[EventCal.Phone];
                     //add row to the table
                     dtSelectedDateEvents.Rows.Add(dr);

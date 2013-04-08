@@ -25,9 +25,7 @@
                         <asp:BoundField ItemStyle-HorizontalAlign="Left"  HeaderStyle-HorizontalAlign="Left" DataField="Phone" HeaderText="Phone"   HeaderStyle-ForeColor="Blue" SortExpression="Phone" />
                         <asp:BoundField ItemStyle-HorizontalAlign="Left"  HeaderStyle-HorizontalAlign="Left" DataField="Email" HeaderText="E-mail"  HeaderStyle-ForeColor="Blue" SortExpression="Email" />
                         <asp:BoundField ItemStyle-HorizontalAlign="Left"  HeaderStyle-HorizontalAlign="Left" DataField="COMPANYNAME" HeaderText="Company" HeaderStyle-ForeColor="Blue" SortExpression="COMPANYNAME" />
-
-                        <asp:BoundField ItemStyle-HorizontalAlign="Left"  HeaderStyle-HorizontalAlign="Left" DataField="DiscussionTopic" HeaderText="Discussion Topic" HeaderStyle-ForeColor="Blue" SortExpression="DiscussionTopic" />
-
+                        <asp:BoundField ItemStyle-HorizontalAlign="Left"  HeaderStyle-HorizontalAlign="Left" DataField="DiscussionTopic" HeaderText="Topic" HeaderStyle-ForeColor="Blue" SortExpression="DiscussionTopic" />
                         <asp:BoundField ItemStyle-HorizontalAlign="Left"  HeaderStyle-HorizontalAlign="Left" DataField="LAST_CONTACT_DATE" HeaderText="Last Contact Date" HeaderStyle-ForeColor="Blue" SortExpression="LAST_CONTACT_DATE" DataFormatString="{0:d}"/>
                         <asp:TemplateField ShowHeader="False">
                             <ItemTemplate>
@@ -48,11 +46,12 @@
         </tr>
         <tr>
             <td colspan="2">
-                <asp:ObjectDataSource ID="CallListDS" runat="server" TypeName="SandlerRepositories.ContactsRepository" SelectMethod="GetCallList"></asp:ObjectDataSource>
+                <asp:ObjectDataSource ID="CallListDS" runat="server" TypeName="SandlerRepositories.ContactsRepository" SelectMethod="GetCallList" OnSelecting="CallListDS_Selecting">
+                    <SelectParameters><asp:Parameter Name="_user"  /></SelectParameters>
+                </asp:ObjectDataSource>
                 <asp:HiddenField ID="hidContactID" runat="server" />
             </td>
         </tr>
     </table>
-
 </asp:Content>
 

@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-public partial class CRM_Contacts_CallList : System.Web.UI.Page
+public partial class CRM_Contacts_CallList : BasePage
 {
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -29,6 +29,12 @@ public partial class CRM_Contacts_CallList : System.Web.UI.Page
             btnExportExcel.Visible = true;
         }
     }
+
+    protected void CallListDS_Selecting(object sender, ObjectDataSourceSelectingEventArgs e)
+    {
+        e.InputParameters["_user"] = CurrentUser;
+    }
+
     public override void VerifyRenderingInServerForm(Control control)
     {
         //This means that you are overriding the default implementation of the method and giving permission to the GridView to be exported as an Excel file.
@@ -47,7 +53,7 @@ public partial class CRM_Contacts_CallList : System.Web.UI.Page
         gvCallList.AllowPaging = false;
         gvCallList.AllowSorting = false;
         gvCallList.DataBind();
-        gvCallList.Columns[6].Visible = false;
+        gvCallList.Columns[7].Visible = false;
         //Report is the Div which we need to Export - Gridview is under this Div
         Report.RenderControl(htmlWrite);
         Response.Write(stringWrite.ToString());
