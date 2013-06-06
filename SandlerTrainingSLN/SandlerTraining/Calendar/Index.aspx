@@ -1,5 +1,6 @@
 ﻿<%@ Page Title="My Account - MyCalenar" Language="C#" MasterPageFile="~/CRM.master" AutoEventWireup="true" CodeFile="Index.aspx.cs" Inherits="Calendar_Index" %>
 <%@ Register TagPrefix="ECalendar" Namespace="ExtendedControls" Assembly="App_Code.EventCalendar" %>
+<%@Register TagPrefix="ew"  Namespace="eWorld.UI" Assembly="eWorld.UI, Version=1.9.0.0, Culture=neutral, PublicKeyToken=24d65337282035f2" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" Runat="Server">
@@ -42,6 +43,7 @@
                     <asp:BoundField ItemStyle-HorizontalAlign="Center" ItemStyle-Wrap="true" HeaderStyle-ForeColor="Blue" DataField="Description" HeaderText="Name" SortExpression="Description" />
                     <asp:BoundField ItemStyle-HorizontalAlign="Center" ItemStyle-Wrap="true" HeaderStyle-ForeColor="Blue" DataField="Topic" HeaderText="Topic" SortExpression="Topic" />
                     <asp:BoundField ItemStyle-HorizontalAlign="Center" HeaderStyle-ForeColor="Blue" DataField="Phone" HeaderText="Phone" SortExpression="Phone" />
+                    <asp:BoundField ItemStyle-HorizontalAlign="Center" HeaderStyle-ForeColor="Blue" DataField="StartTime" HeaderText="Start Time" DataFormatString="{0:t}" SortExpression="StartTime" />
                 </Columns> 
                 </asp:GridView>
 
@@ -66,6 +68,13 @@
                                 <asp:TextBox ID="FollowUpDate" Text='<%# Bind("Follow_Up_Date") %>' runat="server" />&nbsp;<asp:Image ID="calanderImageFUD" runat="server" ImageUrl="~/images/calendar.gif" ImageAlign="Middle" />
                                 <asp:CalendarExtender ID="CalendarExtender1" runat="server" TargetControlID="FollowUpDate" PopupButtonID="calanderImageFUD" CssClass="calendar"></asp:CalendarExtender>
                                 <asp:RequiredFieldValidator ID="FollowUpDateRFV" ControlToValidate="FollowUpDate" runat="server" ErrorMessage="Please Enter Follow up Date to proceed.">*</asp:RequiredFieldValidator>
+                                Start Time:
+                                <ew:TimePicker ID="tpStartTime" MinuteInterval="FifteenMinutes" Nullable="true" LowerBoundTime="5:00 AM" Width="80" UpperBoundTime="11:00 PM" ControlDisplay="TextBoxImage" ImageUrl="~/Images/timepicker.gif" runat="server" >
+                                         <TimeStyle BackColor="#336699" Font-Size="9pt" ForeColor="White"  Width="100"/>
+                                         <ClearTimeStyle BackColor="White" Font-Size="8pt" />
+                                         <SelectedTimeStyle BackColor="Yellow" Font-Size="8pt"/>
+                                </ew:TimePicker>
+                                <asp:RequiredFieldValidator ID="StartTimeRFV" ControlToValidate="tpStartTime" runat="server" ErrorMessage="Please Enter Start Time to proceed.">*</asp:RequiredFieldValidator>
                             </InsertItemTemplate>
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="Topic :">
@@ -115,11 +124,8 @@
             </td>
         </tr>
 
-
-
       </table>
-
-
+      
     </ContentTemplate> 
 </asp:UpdatePanel>
 

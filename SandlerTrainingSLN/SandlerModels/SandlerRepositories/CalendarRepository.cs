@@ -25,7 +25,7 @@ namespace SandlerRepositories
                 new SqlParameter("@RegionId", _user.RegionID));
         }
 
-        public void Add(DateTime FollowUpDate, string Description, string Topic, string Phone, UserModel _user)
+        public void Add(DateTime FollowUpDate, string Description, string Topic, string Phone, UserModel _user, DateTime StartTime)
         {
             
             //Add
@@ -34,7 +34,8 @@ namespace SandlerRepositories
             new SqlParameter("@FollowUpDate", FollowUpDate),
             new SqlParameter("@Description", Description),
             new SqlParameter("@Topic", Topic),
-            new SqlParameter("@Phone", Phone));
+            new SqlParameter("@Phone", Phone),
+            new SqlParameter("@StartTime", StartTime));
             
         }
 

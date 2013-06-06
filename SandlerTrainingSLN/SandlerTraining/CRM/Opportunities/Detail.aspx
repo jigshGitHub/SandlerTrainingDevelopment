@@ -42,7 +42,7 @@
                             Opportunity Description :
                         </td>
                         <td>
-                            <asp:Label ID="lblDescription" runat="server" Width="380"></asp:Label>
+                            <asp:TextBox ID="txtDescription" runat="server"  Width="380" TextMode="MultiLine" ReadOnly="true"></asp:TextBox></asp:Label>
                         </td>
                     </tr>
                     <tr style="color: Black; background-color: #EEEEEE; white-space: nowrap;">

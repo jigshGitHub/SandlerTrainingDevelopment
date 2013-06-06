@@ -14,9 +14,9 @@
                         <li><a href="">Franchisee</a><ul class="sub_menu">
                             <li><a href="<%=  Page.ResolveClientUrl("~/" + ChartHelper.GeneratePageLink("","NewAppointmentsBySourceMonth","ChartcustomPage.aspx?"))  %>">
                                 New Appointments By Source (By Month)</a></li>
-                            <li><a href="<%=  Page.ResolveClientUrl("~/" + ChartHelper.GeneratePageLink("","NewClientsByProductTypeMonth"))  %>">
+                            <li><a href="<%=  Page.ResolveClientUrl("~/" + ChartHelper.GeneratePageLink("","NewClientsByProductTypeMonth","ChartcustomPage.aspx?"))  %>">
                                 New Clients By Product Type (By Month)</a></li>
-                            <li><a href="<%=  Page.ResolveClientUrl("~/" + ChartHelper.GeneratePageLink("","NewClientQuantityAverageContractPriceByMonth"))  %>">
+                            <li><a href="<%=  Page.ResolveClientUrl("~/" + ChartHelper.GeneratePageLink("","NewClientQuantityAverageContractPriceByMonth","ChartcustomPage.aspx?"))  %>">
                                 New Client Quantity & Average Contract Price (By Month)</a></li>
                             <li><a href="<%=  Page.ResolveClientUrl("~/" + ChartHelper.GeneratePageLink("","ClassHeadcountByCourseIndustryMonth"))  %>">
                                 Class Headcount By Course & Industry (By Month)</a></li>

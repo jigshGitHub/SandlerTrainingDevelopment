@@ -70,6 +70,19 @@ namespace ExtendedControls
             set { ViewState["Topic"] = value; }
         }
 
+        // Gets or sets the StartTime in the DataTable
+        public string StartTime
+        {
+            get
+            {
+                if (ViewState["StartTime"] == null)
+                    return string.Empty;
+                else
+                    return (ViewState["StartTime"].ToString());
+            }
+            set { ViewState["StartTime"] = value; }
+        }
+
         // Gets or sets the Phone in the DataTable
         public string Phone
         {

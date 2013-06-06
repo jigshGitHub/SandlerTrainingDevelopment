@@ -1,5 +1,6 @@
 ﻿<%@ Page Title="CRM - Add Contact" Language="C#" MasterPageFile="~/CRM.master" AutoEventWireup="true" CodeFile="Add.aspx.cs" Inherits="ContactADD" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
+<%@Register TagPrefix="ew"  Namespace="eWorld.UI" Assembly="eWorld.UI, Version=1.9.0.0, Culture=neutral, PublicKeyToken=24d65337282035f2" %>
 <%@ Import Namespace="SandlerRepositories" %>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="Server">
     <asp:ToolkitScriptManager ID="ToolkitScriptManager1" runat="server"></asp:ToolkitScriptManager>
@@ -218,7 +219,12 @@
                             <InsertItemTemplate>
                                 <asp:TextBox ID="NextContactDate" Text='<%# Bind("Next_Contact_Date") %>' runat="server" />&nbsp;<asp:Image ID="calanderImageNCD" runat="server" ImageUrl="~/images/calendar.gif" ImageAlign="Middle" />
                                 <asp:CalendarExtender ID="CalendarExtender3" runat="server" TargetControlID="NextContactDate" PopupButtonID="calanderImageNCD" CssClass="calendar"></asp:CalendarExtender>
-                                
+                                Start Time:
+                                <ew:TimePicker ID="tpStartTime" SelectedTime='<%# Bind("StartTime") %>' Nullable="true" MinuteInterval="FifteenMinutes"  LowerBoundTime="5:00 AM"  Width="100" UpperBoundTime="11:00 PM" ControlDisplay="TextBoxImage" ImageUrl="~/Images/timepicker.gif" runat="server" >
+                                         <TimeStyle BackColor="#336699" Font-Size="9pt" ForeColor="White" Width="100"/>
+                                         <ClearTimeStyle BackColor="White" Font-Size="8pt" />
+                                         <SelectedTimeStyle BackColor="Yellow" Font-Size="8pt"/>
+                                </ew:TimePicker>                  
                             </InsertItemTemplate>
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="Need to Call Back?:">
@@ -352,7 +358,7 @@
                         <asp:ControlParameter ControlID="dvContact" Name="TrainingCourseName" PropertyName="SelectedValue" />
                         <asp:ControlParameter ControlID="dvContact" Name="HowManyAttended" PropertyName="SelectedValue" />
                         <asp:ControlParameter ControlID="dvContact" Name="CompanyNameWhereTrainingConducted" PropertyName="SelectedValue" />
-                        
+                        <asp:ControlParameter ControlID="dvContact" Name="StartTime" PropertyName="SelectedValue" />
                         <asp:Parameter Name="_user"  />
                     </InsertParameters>
                 </asp:ObjectDataSource>

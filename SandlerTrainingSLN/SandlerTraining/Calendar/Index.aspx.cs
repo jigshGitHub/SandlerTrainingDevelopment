@@ -12,6 +12,8 @@ using SandlerModels;
 using SandlerRepositories;
 using SandlerData;
 using System.Linq;
+using eWorld;
+using eWorld.UI;
 
 public partial class Calendar_Index : BasePage
 {
@@ -53,21 +55,54 @@ public partial class Calendar_Index : BasePage
         }
     }
 
+    public DateTime GetDateAndTimeTogether(DateTime DatePortion, string TimePortion)
+    {
+        DateTime _finalDate;
+        //Let us divide and just get Time Portion
+        string[] _enteredTimeDetails = TimePortion.Split(' ');
+        //Again Divide and just get Hours and Minutes
+        string[] _timeDetails = _enteredTimeDetails[0].ToString().Split(':');
+        //hour
+        int _hour = Convert.ToInt32(_timeDetails[0].ToString());
+        //Minute
+        int _minute = Convert.ToInt32(_timeDetails[1].ToString());
+        //Set again if it is PM
+        if (_enteredTimeDetails[1].ToString().ToUpper() == "PM")
+        {
+            _hour = _hour + 12;
+        }
+        //Now add in the date part
+        _finalDate = DatePortion.AddHours(_hour);
+        _finalDate = _finalDate.AddMinutes(_minute);
+        //Final date is ready so return it
+        return _finalDate;
+    }
+
+
     protected void dvFollowupItem_ItemInserting(object sender, DetailsViewInsertEventArgs e)
     {
         string Description = "";
         string Topic = "";
         string Phone = "";
         System.DateTime FollowUpDate = default(System.DateTime);
-        
+        System.DateTime StartTime = default(System.DateTime);
+
         //For FollowUpDate
         TextBox FollowUpDateCal = new TextBox();
+        TimePicker tpStartTimeTP = new TimePicker();
         FollowUpDateCal = (TextBox)dvFollowupItem.FindControl("FollowUpDate");
+        tpStartTimeTP = (TimePicker)dvFollowupItem.FindControl("tpStartTime");
         if ((FollowUpDateCal != null))
         {
             if (!string.IsNullOrEmpty(FollowUpDateCal.Text))
             {
                 FollowUpDate = Convert.ToDateTime(FollowUpDateCal.Text.Trim());
+                //For StartTime - First Get what user has Entered
+                if (!string.IsNullOrEmpty(tpStartTimeTP.PostedTime))
+                {
+                    //Get in the DateTime format with today's date + Time portion Entered by User
+                    StartTime = GetDateAndTimeTogether(FollowUpDate, tpStartTimeTP.PostedTime);
+                }
             }
 
         }
@@ -107,7 +142,7 @@ public partial class Calendar_Index : BasePage
 
         if (!e.Cancel)
         {
-            new SandlerRepositories.CalendarRepository().Add(FollowUpDate, Description, Topic,Phone, CurrentUser);
+            new SandlerRepositories.CalendarRepository().Add(FollowUpDate, Description, Topic, Phone, CurrentUser, StartTime);
             lblResult.Text = "Followup Item added Successfully for " + FollowUpDateCal.Text.Replace("12:00:00 AM", "")+" !";
             //Clear exisitng entry for Description and Phone
             Phonetxt.Text = "";
@@ -139,6 +174,7 @@ public partial class Calendar_Index : BasePage
         EventCal.Description = "Description";
         EventCal.Topic = "Topic";
         EventCal.Phone = "Phone";
+        EventCal.StartTime = "StartTime";
         //Bind the result and display the calendar info
         EventCal.EventSource = GetEvents();
     }
@@ -160,6 +196,7 @@ public partial class Calendar_Index : BasePage
                     dr[EventCal.Description] = drEvent[EventCal.Description];
                     dr[EventCal.Topic] = drEvent[EventCal.Topic];
                     dr[EventCal.Phone] = drEvent[EventCal.Phone];
+                    dr[EventCal.StartTime] = drEvent[EventCal.StartTime];
                     //add row to the table
                     dtSelectedDateEvents.Rows.Add(dr);
                 }

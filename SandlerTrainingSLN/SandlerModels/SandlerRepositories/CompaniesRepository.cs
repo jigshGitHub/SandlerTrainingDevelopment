@@ -304,12 +304,17 @@ namespace SandlerRepositories
             string AssistantFirstName, string AssistantPhone, int Value,
             string Website, int EmpQuantity, int COMPANYVALUEGOAL,
             int IndID, string RepLastName, string RepFirstName, string DiscussionTopic, string ACTIONSTEP,
-            DateTime LastContact_Date, DateTime NextContact_Date, DateTime CreationDate, string Notes, UserModel _user
+            DateTime LastContact_Date, DateTime NextContact_Date, DateTime CreationDate, string Notes, DateTime StartTime, UserModel _user
             )
         {
 
             //Get the User Session
-            
+            DateTime _StartTime = default(System.DateTime).AddYears(1754);
+            if (NextContact_Date.ToString() != "1/1/0001 12:00:00 AM")
+            {
+                //Means User has selected something for the Next contact Date so start time is needed
+                _StartTime = IsValidDateCheck(StartTime);
+            }
 
             LastContact_Date = IsValidDateCheck(LastContact_Date);
             NextContact_Date = IsValidDateCheck(NextContact_Date);
@@ -383,7 +388,8 @@ namespace SandlerRepositories
                 new SqlParameter("@CreationDate", CreationDate),
                 new SqlParameter("@CreatedBy", _user.UserId),
                 new SqlParameter("@Notes", Notes),
-                new SqlParameter("@FranchiseeId", _user.FranchiseeID));
+                new SqlParameter("@FranchiseeId", _user.FranchiseeID),
+                new SqlParameter("@StartTime", _StartTime));
             UserEntitiesFactory.ReLoad();
 
         }
@@ -406,6 +412,12 @@ namespace SandlerRepositories
             return EnteredValue;
         }
 
+        public string GetTimePortion(DateTime inputDate)
+        {
+            return inputDate.ToString("hh:mm tt"); 
+        }
+
+
         public void Update(int COMPANIESID, string COMPANYNAME,
             string CompanyOwnership,
             string CompanyDescription,
@@ -418,9 +430,17 @@ namespace SandlerRepositories
             string AssistantFirstName, string AssistantPhone, int Value,
             string Website, string EmpQuantity, string COMPANYVALUEGOAL,
             int IndID, string RepLastName, string RepFirstName, string DiscussionTopic, string ACTIONSTEP,
-            DateTime LastContact_Date, DateTime NextContact_Date, DateTime CreationDate, string updatedBy, string Notes)
+            DateTime LastContact_Date, DateTime NextContact_Date, DateTime CreationDate, string updatedBy, string Notes, DateTime StartTime)
         {
 
+            //Get the User Session
+            DateTime _StartTime = default(System.DateTime).AddYears(1754);
+            if (NextContact_Date.ToString() != "1/1/0001 12:00:00 AM")
+            {
+                //Means User has selected something for the Next contact Date so start time is needed
+                _StartTime = IsValidDateCheck(StartTime);
+            }
+            
             LastContact_Date = IsValidDateCheck(LastContact_Date);
             NextContact_Date = IsValidDateCheck(NextContact_Date);
             CreationDate = IsValidDateCheck(CreationDate);
@@ -493,7 +513,8 @@ namespace SandlerRepositories
                 new SqlParameter("@NextContact_Date", NextContact_Date),
                 new SqlParameter("@CreationDate", CreationDate),
                 new SqlParameter("@UpdatedBy", updatedBy),
-                new SqlParameter("@Notes", Notes));
+                new SqlParameter("@Notes", Notes),
+                new SqlParameter("@StartTime", _StartTime));
 
             UserEntitiesFactory.ReLoad();
 

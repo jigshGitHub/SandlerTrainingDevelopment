@@ -5,6 +5,8 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using SandlerModels;
+using System.Data;
+using SandlerRepositories;
 
 public partial class ContactIndex : BasePage
 {
@@ -69,23 +71,54 @@ public partial class ContactIndex : BasePage
     protected void btnExportExcel_Click(object sender, ImageClickEventArgs e)
     {
         //Export results to Excel
+        //trExport.Visible = true;
+        //Response.Clear();
+        //Response.AddHeader("content-disposition", "attachment;filename=AllContacts.xls");
+        //Response.Charset = "";
+        //Response.ContentType = "application/vnd.ms-excel";
+        //this.EnableViewState = false;
+        //System.IO.StringWriter stringWrite = new System.IO.StringWriter();
+        //System.Web.UI.HtmlTextWriter htmlWrite = new System.Web.UI.HtmlTextWriter(stringWrite);
+        //gvContactsExport.AllowPaging = false;
+        //gvContactsExport.AllowSorting = false;
+        //gvContactsExport.DataBind();
+        ////Report is the Div which we need to Export - Gridview is under this Div
+        //Report.RenderControl(htmlWrite);
+        //Response.Write(stringWrite.ToString());
+        //Response.End();
+        //this.EnableViewState = true;
+        //trExport.Visible = false;
+
         trExport.Visible = true;
-        Response.Clear();
-        Response.AddHeader("content-disposition", "attachment;filename=AllContacts.xls");
-        Response.Charset = "";
-        Response.ContentType = "application/vnd.ms-excel";
-        this.EnableViewState = false;
-        System.IO.StringWriter stringWrite = new System.IO.StringWriter();
-        System.Web.UI.HtmlTextWriter htmlWrite = new System.Web.UI.HtmlTextWriter(stringWrite);
         gvContactsExport.AllowPaging = false;
         gvContactsExport.AllowSorting = false;
+
         gvContactsExport.DataBind();
-        //Report is the Div which we need to Export - Gridview is under this Div
-        Report.RenderControl(htmlWrite);
-        Response.Write(stringWrite.ToString());
-        Response.End();
-        this.EnableViewState = true;
-        trExport.Visible = false;
+        //Get in to Datatable
+        DataTable dt = new DataTable();
+        if (gvContactsExport.Rows.Count > 0)
+        {
+            foreach (TableCell col in gvContactsExport.HeaderRow.Cells)
+            {
+                dt.Columns.Add(col.Text.Replace("&#39;", "'").Replace("&nbsp;", ""));
+            }
+            foreach (GridViewRow row in gvContactsExport.Rows)
+            {
+                DataRow dr = dt.NewRow();
+
+                int z = 0;
+                foreach (TableCell col in gvContactsExport.HeaderRow.Cells)
+                {
+                    dr[z] = row.Cells[z].Text.Replace("&#39;", "'").Replace("&nbsp;", "");
+                    z += 1;
+                }
+
+                dt.Rows.Add(dr);
+            }
+            //Get Excel file
+            ExportToExcel.DownloadReportResultsWithDT(dt, "AllContacts");
+        }
+        
 
     }
 }

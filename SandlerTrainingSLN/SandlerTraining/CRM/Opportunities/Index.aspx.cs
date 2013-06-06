@@ -6,6 +6,8 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using SandlerModels;
 using SandlerData;
+using System.Data;
+
 public partial class OpportunityIndex : OpportunityBasePage
 {
     protected void Page_Load(object sender, EventArgs e)
@@ -155,19 +157,44 @@ public partial class OpportunityIndex : OpportunityBasePage
     protected void btnExportExcel_Click(object sender, ImageClickEventArgs e)
     {
         //Export results to Excel
-        Response.Clear();
-        Response.AddHeader("content-disposition", "attachment;filename=AllOpportunities.xls");
-        Response.Charset = "";
-        //Response.Cache.SetCacheability(HttpCacheability.NoCache)
-        Response.ContentType = "application/vnd.ms-excel";
-        this.EnableViewState = false;
-        System.IO.StringWriter stringWrite = new System.IO.StringWriter();
-        System.Web.UI.HtmlTextWriter htmlWrite = new System.Web.UI.HtmlTextWriter(stringWrite);
+        //Response.Clear();
+        //Response.AddHeader("content-disposition", "attachment;filename=AllOpportunities.xls");
+        //Response.Charset = "";
+        ////Response.Cache.SetCacheability(HttpCacheability.NoCache)
+        //Response.ContentType = "application/vnd.ms-excel";
+        //this.EnableViewState = false;
+        //System.IO.StringWriter stringWrite = new System.IO.StringWriter();
+        //System.Web.UI.HtmlTextWriter htmlWrite = new System.Web.UI.HtmlTextWriter(stringWrite);
         
-        //Report is the Div which we need to Export - Gridview is under this Div
-        gvExport.RenderControl(htmlWrite);
-        Response.Write(stringWrite.ToString());
-        Response.End();
+        ////Report is the Div which we need to Export - Gridview is under this Div
+        //gvExport.RenderControl(htmlWrite);
+        //Response.Write(stringWrite.ToString());
+        //Response.End();
+
+        //Get in to Datatable
+        DataTable dt = new DataTable();
+        if (gvExport.Rows.Count > 0)
+        {
+            foreach (TableCell col in gvExport.HeaderRow.Cells)
+            {
+                dt.Columns.Add(col.Text.Replace("&#39;", "'").Replace("&nbsp;", ""));
+            }
+            foreach (GridViewRow row in gvExport.Rows)
+            {
+                DataRow dr = dt.NewRow();
+
+                int z = 0;
+                foreach (TableCell col in gvExport.HeaderRow.Cells)
+                {
+                    dr[z] = row.Cells[z].Text.Replace("&#39;", "'").Replace("&nbsp;", "");
+                    z += 1;
+                }
+
+                dt.Rows.Add(dr);
+            }
+            //Get Excel file
+            ExportToExcel.DownloadReportResultsWithDT(dt, "AllOpportunities");
+        }
     }
 
     #endregion

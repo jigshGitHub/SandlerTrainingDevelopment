@@ -25,7 +25,7 @@
         <tr>
             <td>
                 <asp:DetailsView AutoGenerateRows="False" DataKeyNames="CONTACTSID" ID="ContactDW"
-                    runat="server" Width="675px" OnItemCommand="ContactDW_ItemCommand" OnModeChanging="ContactDW_ModeChanging"
+                    runat="server" Width="725px" OnItemCommand="ContactDW_ItemCommand" OnModeChanging="ContactDW_ModeChanging"
                     OnItemUpdating="ContactDW_ItemUpdating" OnDataBound="ContactDW_DataBound" OnItemCreated="ContactDW_ItemCreated">
                     <Fields>
                         <asp:BoundField DataField="CONTACTSID" Visible="False" />
@@ -367,10 +367,13 @@
                                 <asp:CalendarExtender ID="CalendarExtender3" runat="server" TargetControlID="NextContactDate"
                                     PopupButtonID="calanderImageNCD" CssClass="calendar">
                                 </asp:CalendarExtender>
-                                
+                                Start Time:
+                                <asp:TextBox ID="tpStartTime" Text='<%# Bind("StartTime","{0:t}") %>' MaxLength="30" Width="80" runat="server"></asp:TextBox>
+                                e.g 9:00 AM or 3:30 PM
                             </EditItemTemplate>
                             <ItemTemplate>
-                                <asp:Label ID="lblNextContactDate" runat="server" Text='<%# Bind("Next_Contact_Date","{0:d}") %>'></asp:Label>
+                                <asp:Label ID="lblNextContactDate" runat="server" Text='<%# Bind("Next_Contact_Date","{0:d}") %>'></asp:Label>&nbsp;
+                                <asp:Label ID="lblStartTime" runat="server" Text='<%# Bind("StartTime","{0:t}") %>'></asp:Label>
                             </ItemTemplate>
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="Email Subscription?:">

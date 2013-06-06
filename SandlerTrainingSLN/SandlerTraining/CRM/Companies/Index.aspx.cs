@@ -7,10 +7,11 @@ using System.Web.UI.WebControls;
 using SandlerModels;
 using System.Web.UI.HtmlControls;
 using SandlerWeb = Sandler.Web;
+using System.Data;
+using SandlerRepositories;
+
 public partial class CompanyIndex : BasePage
 {
-
-
     protected void Page_Load(object sender, EventArgs e)
     {
         companyMenu.MenuEntityTitle = "Companies";
@@ -64,19 +65,43 @@ public partial class CompanyIndex : BasePage
 
     protected void btnExportExcel_Click(object sender, ImageClickEventArgs e)
     {
+        #region [[Old code]]
         //Export results to Excel
+        //trExport.Visible = true;
+        //Response.Clear();
+        //Response.AddHeader("content-disposition", "attachment;filename=AllCompanies.xls");
+        //Response.Charset = "";
+        //Response.ContentType = "application/vnd.ms-excel";
+        //this.EnableViewState = false;
+        //System.IO.StringWriter stringWrite = new System.IO.StringWriter();
+        //System.Web.UI.HtmlTextWriter htmlWrite = new System.Web.UI.HtmlTextWriter(stringWrite);
+        //gvCompaniesExport.AllowPaging = false;
+        //gvCompaniesExport.AllowSorting = false;
+        ////Get the User Info
+        
+        //if (CurrentUser.Role == SandlerRoles.Client)
+        //{
+        //    gvCompaniesExport.Columns[4].Visible = false;
+        //}
+        //else
+        //{
+        //    gvCompaniesExport.Columns[5].Visible = false;
+        //}
+        //gvCompaniesExport.DataBind();
+        ////Report is the Div which we need to Export - Gridview is under this Div
+        //Report.RenderControl(htmlWrite);
+        //Response.Write(stringWrite.ToString());
+        //Response.End();
+        //this.EnableViewState = true;
+        //trExport.Visible = false;
+        #endregion
+
+        //If Custom Headers are used 
         trExport.Visible = true;
-        Response.Clear();
-        Response.AddHeader("content-disposition", "attachment;filename=AllCompanies.xls");
-        Response.Charset = "";
-        Response.ContentType = "application/vnd.ms-excel";
-        this.EnableViewState = false;
-        System.IO.StringWriter stringWrite = new System.IO.StringWriter();
-        System.Web.UI.HtmlTextWriter htmlWrite = new System.Web.UI.HtmlTextWriter(stringWrite);
         gvCompaniesExport.AllowPaging = false;
         gvCompaniesExport.AllowSorting = false;
         //Get the User Info
-        
+
         if (CurrentUser.Role == SandlerRoles.Client)
         {
             gvCompaniesExport.Columns[4].Visible = false;
@@ -86,12 +111,38 @@ public partial class CompanyIndex : BasePage
             gvCompaniesExport.Columns[5].Visible = false;
         }
         gvCompaniesExport.DataBind();
-        //Report is the Div which we need to Export - Gridview is under this Div
-        Report.RenderControl(htmlWrite);
-        Response.Write(stringWrite.ToString());
-        Response.End();
-        this.EnableViewState = true;
-        trExport.Visible = false;
+        //Get in to Datatable
+        DataTable dt = new DataTable();
+        if (gvCompaniesExport.Rows.Count > 0)
+        {
+            foreach (TableCell col in gvCompaniesExport.HeaderRow.Cells)
+            {
+                dt.Columns.Add(col.Text.Replace("&#39;", "'").Replace("&nbsp;", ""));
+            }
+            foreach (GridViewRow row in gvCompaniesExport.Rows)
+            {
+                DataRow dr = dt.NewRow();
+
+                int z = 0;
+                foreach (TableCell col in gvCompaniesExport.HeaderRow.Cells)
+                {
+                    dr[z] = row.Cells[z].Text.Replace("&#39;", "'").Replace("&nbsp;", "");
+                    z += 1;
+                }
+
+                dt.Rows.Add(dr);
+            }
+            //Get Excel file
+            ExportToExcel.DownloadReportResultsWithDT(dt, "AllCompanies");
+        }
+        
+        //If Dataset has correct Header Names
+        //CompaniesRepository reportRepository = new CompaniesRepository();
+        //DataSet ds = new DataSet();
+        //ds = reportRepository.GetAllCompanies(CurrentUser);
+        //ExportToExcel.DownloadReportResultsWithDT(ds.Tables[0], "AllCompanies");
+
+
     }
 
     

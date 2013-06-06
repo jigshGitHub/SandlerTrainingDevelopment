@@ -61,6 +61,32 @@ public partial class ContactDETAIL : BasePage
         }
     }
 
+    public DateTime GetDateAndTimeTogether(DateTime DatePortion, string TimePortion)
+    {
+        DateTime _finalDate;
+        //Let us Massage the Date so that we get only date Portion
+        string _todaysDate = DatePortion.ToString("d");
+        DatePortion = Convert.ToDateTime(_todaysDate);
+        //Let us divide and just get Time Portion
+        string[] _enteredTimeDetails = TimePortion.Split(' ');
+        //Again Divide and just get Hours and Minutes
+        string[] _timeDetails = _enteredTimeDetails[0].ToString().Split(':');
+        //hour
+        int _hour = Convert.ToInt32(_timeDetails[0].ToString());
+        //Minute
+        int _minute = Convert.ToInt32(_timeDetails[1].ToString());
+        //Set again if it is PM
+        if (_enteredTimeDetails[1].ToString().ToUpper() == "PM")
+        {
+            _hour = _hour + 12;
+        }
+        //Now add in the date part
+        _finalDate = DatePortion.AddHours(_hour);
+        _finalDate = _finalDate.AddMinutes(_minute);
+        //Final date is ready so return it
+        return _finalDate;
+    }
+
     public string GetTextBoxData(string controlId)
     {
         //First Create the TextBox Control to store the Input Data
@@ -114,6 +140,7 @@ public partial class ContactDETAIL : BasePage
         string TrainingCourseName = default(System.String);
         int HowManyAttended = default(System.Int32);
         string CompanyNameWhereTrainingConducted = default(System.String);
+        string _StartTime = default(System.String);
 
         System.DateTime NextDate = default(System.DateTime);
         System.DateTime LastDate = default(System.DateTime);
@@ -124,6 +151,28 @@ public partial class ContactDETAIL : BasePage
         System.DateTime LastEmailedDate = default(System.DateTime);
         System.DateTime LastMeetingDate = default(System.DateTime);
         System.DateTime LetterSentDate = default(System.DateTime);
+        System.DateTime StartTime = default(System.DateTime);
+
+        //For Next Contact Date
+        {
+            TextBox NextContactDateCal = new TextBox();
+            NextContactDateCal = (TextBox)ContactDW.FindControl("NextContactDate");
+            if ((NextContactDateCal != null))
+            {
+                if (!string.IsNullOrEmpty(NextContactDateCal.Text))
+                {
+                    NextDate = Convert.ToDateTime(NextContactDateCal.Text.Trim());
+                    //For StartTime - First Get what user has Entered
+                    _StartTime = GetTextBoxData("tpStartTime");
+                    if (!string.IsNullOrEmpty(_StartTime))
+                    {
+                        //Get in the DateTime format with today's date + Time portion Entered by User
+                        StartTime = GetDateAndTimeTogether(DateTime.Now, _StartTime);
+                    }
+                }
+            }
+        }
+
 
         //For Training Course Name
         TrainingCourseName = GetTextBoxData("txtTrainingCourseName");
@@ -318,18 +367,7 @@ public partial class ContactDETAIL : BasePage
 
             }
         }
-        //For Next Contact Date
-        {
-            TextBox NextContactDateCal = new TextBox();
-            NextContactDateCal = (TextBox)ContactDW.FindControl("NextContactDate");
-            if ((NextContactDateCal != null))
-            {
-                if (!string.IsNullOrEmpty(NextContactDateCal.Text))
-                {
-                    NextDate = Convert.ToDateTime(NextContactDateCal.Text.Trim());
-                }
-            }
-        }
+        
         //For Course Trng Date
         {
             TextBox CourseTrainingDateCal = new TextBox();
@@ -436,7 +474,7 @@ public partial class ContactDETAIL : BasePage
             SandlerRepositories.ContactsRepository contactRepository = new SandlerRepositories.ContactsRepository();
             contactRepository.Update(Convert.ToInt32(hidContactID.Value), CompanyID, LastName, FirstName,Title,ContactsDepartment,ContactsRole,Phone,MobilePhone,HomePhone,Fax, Email,PersonalEmail,Address,City,State,Zip,Country,
                 DiscussionTopic, ActionStep,LastAttemptedDate,LastEmailedDate,LastMeetingDate,LetterSentDate, IsRegisteredForTrng, IsNewAppt, CourseId, AppsSourceId, LastDate, NextDate, CourseTrngDate,
-                BlastEmailSubscription, NeedCallBack, BirthDayDate, AnniversaryDate, CompanyYears, BossName, SpouseName, ReferredBy, Notes, TrainingCourseName, HowManyAttended, CompanyNameWhereTrainingConducted,CurrentUser);
+                BlastEmailSubscription, NeedCallBack, BirthDayDate, AnniversaryDate, CompanyYears, BossName, SpouseName, ReferredBy, Notes, TrainingCourseName, HowManyAttended, CompanyNameWhereTrainingConducted,StartTime,CurrentUser);
             LblStatus.Text = "Contact updated successfully!";
             LblStatus1.Text = "Contact updated successfully!";
         }
@@ -532,16 +570,20 @@ public partial class ContactDETAIL : BasePage
         }
         //For Next  Contact Date
         TextBox NextContactDateCal = new TextBox();
+        TextBox tpStartTimeTP = new TextBox();
         NextContactDateCal = (TextBox)ContactDW.FindControl("NextContactDate");
+        tpStartTimeTP = (TextBox)ContactDW.FindControl("tpStartTime");
         if (NextContactDateCal != null)
         {
             if (NextContactDateCal.Text == "1/1/1900 12:00:00 AM")
             {
                 NextContactDateCal.Text = default(System.String);
+                tpStartTimeTP.Text = default(System.String);
             }
             else
             {
                 NextContactDateCal.Text = NextContactDateCal.Text.Replace("12:00:00 AM", "");
+                tpStartTimeTP.Text = tpStartTimeTP.Text.Replace("12:00 AM", "");
             }
 
         }
@@ -666,12 +708,22 @@ public partial class ContactDETAIL : BasePage
 
         //For Course Trng Date - Label
         Label NextContDateLabel = new Label();
+        Label lblStartTimeLabel = new Label();
         NextContDateLabel = (Label)ContactDW.FindControl("lblNextContactDate");
+        lblStartTimeLabel = (Label)ContactDW.FindControl("lblStartTime");
         if (NextContDateLabel != null)
         {
             if (NextContDateLabel.Text == "1/1/1900")
             {
                 NextContDateLabel.Text = "";
+                lblStartTimeLabel.Text = "";
+            }
+            else
+            {
+                if (lblStartTimeLabel.Text == "12:00 AM")
+                {
+                    lblStartTimeLabel.Text = "";
+                }
             }
         }
 

@@ -45,7 +45,7 @@ public partial class OpportunityDETAIL : OpportunityBasePage
         lblWeightedValue.Text = string.Format("{0:C}", record.WEIGHTEDVALUE);
         lblActualValue.Text = string.Format("{0:C}", record.ActualValue);
         lblWinProbability.Text = record.WINPROBABILITY;
-        lblDescription.Text = record.Description;
+        txtDescription.Text = record.Description;
         lblNotes.Text = record.Notes;
         lblSource.Text = record.Source;
         lblType.Text = record.Type;

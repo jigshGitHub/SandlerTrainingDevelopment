@@ -78,6 +78,32 @@ public partial class CompanyDETAIL : BasePage
         return inputByUser;
     }
 
+    public DateTime GetDateAndTimeTogether(DateTime DatePortion, string TimePortion)
+    {
+        DateTime _finalDate;
+        //Let us Massage the Date so that we get only date Portion
+        string _todaysDate = DatePortion.ToString("d");
+        DatePortion = Convert.ToDateTime(_todaysDate);
+        //Let us divide and just get Time Portion
+        string[] _enteredTimeDetails = TimePortion.Split(' ');
+        //Again Divide and just get Hours and Minutes
+        string[] _timeDetails = _enteredTimeDetails[0].ToString().Split(':');
+        //hour
+        int _hour = Convert.ToInt32(_timeDetails[0].ToString());
+        //Minute
+        int _minute = Convert.ToInt32(_timeDetails[1].ToString());
+        //Set again if it is PM
+        if (_enteredTimeDetails[1].ToString().ToUpper() == "PM")
+        {
+            _hour = _hour + 12;
+        }
+        //Now add in the date part
+        _finalDate = DatePortion.AddHours(_hour);
+        _finalDate = _finalDate.AddMinutes(_minute);
+        //Final date is ready so return it
+        return _finalDate;
+    }
+
     public void UpdateCompanyDetails()
     {
         //TB Fields
@@ -114,16 +140,41 @@ public partial class CompanyDETAIL : BasePage
         string RepLastName = default(System.String);
         string RepFirstName = default(System.String);
         string DiscussionTopic = default(System.String);
-        string ACTIONSTEP = default(System.String); 
+        string ACTIONSTEP = default(System.String);
+        string _StartTime = default(System.String);
         //Date Fields        
         System.DateTime NextDate = default(System.DateTime);
         System.DateTime LastDate = default(System.DateTime);
         System.DateTime CreationDate = default(System.DateTime);
+        System.DateTime StartTime = default(System.DateTime);
         //DDL Fields
         int IndustryID = default(System.Int32);
         int IsSameBillingId = default(System.Int32); 
-        int NewItemID = default(System.Int32); 
-        
+        int NewItemID = default(System.Int32);
+
+
+        //For Next Contact Date
+        {
+            TextBox NextContactDateCal = new TextBox();
+            NextContactDateCal = (TextBox)CompanyDW.FindControl("NextContactDate");
+            if ((NextContactDateCal != null))
+            {
+                if (!string.IsNullOrEmpty(NextContactDateCal.Text))
+                {
+                    NextDate = Convert.ToDateTime(NextContactDateCal.Text.Trim());
+                    //For StartTime - First Get what user has Entered
+                    _StartTime = GetTextBoxData("tpStartTime");
+                    if (!string.IsNullOrEmpty(_StartTime))
+                    {
+                        //Get in the DateTime format with today's date + Time portion Entered by User
+                        StartTime = GetDateAndTimeTogether(DateTime.Now, _StartTime);
+                    }
+                    
+                }
+
+            }
+        }
+
         //For Company Name
         COMPANYNAME = GetTextBoxData("txtCompName");
         
@@ -241,19 +292,8 @@ public partial class CompanyDETAIL : BasePage
                 
             }
         }
-        //For Next Contact Date
-        {
-            TextBox NextContactDateCal = new TextBox();
-            NextContactDateCal = (TextBox)CompanyDW.FindControl("NextContactDate");
-            if ((NextContactDateCal != null))
-            {
-                if (!string.IsNullOrEmpty(NextContactDateCal.Text))
-                {
-                    NextDate = Convert.ToDateTime(NextContactDateCal.Text.Trim());
-                }
-                
-            }
-        }
+        
+        
         //For Industry ID
         {
             DropDownList IndustryDDList = new DropDownList();
@@ -290,8 +330,8 @@ public partial class CompanyDETAIL : BasePage
             BillingAddress, BillingCity, BillingState, BillingZip, BillingCountry,
             POCLastName, POCFirstName, POCPhone, POCDepartment,POCEmail, POCFax,
             AssistantLastName,AssistantFirstName, AssistantPhone,
-            NewItemID, Website, EmpQuantity, COMPANYVALUEGOAL, 
-            IndustryID, RepLastName, RepFirstName, DiscussionTopic, ACTIONSTEP, LastDate, NextDate, CreationDate, CurrentUser.UserId.ToString(),Notes);
+            NewItemID, Website, EmpQuantity, COMPANYVALUEGOAL,
+            IndustryID, RepLastName, RepFirstName, DiscussionTopic, ACTIONSTEP, LastDate, NextDate, CreationDate, CurrentUser.UserId.ToString(), Notes, StartTime);
         //Inform the Message
         LblStatus.Text = "Company informaton updated successfully!";
         LblStatus1.Text = "Company informaton updated successfully!";
@@ -365,16 +405,20 @@ public partial class CompanyDETAIL : BasePage
                 
         //For Next Contact Date - Calendar control
         TextBox NextContactDateCal = new TextBox();
+        TextBox tpStartTimeTP = new TextBox();
         NextContactDateCal = (TextBox)CompanyDW.FindControl("NextContactDate");
+        tpStartTimeTP = (TextBox)CompanyDW.FindControl("tpStartTime");
         if (NextContactDateCal != null)
         {
             if (NextContactDateCal.Text == "1/1/1900 12:00:00 AM")
             {
                 NextContactDateCal.Text = default(System.String);
+                tpStartTimeTP.Text = default(System.String);
             }
             else
             {
                 NextContactDateCal.Text = NextContactDateCal.Text.Replace("12:00:00 AM", "");
+                tpStartTimeTP.Text = tpStartTimeTP.Text.Replace("12:00 AM", "");
             }
 
         }
@@ -411,12 +455,22 @@ public partial class CompanyDETAIL : BasePage
         }
         //For Next Contact Date - Label
         Label NextContactDateLabel = new Label();
+        Label lblStartTimeLabel = new Label();
         NextContactDateLabel = (Label)CompanyDW.FindControl("lblNextContactDate");
+        lblStartTimeLabel = (Label)CompanyDW.FindControl("lblStartTime");
         if (NextContactDateLabel != null)
         {
             if (NextContactDateLabel.Text == "1/1/1900")
             {
                 NextContactDateLabel.Text = "";
+                lblStartTimeLabel.Text = "";
+            }
+            else
+            {
+                if (lblStartTimeLabel.Text == "12:00 AM")
+                {
+                    lblStartTimeLabel.Text = "";
+                }
             }
         }
 

@@ -331,10 +331,16 @@ namespace SandlerRepositories
             DateTime LastAttemptedDate, DateTime Last_Contact_Date, DateTime LastEmailedDate, DateTime LastMeetingDate, DateTime LetterSentDate,
             DateTime Next_Contact_Date, int CallBackValue, DateTime Birthday, string SpouseName, DateTime Anniversary, int CompanyYears, string BossName,
             string ReferredBy, string Notes,
-            string TrainingCourseName, int HowManyAttended, string CompanyNameWhereTrainingConducted, UserModel _user)
+            string TrainingCourseName, int HowManyAttended, string CompanyNameWhereTrainingConducted, DateTime StartTime,UserModel _user)
         {
 
-            
+            //Get the User Session
+            DateTime _StartTime = default(System.DateTime).AddYears(1754);
+            if (Next_Contact_Date.ToString() != "1/1/0001 12:00:00 AM")
+            {
+                //Means User has selected something for the Next contact Date so start time is needed
+                _StartTime = IsValidDateCheck(StartTime);
+            }
 
             CourseTrngDate = IsValidDateCheck(CourseTrngDate);
             Last_Contact_Date = IsValidDateCheck(Last_Contact_Date);
@@ -401,7 +407,8 @@ namespace SandlerRepositories
                 new SqlParameter("@Notes", Notes),
                 new SqlParameter("@TrainingCourseName", TrainingCourseName),
                 new SqlParameter("@HowManyAttended", HowManyAttended),
-                new SqlParameter("@CompanyNameWhereTrainingConducted", CompanyNameWhereTrainingConducted));
+                new SqlParameter("@CompanyNameWhereTrainingConducted", CompanyNameWhereTrainingConducted),
+                new SqlParameter("@StartTime", _StartTime));
 
             UserEntitiesFactory.ReLoad();
         }
@@ -424,9 +431,17 @@ namespace SandlerRepositories
             int IsRegisteredForTrng, int IsNewAppt, int CourseId,
             int AppsSourceId, DateTime LastDate, DateTime NextDate, DateTime CourseTrngDate, int BlastEmailSubscription, int CallBackValue, DateTime BirthDate,
             DateTime AnniversaryDate, int CompanyYears, string BossName, string SpouseName, string ReferredBy, string Notes,
-            string TrainingCourseName, int HowManyAttended, string CompanyNameWhereTrainingConducted, UserModel _user)
+            string TrainingCourseName, int HowManyAttended, string CompanyNameWhereTrainingConducted,  DateTime StartTime,UserModel _user)
         {
-            
+
+            //Get the User Session
+            DateTime _StartTime = default(System.DateTime).AddYears(1754);
+            if (NextDate.ToString() != "1/1/0001 12:00:00 AM")
+            {
+                //Means User has selected something for the Next contact Date so start time is needed
+                _StartTime = IsValidDateCheck(StartTime);
+            }
+
             //date fields
             CourseTrngDate = IsValidDateCheck(CourseTrngDate);
             LastDate = IsValidDateCheck(LastDate);
@@ -506,7 +521,8 @@ namespace SandlerRepositories
                    new SqlParameter("@Notes", Notes),
                    new SqlParameter("@TrainingCourseName", TrainingCourseName),
                 new SqlParameter("@HowManyAttended", HowManyAttended),
-                new SqlParameter("@CompanyNameWhereTrainingConducted", CompanyNameWhereTrainingConducted));
+                new SqlParameter("@CompanyNameWhereTrainingConducted", CompanyNameWhereTrainingConducted),
+                new SqlParameter("@StartTime", _StartTime));
 
             UserEntitiesFactory.ReLoad();
         }

@@ -1,6 +1,4 @@
-﻿<%@ Page Title="CRM - View/Edit Company" Language="C#" MasterPageFile="~/CRM.master"
-    AutoEventWireup="true" CodeFile="Detail.aspx.cs" Inherits="CompanyDETAIL" %>
-
+﻿<%@ Page Title="CRM - View/Edit Company" Language="C#" MasterPageFile="~/CRM.master" AutoEventWireup="true" CodeFile="Detail.aspx.cs" Inherits="CompanyDETAIL" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="Server">
     <asp:ToolkitScriptManager ID="ToolkitScriptManager1" runat="server"></asp:ToolkitScriptManager>
@@ -172,7 +170,8 @@
                         <asp:TemplateField HeaderText="POC Last Name :">
                             <EditItemTemplate>
                                 <asp:TextBox ID="txtPOCLastName" Width="380" MaxLength="50" runat="server" Text='<%# Bind("POCLastName") %>'></asp:TextBox>
-                                
+                                <label id="mandlbl2" style="color:Red" runat="server">*</label>
+                                <asp:RequiredFieldValidator ID="rfvLastNameTB" ControlToValidate="txtPOCLastName" Display="Static" InitialValue="" runat="server" ErrorMessage="Please Enter POC Last Name to proceed.">Required field</asp:RequiredFieldValidator>
                             </EditItemTemplate>
                             <ItemTemplate>
                                 <asp:Label ID="lblPOCLastName" runat="server" Text='<%# Bind("POCLastName") %>'></asp:Label>
@@ -181,7 +180,8 @@
                         <asp:TemplateField HeaderText="POC First Name :">
                             <EditItemTemplate>
                                 <asp:TextBox ID="txtPOCFirstName" Width="380" MaxLength="50" runat="server" Text='<%# Bind("POCFirstName") %>'></asp:TextBox>
-                                
+                                <label id="mandlbl1" style="color:Red" runat="server">*</label>
+                                <asp:RequiredFieldValidator ID="rfvFirstNameTB" ControlToValidate="txtPOCFirstName" Display="Static" InitialValue="" runat="server" ErrorMessage="Please Enter POC First Name to proceed.">Required field</asp:RequiredFieldValidator>
                             </EditItemTemplate>
                             <ItemTemplate>
                                 <asp:Label ID="lblPOCFirstName" runat="server" Text='<%# Bind("POCFirstName") %>'></asp:Label>
@@ -358,10 +358,13 @@
                                 <asp:CalendarExtender runat="server" TargetControlID="NextContactDate" PopupButtonID="calanderImageNCD"
                                     CssClass="calendar">
                                 </asp:CalendarExtender>
-                                
+                                Start Time:
+                                <asp:TextBox ID="tpStartTime" Text='<%# Bind("StartTime","{0:t}") %>' MaxLength="30" Width="80" runat="server"></asp:TextBox>
+                                e.g 9:00 AM or 3:30 PM
                             </EditItemTemplate>
                             <ItemTemplate>
-                                <asp:Label ID="lblNextContactDate" runat="server" Text='<%# Bind("NextContact_Date","{0:d}") %>'></asp:Label>
+                                <asp:Label ID="lblNextContactDate" runat="server" Text='<%# Bind("NextContact_Date","{0:d}") %>'></asp:Label>&nbsp;
+                                <asp:Label ID="lblStartTime" runat="server" Text='<%# Bind("StartTime","{0:t}") %>'></asp:Label>
                             </ItemTemplate>
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="Creation Date :">

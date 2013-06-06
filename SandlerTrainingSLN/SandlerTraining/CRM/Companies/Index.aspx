@@ -51,7 +51,7 @@
                     <asp:GridView Width="100%" ID="gvCompaniesExport" runat="server" DataSourceID="SearchCompanyDS"
                         AutoGenerateColumns="False" DataKeyNames="COMPANIESID">
                         <Columns>
-                            <asp:BoundField DataField="COMPANIESID" Visible="False" />
+                            <asp:BoundField DataField="COMPANIESID" SortExpression="COMPANIESID" HeaderText="ID" />
                             <asp:BoundField ItemStyle-HorizontalAlign="Left" HeaderStyle-HorizontalAlign="Left" HeaderStyle-ForeColor="Blue" DataField="COMPANYNAME" HeaderText="Company Name" SortExpression="COMPANYNAME" />
                             <asp:BoundField ItemStyle-HorizontalAlign="Left" HeaderStyle-HorizontalAlign="Left" HeaderStyle-ForeColor="Blue" DataField="Industry" HeaderText="Industry" SortExpression="Industry" />
                             <asp:BoundField ItemStyle-HorizontalAlign="Left" HeaderStyle-HorizontalAlign="Left" HeaderStyle-ForeColor="Blue" DataField="Product" HeaderText="Product" SortExpression="Product" />
@@ -89,6 +89,7 @@
                             <asp:BoundField ItemStyle-HorizontalAlign="Left" HeaderStyle-HorizontalAlign="Left" HeaderStyle-ForeColor="Blue" DataField="ActionStep" HeaderText="Action Step" />
                             <asp:BoundField ItemStyle-HorizontalAlign="Left" HeaderStyle-HorizontalAlign="Left" HeaderStyle-ForeColor="Blue" DataField="LASTCONTACT_DATE" HeaderText="Last Contact Date" DataFormatString="{0:d}" />
                             <asp:BoundField ItemStyle-HorizontalAlign="Left" HeaderStyle-HorizontalAlign="Left" HeaderStyle-ForeColor="Blue" DataField="NEXTCONTACT_DATE" HeaderText="Next Contact Date" DataFormatString="{0:d}" />
+                            <asp:BoundField ItemStyle-HorizontalAlign="Left" HeaderStyle-HorizontalAlign="Left" HeaderStyle-ForeColor="Blue" DataField="StartTime" HeaderText="Start Time" DataFormatString="{0:t}" />
                             <asp:BoundField ItemStyle-HorizontalAlign="Left" HeaderStyle-HorizontalAlign="Left" HeaderStyle-ForeColor="Blue" DataField="CreationDate" HeaderText="Creation Date" DataFormatString="{0:d}" />
                             <asp:BoundField ItemStyle-HorizontalAlign="Left" HeaderStyle-HorizontalAlign="Left" HeaderStyle-ForeColor="Blue" DataField="Notes" HeaderText="Company Notes" />
                         </Columns>
