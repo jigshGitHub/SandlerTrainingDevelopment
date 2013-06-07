@@ -55,6 +55,8 @@ namespace SandlerRepositories
                 int ProductID, int OppStatusID,
                 int OppSourceID,int OppTypeID,
                 string OPPVALUE, string ACTIONSTEP,
+            int Value, int ApptSourceId, int RegForTrainingId,
+            int CourseId, DateTime CourseTrngDate, string TrainingCourseName, string HowManyAttended, int IndID,
                 DateTime NextContactDate, DateTime OppCloseDate, UserModel _user)
         {
 
@@ -76,6 +78,10 @@ namespace SandlerRepositories
             CostToFix = IsValidStringEntered(CostToFix);
             OPPVALUE = IsValidStringEntered(OPPVALUE);
             ACTIONSTEP = IsValidStringEntered(ACTIONSTEP);
+            CourseTrngDate = IsValidDateCheck(CourseTrngDate);
+            TrainingCourseName = IsValidStringEntered(TrainingCourseName);
+            HowManyAttended = IsValidStringEntered(HowManyAttended);
+
             
             //Create the record
             db.ExecuteNonQuery("sp_InsertQuickStartRecord",
@@ -97,6 +103,14 @@ namespace SandlerRepositories
                 new SqlParameter("@OppTypeID", OppTypeID),
                 new SqlParameter("@OPPVALUE", OPPVALUE),
                 new SqlParameter("@ACTIONSTEP", ACTIONSTEP),
+                new SqlParameter("@NewAppointment", Value),
+                new SqlParameter("@AppointmentSource", ApptSourceId),
+                new SqlParameter("@RegisteredForTraining", RegForTrainingId),
+                new SqlParameter("@CourseType", CourseId),
+                new SqlParameter("@CourseTrainingDate", CourseTrngDate),    
+                new SqlParameter("@TrainingCourseName", TrainingCourseName),
+                new SqlParameter("@HeadCount", HowManyAttended),
+                new SqlParameter("@Industry", IndID),
                 new SqlParameter("@NextContactDate", NextContactDate),
                 new SqlParameter("@OppCloseDate", OppCloseDate),
                 new SqlParameter("@CreatedBy", _user.UserId),

@@ -73,6 +73,54 @@ public partial class CRM_QuickStart_Index : BasePage
             ListItem selectItem = new ListItem("--Select Opportunity Type--", "0");
             ddlOppTypeDropDownList.Items.Insert(0, selectItem);
         }
+        ////For Is New Appt
+        //DropDownList NewApptDDList = new DropDownList();
+        //NewApptDDList = (DropDownList)dvQuickStart.FindControl("ddlAccount");
+        //if ((NewApptDDList != null))
+        //{
+        //    ListItem selectItem = new ListItem("--Select New Appointment--", "0");
+        //    NewApptDDList.Items.Insert(0, selectItem);            
+
+        //}
+        //For Appt Source
+        DropDownList ApptSourceDDList = new DropDownList();
+        ApptSourceDDList = (DropDownList)dvQuickStart.FindControl("ddlApptSource");
+        if ((ApptSourceDDList != null))
+        {
+            ListItem selectItem = new ListItem("--Select Appointment Source--", "0");
+            ApptSourceDDList.Items.Insert(0, selectItem);            
+
+        }
+        ////Is Registered for Training
+        //DropDownList IsRegisteredDDList = new DropDownList();
+        //IsRegisteredDDList = (DropDownList)dvQuickStart.FindControl("ddlRegForTraining");
+        //if ((IsRegisteredDDList != null))
+        //{
+        //    ListItem selectItem = new ListItem("--Select Registered for Training--", "0");
+        //    IsRegisteredDDList.Items.Insert(0, selectItem); 
+
+        //}
+        //Course Type
+        DropDownList CourseType = new DropDownList();
+        CourseType = (DropDownList)dvQuickStart.FindControl("ddlCourse");
+        if ((CourseType != null))
+        {
+            ListItem selectItem = new ListItem("--Select Course Type--", "0");
+            CourseType.Items.Insert(0, selectItem);
+
+        }
+             //Industry
+        DropDownList Industry = new DropDownList();
+        Industry = (DropDownList)dvQuickStart.FindControl("ddlIndustry");
+        if ((Industry != null))
+        {
+            ListItem selectItem = new ListItem("--Select Industry--", "0");
+            Industry.Items.Insert(0, selectItem);
+
+        }
+        
+       
+
 
 
     }
