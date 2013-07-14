@@ -71,6 +71,11 @@
                                 <a href="Detail.aspx?id=<%#Eval("Id")%>">View Detail...</a>
                             </ItemTemplate>
                         </asp:TemplateField>
+                        <asp:TemplateField ShowHeader="False">
+                            <ItemTemplate>
+                                <a href="ProcessArchieve.aspx?mode=false&id=<%#Eval("Id")%>">Archieve...</a>
+                            </ItemTemplate>
+                        </asp:TemplateField>
                     </Columns>
                     <RowStyle BackColor="#EEEEEE" ForeColor="Black" />
                     <AlternatingRowStyle BackColor="#DCDCDC" />

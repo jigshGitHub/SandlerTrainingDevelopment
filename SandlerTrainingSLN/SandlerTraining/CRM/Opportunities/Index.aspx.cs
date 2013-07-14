@@ -69,6 +69,10 @@ public partial class OpportunityIndex : OpportunityBasePage
         pager.BindPager(TotalRecords, PageSize, CurrentPage);
     }
 
+    private bool IsArchieveVisible()
+    {
+        return true;
+    }
     #region dropdownlists selected index changed events
 
     protected void ddlCreateDefaultSelection(object sender, EventArgs e)
@@ -119,6 +123,11 @@ public partial class OpportunityIndex : OpportunityBasePage
             // add the UnitPrice and QuantityTotal to the running total variables
             Weighted_valueTotal += Convert.ToDecimal(DataBinder.Eval(e.Row.DataItem, "Weightedvalue"));
             Total_ValueTotal += Convert.ToDecimal(DataBinder.Eval(e.Row.DataItem, "Value"));
+            e.Row.Cells[10].Visible = IsArchieveVisible();
+        }
+        else if (e.Row.RowType == DataControlRowType.Header)
+        {
+            e.Row.Cells[10].Visible = IsArchieveVisible();
         }
         else if (e.Row.RowType == DataControlRowType.Footer)
         {
@@ -128,6 +137,7 @@ public partial class OpportunityIndex : OpportunityBasePage
 
             e.Row.Cells[1].HorizontalAlign = e.Row.Cells[4].HorizontalAlign = e.Row.Cells[5].HorizontalAlign = HorizontalAlign.Center;
             e.Row.Font.Bold = true;
+            e.Row.Cells[10].Visible = IsArchieveVisible();
         }
     }
 

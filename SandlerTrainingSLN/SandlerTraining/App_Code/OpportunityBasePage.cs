@@ -33,6 +33,12 @@ public class OpportunityBasePage : BasePage
         return (companyId == 0) ? data : data.Where(record => record.COMPANYID == companyId);
     }
 
+    protected virtual IQueryable<Opportunity> GetArchievedOpportunties(int companyId)
+    {
+        IQueryable<Opportunity> data = userEntities.ArchievedOpportunities.AsQueryable();
+        return (companyId == 0) ? data : data.Where(record => record.COMPANYID == companyId);
+    }
+
     protected virtual IQueryable<Opportunity> GetOpportunities(int? companyId, string opportunityId, string name, string description, string notes,string repFirstName, string repLastName, string repPhone, int? productId, int? statusId, int? contactId, int?sourceId, int? typeId, int? whyLostId, decimal? weightedValue, decimal? actualValue, string pain, string lengthOfProblmem, string alternatives, string costTofix, bool isBudgetidentified, bool isMoveForward)
     {
         IQueryable<Opportunity> data = userEntities.Opportunities.AsQueryable();

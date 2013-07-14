@@ -118,7 +118,10 @@ namespace SandlerModels.DataIntegration
 
         private readonly List<Opportunity> opportunities;
         public List<Opportunity> Opportunities
-        { get { return opportunities; } }
+        { get { return opportunities.Where(record => record.IsActive == true).ToList<Opportunity>(); } }
+
+        public List<Opportunity> ArchievedOpportunities
+        { get { return opportunities.Where(record => record.IsActive == false).ToList<Opportunity>(); } }
 
         private readonly int companiesCount;
         public int CompaniesCount { get { return companiesCount; } }
