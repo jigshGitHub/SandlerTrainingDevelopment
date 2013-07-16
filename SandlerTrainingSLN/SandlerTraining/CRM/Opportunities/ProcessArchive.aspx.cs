@@ -7,8 +7,8 @@ using System.Web.UI.WebControls;
 
 using SandlerModels;
 using SandlerData;
-
-public partial class ProcessArchieve : OpportunityBasePage
+using System.Data;
+public partial class ProcessArchive : OpportunityBasePage
 {
     private int opportunityId;
     public int OpportunityId
@@ -24,7 +24,7 @@ public partial class ProcessArchieve : OpportunityBasePage
     }
     protected void Page_Load(object sender, EventArgs e)
     {
-        opportunityMenu.MenuEntityTitle = "Opportunities";
+        //opportunityMenu.MenuEntityTitle = "Opportunities";
         if (!IsPostBack)
         {
             if(!string.IsNullOrEmpty(Request.QueryString["id"]))
@@ -41,6 +41,31 @@ public partial class ProcessArchieve : OpportunityBasePage
 
     }
 
+    #region dropdownlists selected index changed events
+
+    protected void ddlCreateDefaultSelection(object sender, EventArgs e)
+    {
+        DropDownList dropdownList = sender as DropDownList;
+        if (!(dropdownList.Items.Count == 0))
+        {
+            string defaultSelection = "";
+
+            defaultSelection = "All";
+            ListItem selectItem = new ListItem(defaultSelection, "0");
+            dropdownList.Items.Insert(0, selectItem);
+        }
+    }
+
+    protected void ddlCompany_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        DropDownList ddlCompany = sender as DropDownList;
+        CompanyID = int.Parse(ddlCompany.SelectedValue);
+        BindOpportunities(CompanyID);
+    }
+
+
+    #endregion
+
     #region gvOpportunities Events
 
     decimal Weighted_valueTotal = 0;
@@ -51,7 +76,7 @@ public partial class ProcessArchieve : OpportunityBasePage
     {
         if (gvOpportunities.Rows.Count == 0)
         {
-            LblStatus.Text = "There are no Opportunity available for this company.";
+            LblStatus.Text = "There are no archived opportunities available for this company.";
         }
         else
         {
@@ -73,11 +98,76 @@ public partial class ProcessArchieve : OpportunityBasePage
         BindOpportunities(0);
     }
 
+    protected void gvOpportunities_RowDataBound(object sender, GridViewRowEventArgs e)
+    {
+        if (e.Row.RowType == DataControlRowType.DataRow)
+        {
+            // add the UnitPrice and QuantityTotal to the running total variables
+            Weighted_valueTotal += Convert.ToDecimal(DataBinder.Eval(e.Row.DataItem, "Weightedvalue"));
+            Total_ValueTotal += Convert.ToDecimal(DataBinder.Eval(e.Row.DataItem, "Value"));
+            e.Row.Cells[9].Visible = IsArchiveVisible();
+        }
+        else if (e.Row.RowType == DataControlRowType.Header)
+        {
+            e.Row.Cells[9].Visible = IsArchiveVisible();
+        }
+        else if (e.Row.RowType == DataControlRowType.Footer)
+        {
+            e.Row.Cells[1].Text = "Total";
+            e.Row.Cells[4].Text = Weighted_valueTotal.ToString("c");
+            e.Row.Cells[5].Text = Total_ValueTotal.ToString("c");
+
+            e.Row.Cells[1].HorizontalAlign = e.Row.Cells[4].HorizontalAlign = e.Row.Cells[5].HorizontalAlign = HorizontalAlign.Center;
+            e.Row.Font.Bold = true;
+            e.Row.Cells[9].Visible = IsArchiveVisible();
+        }
+    }
     #endregion
 
+    #region Excel downloading
+
+    public override void VerifyRenderingInServerForm(Control control)
+    {
+        //This means that you are overriding the default implementation of the method and giving permission to the GridView to be exported as an Excel file.
+    }
+
+    protected void btnExportExcel_Click(object sender, ImageClickEventArgs e)
+    {
+        DataTable dt = new DataTable();
+        if (gvExport.Rows.Count > 0)
+        {
+            foreach (TableCell col in gvExport.HeaderRow.Cells)
+            {
+                dt.Columns.Add(col.Text.Replace("&#39;", "'").Replace("&nbsp;", ""));
+            }
+            foreach (GridViewRow row in gvExport.Rows)
+            {
+                DataRow dr = dt.NewRow();
+
+                int z = 0;
+                foreach (TableCell col in gvExport.HeaderRow.Cells)
+                {
+                    dr[z] = row.Cells[z].Text.Replace("&#39;", "'").Replace("&nbsp;", "");
+                    z += 1;
+                }
+
+                dt.Rows.Add(dr);
+            }
+            //Get Excel file
+            ExportToExcel.DownloadReportResultsWithDT(dt, "AllOpportunities");
+        }
+    }
+
+    #endregion
+
+    protected void CompanyDS_Selecting(object sender, ObjectDataSourceSelectingEventArgs e)
+    {
+        e.InputParameters["_user"] = CurrentUser;
+    }
+    
     private void BindOpportunities(int companyId)
     {
-        var data = from record in GetArchievedOpportunties(companyId)
+        var data = from record in GetArchivedOpportunties(companyId)
                    select new
                    {
                        ID = record.ID,
@@ -113,6 +203,9 @@ public partial class ProcessArchieve : OpportunityBasePage
         //var filterRecords = 
         gvOpportunities.DataSource = IQueryableExtensions.Page(IQueryableExtensions.Sort(data, SortExpression, IsAscendigSortOrder), PageSize, CurrentPage).AsQueryable();
         gvOpportunities.DataBind();
+
+        gvExport.DataSource = data;
+        gvExport.DataBind();
         pager.BindPager(TotalRecords, PageSize, CurrentPage);
     }
 
@@ -131,5 +224,10 @@ public partial class ProcessArchieve : OpportunityBasePage
         {
             throw ex;
         }
+    }
+
+    private bool IsArchiveVisible()
+    {
+        return !IsUserReadOnly(SandlerUserActions.Edit, SandlerEntities.Opportunity); ;
     }
 }

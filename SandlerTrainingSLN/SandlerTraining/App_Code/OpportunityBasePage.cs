@@ -33,9 +33,9 @@ public class OpportunityBasePage : BasePage
         return (companyId == 0) ? data : data.Where(record => record.COMPANYID == companyId);
     }
 
-    protected virtual IQueryable<Opportunity> GetArchievedOpportunties(int companyId)
+    protected virtual IQueryable<Opportunity> GetArchivedOpportunties(int companyId)
     {
-        IQueryable<Opportunity> data = userEntities.ArchievedOpportunities.AsQueryable();
+        IQueryable<Opportunity> data = userEntities.ArchivedOpportunities.AsQueryable();
         return (companyId == 0) ? data : data.Where(record => record.COMPANYID == companyId);
     }
 

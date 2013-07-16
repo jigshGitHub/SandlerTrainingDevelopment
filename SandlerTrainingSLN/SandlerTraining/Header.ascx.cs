@@ -18,15 +18,15 @@ public partial class Header : System.Web.UI.UserControl
             if (thisPage != null)
             {
                 string[] specialUsers = ConfigurationManager.AppSettings["specialAccessUsers"].Split(new char[] { ';' });
-                if (specialUsers.Contains(thisPage.CurrentUser.UserName))
-                {
-                    HtmlAnchor link = null;
-                    link = ((HtmlAnchor)FindControl("anchorUserGuide"));
-                    link.Visible = true;
+                //if (specialUsers.Contains(thisPage.CurrentUser.UserName))
+                //{
+                //    HtmlAnchor link = null;
+                //    link = ((HtmlAnchor)FindControl("anchorUserGuide"));
+                //    link.Visible = true;
 
-                    link = ((HtmlAnchor)FindControl("anchorIcidentReporting"));
-                    link.Visible = true;
-                }
+                //    link = ((HtmlAnchor)FindControl("anchorIcidentReporting"));
+                //    link.Visible = true;
+                //}
             }
         }
     }

@@ -1,16 +1,15 @@
-﻿<%@ Page Title="CRM - View Contacts" Language="C#" MasterPageFile="~/CRM.master"
-    AutoEventWireup="true" EnableEventValidation="false" CodeFile="Index.aspx.cs"
-    Inherits="ContactIndex" %>
-
+﻿<%@ Page Title="CRM - View Archived Contact Records" Language="C#" MasterPageFile="~/CRM.master" AutoEventWireup="true" 
+CodeFile="Archived.aspx.cs" Inherits="ContactArchived" %>
 <%@ Import Namespace="SandlerRepositories" %>
-<%@ Register Src="../EntityMenu.ascx" TagName="EntityMenu" TagPrefix="uc1" %>
-<asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="Server">
-    <table id="tblCompMain" width="100%">
+
+<asp:Content ID="Content2" ContentPlaceHolderID="MainContent" Runat="Server">
+ <table id="tblCompMain" width="100%">
         <tr>
-            <td align="right">
-                <uc1:EntityMenu ID="contactMenu" runat="server" />
-            </td>
+            <th style="float: left">
+                <asp:Label ID="lblModuleActionHeading" runat="server"></asp:Label>
+            </th>
         </tr>
+        <tr><td>&nbsp;</td></tr>
         <tr>
             <td>
                 Select Company Name:
@@ -32,10 +31,10 @@
         </tr>
         <tr>
             <td>
-                <asp:GridView Width="100%" ID="gvContacts" runat="server" DataSourceID="ContactDS"
+                <asp:GridView Width="100%" ID="gvArchivedContacts" runat="server" DataSourceID="ContactDS"
                     AutoGenerateColumns="False" DataKeyNames="contactsid" AllowSorting="true" AllowPaging="true"
-                    PageSize="20" OnSelectedIndexChanged="gvContacts_SelectedIndexChanged" OnDataBound="gvContacts_DataBound"
-                    OnRowDataBound="gvContacts_RowDataBound" onrowdeleted="gvContacts_RowDeleted">
+                    PageSize="20" OnDataBound="gvArchivedContacts_DataBound"
+                    OnRowDataBound="gvArchivedContacts_RowDataBound" onrowdeleted="gvArchivedContacts_RowDeleted">
                     <PagerStyle BackColor="#999999" ForeColor="Blue" CssClass="gvPager" HorizontalAlign="Center" />
                     <Columns>
                         <asp:TemplateField Visible="false">
@@ -49,16 +48,10 @@
                         <asp:BoundField ItemStyle-HorizontalAlign="Left"  HeaderStyle-HorizontalAlign="Left" DataField="Phone" HeaderText="Phone"   HeaderStyle-ForeColor="Blue" SortExpression="Phone" />
                         <asp:BoundField ItemStyle-HorizontalAlign="Left"  HeaderStyle-HorizontalAlign="Left" DataField="Email" HeaderText="E-mail"  HeaderStyle-ForeColor="Blue" SortExpression="Email" />
                         <asp:BoundField ItemStyle-HorizontalAlign="Left"  HeaderStyle-HorizontalAlign="Left" DataField="COMPANYNAME" HeaderText="Company" HeaderStyle-ForeColor="Blue" SortExpression="COMPANYNAME" />
-                        <asp:TemplateField ShowHeader="False">
-                            <ItemTemplate>
-                                <asp:LinkButton ID="LinkButton1" runat="server" CausesValidation="False" CommandName="Select"
-                                    Text="View Detail.."></asp:LinkButton>
-                            </ItemTemplate>
-                        </asp:TemplateField>
                         <asp:TemplateField  HeaderText="Archive" HeaderStyle-HorizontalAlign="Left">
                             <ItemTemplate>
-                                <asp:LinkButton ID="archiveButton" runat="server" CausesValidation="False" CommandName="Delete" 
-                                    Text="Archive"  OnClientClick="return confirm ('Are you sure to archive this Contact record? All Pipeline records for this Contact will be archived too.');" ></asp:LinkButton>
+                                <asp:LinkButton ID="unarchiveButton" runat="server" CausesValidation="False" CommandName="Delete" 
+                                    Text="UnArchive"  OnClientClick="return confirm ('Are you sure to unarchive this Contact record? All Pipeline records for this Contact will be unarchived too.');" ></asp:LinkButton>
                             </ItemTemplate>
                         </asp:TemplateField>
                     </Columns>
@@ -71,7 +64,7 @@
         <tr id="trExport" runat="server" visible="false">
             <td>
                 <div id="Report" runat="server">
-                    <asp:GridView Width="100%" ID="gvContactsExport" runat="server" DataSourceID="ContactDS"
+                    <asp:GridView Width="100%" ID="gvArchivedContactsExport" runat="server" DataSourceID="ContactDS"
                         AutoGenerateColumns="False" DataKeyNames="contactsid">
                         <Columns>
                             <asp:BoundField DataField="contactsid"  HeaderText="ID" />
@@ -134,9 +127,9 @@
         <tr>
             <td>
                 <asp:ObjectDataSource ID="ContactDS" runat="server" 
-                TypeName="SandlerRepositories.ContactsRepository" SelectMethod="GetAll"
-                DeleteMethod="ArchiveContact" 
-                OnSelecting="ContactDS_Selecting">
+                TypeName="SandlerRepositories.ContactsRepository" SelectMethod="GetAllArchived"
+                DeleteMethod="UnArchiveContact"
+                 OnSelecting="ContactDS_Selecting">
                     <SelectParameters>
                         <asp:ControlParameter ControlID="ddlCompanies" Name="COMPANIESID" PropertyName="SelectedValue" Type="Int32" />
                         <asp:Parameter Name="_user"  />
@@ -161,3 +154,4 @@
         </tr>
     </table>
 </asp:Content>
+

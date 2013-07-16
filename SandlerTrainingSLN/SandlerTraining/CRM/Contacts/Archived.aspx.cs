@@ -8,43 +8,44 @@ using SandlerModels;
 using System.Data;
 using SandlerRepositories;
 
-public partial class ContactIndex : BasePage
+
+public partial class ContactArchived : BasePage 
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        contactMenu.MenuEntityTitle = "Contacts";
         if (!IsPostBack)
         {
+            lblModuleActionHeading.Text = "View Archived Contact Records:";
+            //We need to store current User's UserId in the hidden field - will be needed when they archive the records
             hidCurrentUserId.Value = CurrentUser.UserId.ToString();
             LblStatus.Text = "";
         }
-
     }
     protected void ContactDS_Selecting(object sender, ObjectDataSourceSelectingEventArgs e)
     {
         e.InputParameters["_user"] = CurrentUser;
     }
+
     protected void CompaniesDS_Selecting(object sender, ObjectDataSourceSelectingEventArgs e)
     {
         e.InputParameters["_user"] = CurrentUser;
     }
 
-    protected void gvContacts_RowDataBound(object sender, GridViewRowEventArgs e)
+    protected void gvArchivedContacts_RowDataBound(object sender, GridViewRowEventArgs e)
     {
         if (e.Row.RowType == DataControlRowType.DataRow)
         {
-            LinkButton archiveButton = e.Row.FindControl("archiveButton") as LinkButton;
+            LinkButton unarchiveButton = e.Row.FindControl("unarchiveButton") as LinkButton;
             HiddenField hdnUserId = e.Row.FindControl("hdnUserId") as HiddenField;
-            if (archiveButton != null && hdnUserId != null && CurrentUser.Role != SandlerRoles.FranchiseeOwner)
+            if (unarchiveButton != null && hdnUserId != null && CurrentUser.Role != SandlerRoles.FranchiseeOwner)
             {
                 if (hdnUserId.Value.ToUpper() != CurrentUser.UserId.ToString().ToUpper())
                 {
-                    archiveButton.Visible = false;
+                    unarchiveButton.Visible = false;
                 }
             }
         }
     }
-
     protected void ddlCompanies_DataBound(object sender, EventArgs e)
     {
         if (!(ddlCompanies.Items.Count == 0))
@@ -53,34 +54,21 @@ public partial class ContactIndex : BasePage
             ddlCompanies.Items.Insert(0, selectItem);
         }
     }
-    protected void gvContacts_SelectedIndexChanged(object sender, EventArgs e)
+    protected void gvArchivedContacts_DataBound(object sender, EventArgs e)
     {
-        hidContactID.Value = gvContacts.SelectedDataKey.Value.ToString();
-        Server.Transfer("~/CRM/Contacts/Detail.aspx");
-    }
-    protected void btnAddContact_Click(object sender, EventArgs e)
-    {
-        Response.Redirect("~/CRM/Contacts/Add.aspx");
-    }
-    protected void gvContacts_DataBound(object sender, EventArgs e)
-    {
-        if (gvContacts.Rows.Count == 0)
+        if (gvArchivedContacts.Rows.Count == 0)
         {
-            LblStatus.Text = "There are no Contacts available for this Company/Franchisee.";
+            LblStatus.Text = "There are no archived Contacts available for this Company/Franchisee.";
             btnExportExcel.Visible = false;
             lblExportToExcel.Visible = false;
-            //searchAnchor.Visible = false;
-            contactMenu.MenuEntity.Items.Find(delegate(Sandler.Web.MenuItem item) { return item.Text == "Search"; }).IsVisible = false;
-            contactMenu.ReLoadSubMenu();
+            
         }
         else
         {
             LblStatus.Text = "";
             btnExportExcel.Visible = true;
             lblExportToExcel.Visible = true;
-            contactMenu.MenuEntity.Items.Find(delegate(Sandler.Web.MenuItem item) { return item.Text == "Search"; }).IsVisible = true;
-            contactMenu.ReLoadSubMenu();
-
+            
             #region [[ Manage Archive column - FranchiseeOwner and FranchiseeUser can only see the column ]]
             if (CurrentUser.Role == SandlerRoles.Client
                 || CurrentUser.Role == SandlerRoles.Coach
@@ -94,7 +82,7 @@ public partial class ContactIndex : BasePage
                 {
                     gridView.HeaderRow.Cells[7].Visible = false;
                 }
-                foreach (GridViewRow row in gvContacts.Rows)
+                foreach (GridViewRow row in gvArchivedContacts.Rows)
                 {
                     row.Cells[7].Visible = false;
                 }
@@ -129,24 +117,24 @@ public partial class ContactIndex : BasePage
         //trExport.Visible = false;
 
         trExport.Visible = true;
-        gvContactsExport.AllowPaging = false;
-        gvContactsExport.AllowSorting = false;
+        gvArchivedContactsExport.AllowPaging = false;
+        gvArchivedContactsExport.AllowSorting = false;
 
-        gvContactsExport.DataBind();
+        gvArchivedContactsExport.DataBind();
         //Get in to Datatable
         DataTable dt = new DataTable();
-        if (gvContactsExport.Rows.Count > 0)
+        if (gvArchivedContactsExport.Rows.Count > 0)
         {
-            foreach (TableCell col in gvContactsExport.HeaderRow.Cells)
+            foreach (TableCell col in gvArchivedContactsExport.HeaderRow.Cells)
             {
                 dt.Columns.Add(col.Text.Replace("&#39;", "'").Replace("&nbsp;", ""));
             }
-            foreach (GridViewRow row in gvContactsExport.Rows)
+            foreach (GridViewRow row in gvArchivedContactsExport.Rows)
             {
                 DataRow dr = dt.NewRow();
 
                 int z = 0;
-                foreach (TableCell col in gvContactsExport.HeaderRow.Cells)
+                foreach (TableCell col in gvArchivedContactsExport.HeaderRow.Cells)
                 {
                     dr[z] = row.Cells[z].Text.Replace("&#39;", "'").Replace("&nbsp;", "");
                     z += 1;
@@ -157,16 +145,16 @@ public partial class ContactIndex : BasePage
             //Get Excel file
             ExportToExcel.DownloadReportResultsWithDT(dt, "AllContacts");
         }
-        
+
 
     }
 
-    protected void gvContacts_RowDeleted(object sender, GridViewDeletedEventArgs e)
+    protected void gvArchivedContacts_RowDeleted(object sender, GridViewDeletedEventArgs e)
     {
         //We come here after the Archive operation is done
         if (e.Exception != null)
         {
-            LblStatus.Text = "Failed to Archive the Contact Record. Please try it later again.";
+            LblStatus.Text = "Failed to unarchive the Contact Record. Please try it later again.";
             e.ExceptionHandled = true;
         }
 

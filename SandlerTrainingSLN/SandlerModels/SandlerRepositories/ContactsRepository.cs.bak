@@ -15,7 +15,12 @@ namespace SandlerRepositories
     public partial class ContactsRepository
     {
         DBFactory db = new DBFactory();
-        
+        //public ContactsRepository()
+        //{
+        //    //
+        //    // TODO: Add constructor logic here
+        //    //
+        //}
         public DataSet GetAll(int COMPANIESID, UserModel _user)
         {
             
@@ -60,64 +65,6 @@ namespace SandlerRepositories
             }
 
         }
-
-        public DataSet GetAllArchived(int COMPANIESID, UserModel _user)
-        {
-
-
-            if (COMPANIESID == 0)
-            {
-                if (_user.Role == SandlerRoles.SiteAdmin || _user.Role == SandlerRoles.Corporate || _user.Role == SandlerRoles.HomeOfficeAdmin)
-                {
-                    return db.ExecuteDataset("sp_GetAllArchivedContacts", "Contacts");
-                }
-                else if (_user.Role == SandlerRoles.Coach)
-                {
-                    return db.ExecuteDataset("sp_GetAllArchivedContactsByCoachID", "Contacts", new SqlParameter("@CoachID", _user.CoachID));
-                }
-                else if (_user.Role == SandlerRoles.FranchiseeOwner || _user.Role == SandlerRoles.Client)
-                {
-                    //now we have to bring records as per role - Franchisee Owner Or Client
-                    return db.ExecuteDataset("sp_GetAllArchivedContactsByFrID", "Contacts", new SqlParameter("@FranchiseeID", _user.FranchiseeID));
-                }
-                else
-                {
-                    //This is for Franchisee User
-                    return db.ExecuteDataset("sp_GetAllArchivedContactsByUserID", "Contacts", new SqlParameter("@UserID", _user.UserId));
-                }
-
-            }
-            else
-            {
-                //We have Company ID
-                if (_user.Role != SandlerRoles.FranchiseeUser)
-                {
-                    System.Data.DataSet ds = db.ExecuteDataset("sp_GetAllArchivedContactsByCompID", "Contacts", new SqlParameter("@CompanyID", COMPANIESID));
-                    return ds;
-                }
-                else
-                {
-                    //Only for the Franchisee User
-                    System.Data.DataSet ds = db.ExecuteDataset("sp_GetAllArchivedContactsForCompByUserID", "Contacts", new SqlParameter("@UserID", _user.UserId), new SqlParameter("@CompanyID", COMPANIESID));
-                    return ds;
-                }
-
-            }
-
-        }
-
-        public void ArchiveContact(int contactsid, string CurrentUserId)
-        {
-            //Create the record
-            db.ExecuteNonQuery("sp_ArchiveContactRecord", new SqlParameter("@ContactId", contactsid), new SqlParameter("@CurrentUserId", CurrentUserId));
-        }
-
-        public void UnArchiveContact(int contactsid, string CurrentUserId)
-        {
-            //Create the record
-            db.ExecuteNonQuery("sp_UnArchiveContactRecord", new SqlParameter("@ContactId", contactsid), new SqlParameter("@CurrentUserId", CurrentUserId));
-        }
-
 
         public DataSet GetAllForSearch(UserModel _user)
         {

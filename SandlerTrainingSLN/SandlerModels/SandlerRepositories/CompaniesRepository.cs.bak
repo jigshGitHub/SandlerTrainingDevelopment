@@ -72,29 +72,6 @@ namespace SandlerRepositories
 
         }
 
-        public DataSet GetAllArchivedCompanies(UserModel _user)
-        {
-            //Get the User Info
-            if (_user.Role == SandlerRoles.SiteAdmin || _user.Role == SandlerRoles.Corporate || _user.Role == SandlerRoles.HomeOfficeAdmin)
-            {
-                //Corporate User
-                return db.ExecuteDataset("sp_GetAllArchivedCompanies", "Companies");
-            }
-            else if (_user.Role == SandlerRoles.Coach)
-            {
-                //Coach - To do - once User object has RegionId then pass it here
-                return db.ExecuteDataset("sp_GetAllArchivedCompaniesByCoachId", "CompaniesByCoachId", new SqlParameter("@CoachId", _user.CoachID));
-            }
-            else
-            {
-                //Franchisee Owner OR Franchisee User OR Client - We get by FranchiseeId
-                return db.ExecuteDataset("sp_GetAllArchivedCompaniesByFrId", "CompaniesByFrId", new SqlParameter("@FranchiseeId", _user.FranchiseeID));
-            }
-
-        }
-        //GetAllArchivedCompanies
-
-
         public DataSet GetCompaniesForSearch(UserModel _user)
         {
             //Get the User Info
@@ -269,19 +246,6 @@ namespace SandlerRepositories
         {
             return db.ExecuteDataset("sp_GetCompanyDetails", "CompanyByID", new SqlParameter("@COMPANIESID", id));
         }
-        
-        public void ArchiveCompany(int COMPANIESID, string CurrentUserId)
-        {
-            //Create the record
-            db.ExecuteNonQuery("sp_ArchiveCompanyRecord", new SqlParameter("@COMPANIESID", COMPANIESID), new SqlParameter("@CurrentUserId", CurrentUserId));
-        }
-
-        public void UnArchiveCompany(int COMPANIESID, string CurrentUserId)
-        {
-            //Create the record
-            db.ExecuteNonQuery("sp_UnArchiveCompanyRecord", new SqlParameter("@COMPANIESID", COMPANIESID), new SqlParameter("@CurrentUserId", CurrentUserId));
-        }
-
 
         public void AddProduct(string ProductTypeName, string colorCode, UserModel _user)
         {

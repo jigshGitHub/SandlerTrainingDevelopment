@@ -16,8 +16,7 @@
         </LoggedInTemplate>
     </asp:LoginView>
     <br />
-    <a href="#" title="Need Assistance?  Call SPM Customer Service at: 202-601-2570">
-        <img src="<%= Page.ResolveClientUrl("~/images/Helpline.png") %>"></img>
-    </a>&nbsp;<a href="#" title="View SPM User Guide"><img src="<%= Page.ResolveClientUrl("~/images/SPM Guide.png") %>"></img></a>
+    <a href="#" title="Need Assistance?  Call SPM Customer Service at: 202-601-2570"><img src="<%= Page.ResolveClientUrl("~/images/Helpline.png") %>" alt="" />
+    </a>&nbsp;<a href="#" title="View SPM User Guide"><img src="<%= Page.ResolveClientUrl("~/images/SPM Guide.png") %>" alt="" /></a>
 </div>
 <uc1:Menu ID="Menu1" runat="server" />

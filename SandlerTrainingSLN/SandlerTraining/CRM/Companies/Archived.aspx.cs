@@ -10,74 +10,64 @@ using SandlerWeb = Sandler.Web;
 using System.Data;
 using SandlerRepositories;
 
-public partial class CompanyIndex : BasePage
+
+public partial class CompaniesArchived : BasePage
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        companyMenu.MenuEntityTitle = "Companies";
         
         if (!IsPostBack)
         {
-           //companyMenu.MenuEntityTitle = "Companies";
-           //We need to store current User's UserId in the hidden field - will be needed when they archive the records
+            lblModuleActionHeading.Text = "View Archived Company Records:";
+            //We need to store current User's UserId in the hidden field - will be needed when they archive the records
             hidCurrentUserId.Value = CurrentUser.UserId.ToString();
             LblStatus.Text = "";
         }
     }
 
-    protected void SearchCompanyDS_Selecting(object sender, ObjectDataSourceSelectingEventArgs e)
+    protected void SearchArchiveCompanyDS_Selecting(object sender, ObjectDataSourceSelectingEventArgs e)
     {
         e.InputParameters["_user"] = CurrentUser;
     }
-    
-    protected void gvCompanies_SelectedIndexChanged(object sender, EventArgs e)
-    {
-        hidCompanyID.Value = gvCompanies.SelectedDataKey.Value.ToString();
-        Server.Transfer("~/CRM/Companies/Detail.aspx");
-    }
 
-    protected void gvCompanies_RowDataBound(object sender, GridViewRowEventArgs e)
+
+    protected void gvArchivedCompanies_RowDataBound(object sender, GridViewRowEventArgs e)
     {
         if (e.Row.RowType == DataControlRowType.DataRow)
         {
-            LinkButton archiveButton = e.Row.FindControl("archiveButton") as LinkButton;
+            LinkButton unarchiveButton = e.Row.FindControl("unarchiveButton") as LinkButton;
             HiddenField hdnUserId = e.Row.FindControl("hdnUserId") as HiddenField;
-            if (archiveButton != null && hdnUserId != null && CurrentUser.Role != SandlerRoles.FranchiseeOwner)
+            if (unarchiveButton != null && hdnUserId != null && CurrentUser.Role != SandlerRoles.FranchiseeOwner)
             {
                 if (hdnUserId.Value.ToUpper() != CurrentUser.UserId.ToString().ToUpper())
                 {
-                    archiveButton.Visible = false;
+                    unarchiveButton.Visible = false;
                 }
             }
         }
     }
-    
 
-
-    protected void gvCompanies_DataBound(object sender, EventArgs e)
+    protected void gvArchivedCompanies_DataBound(object sender, EventArgs e)
     {
-        if (gvCompanies.Rows.Count == 0)
+        if (gvArchivedCompanies.Rows.Count == 0)
         {
-            LblStatus.Text = "There are no Companies entered in the System.";
+            LblStatus.Text = "There are no Archived Companies for this Franchisee at this time.";
             btnExportExcel.Visible = false;
             lblExportToExcel.Visible = false;
-            companyMenu.MenuEntity.Items.Find(delegate(Sandler.Web.MenuItem item) { return item.Text == "Search"; }).IsVisible = false;
-            companyMenu.ReLoadSubMenu();
+            
         }
         else
         {
             LblStatus.Text = "";
             btnExportExcel.Visible = true;
             lblExportToExcel.Visible = true;
-            companyMenu.MenuEntity.Items.Find(delegate(Sandler.Web.MenuItem item) { return item.Text == "Search"; }).IsVisible = true;
-            companyMenu.ReLoadSubMenu();
             //Get the User Info
-            if(CurrentUser.Role == SandlerRoles.Client)
+            if (CurrentUser.Role == SandlerRoles.Client)
             {
-                gvCompanies.Columns[4].HeaderText = "Sales Rep";
+                gvArchivedCompanies.Columns[4].HeaderText = "Sales Rep";
             }
-            #region [[ Manage Archive column - FranchiseeOwner and FranchiseeUser can only see the column ]]
-            if (CurrentUser.Role == SandlerRoles.Client 
+            #region [[ Manage Archive column ]]
+            if (CurrentUser.Role == SandlerRoles.Client
                 || CurrentUser.Role == SandlerRoles.Coach
                 || CurrentUser.Role == SandlerRoles.Corporate
                 || CurrentUser.Role == SandlerRoles.HomeOfficeAdmin
@@ -87,17 +77,18 @@ public partial class CompanyIndex : BasePage
                 GridView gridView = (GridView)sender;
                 if (gridView.HeaderRow != null && gridView.HeaderRow.Cells.Count > 0)
                 {
-                    gridView.HeaderRow.Cells[8].Visible = false;
+                    gridView.HeaderRow.Cells[7].Visible = false;
                 }
-                foreach (GridViewRow row in gvCompanies.Rows)
+                foreach (GridViewRow row in gvArchivedCompanies.Rows)
                 {
-                    row.Cells[8].Visible = false;
+                    row.Cells[7].Visible = false;
                 }
             }
             #endregion
         }
 
     }
+
     public override void VerifyRenderingInServerForm(Control control)
     {
         //This means that you are overriding the default implementation of the method and giving permission to the GridView to be exported as an Excel file.
@@ -118,7 +109,7 @@ public partial class CompanyIndex : BasePage
         //gvCompaniesExport.AllowPaging = false;
         //gvCompaniesExport.AllowSorting = false;
         ////Get the User Info
-        
+
         //if (CurrentUser.Role == SandlerRoles.Client)
         //{
         //    gvCompaniesExport.Columns[4].Visible = false;
@@ -138,33 +129,33 @@ public partial class CompanyIndex : BasePage
 
         //If Custom Headers are used 
         trExport.Visible = true;
-        gvCompaniesExport.AllowPaging = false;
-        gvCompaniesExport.AllowSorting = false;
+        gvArchivedCompaniesExport.AllowPaging = false;
+        gvArchivedCompaniesExport.AllowSorting = false;
         //Get the User Info
 
         if (CurrentUser.Role == SandlerRoles.Client)
         {
-            gvCompaniesExport.Columns[4].Visible = false;
+            gvArchivedCompaniesExport.Columns[4].Visible = false;
         }
         else
         {
-            gvCompaniesExport.Columns[5].Visible = false;
+            gvArchivedCompaniesExport.Columns[5].Visible = false;
         }
-        gvCompaniesExport.DataBind();
+        gvArchivedCompaniesExport.DataBind();
         //Get in to Datatable
         DataTable dt = new DataTable();
-        if (gvCompaniesExport.Rows.Count > 0)
+        if (gvArchivedCompaniesExport.Rows.Count > 0)
         {
-            foreach (TableCell col in gvCompaniesExport.HeaderRow.Cells)
+            foreach (TableCell col in gvArchivedCompaniesExport.HeaderRow.Cells)
             {
                 dt.Columns.Add(col.Text.Replace("&#39;", "'").Replace("&nbsp;", ""));
             }
-            foreach (GridViewRow row in gvCompaniesExport.Rows)
+            foreach (GridViewRow row in gvArchivedCompaniesExport.Rows)
             {
                 DataRow dr = dt.NewRow();
 
                 int z = 0;
-                foreach (TableCell col in gvCompaniesExport.HeaderRow.Cells)
+                foreach (TableCell col in gvArchivedCompaniesExport.HeaderRow.Cells)
                 {
                     dr[z] = row.Cells[z].Text.Replace("&#39;", "'").Replace("&nbsp;", "");
                     z += 1;
@@ -173,9 +164,9 @@ public partial class CompanyIndex : BasePage
                 dt.Rows.Add(dr);
             }
             //Get Excel file
-            ExportToExcel.DownloadReportResultsWithDT(dt, "AllCompanies");
+            ExportToExcel.DownloadReportResultsWithDT(dt, "AllArchivedCompanies");
         }
-        
+
         //If Dataset has correct Header Names
         //CompaniesRepository reportRepository = new CompaniesRepository();
         //DataSet ds = new DataSet();
@@ -185,14 +176,14 @@ public partial class CompanyIndex : BasePage
 
     }
 
-    protected void gvCompanies_RowDeleted(object sender, GridViewDeletedEventArgs e)
+    protected void gvArchivedCompanies_RowDeleted(object sender, GridViewDeletedEventArgs e)
     {
-        //We come here after the Archive operation is done
-        if(e.Exception != null)
+        //We come here after the UnArchive operation is done
+        if (e.Exception != null)
         {
-            LblStatus.Text = "Failed to Archive the Company Record. Please try it later again.";
+            LblStatus.Text = "Failed to UnArchive the Company Record. Please try it later again.";
             e.ExceptionHandled = true;
         }
-                
+
     }
 }

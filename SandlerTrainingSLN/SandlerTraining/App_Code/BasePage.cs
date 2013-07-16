@@ -160,6 +160,7 @@ public abstract class BasePage : System.Web.UI.Page
         items.Add(new SandlerWeb.MenuItem { Id = "Upload", Text = "Upload Company Data", Link = "~/CRM/Companies/Upload.aspx", IsVisible = !IsUserReadOnly(SandlerUserActions.Add, SandlerEntities.Company) });
         items.Add(new SandlerWeb.MenuItem { Id = "AddProduct", Text = "Add New Product", Link = "~/CRM/Products/Add.aspx", IsVisible = !IsUserReadOnly(SandlerUserActions.Add, SandlerEntities.Company) });
         items.Add(new SandlerWeb.MenuItem { Id = "AddCompany", Text = "Add New Company", Link = "~/CRM/Companies/Add.aspx", IsVisible = !IsUserReadOnly(SandlerUserActions.Add, SandlerEntities.Company) });
+        items.Add(new SandlerWeb.MenuItem { Id = "ViewArchived", Text = "View Archived Records", Link = "~/CRM/Companies/Archived.aspx", IsVisible = true });
 
         CRMMenu.Add(new SandlerWeb.Menu { Title = "Companies", IsVisible = true, Items = items.Where(item => item.IsVisible == true).ToList() });
 
@@ -169,6 +170,7 @@ public abstract class BasePage : System.Web.UI.Page
         items.Add(new SandlerWeb.MenuItem { Id = "Upload", Text = "Upload Contact Data", Link = "~/CRM/Contacts/Upload.aspx", IsVisible = !IsUserReadOnly(SandlerUserActions.Add, SandlerEntities.Contact) });
         items.Add(new SandlerWeb.MenuItem { Id = "AddContact", Text = "Add New Contact", Link = "~/CRM/Contacts/Add.aspx", IsVisible = !IsUserReadOnly(SandlerUserActions.Add, SandlerEntities.Contact) });
         items.Add(new SandlerWeb.MenuItem { Id = "CallList", Text = "View Call List", Link = "~/CRM/Contacts/CallList.aspx", IsVisible = true });
+        items.Add(new SandlerWeb.MenuItem { Id = "ViewArchived", Text = "View Archived Records", Link = "~/CRM/Contacts/Archived.aspx", IsVisible = true });
 
         CRMMenu.Add(new SandlerWeb.Menu { Title = "Contacts", IsVisible = true, Items = items.Where(item => item.IsVisible == true).ToList() });
 
@@ -176,7 +178,7 @@ public abstract class BasePage : System.Web.UI.Page
 
         items.Add(new SandlerWeb.MenuItem { Id = "Search", Text = "Search", Link = "~/CRM/Opportunities/Search.aspx", IsVisible = true });
         items.Add(new SandlerWeb.MenuItem { Id = "AddOpportunity", Text = "Add New Opportunity", Link = "~/CRM/Opportunities/Add.aspx", IsVisible = !IsUserReadOnly(SandlerUserActions.Add, SandlerEntities.Opportunity) });
-        items.Add(new SandlerWeb.MenuItem { Id = "ArchieveOpportunity", Text = "View Archieve", Link = "~/CRM/Opportunities/ProcessArchieve.aspx", IsVisible = !IsUserReadOnly(SandlerUserActions.Add, SandlerEntities.Opportunity) });
+        items.Add(new SandlerWeb.MenuItem { Id = "ViewArchived", Text = "View Archived Records", Link = "~/CRM/Opportunities/ProcessArchive.aspx", IsVisible = true });
 
         CRMMenu.Add(new SandlerWeb.Menu { Title = "Opportunities", IsVisible = true, Items = items.Where(item => item.IsVisible == true).ToList() });
 

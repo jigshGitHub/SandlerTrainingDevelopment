@@ -1,6 +1,5 @@
-﻿<%@ Page Title="CRM - View Opportunities" Language="C#" MasterPageFile="~/CRM.master"
-    AutoEventWireup="true" EnableEventValidation="false" CodeFile="Index.aspx.cs"
-    Inherits="OpportunityIndex" %>
+﻿<%@ Page Title="CRM - View Archived Opportunities" Language="C#" MasterPageFile="~/CRM.master" AutoEventWireup="true"
+    CodeFile="ProcessArchive.aspx.cs" Inherits="ProcessArchive" %>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 <%@ Import Namespace="SandlerRepositories" %>
@@ -12,9 +11,8 @@
             <td>
                 <table style="width: 100%">
                     <tr>
-                        <td style="width: 100%" align="right">
-                            <uc1:EntityMenu ID="opportunityMenu" runat="server" EnableViewState="true" />
-                        </td>
+                        <th style="float: left">View Archived Pipeline Records:
+                        </th>
                     </tr>
                     <tr>
                         <td>
@@ -23,9 +21,12 @@
                                 ID="ddlCompany" runat="server" AutoPostBack="True" OnDataBound="ddlCreateDefaultSelection"
                                 OnSelectedIndexChanged="ddlCompany_SelectedIndexChanged">
                             </asp:DropDownList>
-                            <asp:ObjectDataSource ID="CompanyDS" runat="server" TypeName="SandlerRepositories.CompaniesRepository" SelectMethod="GetCompaniesForDDL" OnSelecting="CompanyDS_Selecting">
-                                        <SelectParameters><asp:Parameter Name="_user"  /></SelectParameters>
-                                    </asp:ObjectDataSource>
+                            <asp:ObjectDataSource ID="CompanyDS" runat="server" TypeName="SandlerRepositories.CompaniesRepository"
+                                SelectMethod="GetCompaniesForDDL" OnSelecting="CompanyDS_Selecting">
+                                <SelectParameters>
+                                    <asp:Parameter Name="_user" />
+                                </SelectParameters>
+                            </asp:ObjectDataSource>
                         </td>
                     </tr>
                     <tr>
@@ -45,35 +46,33 @@
             <td>
                 <asp:GridView Width="100%" ID="gvOpportunities" runat="server" AutoGenerateColumns="False"
                     DataKeyNames="ID" AllowSorting="true" OnDataBound="gvOpportunities_DataBound"
-                    OnRowDataBound="gvOpportunities_RowDataBound" ShowFooter="true" OnSorting="gvOpportunities_Sorting"
+                    OnRowDataBound="gvOpportunities_RowDataBound" OnSorting="gvOpportunities_Sorting"
                     EnableViewState="false">
                     <PagerStyle BackColor="#999999" ForeColor="Blue" HorizontalAlign="Center" />
                     <Columns>
                         <asp:BoundField DataField="ID" Visible="False" />
-                        <asp:BoundField ItemStyle-HorizontalAlign="Left" HeaderStyle-HorizontalAlign="Left" HeaderStyle-ForeColor="Blue" DataField="OPPORTUNITYID"
-                            HeaderText="ID" SortExpression="OPPORTUNITYID" />
-                        <asp:BoundField ItemStyle-HorizontalAlign="Left" HeaderStyle-HorizontalAlign="Left" HeaderStyle-ForeColor="Blue" DataField="NAME"
-                            HeaderText="Name" SortExpression="NAME" />
-                        <asp:BoundField ItemStyle-HorizontalAlign="Left" HeaderStyle-HorizontalAlign="Left" HeaderStyle-ForeColor="Blue" DataField="CompanyName"
-                            HeaderText="Company" SortExpression="CompanyName" />
-                        <asp:BoundField ItemStyle-HorizontalAlign="Left" HeaderStyle-HorizontalAlign="Left" HeaderStyle-ForeColor="Blue" DataField="WEIGHTEDVALUE"
-                            HeaderText="Weighted Value" SortExpression="WEIGHTEDVALUE" DataFormatString="{0:C}" />
-                        <asp:BoundField ItemStyle-HorizontalAlign="Left" HeaderStyle-HorizontalAlign="Left" HeaderStyle-ForeColor="Blue" DataField="VALUE"
-                            HeaderText="Value" SortExpression="VALUE" DataFormatString="{0:C}" />
-                        <asp:BoundField ItemStyle-HorizontalAlign="Left" HeaderStyle-HorizontalAlign="Left" HeaderStyle-ForeColor="Blue" DataField="CloseDate"
-                            HeaderText="Close Date" SortExpression="CloseDate" DataFormatString="{0:d}" />
-                        <asp:BoundField ItemStyle-HorizontalAlign="Left" HeaderStyle-HorizontalAlign="Left" HeaderStyle-ForeColor="Blue" DataField="SalesRep"
-                            HeaderText="Sales Rep" SortExpression="SalesRep" />
-                        <asp:BoundField ItemStyle-HorizontalAlign="Left" HeaderStyle-HorizontalAlign="Left" HeaderStyle-ForeColor="Blue" DataField="Status"
-                            HeaderText="Status" SortExpression="Status" />
-                        <asp:TemplateField ShowHeader="False">
+                        <asp:BoundField ItemStyle-HorizontalAlign="Left" HeaderStyle-HorizontalAlign="Left"
+                            HeaderStyle-ForeColor="Blue" DataField="OPPORTUNITYID" HeaderText="ID" SortExpression="OPPORTUNITYID" />
+                        <asp:BoundField ItemStyle-HorizontalAlign="Left" HeaderStyle-HorizontalAlign="Left"
+                            HeaderStyle-ForeColor="Blue" DataField="NAME" HeaderText="Name" SortExpression="NAME" />
+                        <asp:BoundField ItemStyle-HorizontalAlign="Left" HeaderStyle-HorizontalAlign="Left"
+                            HeaderStyle-ForeColor="Blue" DataField="CompanyName" HeaderText="Company" SortExpression="CompanyName" />
+                        <asp:BoundField ItemStyle-HorizontalAlign="Left" HeaderStyle-HorizontalAlign="Left"
+                            HeaderStyle-ForeColor="Blue" DataField="WEIGHTEDVALUE" HeaderText="Weighted Value"
+                            SortExpression="WEIGHTEDVALUE" DataFormatString="{0:C}" />
+                        <asp:BoundField ItemStyle-HorizontalAlign="Left" HeaderStyle-HorizontalAlign="Left"
+                            HeaderStyle-ForeColor="Blue" DataField="VALUE" HeaderText="Value" SortExpression="VALUE"
+                            DataFormatString="{0:C}" />
+                        <asp:BoundField ItemStyle-HorizontalAlign="Left" HeaderStyle-HorizontalAlign="Left"
+                            HeaderStyle-ForeColor="Blue" DataField="CloseDate" HeaderText="Close Date" SortExpression="CloseDate"
+                            DataFormatString="{0:d}" />
+                        <asp:BoundField ItemStyle-HorizontalAlign="Left" HeaderStyle-HorizontalAlign="Left"
+                            HeaderStyle-ForeColor="Blue" DataField="SalesRep" HeaderText="Sales Rep" SortExpression="SalesRep" />
+                        <asp:BoundField ItemStyle-HorizontalAlign="Left" HeaderStyle-HorizontalAlign="Left"
+                            HeaderStyle-ForeColor="Blue" DataField="Status" HeaderText="Status" SortExpression="Status" />
+                        <asp:TemplateField ShowHeader="False" HeaderText="UnArchive">
                             <ItemTemplate>
-                                <a href="Detail.aspx?id=<%#Eval("Id")%>">View Detail...</a>
-                            </ItemTemplate>
-                        </asp:TemplateField>
-                        <asp:TemplateField ShowHeader="False" HeaderText="Archive">
-                            <ItemTemplate>
-                                <a href="ProcessArchive.aspx?mode=false&id=<%#Eval("Id")%>" onclick="return confirm ('Are you sure to archive this record?');">Archive...</a>
+                                <a href="ProcessArchive.aspx?mode=true&id=<%#Eval("Id")%>" onclick="return confirm ('Are you sure to unarchive this record?');">UnArchive...</a>
                             </ItemTemplate>
                         </asp:TemplateField>
                     </Columns>

@@ -1,17 +1,15 @@
-﻿<%@ Page Title="CRM - View Company" Language="C#" MasterPageFile="~/CRM.master" AutoEventWireup="true"
-    EnableEventValidation="false" CodeFile="Index.aspx.cs" Inherits="CompanyIndex" %>
-
+﻿<%@ Page Title="CRM - View Archived Company Records" Language="C#" MasterPageFile="~/CRM.master" AutoEventWireup="true" CodeFile="Archived.aspx.cs" Inherits="CompaniesArchived" %>
 <%@ Import Namespace="SandlerRepositories" %>
-<%@ Register Src="../EntityMenu.ascx" TagName="EntityMenu" TagPrefix="uc1" %>
-<asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="Server">
-   
-    
-    <table id="tblMain" width="100%">
+
+<asp:Content ID="Content2" ContentPlaceHolderID="MainContent" Runat="Server">
+
+<table id="tblMain" width="100%">
         <tr>
-            <td align="right">
-                <uc1:EntityMenu ID="companyMenu" runat="server" />
-            </td>
+            <th style="float: left">
+                <asp:Label ID="lblModuleActionHeading" runat="server"></asp:Label>
+            </th>
         </tr>
+        <tr><td>&nbsp;</td></tr>
         <tr>
             <td>
                 <asp:ImageButton ImageUrl="~/images/excel.jpg" runat="server" ToolTip="Export To Excel"
@@ -21,10 +19,10 @@
         </tr>
         <tr>
             <td colspan="2">
-                <asp:GridView Width="100%" ID="gvCompanies" runat="server" DataSourceID="SearchCompanyDS"
+                <asp:GridView Width="100%" ID="gvArchivedCompanies" runat="server" DataSourceID="SearchArchiveCompanyDS"
                     AutoGenerateColumns="False" DataKeyNames="COMPANIESID" AllowSorting="true" AllowPaging="true"
-                    PageSize="20" OnSelectedIndexChanged="gvCompanies_SelectedIndexChanged" 
-                    OnDataBound="gvCompanies_DataBound" OnRowDataBound="gvCompanies_RowDataBound" onrowdeleted="gvCompanies_RowDeleted">
+                    PageSize="20"  
+                    OnDataBound="gvArchivedCompanies_DataBound" OnRowDataBound="gvArchivedCompanies_RowDataBound" onrowdeleted="gvArchivedCompanies_RowDeleted">
                     <PagerStyle BackColor="#999999" ForeColor="Blue" CssClass="gvPager" HorizontalAlign="Center" />
                     <Columns>
                         <asp:TemplateField Visible="false">
@@ -39,16 +37,10 @@
                         <asp:BoundField ItemStyle-HorizontalAlign="Left" HeaderStyle-HorizontalAlign="Left" HeaderStyle-ForeColor="Blue" DataField="Product" HeaderText="Product" SortExpression="Product" />
                         <asp:BoundField ItemStyle-HorizontalAlign="Left" HeaderStyle-HorizontalAlign="Left" HeaderStyle-ForeColor="Blue" DataField="Representative" HeaderText="Sandler Rep" SortExpression="Representative" />
                         <asp:BoundField ItemStyle-HorizontalAlign="Left" HeaderStyle-HorizontalAlign="Left" HeaderStyle-ForeColor="Blue" DataField="TotalCompanyValue" HeaderText="Total Company Value" SortExpression="TotalCompanyValue" DataFormatString="{0:C}" />
-                        <asp:TemplateField ShowHeader="False">
+                        <asp:TemplateField  HeaderText="UnArchive" HeaderStyle-HorizontalAlign="Left">
                             <ItemTemplate>
-                                <asp:LinkButton ID="LinkButton1" runat="server" CausesValidation="False" CommandName="Select"
-                                    Text="View Detail.."></asp:LinkButton>
-                            </ItemTemplate>
-                        </asp:TemplateField>
-                        <asp:TemplateField  HeaderText="Archive" HeaderStyle-HorizontalAlign="Left">
-                            <ItemTemplate>
-                                <asp:LinkButton ID="archiveButton" runat="server" CausesValidation="False" CommandName="Delete" 
-                                    Text="Archive"  OnClientClick="return confirm ('Are you sure to archive this Company record? All Contacts and Pipeline records for this Company will be archived too.');" ></asp:LinkButton>
+                                <asp:LinkButton ID="unarchiveButton" runat="server" CausesValidation="False" CommandName="Delete" 
+                                    Text="UnArchive"  OnClientClick="return confirm ('Are you sure to UnArchive this Company record? All Contacts and Pipeline records for this Company will be unarchived too.');" ></asp:LinkButton>
                             </ItemTemplate>
                         </asp:TemplateField> 
                     </Columns>
@@ -62,7 +54,7 @@
         <tr id="trExport" runat="server" visible="false">
             <td colspan="2">
                 <div id="Report" runat="server">
-                    <asp:GridView Width="100%" ID="gvCompaniesExport" runat="server" DataSourceID="SearchCompanyDS"
+                    <asp:GridView Width="100%" ID="gvArchivedCompaniesExport" runat="server" DataSourceID="SearchArchiveCompanyDS"
                         AutoGenerateColumns="False" DataKeyNames="COMPANIESID">
                         <Columns>
                             <asp:BoundField DataField="COMPANIESID" SortExpression="COMPANIESID" HeaderText="ID" />
@@ -120,10 +112,9 @@
         </tr>
         <tr>
             <td>
-                <asp:ObjectDataSource ID="SearchCompanyDS" runat="server" 
-                TypeName="SandlerRepositories.CompaniesRepository" SelectMethod="GetAllCompanies" 
-                DeleteMethod="ArchiveCompany"
-                OnSelecting="SearchCompanyDS_Selecting">
+                <asp:ObjectDataSource ID="SearchArchiveCompanyDS" runat="server" 
+                TypeName="SandlerRepositories.CompaniesRepository" SelectMethod="GetAllArchivedCompanies" 
+                DeleteMethod="UnArchiveCompany" OnSelecting="SearchArchiveCompanyDS_Selecting">
                     <SelectParameters>
                         <asp:Parameter Name="_user"  />
                     </SelectParameters>
@@ -138,4 +129,6 @@
             </td>
         </tr>
     </table>
+
 </asp:Content>
+

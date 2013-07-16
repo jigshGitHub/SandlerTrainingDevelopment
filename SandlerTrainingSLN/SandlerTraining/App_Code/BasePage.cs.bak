@@ -6,6 +6,7 @@ using System.Web.Security;
 using SandlerModels;
 using SandlerData.Models;
 using System.Configuration;
+using SandlerModels.DataIntegration;
 
 using SandlerWeb = Sandler.Web;
 /// <summary>
@@ -18,6 +19,7 @@ public abstract class BasePage : System.Web.UI.Page
     public string QUERYSTRINGPARAMDRILLBY = ConfigurationManager.AppSettings["QueryStringParamDrillBy"];
     public string GENERICCHARTLITERALWIDTH = ConfigurationManager.AppSettings["GenericChartLiteralWidth"];
     public string GENERICCHARTLITERALHEIGHT = ConfigurationManager.AppSettings["GenericChartLiteralHeight"];
+    private string userSessionKey;
 
     protected int CurrentPage
     {
@@ -90,11 +92,19 @@ public abstract class BasePage : System.Web.UI.Page
             ViewState["TotalRecords"] = value;
         }
     }
+    public UserEntities userEntities;
     public List<SandlerWeb.Menu> CRMMenu;
+    public string UserSessionKey
+    {
+        get
+        {
+            return userSessionKey;
+        }
 
+    }
     public BasePage()
     {
-        
+        userSessionKey = Membership.GetUser(HttpContext.Current.User.Identity.Name).ProviderUserKey.ToString();
     }
 
 
@@ -102,19 +112,19 @@ public abstract class BasePage : System.Web.UI.Page
     {
         get
         {
-            UserModel user = Session["CurrentUser"] as UserModel;
+            UserModel user = Session[UserSessionKey] as UserModel;
             if (user == null)
             {
                 user = new UserModel();
                 new UserDataModel().Load(user);
 
-                Session["CurrentUser"] = user;
+                Session[UserSessionKey] = user;
             }
             return user;
         }
         set
         {
-            Session["CurrentUser"] = value;
+            Session[UserSessionKey] = value;
         }
     }
 
@@ -128,7 +138,7 @@ public abstract class BasePage : System.Web.UI.Page
         if (CurrentUser.RequirePasswordChange && !Request.FilePath.Contains("ChangePassword"))
         {
             CurrentUser = null;
-            Response.Redirect("~/Account/ChangePassword.aspx");
+            Response.Redirect("~/Account/ChangePassword.aspx?intialPasswordChange=true");
         }
     }
 
@@ -139,6 +149,7 @@ public abstract class BasePage : System.Web.UI.Page
 
     protected override void OnLoad(EventArgs e)
     {
+        userEntities = new UserEntities(CurrentUser);
         base.OnLoad(e);
 
         CRMMenu = new List<SandlerWeb.Menu>();
@@ -149,6 +160,7 @@ public abstract class BasePage : System.Web.UI.Page
         items.Add(new SandlerWeb.MenuItem { Id = "Upload", Text = "Upload Company Data", Link = "~/CRM/Companies/Upload.aspx", IsVisible = !IsUserReadOnly(SandlerUserActions.Add, SandlerEntities.Company) });
         items.Add(new SandlerWeb.MenuItem { Id = "AddProduct", Text = "Add New Product", Link = "~/CRM/Products/Add.aspx", IsVisible = !IsUserReadOnly(SandlerUserActions.Add, SandlerEntities.Company) });
         items.Add(new SandlerWeb.MenuItem { Id = "AddCompany", Text = "Add New Company", Link = "~/CRM/Companies/Add.aspx", IsVisible = !IsUserReadOnly(SandlerUserActions.Add, SandlerEntities.Company) });
+        items.Add(new SandlerWeb.MenuItem { Id = "ViewArchived", Text = "View Archived Records", Link = "~/CRM/Companies/Archived.aspx", IsVisible = true });
 
         CRMMenu.Add(new SandlerWeb.Menu { Title = "Companies", IsVisible = true, Items = items.Where(item => item.IsVisible == true).ToList() });
 
@@ -158,6 +170,7 @@ public abstract class BasePage : System.Web.UI.Page
         items.Add(new SandlerWeb.MenuItem { Id = "Upload", Text = "Upload Contact Data", Link = "~/CRM/Contacts/Upload.aspx", IsVisible = !IsUserReadOnly(SandlerUserActions.Add, SandlerEntities.Contact) });
         items.Add(new SandlerWeb.MenuItem { Id = "AddContact", Text = "Add New Contact", Link = "~/CRM/Contacts/Add.aspx", IsVisible = !IsUserReadOnly(SandlerUserActions.Add, SandlerEntities.Contact) });
         items.Add(new SandlerWeb.MenuItem { Id = "CallList", Text = "View Call List", Link = "~/CRM/Contacts/CallList.aspx", IsVisible = true });
+        items.Add(new SandlerWeb.MenuItem { Id = "ViewArchived", Text = "View Archived Records", Link = "~/CRM/Contacts/Archived.aspx", IsVisible = true });
 
         CRMMenu.Add(new SandlerWeb.Menu { Title = "Contacts", IsVisible = true, Items = items.Where(item => item.IsVisible == true).ToList() });
 
@@ -228,7 +241,10 @@ public abstract class BasePage : System.Web.UI.Page
                     return true;
                 else
                 {
-                    return (entity != SandlerEntities.HomeOffice);
+                    return (entity != SandlerEntities.HomeOffice
+                        || entity == SandlerEntities.Company
+                        || entity == SandlerEntities.Coach 
+                        || entity == SandlerEntities.Region);
                 }
             default:
                 //This will be used by Corporate/SiteAdmin Role

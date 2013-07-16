@@ -120,7 +120,7 @@ namespace SandlerModels.DataIntegration
         public List<Opportunity> Opportunities
         { get { return opportunities.Where(record => record.IsActive == true).ToList<Opportunity>(); } }
 
-        public List<Opportunity> ArchievedOpportunities
+        public List<Opportunity> ArchivedOpportunities
         { get { return opportunities.Where(record => record.IsActive == false).ToList<Opportunity>(); } }
 
         private readonly int companiesCount;
