@@ -78,7 +78,7 @@
                                               </td>
                                          </tr>
                                          <tr style="color: Black; background-color: #DCDCDC; white-space: nowrap;">
-                                            <td>Buy from Customer:</td>
+                                            <td>Buy from SSI:</td>
                                              <td>
                                                  <asp:DropDownList ID="ddlBuyFromCustomer" runat="server" DataSourceID="YesNoOptionsInfoDS" DataTextField="Description" DataValueField="Value" SelectedValue='<%# Bind("IsBuyFromCustomerValue") %>'></asp:DropDownList>
                                               </td>
@@ -165,7 +165,7 @@
                                                 <asp:DropDownList ID="ddlCertifiedLevel" runat="server" DataSourceID="CertifiedLevelInfoDS" DataTextField="CertifiedLevelText" DataValueField="CertifiedLevelId" SelectedValue='<%# Bind("CertifiedLevelValue") %>'></asp:DropDownList>
                                             </td>
                                          </tr>
-                                         <tr style="color: Black; background-color: #DCDCDC; white-space: nowrap;">
+                                         <tr style="color: Black; background-color: #DCDCDC; white-space: nowrap; display:none">
                                             <td>Primary Business:</td>
                                             <td>
                                                 <asp:DropDownList ID="ddlPrimaryBusiness" runat="server" DataSourceID="PrimaryBusinessInfoDS" DataTextField="PrimaryBusinessText" DataValueField="PrimaryBusinessId" SelectedValue='<%# Bind("PrimaryBusinessValue") %>'></asp:DropDownList>

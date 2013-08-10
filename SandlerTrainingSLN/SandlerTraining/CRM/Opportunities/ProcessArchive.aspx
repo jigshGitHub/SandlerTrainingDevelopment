@@ -72,7 +72,7 @@
                             HeaderStyle-ForeColor="Blue" DataField="Status" HeaderText="Status" SortExpression="Status" />
                         <asp:TemplateField ShowHeader="False" HeaderText="UnArchive">
                             <ItemTemplate>
-                                <a href="ProcessArchive.aspx?mode=true&id=<%#Eval("Id")%>" onclick="return confirm ('Are you sure to unarchive this record?');">UnArchive...</a>
+                                <a href="ProcessArchive.aspx?mode=true&id=<%#Eval("Id")%>" onclick="return confirm ('Are you sure you want to unarchive this Pipeline record?');">UnArchive...</a>
                             </ItemTemplate>
                         </asp:TemplateField>
                     </Columns>

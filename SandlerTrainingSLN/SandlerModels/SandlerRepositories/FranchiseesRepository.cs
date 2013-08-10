@@ -24,6 +24,27 @@ namespace SandlerRepositories
 
         }
 
+        public DataSet sp_GetAllArchivedFranchisee(UserModel _user)
+        {
+            //Get the User Session
+
+            return db.ExecuteDataset("sp_GetAllArchivedFranchisee", "ArchivedFranchisees", new SqlParameter("@Role", _user.Role.ToString()));
+
+        }
+
+        public void ArchiveFranchisee(int ID, string CurrentUserId)
+        {
+            //Create the record
+            db.ExecuteNonQuery("sp_ArchiveFranchiseeRecord", new SqlParameter("@FranchiseeID", ID), new SqlParameter("@CurrentUserId", CurrentUserId));
+        }
+
+        public void UnArchiveFranchisee(int ID, string CurrentUserId)
+        {
+            //Create the record
+            db.ExecuteNonQuery("sp_UnArchiveFranchiseeRecord", new SqlParameter("@FranchiseeID", ID), new SqlParameter("@CurrentUserId", CurrentUserId));
+        }
+
+
         public DataSet GetByFranchiseeId(int FrId)
         {
             return db.ExecuteDataset("sp_GetFranchiseeDetails", "FranchiseeByID", new SqlParameter("@FrId", FrId));

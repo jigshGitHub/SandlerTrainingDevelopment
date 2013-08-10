@@ -4,6 +4,9 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using SandlerModels;
+using System.Data;
+using SandlerRepositories;
 
 public partial class CRM_Contacts_SearchResults : BasePage
 {
@@ -14,12 +17,38 @@ public partial class CRM_Contacts_SearchResults : BasePage
             if (Session["ContactSearchCount"] != null)
             {
                 lblInfo.Text = "Total Records found: " + Session["ContactSearchCount"].ToString();
+                hidCurrentUserId.Value = CurrentUser.UserId.ToString();
             }
             else
             {
                 Response.Redirect("~/CRM/Contacts/Search.aspx");
             }
         }
+    }
+    protected void gvContacts_RowDataBound(object sender, GridViewRowEventArgs e)
+    {
+        if (e.Row.RowType == DataControlRowType.DataRow)
+        {
+            LinkButton archiveButton = e.Row.FindControl("archiveButton") as LinkButton;
+            HiddenField hdnUserId = e.Row.FindControl("hdnUserId") as HiddenField;
+            if (archiveButton != null && hdnUserId != null && CurrentUser.Role != SandlerRoles.FranchiseeOwner)
+            {
+                if (hdnUserId.Value.ToUpper() != CurrentUser.UserId.ToString().ToUpper())
+                {
+                    archiveButton.Visible = false;
+                }
+            }
+        }
+    }
+    protected void gvContacts_RowDeleted(object sender, GridViewDeletedEventArgs e)
+    {
+        //We come here after the Archive operation is done
+        if (e.Exception != null)
+        {
+            LblStatus.Text = "Failed to Archive the Contact Record. Please try it later again.";
+            e.ExceptionHandled = true;
+        }
+
     }
     protected void SearchContactDS_Selecting(object sender, ObjectDataSourceSelectingEventArgs e)
     {

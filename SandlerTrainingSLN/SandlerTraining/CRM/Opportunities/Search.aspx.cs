@@ -96,6 +96,10 @@ public partial class OpportunitySearch : OpportunityBasePage
         pager.BindPager(TotalRecords, PageSize, CurrentPage);
     }
 
+    private bool IsArchiveVisible()
+    {
+        return !IsUserReadOnly(SandlerUserActions.Edit, SandlerEntities.Opportunity); ;
+    }
 
     #region dropdownlists selected index changed events
 
@@ -198,6 +202,11 @@ public partial class OpportunitySearch : OpportunityBasePage
             // add the UnitPrice and QuantityTotal to the running total variables
             Weighted_valueTotal += Convert.ToDecimal(DataBinder.Eval(e.Row.DataItem, "Weightedvalue"));
             Total_ValueTotal += Convert.ToDecimal(DataBinder.Eval(e.Row.DataItem, "Value"));
+            e.Row.Cells[10].Visible = IsArchiveVisible();
+        }
+        else if (e.Row.RowType == DataControlRowType.Header)
+        {
+            e.Row.Cells[10].Visible = IsArchiveVisible();
         }
         else if (e.Row.RowType == DataControlRowType.Footer)
         {
@@ -207,6 +216,7 @@ public partial class OpportunitySearch : OpportunityBasePage
 
             e.Row.Cells[1].HorizontalAlign = e.Row.Cells[4].HorizontalAlign = e.Row.Cells[5].HorizontalAlign = HorizontalAlign.Center;
             e.Row.Font.Bold = true;
+            e.Row.Cells[10].Visible = IsArchiveVisible();
         }
     }
 

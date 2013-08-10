@@ -40,7 +40,7 @@
                         <asp:TemplateField  HeaderText="UnArchive" HeaderStyle-HorizontalAlign="Left">
                             <ItemTemplate>
                                 <asp:LinkButton ID="unarchiveButton" runat="server" CausesValidation="False" CommandName="Delete" 
-                                    Text="UnArchive"  OnClientClick="return confirm ('Are you sure to UnArchive this Company record? All Contacts and Pipeline records for this Company will be unarchived too.');" ></asp:LinkButton>
+                                    Text="UnArchive"  OnClientClick="return confirm ('Are you sure to unArchive this Company record? All Contacts and Pipeline records for this Company will be unarchived too.');" ></asp:LinkButton>
                             </ItemTemplate>
                         </asp:TemplateField> 
                     </Columns>

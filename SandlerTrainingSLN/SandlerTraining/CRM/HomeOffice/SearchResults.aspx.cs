@@ -17,6 +17,8 @@ public partial class CRM_HomeOffice_SearchResults : BasePage
             if (Session["FranchiseeSearchCount"] != null)
             {
                 lblInfo.Text = "Total Records found: " + Session["FranchiseeSearchCount"].ToString();
+                //We need to store current User's UserId in the hidden field - will be needed when they archive the records
+                hidCurrentUserId.Value = CurrentUser.UserId.ToString();
             }
             else
             {

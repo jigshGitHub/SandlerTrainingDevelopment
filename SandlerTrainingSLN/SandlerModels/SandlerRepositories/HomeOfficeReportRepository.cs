@@ -56,6 +56,10 @@ namespace SandlerRepositories
                     reportDisplayName = "Report of Master Franchisee Details";                                
                     break;
 
+                case "ardd": returnValue = db.ExecuteDataset("sp_GetHomeOfficeReportardd", "HomeOfficeReportardd", new SqlParameter("@reportType", reportType));
+                    reportDisplayName = "Report of Area Developer Details";
+                    break;
+                
                 case "msfr": returnValue = db.ExecuteDataset("sp_GetHomeOfficeReportmsfr", "HomeOfficeReportmsfr", new SqlParameter("@reportType", reportType));
                     reportDisplayName = "Report of Master Franchisee and Their Subfranchisees";                                    
                     break;

@@ -15,7 +15,9 @@ public partial class CRM_Companies_SearchResults : BasePage
         {
             if (Session["CompanySearchCount"] != null)
             {
-                lblInfo.Text = "Total Records found: " + Session["CompanySearchCount"].ToString(); 
+                lblInfo.Text = "Total Records found: " + Session["CompanySearchCount"].ToString();
+                //We need to store current User's UserId in the hidden field - will be needed when they archive the records
+                hidCurrentUserId.Value = CurrentUser.UserId.ToString();
             }
             else
             {
@@ -27,6 +29,34 @@ public partial class CRM_Companies_SearchResults : BasePage
     {
         e.InputParameters["_user"] = CurrentUser;
     }
+
+    protected void gvCompanies_RowDataBound(object sender, GridViewRowEventArgs e)
+    {
+        if (e.Row.RowType == DataControlRowType.DataRow)
+        {
+            LinkButton archiveButton = e.Row.FindControl("archiveButton") as LinkButton;
+            HiddenField hdnUserId = e.Row.FindControl("hdnUserId") as HiddenField;
+            if (archiveButton != null && hdnUserId != null && CurrentUser.Role != SandlerRoles.FranchiseeOwner)
+            {
+                if (hdnUserId.Value.ToUpper() != CurrentUser.UserId.ToString().ToUpper())
+                {
+                    archiveButton.Visible = false;
+                }
+            }
+        }
+    }
+
+    protected void gvCompanies_RowDeleted(object sender, GridViewDeletedEventArgs e)
+    {
+        //We come here after the Archive operation is done
+        if (e.Exception != null)
+        {
+            LblStatus.Text = "Failed to Archive the Company Record. Please try it later again.";
+            e.ExceptionHandled = true;
+        }
+
+    }
+
     protected void gvCompanies_DataBound(object sender, EventArgs e)
     {
         if (gvCompanies.Rows.Count == 0)

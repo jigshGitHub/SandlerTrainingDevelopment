@@ -10,16 +10,15 @@ using SandlerWeb = Sandler.Web;
 using SandlerRepositories;
 using System.Data;
 
-public partial class CRM_HomeOffice_Index : BasePage
-{
-    SortDirection sortingDirection { get { return (SortDirection)Session["sortingDirection"]; } set { Session["sortingDirection"] = value; } }
+public partial class CRM_HomeOffice_Archived : BasePage
+{    
+   SortDirection sortingDirection { get { return (SortDirection)Session["sortingDirection"]; } set { Session["sortingDirection"] = value; } }
     String sortingExpression { get { return (String)Session["sortingExpression"]; } set { Session["sortingExpression"] = value; } }
     String filteringExpression { get { return (String)Session["filteringExpression"]; } set { Session["filteringExpression"] = value; } }
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        franchiseeMenu.MenuEntityTitle = "HomeOffice";
-        
+               
         
         if (CurrentUser.Role == SandlerRoles.HomeOfficeAdmin)
         {txtGridSearch.Visible = false;
@@ -34,11 +33,12 @@ public partial class CRM_HomeOffice_Index : BasePage
 
         if (sortingExpression != null)
         {
-            gvFranchisees.Sort(sortingExpression, sortingDirection);
+            gvArchivedFranchisees.Sort(sortingExpression, sortingDirection);
         }
 
         if (!IsPostBack)
         {
+            lblModuleActionHeading.Text = "View Archived Franchisee Records:";
             //We need to store current User's UserId in the hidden field - will be needed when they archive the records
             hidCurrentUserId.Value = CurrentUser.UserId.ToString();
             LblStatus.Text = "";
@@ -54,40 +54,36 @@ public partial class CRM_HomeOffice_Index : BasePage
         sortingExpression = e.SortExpression;
     }
 
-    protected void gvFranchisees_SelectedIndexChanged(object sender, EventArgs e)
-    {
-        hidFranchiseeID.Value = gvFranchisees.SelectedDataKey.Value.ToString();
-        Server.Transfer("~/CRM/HomeOffice/Detail.aspx");
-    }
 
-    protected void gvFranchisees_DataBound(object sender, EventArgs e)
+
+    protected void gvArchivedFranchisees_DataBound(object sender, EventArgs e)
     {
-        if (gvFranchisees.Rows.Count == 0)
+        if (gvArchivedFranchisees.Rows.Count == 0)
         {
-            LblStatus.Text = "There are no Franchisees entered in the System.";
+            LblStatus.Text = "There are no archived Franchisees at this time.";
             btnExportExcel.Visible = false;
             lblExportToExcel.Visible = false;
-            franchiseeMenu.ReLoadSubMenu();
+            
         }
         else
         {
             LblStatus.Text = "";
             btnExportExcel.Visible = true;
             lblExportToExcel.Visible = true;
-            //This is to make sure that View/Detail link and Archive column will be visible only to HomeOfficeAdmin User
+            //This is to make sure that UnArchive column will be visible only to HomeOfficeAdmin User
             GridView gridView = (GridView)sender;
             if (gridView.HeaderRow != null && gridView.HeaderRow.Cells.Count > 0)
             {
                 gridView.HeaderRow.Cells[7].Visible = !IsUserReadOnly(SandlerUserActions.Edit, SandlerEntities.HomeOffice);
-                gridView.HeaderRow.Cells[8].Visible = !IsUserReadOnly(SandlerUserActions.Edit, SandlerEntities.HomeOffice);
+                
             }
-            foreach (GridViewRow row in gvFranchisees.Rows)
+            foreach (GridViewRow row in gvArchivedFranchisees.Rows)
             {
                 row.Cells[7].Visible = !IsUserReadOnly(SandlerUserActions.Edit, SandlerEntities.HomeOffice);
-                row.Cells[8].Visible = !IsUserReadOnly(SandlerUserActions.Edit, SandlerEntities.HomeOffice);
+                
             }
             //Done
-            franchiseeMenu.ReLoadSubMenu();
+            
             
         }
 
@@ -96,7 +92,7 @@ public partial class CRM_HomeOffice_Index : BasePage
     {
         FranchiseesRepository frRepository = new FranchiseesRepository();
         DataSet ds = new DataSet();
-        ds = frRepository.sp_GetAllFranchisees(CurrentUser);
+        ds = frRepository.sp_GetAllArchivedFranchisee(CurrentUser);
         if (ds.Tables[0].Rows.Count > 0)
         {
             LblStatus.Text = "";

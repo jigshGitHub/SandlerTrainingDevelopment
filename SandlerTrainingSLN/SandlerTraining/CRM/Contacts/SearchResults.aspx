@@ -28,7 +28,8 @@
             <td colspan="2">
                 <asp:GridView Width="100%" ID="gvContacts" runat="server" DataSourceID="SearchContactDS"
                     AutoGenerateColumns="False" DataKeyNames="contactsid" AllowSorting="true" AllowPaging="true"
-                    PageSize="20" OnSelectedIndexChanged="gvContacts_SelectedIndexChanged" OnDataBound="gvContacts_DataBound">
+                    PageSize="20" OnSelectedIndexChanged="gvContacts_SelectedIndexChanged" OnDataBound="gvContacts_DataBound"
+                    OnRowDataBound="gvContacts_RowDataBound" onrowdeleted="gvContacts_RowDeleted">
                     <PagerStyle BackColor="#999999" ForeColor="Blue" CssClass="gvPager" HorizontalAlign="Center" />
                     <Columns>
                         <asp:BoundField DataField="contactsid" Visible="False" />
@@ -44,6 +45,12 @@
                             <ItemTemplate>
                                 <asp:LinkButton ID="LinkButton1" runat="server" CausesValidation="False" CommandName="Select"
                                     Text="View Detail.."></asp:LinkButton>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                        <asp:TemplateField  HeaderText="Archive" HeaderStyle-HorizontalAlign="Left">
+                            <ItemTemplate>
+                                <asp:LinkButton ID="archiveButton" runat="server" CausesValidation="False" CommandName="Delete" 
+                                    Text="Archive"  OnClientClick="return confirm ('Are you sure to archive this Contact record? All Pipeline records for this Contact will be archived too.');" ></asp:LinkButton>
                             </ItemTemplate>
                         </asp:TemplateField>
                     </Columns>
@@ -123,6 +130,7 @@
                     <SelectParameters><asp:Parameter Name="_user"  /></SelectParameters>
                     </asp:ObjectDataSource>
                 <asp:HiddenField ID="hidContactID" runat="server" />
+                <asp:HiddenField ID="hidCurrentUserId" runat="server" />
             </td>
         </tr>
     </table>

@@ -41,6 +41,12 @@
                                     Text="View Detail.."></asp:LinkButton>
                             </ItemTemplate>
                         </asp:TemplateField>
+                        <asp:TemplateField  HeaderText="Archive" HeaderStyle-HorizontalAlign="Left">
+                            <ItemTemplate>
+                                <asp:LinkButton ID="archiveButton" runat="server" CausesValidation="False" CommandName="Delete" 
+                                    Text="Archive"  OnClientClick="return confirm ('Are you sure to archive this Franchisee record?');" ></asp:LinkButton>
+                            </ItemTemplate>
+                        </asp:TemplateField> 
                     </Columns>
                     <RowStyle BackColor="#EEEEEE" ForeColor="Black" />
                     <AlternatingRowStyle BackColor="#DCDCDC" />
@@ -55,14 +61,21 @@
         </tr>
         <tr>
             <td>
-                <asp:ObjectDataSource ID="SearchFranchiseeDS" runat="server" TypeName="SandlerRepositories.FranchiseesRepository" SelectMethod="sp_GetAllFranchisees" OnSelecting="SearchFranchiseeDS_Selecting"
+                <asp:ObjectDataSource ID="SearchFranchiseeDS" runat="server" TypeName="SandlerRepositories.FranchiseesRepository" 
+                SelectMethod="sp_GetAllFranchisees" OnSelecting="SearchFranchiseeDS_Selecting"
+                DeleteMethod="ArchiveFranchisee"
                 FilterExpression="([Franchise Name] LIKE '%{0}%') OR ([Last Name] LIKE '%{0}%') OR ([First Name] LIKE '%{0}%') OR ([Primary Office Email] LIKE '%{0}%') OR (OfficePhone LIKE '%{0}%')">
                   <FilterParameters>
                         <asp:ControlParameter ControlID="txtGridSearch" PropertyName="Text" Type="String" />
                   </FilterParameters>
                   <SelectParameters><asp:Parameter Name="_user"  /></SelectParameters>
+                  <DeleteParameters>
+                      <asp:Parameter Name="ID" Type="Int32" />
+                      <asp:ControlParameter Name="CurrentUserId"  ControlID="hidCurrentUserId"/>
+                  </DeleteParameters>
                 </asp:ObjectDataSource>
                 <asp:HiddenField ID="hidFranchiseeID" runat="server" />
+                <asp:HiddenField ID="hidCurrentUserId" runat="server" />
             </td>
         </tr>
     </table>

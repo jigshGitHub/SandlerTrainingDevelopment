@@ -305,6 +305,11 @@
                                                 <a href="Detail.aspx?id=<%#Eval("Id")%>">View Detail...</a>
                                             </ItemTemplate>
                                         </asp:TemplateField>
+                                        <asp:TemplateField ShowHeader="False" HeaderText="Archive">
+                                            <ItemTemplate>
+                                                <a href="ProcessArchive.aspx?mode=false&id=<%#Eval("Id")%>" onclick="return confirm ('Are you sure you want to archive this Pipeline record?');">Archive...</a>
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
                                     </Columns>
                                     <RowStyle BackColor="#EEEEEE" ForeColor="Black" />
                                     <AlternatingRowStyle BackColor="#DCDCDC" />

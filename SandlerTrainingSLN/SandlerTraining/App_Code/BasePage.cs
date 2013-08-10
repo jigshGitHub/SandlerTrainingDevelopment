@@ -193,6 +193,8 @@ public abstract class BasePage : System.Web.UI.Page
 
         items.Add(new SandlerWeb.MenuItem { Id = "Search", Text = "Detailed Search", Link = "~/CRM/HomeOffice/Search.aspx", IsVisible = !IsUserReadOnly(SandlerUserActions.Add, SandlerEntities.HomeOffice) });
         items.Add(new SandlerWeb.MenuItem { Id = "AddFranchisee", Text = "Add New..", Link = "~/CRM/HomeOffice/Add.aspx", IsVisible = !IsUserReadOnly(SandlerUserActions.Add, SandlerEntities.HomeOffice)});
+        items.Add(new SandlerWeb.MenuItem { Id = "ViewArchived", Text = "View Archived Records", Link = "~/CRM/HomeOffice/Archived.aspx", IsVisible = !IsUserReadOnly(SandlerUserActions.Add, SandlerEntities.HomeOffice) });
+
         CRMMenu.Add(new SandlerWeb.Menu { Title = "HomeOffice", IsVisible = true, Items = items.Where(item => item.IsVisible == true).ToList() });
 
     }

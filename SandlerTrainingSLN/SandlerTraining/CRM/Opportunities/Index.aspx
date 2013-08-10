@@ -73,7 +73,7 @@
                         </asp:TemplateField>
                         <asp:TemplateField ShowHeader="False" HeaderText="Archive">
                             <ItemTemplate>
-                                <a href="ProcessArchive.aspx?mode=false&id=<%#Eval("Id")%>" onclick="return confirm ('Are you sure to archive this record?');">Archive...</a>
+                                <a href="ProcessArchive.aspx?mode=false&id=<%#Eval("Id")%>" onclick="return confirm ('Are you sure you want to archive this Pipeline record?');">Archive...</a>
                             </ItemTemplate>
                         </asp:TemplateField>
                     </Columns>
