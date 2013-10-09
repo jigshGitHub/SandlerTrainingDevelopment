@@ -126,8 +126,13 @@
         </tr>
         <tr>
             <td colspan="2">
-                <asp:ObjectDataSource ID="SearchContactDS" runat="server" TypeName="SandlerRepositories.ContactsRepository" SelectMethod="GetAllForSearch" OnSelecting="SearchContactDS_Selecting">
+                <asp:ObjectDataSource ID="SearchContactDS" runat="server" TypeName="SandlerRepositories.ContactsRepository" SelectMethod="GetAllForSearch" 
+                  DeleteMethod="ArchiveContact" OnSelecting="SearchContactDS_Selecting">
                     <SelectParameters><asp:Parameter Name="_user"  /></SelectParameters>
+                    <DeleteParameters>
+                        <asp:Parameter Name="contactsid" Type="Int32" />
+                        <asp:ControlParameter Name="CurrentUserId"  ControlID="hidCurrentUserId"/>
+                    </DeleteParameters>
                     </asp:ObjectDataSource>
                 <asp:HiddenField ID="hidContactID" runat="server" />
                 <asp:HiddenField ID="hidCurrentUserId" runat="server" />

@@ -356,8 +356,8 @@ public partial class CRM_HomeOffice_Detail : BasePage
          Territory,BusinessFocusArea,ClosestMetro);
 
         //Inform the Message
-        LblStatus.Text = "Franchisee informaton updated successfully!";
-        LblStatus1.Text = "Franchisee informaton updated successfully!";
+        LblStatus.Text = "Franchisee information updated successfully!";
+        LblStatus1.Text = "Franchisee information updated successfully!";
 
     }
 
