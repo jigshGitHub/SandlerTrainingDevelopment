@@ -250,6 +250,8 @@
             </td>
         </tr>
     </table>
+    
+    <script type="text/javascript" src="<%= Page.ResolveClientUrl("~/Scripts/jquery.formatCurrency-1.4.0.min.js") %>"></script>
     <script type="text/javascript">
         $(document).ready(function () {
             var weightedValue = '#<%=lblWeightedValue.ClientID%>';

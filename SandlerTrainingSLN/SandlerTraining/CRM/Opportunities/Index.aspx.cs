@@ -55,11 +55,13 @@ public partial class OpportunityIndex : OpportunityBasePage
                        Description = record.Description,
                        Notes = record.Notes,
                        ActualValue = (record.ActualValue.HasValue) ? record.ActualValue.Value.ToString() : "",
-                       Source = record.Source
-
+                       Source = record.Source,
+                       StatusID = record.STATUSID,
+                       SalesRepFN = record.SALESREPFIRSTNAME,
+                       SalesRepLN = record.SALESREPLASTNAME
                    };
         TotalRecords = data.Count();
-
+        TotalValue = data.Sum(r => r.VALUE.Value);
         //var filterRecords = 
         gvOpportunities.DataSource = IQueryableExtensions.Page(IQueryableExtensions.Sort(data, SortExpression, IsAscendigSortOrder), PageSize, CurrentPage).AsQueryable();
         gvOpportunities.DataBind();
@@ -73,6 +75,23 @@ public partial class OpportunityIndex : OpportunityBasePage
     {
         return !IsUserReadOnly(SandlerUserActions.Edit, SandlerEntities.Opportunity); ;
     }
+
+    private void BindFieldsToOpportunity(TBL_OPPORTUNITIES opportunity, GridViewRow row)
+    {
+        opportunity.NAME = (row.FindControl("txtName") as TextBox).Text;
+        if (!string.IsNullOrEmpty((row.FindControl("txtValue") as TextBox).Text))
+            opportunity.VALUE = decimal.Parse((row.FindControl("txtValue") as TextBox).Text);
+        if (!string.IsNullOrEmpty((row.FindControl("txtCloseDt") as TextBox).Text))
+            opportunity.CLOSEDATE = Convert.ToDateTime((row.FindControl("txtCloseDt") as TextBox).Text);
+        opportunity.SALESREPFIRSTNAME = (row.FindControl("txtSalesFN") as TextBox).Text;
+        opportunity.SALESREPLASTNAME = (row.FindControl("txtSalesLN") as TextBox).Text;
+        if ((row.FindControl("ddlProductStatus") as DropDownList).SelectedIndex > 0)
+            opportunity.STATUSID = int.Parse((row.FindControl("ddlProductStatus") as DropDownList).SelectedValue);
+        else
+            opportunity.STATUSID = null;
+        opportunity.Notes = (row.FindControl("txtNotes") as TextBox).Text;
+    }
+
     #region dropdownlists selected index changed events
 
     protected void ddlCreateDefaultSelection(object sender, EventArgs e)
@@ -101,8 +120,7 @@ public partial class OpportunityIndex : OpportunityBasePage
     #region gvOpportunities Events
 
     decimal Weighted_valueTotal = 0;
-    decimal Total_ValueTotal = 0;
-
+    decimal PageValueTotal = 0;
 
     protected void gvOpportunities_DataBound(object sender, EventArgs e)
     {
@@ -122,7 +140,7 @@ public partial class OpportunityIndex : OpportunityBasePage
         {
             // add the UnitPrice and QuantityTotal to the running total variables
             Weighted_valueTotal += Convert.ToDecimal(DataBinder.Eval(e.Row.DataItem, "Weightedvalue"));
-            Total_ValueTotal += Convert.ToDecimal(DataBinder.Eval(e.Row.DataItem, "Value"));
+            PageValueTotal += Convert.ToDecimal(DataBinder.Eval(e.Row.DataItem, "Value"));
             e.Row.Cells[10].Visible = IsArchiveVisible();
         }
         else if (e.Row.RowType == DataControlRowType.Header)
@@ -131,9 +149,9 @@ public partial class OpportunityIndex : OpportunityBasePage
         }
         else if (e.Row.RowType == DataControlRowType.Footer)
         {
-            e.Row.Cells[1].Text = "Total";
-            e.Row.Cells[4].Text = Weighted_valueTotal.ToString("c");
-            e.Row.Cells[5].Text = Total_ValueTotal.ToString("c");
+            e.Row.Cells[2].Text = "Page Total<br />Grand Total";
+            //e.Row.Cells[4].Text = Weighted_valueTotal.ToString("c");
+            e.Row.Cells[5].Text = string.Format("{0}<br />{1}",PageValueTotal.ToString("c"), TotalValue.ToString("c"));
 
             e.Row.Cells[1].HorizontalAlign = e.Row.Cells[4].HorizontalAlign = e.Row.Cells[5].HorizontalAlign = HorizontalAlign.Center;
             e.Row.Font.Bold = true;
@@ -155,6 +173,29 @@ public partial class OpportunityIndex : OpportunityBasePage
         BindOpportunitiesForAComnpany(CompanyID);
     }
 
+    protected void gvOpportunities_Editing(object sender, GridViewEditEventArgs e)
+    {
+        gvOpportunities.EditIndex = e.NewEditIndex;
+        BindOpportunitiesForAComnpany(CompanyID);
+    }
+    
+    protected void gvOpportunities_CancelEditing(object sender, GridViewCancelEditEventArgs e)
+    {
+        gvOpportunities.EditIndex = -1;
+        BindOpportunitiesForAComnpany(CompanyID);
+    }
+
+    protected void gvOpportunities_RowUpdating(object sender, GridViewUpdateEventArgs e)
+    {
+        TBL_OPPORTUNITIES opportunity = GetOpportunity(int.Parse(e.Keys[0].ToString()));
+
+        BindFieldsToOpportunity(opportunity, gvOpportunities.Rows[e.RowIndex] as GridViewRow);
+        
+        Update(opportunity);
+        gvOpportunities.EditIndex = -1;
+        BindOpportunitiesForAComnpany(CompanyID);
+    }
+    
     #endregion
 
     #region Excel downloading

@@ -260,4 +260,10 @@ public abstract class BasePage : System.Web.UI.Page
                 }
         }
     }
+
+    protected virtual void RefreshEntities()
+    {
+        userEntities = null;
+        userEntities = new UserEntities(CurrentUser);
+    }
 }

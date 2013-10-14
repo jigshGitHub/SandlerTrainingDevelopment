@@ -23,6 +23,18 @@ public class OpportunityBasePage : BasePage
             ViewState["CompanyID"] = value;
         }
     }
+
+    public decimal TotalValue
+    {
+        get
+        {
+            return decimal.Parse(ViewState["TotalValue"].ToString());
+        }
+        set
+        {
+            ViewState["TotalValue"] = value;
+        }
+    }
     public OpportunityBasePage()
     {
     }
@@ -126,7 +138,7 @@ public class OpportunityBasePage : BasePage
     {
         OpportunitiesRepository opportunitySource = new OpportunitiesRepository();
         opportunitySource.Update(opportunity);
-        UserEntitiesFactory.ReLoad();
+        RefreshEntities();
         return opportunity;
     }
 
