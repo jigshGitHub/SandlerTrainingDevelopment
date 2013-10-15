@@ -4,12 +4,31 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Data;
 
 public partial class CRM_QuickStart_Index : BasePage
 {
     protected void Page_Load(object sender, EventArgs e)
     {
+        BindData();
+    }
+    private void BindData()
+    {
+       DataTable _dt = new DataTable();
+       _dt.Rows.Add(_dt.NewRow());
+    //    gvNotesHistory.DataSource = _dt;
+    //    gvNotesHistory.DataBind();
+    //    int columnsCount = gvNotesHistory.Columns.Count;
+    //    gvNotesHistory.Rows[0].Cells.Clear();// clear all the cells in the row
+    //    gvNotesHistory.Rows[0].Cells.Add(new TableCell()); //add a new blank cell
+    //    gvNotesHistory.Rows[0].Cells[0].ColumnSpan = columnsCount; //set the column span to the new added cell
 
+    //    //You can set the styles here
+    //    gvNotesHistory.Rows[0].Cells[0].HorizontalAlign = HorizontalAlign.Center;
+    //    gvNotesHistory.Rows[0].Cells[0].ForeColor = System.Drawing.Color.Black;
+    //    gvNotesHistory.Rows[0].Cells[0].Font.Bold = true;
+    //    //set No Results found to the new added cell
+    //    gvNotesHistory.Rows[0].Cells[0].Text = "No Record Found.";
     }
     protected void dvQuickStart_ItemInserted(object sender, DetailsViewInsertedEventArgs e)
     {
@@ -29,6 +48,55 @@ public partial class CRM_QuickStart_Index : BasePage
         if (e.CancelingEdit)
         {
             Response.Redirect("~/Default.aspx");
+        }
+    }
+    protected void ddlRegForTraining_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        DropDownList ddlRegForTraining = new DropDownList();
+        ddlRegForTraining = (DropDownList)dvQuickStart.FindControl("ddlRegForTraining");
+        if ((ddlRegForTraining != null))
+        {
+            if (ddlRegForTraining.SelectedValue == "1")
+            {
+
+                DropDownList ddlCourse = (DropDownList)dvQuickStart.FindControl("ddlCourse");
+                if (ddlCourse.SelectedValue == "0")
+                {
+                    (dvQuickStart.FindControl("rfvCourse") as RequiredFieldValidator).Enabled = true;
+                    (dvQuickStart.FindControl("mandlbl48") as Label).Visible = true;
+                }
+                TextBox CourseTrngDate = (TextBox)dvQuickStart.FindControl("CourseTrngDate");
+                if (CourseTrngDate.Text == "")
+                {
+                    (dvQuickStart.FindControl("reqFieldCourseTrngDate") as RequiredFieldValidator).Enabled = true;
+                    (dvQuickStart.FindControl("mandlbl49") as Label).Visible = true;
+
+                }
+                TextBox txtTrngCourseName = (TextBox)dvQuickStart.FindControl("txtTrngCourseName");
+                if (txtTrngCourseName.Text == "")
+                {
+                    (dvQuickStart.FindControl("rFVTrngCourseName") as RequiredFieldValidator).Enabled = true;
+                    (dvQuickStart.FindControl("mandlbl50") as Label).Visible = true;
+                }
+                TextBox txtHowManyAttended = (TextBox)dvQuickStart.FindControl("txtHowManyAttended");
+                if (txtHowManyAttended.Text == "")
+                {
+                    (dvQuickStart.FindControl("rFVHowManyAttended") as RequiredFieldValidator).Enabled = true;
+                    (dvQuickStart.FindControl("mandlbl51") as Label).Visible = true;
+                }
+            }
+            else
+            {                
+                (dvQuickStart.FindControl("rfvCourse") as RequiredFieldValidator).Enabled = false;
+                (dvQuickStart.FindControl("mandlbl48") as Label).Visible = false;                
+                (dvQuickStart.FindControl("reqFieldCourseTrngDate") as RequiredFieldValidator).Enabled = false;
+                (dvQuickStart.FindControl("mandlbl49") as Label).Visible = false;                
+                (dvQuickStart.FindControl("rFVTrngCourseName") as RequiredFieldValidator).Enabled = false;
+                (dvQuickStart.FindControl("mandlbl50") as Label).Visible = false;                
+                (dvQuickStart.FindControl("rFVHowManyAttended") as RequiredFieldValidator).Enabled = false;
+                (dvQuickStart.FindControl("mandlbl51") as Label).Visible = false;                
+            }
+
         }
     }
     protected void dvQuickStart_DataBound(object sender, EventArgs e)
@@ -118,10 +186,36 @@ public partial class CRM_QuickStart_Index : BasePage
             Industry.Items.Insert(0, selectItem);
 
         }
-        
-       
+         //Find out Loggedin User's First and Last Name for Auto Polulatation
+        SandlerRepositories.CompaniesRepository companyRepository = new SandlerRepositories.CompaniesRepository();
+        System.Data.DataSet ds = companyRepository.GetFirstLastNameInfo(CurrentUser.UserId.ToString());
+
+        string FName = "";
+        string LName = "";
+
+        if (ds.Tables[0].Rows.Count > 0)
+        {
+            FName = ds.Tables[0].Rows[0].ItemArray[0].ToString();
+            LName = ds.Tables[0].Rows[0].ItemArray[1].ToString();
+
+        }
+
+        TextBox SalesRepLastName = new TextBox();
+        SalesRepLastName = (TextBox)dvQuickStart.FindControl("txtSalesRepLastName");
+        if (SalesRepLastName != null)
+        {
+            SalesRepLastName.Text = LName;
+        }
+        TextBox SalesRepFirstName = new TextBox();
+        SalesRepFirstName = (TextBox)dvQuickStart.FindControl("txtSalesRepFirstName");
+        if (SalesRepFirstName != null)
+        {
+            SalesRepFirstName.Text = FName;
+        }
 
 
 
     }
+
+
 }
