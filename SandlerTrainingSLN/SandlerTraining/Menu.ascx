@@ -114,7 +114,14 @@
 
                     <li><a id="a1" runat="server" href="#">CRM</a>
                       <ul class="sub_menu">
-                        <li><a id="quickstartAnchor" runat="server" visible="false">QuickStart</a></li>
+                        <li><a id="quickstartAnchor" runat="server" visible="false">QuickStart</a>
+                            <ul class="sub_menu">
+                                <li><a href="<%=  Page.ResolveClientUrl("~/CRM/Quickstart/Index.aspx")  %>">
+                                    Add</a></li>
+                                <li><a href="<%=  Page.ResolveClientUrl("~/CRM/Quickstart/Edit.aspx")  %>">
+                                    Edit</a></li>
+                            </ul>
+                        </li>
                         <li><a id="companyAnchor" runat="server">Companies</a></li>
                         <li><a id="contactAnchor" runat="server">Contacts</a></li>
                         <li><a id="oppsAnchor" runat="server">Pipeline</a></li>

@@ -412,7 +412,7 @@ public partial class CRM_QuickStart_Index : OpportunityBasePage
     {
         UpdateQuickStartInformation();
         GetQuickStartInformation();
-
+        BindNotesHistory();
     }
     protected void LinkButton2_Click(object sender, EventArgs e)
     {

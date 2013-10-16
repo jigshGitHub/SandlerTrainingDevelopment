@@ -101,7 +101,7 @@ public partial class Menu : System.Web.UI.UserControl
                 || thisPage.CurrentUser.Role == SandlerModels.SandlerRoles.Coach)
             {
                 link = ((HtmlAnchor)FindControl("quickstartAnchor"));
-                link.HRef = "~/CRM/QuickStart/Index.aspx";
+                //link.HRef = "~/CRM/QuickStart/Index.aspx";
                 link.Visible = true;
             }
             //Home Office Report Anchor
