@@ -18,11 +18,11 @@ public partial class CRM_QuickStart_Index : OpportunityBasePage
         }
         BindData();
     }
-  
+
     private void BindData()
     {
-       DataTable _dt = new DataTable();
-       _dt.Rows.Add(_dt.NewRow());
+        DataTable _dt = new DataTable();
+        _dt.Rows.Add(_dt.NewRow());
         //gvNotesHistory.DataSource = _dt;
         //gvNotesHistory.DataBind();
         //int columnsCount = gvNotesHistory.Columns.Count;
@@ -37,21 +37,25 @@ public partial class CRM_QuickStart_Index : OpportunityBasePage
         ////set No Results found to the new added cell
         //gvNotesHistory.Rows[0].Cells[0].Text = "No Record Found.";
     }
-    
-   
-   
-     private void BindQuickStartInformation(int companyId,int opportunityID)
+
+
+
+    private void BindQuickStartInformation(int companyId, int opportunityID)
     {
         QuickStartRepository quickStartRepository = new QuickStartRepository();
         DataSet ds = new DataSet();
         ds = quickStartRepository.GetQuickStartInformationByCompanyandOpportunityIDs(companyId, opportunityID);
         //dvQuickStart.DataSource = ds;
         //dvQuickStart.DataBind();
-     }
+    }
 
-     private void BindNotesHistory()
-     {
-     }
+    private void BindNotesHistory()
+    {
+        QuickStartRepository repository = new QuickStartRepository();
+        gvNotesHistory.DataSource = repository.GetOpportunityHistory(int.Parse(ddlCompany.SelectedValue), int.Parse(ddlOpportunity.SelectedValue));
+        gvNotesHistory.DataBind();
+    }
+
     public void GetQuickStartInformation()
     {
         //Now get the details
@@ -73,10 +77,10 @@ public partial class CRM_QuickStart_Index : OpportunityBasePage
         txtCostToFix.Text = ds.Tables[0].Rows[0]["CostToFix"].ToString();
         if (ds.Tables[0].Rows[0]["IsBudgeIdentified"] != null && ds.Tables[0].Rows[0]["IsBudgeIdentified"] != "")
         {
-            if(ds.Tables[0].Rows[0]["IsBudgeIdentified"].ToString() == "True")            
-                ddlBudgeIdentified.SelectedValue = "1";            
+            if (ds.Tables[0].Rows[0]["IsBudgeIdentified"].ToString() == "True")
+                ddlBudgeIdentified.SelectedValue = "1";
             else
-                ddlBudgeIdentified.SelectedValue="0";
+                ddlBudgeIdentified.SelectedValue = "0";
         }
         if (ds.Tables[0].Rows[0]["IsMoveForward"] != null && ds.Tables[0].Rows[0]["IsMoveForward"] != "")
         {
@@ -86,25 +90,25 @@ public partial class CRM_QuickStart_Index : OpportunityBasePage
                 ddlMoveForward.SelectedValue = "0";
         }
         if (ds.Tables[0].Rows[0]["ProductID"] != null && ds.Tables[0].Rows[0]["ProductID"] != "")
-        {   
-            ddlProducts.SelectedValue = ds.Tables[0].Rows[0]["ProductID"].ToString();           
+        {
+            ddlProducts.SelectedValue = ds.Tables[0].Rows[0]["ProductID"].ToString();
         }
         if (ds.Tables[0].Rows[0]["STATUSID"] != null && ds.Tables[0].Rows[0]["STATUSID"] != "")
         {
-           ddlOppStatus.SelectedValue = ds.Tables[0].Rows[0]["STATUSID"].ToString();
-           
+            ddlOppStatus.SelectedValue = ds.Tables[0].Rows[0]["STATUSID"].ToString();
+
         }
         if (ds.Tables[0].Rows[0]["SourceID"] != null && ds.Tables[0].Rows[0]["SourceID"] != "")
         {
             ddlOppSource.SelectedValue = ds.Tables[0].Rows[0]["SourceID"].ToString();
-            
+
         }
         if (ds.Tables[0].Rows[0]["TypeID"] != null && ds.Tables[0].Rows[0]["TypeID"] != "")
         {
             ddlOppType.SelectedValue = ds.Tables[0].Rows[0]["TypeID"].ToString();
-            
+
         }
-        
+
         if (ds.Tables[0].Rows[0]["IsNewCompany"] != null && ds.Tables[0].Rows[0]["IsNewCompany"] != "")
         {
             if (ds.Tables[0].Rows[0]["IsNewCompany"].ToString() == "True")
@@ -115,7 +119,7 @@ public partial class CRM_QuickStart_Index : OpportunityBasePage
         if (ds.Tables[0].Rows[0]["ApptSourceId"] != null && ds.Tables[0].Rows[0]["ApptSourceId"] != "")
         {
             ddlApptSource.SelectedValue = ds.Tables[0].Rows[0]["ApptSourceId"].ToString();
-            
+
         }
         if (ds.Tables[0].Rows[0]["IsRegisteredForTraining"] != null && ds.Tables[0].Rows[0]["IsRegisteredForTraining"] != "")
         {
@@ -127,7 +131,7 @@ public partial class CRM_QuickStart_Index : OpportunityBasePage
         if (ds.Tables[0].Rows[0]["CourseId"] != null && ds.Tables[0].Rows[0]["CourseId"].ToString().Trim() != "")
         {
             ddlCourse.SelectedValue = ds.Tables[0].Rows[0]["CourseId"].ToString();
-            
+
         }
         if (ds.Tables[0].Rows[0]["IsNewCompany"] != null && ds.Tables[0].Rows[0]["IsNewCompany"] != "")
         {
@@ -139,18 +143,18 @@ public partial class CRM_QuickStart_Index : OpportunityBasePage
         if (ds.Tables[0].Rows[0]["IndustryId"] != null && ds.Tables[0].Rows[0]["IndustryId"] != "")
         {
             ddlIndustry.SelectedValue = ds.Tables[0].Rows[0]["IndustryId"].ToString();
-            
+
         }
-        
+
         txtOpportunityValue.Text = ds.Tables[0].Rows[0]["VALUE"].ToString();
         txtActStep.Text = ds.Tables[0].Rows[0]["ACTIONSTEP"].ToString();
         CourseTrngDate.Text = ds.Tables[0].Rows[0]["CourseTrainingDate"].ToString();
         txtTrngCourseName.Text = ds.Tables[0].Rows[0]["CourseName"].ToString();
-        txtHowManyAttended.Text = ds.Tables[0].Rows[0]["HowManyAttended"].ToString();     
+        txtHowManyAttended.Text = ds.Tables[0].Rows[0]["HowManyAttended"].ToString();
         NextContactDate.Text = ds.Tables[0].Rows[0]["NEXT_CONTACT_DATE"].ToString();
         OppCloseDate.Text = ds.Tables[0].Rows[0]["CLOSEDATE"].ToString();
-        txtNotes.Text = "";
-
+        txtNotes.Text = ds.Tables[0].Rows[0]["notes"].ToString();
+        hdnContactID.Value = ds.Tables[0].Rows[0]["ContactID"].ToString();
     }
     protected void ddlOpportunity_SelectedIndexChanged(object sender, EventArgs e)
     {
@@ -328,40 +332,34 @@ public partial class CRM_QuickStart_Index : OpportunityBasePage
 
     }
     protected void ddlCompany_SelectedIndexChanged(object sender, EventArgs e)
-    {
-
+    {        
         CompanyID = int.Parse(ddlCompany.SelectedValue);
         if (CompanyID != 0)
             BindOpportunitiesForAComnpany(CompanyID);
-        else
-        {
-            
+        //else
             ClearFields();
-        }
-
     }
+
     private void ClearFields()
     {
-        if (ddlCompany.SelectedValue == "0")
-        {
-            ListItem selectItem = new ListItem("--Select Opportunity--", "0");
-            ddlOpportunity.Items.Insert(0, selectItem);
-            txtCompName.Text = "";
-        }
-        else
-            ddlOpportunity.SelectedValue = "0";
-        txtFirstName.Text="";
+        //if (ddlCompany.SelectedValue == "0")
+        //{
+        //}
+        //else
+        //ddlOpportunity.SelectedIndex = 0;
+        txtCompName.Text = "";
+        txtFirstName.Text = "";
         txtLastName.Text = "";
         txtPhone.Text = "";
         txtEmail.Text = "";
         txtOppName.Text = "";
         txtSalesRepLastName.Text = "";
         txtSalesRepFirstName.Text = "";
-         txtPain.Text = "";
-         txtLengthOfProblem.Text = "";
-         txtAlternatives.Text = "";
-         txtCostToFix.Text = "";
-         ddlBudgeIdentified.SelectedValue = "0";
+        txtPain.Text = "";
+        txtLengthOfProblem.Text = "";
+        txtAlternatives.Text = "";
+        txtCostToFix.Text = "";
+        ddlBudgeIdentified.SelectedValue = "0";
         ddlMoveForward.SelectedValue = "0";
         ddlProducts.SelectedValue = "0";
         ddlOppStatus.SelectedValue = "0";
@@ -380,7 +378,7 @@ public partial class CRM_QuickStart_Index : OpportunityBasePage
         ddlIndustry.SelectedValue = "0";
         NextContactDate.Text = "";
         OppCloseDate.Text = "";
-        txtNotes.Text = "";       
+        txtNotes.Text = "";
 
     }
 
@@ -388,25 +386,25 @@ public partial class CRM_QuickStart_Index : OpportunityBasePage
     {
         QuickStartRepository quickStartRepositoryUpdate = new QuickStartRepository();
         quickStartRepositoryUpdate.UpdateQuickStartRecord(txtCompName.Text,
-            txtFirstName.Text,txtLastName.Text,txtPhone.Text,
-            txtEmail.Text,txtOppName.Text,txtSalesRepLastName.Text,txtSalesRepFirstName.Text,
-            txtPain.Text,txtLengthOfProblem.Text,txtAlternatives.Text,txtCostToFix.Text,
-            int.Parse(ddlBudgeIdentified.SelectedValue),int.Parse(ddlMoveForward.SelectedValue),int.Parse(ddlProducts.SelectedValue),
-            int.Parse(ddlOppStatus.SelectedValue),int.Parse(ddlOppSource.SelectedValue),int.Parse(ddlOppType.SelectedValue),
-            txtOpportunityValue.Text,txtActStep.Text,int.Parse(ddlAccount.SelectedValue),int.Parse(ddlApptSource.SelectedValue),
-            int.Parse(ddlRegForTraining.SelectedValue),int.Parse(ddlCourse.SelectedValue),
+            txtFirstName.Text, txtLastName.Text, txtPhone.Text,
+            txtEmail.Text, txtOppName.Text, txtSalesRepLastName.Text, txtSalesRepFirstName.Text,
+            txtPain.Text, txtLengthOfProblem.Text, txtAlternatives.Text, txtCostToFix.Text,
+            int.Parse(ddlBudgeIdentified.SelectedValue), int.Parse(ddlMoveForward.SelectedValue), int.Parse(ddlProducts.SelectedValue),
+            int.Parse(ddlOppStatus.SelectedValue), int.Parse(ddlOppSource.SelectedValue), int.Parse(ddlOppType.SelectedValue),
+            txtOpportunityValue.Text, txtActStep.Text, int.Parse(ddlAccount.SelectedValue), int.Parse(ddlApptSource.SelectedValue),
+            int.Parse(ddlRegForTraining.SelectedValue), int.Parse(ddlCourse.SelectedValue),
             DateTime.Now,
             //DateTime.ParseExact(CourseTrngDate.Text, "M/d/yyyy h:mm:ss tt", CultureInfo.InvariantCulture),
-            txtTrngCourseName.Text,txtHowManyAttended.Text,
+            txtTrngCourseName.Text, txtHowManyAttended.Text,
             int.Parse(ddlIsNewCompany.SelectedValue),
             int.Parse(ddlIndustry.SelectedValue), DateTime.Now,//DateTime.ParseExact(NextContactDate.Text, "M/d/yyyy h:mm:ss tt", CultureInfo.InvariantCulture),
             //DateTime.ParseExact(OppCloseDate.Text, "M/d/yyyy h:mm:ss tt", CultureInfo.InvariantCulture),
             DateTime.Now,
-            txtNotes.Text,CurrentUser,
-           int.Parse(ddlCompany.SelectedValue), int.Parse(ddlOpportunity.SelectedValue));
+            txtNotes.Text, CurrentUser,
+           int.Parse(ddlCompany.SelectedValue), int.Parse(ddlOpportunity.SelectedValue), int.Parse(hdnContactID.Value));
         //DateTime.ParseExact(NextContactDate, "yyyyMMddHHmm", CultureInfo.InvariantCulture);
-        
-         
+
+        lblResult.Text = "Data updated successfully";
     }
 
 

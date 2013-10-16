@@ -21,6 +21,8 @@ namespace SandlerModels
         public Nullable<bool> IsActive { get; set; }
         public Nullable<System.DateTime> CreatedOn { get; set; }
         public string Phone { get; set; }
+        public string Topic { get; set; }
+        public Nullable<System.DateTime> StartTime { get; set; }
     
         internal aspnet_Users aspnet_Users { get; set; }
     }

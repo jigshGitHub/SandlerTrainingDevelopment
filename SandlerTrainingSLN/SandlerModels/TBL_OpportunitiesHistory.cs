@@ -12,23 +12,21 @@ using System.Collections.Generic;
 
 namespace SandlerModels
 {
-    public partial class TBL_OpportunityWhyLost
+    public partial class TBL_OpportunitiesHistory
     {
-        public TBL_OpportunityWhyLost()
-        {
-            this.TBL_OPPORTUNITIES = new HashSet<TBL_OPPORTUNITIES>();
-        }
-    
         public int ID { get; set; }
-        public string Name { get; set; }
-        public Nullable<bool> IsActive { get; set; }
-        public Nullable<System.Guid> CreateBy { get; set; }
+        public int OpportunityID { get; set; }
+        public int CompanyID { get; set; }
+        public int ContactID { get; set; }
+        public string Notes { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }
-        public Nullable<System.Guid> LastUpdateBy { get; set; }
-        public Nullable<System.DateTime> LastUpdatedDate { get; set; }
-        public Nullable<int> SortOrder { get; set; }
+        public Nullable<System.DateTime> UpdatedDate { get; set; }
+        public Nullable<System.Guid> CreatedBy { get; set; }
+        public Nullable<System.Guid> UpdatedBy { get; set; }
     
-        internal ICollection<TBL_OPPORTUNITIES> TBL_OPPORTUNITIES { get; set; }
+        internal TBL_COMPANIES TBL_COMPANIES { get; set; }
+        internal TBL_CONTACTS TBL_CONTACTS { get; set; }
+        internal TBL_OPPORTUNITIES TBL_OPPORTUNITIES { get; set; }
     }
     
 }

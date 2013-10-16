@@ -180,6 +180,9 @@
     <Compile Include="TBL_OPPORTUNITIES.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="TBL_OpportunitiesHistory.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="TBL_OpportunitySource.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>

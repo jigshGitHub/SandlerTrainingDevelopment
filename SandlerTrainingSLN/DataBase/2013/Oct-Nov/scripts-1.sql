@@ -88,8 +88,10 @@ o.CostToFix,
 o.Alternatives,
 o.IsBudgeIdentified,
 o.IsMoveForward,
+o.CreatedBy,
+o.UpdatedBy,
 uCreated.Username as CreatedByUserName,
-uUpdated.Username as UpdatedBy
+uUpdated.Username as UpdatedByUserName
 FROM dbo.[TBL_OPPORTUNITIES] o WITH (NOLOCK)
 INNER JOIN dbo.[TBL_COMPANIES] cmp WITH (NOLOCK) ON cmp.COMPANIESID = o.COMPANYID-- AND cmp.IsActive = 1
 INNER JOIN dbo.[TBL_CONTACTS] cnt WITH (NOLOCK) ON cnt.CONTACTSID = o.CONTACTID-- AND cnt.IsActive = 1
@@ -110,15 +112,30 @@ LEFT JOIN dbo.aspnet_users uUpdated WITH (NOLOCK) ON uUpdated.userid = o.updated
 GO
 
 
-/****** Object:  Table [dbo].[TBL_OpportunitiesHistory]    Script Date: 10/09/2013 23:34:05 ******/
+GO
+
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_TBL_OpportunitiesHistory_TBL_COMPANIES]') AND parent_object_id = OBJECT_ID(N'[dbo].[TBL_OpportunitiesHistory]'))
+ALTER TABLE [dbo].[TBL_OpportunitiesHistory] DROP CONSTRAINT [FK_TBL_OpportunitiesHistory_TBL_COMPANIES]
+GO
+
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_TBL_OpportunitiesHistory_TBL_CONTACTS]') AND parent_object_id = OBJECT_ID(N'[dbo].[TBL_OpportunitiesHistory]'))
+ALTER TABLE [dbo].[TBL_OpportunitiesHistory] DROP CONSTRAINT [FK_TBL_OpportunitiesHistory_TBL_CONTACTS]
+GO
+
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_TBL_OpportunitiesHistory_TBL_OPPORTUNITIES]') AND parent_object_id = OBJECT_ID(N'[dbo].[TBL_OpportunitiesHistory]'))
+ALTER TABLE [dbo].[TBL_OpportunitiesHistory] DROP CONSTRAINT [FK_TBL_OpportunitiesHistory_TBL_OPPORTUNITIES]
+GO
+
+GO
+
+/****** Object:  Table [dbo].[TBL_OpportunitiesHistory]    Script Date: 10/15/2013 23:56:23 ******/
 IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[TBL_OpportunitiesHistory]') AND type in (N'U'))
 DROP TABLE [dbo].[TBL_OpportunitiesHistory]
 GO
 
-
 GO
 
-/****** Object:  Table [dbo].[TBL_OpportunitiesHistory]    Script Date: 10/09/2013 23:34:05 ******/
+/****** Object:  Table [dbo].[TBL_OpportunitiesHistory]    Script Date: 10/15/2013 23:56:23 ******/
 SET ANSI_NULLS ON
 GO
 
@@ -134,8 +151,7 @@ CREATE TABLE [dbo].[TBL_OpportunitiesHistory](
 	[CreatedDate] [datetime] NULL,
 	[UpdatedDate] [datetime] NULL,
 	[CreatedBy] [uniqueidentifier] NULL,
-	[UpdatedBy] [uniqueidentifier] NULL
-	
+	[UpdatedBy] [uniqueidentifier] NULL,
  CONSTRAINT [PK_TBL_NotesHistory] PRIMARY KEY CLUSTERED 
 (
 	[ID] ASC
@@ -144,10 +160,27 @@ CREATE TABLE [dbo].[TBL_OpportunitiesHistory](
 
 GO
 
-
-
-
+ALTER TABLE [dbo].[TBL_OpportunitiesHistory]  WITH CHECK ADD  CONSTRAINT [FK_TBL_OpportunitiesHistory_TBL_COMPANIES] FOREIGN KEY([CompanyID])
+REFERENCES [dbo].[TBL_COMPANIES] ([COMPANIESID])
 GO
+
+ALTER TABLE [dbo].[TBL_OpportunitiesHistory] CHECK CONSTRAINT [FK_TBL_OpportunitiesHistory_TBL_COMPANIES]
+GO
+
+ALTER TABLE [dbo].[TBL_OpportunitiesHistory]  WITH CHECK ADD  CONSTRAINT [FK_TBL_OpportunitiesHistory_TBL_CONTACTS] FOREIGN KEY([ContactID])
+REFERENCES [dbo].[TBL_CONTACTS] ([CONTACTSID])
+GO
+
+ALTER TABLE [dbo].[TBL_OpportunitiesHistory] CHECK CONSTRAINT [FK_TBL_OpportunitiesHistory_TBL_CONTACTS]
+GO
+
+ALTER TABLE [dbo].[TBL_OpportunitiesHistory]  WITH CHECK ADD  CONSTRAINT [FK_TBL_OpportunitiesHistory_TBL_OPPORTUNITIES] FOREIGN KEY([OpportunityID])
+REFERENCES [dbo].[TBL_OPPORTUNITIES] ([ID])
+GO
+
+ALTER TABLE [dbo].[TBL_OpportunitiesHistory] CHECK CONSTRAINT [FK_TBL_OpportunitiesHistory_TBL_OPPORTUNITIES]
+GO
+
 
 /****** Object:  StoredProcedure [dbo].[sp_InsertQuickStartRecord]    Script Date: 10/09/2013 23:35:28 ******/
 IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[sp_InsertQuickStartRecord]') AND type in (N'P', N'PC'))
@@ -690,3 +723,261 @@ AS
 		VALUES (@OpportunityID, @CompanyID,@ContactID,@notes,getdate(),@createdBy);
 	end
 GO
+
+GO
+
+/****** Object:  StoredProcedure [dbo].[sp_GetQuickStartInformationByCompanyandOpportunityIDs]    Script Date: 10/15/2013 23:53:33 ******/
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[sp_GetQuickStartInformationByCompanyandOpportunityIDs]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[sp_GetQuickStartInformationByCompanyandOpportunityIDs]
+GO
+
+GO
+
+/****** Object:  StoredProcedure [dbo].[sp_GetQuickStartInformationByCompanyandOpportunityIDs]    Script Date: 10/15/2013 23:53:33 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE Procedure [dbo].[sp_GetQuickStartInformationByCompanyandOpportunityIDs](@CompanyID int, @OpportunityID int)
+As
+Select * from vw_Opportunities Where COMPANYID = @CompanyID AND id = @OpportunityID
+GO
+
+GO
+
+/****** Object:  StoredProcedure [dbo].[sp_UpdateQuickStartRecord]    Script Date: 10/15/2013 23:53:50 ******/
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[sp_UpdateQuickStartRecord]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[sp_UpdateQuickStartRecord]
+GO
+
+GO
+
+/****** Object:  StoredProcedure [dbo].[sp_UpdateQuickStartRecord]    Script Date: 10/15/2013 23:53:50 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+
+
+
+
+
+CREATE PROCEDURE [dbo].[sp_UpdateQuickStartRecord]
+	(	
+		@COMPANYNAME varchar(150), 
+		@FirstName varchar(50),@LastName varchar(50),
+		@Phone varchar(50),@Email varchar(50),
+		@OPPNAME varchar(100),@Pain varchar(100),
+		@LengthProblem varchar(30), @Alternatives varchar(100),
+		@CostToFix varchar(30),@BudgeIdentifiedValue int,@MoveForwardValue int,
+		@ProductID int, @OppStatusID int,@OppSourceID int,@OppTypeID int,
+		@OPPVALUE varchar(100),@ACTIONSTEP varchar(150),
+		@NewAppointment int,@AppointmentSource int,@RegisteredForTraining int,@CourseType int,
+		@CourseTrainingDate datetime,@TrainingCourseName varchar(150),@HeadCount varchar(150),@IsNewcompany int,@Industry int,
+		@NextContactDate datetime,@OppCloseDate datetime,
+		@CreatedBy varchar(100),
+		@LoggedInUserName varchar(100),
+		@FranchiseeId int,
+		@SalesRepLastName varchar(100),
+		@SalesRepFirstName varchar(100),
+		@Notes varchar(1000),
+		@CompanyID int,
+		@OpportunityID int,
+		@ContactID int
+	 )
+AS
+
+	declare @CreationDate datetime
+	declare @userFirstName varchar(100)
+	declare @userLastName varchar(100)
+	
+	Set @userFirstName = ( select FirstName from tbl_coach where  UserID=@CreatedBy
+							union
+							Select  FirstName from TBL_FRANCHISEE_USERS where  UserID=@CreatedBy
+						)
+						
+	Set @userLastName = ( select LastName from tbl_coach where  UserID=@CreatedBy
+		union
+		Select  LastName from TBL_FRANCHISEE_USERS where  UserID=@CreatedBy
+	)
+
+
+		
+	Set @CreationDate = GETDATE()
+	
+	if @NextContactDate < '2/1/1755'
+	Begin
+	  Set @NextContactDate = null
+	End	
+	
+	if @OppCloseDate < '2/1/1755'
+	Begin
+	  Set @OppCloseDate = null
+	End
+	if @CourseTrainingDate < '2/1/1755'
+	Begin
+	  Set @CourseTrainingDate = null
+	End
+	
+	if(@ProductID = 0) 
+ 
+	Begin
+
+	 Set @ProductID = null
+
+	 End
+	
+	if(@OppStatusID = 0) 
+ 
+	Begin
+
+	 Set @OppStatusID = null
+
+	 End
+	
+	if(@OppSourceID = 0) 
+ 
+	Begin
+
+	 Set @OppSourceID = null
+
+	 End
+	
+	if(@OppTypeID = 0) 
+ 
+	Begin
+
+	 Set @OppTypeID = null
+
+	 End
+	 	
+	 if(@NewAppointment = 0) 
+ 
+	Begin
+
+	 Set @NewAppointment = null
+
+	 End
+	  if(@AppointmentSource = 0) 
+ 
+	Begin
+
+	 Set @AppointmentSource = null
+
+	 End
+	  if(@RegisteredForTraining = 0) 
+ 
+	Begin
+
+	 Set @RegisteredForTraining = null
+
+	 End
+	  if(@CourseType = 0) 
+ 
+	Begin
+
+	 Set @CourseType = null
+
+	 End
+	   if(@Industry = 0) 
+ 
+	Begin
+
+	 Set @Industry = null
+
+	 End
+	 if(@IsNewcompany = 0) 
+ 
+	Begin
+
+	 Set @IsNewcompany = null
+
+	 End
+		
+	
+	BEGIN
+		--First Let us create record in the Tbl_Companies
+		UPDATE TBL_COMPANIES 
+		SET
+		POCEmail = @Email,
+		POCPhone = @Phone,
+		POCFirstName = @FirstName,
+		POCLastName = @LastName,
+		COMPANYNAME = @CompanyName,
+		IsActive=1,
+		UpdatedDate = @CreationDate,
+		UpdatedBy = @CreatedBy,		
+		--NEXTCONTACT_DATE = @NextContactDate,
+		FranchiseeId = @FranchiseeId,
+		IsSameBillingAddress = 0,
+		IsNewCompany =@IsNewcompany,
+		IndustryId = @Industry,
+		ACTIONSTEP = @ACTIONSTEP
+		WHERE COMPANIESID = @companyID;
+		
+		
+		-- Now user this Company Id and create record in the Contact Table
+		UPDATE TBL_CONTACTS
+		SET 
+		LASTNAME = @LastName,
+		FIRSTNAME = @FirstName,
+		PHONE = @Phone,
+		EMAIL = @Email,
+		--NEXT_CONTACT_DATE = @NextContactDate,
+		IsActive =1 ,
+		UpdatedDate = @CreationDate,
+		UpdatedBy = @CreatedBy,
+		IsEmailSubscription =1,
+		IsNeedCallBack = 0,
+		IsRegisteredForTraining = @RegisteredForTraining,
+		IsNewAppointment = @NewAppointment,
+		ApptSourceId = @AppointmentSource,
+		CourseId =@CourseType,
+		--CourseTrainingDate =@CourseTrainingDate,
+		TrainingCourseName = @TrainingCourseName,
+		HowManyAttended = @HeadCount,
+		ACTIONSTEP = @ACTIONSTEP
+		WHERE CONTACTSID  = @ContactID;
+		
+		
+		UPDATE TBL_OPPORTUNITIES 
+		SET
+		Name = @OppName,
+		ProductID = @ProductID,
+		STATUSID = @OppStatusID,
+		VALUE = @OPPVALUE,
+		--CLOSEDATE =@OppCloseDate,
+		IsActive=1,
+		UpdatedBy = @CreatedBy,
+		UpdatedDate = @CreationDate,
+		 SourceID = @OppSourceID,
+		 TypeID = @OppTypeID,
+		 SALESREPLASTNAME = @SalesRepLastName ,
+		 SALESREPFIRSTNAME = @SalesRepFIRSTName ,		 
+		 Pain = @Pain,
+		 LengthOfProblem = @LengthProblem,
+		 Alternatives = @Alternatives,
+		 CostToFix = @CostToFix,
+		 IsBudgeIdentified = @BudgeIdentifiedValue,
+		 IsMoveForward = @MoveForwardValue ,
+		 Notes = @Notes 		 
+		 WHERE COMPANYID = @companyID AND ID=@OpportunityID;
+		
+
+	END
+	
+	/* SET NOCOUNT ON */
+	RETURN
+
+
+
+
+
+
+
+GO
+

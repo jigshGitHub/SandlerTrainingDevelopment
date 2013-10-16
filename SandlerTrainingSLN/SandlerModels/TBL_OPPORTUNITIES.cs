@@ -17,6 +17,7 @@ namespace SandlerModels
         public TBL_OPPORTUNITIES()
         {
             this.TBL_DOCS = new HashSet<TBL_DOCS>();
+            this.TBL_OpportunitiesHistory = new HashSet<TBL_OpportunitiesHistory>();
         }
     
         public int ID { get; set; }
@@ -65,6 +66,7 @@ namespace SandlerModels
         internal TBL_OpportunityTypes TBL_OpportunityTypes { get; set; }
         internal TBL_OpportunityWhyLost TBL_OpportunityWhyLost { get; set; }
         internal Tbl_ProductType Tbl_ProductType { get; set; }
+        internal ICollection<TBL_OpportunitiesHistory> TBL_OpportunitiesHistory { get; set; }
     }
     
 }

@@ -38,6 +38,60 @@ namespace SandlerModels
         public Nullable<System.Guid> CreatedBy { get; set; }
         public string PhoneNumber { get; set; }
         public string FaxNumber { get; set; }
+        public Nullable<bool> IsMasterFranchiseeExists { get; set; }
+        public Nullable<int> MasterFranchiseeId { get; set; }
+        public string LastName { get; set; }
+        public string FirstName { get; set; }
+        public string Title { get; set; }
+        public Nullable<int> SandlerRoleId { get; set; }
+        public string OfficePhone { get; set; }
+        public string HomePhone { get; set; }
+        public string MobilePhone { get; set; }
+        public string Fax { get; set; }
+        public Nullable<int> AwardLevelId { get; set; }
+        public Nullable<int> PurchaseLevelId { get; set; }
+        public Nullable<int> CertifiedLevelId { get; set; }
+        public Nullable<int> PrimaryBusinessId { get; set; }
+        public Nullable<System.DateTime> InitialContractDate { get; set; }
+        public Nullable<System.DateTime> RenewalDate { get; set; }
+        public Nullable<System.DateTime> ContractFormDate { get; set; }
+        public Nullable<bool> IsContractorPermitted { get; set; }
+        public Nullable<bool> IsSandlerMailRequired { get; set; }
+        public Nullable<bool> IsKOLMember { get; set; }
+        public Nullable<bool> IsAdvBoard { get; set; }
+        public Nullable<bool> IsMktgCommittee { get; set; }
+        public Nullable<bool> IsUsingSandlerCRM { get; set; }
+        public Nullable<bool> IsDHSAwardWinner { get; set; }
+        public Nullable<System.DateTime> DHSAwardDate { get; set; }
+        public Nullable<System.DateTime> InitialTrngDate { get; set; }
+        public Nullable<bool> IsReqToSubmitFinancial { get; set; }
+        public Nullable<bool> IsRepAgreement { get; set; }
+        public string WorkEmail { get; set; }
+        public string WorkAddress { get; set; }
+        public string WorkCity { get; set; }
+        public Nullable<int> WorkStateId { get; set; }
+        public string WorkZip { get; set; }
+        public Nullable<int> WorkCountryId { get; set; }
+        public string AlternateEmail { get; set; }
+        public Nullable<bool> IsSameHomeAddress { get; set; }
+        public string HomeAddress { get; set; }
+        public string HomeCity { get; set; }
+        public Nullable<int> HomeStateId { get; set; }
+        public string HomeZip { get; set; }
+        public Nullable<int> HomeCountryId { get; set; }
+        public string SpouseName { get; set; }
+        public Nullable<System.DateTime> Birthday { get; set; }
+        public Nullable<System.DateTime> Anniversary { get; set; }
+        public Nullable<int> YearsWithCompany { get; set; }
+        public Nullable<bool> IsCanPrintLocally { get; set; }
+        public Nullable<bool> IsBuyFromCustomer { get; set; }
+        public Nullable<bool> IsFixedPricePurchase { get; set; }
+        public Nullable<bool> IsBehindInTerDev { get; set; }
+        public Nullable<int> CostPlusAmountId { get; set; }
+        public Nullable<int> BehindAmountId { get; set; }
+        public string BusinessFocusArea { get; set; }
+        public string ClosestMetroArea { get; set; }
+        public string Territory { get; set; }
     
         internal TBL_COACH TBL_COACH { get; set; }
         internal TBL_COUNTRY TBL_COUNTRY { get; set; }

@@ -447,4 +447,16 @@ namespace SandlerRepositories
         {
         }
     }
+
+    public partial class OppHistoryRepository : RepositoryBase<TBL_OpportunitiesHistory>
+    {
+        public OppHistoryRepository(IDatabaseFactory dbFactory)
+            : base(dbFactory)
+        {
+        }
+        public OppHistoryRepository()
+            : base(new DBFactory())
+        {
+        }
+    }
 }

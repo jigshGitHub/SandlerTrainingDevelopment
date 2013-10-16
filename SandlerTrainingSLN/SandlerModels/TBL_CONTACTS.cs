@@ -20,6 +20,7 @@ namespace SandlerModels
             this.TBL_OPPORTUNITIES = new HashSet<TBL_OPPORTUNITIES>();
             this.TBL_OPPORTUNITIES1 = new HashSet<TBL_OPPORTUNITIES>();
             this.TBL_OPPORTUNITIES2 = new HashSet<TBL_OPPORTUNITIES>();
+            this.TBL_OpportunitiesHistory = new HashSet<TBL_OpportunitiesHistory>();
         }
     
         public int CONTACTSID { get; set; }
@@ -68,6 +69,10 @@ namespace SandlerModels
         public string ReferredBy { get; set; }
         public string Notes { get; set; }
         public string Country { get; set; }
+        public string TrainingCourseName { get; set; }
+        public Nullable<int> HowManyAttended { get; set; }
+        public string CompanyNameWhereTrainingConducted { get; set; }
+        public Nullable<System.DateTime> StartTime { get; set; }
     
         internal Tbl_AppointmentsSource Tbl_AppointmentsSource { get; set; }
         internal TBL_COMPANIES TBL_COMPANIES { get; set; }
@@ -76,6 +81,7 @@ namespace SandlerModels
         internal ICollection<TBL_OPPORTUNITIES> TBL_OPPORTUNITIES { get; set; }
         internal ICollection<TBL_OPPORTUNITIES> TBL_OPPORTUNITIES1 { get; set; }
         internal ICollection<TBL_OPPORTUNITIES> TBL_OPPORTUNITIES2 { get; set; }
+        internal ICollection<TBL_OpportunitiesHistory> TBL_OpportunitiesHistory { get; set; }
     }
     
 }

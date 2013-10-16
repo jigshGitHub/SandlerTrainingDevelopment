@@ -58,6 +58,7 @@ namespace SandlerModels
         public DbSet<TBL_GA_Tracker> TBL_GA_Tracker { get; set; }
         public DbSet<TBL_GA_TrngBenefits> TBL_GA_TrngBenefits { get; set; }
         public DbSet<TBL_OPPORTUNITIES> TBL_OPPORTUNITIES { get; set; }
+        public DbSet<TBL_OpportunitiesHistory> TBL_OpportunitiesHistory { get; set; }
     
         internal ObjectResult<Contact> GetContactsByUser(Nullable<System.Guid> userId)
         {
