@@ -93,6 +93,7 @@
                             <li><a href="<%=  Page.ResolveClientUrl("~/CRM/HomeOffice/HomeOfficeReports.aspx?reportName=glaa")%>">Global Account Agreement</a></li>
                         </ul>
                         </li>
+                        <li><a href="<%=  Page.ResolveClientUrl("~/RDL/RDLReports.aspx")%>">RDL Reports</a></li>
                     </ul>
                     </li>
                     <li><a id="anchorBenchmarks" runat="server" href="#">BENCHMARKS</a><ul id="Ul1" runat="server"

@@ -7,8 +7,9 @@ using System.Web.UI.WebControls;
 using System.Data;
 using SandlerRepositories;
 using System.Globalization;
+using SandlerModels;
 
-public partial class CRM_QuickStart_Index : OpportunityBasePage
+public partial class CRM_QuickStart_Edit : OpportunityBasePage
 {
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -51,9 +52,16 @@ public partial class CRM_QuickStart_Index : OpportunityBasePage
 
     private void BindNotesHistory()
     {
-        QuickStartRepository repository = new QuickStartRepository();
-        gvNotesHistory.DataSource = repository.GetOpportunityHistory(int.Parse(ddlCompany.SelectedValue), int.Parse(ddlOpportunity.SelectedValue));
-        gvNotesHistory.DataBind();
+        try
+        {
+            gvNotesHistory.DataSource = GetOpportunitiesHistory(int.Parse(ddlCompany.SelectedValue), int.Parse(ddlOpportunity.SelectedValue));
+            gvNotesHistory.DataBind();
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+        
     }
 
     public void GetQuickStartInformation()
@@ -418,5 +426,31 @@ public partial class CRM_QuickStart_Index : OpportunityBasePage
     {
         ddlCompany.SelectedValue = "0";
         ClearFields();
+    }
+
+    protected void gvNotesHistory_Editing(object sender, GridViewEditEventArgs e)
+    {
+        gvNotesHistory.EditIndex = e.NewEditIndex;
+        BindNotesHistory();
+    }
+
+    protected void gvNotesHistory_CancelEditing(object sender, GridViewCancelEditEventArgs e)
+    {
+        gvNotesHistory.EditIndex = -1;
+        BindNotesHistory();
+    }
+
+    protected void gvNotesHistory_RowUpdating(object sender, GridViewUpdateEventArgs e)
+    {
+        TBL_OpportunitiesHistory history = GetOpportunityHistory(int.Parse(e.Keys[0].ToString()));
+
+        GridViewRow row = gvNotesHistory.Rows[e.RowIndex] as GridViewRow;
+        history.Notes = (row.FindControl("txtNotes") as TextBox).Text;
+        history.UpdatedDate = DateTime.Now;
+        history.UpdatedBy = CurrentUser.UserId;
+
+        UpdateOpportunityHistory(history);
+        gvNotesHistory.EditIndex = -1;
+        BindNotesHistory();
     }
 }

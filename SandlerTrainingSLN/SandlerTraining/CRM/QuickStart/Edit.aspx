@@ -1,5 +1,5 @@
 ﻿<%@ Page Title="QuickStart - Add" Language="C#" MasterPageFile="~/CRM.master" AutoEventWireup="true"
-    CodeFile="Edit.aspx.cs" Inherits="CRM_QuickStart_Index" %>
+    CodeFile="Edit.aspx.cs" Inherits="CRM_QuickStart_Edit" %>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 <%@ Import Namespace="SandlerRepositories" %>

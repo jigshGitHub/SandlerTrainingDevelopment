@@ -218,25 +218,5 @@ namespace SandlerRepositories
             UserEntitiesFactory.ReLoad();
 
         }
-
-
-        public object GetOpportunityHistory(int companyId, int opportunityId)
-        {
-            OppHistoryRepository repository;
-
-            try
-            {
-                repository = new OppHistoryRepository();
-                var data = from history in repository.GetAll().Where(record => record.CompanyID == companyId && record.OpportunityID == opportunityId)
-                           from users in new UsersRepository().GetAll().Where(user => user.UserId == history.CreatedBy)
-                           select new { Notes = history.Notes, CreatedBy = users.UserName, CreatedDate = history.CreatedDate };
-
-                return data;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
     }
 }
