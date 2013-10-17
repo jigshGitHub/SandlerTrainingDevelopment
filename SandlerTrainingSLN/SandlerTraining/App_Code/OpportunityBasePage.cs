@@ -169,7 +169,7 @@ public class OpportunityBasePage : BasePage
             repository = new OppHistoryRepository();
             var data = from history in repository.GetAll().Where(record => record.CompanyID == companyId && record.OpportunityID == opportunityId)
                        from users in new UsersRepository().GetAll().Where(user => user.UserId == history.CreatedBy)
-                       select new { Notes = history.Notes, CreatedBy = users.UserName, CreatedDate = history.CreatedDate };
+                       select new { ID=history.ID, Notes = history.Notes, CreatedBy = users.UserName, CreatedDate = history.CreatedDate };
 
             return data;
         }
@@ -205,6 +205,22 @@ public class OpportunityBasePage : BasePage
             repository.Update(history);
             RefreshEntities();
             return history;
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+    }
+
+    protected virtual void DeleteOpportunityHistory(int id)
+    {
+        OppHistoryRepository repository;
+
+        try
+        {
+            repository = new OppHistoryRepository();
+            repository.Delete(repository.GetById(id));
+            RefreshEntities();
         }
         catch (Exception ex)
         {

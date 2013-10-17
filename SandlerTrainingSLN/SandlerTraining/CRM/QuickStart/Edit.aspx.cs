@@ -453,4 +453,10 @@ public partial class CRM_QuickStart_Edit : OpportunityBasePage
         gvNotesHistory.EditIndex = -1;
         BindNotesHistory();
     }
+    protected void gvNotesHistory_Deleting(object sender, GridViewDeleteEventArgs e)
+    {
+        DeleteOpportunityHistory(int.Parse(e.Keys[0].ToString()));
+        BindNotesHistory();
+    }
+
 }
