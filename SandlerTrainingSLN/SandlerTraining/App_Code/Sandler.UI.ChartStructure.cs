@@ -1072,11 +1072,11 @@ namespace Sandler.UI.ChartStructure
 
                                 int classHeadCountsIndustry = queries.GetClassHeadCountsIndustry(currentUser, DateTime.ParseExact(catagory.Label, "MMM", null).Month);
 
-                                if (classHeadCountsCourse > 0 && classHeadCountsIndustry > 0)
-                                {
-                                    this.DataSetCollection[0].SetsCollection.Add(new SetValue { Value = classHeadCountsCourse.ToString(), Link = (currentUser.Role == SandlerRoles.Client) ? "" : ChartHelper.GeneratePageLink(catagory.Label, this.DrillChartIds) });
-                                    this.DataSetCollection[1].SetsCollection.Add(new SetValue { Value = classHeadCountsIndustry.ToString(), Link = (currentUser.Role == SandlerRoles.Client) ? "" : ChartHelper.GeneratePageLink(catagory.Label, this.DrillChartIds) });
-                                }
+                                //if (classHeadCountsCourse > 0 && classHeadCountsIndustry > 0)
+                                //{
+                                    this.DataSetCollection[0].SetsCollection.Add(new SetValue { Value = (classHeadCountsCourse > 0) ? classHeadCountsCourse.ToString():"", Link = (currentUser.Role == SandlerRoles.Client) ? "" : (classHeadCountsCourse > 0) ? ChartHelper.GeneratePageLink(catagory.Label, this.DrillChartIds):"" });
+                                    this.DataSetCollection[1].SetsCollection.Add(new SetValue { Value = (classHeadCountsIndustry > 0) ? classHeadCountsIndustry.ToString():"", Link = (currentUser.Role == SandlerRoles.Client) ? "" : (classHeadCountsIndustry > 0) ? ChartHelper.GeneratePageLink(catagory.Label, this.DrillChartIds):"" });
+                                //}
                             }
                             catch (System.InvalidOperationException)
                             {
