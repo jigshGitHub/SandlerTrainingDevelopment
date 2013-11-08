@@ -49,13 +49,13 @@
                                         Products Sold by Company</a></li><li><a href="<%=  Page.ResolveClientUrl("~/" + ChartHelper.GeneratePageLink("","ProductSoldBySalesRepByProductByMonth","Reports/Products/SoldByCompanySalesRep.aspx?"))  %>">
                                             Products Sold by Rep</a></li>
                         </ul>
-                        </li>
+                        </li><!--
                         <li><a href="#">Ad Hoc</a>
                         <ul class="sub_menu">
                             <li><a href="<%=  Page.ResolveClientUrl("~/Reports/ClosedSalesAnalysis.aspx")%>">Closed Sales Analysis (By Month)</a></li>
                             <li><a href="<%=  Page.ResolveClientUrl("~/Reports/PipelineOppAnalysis.aspx")%>">Pipeline Analysis (By Month)</a></li>
                         </ul>
-                        </li>
+                        </li>-->
 
                         <li><a href="#" id="homeofficeReportAnchor" runat="server" visible="false">Home Office</a>
                         <ul class="sub_menu">
@@ -93,7 +93,8 @@
                             <li><a href="<%=  Page.ResolveClientUrl("~/CRM/HomeOffice/HomeOfficeReports.aspx?reportName=glaa")%>">Global Account Agreement</a></li>
                         </ul>
                         </li>
-                        <li><a href="<%=  Page.ResolveClientUrl("~/RDL/RDLReports.aspx")%>">RDL Reports</a></li>
+                        <!--<li><a href="<%=  Page.ResolveClientUrl("~/RDL/RDLReports.aspx")%>">RDL Reports</a></li>-->
+                        <li><a target="_blank" href="<%=  Page.ResolveClientUrl("~/RDL/DashboardViewer.aspx")%>">Custom Reporting Dashboard</a></li>
                     </ul>
                     </li>
                     <li><a id="anchorBenchmarks" runat="server" href="#">BENCHMARKS</a><ul id="Ul1" runat="server"

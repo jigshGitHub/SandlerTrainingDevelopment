@@ -216,7 +216,7 @@
                                                 </td>
                                              </tr>
                                              <tr style="color: Black; background-color: #DCDCDC; white-space: nowrap;">
-                                                <td>Advisory Borad:</td>
+                                                <td>Advisory Board:</td>
                                                 <td>
                                                     <asp:DropDownList  ID="ddlAdvBoard" runat="server"  DataSourceID="YesNoOptionsInfoDS" DataTextField="Description" DataValueField="Value"></asp:DropDownList>
                                                 </td>
