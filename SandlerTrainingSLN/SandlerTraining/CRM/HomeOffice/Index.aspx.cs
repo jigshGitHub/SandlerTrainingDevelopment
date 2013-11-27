@@ -12,9 +12,9 @@ using System.Data;
 
 public partial class CRM_HomeOffice_Index : BasePage
 {
-    SortDirection sortingDirection { get { return (SortDirection)Session["sortingDirection"]; } set { Session["sortingDirection"] = value; } }
-    String sortingExpression { get { return (String)Session["sortingExpression"]; } set { Session["sortingExpression"] = value; } }
-    String filteringExpression { get { return (String)Session["filteringExpression"]; } set { Session["filteringExpression"] = value; } }
+    //SortDirection sortingDirection { get { return (SortDirection)Session["sortingDirection"]; } set { Session["sortingDirection"] = value; } }
+    //String sortingExpression { get { return (String)Session["sortingExpression"]; } set { Session["sortingExpression"] = value; } }
+    //String filteringExpression { get { return (String)Session["filteringExpression"]; } set { Session["filteringExpression"] = value; } }
 
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -25,22 +25,21 @@ public partial class CRM_HomeOffice_Index : BasePage
         {txtGridSearch.Visible = false;
        btnGridSearch.Visible = false;}
        
-        
+        //if (filteringExpression != null)
+        //{
+        //    SearchFranchiseeDS.FilterExpression = filteringExpression; // there should be something like src.Filter( ... ) ?
+        //}
 
-        if (filteringExpression != null)
-        {
-            SearchFranchiseeDS.FilterExpression = filteringExpression; // there should be something like src.Filter( ... ) ?
-        }
-
-        if (sortingExpression != null)
-        {
-            gvFranchisees.Sort(sortingExpression, sortingDirection);
-        }
+        //if (sortingExpression != null)
+        //{
+        //    gvFranchisees.Sort(sortingExpression, sortingDirection);
+        //}
 
         if (!IsPostBack)
         {
             //We need to store current User's UserId in the hidden field - will be needed when they archive the records
             hidCurrentUserId.Value = CurrentUser.UserId.ToString();
+            hidTableName.Value = "FRS";
             LblStatus.Text = "";
         }
     }
@@ -48,11 +47,11 @@ public partial class CRM_HomeOffice_Index : BasePage
     {
         e.InputParameters["_user"] = CurrentUser;
     }
-    protected void gv_Sorting(object sender, GridViewSortEventArgs e)
-    {
-        sortingDirection = e.SortDirection;
-        sortingExpression = e.SortExpression;
-    }
+    //protected void gv_Sorting(object sender, GridViewSortEventArgs e)
+    //{
+    //    sortingDirection = e.SortDirection;
+    //    sortingExpression = e.SortExpression;
+    //}
 
     protected void gvFranchisees_SelectedIndexChanged(object sender, EventArgs e)
     {
@@ -64,7 +63,7 @@ public partial class CRM_HomeOffice_Index : BasePage
     {
         if (gvFranchisees.Rows.Count == 0)
         {
-            LblStatus.Text = "There are no Franchisees entered in the System.";
+            LblStatus.Text = "There are no matching record(s) found in the system.";
             btnExportExcel.Visible = false;
             lblExportToExcel.Visible = false;
             franchiseeMenu.ReLoadSubMenu();

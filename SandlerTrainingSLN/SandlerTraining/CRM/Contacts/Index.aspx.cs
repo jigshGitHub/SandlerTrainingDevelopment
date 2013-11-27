@@ -17,6 +17,7 @@ public partial class ContactIndex : BasePage
         {
             hidCurrentUserId.Value = CurrentUser.UserId.ToString();
             LblStatus.Text = "";
+            hidTableName.Value = "CNT";
         }
 
     }

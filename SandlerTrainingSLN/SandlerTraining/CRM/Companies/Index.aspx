@@ -35,10 +35,10 @@
                         </asp:TemplateField>
                         <asp:BoundField DataField="COMPANIESID" Visible="False" />
                         <asp:BoundField ItemStyle-HorizontalAlign="Left" HeaderStyle-HorizontalAlign="Left" HeaderStyle-ForeColor="Blue" DataField="COMPANYNAME" HeaderText="Company Name" SortExpression="COMPANYNAME" />
-                        <asp:BoundField ItemStyle-HorizontalAlign="Left" HeaderStyle-HorizontalAlign="Left" HeaderStyle-ForeColor="Blue" DataField="Industry" HeaderText="Industry" SortExpression="Industry" />
-                        <asp:BoundField ItemStyle-HorizontalAlign="Left" HeaderStyle-HorizontalAlign="Left" HeaderStyle-ForeColor="Blue" DataField="Product" HeaderText="Product" SortExpression="Product" />
-                        <asp:BoundField ItemStyle-HorizontalAlign="Left" HeaderStyle-HorizontalAlign="Left" HeaderStyle-ForeColor="Blue" DataField="Representative" HeaderText="Sandler Rep" SortExpression="Representative" />
-                        <asp:BoundField ItemStyle-HorizontalAlign="Left" HeaderStyle-HorizontalAlign="Left" HeaderStyle-ForeColor="Blue" DataField="TotalCompanyValue" HeaderText="Total Company Value" SortExpression="TotalCompanyValue" DataFormatString="{0:C}" />
+                        <asp:BoundField ItemStyle-HorizontalAlign="Left" HeaderStyle-HorizontalAlign="Left" HeaderStyle-ForeColor="Blue" DataField="Industry" HeaderText="Industry" SortExpression="IndustryTypeName" />
+                        <asp:BoundField ItemStyle-HorizontalAlign="Left" HeaderStyle-HorizontalAlign="Left" HeaderStyle-ForeColor="Blue" DataField="Product" HeaderText="Product" SortExpression="ProductTypeName" />
+                        <asp:BoundField ItemStyle-HorizontalAlign="Left" HeaderStyle-HorizontalAlign="Left" HeaderStyle-ForeColor="Blue" DataField="Representative" HeaderText="Sandler Rep" SortExpression="RepLastName" />
+                        <asp:BoundField ItemStyle-HorizontalAlign="Left" HeaderStyle-HorizontalAlign="Left" HeaderStyle-ForeColor="Blue" DataField="TotalCompanyValue" HeaderText="Total Company Value"  DataFormatString="{0:C}" />
                         <asp:TemplateField ShowHeader="False">
                             <ItemTemplate>
                                 <asp:LinkButton ID="LinkButton1" runat="server" CausesValidation="False" CommandName="Select"
@@ -62,7 +62,7 @@
         <tr id="trExport" runat="server" visible="false">
             <td colspan="2">
                 <div id="Report" runat="server">
-                    <asp:GridView Width="100%" ID="gvCompaniesExport" runat="server" DataSourceID="SearchCompanyDS"
+                    <asp:GridView Width="100%" ID="gvCompaniesExport" runat="server" DataSourceID="SearchCompanyExportDS"
                         AutoGenerateColumns="False" DataKeyNames="COMPANIESID">
                         <Columns>
                             <asp:BoundField DataField="COMPANIESID" SortExpression="COMPANIESID" HeaderText="ID" />
@@ -116,24 +116,39 @@
         <tr>
             <td>
                 <asp:Label ForeColor="Red" ID="LblStatus" runat="server"></asp:Label>
+                <asp:HiddenField ID="hidCompanyID" runat="server" />
+                <asp:HiddenField ID="hidCurrentUserId" runat="server" />
+                <asp:HiddenField ID="hidTableName" runat="server" />
             </td>
         </tr>
         <tr>
             <td>
-                <asp:ObjectDataSource ID="SearchCompanyDS" runat="server" 
-                TypeName="SandlerRepositories.CompaniesRepository" SelectMethod="GetAllCompanies" 
-                DeleteMethod="ArchiveCompany"
+                <asp:ObjectDataSource ID="SearchCompanyExportDS" runat="server" 
+                TypeName="SandlerRepositories.CompaniesRepository" 
+                SelectMethod="GetAllCompanies" 
                 OnSelecting="SearchCompanyDS_Selecting">
                     <SelectParameters>
                         <asp:Parameter Name="_user"  />
                     </SelectParameters>
-                    <DeleteParameters>
-                        <asp:Parameter Name="COMPANIESID" Type="Int32" />
-                        <asp:ControlParameter Name="CurrentUserId"  ControlID="hidCurrentUserId"/>
-                    </DeleteParameters>
                 </asp:ObjectDataSource>
-                <asp:HiddenField ID="hidCompanyID" runat="server" />
-                <asp:HiddenField ID="hidCurrentUserId" runat="server" />
+               
+                <asp:ObjectDataSource ID="SearchCompanyDS" runat="server" TypeName="EffectiveDataSourceMgmt.EffectiveDataSource" 
+                EnablePaging="true" MaximumRowsParameterName="pageSize"
+                StartRowIndexParameterName="startRowIndex" OnSelecting="SearchCompanyDS_Selecting"
+                SelectCountMethod="TotalRowCountCompany" SortParameterName="sortExpression" DeleteMethod="ArchiveCompany"
+                SelectMethod="GetCompanyData"> 
+                  <SelectParameters>
+                    <asp:Parameter Name="startRowIndex" Type="Int32" />
+                    <asp:Parameter Name="pageSize" Type="Int32"/>
+                    <asp:Parameter Name="sortExpression" Type="String" />            
+                    <asp:ControlParameter ControlID="hidTableName" Name="TableName" PropertyName="Value" />
+                    <asp:Parameter Name="_user"  />   
+                  </SelectParameters>
+                  <DeleteParameters>
+                      <asp:Parameter Name="COMPANIESID" Type="Int32" />
+                      <asp:ControlParameter Name="CurrentUserId"  ControlID="hidCurrentUserId"/>
+                  </DeleteParameters>
+               </asp:ObjectDataSource>
 
             </td>
         </tr>

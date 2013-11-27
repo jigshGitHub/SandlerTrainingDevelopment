@@ -22,6 +22,7 @@ public partial class CompanyIndex : BasePage
            //We need to store current User's UserId in the hidden field - will be needed when they archive the records
             hidCurrentUserId.Value = CurrentUser.UserId.ToString();
             LblStatus.Text = "";
+            hidTableName.Value = "CMP";
         }
     }
 
