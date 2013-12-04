@@ -1,5 +1,4 @@
-﻿<%@ Page Title="CRM - View Company" Language="C#" MasterPageFile="~/CRM.master" AutoEventWireup="true"
-    EnableEventValidation="false" CodeFile="Index.aspx.cs" Inherits="CompanyIndex" %>
+﻿<%@ page title="CRM - View Company" language="C#" masterpagefile="~/CRM.master" autoeventwireup="true" enableeventvalidation="false" inherits="CompanyIndex, App_Web_m21lsysk" %>
 
 <%@ Import Namespace="SandlerRepositories" %>
 <%@ Register Src="../EntityMenu.ascx" TagName="EntityMenu" TagPrefix="uc1" %>
@@ -38,7 +37,7 @@
                         <asp:BoundField ItemStyle-HorizontalAlign="Left" HeaderStyle-HorizontalAlign="Left" HeaderStyle-ForeColor="Blue" DataField="Industry" HeaderText="Industry" SortExpression="IndustryTypeName" />
                         <asp:BoundField ItemStyle-HorizontalAlign="Left" HeaderStyle-HorizontalAlign="Left" HeaderStyle-ForeColor="Blue" DataField="Product" HeaderText="Product" SortExpression="ProductTypeName" />
                         <asp:BoundField ItemStyle-HorizontalAlign="Left" HeaderStyle-HorizontalAlign="Left" HeaderStyle-ForeColor="Blue" DataField="Representative" HeaderText="Sandler Rep" SortExpression="RepLastName" />
-                        <asp:BoundField ItemStyle-HorizontalAlign="Left" HeaderStyle-HorizontalAlign="Left" HeaderStyle-ForeColor="Blue" DataField="TotalCompanyValue" HeaderText="Total Company Value"  DataFormatString="{0:C}" />
+                        <asp:BoundField ItemStyle-HorizontalAlign="Left" HeaderStyle-HorizontalAlign="Left" HeaderStyle-ForeColor="Blue" DataField="TotalCompanyValue" SortExpression="dbo.GetTotalCompanyValue(COMPANIESID)" HeaderText="Total Company Value"  DataFormatString="{0:C}" />
                         <asp:TemplateField ShowHeader="False">
                             <ItemTemplate>
                                 <asp:LinkButton ID="LinkButton1" runat="server" CausesValidation="False" CommandName="Select"

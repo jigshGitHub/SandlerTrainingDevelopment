@@ -72,7 +72,7 @@
                                     HeaderStyle-ForeColor="Blue" DataField="CompanyName" HeaderText="Company" SortExpression="CompanyName"
                                     ReadOnly="true" />
                                 <asp:TemplateField ItemStyle-HorizontalAlign="Left" HeaderStyle-HorizontalAlign="Left"
-                                    HeaderText="Value" HeaderStyle-ForeColor="Blue" SortExpression="Value">
+                                    HeaderText="Value" HeaderStyle-ForeColor="Blue" SortExpression="VALUE">
                                     <ItemTemplate>
                                         <asp:Label ID="lblValue" runat="server" Text='<%#Eval("Value","{0:c}") %>' /></ItemTemplate>
                                     <EditItemTemplate>
