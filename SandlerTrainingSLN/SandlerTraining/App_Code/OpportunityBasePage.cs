@@ -9,6 +9,37 @@ using System.Configuration;
 /// <summary>
 /// Summary description for OpportunityBasePage
 /// </summary>
+/// 
+public class OpportunityBaseVM
+{
+    public string ID{get;set;}
+    public string OPPORTUNITYID{get;set;}
+    public string NAME{get;set;}
+    public string CompanyName{get;set;}
+    public string VALUE{get;set;}
+    public string WEIGHTEDVALUE{get;set;}
+    public string CloseDate{get;set;}
+    public string CreationDate{get;set;}
+    public string SalesRep{get;set;}
+    public string Status{get;set;}
+    public string PrimaryContact{get;set;}
+    public string SecondaryContact1{get;set;}
+    public string SecondaryContact2{get;set;}
+    public string Product{get;set;}
+    public string ProductCost{get;set;}
+    public string Franchisee{get;set;}
+    public string Region{get;set;}
+    public string OppType{get;set;}
+    public string WhyLost{get;set;}
+    public string Description{get;set;}
+    public string Notes{get;set;}
+    public string ActualValue{get;set;}
+    public string Source{get;set;}
+    public string StatusID {get;set;}
+    public string SalesRepFN {get;set;}
+    public string SalesRepLN{get;set;}
+    public int TotalCount { get; set; }
+}
 public class OpportunityBasePage : BasePage
 {
     protected int OpportunityID;
@@ -41,8 +72,20 @@ public class OpportunityBasePage : BasePage
 
     protected virtual IQueryable<Opportunity> GetOpportunities(int companyId)
     {
-        IQueryable<Opportunity> data = userEntities.Opportunities.AsQueryable();
-        return (companyId == 0) ? data : data.Where(record => record.COMPANYID == companyId);
+        if (Session["UserOpps"] == null)
+        {
+            IQueryable<Opportunity> data = userEntities.Opportunities.AsQueryable();
+            TotalValue = data.Sum(r => r.VALUE.Value);
+            Session["UserOpps"] = data;
+            return (companyId == 0) ? data : data.Where(record => record.COMPANYID == companyId);
+        }
+        else
+        {
+            IQueryable<Opportunity> data = (IQueryable<Opportunity>)Session["UserOpps"];
+            TotalValue = data.Sum(r => r.VALUE.Value);
+            return (companyId == 0) ? data : data.Where(record => record.COMPANYID == companyId);
+        }
+        
     }
 
     protected virtual IQueryable<Opportunity> GetArchivedOpportunties(int companyId)

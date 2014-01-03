@@ -60,14 +60,11 @@ public partial class OpportunityIndex : OpportunityBasePage
                        SalesRepFN = record.SALESREPFIRSTNAME,
                        SalesRepLN = record.SALESREPLASTNAME
                    };
-        TotalRecords = data.Count();
-        TotalValue = data.Sum(r => r.VALUE.Value);
-        //var filterRecords = 
-        gvOpportunities.DataSource = IQueryableExtensions.Page(IQueryableExtensions.Sort(data, SortExpression, IsAscendigSortOrder), PageSize, CurrentPage).AsQueryable();
+        TotalRecords = userEntities.OpportunitiesCount;// data.Count();
+        gvOpportunities.DataSource = IQueryableExtensions.Sort(data.Skip((CurrentPage - 1) * PageSize).Take(PageSize), SortExpression, IsAscendigSortOrder);
+        //IQueryableExtensions.Page(IQueryableExtensions.Sort(data, SortExpression, IsAscendigSortOrder), PageSize, CurrentPage).AsQueryable();
         gvOpportunities.DataBind();
 
-        gvExport.DataSource = data;
-        gvExport.DataBind();
         pager.BindPager(TotalRecords, PageSize, CurrentPage);
     }
 
@@ -222,6 +219,42 @@ public partial class OpportunityIndex : OpportunityBasePage
         //Response.Write(stringWrite.ToString());
         //Response.End();
 
+        var data = from record in GetOpportunities(CompanyID)
+                   select new
+                   {
+                       ID = record.ID,
+                       OPPORTUNITYID = record.OpportunityID.Value,
+                       NAME = record.NAME,
+                       CompanyName = GetCompany(record.COMPANYID).COMPANYNAME,
+                       VALUE = record.VALUE,
+                       WEIGHTEDVALUE = record.WEIGHTEDVALUE,
+                       CloseDate = record.CLOSEDATE,
+                       CreationDate = (record.OppCreationDate.HasValue) ? record.OppCreationDate.Value.ToString() : "",
+                       SalesRep = record.SALESREPFIRSTNAME + " " + record.SALESREPLASTNAME,
+                       Status = record.Status,//GetOpportunityStatus(record.STATUSID.Value).Name,
+                       //ContactName = GetContact(record.CONTACTID).FIRSTNAME + GetContact(record.CONTACTID).LASTNAME,
+                       //ContactPhone = GetContact(record.CONTACTID).PHONE,
+                       //ContactEmail = GetContact(record.CONTACTID).EMAIL,
+                       PrimaryContact = record.PrimaryContactFirstName + " " + record.PrimaryContactLastName + ", " + record.PrimaryContactEmail,
+                       SecondaryContact1 = record.SeconadryContact1FirstName + " " + record.SeconadryContact1LastName + ", " + record.SeconadryContact1Email,
+                       SecondaryContact2 = record.SeconadryContact2FirstName + " " + record.SeconadryContact2LastName + ", " + record.SeconadryContact2Email,
+                       Product = record.ProductTypeName,//GetProduct(record.ProductID).ProductTypeName,
+                       ProductCost = record.ProductCost,
+                       Franchisee = record.FranchiseeName,
+                       Region = record.Region,
+                       OppType = record.Type,
+                       WhyLost = record.WhyLost,
+                       Description = record.Description,
+                       Notes = record.Notes,
+                       ActualValue = (record.ActualValue.HasValue) ? record.ActualValue.Value.ToString() : "",
+                       Source = record.Source,
+                       StatusID = record.STATUSID,
+                       SalesRepFN = record.SALESREPFIRSTNAME,
+                       SalesRepLN = record.SALESREPLASTNAME
+                   };
+        
+        gvExport.DataSource = data;
+        gvExport.DataBind();
         //Get in to Datatable
         DataTable dt = new DataTable();
         if (gvExport.Rows.Count > 0)
