@@ -43,10 +43,10 @@
 
     void Session_Start(object sender, EventArgs e) 
     {
-        DateTime terminationDate = new DateTime(2013, 12, 31);
+        //DateTime terminationDate = new DateTime(2013, 12, 31);
 
-        if (DateTime.Now.Date >= terminationDate)
-            throw new Exception("Project terminated.");
+        //if (DateTime.Now.Date >= terminationDate)
+        //    throw new Exception("Project terminated.");
     }
 
     void Session_End(object sender, EventArgs e) 

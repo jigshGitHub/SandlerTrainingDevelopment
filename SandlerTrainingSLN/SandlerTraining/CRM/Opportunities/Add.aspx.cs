@@ -126,6 +126,7 @@ public partial class OpportunityADD : OpportunityBasePage
 
     protected void lbtnAdd_Click(object sender, EventArgs e)
     {
+        UserOpportunities = null;
         TBL_OPPORTUNITIES opportunity = null;
         if (lbtnAdd.Text == "Add")
         {

@@ -69,23 +69,27 @@ public class OpportunityBasePage : BasePage
     public OpportunityBasePage()
     {
     }
-
+    public IQueryable<Opportunity> UserOpportunities
+    {
+        get
+        {
+            if (Session["UserOpps"] == null)
+            {
+                IQueryable<Opportunity> data = userEntities.Opportunities.AsQueryable();
+                Session["UserOpps"] = data;
+                return data;
+            }
+            return (IQueryable<Opportunity>)Session["UserOpps"];
+        }
+        set
+        {
+            Session["UserOpps"] = value;
+        }
+    }
     protected virtual IQueryable<Opportunity> GetOpportunities(int companyId)
     {
-        if (Session["UserOpps"] == null)
-        {
-            IQueryable<Opportunity> data = userEntities.Opportunities.AsQueryable();
-            TotalValue = data.Sum(r => r.VALUE.Value);
-            Session["UserOpps"] = data;
-            return (companyId == 0) ? data : data.Where(record => record.COMPANYID == companyId);
-        }
-        else
-        {
-            IQueryable<Opportunity> data = (IQueryable<Opportunity>)Session["UserOpps"];
-            TotalValue = data.Sum(r => r.VALUE.Value);
-            return (companyId == 0) ? data : data.Where(record => record.COMPANYID == companyId);
-        }
-        
+        TotalValue = UserOpportunities.Sum(r => r.VALUE.Value);
+        return (companyId == 0) ? UserOpportunities : UserOpportunities.Where(record => record.COMPANYID == companyId);        
     }
 
     protected virtual IQueryable<Opportunity> GetArchivedOpportunties(int companyId)
