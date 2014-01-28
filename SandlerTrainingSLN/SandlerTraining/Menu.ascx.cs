@@ -122,6 +122,12 @@ public partial class Menu : System.Web.UI.UserControl
                 link = ((HtmlAnchor)FindControl("documentAnchor"));
                 link.Visible = false;
             }
+            //Home Office Report Anchor for HomeOffice User
+            if (thisPage.CurrentUser.Role == SandlerModels.SandlerRoles.HomeOfficeUser)
+            {
+                link = ((HtmlAnchor)FindControl("homeofficeReportAnchor"));
+                link.Visible = true;
+            }
         }
     }
 }

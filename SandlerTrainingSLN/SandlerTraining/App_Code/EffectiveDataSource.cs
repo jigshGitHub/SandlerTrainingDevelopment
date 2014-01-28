@@ -74,7 +74,7 @@ namespace EffectiveDataSourceMgmt
         public Int32 TotalRowCountCompany(Int32 startRowIndex, Int32 pageSize, String sortExpression, String TableName, UserModel _user)
         {
             SqlDataReader dataReader = null;
-            if (_user.Role == SandlerRoles.Corporate || _user.Role == SandlerRoles.SiteAdmin || _user.Role == SandlerRoles.HomeOfficeAdmin)
+            if (_user.Role == SandlerRoles.Corporate || _user.Role == SandlerRoles.SiteAdmin || _user.Role == SandlerRoles.HomeOfficeAdmin || _user.Role == SandlerRoles.HomeOfficeUser)
             {
                 dataReader = db.ExecuteReader("GetTableTotalCountCompany", new SqlParameter("@TableName", TableName), new SqlParameter("@CoachId", null), new SqlParameter("@FrId", null));
             }
@@ -101,7 +101,7 @@ namespace EffectiveDataSourceMgmt
                 sortExpression = "COMPANYNAME";
             }
             //check role and execute SP accordingly
-            if (_user.Role == SandlerRoles.Corporate || _user.Role == SandlerRoles.SiteAdmin || _user.Role == SandlerRoles.HomeOfficeAdmin)
+            if (_user.Role == SandlerRoles.Corporate || _user.Role == SandlerRoles.SiteAdmin || _user.Role == SandlerRoles.HomeOfficeAdmin || _user.Role == SandlerRoles.HomeOfficeUser)
             { 
                 ds = db.ExecuteDataset("GetCompanyData", "CompanyData", new SqlParameter("@CurrentPage", startRowIndex), new SqlParameter("@PageSize", pageSize), new SqlParameter("@SortExpression", sortExpression));
             }
@@ -135,7 +135,7 @@ namespace EffectiveDataSourceMgmt
             SqlDataReader dataReader = null;
             if (COMPANIESID == 0)
             {
-                if (_user.Role == SandlerRoles.SiteAdmin || _user.Role == SandlerRoles.Corporate || _user.Role == SandlerRoles.HomeOfficeAdmin)
+                if (_user.Role == SandlerRoles.SiteAdmin || _user.Role == SandlerRoles.Corporate || _user.Role == SandlerRoles.HomeOfficeAdmin || _user.Role == SandlerRoles.HomeOfficeUser)
                 {
                     dataReader = db.ExecuteReader("GetTableTotalCountContact", 
                         new SqlParameter("@TableName", TableName),
@@ -213,7 +213,7 @@ namespace EffectiveDataSourceMgmt
 
             if (COMPANIESID == 0)
             {
-                if (_user.Role == SandlerRoles.Corporate || _user.Role == SandlerRoles.SiteAdmin || _user.Role == SandlerRoles.HomeOfficeAdmin)
+                if (_user.Role == SandlerRoles.Corporate || _user.Role == SandlerRoles.SiteAdmin || _user.Role == SandlerRoles.HomeOfficeAdmin || _user.Role == SandlerRoles.HomeOfficeUser)
                 {
                     ds = db.ExecuteDataset("GetContactData", "ContactData", new SqlParameter("@CurrentPage", startRowIndex), new SqlParameter("@PageSize", pageSize), new SqlParameter("@SortExpression", sortExpression));
                 }

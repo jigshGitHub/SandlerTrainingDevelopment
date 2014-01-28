@@ -102,7 +102,7 @@
                                         <asp:Label ID="lblStatus" runat="server" Text='<%#Eval("Status") %>' /></ItemTemplate>
                                     <EditItemTemplate>
                                         <asp:DropDownList ID="ddlProductStatus" SelectedValue='<%#Eval("StatusID") %>' runat="server"
-                                            DataSourceID="OpportunityStatusDS" DataTextField="Name" DataValueField="ID">
+                                            DataSourceID="OpportunityStatusDS" DataTextField="Name" DataValueField="ID" OnDataBound="ddlCreateDefaultSelection">
                                         </asp:DropDownList>
                                         <asp:ObjectDataSource ID="OpportunityStatusDS" runat="server" SelectMethod="GetAll"
                                             TypeName="SandlerRepositories.OpprtunityStatusRepository"></asp:ObjectDataSource>

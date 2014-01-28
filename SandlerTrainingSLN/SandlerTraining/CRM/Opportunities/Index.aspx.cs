@@ -56,7 +56,7 @@ public partial class OpportunityIndex : OpportunityBasePage
                        Notes = record.Notes,
                        ActualValue = (record.ActualValue.HasValue) ? record.ActualValue.Value.ToString() : "",
                        Source = record.Source,
-                       StatusID = record.STATUSID,
+                       StatusID = (record.STATUSID.HasValue) ? record.STATUSID.Value : 1,
                        SalesRepFN = record.SALESREPFIRSTNAME,
                        SalesRepLN = record.SALESREPLASTNAME
                    };
@@ -97,8 +97,18 @@ public partial class OpportunityIndex : OpportunityBasePage
         if (!(dropdownList.Items.Count == 0))
         {
             string defaultSelection = "";
+            switch (dropdownList.ID)
+            {
+                case "ddlCompany":
+                    defaultSelection = "All";
+                    break;
+                case "ddlProductStatus":
+                    defaultSelection = "--Select status--";
+                    break;
+                default:
+                    break;
 
-            defaultSelection = "All";
+            }
             ListItem selectItem = new ListItem(defaultSelection, "0");
             dropdownList.Items.Insert(0, selectItem);
         }

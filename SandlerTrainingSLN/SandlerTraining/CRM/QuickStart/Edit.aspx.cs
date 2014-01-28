@@ -101,17 +101,17 @@ public partial class CRM_QuickStart_Edit : OpportunityBasePage
         {
             ddlProducts.SelectedValue = ds.Tables[0].Rows[0]["ProductID"].ToString();
         }
-        if (ds.Tables[0].Rows[0]["STATUSID"] != null && ds.Tables[0].Rows[0]["STATUSID"] != "")
+        if (!string.IsNullOrEmpty(ds.Tables[0].Rows[0]["STATUSID"].ToString()))
         {
             ddlOppStatus.SelectedValue = ds.Tables[0].Rows[0]["STATUSID"].ToString();
 
         }
-        if (ds.Tables[0].Rows[0]["SourceID"] != null && ds.Tables[0].Rows[0]["SourceID"] != "")
+        if (!string.IsNullOrEmpty(ds.Tables[0].Rows[0]["SourceID"].ToString()))
         {
             ddlOppSource.SelectedValue = ds.Tables[0].Rows[0]["SourceID"].ToString();
 
         }
-        if (ds.Tables[0].Rows[0]["TypeID"] != null && ds.Tables[0].Rows[0]["TypeID"] != "")
+        if (!string.IsNullOrEmpty(ds.Tables[0].Rows[0]["TypeID"].ToString()))
         {
             ddlOppType.SelectedValue = ds.Tables[0].Rows[0]["TypeID"].ToString();
 

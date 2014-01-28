@@ -4,7 +4,7 @@
     <table style="width: 100%; border-color: White; border-style: none; border-width: thin">
         <tr>
             <td style="width: 20%">
-                <asp:Image ImageUrl="~/images/header_logo.png" runat="server" ID="Image1" />
+                <asp:Image ImageUrl="~/images/header_logo.png" style="width:240px; height:64px" runat="server" ID="Image1" />
             </td>
             <td style="padding-top: 2.5em" width="70%">
                 <ul class="dropdown">
@@ -49,13 +49,13 @@
                                         Products Sold by Company</a></li><li><a href="<%=  Page.ResolveClientUrl("~/" + ChartHelper.GeneratePageLink("","ProductSoldBySalesRepByProductByMonth","Reports/Products/SoldByCompanySalesRep.aspx?"))  %>">
                                             Products Sold by Rep</a></li>
                         </ul>
-                        </li><!--
-                        <li><a href="#">Ad Hoc</a>
+                        </li>
+                        <%--<li><a href="#">Ad Hoc</a>
                         <ul class="sub_menu">
                             <li><a href="<%=  Page.ResolveClientUrl("~/Reports/ClosedSalesAnalysis.aspx")%>">Closed Sales Analysis (By Month)</a></li>
                             <li><a href="<%=  Page.ResolveClientUrl("~/Reports/PipelineOppAnalysis.aspx")%>">Pipeline Analysis (By Month)</a></li>
                         </ul>
-                        </li>-->
+                        </li>--%>
 
                         <li><a href="#" id="homeofficeReportAnchor" runat="server" visible="false">Home Office</a>
                         <ul class="sub_menu">
@@ -93,7 +93,8 @@
                             <li><a href="<%=  Page.ResolveClientUrl("~/CRM/HomeOffice/HomeOfficeReports.aspx?reportName=glaa")%>">Global Account Agreement</a></li>
                         </ul>
                         </li>
-                        <!--<li><a href="<%=  Page.ResolveClientUrl("~/RDL/RDLReports.aspx")%>">RDL Reports</a></li>-->
+
+                        <%--<li><a href="<%=  Page.ResolveClientUrl("~/RDL/RDLReports.aspx")%>">RDL Reports</a></li>--%>
                         <li><a target="_blank" href="<%=  Page.ResolveClientUrl("~/RDL/DashboardViewer.aspx")%>">Custom Reporting Dashboard</a></li>
                     </ul>
                     </li>
@@ -116,14 +117,16 @@
 
                     <li><a id="a1" runat="server" href="#">CRM</a>
                       <ul class="sub_menu">
-                        <li><a id="quickstartAnchor" runat="server" visible="false">QuickStart</a>
-                            <ul class="sub_menu">
-                                <li><a href="<%=  Page.ResolveClientUrl("~/CRM/Quickstart/Index.aspx")  %>">
-                                    Add</a></li>
-                                <li><a href="<%=  Page.ResolveClientUrl("~/CRM/Quickstart/Edit.aspx")  %>">
-                                    Edit</a></li>
-                            </ul>
-                        </li>
+                        <%--<li><a id="quickstartAnchor" runat="server" visible="false">QuickStart</a></li>--%>
+                        
+                        <li><a href="#" id="quickstartAnchor"  runat="server" visible="false">QuickStart</a>
+                                <ul class="sub_menu">
+                                        <li><a href="<%=  Page.ResolveClientUrl("~/CRM/QuickStart/Index.aspx")%>">Add</a></li>
+                                        <li><a href="<%=  Page.ResolveClientUrl("~/CRM/QuickStart/Edit.aspx")%>">Edit</a></li>                                        
+                                </ul>
+                            </li>
+                        
+                        
                         <li><a id="companyAnchor" runat="server">Companies</a></li>
                         <li><a id="contactAnchor" runat="server">Contacts</a></li>
                         <li><a id="oppsAnchor" runat="server">Pipeline</a></li>
@@ -151,6 +154,10 @@
                     <li><a id="anchorROI" runat="server" href="~/ROI.aspx">ROI&nbsp;&nbsp;</a></li>
                     <li><a id="anchorAssessment" runat="server" href="http://assessment.aberdeen.com/gqtJlzBd2X/SAN127/sponsor.aspx"
                         target="_blank">Sandler Training Assessment Tool</a></li>
+
+                    <li><a target="_blank" href="<%=  Page.ResolveClientUrl("~/RDL/DashboardViewer.aspx")%>">BI Reports</a></li>
+
+
                     <!--<li><a href="~/Account/Logout.aspx" id="anchorLogout" runat="server">LOGOUT</a>
                     </li>-->
                 </ul>

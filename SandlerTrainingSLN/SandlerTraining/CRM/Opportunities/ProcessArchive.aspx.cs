@@ -219,6 +219,7 @@ public partial class ProcessArchive : OpportunityBasePage
             opportunity.UpdatedBy = CurrentUser.UserId.ToString();
             opportunity.UpdatedDate = DateTime.Now;
             Update(opportunity);
+            UserOpportunities = null;
         }
         catch (Exception ex)
         {

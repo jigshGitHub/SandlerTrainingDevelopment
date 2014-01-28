@@ -14,7 +14,8 @@ namespace SandlerModels
         SiteAdmin,
         Client,
         Anonymous,
-        HomeOfficeAdmin
+        HomeOfficeAdmin,
+        HomeOfficeUser
     }
 
     public enum SandlerUserActions
