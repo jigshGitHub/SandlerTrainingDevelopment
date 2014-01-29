@@ -82,7 +82,8 @@ public partial class CompanyIndex : BasePage
                 || CurrentUser.Role == SandlerRoles.Coach
                 || CurrentUser.Role == SandlerRoles.Corporate
                 || CurrentUser.Role == SandlerRoles.HomeOfficeAdmin
-                || CurrentUser.Role == SandlerRoles.SiteAdmin)
+                || CurrentUser.Role == SandlerRoles.SiteAdmin
+                || CurrentUser.Role == SandlerRoles.HomeOfficeUser)
             {
                 //We only need Archive Feature for FrOwner and FrUser so hide complete column if we have any other user role
                 GridView gridView = (GridView)sender;
