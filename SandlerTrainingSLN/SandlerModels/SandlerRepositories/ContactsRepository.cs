@@ -22,7 +22,7 @@ namespace SandlerRepositories
 
             if (COMPANIESID == 0)
             {
-                if (_user.Role == SandlerRoles.SiteAdmin || _user.Role == SandlerRoles.Corporate || _user.Role == SandlerRoles.HomeOfficeAdmin)
+                if (_user.Role == SandlerRoles.SiteAdmin || _user.Role == SandlerRoles.Corporate || _user.Role == SandlerRoles.HomeOfficeAdmin || _user.Role == SandlerRoles.HomeOfficeUser)
                 {
                     return db.ExecuteDataset("sp_GetAllContacts", "Contacts");
                 }
@@ -67,7 +67,7 @@ namespace SandlerRepositories
 
             if (COMPANIESID == 0)
             {
-                if (_user.Role == SandlerRoles.SiteAdmin || _user.Role == SandlerRoles.Corporate || _user.Role == SandlerRoles.HomeOfficeAdmin)
+                if (_user.Role == SandlerRoles.SiteAdmin || _user.Role == SandlerRoles.Corporate || _user.Role == SandlerRoles.HomeOfficeAdmin || _user.Role == SandlerRoles.HomeOfficeUser)
                 {
                     return db.ExecuteDataset("sp_GetAllArchivedContacts", "Contacts");
                 }
@@ -138,7 +138,7 @@ namespace SandlerRepositories
             _contact.LastMeetingDate = IsValidDateCheck(_contact.LastMeetingDate);
 
             //Now perform search based on User role
-            if (_user.Role == SandlerRoles.SiteAdmin || _user.Role == SandlerRoles.Corporate || _user.Role == SandlerRoles.HomeOfficeAdmin)
+            if (_user.Role == SandlerRoles.SiteAdmin || _user.Role == SandlerRoles.Corporate || _user.Role == SandlerRoles.HomeOfficeAdmin || _user.Role == SandlerRoles.HomeOfficeUser)
             {
                 //get data
                 return db.ExecuteDataset("sp_GetAllContactsSearch", "Contacts",

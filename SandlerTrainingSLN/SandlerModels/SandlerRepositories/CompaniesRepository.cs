@@ -54,7 +54,7 @@ namespace SandlerRepositories
             //Get the User Info
             
 
-            if (_user.Role == SandlerRoles.SiteAdmin || _user.Role == SandlerRoles.Corporate || _user.Role == SandlerRoles.HomeOfficeAdmin)
+            if (_user.Role == SandlerRoles.SiteAdmin || _user.Role == SandlerRoles.Corporate || _user.Role == SandlerRoles.HomeOfficeAdmin || _user.Role == SandlerRoles.HomeOfficeUser)
             {
                 //Corporate User
                 return db.ExecuteDataset("sp_GetAllCompanies", "Companies");
@@ -75,7 +75,7 @@ namespace SandlerRepositories
         public DataSet GetAllArchivedCompanies(UserModel _user)
         {
             //Get the User Info
-            if (_user.Role == SandlerRoles.SiteAdmin || _user.Role == SandlerRoles.Corporate || _user.Role == SandlerRoles.HomeOfficeAdmin)
+            if (_user.Role == SandlerRoles.SiteAdmin || _user.Role == SandlerRoles.Corporate || _user.Role == SandlerRoles.HomeOfficeAdmin || _user.Role == SandlerRoles.HomeOfficeUser)
             {
                 //Corporate User
                 return db.ExecuteDataset("sp_GetAllArchivedCompanies", "Companies");
@@ -114,7 +114,7 @@ namespace SandlerRepositories
                 _company.CreationDate = default(System.DateTime).AddYears(1754);
             }
             //get data
-            if (_user.Role == SandlerRoles.SiteAdmin || _user.Role == SandlerRoles.Corporate || _user.Role == SandlerRoles.HomeOfficeAdmin)
+            if (_user.Role == SandlerRoles.SiteAdmin || _user.Role == SandlerRoles.Corporate || _user.Role == SandlerRoles.HomeOfficeAdmin || _user.Role == SandlerRoles.HomeOfficeUser)
             {
 
                 //Corporate User
@@ -247,7 +247,7 @@ namespace SandlerRepositories
             //Get the User Info
             
 
-            if (_user.Role == SandlerRoles.SiteAdmin || _user.Role == SandlerRoles.Corporate || _user.Role == SandlerRoles.HomeOfficeAdmin)
+            if (_user.Role == SandlerRoles.SiteAdmin || _user.Role == SandlerRoles.Corporate || _user.Role == SandlerRoles.HomeOfficeAdmin || _user.Role == SandlerRoles.HomeOfficeUser)
             {
                 //Corporate User
                 return db.ExecuteDataset("sp_GetCompaniesForDDL", "Companies");
