@@ -1,0 +1,121 @@
+﻿.navbar-default
+{
+	background-color:white;
+	border-radius:0px;
+}
+
+.navbar-default .navbar-nav > .active > a, 
+.navbar-default .navbar-nav > .active > a:hover, 
+.navbar-default .navbar-nav > .active > a:focus
+{
+	background-color: #25a0da;
+	color: white;
+	border-bottom: solid;
+	border-bottom-color: #8bbedf;
+	border-bottom-width: 5px;
+}
+
+.btn.btn-edit
+{
+	background-color: mediumseagreen;
+	border-color:mediumseagreen;
+	color:white;
+}
+
+.btn.btn-default.transparent
+{
+	background-color: transparent;
+	color:white;
+	opacity: 0.7;
+}
+
+#pb_row1
+{
+	background-color:darkslategray;
+	font-weight: bold;
+	color: white;
+}
+
+#pb_row1
+{
+	background-color:darkslategray;
+}
+
+#pb_row2
+{
+	background-color: whitesmoke;
+}
+
+.carousel
+{
+    background-color: white; 
+}
+.carousel .carousel-control
+{
+	width: 35px;
+	background-image: none;
+	background-color: #25a0da;
+}			
+.carousel .carousel-indicators li
+{
+	background-color: gainsboro;
+}			
+.carousel .carousel-indicators li.active
+{
+	background-color: whitesmoke;
+}
+
+.btn-primary
+{
+	background-color: #25a0da;
+	border-color: #25a0da;
+}
+
+.btn-info
+{
+	background-color: #2d8ac6;
+	border-color: #2d8ac6;
+}
+
+/*///// BUTTON /////////////*/
+.btn, .input-group-addon { border-radius:0px; }
+.btn-close { color: white; background: #e2e8e9; }
+
+/*///// INPUT CONTROL //////*/
+.form-control { font-size: small; border-radius: 0px; box-shadow:none; border: 1px solid #e2e8e9; }
+.input-group-addon:first-child { border:none; background-color: #e2e8e9; }
+label { color: #aab7b7; font-size: 70%; }
+input { font-weight:bold; }
+.k-picker-wrap .k-input, .k-numeric-wrap .k-input, .k-dropdown-wrap .k-input, .k-selectbox .k-input { font-weight: bold; }
+
+/*///// HEADING ////////////*/
+.row.sub-heading { margin-top:-5px; }
+.sub-heading > .page-subtitle {	color: #aab7b7; font-weight:500; }
+
+/*///// PANEL & WINDOW /////*/
+.panel-group .panel, .panel { border-radius: 0px; }
+.panel .panel-heading
+{
+	background-color: #3e3e3e;
+	border-color: #3e3e3e;
+	color: white;
+	border-radius: 0px;
+}
+
+.panel .panel-heading.blue
+{
+	background-color: #25a0da;
+	border-color: #25a0da;
+	color: white;
+	border-radius: 0px;
+}
+
+.panel .panel-heading.red
+{
+	background-color: #dc291e;
+	border-color: #dc291e;
+	color: white;
+	border-radius: 0px;
+}
+
+/*///// MISC. //////////////*/

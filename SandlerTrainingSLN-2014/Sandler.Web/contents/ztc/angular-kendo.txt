@@ -1,0 +1,5 @@
+Website
+http://kendo-labs.github.io/angular-kendo/#/
+
+Source
+https://github.com/kendo-labs/angular-kendo

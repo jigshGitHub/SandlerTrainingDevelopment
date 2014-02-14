@@ -1,0 +1,189 @@
+/* Widget styles */
+// Accordion widget
+.accordion {
+    .widget-box {
+        margin: -1px 0 0;
+        border-radius: 0;
+
+        .widget-title {
+            border-bottom: 0;
+            .border-top-radius(0);
+
+            i {
+                .border-top-radius(0);
+            }
+            &.ui-accordion-header-active {
+                border-bottom: 1px solid #cdcdcd;
+            }
+        }
+
+        &:last-child {
+            .border-bottom-radius(6px);
+        }
+    }
+
+    &.ui-accordion .ui-accordion-header {
+        border: 0;
+        margin-top: 0;
+
+        .ui-icon {
+            display: none;
+        }
+
+        a {
+            display: block;
+            font-size: 1em;
+            padding: 0;
+            background-image: none !important;
+        }
+
+        .ui-accordion-content {
+            margin: 0;
+            border-left: 0;
+            border-right: 0;
+        }
+    }
+}
+
+
+ul#icons li {
+    cursor: pointer;
+    float: left;
+    list-style: none outside none;
+    margin: 2px;
+    padding: 4px 0;
+    position: relative;
+}
+.recent-posts, .recent-comments, .recent-users {
+	margin: 0;
+	padding: 0;
+}
+.recent-posts li, .recent-comments li, .article-post li, .recent-users li {
+    border-bottom: 1px dotted #AEBDC8;
+    list-style: none outside none;
+    padding: 10px;
+}
+.recent-posts .article-post, .recent-comments .comments {
+    margin-left: 60px;
+}
+.recent-posts li.viewall, .recent-comments li.viewall, .recent-users li.viewall {
+	padding: 0;
+}
+.recent-posts li.viewall a, .recent-comments li.viewall a, .recent-users li.viewall a {
+	padding: 5px;
+	text-align: center;
+	display: block;
+	color: #888888;
+}
+.recent-posts li.viewall a:hover, .recent-comments li.viewall a:hover, .recent-users li.viewall a:hover {
+	background-color: #eeeeee;
+}
+
+.recent-posts li:last-child, .recent-comments li:last-child, .recent-users li:last-child {
+    border-bottom: none !important;
+}
+
+.user-thumb {
+    background: none repeat scroll 0 0 #FFFFFF;
+    border: 1px solid #B6BCBF;
+    float: left;
+    height: 40px;
+    margin-right: 10px;
+    margin-top: 5px;
+    padding: 2px;
+    width: 40px;
+}
+.user-info {
+    color: #666666;
+    font-size: 11px;
+}
+
+
+.taskDesc i {
+    margin: 1px 5px 0;
+}
+.taskStatus, .taskOptions {
+    text-align: center !important;
+}
+.taskStatus {
+    font-size: 12px;
+}
+.taskStatus .in-progress {
+    color: @brand-info;
+}
+.taskStatus .pending {
+    color: @brand-danger;
+}
+.taskStatus .done {
+    color: @brand-success;
+}
+.taskOptions a i {
+    color: #333333;
+}
+.taskOptions a:hover i {
+    color: #555555;
+}
+.activity-list {
+    list-style: none outside none;
+    margin: 0;
+    padding: 0;
+}
+.activity-list li {
+    border-bottom: 1px solid #EEEEEE;
+    display: block;
+}
+.activity-list li:last-child {
+    border-bottom: medium none;
+}
+.activity-list li a {
+    color: #888888;
+    display: block;
+    padding: 7px 10px;
+}
+.activity-list li a:hover {
+    background-color: #FBFBFB;
+}
+.activity-list li a span {
+    color: #AAAAAA;
+    font-size: 11px;
+    font-style: italic;
+}
+.activity-list li a i {
+    margin-left: 3px;
+    margin-right: 10px;
+    opacity: 0.6;
+    vertical-align: middle;
+}
+.new-update {
+    border-top: 1px solid #DDDDDD;
+    padding: 10px 12px;
+}
+.new-update:first-child {
+    border-top: medium none;
+}
+.new-update span {
+    display:block;
+}
+.new-update i{
+    float: left;
+    margin-top: 3px;
+    margin-right: 13px;
+}
+.new-update .update-date {
+    color: #BBBBBB;
+    float: right;
+    margin: 4px -2px 0 0;
+    text-align: center;
+    width: 30px;
+}
+.new-update .update-date .update-day {
+    display: block;
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: -4px;
+}
+.update-done, .update-alert, .update-notice {
+    display: block;
+    float: left;
+    max-width: 76%;
+}

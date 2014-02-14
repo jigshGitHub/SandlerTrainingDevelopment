@@ -1,0 +1,5 @@
+[2013-11-27] by Junho (Stopped using)
+
+[2013-06-05] by Junho (First used in Query)
+https://code.google.com/p/datejs/wiki/APIDocumentation
+

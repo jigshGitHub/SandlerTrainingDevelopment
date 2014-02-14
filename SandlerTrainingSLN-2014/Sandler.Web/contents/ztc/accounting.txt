@@ -1,0 +1,2 @@
+﻿[2013-06-05] Installed by Junho for formatting numbers
+http://josscrowcroft.github.io/accounting.js/#download
