@@ -1,0 +1,160 @@
+﻿
+<!DOCTYPE html>
+<html lang="en" ng-app="ngAppCMDI">
+  @{Html.RenderPartial("~/Views/Shared/_LayoutHeader.cshtml");}
+
+  <script>
+    appData_.Id_i = @(Request.IsAuthenticated ? 1234 : -1);    
+  </script>
+
+  <body @(!Request.IsAuthenticated ? string.Format("class=logon style=background-image:url(../Images/bg-capitol.png);") : "")>
+
+    @*///// Logo/Brand /////////////////*@
+    <div id="header" >
+        <div id="logo-container" style="background:url('../../Images/header_logo.png') no-repeat scroll 0 2px / 100% auto ">
+        </div>
+        @if (Request.IsAuthenticated)
+        {
+        <div>
+    		<a id="menu-trigger" href="#"><span class="glyphicon glyphicon-th-large"></span></a>	
+        </div>
+        }
+	</div>
+
+    @*///// User Navivation Bar /////////////////////////////////////////////////////////////////*@
+    @if (Request.IsAuthenticated)
+    {
+	<div id="user-nav">
+        <ul class="btn-group">
+                @*@if (session.currentDomain_project.appId==1 && session.can_i_do("Donation Form", "v"))    
+                {
+                <li class="btn"><a id="btn_donateNow" title="" href="#"><i class="fa fa-usd"></i><span class="text">Donate Now</span></a></li>
+                }
+                @if (session.currentDomain_project.appId==1)    
+                {
+                <li class="btn" ><a id="btn_myTasks" title="" href="#"><span class="glyphicon glyphicon-tasks"></span> <span class="text">My Tasks</span></a></li>
+                }
+                @if (session.can_i_do("docMessage_photoView", "v"))   
+                {
+                <li class="btn"><a id="btn_ducInbox" title="" href="#"><i class="fa fa-inbox"></i><span class="text">Photo Inbox</span></a></li>
+                }*@
+
+                <li class="btn" ><a id="btn_myAccount" title="" href="#"><span class="glyphicon glyphicon-user"></span> <span class="text">Account</span></a></li>            
+                @* ###### Message Box NEED TO IMPLEMENT
+                <li class="btn btn-inverse dropdown" id="menu-messages"><a href="#" data-toggle="dropdown" data-target="#menu-messages" class="dropdown-toggle"><i class="glyphicon-envelope"></i> <span class="text">Messages</span> <span class="label label-important">5</span> <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a class="sAdd" title="" href="#">new message</a></li>
+                        <li><a class="sInbox" title="" href="#">inbox</a></li>
+                        <li><a class="sOutbox" title="" href="#">outbox</a></li>
+                        <li><a class="sTrash" title="" href="#">trash</a></li>
+                    </ul>
+                </li>*@
+                @*<li class="btn btn-default"><a title="" href="#"><i class="glyphicon-cog"></i> <span class="text">Settings</span></a></li>*@
+                <li class="btn"><a title="" href="/Account/LogOff"><span class="glyphicon glyphicon-remove-sign"></span> <span class="text">Logout</span></a></li>            
+        </ul>
+    </div>
+    }
+    
+    @* DISABLED 2013-11-04 by Junho: This is for notification message
+    <div id="loading" style="display: none;">
+           &nbsp;&nbsp;&nbsp;<img src="~/contents/_shared/image/ajax-loader.gif" alt="Loader Image" />
+           <br />
+           <div id="innerMessage"></div>
+    </div>*@
+
+    @RenderBody()
+
+    <footer class="footer bottom-bar"> 
+        <div class="container" style="padding: 0px;">  
+            <div class="row">
+                <div class="col-md-6" style="padding: 0px;">
+                    <div class="pull-left" >
+                        <img src="~/Images/washington.png" style="border:1px; border-radius: 4px 4px 4px 4px; max-height:100%; height:30px; width:30px" />
+                    </div>
+                    <div class="pull-left" style="margin:5px; max-width:340px;">
+                        <span>Project Name</span> 
+                    </div>
+                </div>
+                <div class="col-md-6" style="padding: 0px;">
+                    <div class="pull-right fontsize80p" style="margin:5px; text-align:right;">
+                        <span class="poweredby">Powered by <a href="http://www.cmdi.com" target="_blank">CMDI</a></span> 
+                        <span class="copyright">&#169; 2014.</span>
+                    </div>
+                </div>
+            </div>  
+        </div>               
+    </footer>
+
+  </body>
+
+@* Document Ready ///////////////////////////////////////////////////////////////////////////////// *@
+@if (Request.IsAuthenticated)
+{
+<script>         
+$(document).ready(function () {
+
+        @* This is to work around the issue of "the Button Dropdown Menu Items not clickable on iPad/iPhone" *@
+        $('body').on('touchstart.dropdown', '.dropdown-menu', function (e) { e.stopPropagation(); });
+
+    @* Tooltip *@
+    $('[data-toggle=tooltip]').tooltip({ placement: 'bottom' });
+
+    @*Donate Now*@
+    //$('#btn_donateNow').click(function () {
+    //    var path = "navi?url=/crm/DonateNow";
+    //    showModal_.html(path, null, '90%');
+    //    return false;
+    //});
+
+    @*Photo Inbox*@
+    //$('#btn_ducInbox').click(function () {
+    //    var path = "navi?url=/docuInbox";
+    //    showModal_.html(path, null, '90%');
+    //    return false;
+    //});
+
+    @*My Task*@
+    //$('#btn_myTasks').click(function () {
+    //    var path = "navi?url=/crm/Task/MyTasks";
+    //    showModal_.html(path, null, '95%');
+    //    return false;
+    //});
+        
+    @*My Account*@
+	$('#btn_myAccount').click( function() {
+            var path = "navi?url=/User/Index?IsEnable=No";            
+            showModal_.html(path, null, '70%');
+            return false;
+	});
+
+        @* Session Time-out Prompt *@
+        $(document).idleTimeout({
+            idleTimeLimit: 3600000,             // 'No activity' time limit in milliseconds. 3600000 = 60min, 1200000 = 20 Minutes, 60000 = 1 min
+            dialogDisplayLimit: 180000,         // Time to display the warning dialog before redirect (and optional callback) in milliseconds. 180000 = 3 Minutes
+            redirectUrl: '/Account/LogOff',     // redirect to this url
+
+            // optional custom callback to perform before redirect
+            customCallback: false,       // set to false for no customCallback
+            // customCallback:    function() {    // define optional custom js function
+            // perform custom action before logout
+            // },
+
+            // configure which activity events to detect
+            // http://www.quirksmode.org/dom/events/
+            // https://developer.mozilla.org/en-US/docs/Web/Reference/Events
+            activityEvents: 'click keypress scroll wheel mousewheel mousemove', // separate each event with a space
+
+            //dialog box configuration
+            dialogTitle: 'Session Expiration Warning',
+            dialogText: "It's been inactive over 20-min.  Your session is about to expire.",
+
+            // server-side session keep-alive timer & url
+            sessionKeepAliveTimer: 60000, // Ping the server at this interval in milliseconds. 60000 = 1 Minute
+            // sessionKeepAliveTimer: false, // Set to false to disable pings.
+            sessionKeepAliveUrl: '/Account/sessionKeepAlive',  // url to ping
+        });
+
+    }); 
+</script>
+}
+</html>

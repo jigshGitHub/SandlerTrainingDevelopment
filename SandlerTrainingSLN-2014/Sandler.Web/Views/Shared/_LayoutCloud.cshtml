@@ -1,0 +1,28 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+@{Html.RenderPartial("~/Views/Shared/_LayoutHeader.cshtml");}
+        
+
+<body @(!Request.IsAuthenticated ? string.Format("style=background-color:white") : string.Format("style=background-color:white"))>
+   
+    @RenderBody()
+    
+    <footer class="footer bottom-bar" style="background-color: #C3D69B"> @*This is Sand Color*@
+        <div class="container" style="margin:5px;">    
+            <div class="pull-left" >
+                <img src="~/Images/washington.png" style="border:1px; border-radius: 4px 4px 4px 4px; max-height:100%; height:30px; width:30px" />
+            </div>
+            <div class="pull-left" style="margin:5px;">
+                <span>Mined Systems Business Intelligence</span>&nbsp;&nbsp;<a href="~/Disclaimer/MSI_Disclaimer.docx" target="_blank">Website Disclaimer</a> 
+            </div>
+            <div class="pull-right" style="margin:5px; text-align:right; font-size:small">
+                <span class="poweredby">Powered by <a href="http://www.minedsystems.com" target="_blank">Mined Systems Inc.</a></span> 
+                <span class="copyright">&#169; 2013.</span>
+            </div>
+        </div>               
+    </footer>
+    
+    @RenderSection("scripts", required: false)
+</body>
+</html>

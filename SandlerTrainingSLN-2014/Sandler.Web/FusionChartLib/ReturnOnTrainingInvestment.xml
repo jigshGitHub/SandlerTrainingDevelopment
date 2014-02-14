@@ -1,0 +1,29 @@
+<chart caption='Return On Training Investment' numberSuffix='%' canvasBgColor='FFFFFF' canvasBgAlpha='100' >
+
+  <categories>
+
+    <category label='Year 1' />
+    <category label='Year 2' />
+    <category label='Year 3' />
+
+  </categories >
+
+  <dataset seriesName='Original ROI' color='0000FF' >
+
+    <set  value='85' link='ROI.aspx' />
+    <set  value='62' link='ROI.aspx' />
+    <set  value='78' link='ROI.aspx' />
+
+
+  </dataset>
+
+  <dataset seriesName='Modified ROI' color='F7D358'>
+
+    <set  value='60' link='ROI.aspx' />
+    <set  value='72' link='ROI.aspx' />
+    <set  value='74' link='ROI.aspx'/>
+
+
+  </dataset>
+
+</chart>

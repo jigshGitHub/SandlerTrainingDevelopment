@@ -1,0 +1,68 @@
+﻿using Sandler.DB.Data.Common.Interface;
+using Sandler.DB.Models;
+using Sandler.Web.Models;
+using Sandler.Web.UI.Structure;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
+using System.Net.Http;
+using System.Web.Http;
+
+namespace Sandler.Web.Controllers.API
+{
+    public class ChartController : BaseApiController
+    {
+        public ChartController(IUnitOfWork uow) :base(uow)
+        {
+        }
+
+        public ChartController()
+            : base()
+        {
+        }
+        [HttpGet]
+        public IChart Get(string id, string strChartIds, string strChartSubType, string strDrillBy, string strUserName, string strSearchParameter, [System.Web.Http.ModelBinding.ModelBinder] List<ChartParameter> monthYearCombinations)
+        {
+            string[] chartIds = strChartIds.Split(new char[] { '_' });
+            string chartSubtype = strChartSubType;
+            ChartID idSelected;
+            //ChartRepository cR;
+            TBL_CHART dbChart;
+            IChart chartToLoad = null;
+            UserModel CurrentUser;
+            CurrentUser = new UserModel(strUserName);
+            CurrentUser.Load(uow);
+            //new UserDataModel().Load(CurrentUser);
+            foreach (string chartId in chartIds)
+            {
+
+                idSelected = (ChartID)Enum.Parse(typeof(ChartID), chartId, true);
+
+                //cR = new ChartRepository();
+                //dbChart = cR.GetAll().Where(c => c.ChartID == chartId && c.IsActive == true).SingleOrDefault();
+                dbChart = uow.Repository<TBL_CHART>().GetAll().Where(c => c.ChartID == chartId && c.IsActive == true).SingleOrDefault();
+
+                if (dbChart.TypeOfChart == "Chart")
+                {
+                    chartToLoad = new Chart(uow) { SearchParameter = strSearchParameter, SubType = string.IsNullOrEmpty(chartSubtype) ? ChartSubType.NoSubType : (ChartSubType)Enum.Parse(typeof(ChartSubType), chartSubtype), BGAlpha = dbChart.BgAlpha, BGColor = dbChart.BgColor, CanvasBGAlpha = dbChart.CanvasBgAlpha, CanvasBGColor = dbChart.CanvasBgColor, Caption = dbChart.Caption, SWF = dbChart.SWFile, NumberSuffix = dbChart.NumberSuffix, PieRadius = dbChart.PieRadius, showLabels = dbChart.ShowLabels, showLegend = dbChart.ShowLegend, XaxisName = dbChart.XaxisName, YaxisName = dbChart.YaxisName, Id = idSelected, enableRotation = dbChart.EnableRotation, DrillChartIds = (string.IsNullOrEmpty(dbChart.DrillLevelChartIDs)) ? "" : dbChart.DrillLevelChartIDs, DrillOverride = false, DrillBy = (string.IsNullOrEmpty(strDrillBy)) ? "" : strDrillBy, MonthYearCombinations = monthYearCombinations };
+                    chartToLoad.LoadChart(CurrentUser);
+                    chartToLoad.CreateChart();
+                }
+                else if (dbChart.TypeOfChart == "PieChart")
+                {
+                    //chartToLoad = new PieChart() { SearchParameter = strSearchParameter, SubType = string.IsNullOrEmpty(chartSubtype) ? ChartSubType.NoSubType : (ChartSubType)Enum.Parse(typeof(ChartSubType), chartSubtype), BGAlpha = dbChart.BgAlpha, BGColor = dbChart.BgColor, CanvasBGAlpha = dbChart.CanvasBgAlpha, CanvasBGColor = dbChart.CanvasBgColor, Caption = dbChart.Caption, SWF = dbChart.SWFile, NumberSuffix = dbChart.NumberSuffix, PieRadius = dbChart.PieRadius, showLabels = dbChart.ShowLabels, showLegend = dbChart.ShowLegend, XaxisName = dbChart.XaxisName, YaxisName = dbChart.YaxisName, Id = idSelected, enableRotation = dbChart.EnableRotation, DrillChartIds = (string.IsNullOrEmpty(dbChart.DrillLevelChartIDs)) ? "" : dbChart.DrillLevelChartIDs, DrillOverride = false, DrillBy = (string.IsNullOrEmpty(strDrillBy)) ? "" : strDrillBy };
+                    //((PieChart)chartToLoad).LoadChart(CurrentUser);
+                    //((PieChart)chartToLoad).CreateChart();
+                }
+                else if (dbChart.TypeOfChart == "BarChart")
+                {
+                    chartToLoad = new BarChart(uow) { SearchParameter = strSearchParameter, SubType = string.IsNullOrEmpty(chartSubtype) ? ChartSubType.NoSubType : (ChartSubType)Enum.Parse(typeof(ChartSubType), chartSubtype), BGAlpha = dbChart.BgAlpha, BGColor = dbChart.BgColor, CanvasBGAlpha = dbChart.CanvasBgAlpha, CanvasBGColor = dbChart.CanvasBgColor, Caption = dbChart.Caption, SWF = dbChart.SWFile, NumberSuffix = dbChart.NumberSuffix, PieRadius = dbChart.PieRadius, showLabels = dbChart.ShowLabels, showLegend = dbChart.ShowLegend, XaxisName = dbChart.XaxisName, YaxisName = dbChart.YaxisName, Id = idSelected, enableRotation = dbChart.EnableRotation, DrillChartIds = (string.IsNullOrEmpty(dbChart.DrillLevelChartIDs)) ? "" : dbChart.DrillLevelChartIDs, DrillOverride = false, DrillBy = (string.IsNullOrEmpty(strDrillBy)) ? "" : strDrillBy };
+                    ((BarChart)chartToLoad).LoadChart(CurrentUser);
+                    ((BarChart)chartToLoad).CreateChart();
+                }
+            }
+            return chartToLoad;
+        }
+    }
+}

@@ -1,0 +1,50 @@
+﻿
+@model Sandler.Web.ViewModels.pageInfo
+
+@{
+    ViewBag.Title = @Model.title;
+}
+
+<style>
+    #sidebar > ul { margin: 0 }
+    a { cursor: pointer; }
+</style>
+
+<dcontent 
+    ng-controller="ngAppMainController"
+    ng-init="currentHost = 'SandlerCRM'"
+    ng-cloak>
+    
+    <div id="sidebar">
+	    <ul>
+		    <li ng-repeat="menuGroup in menuDef.menuGroups" ng-class="menuGroup.liClass()"> 
+
+                
+			    <a ng-href="{{menuGroup.pagePathC()}}" ng-click="menuGroup.clicked()"> 
+                    <i ng-class="menuGroup.iconClass" style="background:none; opacity:1.0"></i> 
+                    <span>{{ menuGroup.caption}}</span> 
+                    <span class="label" style="font-weight:normal;font-size:small;color:lightgray">{{menuGroup.menuCount()>1 ? menuGroup.menuCount() : ''}}</span>
+			    </a>
+
+                
+			    <ul ng-if="!menuGroup.itselfMenu()">
+				    <li ng-repeat="menuItem in menuGroup.menuItems" ng-class="menuItem.liClass()" >               
+                    
+                        <a ng-href="{{ menuItem.pagePathC()}}" ng-click="menuItem.clicked()"> 
+                            <span>{{ menuItem.caption }}</span>
+                        </a>
+                    
+				    </li>
+			    </ul>
+		    </li>
+	    </ul>		
+    </div>
+
+    <div id="content" style="background-color:none; padding-bottom:20px;">
+        <ng-view></ng-view>
+        
+    </div>
+
+</dcontent>
+
+

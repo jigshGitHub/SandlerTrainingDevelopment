@@ -1,0 +1,59 @@
+<chart caption='Retention Rate'  bgColor='FFFFFF' bgAlpha='100' numberPrefix='$' sNumberSuffix='%'
+canvasBgColor='FFFFFF' canvasBgAlpha='100' plotGradientColor=' ' >   
+
+<categories>
+
+    	<category label='2010' /> 
+    	<category label='2011' />
+	<category label='2012-todate' />
+
+</categories >
+
+<dataset seriesName="Growth Company" color='9933CC' >       
+
+	<set  value='55' link='RRDrill01.html' />        
+	<set  value='62' link='RRDrill04.html' />
+	<set  value='78' link='RRDrill07.html' />        
+    
+</dataset>   
+
+<dataset seriesName="Marginal Company" color='009966' >        
+
+	<set  value='60' link='RRDrill02.html' />        
+	<set  value='72' link='RRDrill05.html' />        
+	<set  value='74' link='RRDrill08.html' />        
+ 
+</dataset>
+
+<dataset seriesName="Stale Company" color ='FF6633' >       
+
+	<set  value='45' link='RRDrill03.html' />        
+	<set  value='52' link='RRDrill06.html' />
+	<set  value='68' link='RRDrill09.html' />  
+
+</dataset>
+
+<dataset seriesName="Growth Company" ParentYAxis = 's' color='9933CC' showValues='0' >       
+
+	<set  value='5' />        
+	<set  value='2' />
+	<set  value='8' />        
+    
+</dataset>   
+
+<dataset seriesName="Marginal Company" ParentYAxis = 's' color='009966' showValues='0'>        
+
+	<set  value='6' />        
+	<set  value='7' />        
+	<set  value='7' />        
+ 
+</dataset>
+
+<dataset seriesName="Stale Company" ParentYAxis = 's'  color ='FF6633' showValues='0'>       
+
+	<set  value='4' />        
+	<set  value='5' />
+	<set  value='6' />  
+
+</dataset>
+</chart>

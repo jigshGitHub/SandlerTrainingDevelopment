@@ -1,0 +1,237 @@
+﻿
+
+@Scripts.Render("~/bundles/external")
+
+<script src="~/Scripts/application.js" type="text/javascript"></script>
+<script src="~/Scripts/ng-manageUsersCtrl.js" type="text/javascript"></script>
+
+<div id="clubSearch" class="container-fluid" ng-controller="ng_manageUsersCtrl">
+    <div class="row-fluid">
+        <div class='page-title'>Manage Users</div>
+    </div>
+    <br />
+    <script type="text/x-kendo-template" id="template">
+                <div class="toolbar"><a class="k-button k-button-icontext k-grid-add" href=""><span class="k-icon k-add"></span>Add new record</a>
+                </div>
+    </script>
+
+    <div class="row-fluid" style="margin-top: 10px">
+        <div id="searchGrid" class="k-content">
+            <div id="usersGrid"></div>
+        </div>
+    </div>
+    @*<div id="editContainer" data-bind='visible: showEditContainer' class="modal hide fade">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h3>Add/Update User:</h3>
+        </div>
+        <div class="modal-body">
+            <table style="width: 100%">
+                <tr>
+                    <td style="width: 25%">Username
+                    </td>
+                    <td style="width: 1%">:
+                    </td>
+                    <td style="width: 74%">
+                        <input type="text" data-bind="enable: false, value: userName" />
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 25%">First Name
+                    </td>
+                    <td style="width: 1%">:
+                    </td>
+                    <td style="width: 74%">
+                        <input type="text" data-bind="value: firstName" />
+                        <span class="label label-important"><small>Required</small></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Last Name
+                    </td>
+                    <td>:
+                    </td>
+                    <td>
+                        <input type="text" data-bind="value: lastName" />
+                        <span class="label label-important"><small>Required</small></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Email
+                    </td>
+                    <td>:
+                    </td>
+                    <td>
+                        <input type="text" data-bind="value: email" />
+                        <span class="label label-important"><small>Required</small></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Role
+                    </td>
+                    <td>:
+                    </td>
+                    <td>
+                        <select data-bind="kendoDropDownList: { dataTextField: 'text', optionLabel: ' ', dataValueField: 'value', data: roles, value: role }"/>
+                    </td>
+                </tr>
+                <tr data-bind="visible: makeAgenciesVisible">
+                    <td data-bind="text: roleKeyTitle"></td>
+                    <td>:
+                    </td>
+                    <td>
+                        <select data-bind="kendoDropDownList: { dataTextField: 'Text', optionLabel: ' ', dataValueField: 'Value', data: agencies, value: agencySelected }"/>
+                    </td>
+                </tr>
+                <tr data-bind="visible: makeLawFirmVivible">
+                    <td data-bind="text: roleKeyTitle"></td>
+                    <td>:
+                    </td>
+                    <td>
+                        <select data-bind="kendoDropDownList: { dataTextField: 'Text', optionLabel: ' ', dataValueField: 'Value', data: lawFirms, value: lawFirmSelected }"/>
+                    </td>
+                </tr>
+                <tr data-bind="visible: makeCreditIssuersVisible">
+                    <td data-bind="text: roleKeyTitle"></td>
+                    <td>:
+                    </td>
+                    <td>
+                        <select data-bind="kendoDropDownList: { dataTextField: 'Text', optionLabel: ' ', dataValueField: 'Value', data: creditIssuers, value: creditIssuerSelected }"/>
+                    </td>
+                </tr>
+                <tr data-bind="visible: makeDebtOwnersVisible">
+                    <td data-bind="text: roleKeyTitle"></td>
+                    <td>:
+                    </td>
+                    <td>
+                        <select data-bind="kendoDropDownList: { dataTextField: 'Text', optionsCaption: ' ', dataValueField: 'Value', data: debtOwners, value: debtOwnerSelected }"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3" style="text-align: center">
+                        <div data-bind="fadeVisible: showMessage" style="background-color: #1f497d; color: #fff">
+                            <span data-bind="text: message"></span>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="modal-footer">
+            <a href="#" class="btn" data-bind="visible: saveVisible, click: saveCancel">Close</a>
+            <a href="#" class="btn btn-primary" data-bind="visible: saveVisible, click: save">Save changes</a>
+        </div>
+    </div>*@
+
+
+    
+        @*This is the Model Window for Add and Edit Feature*@
+        <div class="modal" id="user_detail">
+	        <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button class="close" aria-hidden="true" type="button" data-dismiss="modal">×</button>
+                  <h3 id="modal-headerLabel"></h3>
+                </div>
+                <div id="user_body" class="modal-body">
+                    <table style="width: 100%">
+                        <tr>
+                            <td style="width: 25%">Username
+                            </td>
+                            <td style="width: 1%">:
+                            </td>
+                            <td style="width: 74%">
+                                <input type="text" data-bind="enable: false, value: userName" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width: 25%">First Name
+                            </td>
+                            <td style="width: 1%">:
+                            </td>
+                            <td style="width: 74%">
+                                <input type="text" data-bind="value: firstName" />
+                                <span class="label label-important"><small>Required</small></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Last Name
+                            </td>
+                            <td>:
+                            </td>
+                            <td>
+                                <input type="text" data-bind="value: lastName" />
+                                <span class="label label-important"><small>Required</small></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Email
+                            </td>
+                            <td>:
+                            </td>
+                            <td>
+                                <input type="text" data-bind="value: email" />
+                                <span class="label label-important"><small>Required</small></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Role
+                            </td>
+                            <td>:
+                            </td>
+                            <td>
+                                <select data-bind="kendoDropDownList: { dataTextField: 'text', optionLabel: ' ', dataValueField: 'value', data: roles, value: role }"/>
+                            </td>
+                        </tr>
+                        <tr data-bind="visible: makeAgenciesVisible">
+                            <td data-bind="text: roleKeyTitle"></td>
+                            <td>:
+                            </td>
+                            <td>
+                                <select data-bind="kendoDropDownList: { dataTextField: 'Text', optionLabel: ' ', dataValueField: 'Value', data: agencies, value: agencySelected }"/>
+                            </td>
+                        </tr>
+                        <tr data-bind="visible: makeLawFirmVivible">
+                            <td data-bind="text: roleKeyTitle"></td>
+                            <td>:
+                            </td>
+                            <td>
+                                <select data-bind="kendoDropDownList: { dataTextField: 'Text', optionLabel: ' ', dataValueField: 'Value', data: lawFirms, value: lawFirmSelected }"/>
+                            </td>
+                        </tr>
+                        <tr data-bind="visible: makeCreditIssuersVisible">
+                            <td data-bind="text: roleKeyTitle"></td>
+                            <td>:
+                            </td>
+                            <td>
+                                <select data-bind="kendoDropDownList: { dataTextField: 'Text', optionLabel: ' ', dataValueField: 'Value', data: creditIssuers, value: creditIssuerSelected }"/>
+                            </td>
+                        </tr>
+                        <tr data-bind="visible: makeDebtOwnersVisible">
+                            <td data-bind="text: roleKeyTitle"></td>
+                            <td>:
+                            </td>
+                            <td>
+                                <select data-bind="kendoDropDownList: { dataTextField: 'Text', optionsCaption: ' ', dataValueField: 'Value', data: debtOwners, value: debtOwnerSelected }"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3" style="text-align: center">
+                                <div data-bind="fadeVisible: showMessage" style="background-color: #1f497d; color: #fff">
+                                    <span data-bind="text: message"></span>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                  <a class="btn btn-sm btn-default" id="cancel" data-dismiss="modal">Close</a>
+		          <a class="btn btn-sm btn-primary savesa">Save changes</a>
+                </div>
+              </div>
+            </div>
+        </div>
+
+
+
+</div>
+

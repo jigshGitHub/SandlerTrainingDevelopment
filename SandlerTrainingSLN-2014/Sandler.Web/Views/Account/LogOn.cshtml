@@ -1,0 +1,63 @@
+﻿
+@model Sandler.Web.Models.LogOnModel
+
+@{
+    ViewBag.Title = "Prpject Title";
+    //Layout = (session.is_main_domain ? "~/Views/Shared/_LayoutCMDILogOn.cshtml" : "~/Views/Shared/_Layout.cshtml");*
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var userCanRegister = false; //(At-Symbol)WorkContext.CurrentSite.As<Users.Models.RegistrationSettingsPart>().UsersCanRegister;
+    var enableLostPassword = false;//(At-Symbol)WorkContext.CurrentSite.As<Orchard.Users.Models.RegistrationSettingsPart>().EnableLostPassword;
+}
+
+@*@if (string.IsNullOrEmpty(session.currentDomain_project.path_bgimage))
+{
+    *@<div class="row" style="margin-top:10px; padding-top:20px; padding-bottom:20px; text-align:center; background-color:rgba(0,0,0,.5);" >
+        <span class="HeaderText">Project Name</span>
+    </div>
+@*}*@
+
+<div class="container">
+    @*///// LogOn Form ///////////////////////////////////////////////////////////////////*@                                                                                                                                                
+    <div class="col-sm-5 jumbotron" style="background-color:rgba(0,0,0,.5);padding:15px;margin-top:45px;">
+        <div class="jumbotron" style="background-color:white; opacity:0.9;padding:15px;margin:0px;">
+
+            <div class="page-title" >Log <span>in</span></div>
+
+            @using (Html.BeginForm(new {@role = "form"})) {           
+                        
+                @Html.HiddenFor(model => model.returnUrl)
+                                                                                                                                     
+                    <div class="controls">
+                        <div class="row">
+                            @Html.TextBoxFor(m => m.UserName, new { @class="form-control", placeholder="User Name or Email" }) 
+                            @Html.ValidationMessageFor(m => m.UserName)
+                        </div>
+                                
+                        <div class="row" style="margin-top: 10px;">
+                            @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = "Password" }) 
+                            @Html.ValidationMessageFor(m => m.Password)
+                        </div>
+                        <div class="row" style="margin-top: 15px;">
+                            @Html.CheckBoxFor(m => m.RememberMe)  <span class="smallline">Remember me</span>
+                            <button class="btn btn-primary pull-right" type="submit"><i class="fa fa-power-off"></i>  Log In</button>                            
+                        </div>
+                    </div>
+            }
+
+            @Html.ValidationSummary(false, "Login was unsuccessful. Please correct the errors and try again.", new { @class = "alert alert-error" })
+        
+            @if(userCanRegister) { @Html.ActionLink("Register if you don't have an account.", "Register", "Account")} 
+            @if(enableLostPassword) { @Html.ActionLink("Lost your Password?", "RequestLostPassword", "Account") }
+
+        </div>
+    </div>
+</div>
+
+
+@*///// Hide "LogOn" button at NavBar //////////////////////////////////////////////*@
+<script>
+    $(document).ready(function () {
+        $("#btn_logonButton").hide();
+    });
+</script>
+

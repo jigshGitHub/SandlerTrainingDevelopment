@@ -1,0 +1,98 @@
+﻿<div id="workspaceContainer">
+
+    <div class="row">
+        <div class="col-sm-6">
+            <div id="containerNewAppointmentsBySourceMonth" style="display: block; text-align: center">
+                Please
+        wait...
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div id="containerNewClientsByProductTypeMonth" style="display: block; text-align: center">
+                Please
+        wait...
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6">
+            <div id="containerNewClientQuantityAverageContractPriceByMonth" style="display: block; text-align: center">
+                Please
+        wait...
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div id="containerClassHeadcountByCourseIndustryMonth" style="display: block; text-align: center">
+                Please
+        wait...
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6">
+            <div id="containerAverageLengthTimeActiveClientsByIndustry" style="display: block; text-align: center">
+                Please
+        wait...
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div id="containerActualDollarsBookedComparisonGoal" style="display: block; text-align: center">
+                Please
+        wait...
+            </div>
+        </div>
+    </div>
+</div>
+@Scripts.Render("~/bundles/external")
+<script type="text/javascript">
+    $(document).ready(function () {
+        var href = window.location.href.split('/');
+        var baseUrl = href[0] + '//' + href[2] + '/' + href[3];
+        //function loadChart(chartId, drillBy, countryId, chartContainer, myChartId) {
+        //$.ajax({
+        //    url: "/api/Chart/",
+        //    type: 'GET',
+        //    contentType: 'application/json',
+        //    data: { id: '', strChartIds: 'NewAppointmentsBySourceMonth', strChartSubType: '', strDrillBy: '', strUserName: 'msi.andrew', strSearchParameter: '' },
+        //    success: function (data) {
+        //        console.log(data);
+        //        var myChart = new FusionCharts('http://localhost:5580/FusionChartLib/' + data.SWF, 'test', '600', '400', '0', '1');
+        //        myChart.setXMLData(data.ChartXML);
+        //        myChart.render('chartContainer');
+        //    }
+        //});
+        //}
+        var apiRequestData;
+
+        apiRequestData= 'id=&strChartIds=NewAppointmentsBySourceMonth&strChartSubType=&strDrillBy=&strUserName=msi.andrew&strSearchParameter=';
+        loadChart('/api/Chart?', 'http://localhost:5580/FusionChartLib/', 'containerNewAppointmentsBySourceMonth', 'chartNewAppointmentsBySourceMonth', '400', '300', apiRequestData);
+
+        apiRequestData = 'id=&strChartIds=NewClientsByProductTypeMonth&strChartSubType=&strDrillBy=&strUserName=msi.andrew&strSearchParameter=';
+        loadChart('/api/Chart?', 'http://localhost:5580/FusionChartLib/', 'containerNewClientsByProductTypeMonth', 'chartNewClientsByProductTypeMonth', '400', '300', apiRequestData);
+
+        apiRequestData = 'id=&strChartIds=NewClientQuantityAverageContractPriceByMonth&strChartSubType=&strDrillBy=&strUserName=msi.andrew&strSearchParameter=';
+        loadChart('/api/Chart?', 'http://localhost:5580/FusionChartLib/', 'containerNewClientQuantityAverageContractPriceByMonth', 'chartNewClientQuantityAverageContractPriceByMonth', '400', '300', apiRequestData);
+
+        apiRequestData = 'id=&strChartIds=ClassHeadcountByCourseIndustryMonth&strChartSubType=&strDrillBy=&strUserName=msi.andrew&strSearchParameter=';
+        loadChart('/api/Chart?', 'http://localhost:5580/FusionChartLib/', 'containerClassHeadcountByCourseIndustryMonth', 'chartClassHeadcountByCourseIndustryMonth', '400', '300', apiRequestData);
+
+        apiRequestData = 'id=&strChartIds=AverageLengthTimeActiveClientsByIndustry&strChartSubType=&strDrillBy=&strUserName=msi.andrew&strSearchParameter=';
+        loadChart('/api/Chart?', 'http://localhost:5580/FusionChartLib/', 'containerAverageLengthTimeActiveClientsByIndustry', 'chartAverageLengthTimeActiveClientsByIndustry', '400', '300', apiRequestData);
+
+        apiRequestData = 'id=&strChartIds=ActualDollarsBookedComparisonGoal&strChartSubType=&strDrillBy=&strUserName=msi.andrew&strSearchParameter=';
+        loadChart('/api/Chart?', 'http://localhost:5580/FusionChartLib/', 'containerActualDollarsBookedComparisonGoal', 'chartActualDollarsBookedComparisonGoal', '400', '300', apiRequestData);
+
+        function loadChart(url, fusionChartLibUrl, chartContainer, myChartId, chartWidth, chartHeight, apiRequestData) {
+            $.ajax({
+                url: url + apiRequestData,
+                type: 'GET',
+                contentType: 'application/json',
+                success: function (data) {
+                    log(data);
+                    var myChart = new FusionCharts(fusionChartLibUrl + data.SWF, myChartId, chartWidth, chartHeight, '0', '1');
+                    myChart.setXMLData(data.ChartXML);
+                    myChart.render(chartContainer);
+                }
+            });
+        }
+    });</script>

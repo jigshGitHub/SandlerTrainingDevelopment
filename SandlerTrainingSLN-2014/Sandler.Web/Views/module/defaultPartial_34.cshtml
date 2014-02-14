@@ -1,0 +1,20 @@
+﻿@using Sandler.Data.Models
+@model Sandler.Data.Models.pageMenu
+@{
+    ViewBag.Title = @Model.name;}
+
+<div id="workspaceContainer">
+    <div id="defaultPageContainer">
+        <table>
+            <tr>
+                <td class="title">@Model.name</td>
+                <td class="icon">
+                    <img src="@Model.iconPath" />
+                <td>
+            </tr>
+            <tr>
+                <td colspan="2" class="description">@Model.description</td>
+            </tr>
+        </table>
+    </div>
+</div>

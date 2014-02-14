@@ -1,0 +1,110 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+@{Html.RenderPartial("~/Views/Shared/_LayoutHeader.cshtml");}
+
+    
+
+
+<body @(!Request.IsAuthenticated ? string.Format("style=background-color:white") : string.Format("style=background-color:white"))>
+   
+    @RenderBody()
+
+    <style>
+        .zoom_img img{
+            
+            -moz-transition:-moz-transform 0.1s ease-in; 
+            -webkit-transition:-webkit-transform 0.1s ease-in; 
+            -o-transition:-o-transform 0.1s ease-in;
+            }
+        .zoom_img img:hover{
+            -moz-transform:scale(2); /*for FF*/
+            -webkit-transform:scale(2);/*chrome and Safari*/
+            -o-transform:scale(2);/*Opera*/
+            }
+      
+     </style>
+        
+    @*http://www.windroidclub.com/2013/01/how-to-enlarge-images-using-css-3.html*@
+
+    @*http://jsfiddle.net/vigneshvdm/LeuQc/*@
+
+<div class="container span12" style="margin-bottom:60px">
+
+   <div class="row-fluid span12">
+
+        <div class="span1 zoom_img" style="max-width:75px">
+            
+             <a href="http://www.yahoo.com" target="_blank"><img title="Business Intelligence" src="~/Images/BI_large.png" /></a>
+             
+        </div>
+        <div class="span1 zoom_img" style="max-width:75px">
+            
+            <a href="http://www.yahoo.com" target="_blank"><img title="Scorecards" src="~/Images/SC_large.png" /></a>
+            
+        </div>
+        <div class="span1 zoom_img" style="max-width:75px">
+            
+            <a href="http://www.yahoo.com" target="_blank"><img title="Genesis ARM" src="~/Images/GARM_large.png" /></a>
+            
+        </div>
+        <div class="span2 zoom_img" style="max-width:90px">
+            
+            <a href="http://www.yahoo.com" target="_blank"><img title="CFPB and Compliance" src="~/Images/CFPB_large.png" /></a>
+            
+        </div>
+        <div class="span2 zoom_img" style="max-width:120px">
+            
+            <a href="http://www.yahoo.com" target="_blank"><img title="Econometrics Intelligence" src="~/Images/ECO_large.png" /></a>
+            
+        </div>
+        <div class="span1 zoom_img" style="width:95px">
+            
+            <a href="http://www.yahoo.com" target="_blank"><img title="Higher Education Metrics" src="~/Images/HE_large.png" /></a>
+            
+        </div>
+        <div class="span2 zoom_img" style="max-width:120px">
+            
+            <a href="http://www.yahoo.com" target="_blank"><img title="CRM" src="~/Images/CRM_large.png" /></a>
+            
+        </div>
+        <div class="span2 zoom_img" style="width:95px">
+            
+            <a href="http://www.yahoo.com" target="_blank"><img title="Predictive Modelling" src="~/Images/PM_large.png" /></a>
+            
+        </div>
+
+        <div class="span1 zoom_img" style="max-width:75px">
+            
+            <a href="http://www.yahoo.com" target="_blank"><img title="Sandler Training" src="~/Images/ST_large.png" /></a>
+            
+        </div>
+        <div class="span1 zoom_img" style="max-width:80px">
+            
+            <a href="http://www.yahoo.com" target="_blank"><img title="Cloud and Data Warehousing" src="~/Images/CL_large.png" /></a>
+            
+        </div>
+                
+    </div>
+
+</div>
+    
+
+    <footer class="footer bottom-bar" style="background-color: #C3D69B"> @*This is Sand Color*@
+        <div class="container" style="margin:5px;">    
+            <div class="pull-left" >
+                <img src="~/Images/washington.png" style="border:1px; border-radius: 4px 4px 4px 4px; max-height:100%; height:30px; width:30px" />
+            </div>
+            <div class="pull-left" style="margin:5px;">
+                <span>Mined Systems Business Intelligence</span>&nbsp;&nbsp;<a href="~/Disclaimer/MSI_Disclaimer.docx" target="_blank">Website Disclaimer</a> 
+            </div>
+            <div class="pull-right" style="margin:5px; text-align:right; font-size:small">
+                <span class="poweredby">Powered by <a href="http://www.minedsystems.com" target="_blank">Mined Systems Inc.</a></span> 
+                <span class="copyright">&#169; 2013.</span>
+            </div>
+        </div>               
+    </footer>
+    
+    @RenderSection("scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,295 @@
+﻿@using Sandler.Web.Models
+@model Sandler.Web.ViewModels.pageInfo
+
+@{
+    ViewBag.Title = @Model.title;
+}
+
+<div id="sidebar">
+	<a href="#" class="visible-phone"><i class="icon icon-list" style="background:none"></i> <span data-bind="text: activeMenuCaption"></span></a>
+	<ul data-bind="foreach: menuGroups">
+		<li data-bind="attr: { id: liId, class: liClass }">
+            @* Menu Header *@
+			<a href="#" data-bind="click: (itselfMenu() ? pageMenu().menuItemClicked.bind($data, $element) : null)">
+                <i data-bind="attr: { class: iconClass }" style="background:none; opacity:1.0"></i> 
+                <span data-bind="text: caption"></span> 
+			</a>
+            @* Sub Menu *@
+			<ul data-bind="foreach: menuItems">
+				<li data-bind="attr: { id: liId, class: liClass }">
+                    <a href="#" data-bind="click: menuItemClicked.bind($data, $element)">
+                        <span data-bind="text: caption"></span>
+                    </a>
+				</li>
+			</ul>
+		</li>
+	</ul>		
+</div>
+
+<div id="content" style="background-color:none;">
+
+</div>
+
+<div id="dvModal" class="modal hide big" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+  @*
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h5 id="modal-headerLabel"></h5>
+  </div>
+  *@
+  <div id="dvModalBody" class="modal-body">
+  </div>
+
+  @* Footer example if used
+  <div class="modal-footer">
+    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+    <button class="btn btn-primary">Save changes</button>
+  </div>
+  *@
+</div>
+
+
+@* (Script) Menu Launcher //////////////////////////////////////////////////////////////////////////// *@
+<script>
+    var menuLauncher = {
+        open: function (windowMode, url, hostDiv, headerTitle) {
+
+            @* windowMode
+                (n)ew Browser Window
+                (p)anel window
+                (i)Frame in panel window
+                (m)odal Window
+              mo(d)al Window w/ iFrame
+            *@
+
+            if (windowMode == 'n') {
+                window.open(url);
+            }
+            else if (windowMode == 'm') {
+                @*
+                $('#dvModalBody').children().remove();
+                $.get(url, function (data) {
+                    $('#dvModalBody').html(data);
+                });
+
+                modalOptions = { backdrop: 'static', show: true }; //, remote: path  -> Didn't work for re-open                          
+                $('#modal-headerLabel').text(headerTitle);
+                $('#dvModal').modal(modalOptions);
+                *@
+                showModal_.html(url, null, '97%');
+            }
+            else if (windowMode == 'i' || windowMode == 'd') {  @* (i)Frame in panel window or Mo(d)al window *@
+
+                if (windowMode == 'd') {
+                    @*
+                    $('#dvModalBody').css('height', '100%');
+                    $('#dvModalBody').append(iframeHtml);
+                    modalOptions = { backdrop: 'static', show: true }
+                    $('#modal-headerLabel').text(headerTitle);
+                    $('#dvModal').modal(modalOptions);
+                    *@
+                    showModal_.iframe(url);
+                }
+                else {
+                    var iframeATTR = {
+                        id: 'iframePanel',
+                        src: url,
+                        frameborder: '0',
+                        scrolling: 'no',
+                        allowTransparency: 'true',
+                        width: '100%',
+                        height: '860'   @* 860 or 100% : This is perfect for IE 9 but shows scroll bar for Chrome and FF. FF and IE needs height in digits. Chrome is ok with 100% *@
+                    };
+
+                    var iframeHtml = $('<iframe>').attr(iframeATTR)
+
+                    var contentSelector = '#' + hostDiv;
+                    $(contentSelector).css('height', '100%');
+                    $(contentSelector).html(iframeHtml);
+                }
+            }
+            else {  @* (p)anel window *@
+                aRenderer.openPage(url, hostDiv);
+            }
+        }
+    };
+</script>
+
+@* (Script) Menu Model - Menu Item //////////////////////////////////////////////////////////////////////////// *@
+<script type="text/javascript">
+    function menuItem_viewModel(data, parent) {
+        var self = this;
+        @* Menu Item - Data Properties *@
+        self.pageMenuId = ko.observable(data.pageMenuId);
+        self.liId = ko.computed ( function() {
+            return 'menuLiId_'+self.pageMenuId();
+        });
+        self.name = ko.observable(data.name);
+        self.caption = ko.observable(data.shortCaption);
+        self.longCaption = ko.observable(data.longCaption);
+        self.isNewWindow = ko.observable(data.isNewWindow);
+        self.isModal = ko.observable(data.isModal);
+        self.inIFRAME = ko.observable(data.inIFRAME);
+        self.pagePath = ko.observable(data.pagePath);
+
+        @* Menu Item - Runtime Properties *@
+        self.parent = parent;
+        self.active = ko.observable(false);
+
+        @* (Class) whether "active" *@
+        self.liClass = ko.computed(function () {
+            if (self.active())
+                return "active";
+            else
+                return "";
+        }, this);
+
+        @* Per menuItem selected(clicked) *@
+        self.menuItemClicked = function (element) {
+            @* This line causes an error in IE and FireFox.  Works in Chrome 
+            event.stopPropagation(); // prevent default bootstrap behavior *@
+
+            @* Handle visual of Active/Inactive menu *@
+            if (!self.active() && !self.isNewWindow() && !self.isModal()) {
+                
+                @* Inactivate all menu *@
+                for (var i = 0; i < self.parent.parent.menuGroups().length; i++) {
+                    self.parent.parent.menuGroups()[i].active(false);
+
+                    @* Single Menu Item *@
+                    if (self.parent.parent.menuGroups()[i].itselfMenu())
+                        self.parent.parent.menuGroups()[i].pageMenu().active(false);
+                    else @* Menu Items*@
+                        for (var j = 0; j < self.parent.parent.menuGroups()[i].menuItems().length; j++) {
+                            self.parent.parent.menuGroups()[i].menuItems()[j].active(false);                        
+                        }
+                }
+                self.active(true);
+                self.parent.active(true);
+                self.parent.parent.activeMenuCaption(self.caption());
+            }
+
+            @* Render/Open a Page *@
+            var windowMode = (self.isNewWindow() ? 'n' 
+                                : (self.isModal() ? (self.inIFRAME() ? 'd' : 'm' ) 
+                                : (self.inIFRAME() ? 'i' : 'p' )));
+            var headerTitle = self.longCaption();
+            menuLauncher.open(windowMode, self.pagePath(), (self.isModal() ? 'dvModalBody' : 'content'), headerTitle);
+        };
+    };
+</script>
+
+@* (Script) Menu Model - Menu Group //////////////////////////////////////////////////////////////////////////// *@
+<script>
+    function menuGroup_viewModel(data, parent) {
+        var self = this;
+
+        self.pageMenuGroupId = ko.observable(data.pageMenuGroupId);
+        self.liId = ko.computed ( function() {
+            return 'menuGroupLiId_'+self.pageMenuGroupId();
+        });
+        self.caption = ko.observable(data.caption);
+        self.iconClass = ko.observable(data.iconClass);
+
+        self.itselfMenu = ko.observable(false);
+        self.pageMenu = ko.observable();
+        self.href = ko.computed(function () {
+            if (self.pageMenu() != null)
+                return self.pageMenu().pagePath();
+            else
+                return "#";
+        }, this);
+
+        self.active = ko.observable(false);
+        self.menuItems = ko.observableArray([]);
+        self.parent = parent;
+        
+        @* # of Menu Items *@
+        self.menuCount = ko.computed(function () {            
+            return self.menuItems().length;
+        }, this);
+
+        @* (Class) whether "submenu" or/and "active" *@
+        self.liClass = ko.computed(function () {
+            var _class = "submenu";
+            //if (!self.itselfMenu())
+            //    _class = "submenu";
+            if (self.active())
+                _class = _class + (_class != "" ? " " : "") + "active";
+            if (self.menuCount() > 1 && self.active())
+                _class = _class + (_class != "" ? " " : "") + "open";
+
+            return _class;
+        }, this);
+
+        self.add_menuItems = function (menuItemList) {
+            @*Single-item MenuGroup -> Make itself a menu *@
+            if (menuItemList.length == 1) {
+                self.itselfMenu(true);
+                self.pageMenu(new menuItem_viewModel(menuItemList[0], self));
+            }
+            else 
+                ko.utils.arrayForEach(menuItemList, function (item) {
+                    self.menuItems.push(new menuItem_viewModel(item, self));
+                });
+        };
+    };
+</script>
+
+@* (Script) Menu Model - Menu Definition //////////////////////////////////////////////////////////////////////////// *@
+<script>
+    function menuDef_viewModel(data) {
+        var self = this;
+        self.menuGroups = ko.observableArray([]);
+        self.activeMenuCaption = ko.observable("");
+
+        self.add_menuGroups = function (menuGroupList) {
+            ko.utils.arrayForEach(menuGroupList, function (item) {
+                var menuGroup_ = new menuGroup_viewModel(item, self);
+                menuGroup_.add_menuItems(item.pageMenus);
+                self.menuGroups.push(menuGroup_);
+            });
+        };
+    };
+
+</script>
+
+@* (Script) Setup //////////////////////////////////////////////////////////////////////////// *@
+<script>
+    var menuData = jsonDataCaller.syncCall('/module/menu', null);
+
+    @*alert(JSON.stringify(menuData));*@
+    var menuDef = new menuDef_viewModel(menuData);
+    ko.applyBindings(menuDef);
+    menuDef.add_menuGroups(menuData.results);
+
+    @* Make the first menu active *@
+    menuDef.menuGroups()[0].active(true);
+    if (menuDef.menuGroups()[0].menuCount() > 1)
+        menuDef.menuGroups()[0].menuItems()[0].active(true);
+
+    @* Click the very first menu item *@
+    var menu = null;
+    if (menuDef.menuGroups()[0].itselfMenu())
+        menu = menuDef.menuGroups()[0].pageMenu();
+    else
+        menu = menuDef.menuGroups()[0].menuItems()[0];
+    menuDef.activeMenuCaption(menu.caption());
+    var windowMode = (menu.isNewWindow() ? 'n'
+                : (menu.isModal() ? (menu.inIFRAME() ? 'd' : 'm')
+                : (menu.inIFRAME() ? 'i' : 'p')));
+    menuLauncher.open(windowMode, menu.pagePath(), 'content');
+
+</script>
+
+
+@* Document Ready ///////////////////////////////////////////////////////////////////////////////// *@
+<script>            
+    $(document).ready(function () {
+        @* Per close of Modal Window, clean the content *@
+        $('#dvModal').on('hidden', function () {
+            $('#dvModalBody').children().remove();
+        });
+
+    });
+</script>

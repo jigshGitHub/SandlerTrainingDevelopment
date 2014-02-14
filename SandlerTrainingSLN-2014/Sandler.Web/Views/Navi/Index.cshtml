@@ -1,0 +1,205 @@
+﻿
+@model Sandler.Web.ViewModels.naviPage
+
+@{
+    Layout = @Model.LayoutPage;
+    ViewBag.Title = @Model.title;    
+}
+
+<style>
+    #dv_naviPage_breadcrumb
+    {
+        position:fixed; 
+        z-index:100; 
+        background-color:black;
+        opacity:1.0; 
+        margin-top:5px;
+        padding-right:10px; 
+        border-bottom-right-radius: 6px;
+    }
+    #dv_naviPage_breadcrumb #breadcrumb
+    {
+        background-color:black; border:none; box-shadow:none;
+    }
+    #dv_naviPage_breadcrumb #breadcrumb a 
+    {
+        white-space: nowrap;
+        overflow: hidden;
+        max-width: 50px;
+        /*text-overflow: ellipsis;*/
+    }
+    #dv_naviPage_breadcrumb #breadcrumb a:last-child
+    {
+       max-width: 200px;
+    }
+</style>
+
+<div id="dv_naviPage">
+
+    <!-- ### Breadcrumb ###-->
+    <div id="dv_naviPage_breadcrumb" data-bind="visible: visible">
+        <span id="breadcrumb" data-bind="foreach: contentPages">
+            <a href="#" data-bind="click: linkClicked, attr:{title: title, style: itemStyle}, text: title" ></a>
+        </span>
+        <a class="toggleButton" style="color:white; "><span data-bind="attr: {class: toggleIconClass}"></span></a>
+    </div>
+
+    <!-- ### Body ###-->
+    <div id="dv_naviPage_body" class="row">
+
+    </div>
+</div>
+
+@* Navigation-Page Variable *@
+<script>
+    var naviPage_;
+</script>
+
+@* Navigation-Content-Page Model *@
+<script>
+    function naviContentPage_viewModel(parent, index, data) {
+        var self = this;
+
+        self.parent = ko.observable(parent);
+        self.index = ko.observable(index);
+
+        self.title = ko.observable(data.title);
+        self.url = ko.observable(data.url);
+        self.data = ko.observable(data.data);
+        self.dataUpsert = function (fieldName, value) {
+
+            if (self.data() && self.data().indexOf("}") > 0)  // Data Object exists
+            {
+                var tmp09f2a = jQuery.parseJSON( self.data() );
+                tmp09f2a[fieldName] = value;
+                self.data( JSON.stringify(tmp09f2a) );
+            }
+            else  // New
+                self.data('{ "' + fieldName + '" : "' + value + '" }');
+        };
+
+        self.closed = data.onClosed;
+        
+        self.itemStyle = ko.computed(function () {
+            return "color:white;" + (self.index() == self.parent().count() - 1 ? "background-image: none;" : "");
+        });
+
+        self.triggerClosed = function () {
+            if (self.closed)
+                self.closed();
+        };
+
+        self.linkClicked = function () {
+            while (self.parent().count()>(self.index()+1))
+                self.parent().closeCurrentPage();
+        };
+
+        self.assign = function (data) {
+            self.title(data.title);
+            self.url(data.url);
+            self.data(data.data);
+            self.closed = data.onClosed;
+        };
+    };
+</script>
+
+@* Navigation-Page Model *@
+<script>
+    function naviPage_viewModel() {
+        var self = this;
+        
+        self.hasParentPanel = ko.observable( @(Model.LayoutPage !="" ? "false" : "true") );
+        self.contentPages = ko.observableArray([]);
+
+        self.count = ko.computed(function () {
+            return self.contentPages().length;
+        });
+
+        self.visible = ko.computed(function () {
+            return self.count() > 1
+        });
+
+        self.breadcrumbVisibility = ko.observable(false);
+
+        self.toggleIconClass = ko.computed(function () {
+            return (self.breadcrumbVisibility() ? "glyphicon glyphicon-chevron-left" : "glyphicon glyphicon-chevron-right");
+        });
+
+        self.currentPage = ko.computed(function () {
+            return (self.count()==0 ? null : self.contentPages()[self.count()-1]);
+        });
+
+        self.addPage = function (item) {
+            self.contentPages.push(new naviContentPage_viewModel(self, self.count(), item));
+            aRenderer.openPage_w_jsonParam(item.url, item.data, "dv_naviPage_body", "POST");
+            self.refreshBreadcrumb();
+        };
+
+        self.replacePage = function (item) {
+            self.currentPage().assign(item);
+            aRenderer.openPage_w_jsonParam(item.url, item.data, "dv_naviPage_body", "POST");
+            self.refreshBreadcrumb();
+        };
+
+        self.closeCurrentPage = function (data) {
+            var closedEvent = self.currentPage().closed;
+            self.contentPages.pop();
+            if (self.count() > 0) {
+                var currentPage = self.currentPage();
+                var item = { title: currentPage.title(), url: currentPage.url(), data: currentPage.data() };
+                aRenderer.openPage_w_jsonParam(item.url, item.data, "dv_naviPage_body", "POST");
+            }
+            if (closedEvent) {
+                if (data)
+                    closedEvent(data);
+                else
+                    closedEvent();
+            }
+            self.refreshBreadcrumb();
+
+            //$('#dv_naviPage').trigger('refresh');
+        };
+
+        self.refreshBreadcrumb = function () {
+            if (self.breadcrumbVisibility())
+                $('#dv_naviPage_breadcrumb').css('left', 0);
+            else {
+                var breadcrumbWidth = $('#dv_naviPage_breadcrumb #breadcrumb').width();
+                $('#dv_naviPage_breadcrumb').css('left', -breadcrumbWidth);
+            }
+        };
+
+        self.title_ofCurrentPage = function (title) {
+            if (self.currentPage()) {
+                self.currentPage().title(title);
+                self.refreshBreadcrumb();
+            }
+        };
+        
+    };
+</script>
+
+<script>
+    $(document).ready(function () {
+        naviPage_ = new naviPage_viewModel();
+        naviPage_.addPage({ title: '@Model.title', url: '@Html.Raw(Model.startUrl)', data: '@Html.Raw(Model.startUrlData)' });
+        ko.applyBindings(naviPage_, document.getElementById("dv_naviPage"));
+
+        @* Toggle of Breadcrumb-bar *@
+        $('#dv_naviPage_breadcrumb .toggleButton').toggle(
+            function () {
+                naviPage_.breadcrumbVisibility(true);
+                $('#dv_naviPage_breadcrumb').animate({ 'left': 0 });
+            },
+            function () {
+                naviPage_.breadcrumbVisibility(false);
+                var breadcrumbWidth = $('#dv_naviPage_breadcrumb #breadcrumb').width();
+                $('#dv_naviPage_breadcrumb').animate({ 'left': -(breadcrumbWidth) });
+            }
+        );
+
+        @* (Initial) Hide Breadcrumb-bar if only one page 'stacked' *@
+        naviPage_.refreshBreadcrumb();
+
+   });
+</script>

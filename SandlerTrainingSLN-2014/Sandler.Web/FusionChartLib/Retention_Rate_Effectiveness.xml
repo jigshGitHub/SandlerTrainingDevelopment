@@ -1,0 +1,39 @@
+<chart caption='Retention Rate Effectiveness' numberSuffix='%' canvasBgColor='FFFFFF' canvasBgAlpha='100' > 
+
+<categories>
+
+    <category label='2010' /> 
+    <category label='2011' />
+    <category label='2012' />
+
+</categories >
+
+ <dataset seriesName="Growth Company" color='3300FF' >       
+
+<set  value='18'  />        
+<set  value='25'  />
+<set  value='31'  />        
+    
+
+</dataset>   
+
+<dataset seriesName="Mass Mutual" color='ff6600'>        
+
+<set  value='13'  />        
+<set  value='19'  />        
+<set  value='23'  />        
+  
+
+</dataset>
+
+
+<dataset seriesName="Marginal Company" color='32df00'>        
+
+<set  value='10'  />        
+<set  value='12'  />        
+<set  value='8'   />        
+
+
+</dataset>
+
+</chart>

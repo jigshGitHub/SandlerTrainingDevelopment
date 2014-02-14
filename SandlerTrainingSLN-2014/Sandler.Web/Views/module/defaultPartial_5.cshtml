@@ -1,0 +1,39 @@
+﻿@using MSI.CCAT.Data.Models
+@model MSI.CCAT.Data.Models.pageMenuGroup
+@{
+    ViewBag.Title = @Model.name;}
+
+<div id="workspaceContainer">
+    <div id="defaultPageContainer">
+        <table>
+            <tr>
+                <td class="title">@Model.name</td>
+                <td class="icon">
+                    <img src="@Model.iconPath" />
+                <td>
+            </tr>
+            <tr>
+                <td colspan="2" class="description">@Model.description</td>
+            </tr>
+            <tr><td colspan="2"></td></tr>
+            <tr><td colspan="2" style="text-align:center"><a href="javascript:loadScorecard()" title="View Scorecard"><img src="~/images/Scorecard icon.png" /></a></td></tr>
+        </table>
+    </div>
+</div>
+
+@Scripts.Render("~/bundles/external")
+
+<script src="~/Scripts/application.js" type="text/javascript"></script>
+<script type="text/javascript">
+    
+
+    $(document).ready(function () {        
+        loadScorecard = function () {
+            $('#workspaceContainer').children().remove();
+            var path = baseUrl + "/Scorecard/Home/index";
+            $.get(path, function (data) {
+                $('#workspaceContainer').html(data);
+            });
+        }
+    });
+</script>
