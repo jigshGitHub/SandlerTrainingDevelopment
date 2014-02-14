@@ -10,6 +10,7 @@
 *.sln.docstates
 
 # Build results
+[Bb]in/
 [Dd]ebug/
 [Rr]elease/
 *_i.c
