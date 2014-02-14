@@ -1,0 +1,23 @@
+Create function import for sp_GetNewAppointmentsWithAppointmentSource -- This is contacts based
+Create function import for sp_GetNewClientsWithProducts -- This is company based
+Create function import for sp_GetClosedSalesAnalysis -- This is company based
+Create function import for sp_PipelineOpportunityAnalysis -- This is company based
+Create function import for sp_GetNewClientsWithProducts -- This is company based
+Create function import for sp_ClientsAvgLengthWithIndustries -- This is company based
+Create function import for sp_GetSalesCyclePortfolioData -- This is opportunity based
+Create function import for sp_GetBenchMarkSalesFranchisee -- This is opportunity based
+Create function import for sp_GetBenchMarkFranchiseeRegions -- This is opportunity based
+Create function import for sp_GetBenchMarkRegionCountry -- This is opportunity based
+Create function import for sp_GetBenchMarkCountryAll -- This is opportunity based
+
+
+Found closed sales analysis not used with homeofficeuser or admin
+
+Known issues:
+sp_GetClosedSalesAnalysis and sp_PipelineOpportunityAnalysis  has return type issues in entity framework
+
+
+Current Setup:
+Index html...setup charts grid
+chart.cs ...if (MonthYearCombinations == null)
+how to add @scripts section in partial view
