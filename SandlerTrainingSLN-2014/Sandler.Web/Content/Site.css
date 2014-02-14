@@ -1,0 +1,69 @@
+﻿
+.confirmBtnContainer
+    {
+        padding-top: 10px;
+        padding-right: 10px;
+        text-align: right;
+    }
+
+#refreshBtn
+ {
+     background-image: url('../Content/images/refresh.png'); 
+     background-color: transparent;
+                background-repeat: no-repeat;
+                border: none;
+                cursor: pointer;
+                height: 30px;
+                padding-left: 24px;
+ }
+
+#workspaceContainer {
+    padding-left:50px;
+    padding-top:50px;
+}
+
+#moduleTitle {
+    background-color: #DDD9C3;
+    font-size: medium;
+    color: #000000;
+    font-weight:bold;
+}
+
+
+.ui-tooltip {
+	padding: 8px;
+	position: absolute;
+	z-index: 9999;
+	max-width: 300px;
+	-webkit-box-shadow: 0 0 5px #aaa;
+	box-shadow: 0 0 5px #aaa;
+}
+body .ui-tooltip {
+	border-width: 2px;
+}
+
+#defaultPageContainer {
+    padding-top:10px;
+    padding-left:10px;    
+    margin-right:40px;
+    background-color: white;
+    font-size: small;
+}
+
+    #defaultPageContainer .title {
+    font-size: 50pt;
+    padding-top: 50px;
+    padding-left: 50px;
+}
+
+    #defaultPageContainer .subTitle {
+    font-size: 40pt;
+    padding-left: 50px;
+}
+    #defaultPageContainer .icon {
+    float: right;
+}
+    #defaultPageContainer .description {
+    padding-top: 50px;
+    font-size: large;
+}
