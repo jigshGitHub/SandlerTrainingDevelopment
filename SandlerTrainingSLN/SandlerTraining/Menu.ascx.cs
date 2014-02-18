@@ -105,7 +105,7 @@ public partial class Menu : System.Web.UI.UserControl
                 link.Visible = true;
             }
             //Home Office Report Anchor
-            if (thisPage.CurrentUser.Role == SandlerModels.SandlerRoles.HomeOfficeAdmin)
+            if (thisPage.CurrentUser.Role == SandlerModels.SandlerRoles.HomeOfficeAdmin || thisPage.CurrentUser.Role == SandlerModels.SandlerRoles.HomeOfficeUser)
             {
                 link = ((HtmlAnchor)FindControl("homeofficeReportAnchor"));
                 link.Visible = true;
@@ -121,12 +121,6 @@ public partial class Menu : System.Web.UI.UserControl
 
                 link = ((HtmlAnchor)FindControl("documentAnchor"));
                 link.Visible = false;
-            }
-            //Home Office Report Anchor for HomeOffice User
-            if (thisPage.CurrentUser.Role == SandlerModels.SandlerRoles.HomeOfficeUser)
-            {
-                link = ((HtmlAnchor)FindControl("homeofficeReportAnchor"));
-                link.Visible = true;
             }
         }
     }

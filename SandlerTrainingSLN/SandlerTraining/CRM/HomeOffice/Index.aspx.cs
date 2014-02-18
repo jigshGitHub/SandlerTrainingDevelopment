@@ -19,9 +19,9 @@ public partial class CRM_HomeOffice_Index : BasePage
     protected void Page_Load(object sender, EventArgs e)
     {
         franchiseeMenu.MenuEntityTitle = "HomeOffice";
-        
-        
-        if (CurrentUser.Role == SandlerRoles.HomeOfficeAdmin)
+
+
+        if (CurrentUser.Role == SandlerRoles.HomeOfficeAdmin || CurrentUser.Role == SandlerRoles.HomeOfficeUser)
         {txtGridSearch.Visible = false;
        btnGridSearch.Visible = false;}
        
@@ -77,13 +77,13 @@ public partial class CRM_HomeOffice_Index : BasePage
             GridView gridView = (GridView)sender;
             if (gridView.HeaderRow != null && gridView.HeaderRow.Cells.Count > 0)
             {
-                gridView.HeaderRow.Cells[7].Visible = !IsUserReadOnly(SandlerUserActions.Edit, SandlerEntities.HomeOffice);
-                gridView.HeaderRow.Cells[8].Visible = !IsUserReadOnly(SandlerUserActions.Edit, SandlerEntities.HomeOffice);
+                gridView.HeaderRow.Cells[7].Visible = !IsUserReadOnly(SandlerUserActions.Add, SandlerEntities.HomeOffice);
+                gridView.HeaderRow.Cells[8].Visible = !IsUserReadOnly(SandlerUserActions.View, SandlerEntities.HomeOffice);
             }
             foreach (GridViewRow row in gvFranchisees.Rows)
             {
-                row.Cells[7].Visible = !IsUserReadOnly(SandlerUserActions.Edit, SandlerEntities.HomeOffice);
-                row.Cells[8].Visible = !IsUserReadOnly(SandlerUserActions.Edit, SandlerEntities.HomeOffice);
+                row.Cells[7].Visible = !IsUserReadOnly(SandlerUserActions.Add, SandlerEntities.HomeOffice);
+                row.Cells[8].Visible = !IsUserReadOnly(SandlerUserActions.View, SandlerEntities.HomeOffice);
             }
             //Done
             franchiseeMenu.ReLoadSubMenu();

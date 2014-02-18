@@ -22,7 +22,7 @@ public partial class Login : Page
     protected void sandlerLogin_LoggedIn(object sender, EventArgs e)
     {
         UserEntitiesFactory.ReLoad();
-        if (Roles.IsUserInRole(sandlerLogin.UserName, SandlerModels.SandlerRoles.HomeOfficeAdmin.ToString()))
+        if (Roles.IsUserInRole(sandlerLogin.UserName, SandlerModels.SandlerRoles.HomeOfficeAdmin.ToString()) || Roles.IsUserInRole(sandlerLogin.UserName, SandlerModels.SandlerRoles.HomeOfficeUser.ToString()))
             Response.Redirect("~/CRM/HomeOffice/Index.aspx");
         //ProfileCommon profile = HttpContext.Current.Profile as ProfileCommon;
         //if (profile.AcceptedAgrements)
