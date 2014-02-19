@@ -3,30 +3,48 @@ var myhost = window.location.protocol + "//" + window.location.host
 var absoluteapp = myhost + applicationname;
 var baseUrl = myhost + applicationname;
 var imagedir = "/Content/Images";
-function namespace(namespaceString) {
-    var parts = namespaceString.split('.'),
-        parent = window,
-        currentPart = '';
+var sandler = {
+    namespace: function (name) {
 
-    for (var i = 0, length = parts.length; i < length; i++) {
-        currentPart = parts[i];
-        parent[currentPart] = parent[currentPart] || {};
-        parent = parent[currentPart];
+        // ** single var pattern
+        var parts = name.split(".");
+        var ns = this;
+
+        // ** iterator pattern
+        for (var i = 0, len = parts.length; i < len; i++) {
+            // ** || idiom
+            ns[parts[i]] = ns[parts[i]] || {};
+            ns = ns[parts[i]];
+        }
+
+        return ns;
     }
 
-    return parent;
-}
+};
 
-var cascade = namespace("cascade");
-var viewModels = namespace("cascade.viewModels");
-cascade.viewModels.getActiveViewModel = function () {
-    return $(document).data("cascade.viewModels.activeViewmodel");
-}
+sandler.namespace("appStart").module= (function () {
+    var getProductTypes = function () {
+        return $(document).data("sandler.appStart.productTypes");
+    };
 
-cascade.viewModels.setActiveViewModel = function (viewModel) {
-    $(document).data("cascade.viewModels.activeViewmodel", viewModel);
-}
+    var setProductTypes = function (productTypes) {
+        $(document).data("sandler.appStart.productTypes", productTypes);
+    };
 
+    var initialize = function () {
+        alert('initiailzing');
+    };
+    return {
+        getProductTypes: getProductTypes,
+        setProductTypes: setProductTypes,
+        initialize: initialize
+    };
+})();
+
+$(function () {
+    var dashboard = sandler.appStart.module;
+    dashboard.initialize();
+});
 function getFileName(document) {
     var fileName = document.split('_');
     return fileName[3];
@@ -65,23 +83,23 @@ var aRenderer = {
     },
 
     openPage_w_jsonParam: function (path, param, hostDiv) {
-    var itemSelector = '#' + hostDiv;
-    $(itemSelector).children().remove();
-    $.ajax({
-        url: path,
-        data: param,
-        type: 'GET',
-        dataType: 'html',
-        success: function (result) {
-            $(itemSelector).html(result);
-        }
-    });
-}
+        var itemSelector = '#' + hostDiv;
+        $(itemSelector).children().remove();
+        $.ajax({
+            url: path,
+            data: param,
+            type: 'GET',
+            dataType: 'html',
+            success: function (result) {
+                $(itemSelector).html(result);
+            }
+        });
+    }
 }
 
 // Query Definition in JSON
 var jsonDataCaller = {
-    syncCall: function(url, data) {
+    syncCall: function (url, data) {
         return $.parseJSON($.ajax({
             type: "GET",
             dataType: "json",

@@ -203,6 +203,7 @@
     <Compile Include="Controllers\APIs\ChartController.cs" />
     <Compile Include="Controllers\APIs\CompanyController.cs" />
     <Compile Include="Controllers\APIs\ContactController.cs" />
+    <Compile Include="Controllers\APIs\LookupController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\moduleController.cs" />
