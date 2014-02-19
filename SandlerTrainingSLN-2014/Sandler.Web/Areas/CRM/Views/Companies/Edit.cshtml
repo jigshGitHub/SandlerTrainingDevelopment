@@ -1,9 +1,10 @@
-﻿@using Sandler.DB.Models
-@using System.Data.Entity
-@model Sandler.DB.Models.TBL_COMPANIES
+﻿@model dynamic
 <script src="~/Scripts/Application/ng-companies.js" type="text/javascript"></script>
 <div id="editingContainer">
+    
     <span data-bind="text: test" />
+    <span data-bind="text:COMPANYNAME" /><br />
+    <input type="button" data-bind="click:saveCompany" value="Save" />
 </div>
 
 <script type="text/javascript">
@@ -12,7 +13,7 @@
         var companyVM;
 
         $.ajax({
-            url: 'api/Company/Get?id=4774',
+            url: 'api/Company/Get?id=' + @Model.companyId,
             type: 'GET',
             dataType: 'JSON',
             async:false,
@@ -24,6 +25,11 @@
                 //handle the error, left for brevity
             }
         });
-    //ko.applyBindings(vm, document.getElementById("editingContainer"));
+
+        companyVM.test = ko.observable('test data');
+        companyVM.saveCompany = function(){
+            alert('Data saving need to implement');
+        };
+        ko.applyBindings(companyVM, document.getElementById("editingContainer"));
     });
 </script>

@@ -21,7 +21,9 @@ namespace Sandler.Web.Areas.CRM.Controllers
         public ActionResult Edit(int id)
         {
             //var company = uow.Repository<TBL_COMPANIES>().GetById(id);
-            return PartialView("Edit");
+            dynamic model = new System.Dynamic.ExpandoObject();
+            model.companyId = id;
+            return PartialView("Edit", model);
         }
 
     }
