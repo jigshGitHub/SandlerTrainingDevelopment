@@ -1,4 +1,5 @@
-﻿using Sandler.Web.Controllers;
+﻿using Sandler.DB.Models;
+using Sandler.Web.Controllers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +16,12 @@ namespace Sandler.Web.Areas.CRM.Controllers
         public ActionResult Index()
         {
             return PartialView();
+        }
+
+        public ActionResult Edit(int id)
+        {
+            //var company = uow.Repository<TBL_COMPANIES>().GetById(id);
+            return PartialView("Edit");
         }
 
     }

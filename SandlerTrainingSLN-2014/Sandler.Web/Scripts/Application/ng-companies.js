@@ -1,4 +1,16 @@
-﻿function ng_companiesCtrl($scope, $http) {
+﻿
+
+function showDetails(e) {
+    e.preventDefault();
+    var dataItem = $("#CompaniesSearchgrid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
+   // console.log(dataItem);
+    var path = "navi?url=/CRM/Companies/Edit?id=" + dataItem.COMPANIESID;
+    showModal_.html(path, null, '95%');
+}
+
+
+
+function ng_companiesCtrl($scope, $http) {
     angular.element(document).ready(function () {
 
         showNoti_.progress(NOTIFICMSG.PROCESSING, false);
@@ -74,15 +86,7 @@
             };
             return dataSource;
         }
-
-        function showDetails(e) {
-            e.preventDefault();
-            //var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
-            var dataItem = $("#CompaniesSearchgrid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
-            console.log(dataItem);
-            //var path = "navi?url=/crm/Event/ManageEvent?eventId=" + dataItem.SPCEVNTID + "%26passThruParam=0"; @* Edit Window *@
-            //showModal_.html(path, null, '95%');
-        }
+        
     });
 
 };

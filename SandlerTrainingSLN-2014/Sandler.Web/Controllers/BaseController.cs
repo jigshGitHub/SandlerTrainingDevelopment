@@ -5,10 +5,15 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 using Sandler.Web.Models;
+using Sandler.DB.Data.Common.Interface;
+using Sandler.DB.Data.Common.Implementation;
+using Sandler.DB.Data.Common;
+using Sandler.DB.Data.Repositories;
 namespace Sandler.Web.Controllers
 {
     public class BaseController:Controller
     {
+        protected IUnitOfWork uow;
         public Guid UserId { get { return (Guid)Membership.GetUser(System.Web.HttpContext.Current.User.Identity.Name).ProviderUserKey; } }
         public string UserName { get { return System.Web.HttpContext.Current.User.Identity.Name; } }
         public string[] UserRoles { get { return Roles.GetRolesForUser(); } }
@@ -21,6 +26,7 @@ namespace Sandler.Web.Controllers
         }
         public BaseController()
         {
+            uow = new SandlerUnitOfWork(new SandlerRepositoryProvider(new RepositoryFactories()), new SandlerDBContext());
         }
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
         {

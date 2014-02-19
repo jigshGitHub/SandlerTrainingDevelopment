@@ -77,5 +77,12 @@ namespace Sandler.Web.Controllers.API
             return Request.CreateResponse(returnObject);
             
         }
+
+        public HttpResponseMessage Get(int id)
+        {
+            var data = uow.Repository<TBL_COMPANIES>().GetById(id);
+
+            return Request.CreateResponse(data);
+        }
     }
 }

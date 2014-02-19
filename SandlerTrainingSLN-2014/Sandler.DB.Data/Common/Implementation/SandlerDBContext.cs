@@ -3,6 +3,7 @@ using Sandler.DB.Models;
 using Solution.Common;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,7 +14,10 @@ namespace Sandler.DB.Data.Common.Implementation
     {
         public System.Data.Entity.DbContext Get()
         {
-            return new SandlerDBEntities();
+            DbContext context = new SandlerDBEntities();
+
+            context.Configuration.ProxyCreationEnabled = false;
+            return context;
         }
     }
 }

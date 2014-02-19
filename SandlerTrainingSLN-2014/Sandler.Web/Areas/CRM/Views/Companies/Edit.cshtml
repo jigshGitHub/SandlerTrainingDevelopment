@@ -1,0 +1,29 @@
+﻿@using Sandler.DB.Models
+@using System.Data.Entity
+@model Sandler.DB.Models.TBL_COMPANIES
+<script src="~/Scripts/Application/ng-companies.js" type="text/javascript"></script>
+<div id="editingContainer">
+    <span data-bind="text: test" />
+</div>
+
+<script type="text/javascript">
+    
+    $(document).ready(function () {
+        var companyVM;
+
+        $.ajax({
+            url: 'api/Company/Get?id=4774',
+            type: 'GET',
+            dataType: 'JSON',
+            async:false,
+            success: function (result) {
+                companyVM = ko.mapping.fromJS(result);
+                console.log(companyVM);
+            },
+            error: function (result) {
+                //handle the error, left for brevity
+            }
+        });
+    //ko.applyBindings(vm, document.getElementById("editingContainer"));
+    });
+</script>
