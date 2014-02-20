@@ -31,19 +31,97 @@ sandler.namespace("appStart").module= (function () {
         $(document).data("sandler.appStart.productTypes", productTypes);
     };
 
-    var initialize = function () {
-        alert('initiailzing');
+    var getIndustryTypes = function () {
+        return $(document).data("sandler.appStart.industryTypes");
     };
+
+    var setIndustryTypes = function (industryTypes) {
+        $(document).data("sandler.appStart.industryTypes", industryTypes);
+    };
+
+    var getYesNoOptions= function () {
+        return $(document).data("sandler.appStart.yesNoOptions");
+    };
+
+    var setYesNoOptions = function (yesNoOptions) {
+        $(document).data("sandler.appStart.yesNoOptions", yesNoOptions);
+    };
+
+    var getAppointmentSources = function () {
+        return $(document).data("sandler.appStart.appointmentSources");
+    };
+
+    var setAppointmentSources = function (appointmentSources) {
+        $(document).data("sandler.appStart.appointmentSources", appointmentSources);
+    };
+
+    var getCourses = function () {
+        return $(document).data("sandler.appStart.courses");
+    };
+
+    var setCourses = function (courses) {
+        $(document).data("sandler.appStart.courses", courses);
+    };
+
+    var getOpportunityWhyLosts = function () {
+        return $(document).data("sandler.appStart.opportunityWhyLosts");
+    };
+
+    var setOpportunityWhyLosts = function (opportunityWhyLosts) {
+        $(document).data("sandler.appStart.opportunityWhyLosts", opportunityWhyLosts);
+    };
+
+    var getOpportunityStatus = function () {
+        return $(document).data("sandler.appStart.opportunityStatus");
+    };
+
+    var setOpportunityStatus = function (opportunityStatus) {
+        $(document).data("sandler.appStart.opportunityStatus", opportunityStatus);
+    };
+
+    var getOpportunityTypes = function () {
+        return $(document).data("sandler.appStart.opportunityTypes");
+    };
+
+    var setOpportunityTypes = function (opportunityTypes) {
+        $(document).data("sandler.appStart.opportunityTypes", opportunityTypes);
+    };
+
+    var initialize = function () {
+        var industries = jsonDataCaller.syncCall("/api/Industries/", null);
+        setIndustryTypes(industries);
+        var yesNoOptions = jsonDataCaller.syncCall("/api/YesNoOptions/", null);
+        setYesNoOptions(yesNoOptions);
+        var Products = jsonDataCaller.syncCall("/api/Products/", null);
+        setProductTypes(Products);
+        var appointmentsSources = jsonDataCaller.syncCall("/api/AppointmentsSources/", null);
+        setAppointmentSources(appointmentsSources);
+        var courses = jsonDataCaller.syncCall("/api/Courses/", null);
+        setCourses(courses);
+        var opportunityStatus = jsonDataCaller.syncCall("/api/OpportunityStatus/", null);
+        setOpportunityStatus(opportunityStatus);
+        var opportunityTypes = jsonDataCaller.syncCall("/api/OpportunityTypes/", null);
+        setOpportunityTypes(opportunityTypes);
+        var opportunityWhyLosts = jsonDataCaller.syncCall("/api/OpportunityWhyLosts/", null);
+        setOpportunityWhyLosts(opportunityWhyLosts);
+    };
+
     return {
-        getProductTypes: getProductTypes,
-        setProductTypes: setProductTypes,
+        getProductTypes:getProductTypes,
+        getIndustryTypes:getIndustryTypes,
+        getAppointmentSources:getAppointmentSources,
+        getYesNoOptions:getYesNoOptions,
+        getCourses: getCourses,
+        getOpportunityStatus: getOpportunityStatus,
+        getOpportunityTypes: getOpportunityTypes,
+        getOpportunityWhyLosts: getOpportunityWhyLosts,
         initialize: initialize
     };
 })();
 
 $(function () {
-    var dashboard = sandler.appStart.module;
-    dashboard.initialize();
+    var startModule = sandler.appStart.module;
+    startModule.initialize();
 });
 function getFileName(document) {
     var fileName = document.split('_');

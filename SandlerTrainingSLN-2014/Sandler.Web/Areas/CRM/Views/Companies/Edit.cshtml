@@ -4,6 +4,7 @@
     
     <span data-bind="text: test" />
     <span data-bind="text:COMPANYNAME" /><br />
+    <select data-bind="options: industries,optionsText: 'IndustryTypeName',optionsValue: 'IndId'"></select><br />
     <input type="button" data-bind="click:saveCompany" value="Save" />
 </div>
 
@@ -11,6 +12,7 @@
     
     $(document).ready(function () {
         var companyVM;
+        var startModule = sandler.appStart.module;
 
         $.ajax({
             url: 'api/Company/Get?id=' + @Model.companyId,
@@ -27,6 +29,9 @@
         });
 
         companyVM.test = ko.observable('test data');
+        companyVM.industries = startModule.getIndustryTypes();
+        companyVM.yesNoOptions = startModule.getYesNoOptions();
+
         companyVM.saveCompany = function(){
             alert('Data saving need to implement');
         };
