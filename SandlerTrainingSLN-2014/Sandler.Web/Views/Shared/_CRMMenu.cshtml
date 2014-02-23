@@ -1,0 +1,60 @@
+﻿@using Sandler.Web.Models;
+@model Menu
+<style type="text/css">
+    ul {
+        list-style: none;
+    }
+
+        ul.dropdown {
+            position: relative;
+            float: right;
+        }
+
+            ul.dropdown li {
+                float: left;
+                zoom: 1;
+                margin-left: 10px;
+            }
+
+            ul.dropdown a:hover {
+            }
+
+            ul.dropdown a:active {
+            }
+
+            ul.dropdown li a {
+                padding-top: 0.1em;
+                padding-left: 0.3em;
+                padding-right: 0.3em;
+                padding-bottom: 0.1em;
+                color: #0026ff;
+                text-decoration: none;
+            }
+
+            ul.dropdown li:last-child a {
+                border-right: none;
+            }
+            /* Doesn't work in IE */
+            ul.dropdown li.hover,
+            ul.dropdown li:hover {
+                position: relative;
+            }
+
+                ul.dropdown li.hover a {
+                    text-decoration: none;
+                }
+</style>
+<ul class="dropdown">
+    @foreach (MenuItem item in @Model.Items)
+    {
+        if (item.IsVisible)
+        {
+        <li><a href="#">@item.Text</a>
+            @if (@Model.Items.Last() != item)
+            {
+                @Html.Label("|");
+            }
+        </li>
+        }
+    }
+</ul>

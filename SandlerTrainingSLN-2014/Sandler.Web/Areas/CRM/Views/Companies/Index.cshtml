@@ -1,7 +1,10 @@
-﻿@{
+﻿@using Sandler.DB.Models;
+@using Sandler.Web.Models;
+@using Sandler.Web.ViewModels;
+@model EntityViewModel<TBL_COMPANIES>
+@{
     ViewBag.Title = "Index";
 }
-
 <style type="text/css">
     .k-grid999 tbody .k-button {
         min-width: 12px;
@@ -9,17 +12,26 @@
         height: 25px;
         vertical-align: middle;
     }
+
+    
 </style>
 <script src="~/Scripts/Application/ng-companies.js" type="text/javascript"></script>
 <div id="clubSearch" class="container" ng-controller="ng_companiesCtrl">
     @*Search button*@
     <div class="row">
         <div class='page-title'>Companies</div>
-    </div> 
-    <br /> 
-    <div class="row" style="margin-top:10px">
-         <div id="searchGrid" class="k-content">
+    </div>
+    @{ var menusList = @Model.BaseModel.CRMMenu;}
+    @if (menusList != null)
+    {
+        Menu menuEntity = menusList.Find(delegate(Menu menu) { return menu.Title == "Companies"; });
+        
+        Html.RenderPartial("~/Views/Shared/_CRMMenu.cshtml", menuEntity);
+    }
+    <br />
+    <div class="row" style="margin-top: 10px">
+        <div id="searchGrid" class="k-content">
             <div id="CompaniesSearchgrid"></div>
-         </div>
+        </div>
     </div>
 </div>

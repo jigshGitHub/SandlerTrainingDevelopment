@@ -1,5 +1,10 @@
-﻿using Sandler.DB.Models;
+﻿using Sandler.DB.Data.Common;
+using Sandler.DB.Data.Common.Implementation;
+using Sandler.DB.Data.Common.Interface;
+using Sandler.DB.Data.Repositories;
+using Sandler.DB.Models;
 using Sandler.Web.Controllers;
+using Sandler.Web.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,12 +15,24 @@ namespace Sandler.Web.Areas.CRM.Controllers
 {
     public class CompaniesController : BaseController
     {
+
+        public EntityViewModel<TBL_COMPANIES> CompanyViewModel;
+
+        public CompaniesController(IUnitOfWork uow) :base(uow)
+        {
+            CompanyViewModel = new EntityViewModel<TBL_COMPANIES>();
+            CompanyViewModel.BaseModel = this.BaseVM;
+            CompanyViewModel.EntityModel = new TBL_COMPANIES();
+        }
+
+        public CompaniesController():this(new SandlerUnitOfWork(new SandlerRepositoryProvider(new RepositoryFactories()), new SandlerDBContext()))
+        {
+        }
         //
         // GET: /CRM/Companies/
-
         public ActionResult Index()
         {
-            return PartialView();
+            return PartialView(CompanyViewModel);
         }
 
         public ActionResult Edit(int id)

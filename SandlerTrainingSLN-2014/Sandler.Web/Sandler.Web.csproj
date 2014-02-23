@@ -216,10 +216,12 @@
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\EntityViewModels.cs" />
     <Compile Include="Models\enums.cs" />
+    <Compile Include="Models\Menu.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Queries\ChartQueries.cs" />
     <Compile Include="UI.Structure\Chart.cs" />
+    <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\module_and_PageMenuGroup.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -1156,6 +1158,7 @@
     <Content Include="Views\Shared\_LayoutHeader.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Navi\Index.cshtml" />
+    <Content Include="Views\Shared\_CRMMenu.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
