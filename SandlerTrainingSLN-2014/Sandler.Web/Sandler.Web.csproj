@@ -195,6 +195,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\CRM\Controllers\CompaniesController.cs" />
     <Compile Include="Areas\CRM\Controllers\ContactsController.cs" />
+    <Compile Include="Areas\CRM\Controllers\PipelineController.cs" />
     <Compile Include="Areas\CRM\CRMAreaRegistration.cs" />
     <Compile Include="Areas\Dashboard\Controllers\HomeController.cs" />
     <Compile Include="Areas\Dashboard\DashboardAreaRegistration.cs" />
@@ -203,6 +204,7 @@
     <Compile Include="Controllers\APIs\ChartController.cs" />
     <Compile Include="Controllers\APIs\CompanyController.cs" />
     <Compile Include="Controllers\APIs\ContactController.cs" />
+    <Compile Include="Controllers\APIs\PipelineController.cs" />
     <Compile Include="Controllers\APIs\LookupController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -1044,6 +1046,7 @@
     <Content Include="Areas\CRM\Views\Companies\Index.cshtml" />
     <Content Include="Areas\CRM\Views\Contacts\Index.cshtml" />
     <Content Include="Areas\CRM\Views\Companies\Edit.cshtml" />
+    <Content Include="Areas\CRM\Views\Pipeline\Index.cshtml" />
     <None Include="Properties\PublishProfiles\WebDeploy-DevEnvt.pubxml" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="Images\bg-capitol.png" />
@@ -1063,6 +1066,7 @@
     <Content Include="Images\CRM_small.png" />
     <Content Include="Images\ECO_large.png" />
     <Content Include="Images\ECO_small.png" />
+    <Content Include="Images\excel.jpg" />
     <Content Include="Images\GARM_small.png" />
     <Content Include="Images\HE_large.png" />
     <Content Include="Images\HE_small.png" />
@@ -1079,6 +1083,7 @@
     <Content Include="Images\ST_large.png" />
     <Content Include="Images\ST_small.png" />
     <Content Include="Scripts\application.js" />
+    <Content Include="Scripts\Application\ng-opportunities.js" />
     <Content Include="Scripts\Application\ng-contacts.js" />
     <Content Include="Scripts\Application\ng-companies.js" />
     <Content Include="Scripts\compliance.js" />

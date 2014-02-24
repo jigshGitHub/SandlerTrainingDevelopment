@@ -87,6 +87,33 @@ sandler.namespace("appStart").module= (function () {
         $(document).data("sandler.appStart.opportunityTypes", opportunityTypes);
     };
 
+    var getUserCompanies = function () {
+        return $(document).data("sandler.appStart.userCompanies");
+    };
+
+    var setUserCompanies = function (companies) {
+        $(document).data("sandler.appStart.userCompanies", companies);
+    };
+
+    var setUser = function (user) {
+        if (getUser() == '' | getUser() == undefined) {
+            console.log('setting user');
+            $(document).data("sandler.appStart.currentUser", user);
+        }
+        else {
+            console.log('user already set');
+        }
+    }
+
+    var getUser = function (user) {
+        return $(document).data("sandler.appStart.currentUser");
+    }
+
+    var company = function (companyName, companyId) {
+        this.name = companyName;
+        this.id = companyId;
+    };
+
     var initialize = function () {
         var industries = jsonDataCaller.syncCall("/api/Industries/", null);
         setIndustryTypes(industries);
@@ -104,6 +131,13 @@ sandler.namespace("appStart").module= (function () {
         setOpportunityTypes(opportunityTypes);
         var opportunityWhyLosts = jsonDataCaller.syncCall("/api/OpportunityWhyLosts/", null);
         setOpportunityWhyLosts(opportunityWhyLosts);
+        var data = jsonDataCaller.syncCall("/api/CompanyView?&page=0&pageSize=0", null)
+        console.log('getting user companies');
+        var companies = new Array();
+        $.each(data.results, function (i,companyRecord) {
+            companies.push(new company(companyRecord.COMPANYNAME, companyRecord.COMPANIESID));
+        });
+        setUserCompanies(companies);
     };
 
     return {
@@ -115,7 +149,10 @@ sandler.namespace("appStart").module= (function () {
         getOpportunityStatus: getOpportunityStatus,
         getOpportunityTypes: getOpportunityTypes,
         getOpportunityWhyLosts: getOpportunityWhyLosts,
-        initialize: initialize
+        initialize: initialize,
+        setUser: setUser,
+        getUser: getUser,
+        getUserCompanies: getUserCompanies
     };
 })();
 

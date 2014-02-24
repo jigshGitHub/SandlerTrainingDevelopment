@@ -35,7 +35,8 @@ namespace Sandler.Web.Controllers
                 currentModuleId = moduleId.Value,
                 currentPageMenuId = pageMenuId.Value
             };
-            return View("Index", p);
+            BaseVM.PageInfo = p;
+            return View("Index", BaseVM);
         }
 
     }

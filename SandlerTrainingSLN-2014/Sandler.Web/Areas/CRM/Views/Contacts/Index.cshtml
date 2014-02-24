@@ -1,4 +1,8 @@
-﻿@{
+﻿@using Sandler.DB.Models;
+@using Sandler.Web.Models;
+@using Sandler.Web.ViewModels;
+@model EntityViewModel<TBL_COMPANIES>
+@{
     ViewBag.Title = "Index";
 }
 
@@ -15,11 +19,24 @@
     @*Search button*@
     <div class="row">
         <div class='page-title'>Contacts</div>
-    </div> 
-    <br /> 
-    <div class="row" style="margin-top:10px">
-         <div id="searchGrid" class="k-content">
+    </div>
+    <div class="row">
+        <div class="col-md-4"><img src="~/Images/excel.jpg" />Export to Excel</div>
+        <div class="pull-right">
+            @{ var menusList = @Model.BaseModel.CRMMenu;}
+            @if (menusList != null)
+            {
+                Menu menuEntity = menusList.Find(delegate(Menu menu) { return menu.Title == "Contacts"; });
+
+                Html.RenderPartial("~/Views/Shared/_CRMMenu.cshtml", menuEntity);
+            }
+        </div>
+    </div>
+
+    <br />
+    <div class="row" style="margin-top: 10px">
+        <div id="searchGrid" class="k-content">
             <div id="ContactsSearchgrid"></div>
-         </div>
+        </div>
     </div>
 </div>

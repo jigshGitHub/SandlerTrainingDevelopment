@@ -13,30 +13,29 @@ using System.Web.Mvc;
 
 namespace Sandler.Web.Areas.CRM.Controllers
 {
-    public class CompaniesController : BaseController
+    public class PipelineController : BaseController
     {
-        public EntityViewModel<TBL_COMPANIES> CompanyViewModel;
+        public EntityViewModel<TBL_OPPORTUNITIES> PipelineViewModel;
 
-        public CompaniesController(IUnitOfWork uow) :base(uow)
+        public PipelineController(IUnitOfWork uow) :base(uow)
         {
-            CompanyViewModel = new EntityViewModel<TBL_COMPANIES>();
-            CompanyViewModel.BaseModel = this.BaseVM;
-            CompanyViewModel.EntityModel = new TBL_COMPANIES();
+            PipelineViewModel = new EntityViewModel<TBL_OPPORTUNITIES>();
+            PipelineViewModel.BaseModel = this.BaseVM;
+            PipelineViewModel.EntityModel = new TBL_OPPORTUNITIES();
         }
 
-        public CompaniesController():this(new SandlerUnitOfWork(new SandlerRepositoryProvider(new RepositoryFactories()), new SandlerDBContext()))
-        {
+        public PipelineController():this(new SandlerUnitOfWork(new SandlerRepositoryProvider(new RepositoryFactories()), new SandlerDBContext())){
         }
         //
-        // GET: /CRM/Companies/
+        // GET: /CRM/Pipeline/
         public ActionResult Index()
         {
-            return PartialView(CompanyViewModel);
+            return PartialView(PipelineViewModel);
         }
 
         public ActionResult Edit(int id)
         {
-            //var company = uow.Repository<TBL_COMPANIES>().GetById(id);
+            //var company = uow.Repository<TBL_Pipeline>().GetById(id);
             dynamic model = new System.Dynamic.ExpandoObject();
             model.companyId = id;
             return PartialView("Edit", model);

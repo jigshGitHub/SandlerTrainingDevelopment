@@ -11,6 +11,7 @@ namespace Sandler.Web.ViewModels
         public UserModel CurrentUser { get; set; }
         public string RoleEntityValue { get; set; }
         public List<Menu> CRMMenu { get; set; }
+        public pageInfo PageInfo { get; set; }
     }
 
     public class EntityViewModel<TEntity>
