@@ -1,0 +1,240 @@
+﻿@using Sandler.Web.ViewModels;
+@using Sandler.DB.Models;
+@model EntityViewModel<TBL_OPPORTUNITIES>
+
+<div id="container">
+    <div class="row">
+        <div class="col-sm-2">
+            Company :
+        </div>
+        <div class="col-sm-9">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-2">
+            Opportunity ID :
+        </div>
+        <div class="col-sm-9">
+            <input data-bind="value: opportunity.ID, disable: isDisabled" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-2">
+            Opportunity Name :
+        </div>
+        <div class="col-sm-9">
+            <input data-bind="value: opportunity.NAME, disable: isDisabled" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-2">
+            Opportunity Description :
+        </div>
+        <div class="col-sm-9">
+            <input data-bind="value: opportunity.Description, disable: isDisabled" textmode="MultiLine">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-2">
+            Opportunity Notes :
+        </div>
+        <div class="col-sm-9">
+            <input data-bind="value: opportunity.Notes, disable: isDisabled" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-2">
+            Sales Rep Last Name :
+        </div>
+        <div class="col-sm-2">
+            <input data-bind="value: opportunity.SALESREPLASTNAME, disable: isDisabled" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-2">
+            Sales Rep First Name :
+        </div>
+        <div class="col-sm-2">
+            <input data-bind="value: opportunity.SALESREPFIRSTNAME, disable: isDisabled" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-2">
+            Sales Rep Phone :
+        </div>
+        <div class="col-sm-2">
+            <input data-bind="value: opportunity.SALESREPPHONE, disable: isDisabled" />
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-2">
+            Product :
+        </div>
+        <div class="col-sm-2">
+            <input data-bind="value: opportunity.Product, disable: isDisabled" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-2">
+            Product Cost:
+        </div>
+        <div class="col-sm-2">
+            <input data-bind="value: opportunity.ProductCost, disable: isDisabled" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-2">
+            Opportunity Status :
+        </div>
+        <div class="col-sm-2">
+            <input data-bind="value: opportunity.Status, disable: isDisabled" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-2">
+            Opportunity Source :
+        </div>
+        <div class="col-sm-2">
+            <input data-bind="value: opportunity.Source, disable: isDisabled" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-2">
+            Opportunity Type :
+        </div>
+        <div class="col-sm-2">
+            <input data-bind="value: opportunity.Type, disable: isDisabled" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-2">
+            Why Lost? :
+        </div>
+        <div class="col-sm-2">
+            <input data-bind="value: opportunity.WLost, disable: isDisabled" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-2">
+            Opportunity Value :
+        </div>
+        <div class="col-sm-2">
+            <input data-bind="value: opportunity.OpportunityValue, disable: isDisabled" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-2">
+            Win Probability % :
+        </div>
+        <div class="col-sm-2">
+            <input data-bind="value: opportunity.WinProbability" maxlength="3, disable: isDisabled" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-2">
+            Weighted Value :
+        </div>
+        <div class="col-sm-2">
+            <input data-bind="value: opportunity.WeightedValue" enabled="false" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-2">
+            Actual Value :
+        </div>
+        <div class="col-sm-2">
+            <input data-bind="value: opportunity.ActualValue" enabled="false" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-2">
+            Creation Date :
+        </div>
+        <div class="col-sm-2">
+            <input data-bind="value: opportunity.CreationDate, disable: isDisabled" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-2">
+            Close Date :
+        </div>
+        <div class="col-sm-2">
+            <input data-bind="value: opportunity.CloseDate, disable: isDisabled" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-2">
+            Pain :
+        </div>
+        <div class="col-sm-2">
+            <input data-bind="value: opportunity.Pain, disable: isDisabled" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-2">
+            Length of Problem :
+        </div>
+        <div class="col-sm-2">
+            <input data-bind="value: opportunity.LengthofProblem, disable: isDisabled" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-2">
+            Alternatives :
+        </div>
+        <div class="col-sm-2">
+            <input data-bind="value: opportunity.Alternatives, disable: isDisabled" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-2">
+            Cost to Fix :
+        </div>
+        <div class="col-sm-2">
+            <input data-bind="value: opportunity.CostToFix, disable: isDisabled" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-2">
+            Budget Identified?
+        </div>
+        <div class="col-sm-2">
+            <input data-bind="value: opportunity.BudgetIdentified, disable: isDisabled" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-2">
+            Move Forward? :
+        </div>
+        <div class="col-sm-2">
+            <input data-bind="value: opportunity.MoveForward, disable: isDisabled" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-2">
+            Contacts :
+        </div>
+        <div class="col-sm-2">
+            <input data-bind="value: opportunity.PrimaryContact, disable: isDisabled" /><br />
+            <input data-bind="value: opportunity.SecondaryContact1, disable: isDisabled" /><br />
+            <input data-bind="value: opportunity.SecondaryContact2, disable: isDisabled" /><br />
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    var pageVM = function (opportunityObservable) {
+        var self = this;
+        self.opportunity = opportunityObservable;
+
+        self.isDisabled = ko.observable(true);
+    }
+    $(document).ready(function () {
+        var vm = new pageVM(ko.mapping.fromJS( @Html.Raw(Json.Encode(@Model.EntityModel))));
+        console.log(vm.opportunity);
+        ko.applyBindings(vm, document.getElementById("container"));
+
+    });
+</script>

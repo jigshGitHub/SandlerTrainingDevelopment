@@ -2,9 +2,9 @@
 
 function showDetails(e) {
     e.preventDefault();
-    var dataItem = $("#OpportunitiesSearchgrid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
+    var dataItem = $("#opportunitiesSearchgrid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
    // console.log(dataItem);
-    var path = "navi?url=/CRM/Opportunities/Edit?id=" + dataItem.COMPANIESID;
+    var path = "navi?url=/CRM/Pipeline/Manage?id=" + dataItem.ID;
     showModal_.html(path, null, '95%');
 }
 

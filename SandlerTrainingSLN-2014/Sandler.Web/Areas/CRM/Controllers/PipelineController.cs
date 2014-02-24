@@ -21,7 +21,6 @@ namespace Sandler.Web.Areas.CRM.Controllers
         {
             PipelineViewModel = new EntityViewModel<TBL_OPPORTUNITIES>();
             PipelineViewModel.BaseModel = this.BaseVM;
-            PipelineViewModel.EntityModel = new TBL_OPPORTUNITIES();
         }
 
         public PipelineController():this(new SandlerUnitOfWork(new SandlerRepositoryProvider(new RepositoryFactories()), new SandlerDBContext())){
@@ -33,12 +32,13 @@ namespace Sandler.Web.Areas.CRM.Controllers
             return PartialView(PipelineViewModel);
         }
 
-        public ActionResult Edit(int id)
+        public ActionResult Manage(int? id)
         {
-            //var company = uow.Repository<TBL_Pipeline>().GetById(id);
-            dynamic model = new System.Dynamic.ExpandoObject();
-            model.companyId = id;
-            return PartialView("Edit", model);
+            if (id.HasValue)
+                PipelineViewModel.EntityModel = uow.Repository<TBL_OPPORTUNITIES>().GetById(long.Parse(id.ToString()));
+            else
+                PipelineViewModel.EntityModel = new TBL_OPPORTUNITIES();
+            return PartialView("Manage", PipelineViewModel);
         }
 
     }
