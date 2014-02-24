@@ -74,7 +74,7 @@ namespace Sandler.Web.Controllers.API
                     contacts = uow.ContactRepository().Get(orderBy, pageSize.Value, page.Value, null, null, null, CurrentUser.UserId.ToString()).ToList();
             
             }
-            return Request.CreateResponse(new { success = true, __count = contacts.FirstOrDefault().TotalCount, results = contacts });
+            return Request.CreateResponse(new { success = true, __count = (contacts.Count > 0) ? contacts.FirstOrDefault().TotalCount : 0, results = contacts });
         }
 
         

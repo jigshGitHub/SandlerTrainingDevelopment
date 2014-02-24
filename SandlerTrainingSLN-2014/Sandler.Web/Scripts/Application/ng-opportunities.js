@@ -16,9 +16,24 @@ function ng_opportunitiesCtrl($scope, $http) {
         showNoti_.progress(NOTIFICMSG.PROCESSING, false);
 
         var kendoGridData = get_kendoGridData("");
-        $("#OpportunitiesSearchgrid").kendoGrid(kendoGridData);
+        var opportunitiesSearchgrid = $("#opportunitiesSearchgrid").kendoGrid(kendoGridData);
+
+        $('#companiesSelection').kendoDropDownList(get_kendoCompaniesData());
         showNoti_.hide();
 
+        function get_kendoCompaniesData() {
+            var startModule = sandler.appStart.module;
+            var data = startModule.getUserCompanies();
+            var kendoDropDownData = {
+                dataTextField: "name",
+                dataValueField: "id",
+                optionLabel: "All",
+                dataSource: data,
+                index: 0,
+                change: companyOnChange
+            };
+            return kendoDropDownData;
+        }
 
         //To do
         //Remove sorting for TotalCompanyValue
@@ -45,11 +60,13 @@ function ng_opportunitiesCtrl($scope, $http) {
                         ],
                         title: " ", width: "20px"
                     },
-                    { field: "COMPANYNAME", title: "Company Name", width: "80px" },
-                    { field: "IndustryTypeName", title: "Industry", width: "80px" },
-                    { field: "ProductTypeName", title: "Product", width: "60px" },
-                    { field: "Representative", title: "Sandler Rep Name", width: "60px" },
-                    { field: "TotalCompanyValue", title: "Total Company Value", width: "50px" }
+                    { field: "ID", title: "ID", width: "80px" },
+                    { field: "NAME", title: "Name", width: "80px" },
+                    { field: "COMPANYNAME", title: "Company", width: "60px" },
+                    { field: "VALUE", title: "Value", width: "60px" },
+                    { field: "CLOSEDATE", title: "Close Date", width: "50px" },
+                    { field: "SALESREP", title: "Sales Rep", width: "50px" },
+                    { field: "Status", title: "Status", width: "50px" }
 
                 ]
             }
@@ -61,7 +78,7 @@ function ng_opportunitiesCtrl($scope, $http) {
                 type: "json",
                 transport: {
                     read: {
-                        url: "api/CompanyView/",
+                        url: "api/PipelineView/",
                         dataType: "json",
                         cache: false //This is required othewise grid does not refresh after Edit operation in IE
                     }
@@ -71,11 +88,13 @@ function ng_opportunitiesCtrl($scope, $http) {
                     total: "__count",
                     model: {
                         fields: {
+                            ID: { type: 'string' },
+                            NAME: { type: 'string' },
                             COMPANYNAME: { type: 'string' },
-                            IndustryTypeName: { type: 'string' },
-                            ProductTypeName: { type: 'string' },
-                            Representative: { type: 'string' },
-                            TotalCompanyValue: { type: 'string' }
+                            VALUE: { type: 'string' },
+                            CLOSEDATE: { type: 'string' },
+                            SALESREP: { type: 'string' },
+                            Status: { type: 'string' }
                         }
                     }
                 },
@@ -86,6 +105,17 @@ function ng_opportunitiesCtrl($scope, $http) {
             };
             return dataSource;
         }
+
+        function companyOnChange() {
+            var companySelectedId = $("#companiesSelection").val();
+            console.log('selected company' + companySelectedId);
+            if (companySelectedId) {
+                opportunitiesSearchgrid.data("kendoGrid").dataSource.filter({ field: "COMPANIESID", operator: "eq", value: parseInt(companySelectedId) });
+            } else {
+                opportunitiesSearchgrid.data("kendoGrid").dataSource.filter({});
+            }
+        };
+        
         
     });
 

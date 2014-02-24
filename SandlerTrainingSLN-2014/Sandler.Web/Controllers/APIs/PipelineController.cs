@@ -26,37 +26,39 @@ namespace Sandler.Web.Controllers.API
         {
         }
 
-        //[Route("api/PipelineView/")]
-        //public HttpResponseMessage GetPipelineView(int? page, int? pageSize)
-        //{
-        //    List<PipelineView> data = null;
-        //    //sort%5B0%5D%5Bfield%5D=COMPANYNAME&sort%5B0%5D%5Bdir%5D=asc
-        //    string sortField =  HttpContext.Current.Request.QueryString["sort[0][field]"];
-        //    string sortDir = HttpContext.Current.Request.QueryString["sort[0][dir]"];
+        [Route("api/PipelineView/")]
+        public HttpResponseMessage GetPipelineView(int? page, int? pageSize)
+        {
+            List<OpportunityView> opportunities = null;
+            //sort%5B0%5D%5Bfield%5D=COMPANYNAME&sort%5B0%5D%5Bdir%5D=asc
+            //
+            /*
+             filter%5bfilters%5d%5b0%5d%5bfield%5d=COMPANIESID&
+             filter%5bfilters%5d%5b0%5d%5boperator%5d=eq&
+             filter%5bfilters%5d%5b0%5d%5bvalue%5d=2938
+             %5b='['
+             %5d=']'
+             filter[filters][0][field]=COMPANIESID
+             filter[filters][0][operator]=eq
+             filter[filters][0][value]=2938
+             * */
+            string sortField = HttpContext.Current.Request.QueryString["sort[0][field]"];
+            string sortDir = HttpContext.Current.Request.QueryString["sort[0][dir]"];
+            bool filterByCompany = !string.IsNullOrEmpty(HttpContext.Current.Request.QueryString["filter[filters][0][field]"]);
+            string orderBy = "NAME ASC";
+            int? companyId=null;
+            if (!string.IsNullOrEmpty(sortField))
+                orderBy = sortField;
+            if (!string.IsNullOrEmpty(sortField) && !string.IsNullOrEmpty(sortDir))
+                orderBy = orderBy + " " + sortDir;
+            if (filterByCompany)
+                companyId = int.Parse(HttpContext.Current.Request.QueryString["filter[filters][0][value]"]);
+            opportunities = uow.OpportunityRepository().Get(orderBy, pageSize.Value, page.Value, CurrentUser.UserId, companyId).ToList();
 
-        //    string orderBy = "COMPANYNAME ASC";
-        //    if (!string.IsNullOrEmpty(sortField))
-        //        orderBy = sortField;
-        //    if (!string.IsNullOrEmpty(sortField) && !string.IsNullOrEmpty(sortDir))
-        //        orderBy = orderBy + " " + sortDir;
-            
-        //    if (CurrentUser.Role == SandlerRoles.Corporate || CurrentUser.Role == SandlerRoles.SiteAdmin || CurrentUser.Role == SandlerRoles.HomeOfficeAdmin || CurrentUser.Role == SandlerRoles.HomeOfficeUser)
-        //    {
-        //        data = uow.PipelineRepository().Get(orderBy, pageSize.Value, page.Value, null, null).ToList();
-        //    }
-        //    if (CurrentUser.Role == SandlerRoles.Coach)
-        //    {
-        //        data = uow.PipelineRepository().Get(orderBy, pageSize.Value, page.Value, CurrentUser.CoachID, null).ToList();
-        //    }
-        //    if (CurrentUser.Role == SandlerRoles.FranchiseeOwner || CurrentUser.Role == SandlerRoles.FranchiseeUser)
-        //    {
-        //        data = uow.PipelineRepository().Get(orderBy, pageSize.Value, page.Value, null, CurrentUser.FranchiseeID).ToList();
-        //    }
+            var returnObject = new { success = true, __count = (opportunities.Count > 0) ? opportunities.FirstOrDefault().TotalCount:0, results = opportunities };
+            return Request.CreateResponse(returnObject);
 
-        //    var returnObject = new { success = true, __count = data.FirstOrDefault().TotalCount, results = data };
-        //    return Request.CreateResponse(returnObject);
-            
-        //}
+        }
 
         public HttpResponseMessage Get(int id)
         {

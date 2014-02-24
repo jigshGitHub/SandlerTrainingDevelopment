@@ -45,5 +45,19 @@ namespace Sandler.DB.Models
 
             return q.ToList();
         }
+
+        public List<OpportunityView> GetOpportunityView(string orderBy, int? pageSize, int? pageNo, Guid userId, int? companyId)
+        {
+            string whereClause = "";
+            if (companyId.HasValue)
+                whereClause = whereClause + ", @companyId=" + companyId.Value;
+
+            string query = string.Format("exec [sp_OpportunityView] @userId='{0}', @orderBy='{1}', @pageSize={2}, @pageNo={3}{4}"
+                , userId.ToString(), orderBy, pageSize, pageNo, whereClause);
+
+            var q = Database.SqlQuery<OpportunityView>(query);
+
+            return q.ToList();
+        }
     }
 }

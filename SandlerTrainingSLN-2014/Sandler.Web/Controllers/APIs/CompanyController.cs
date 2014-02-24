@@ -49,7 +49,7 @@ namespace Sandler.Web.Controllers.API
         [Route("api/CompanyView/")]
         public HttpResponseMessage GetCompanyView(int? page, int? pageSize)
         {
-            List<CompanyView> data = null;
+            List<CompanyView> companies = null;
             //sort%5B0%5D%5Bfield%5D=COMPANYNAME&sort%5B0%5D%5Bdir%5D=asc
             string sortField =  HttpContext.Current.Request.QueryString["sort[0][field]"];
             string sortDir = HttpContext.Current.Request.QueryString["sort[0][dir]"];
@@ -62,18 +62,18 @@ namespace Sandler.Web.Controllers.API
             
             if (CurrentUser.Role == SandlerRoles.Corporate || CurrentUser.Role == SandlerRoles.SiteAdmin || CurrentUser.Role == SandlerRoles.HomeOfficeAdmin || CurrentUser.Role == SandlerRoles.HomeOfficeUser)
             {
-                data = uow.CompanyRepository().Get(orderBy, pageSize.Value, page.Value, null, null).ToList();
+                companies = uow.CompanyRepository().Get(orderBy, pageSize.Value, page.Value, null, null).ToList();
             }
             if (CurrentUser.Role == SandlerRoles.Coach)
             {
-                data = uow.CompanyRepository().Get(orderBy, pageSize.Value, page.Value, CurrentUser.CoachID, null).ToList();
+                companies = uow.CompanyRepository().Get(orderBy, pageSize.Value, page.Value, CurrentUser.CoachID, null).ToList();
             }
             if (CurrentUser.Role == SandlerRoles.FranchiseeOwner || CurrentUser.Role == SandlerRoles.FranchiseeUser)
             {
-                data = uow.CompanyRepository().Get(orderBy, pageSize.Value, page.Value, null, CurrentUser.FranchiseeID).ToList();
+                companies = uow.CompanyRepository().Get(orderBy, pageSize.Value, page.Value, null, CurrentUser.FranchiseeID).ToList();
             }
 
-            var returnObject = new { success = true, __count = data.FirstOrDefault().TotalCount, results = data };
+            var returnObject = new { success = true, __count = (companies.Count > 0) ? companies.FirstOrDefault().TotalCount : 0, results = companies };
             return Request.CreateResponse(returnObject);
             
         }
