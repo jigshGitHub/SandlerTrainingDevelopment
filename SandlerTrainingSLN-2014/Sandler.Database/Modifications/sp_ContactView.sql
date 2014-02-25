@@ -30,7 +30,7 @@ BEGIN
 	SET @SQL = 'select 
 	ct.LastName,
 	ct.FirstName,
-	ct.lastname + '','' + ct.FirstName as FullName, 
+	ct.lastname + '', '' + ct.FirstName as FullName, 
 	ct.Phone,
 	ct.ReferredBy , 
 	ct.Notes , 

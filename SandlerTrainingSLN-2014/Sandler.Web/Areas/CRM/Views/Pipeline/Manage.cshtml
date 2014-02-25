@@ -8,15 +8,17 @@
             Company :
         </div>
         <div class="col-sm-9">
-            <select data-bind="options: companies, optionsText: 'name', optionsValue: 'id', value: opportunity.COMPANYID, disable: isDisabled"></select>
+            <span data-bind="text: opportunity.companyName, visible: isVisible" />
+            <select data-bind="options: companies, optionsText: 'name', optionsValue: 'id', value: opportunity.COMPANYID, visible: !isVisible"></select>
         </div>
     </div>
     <div class="row">
         <div class="col-sm-2">
             Opportunity ID :
         </div>
-        <div class="col-sm-9">
-            <input data-bind="value: opportunity.ID, disable: isDisabled" />
+        <div class="col-sm-9">            
+            <span data-bind="text: opportunity.ID, visible: isVisible" />
+            <input data-bind="value: opportunity.ID, visible: !isVisible" />
         </div>
     </div>
     <div class="row">
@@ -24,7 +26,8 @@
             Opportunity Name :
         </div>
         <div class="col-sm-9">
-            <input data-bind="value: opportunity.NAME, disable: isDisabled" />
+            <span data-bind="text: opportunity.NAME, visible: isVisible" />
+            <input data-bind="value: opportunity.NAME, visible: !isVisible" />
         </div>
     </div>
     <div class="row">
@@ -32,7 +35,8 @@
             Opportunity Description :
         </div>
         <div class="col-sm-9">
-            <input data-bind="value: opportunity.Description, disable: isDisabled" textmode="MultiLine">
+            <span data-bind="text: opportunity.Description, visible: isVisible"/>
+            <input data-bind="value: opportunity.Description, visible: !isVisible" textmode="MultiLine"/>
         </div>
     </div>
     <div class="row">
@@ -40,7 +44,8 @@
             Opportunity Notes :
         </div>
         <div class="col-sm-9">
-            <input data-bind="value: opportunity.Notes, disable: isDisabled" />
+            <span data-bind="text: opportunity.Notes, visible: isVisible" />
+            <input data-bind="value: opportunity.Notes, visible: !isVisible" />
         </div>
     </div>
     <div class="row">
@@ -48,7 +53,8 @@
             Sales Rep Last Name :
         </div>
         <div class="col-sm-2">
-            <input data-bind="value: opportunity.SALESREPLASTNAME, disable: isDisabled" />
+            <span data-bind="text: opportunity.SALESREPLASTNAME, visible: isVisible" />
+            <input data-bind="value: opportunity.SALESREPLASTNAME, visible: !isVisible" />
         </div>
     </div>
     <div class="row">
@@ -56,7 +62,8 @@
             Sales Rep First Name :
         </div>
         <div class="col-sm-2">
-            <input data-bind="value: opportunity.SALESREPFIRSTNAME, disable: isDisabled" />
+            <span data-bind="text: opportunity.SALESREPFIRSTNAME, visible: !isVisible" />
+            <input data-bind="value: opportunity.SALESREPFIRSTNAME, visible: !isVisible" />
         </div>
     </div>
     <div class="row">
@@ -64,7 +71,8 @@
             Sales Rep Phone :
         </div>
         <div class="col-sm-2">
-            <input data-bind="value: opportunity.SALESREPPHONE, disable: isDisabled" />
+            <span data-bind="text: opportunity.SALESREPPHONE, visible: isVisible" />
+            <input data-bind="value: opportunity.SALESREPPHONE, visible: !isVisible" />
         </div>
     </div>
 
@@ -73,7 +81,8 @@
             Product :
         </div>
         <div class="col-sm-2">
-            <select data-bind="options: products, optionsText: 'ProductTypeName', optionsValue: 'Id', value: opportunity.ProductID,disable:isDisabled"></select>
+            <span data-bind="text: opportunity.productName, visible: isVisible" />
+            <select data-bind="options: products, optionsText: 'ProductTypeName', optionsValue: 'Id', value: opportunity.ProductID,visible:!isVisible"></select>
         </div>
     </div>
     <div class="row">
@@ -81,7 +90,8 @@
             Product Cost:
         </div>
         <div class="col-sm-2">
-            <input data-bind="value: opportunity.ProductCost, disable: isDisabled" />
+            <span data-bind="text: opportunity.ProductCost, visible: isVisible" />
+            <input data-bind="value: opportunity.ProductCost, visible: !isVisible" />
         </div>
     </div>
     <div class="row">
@@ -89,7 +99,8 @@
             Opportunity Status :
         </div>
         <div class="col-sm-2">
-            <select data-bind="options: oppStatus, optionsText: 'Name', optionsValue: 'ID', value: opportunity.STATUSID, disable: isDisabled"></select>
+            <span data-bind="text: opportunity.oppStatus, visible: isVisible" />
+            <select data-bind="options: oppStatus, optionsText: 'Name', optionsValue: 'ID', value: opportunity.STATUSID, visible: !isVisible"></select>
         </div>
     </div>
     <div class="row">
@@ -97,7 +108,8 @@
             Opportunity Source :
         </div>
         <div class="col-sm-2">            
-            <select data-bind="options: oppSource, optionsText: 'Name', optionsValue: 'ID', value: opportunity.SourceID, disable: isDisabled"></select>
+            <span data-bind="text: opportunity.oppSource, visible: isVisible" />
+            <select data-bind="options: oppSources, optionsText: 'Name', optionsValue: 'ID', value: opportunity.SourceID, visible: !isVisible"></select>
         </div>
     </div>
     <div class="row">
@@ -105,7 +117,8 @@
             Opportunity Type :
         </div>
         <div class="col-sm-2">
-            <select data-bind="options: oppTypes, optionsText: 'Name', optionsValue: 'ID', value: opportunity.TypeID, disable: isDisabled"></select>
+            <span data-bind="text: opportunity.type, visible: isVisible" />
+            <select data-bind="options: oppTypes, optionsText: 'Name', optionsValue: 'ID', value: opportunity.TypeID, visible: !isVisible"></select>
         </div>
     </div>
     <div class="row">
@@ -113,7 +126,8 @@
             Why Lost? :
         </div>
         <div class="col-sm-2">
-            <select data-bind="options: whyLosts, optionsText: 'Name', optionsValue: 'ID', value: opportunity.WhyLostID, disable: isDisabled"></select>
+            <span data-bind="text: opportunity.whyLost, visible: isVisible" />
+            <select data-bind="options: whyLosts, optionsText: 'Name', optionsValue: 'ID', value: opportunity.WhyLostID, visible: !isVisible"></select>
         </div>
     </div>
     <div class="row">
@@ -121,7 +135,8 @@
             Opportunity Value :
         </div>
         <div class="col-sm-2">
-            <input data-bind="value: opportunity.OpportunityValue, disable: isDisabled" />
+            <span data-bind="text: opportunity.OpportunityValue, visible: isVisible" />
+            <input data-bind="value: opportunity.OpportunityValue, visible: !isVisible" />
         </div>
     </div>
     <div class="row">
@@ -129,7 +144,8 @@
             Win Probability % :
         </div>
         <div class="col-sm-2">
-            <input data-bind="value: opportunity.WinProbability, disable: isDisabled" />
+            <span data-bind="text: opportunity.WinProbability, visible: isVisible" />
+            <input data-bind="value: opportunity.WinProbability, visible: !isVisible" />
         </div>
     </div>
     <div class="row">
@@ -137,7 +153,8 @@
             Weighted Value :
         </div>
         <div class="col-sm-2">
-            <input data-bind="value: opportunity.WeightedValue, disable: isDisabled" />
+            <span data-bind="text: opportunity.WeightedValue, visible: isVisible" />
+            <input data-bind="value: opportunity.WeightedValue, visible: !isVisible" />
         </div>
     </div>
     <div class="row">
@@ -145,7 +162,8 @@
             Actual Value :
         </div>
         <div class="col-sm-2">
-            <input data-bind="value: opportunity.ActualValue, disable: isDisabled" />
+            <span data-bind="text: opportunity.ActualValue, visible: isVisible" />
+            <input data-bind="value: opportunity.ActualValue, visible: !isVisible" />
         </div>
     </div>
     <div class="row">
@@ -153,7 +171,8 @@
             Creation Date :
         </div>
         <div class="col-sm-2">
-            <input data-bind="value: opportunity.CreationDate, disable: isDisabled" />
+            <span data-bind="text: opportunity.CreationDate, visible: isVisible" />
+            <input data-bind="value: opportunity.CreationDate, visible: !isVisible" />
         </div>
     </div>
     <div class="row">
@@ -161,7 +180,8 @@
             Close Date :
         </div>
         <div class="col-sm-2">
-            <input data-bind="value: opportunity.CloseDate, disable: isDisabled" />
+            <span data-bind="text: opportunity.CloseDate, visible: isVisible" />
+            <input data-bind="value: opportunity.CloseDate, visible: !isVisible" />
         </div>
     </div>
     <div class="row">
@@ -169,7 +189,8 @@
             Pain :
         </div>
         <div class="col-sm-2">
-            <input data-bind="value: opportunity.Pain, disable: isDisabled" />
+            <span data-bind="text: opportunity.Pain, visible: isVisible" />
+            <input data-bind="value: opportunity.Pain, visible: !isVisible" />
         </div>
     </div>
     <div class="row">
@@ -177,7 +198,8 @@
             Length of Problem :
         </div>
         <div class="col-sm-2">
-            <input data-bind="value: opportunity.LengthofProblem, disable: isDisabled" />
+            <span data-bind="text: opportunity.LengthofProblem, visible: isVisible" />
+            <input data-bind="value: opportunity.LengthofProblem, visible: !isVisible" />
         </div>
     </div>
     <div class="row">
@@ -185,7 +207,8 @@
             Alternatives :
         </div>
         <div class="col-sm-2">
-            <input data-bind="value: opportunity.Alternatives, disable: isDisabled" />
+            <span data-bind="text: opportunity.Alternatives, visible: isVisible" />
+            <input data-bind="value: opportunity.Alternatives, visible: !isVisible" />
         </div>
     </div>
     <div class="row">
@@ -193,7 +216,8 @@
             Cost to Fix :
         </div>
         <div class="col-sm-2">
-            <input data-bind="value: opportunity.CostToFix, disable: isDisabled" />
+            <span data-bind="text: opportunity.CostToFix, visible: isVisible" />
+            <input data-bind="value: opportunity.CostToFix, visible: !isVisible" />
         </div>
     </div>
     <div class="row">
@@ -201,7 +225,8 @@
             Budget Identified?
         </div>
         <div class="col-sm-2">
-            <select data-bind="options: budgetIdentified, optionsText: 'Description', optionsValue: 'id', value: opportunity.IsBudgeIdentified, disable: isDisabled"></select>
+            <span data-bind="text: opportunity.budget, visible: isVisible" />
+            <select data-bind="options: budgetIdentified, optionsText: 'Description', optionsValue: 'id', value: opportunity.IsBudgeIdentified, visible: !isVisible"></select>
         </div>
     </div>
     <div class="row">
@@ -209,7 +234,8 @@
             Move Forward? :
         </div>
         <div class="col-sm-2">
-            <select data-bind="options: moveForward, optionsText: 'Description', optionsValue: 'id', value: opportunity.IsMoveForward, disable: isDisabled"></select>
+            <span data-bind="text: opportunity.moveForward, visible: isVisible" />
+            <select data-bind="options: moveForward, optionsText: 'Description', optionsValue: 'id', value: opportunity.IsMoveForward, visible: !isVisible"></select>
         </div>
     </div>
     <div class="row">
@@ -217,8 +243,14 @@
             Contacts :
         </div>
         <div class="col-sm-2">
-            <input data-bind="value: primaryContact, disable: isDisabled" /><br />
+            <span data-bind="text: primaryContact, visible: isVisible" /><br />
+            <span data-bind="text: secondaryContact1, visible: isVisible" /><br />
+            <span data-bind="text: secondaryContact2, visible: isVisible" /><br />
+            <select data-bind="options: companyContacts, optionsText: 'fullName', optionsValue: 'contactsId', visible: !isVisible"></select>
         </div>
+    </div>
+    <div class="row">
+        <input type="button" value="Edit" data-bind="click:makeEditable" />
     </div>
 </div>
 
@@ -229,21 +261,73 @@
     var pageVM = function (opportunityObservable) {
         var self = this;
         self.opportunity = opportunityObservable;
+        self.opportunity.companyName = ko.computed(function () {
+            return startModule.getCompanyName(self.opportunity.COMPANYID());
+        }, self);
+        self.opportunity.productName = ko.computed(function () {
+            return startModule.getProductName(self.opportunity.ProductID());
+        }, self);
+        self.opportunity.oppStatus = ko.computed(function () {
+            return startModule.getOpportunityStatusName(self.opportunity.STATUSID());
+        }, self);
+        self.opportunity.oppSource = ko.computed(function () {
+            return startModule.getOpportunitySourcesName(self.opportunity.SourceID());
+        }, self);
+        self.opportunity.type = ko.computed(function () {
+            return startModule.getOpportunityTypesName(self.opportunity.TypeID());
+        }, self);
+        self.opportunity.whyLost = ko.computed(function () {
+            return startModule.getOpportunityWhyLostsName(self.opportunity.WhyLostID());
+        }, self);
+        self.opportunity.budget = ko.computed(function () {
+            return startModule.getYesNo(self.opportunity.IsBudgeIdentified());
+        }, self);
+        self.opportunity.moveForward = ko.computed(function () {
+            return startModule.getYesNo(self.opportunity.IsMoveForward());
+        }, self);
         self.companies = startModule.getUserCompanies();
         self.products = startModule.getProductTypes();
         self.whyLosts = startModule.getOpportunityWhyLosts();
         self.oppStatus = startModule.getOpportunityStatus();
-        self.oppSource = startModule.getOpportunitySources();
+        self.oppSources = startModule.getOpportunitySources();
         self.oppTypes = startModule.getOpportunityTypes();
         self.budgetIdentified = startModule.getYesNoOptions();
         self.moveForward = startModule.getYesNoOptions();
+        self.companyContacts = ko.computed(function () {return startModule.getUserContactsByCompany(self.opportunity.COMPANYID()); }, self);
         self.primaryContact = ko.computed(function () {
-            $.each(startModule.getUserContactsByCompany(self.opportunity.COMPANYID()), function (i, contactRecord) {
-                if (contactRecord.contactsId == self.opportunity.CONTACTID())
-                    return contactRecord.fullName;
+            var fullName='';
+            $.each(self.companyContacts(), function (i, contactRecord) {
+                if (parseInt(contactRecord.contactsId) == parseInt(self.opportunity.CONTACTID())) {
+                    fullName = contactRecord.fullName;
+                    return false;
+                }
             });
+            return fullName;
         }, self);
-        self.isDisabled = ko.observable(true);
+        self.secondaryContact1 = ko.computed(function () {
+            var fullName = '';
+            $.each(self.companyContacts(), function (i, contactRecord) {
+                if (parseInt(contactRecord.contactsId) == parseInt(self.opportunity.SeconadryContactId1())) {
+                    fullName = contactRecord.fullName;
+                    return false;
+                }
+            });
+            return fullName;
+        }, self);
+        self.secondaryContact2 = ko.computed(function () {
+            var fullName = '';
+            $.each(self.companyContacts(), function (i, contactRecord) {
+                if (parseInt(contactRecord.contactsId) == parseInt(self.opportunity.SeconadryContactId2())) {
+                    fullName = contactRecord.fullName;
+                    return false;
+                }
+            });
+            return fullName;
+        }, self);
+        self.isVisible = ko.observable(true);
+        self.makeEditable =function () {
+            self.isVisible(false);
+        };
     }
     $(document).ready(function () {
         var vm = new pageVM(ko.mapping.fromJS( @Html.Raw(Json.Encode(@Model.EntityModel))));

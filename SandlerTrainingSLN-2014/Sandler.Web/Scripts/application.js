@@ -117,14 +117,15 @@ sandler.namespace("appStart").module= (function () {
     };
 
     var getUserContactsByCompany = function (companyId) {
-        console.log(companyId);
+        //console.log('companyId');
+        //console.log(companyId);
         var companyContacts = new Array();
         $.each(getUserContacts(), function (i, contactRecord) {
             if(contactRecord.companyId == companyId)
                 companyContacts.push(contactRecord);
         });
-
-        console.log(companyContacts);
+        //console.log('companyContacts');
+        //console.log(companyContacts);
         return companyContacts;
     };
     
@@ -198,7 +199,67 @@ sandler.namespace("appStart").module= (function () {
         getUser: getUser,
         getUserCompanies: getUserCompanies,
         getUserContacts: getUserContacts,
-        getUserContactsByCompany:getUserContactsByCompany
+        getUserContactsByCompany: getUserContactsByCompany,
+        getProductName: function (productId) {
+            var option = getProductTypes().filter(function (o) {
+                return o.Id == productId;
+            });
+            return (option[0]) ? option[0].ProductTypeName : '';
+        },
+        getCompanyName: function (_id) {
+            var option = getUserCompanies().filter(function (o) {
+                return o.id == _id;
+            });
+            return (option[0]) ? option[0].name : '';
+        },
+        getYesNo: function (_id) {
+            var option = getYesNoOptions().filter(function (o) {
+                return o.id == _id;
+            });
+            return (option[0]) ? option[0].Description : '';
+        },
+        getIndustryName: function (_id) {
+            var option = getIndustryTypes().filter(function (o) {
+                return o.IndId == _id;
+            });
+            return (option[0]) ? option[0].IndustryTypeName : '';
+        },
+        getAppointmentSourceName: function (_id) {
+            var option = getAppointmentSources().filter(function (o) {
+                return o.ApptSourceId == _id;
+            });
+            return (option[0]) ? option[0].ApptSourceName : '';
+        },
+        getCourseName: function (_id) {
+            var option = getCourses().filter(function (o) {
+                return o.CourseId == _id;
+            });
+            return (option[0]) ? option[0].CourseName : '';
+        },
+        getOpportunityStatusName: function (_id) {
+            var option = getOpportunityStatus().filter(function (o) {
+                return o.ID == _id;
+            });
+            return (option[0]) ? option[0].Name : '';
+        },
+        getOpportunityTypesName: function (_id) {
+            var option = getOpportunityTypes().filter(function (o) {
+                return o.ID == _id;
+            });
+            return (option[0]) ? option[0].Name : '';
+        },
+        getOpportunityWhyLostsName: function (_id) {
+            var option = getOpportunityWhyLosts().filter(function (o) {
+                return o.ID == _id;
+            });
+            return (option[0]) ? option[0].Name:'';
+        },
+        getOpportunitySourcesName: function (_id) {
+            var option = getOpportunitySources().filter(function (o) {
+                return o.ID == _id;
+            });
+            return (option[0]) ? option[0].Name : '';
+        }
     };
 })();
 
