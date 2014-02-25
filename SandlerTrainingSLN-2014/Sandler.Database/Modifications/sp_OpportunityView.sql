@@ -135,7 +135,9 @@ Begin
 				CostToFix,
 				Alternatives,
 				IsBudgeIdentified,
-				IsMoveForward
+				IsMoveForward,
+				SeconadryContactId1,
+				SeconadryContactId2
 			 FROM CTE_pageResult 
 			 WHERE 1 = 1';
 
