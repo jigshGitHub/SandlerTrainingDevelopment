@@ -68,5 +68,11 @@ namespace Sandler.Web.Controllers.API
         {
             return Request.CreateResponse(uow.Repository<TBL_OpportunityWhyLost>().GetAll().Where(r => r.IsActive == true));
         }
+
+        [Route("api/OpportunitySources/")]
+        public HttpResponseMessage GetOpportunitySources()
+        {
+            return Request.CreateResponse(uow.Repository<TBL_OpportunitySource>().GetAll().Where(r => r.IsActive == true));
+        }
     }
 }

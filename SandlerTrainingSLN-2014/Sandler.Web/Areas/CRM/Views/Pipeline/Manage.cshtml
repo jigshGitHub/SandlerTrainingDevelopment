@@ -8,6 +8,7 @@
             Company :
         </div>
         <div class="col-sm-9">
+            <select data-bind="options: companies, optionsText: 'name', optionsValue: 'id', value: opportunity.COMPANYID, disable: isDisabled"></select>
         </div>
     </div>
     <div class="row">
@@ -72,7 +73,7 @@
             Product :
         </div>
         <div class="col-sm-2">
-            <input data-bind="value: opportunity.Product, disable: isDisabled" />
+            <select data-bind="options: products, optionsText: 'ProductTypeName', optionsValue: 'Id', value: opportunity.ProductID,disable:isDisabled"></select>
         </div>
     </div>
     <div class="row">
@@ -88,15 +89,15 @@
             Opportunity Status :
         </div>
         <div class="col-sm-2">
-            <input data-bind="value: opportunity.Status, disable: isDisabled" />
+            <select data-bind="options: oppStatus, optionsText: 'Name', optionsValue: 'ID', value: opportunity.STATUSID, disable: isDisabled"></select>
         </div>
     </div>
     <div class="row">
         <div class="col-sm-2">
             Opportunity Source :
         </div>
-        <div class="col-sm-2">
-            <input data-bind="value: opportunity.Source, disable: isDisabled" />
+        <div class="col-sm-2">            
+            <select data-bind="options: oppSource, optionsText: 'Name', optionsValue: 'ID', value: opportunity.SourceID, disable: isDisabled"></select>
         </div>
     </div>
     <div class="row">
@@ -104,7 +105,7 @@
             Opportunity Type :
         </div>
         <div class="col-sm-2">
-            <input data-bind="value: opportunity.Type, disable: isDisabled" />
+            <select data-bind="options: oppTypes, optionsText: 'Name', optionsValue: 'ID', value: opportunity.TypeID, disable: isDisabled"></select>
         </div>
     </div>
     <div class="row">
@@ -112,7 +113,7 @@
             Why Lost? :
         </div>
         <div class="col-sm-2">
-            <input data-bind="value: opportunity.WLost, disable: isDisabled" />
+            <select data-bind="options: whyLosts, optionsText: 'Name', optionsValue: 'ID', value: opportunity.WhyLostID, disable: isDisabled"></select>
         </div>
     </div>
     <div class="row">
@@ -128,7 +129,7 @@
             Win Probability % :
         </div>
         <div class="col-sm-2">
-            <input data-bind="value: opportunity.WinProbability" maxlength="3, disable: isDisabled" />
+            <input data-bind="value: opportunity.WinProbability, disable: isDisabled" />
         </div>
     </div>
     <div class="row">
@@ -136,7 +137,7 @@
             Weighted Value :
         </div>
         <div class="col-sm-2">
-            <input data-bind="value: opportunity.WeightedValue" enabled="false" />
+            <input data-bind="value: opportunity.WeightedValue, disable: isDisabled" />
         </div>
     </div>
     <div class="row">
@@ -144,7 +145,7 @@
             Actual Value :
         </div>
         <div class="col-sm-2">
-            <input data-bind="value: opportunity.ActualValue" enabled="false" />
+            <input data-bind="value: opportunity.ActualValue, disable: isDisabled" />
         </div>
     </div>
     <div class="row">
@@ -200,7 +201,7 @@
             Budget Identified?
         </div>
         <div class="col-sm-2">
-            <input data-bind="value: opportunity.BudgetIdentified, disable: isDisabled" />
+            <select data-bind="options: budgetIdentified, optionsText: 'Description', optionsValue: 'id', value: opportunity.IsBudgeIdentified, disable: isDisabled"></select>
         </div>
     </div>
     <div class="row">
@@ -208,7 +209,7 @@
             Move Forward? :
         </div>
         <div class="col-sm-2">
-            <input data-bind="value: opportunity.MoveForward, disable: isDisabled" />
+            <select data-bind="options: moveForward, optionsText: 'Description', optionsValue: 'id', value: opportunity.IsMoveForward, disable: isDisabled"></select>
         </div>
     </div>
     <div class="row">
@@ -216,19 +217,32 @@
             Contacts :
         </div>
         <div class="col-sm-2">
-            <input data-bind="value: opportunity.PrimaryContact, disable: isDisabled" /><br />
-            <input data-bind="value: opportunity.SecondaryContact1, disable: isDisabled" /><br />
-            <input data-bind="value: opportunity.SecondaryContact2, disable: isDisabled" /><br />
+            <input data-bind="value: primaryContact, disable: isDisabled" /><br />
         </div>
     </div>
 </div>
 
 
 <script type="text/javascript">
+
+    var startModule = sandler.appStart.module;
     var pageVM = function (opportunityObservable) {
         var self = this;
         self.opportunity = opportunityObservable;
-
+        self.companies = startModule.getUserCompanies();
+        self.products = startModule.getProductTypes();
+        self.whyLosts = startModule.getOpportunityWhyLosts();
+        self.oppStatus = startModule.getOpportunityStatus();
+        self.oppSource = startModule.getOpportunitySources();
+        self.oppTypes = startModule.getOpportunityTypes();
+        self.budgetIdentified = startModule.getYesNoOptions();
+        self.moveForward = startModule.getYesNoOptions();
+        self.primaryContact = ko.computed(function () {
+            $.each(startModule.getUserContactsByCompany(self.opportunity.COMPANYID()), function (i, contactRecord) {
+                if (contactRecord.contactsId == self.opportunity.CONTACTID())
+                    return contactRecord.fullName;
+            });
+        }, self);
         self.isDisabled = ko.observable(true);
     }
     $(document).ready(function () {

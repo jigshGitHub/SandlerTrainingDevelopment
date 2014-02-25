@@ -9,7 +9,7 @@ GO
 
 SET QUOTED_IDENTIFIER ON
 GO
-
+--exec [sp_ContactView] @orderBy='LASTNAME ASC', @pageSize=0,@pageNo=0,@userId = '98428801-3032-4ef3-8ff4-4588f7876ece'
 Create Procedure [dbo].[sp_ContactView](
 	@orderBy VARCHAR(MAX),  -- Required 
 	@pageSize INT,    
@@ -69,11 +69,13 @@ BEGIN
 	BEGIN
 		SET @SQL = @SQL + ' AND ct.CreatedBy = ''' + @userId + '''';
 	END	 
-	   
-	SET @pageNo = @pageNo - 1    
-	SET @pageTop = (@pageNo * @pageSize) + 1  
-	SET @pageBottom = (@pageNo * @pageSize) + @pageSize
-	     
+	  
+	If @pageNo > 0 AND @pageSize > 0
+	BEGIN	   
+		SET @pageNo = @pageNo - 1    
+		SET @pageTop = (@pageNo * @pageSize) + 1  
+		SET @pageBottom = (@pageNo * @pageSize) + @pageSize
+	END	     
 	--Casting to int is required in followinf select clause
 	--Look for this article
 	--http://mythicalcode.com/2013/10/30/the-specified-cast-from-a-materialized-system-int64-type-to-the-system-int32-type-is-not-valid/
@@ -99,8 +101,12 @@ BEGIN
 				Cast( CoachID as int) as CoachID,
 				Cast( FranchiseeId as int) as FranchiseeId,
 				RegionName
-			 FROM CTE_pageResult
-			 WHERE RowIndex BETWEEN ' + CAST(@pageTop AS VARCHAR(10)) + ' AND ' + CAST(@pageBottom AS VARCHAR(10))
+			 FROM CTE_pageResult';
+	IF @pageTop > 0 
+	BEGIN 
+		SET @Q = @Q + ' WHERE RowIndex BETWEEN ' + CAST(@pageTop AS VARCHAR(10)) + ' AND ' + CAST(@pageBottom AS VARCHAR(10))
+	END
+	
 	PRINT @Q
 	EXEC (@Q)	    
 END
