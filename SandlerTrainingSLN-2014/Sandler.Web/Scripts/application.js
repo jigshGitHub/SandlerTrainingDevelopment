@@ -214,7 +214,7 @@ sandler.namespace("appStart").module= (function () {
         },
         getYesNo: function (_id) {
             var option = getYesNoOptions().filter(function (o) {
-                return o.id == _id;
+                return o.Value == _id;
             });
             return (option[0]) ? option[0].Description : '';
         },

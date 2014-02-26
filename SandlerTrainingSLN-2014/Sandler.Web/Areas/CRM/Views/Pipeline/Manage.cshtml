@@ -9,7 +9,7 @@
         </div>
         <div class="col-sm-9">
             <span data-bind="text: opportunity.companyName, visible: isVisible" />
-            <select data-bind="options: companies, optionsText: 'name', optionsValue: 'id', value: opportunity.COMPANYID, visible: !isVisible"></select>
+            <select data-bind="options: companies, optionsText: 'name', optionsValue: 'id', value: opportunity.COMPANYID, visible: isEditable"></select>
         </div>
     </div>
     <div class="row">
@@ -18,7 +18,7 @@
         </div>
         <div class="col-sm-9">            
             <span data-bind="text: opportunity.ID, visible: isVisible" />
-            <input data-bind="value: opportunity.ID, visible: !isVisible" />
+            <input data-bind="value: opportunity.ID, visible: isEditable" />
         </div>
     </div>
     <div class="row">
@@ -27,7 +27,7 @@
         </div>
         <div class="col-sm-9">
             <span data-bind="text: opportunity.NAME, visible: isVisible" />
-            <input data-bind="value: opportunity.NAME, visible: !isVisible" />
+            <input data-bind="value: opportunity.NAME, visible: isEditable" />
         </div>
     </div>
     <div class="row">
@@ -36,7 +36,7 @@
         </div>
         <div class="col-sm-9">
             <span data-bind="text: opportunity.Description, visible: isVisible"/>
-            <input data-bind="value: opportunity.Description, visible: !isVisible" textmode="MultiLine"/>
+            <input data-bind="value: opportunity.Description, visible: isEditable" textmode="MultiLine"/>
         </div>
     </div>
     <div class="row">
@@ -45,7 +45,7 @@
         </div>
         <div class="col-sm-9">
             <span data-bind="text: opportunity.Notes, visible: isVisible" />
-            <input data-bind="value: opportunity.Notes, visible: !isVisible" />
+            <input data-bind="value: opportunity.Notes, visible: isEditable" />
         </div>
     </div>
     <div class="row">
@@ -54,7 +54,7 @@
         </div>
         <div class="col-sm-2">
             <span data-bind="text: opportunity.SALESREPLASTNAME, visible: isVisible" />
-            <input data-bind="value: opportunity.SALESREPLASTNAME, visible: !isVisible" />
+            <input data-bind="value: opportunity.SALESREPLASTNAME, visible: isEditable" />
         </div>
     </div>
     <div class="row">
@@ -62,8 +62,8 @@
             Sales Rep First Name :
         </div>
         <div class="col-sm-2">
-            <span data-bind="text: opportunity.SALESREPFIRSTNAME, visible: !isVisible" />
-            <input data-bind="value: opportunity.SALESREPFIRSTNAME, visible: !isVisible" />
+            <span data-bind="text: opportunity.SALESREPFIRSTNAME, visible: isVisible" />
+            <input data-bind="value: opportunity.SALESREPFIRSTNAME, visible: isEditable" />
         </div>
     </div>
     <div class="row">
@@ -72,7 +72,7 @@
         </div>
         <div class="col-sm-2">
             <span data-bind="text: opportunity.SALESREPPHONE, visible: isVisible" />
-            <input data-bind="value: opportunity.SALESREPPHONE, visible: !isVisible" />
+            <input data-bind="value: opportunity.SALESREPPHONE, visible: isEditable" />
         </div>
     </div>
 
@@ -82,7 +82,7 @@
         </div>
         <div class="col-sm-2">
             <span data-bind="text: opportunity.productName, visible: isVisible" />
-            <select data-bind="options: products, optionsText: 'ProductTypeName', optionsValue: 'Id', value: opportunity.ProductID,visible:!isVisible"></select>
+            <select data-bind="options: products, optionsText: 'ProductTypeName', optionsValue: 'Id', value: opportunity.ProductID,visible:isEditable"></select>
         </div>
     </div>
     <div class="row">
@@ -91,7 +91,7 @@
         </div>
         <div class="col-sm-2">
             <span data-bind="text: opportunity.ProductCost, visible: isVisible" />
-            <input data-bind="value: opportunity.ProductCost, visible: !isVisible" />
+            <input data-bind="value: opportunity.ProductCost, visible: isEditable" />
         </div>
     </div>
     <div class="row">
@@ -100,7 +100,7 @@
         </div>
         <div class="col-sm-2">
             <span data-bind="text: opportunity.oppStatus, visible: isVisible" />
-            <select data-bind="options: oppStatus, optionsText: 'Name', optionsValue: 'ID', value: opportunity.STATUSID, visible: !isVisible"></select>
+            <select data-bind="options: oppStatus, optionsText: 'Name', optionsValue: 'ID', value: opportunity.STATUSID, visible: isEditable"></select>
         </div>
     </div>
     <div class="row">
@@ -109,7 +109,7 @@
         </div>
         <div class="col-sm-2">            
             <span data-bind="text: opportunity.oppSource, visible: isVisible" />
-            <select data-bind="options: oppSources, optionsText: 'Name', optionsValue: 'ID', value: opportunity.SourceID, visible: !isVisible"></select>
+            <select data-bind="options: oppSources, optionsText: 'Name', optionsValue: 'ID', value: opportunity.SourceID, visible: isEditable"></select>
         </div>
     </div>
     <div class="row">
@@ -118,7 +118,7 @@
         </div>
         <div class="col-sm-2">
             <span data-bind="text: opportunity.type, visible: isVisible" />
-            <select data-bind="options: oppTypes, optionsText: 'Name', optionsValue: 'ID', value: opportunity.TypeID, visible: !isVisible"></select>
+            <select data-bind="options: oppTypes, optionsText: 'Name', optionsValue: 'ID', value: opportunity.TypeID, visible: isEditable"></select>
         </div>
     </div>
     <div class="row">
@@ -127,7 +127,7 @@
         </div>
         <div class="col-sm-2">
             <span data-bind="text: opportunity.whyLost, visible: isVisible" />
-            <select data-bind="options: whyLosts, optionsText: 'Name', optionsValue: 'ID', value: opportunity.WhyLostID, visible: !isVisible"></select>
+            <select data-bind="options: whyLosts, optionsText: 'Name', optionsValue: 'ID', value: opportunity.WhyLostID, visible: isEditable"></select>
         </div>
     </div>
     <div class="row">
@@ -135,8 +135,8 @@
             Opportunity Value :
         </div>
         <div class="col-sm-2">
-            <span data-bind="text: opportunity.OpportunityValue, visible: isVisible" />
-            <input data-bind="value: opportunity.OpportunityValue, visible: !isVisible" />
+            <span data-bind="text: opportunity.VALUE, visible: isVisible" />
+            <input data-bind="value: opportunity.VALUE, visible: isEditable" />
         </div>
     </div>
     <div class="row">
@@ -144,8 +144,8 @@
             Win Probability % :
         </div>
         <div class="col-sm-2">
-            <span data-bind="text: opportunity.WinProbability, visible: isVisible" />
-            <input data-bind="value: opportunity.WinProbability, visible: !isVisible" />
+            <span data-bind="text: opportunity.WINPROBABILITY, visible: isVisible" />
+            <input data-bind="value: opportunity.WINPROBABILITY, visible: isEditable" />
         </div>
     </div>
     <div class="row">
@@ -153,8 +153,8 @@
             Weighted Value :
         </div>
         <div class="col-sm-2">
-            <span data-bind="text: opportunity.WeightedValue, visible: isVisible" />
-            <input data-bind="value: opportunity.WeightedValue, visible: !isVisible" />
+            <span data-bind="text: opportunity.WEIGHTEDVALUE, visible: isVisible" />
+            <input data-bind="value: opportunity.WEIGHTEDVALUE, visible: isEditable" />
         </div>
     </div>
     <div class="row">
@@ -163,7 +163,7 @@
         </div>
         <div class="col-sm-2">
             <span data-bind="text: opportunity.ActualValue, visible: isVisible" />
-            <input data-bind="value: opportunity.ActualValue, visible: !isVisible" />
+            <input data-bind="value: opportunity.ActualValue, visible: isEditable" />
         </div>
     </div>
     <div class="row">
@@ -172,7 +172,7 @@
         </div>
         <div class="col-sm-2">
             <span data-bind="text: opportunity.CreationDate, visible: isVisible" />
-            <input data-bind="value: opportunity.CreationDate, visible: !isVisible" />
+            <input data-bind="value: opportunity.CreationDate, visible: isEditable" />
         </div>
     </div>
     <div class="row">
@@ -180,8 +180,8 @@
             Close Date :
         </div>
         <div class="col-sm-2">
-            <span data-bind="text: opportunity.CloseDate, visible: isVisible" />
-            <input data-bind="value: opportunity.CloseDate, visible: !isVisible" />
+            <span data-bind="text: opportunity.CLOSEDATE, visible: isVisible" />
+            <input data-bind="value: opportunity.CLOSEDATE, visible: isEditable" />
         </div>
     </div>
     <div class="row">
@@ -190,7 +190,7 @@
         </div>
         <div class="col-sm-2">
             <span data-bind="text: opportunity.Pain, visible: isVisible" />
-            <input data-bind="value: opportunity.Pain, visible: !isVisible" />
+            <input data-bind="value: opportunity.Pain, visible: isEditable" />
         </div>
     </div>
     <div class="row">
@@ -198,8 +198,8 @@
             Length of Problem :
         </div>
         <div class="col-sm-2">
-            <span data-bind="text: opportunity.LengthofProblem, visible: isVisible" />
-            <input data-bind="value: opportunity.LengthofProblem, visible: !isVisible" />
+            <span data-bind="text: opportunity.LengthOfProblem, visible: isVisible" />
+            <input data-bind="value: opportunity.LengthOfProblem, visible: isEditable" />
         </div>
     </div>
     <div class="row">
@@ -208,7 +208,7 @@
         </div>
         <div class="col-sm-2">
             <span data-bind="text: opportunity.Alternatives, visible: isVisible" />
-            <input data-bind="value: opportunity.Alternatives, visible: !isVisible" />
+            <input data-bind="value: opportunity.Alternatives, visible: isEditable" />
         </div>
     </div>
     <div class="row">
@@ -217,7 +217,7 @@
         </div>
         <div class="col-sm-2">
             <span data-bind="text: opportunity.CostToFix, visible: isVisible" />
-            <input data-bind="value: opportunity.CostToFix, visible: !isVisible" />
+            <input data-bind="value: opportunity.CostToFix, visible: isEditable" />
         </div>
     </div>
     <div class="row">
@@ -226,7 +226,7 @@
         </div>
         <div class="col-sm-2">
             <span data-bind="text: opportunity.budget, visible: isVisible" />
-            <select data-bind="options: budgetIdentified, optionsText: 'Description', optionsValue: 'id', value: opportunity.IsBudgeIdentified, visible: !isVisible"></select>
+            <select data-bind="options: budgetIdentified, optionsText: 'Description', optionsValue: 'Value', value: opportunity.IsBudgeIdentified, visible: isEditable"></select>
         </div>
     </div>
     <div class="row">
@@ -235,7 +235,7 @@
         </div>
         <div class="col-sm-2">
             <span data-bind="text: opportunity.moveForward, visible: isVisible" />
-            <select data-bind="options: moveForward, optionsText: 'Description', optionsValue: 'id', value: opportunity.IsMoveForward, visible: !isVisible"></select>
+            <select data-bind="options: moveForward, optionsText: 'Description', optionsValue: 'Value', value: opportunity.IsMoveForward, visible: isEditable"></select>
         </div>
     </div>
     <div class="row">
@@ -243,10 +243,9 @@
             Contacts :
         </div>
         <div class="col-sm-2">
-            <span data-bind="text: primaryContact, visible: isVisible" /><br />
+            <span data-bind="text: primaryContact, visible: isVisible" /><select data-bind="    options: companyContacts, optionsText: 'fullName', optionsValue: 'contactsId', visible: isEditable"></select><br />
             <span data-bind="text: secondaryContact1, visible: isVisible" /><br />
             <span data-bind="text: secondaryContact2, visible: isVisible" /><br />
-            <select data-bind="options: companyContacts, optionsText: 'fullName', optionsValue: 'contactsId', visible: !isVisible"></select>
         </div>
     </div>
     <div class="row">
@@ -324,8 +323,10 @@
             });
             return fullName;
         }, self);
-        self.isVisible = ko.observable(true);
+        self.isVisible = ko.observable(true); 
+        self.isEditable = ko.observable(false); 
         self.makeEditable =function () {
+            self.isEditable(true);
             self.isVisible(false);
         };
     }
