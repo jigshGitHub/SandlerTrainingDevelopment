@@ -12,12 +12,21 @@ namespace Sandler.DB.Data.Common.Implementation
 {
     public class SandlerDBContext : Disposable, IDBContext
     {
+        private DbContext context;
+        public SandlerDBContext()
+        {
+            context = new SandlerDBEntities();
+            context.Configuration.ProxyCreationEnabled = false;            
+        }
         public System.Data.Entity.DbContext Get()
         {
-            DbContext context = new SandlerDBEntities();
-
-            context.Configuration.ProxyCreationEnabled = false;
             return context;
+        }
+
+
+        public void SaveChanges()
+        {
+            context.SaveChanges();
         }
     }
 }

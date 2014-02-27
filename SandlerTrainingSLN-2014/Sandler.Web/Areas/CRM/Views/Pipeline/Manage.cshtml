@@ -4,262 +4,335 @@
 
 <div id="container">
     <div class="row">
-        <div class="col-sm-2">
-            Company :
+        <div class="col-sm-3">
+            Company
         </div>
         <div class="col-sm-9">
+            :
             <span data-bind="text: opportunity.companyName, visible: isVisible" />
             <select data-bind="options: companies, optionsText: 'name', optionsValue: 'id', value: opportunity.COMPANYID, visible: isEditable"></select>
         </div>
     </div>
     <div class="row">
-        <div class="col-sm-2">
-            Opportunity ID :
+        <div class="col-sm-3">
+            Opportunity ID
         </div>
-        <div class="col-sm-9">            
+
+        <div class="col-sm-9">
+            :
             <span data-bind="text: opportunity.ID, visible: isVisible" />
             <input data-bind="value: opportunity.ID, visible: isEditable" />
         </div>
     </div>
     <div class="row">
-        <div class="col-sm-2">
-            Opportunity Name :
+        <div class="col-sm-3">
+            Opportunity Name
         </div>
+
         <div class="col-sm-9">
+            :
             <span data-bind="text: opportunity.NAME, visible: isVisible" />
             <input data-bind="value: opportunity.NAME, visible: isEditable" />
         </div>
     </div>
     <div class="row">
-        <div class="col-sm-2">
-            Opportunity Description :
+        <div class="col-sm-3">
+            Opportunity Description
         </div>
+
         <div class="col-sm-9">
-            <span data-bind="text: opportunity.Description, visible: isVisible"/>
-            <input data-bind="value: opportunity.Description, visible: isEditable" textmode="MultiLine"/>
+            :
+            <span data-bind="text: opportunity.Description, visible: isVisible" />
+            <input data-bind="value: opportunity.Description, visible: isEditable" textmode="MultiLine" />
         </div>
     </div>
     <div class="row">
-        <div class="col-sm-2">
-            Opportunity Notes :
+        <div class="col-sm-3">
+            Opportunity Notes
         </div>
+
         <div class="col-sm-9">
+            :
             <span data-bind="text: opportunity.Notes, visible: isVisible" />
             <input data-bind="value: opportunity.Notes, visible: isEditable" />
         </div>
     </div>
     <div class="row">
-        <div class="col-sm-2">
-            Sales Rep Last Name :
+        <div class="col-sm-3">
+            Sales Rep Last Name
         </div>
-        <div class="col-sm-2">
-            <span data-bind="text: opportunity.SALESREPLASTNAME, visible: isVisible" />
-            <input data-bind="value: opportunity.SALESREPLASTNAME, visible: isEditable" />
+
+        <div class="col-sm-9">
+            :
+            <span data-bind="text: opportunity.SALESREPLASTNAMEc, visible: isVisible" />
+            <input data-bind="value: opportunity.SALESREPLASTNAMEc, visible: isEditable" />
+            <span class="label label-danger" data-bind='visible: opportunity.SALESREPLASTNAMEc.hasError, text: opportunity.SALESREPLASTNAMEc.validationMessage'></span>
         </div>
     </div>
     <div class="row">
-        <div class="col-sm-2">
-            Sales Rep First Name :
+        <div class="col-sm-3">
+            Sales Rep First Name
         </div>
-        <div class="col-sm-2">
+
+        <div class="col-sm-9">
+            :
             <span data-bind="text: opportunity.SALESREPFIRSTNAME, visible: isVisible" />
             <input data-bind="value: opportunity.SALESREPFIRSTNAME, visible: isEditable" />
         </div>
     </div>
     <div class="row">
-        <div class="col-sm-2">
-            Sales Rep Phone :
+        <div class="col-sm-3">
+            Sales Rep Phone
         </div>
-        <div class="col-sm-2">
+
+        <div class="col-sm-9">
+            :
             <span data-bind="text: opportunity.SALESREPPHONE, visible: isVisible" />
             <input data-bind="value: opportunity.SALESREPPHONE, visible: isEditable" />
         </div>
     </div>
 
     <div class="row">
-        <div class="col-sm-2">
-            Product :
+        <div class="col-sm-3">
+            Product
         </div>
-        <div class="col-sm-2">
+
+        <div class="col-sm-9">
+            :
             <span data-bind="text: opportunity.productName, visible: isVisible" />
-            <select data-bind="options: products, optionsText: 'ProductTypeName', optionsValue: 'Id', value: opportunity.ProductID,visible:isEditable"></select>
+            <select data-bind="options: products, optionsText: 'ProductTypeName', optionsValue: 'Id', value: opportunity.ProductID, visible: isEditable"></select>
         </div>
     </div>
     <div class="row">
-        <div class="col-sm-2">
-            Product Cost:
+        <div class="col-sm-3">
+            Product Cost
         </div>
-        <div class="col-sm-2">
+
+        <div class="col-sm-9">
+            :
             <span data-bind="text: opportunity.ProductCost, visible: isVisible" />
             <input data-bind="value: opportunity.ProductCost, visible: isEditable" />
         </div>
     </div>
     <div class="row">
-        <div class="col-sm-2">
-            Opportunity Status :
+        <div class="col-sm-3">
+            Opportunity Status
         </div>
-        <div class="col-sm-2">
+
+        <div class="col-sm-9">
+            :
             <span data-bind="text: opportunity.oppStatus, visible: isVisible" />
             <select data-bind="options: oppStatus, optionsText: 'Name', optionsValue: 'ID', value: opportunity.STATUSID, visible: isEditable"></select>
         </div>
     </div>
     <div class="row">
-        <div class="col-sm-2">
-            Opportunity Source :
+        <div class="col-sm-3">
+            Opportunity Source
         </div>
-        <div class="col-sm-2">            
+
+        <div class="col-sm-9">
+            :
             <span data-bind="text: opportunity.oppSource, visible: isVisible" />
             <select data-bind="options: oppSources, optionsText: 'Name', optionsValue: 'ID', value: opportunity.SourceID, visible: isEditable"></select>
         </div>
     </div>
     <div class="row">
-        <div class="col-sm-2">
-            Opportunity Type :
+        <div class="col-sm-3">
+            Opportunity Type
         </div>
-        <div class="col-sm-2">
+
+        <div class="col-sm-9">
+            :
             <span data-bind="text: opportunity.type, visible: isVisible" />
             <select data-bind="options: oppTypes, optionsText: 'Name', optionsValue: 'ID', value: opportunity.TypeID, visible: isEditable"></select>
         </div>
     </div>
     <div class="row">
-        <div class="col-sm-2">
-            Why Lost? :
+        <div class="col-sm-3">
+            Why Lost?
         </div>
-        <div class="col-sm-2">
+
+        <div class="col-sm-9">
+            :
             <span data-bind="text: opportunity.whyLost, visible: isVisible" />
             <select data-bind="options: whyLosts, optionsText: 'Name', optionsValue: 'ID', value: opportunity.WhyLostID, visible: isEditable"></select>
         </div>
     </div>
     <div class="row">
-        <div class="col-sm-2">
-            Opportunity Value :
+        <div class="col-sm-3">
+            Opportunity Value
         </div>
-        <div class="col-sm-2">
+
+        <div class="col-sm-9">
+            :
             <span data-bind="text: opportunity.VALUE, visible: isVisible" />
             <input data-bind="value: opportunity.VALUE, visible: isEditable" />
         </div>
     </div>
     <div class="row">
-        <div class="col-sm-2">
-            Win Probability % :
+        <div class="col-sm-3">
+            Win Probability %
         </div>
-        <div class="col-sm-2">
+
+        <div class="col-sm-9">
+            :
             <span data-bind="text: opportunity.WINPROBABILITY, visible: isVisible" />
             <input data-bind="value: opportunity.WINPROBABILITY, visible: isEditable" />
         </div>
     </div>
     <div class="row">
-        <div class="col-sm-2">
-            Weighted Value :
+        <div class="col-sm-3">
+            Weighted Value
         </div>
-        <div class="col-sm-2">
+
+        <div class="col-sm-9">
+            :
             <span data-bind="text: opportunity.WEIGHTEDVALUE, visible: isVisible" />
             <input data-bind="value: opportunity.WEIGHTEDVALUE, visible: isEditable" />
         </div>
     </div>
     <div class="row">
-        <div class="col-sm-2">
-            Actual Value :
+        <div class="col-sm-3">
+            Actual Value
         </div>
-        <div class="col-sm-2">
+
+        <div class="col-sm-9">
+            :
             <span data-bind="text: opportunity.ActualValue, visible: isVisible" />
             <input data-bind="value: opportunity.ActualValue, visible: isEditable" />
         </div>
     </div>
     <div class="row">
-        <div class="col-sm-2">
-            Creation Date :
+        <div class="col-sm-3">
+            Creation Date
         </div>
-        <div class="col-sm-2">
-            <span data-bind="text: opportunity.CreationDate, visible: isVisible" />
-            <input data-bind="value: opportunity.CreationDate, visible: isEditable" />
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-sm-2">
-            Close Date :
-        </div>
-        <div class="col-sm-2">
-            <span data-bind="text: opportunity.CLOSEDATE, visible: isVisible" />
-            <input data-bind="value: opportunity.CLOSEDATE, visible: isEditable" />
+
+        <div class="col-sm-9">
+            :
+            <span data-bind="text: opportunity.CreationDateC, visible: isVisible" />
+            <input data-bind="kendoDatePicker: { value: opportunity.CreationDateC, format: 'MM/dd/yyyy', visible: isEditable }" />
         </div>
     </div>
     <div class="row">
-        <div class="col-sm-2">
-            Pain :
+        <div class="col-sm-3">
+            Close Date
         </div>
-        <div class="col-sm-2">
+
+        <div class="col-sm-9">
+            :
+            <span data-bind="text: opportunity.CLOSEDATEc, visible: isVisible" />
+            <input data-bind="kendoDatePicker: { value: opportunity.CLOSEDATEc, format: 'MM/dd/yyyy', visible: isEditable }" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-3">
+            Pain
+        </div>
+
+        <div class="col-sm-9">
+            :
             <span data-bind="text: opportunity.Pain, visible: isVisible" />
             <input data-bind="value: opportunity.Pain, visible: isEditable" />
         </div>
     </div>
     <div class="row">
-        <div class="col-sm-2">
-            Length of Problem :
+        <div class="col-sm-3">
+            Length of Problem
         </div>
-        <div class="col-sm-2">
+
+        <div class="col-sm-9">
+            :
             <span data-bind="text: opportunity.LengthOfProblem, visible: isVisible" />
             <input data-bind="value: opportunity.LengthOfProblem, visible: isEditable" />
         </div>
     </div>
     <div class="row">
-        <div class="col-sm-2">
-            Alternatives :
+        <div class="col-sm-3">
+            Alternatives
         </div>
-        <div class="col-sm-2">
+
+        <div class="col-sm-9">
+            :
             <span data-bind="text: opportunity.Alternatives, visible: isVisible" />
             <input data-bind="value: opportunity.Alternatives, visible: isEditable" />
         </div>
     </div>
     <div class="row">
-        <div class="col-sm-2">
-            Cost to Fix :
+        <div class="col-sm-3">
+            Cost to Fix
         </div>
-        <div class="col-sm-2">
+
+        <div class="col-sm-9">
+            :
             <span data-bind="text: opportunity.CostToFix, visible: isVisible" />
             <input data-bind="value: opportunity.CostToFix, visible: isEditable" />
         </div>
     </div>
     <div class="row">
-        <div class="col-sm-2">
+        <div class="col-sm-3">
             Budget Identified?
         </div>
-        <div class="col-sm-2">
+
+        <div class="col-sm-9">
+            :
             <span data-bind="text: opportunity.budget, visible: isVisible" />
             <select data-bind="options: budgetIdentified, optionsText: 'Description', optionsValue: 'Value', value: opportunity.IsBudgeIdentified, visible: isEditable"></select>
         </div>
     </div>
     <div class="row">
-        <div class="col-sm-2">
-            Move Forward? :
+        <div class="col-sm-3">
+            Move Forward?
         </div>
-        <div class="col-sm-2">
+
+        <div class="col-sm-9">
+            :
             <span data-bind="text: opportunity.moveForward, visible: isVisible" />
             <select data-bind="options: moveForward, optionsText: 'Description', optionsValue: 'Value', value: opportunity.IsMoveForward, visible: isEditable"></select>
         </div>
     </div>
     <div class="row">
-        <div class="col-sm-2">
-            Contacts :
+        <div class="col-sm-3">
+            Contacts
         </div>
-        <div class="col-sm-2">
-            <span data-bind="text: primaryContact, visible: isVisible" /><select data-bind="    options: companyContacts, optionsText: 'fullName', optionsValue: 'contactsId', visible: isEditable"></select><br />
-            <span data-bind="text: secondaryContact1, visible: isVisible" /><br />
-            <span data-bind="text: secondaryContact2, visible: isVisible" /><br />
+
+        <div class="col-sm-9">
+            :
+            <span data-bind="text: primaryContact, visible: isVisible" />
+            <select data-bind="    options: companyContacts, optionsText: 'fullName', optionsValue: 'contactsId', visible: isEditable"></select><br />
+            <span data-bind="text: secondaryContact1, visible: isVisible" />
+            <br />
+            <span data-bind="text: secondaryContact2, visible: isVisible" />
+            <br />
         </div>
     </div>
     <div class="row">
-        <input type="button" value="Edit" data-bind="click:makeEditable" />
+        <div class="col-sm-3">
+            <input type="button" value="Edit" data-bind="click: makeEditable, visible: isVisible" />
+            <input type="button" value="Save" data-bind="click: save, visible: saveVisible" />
+        </div>
     </div>
 </div>
 
-
+<script type="text/javascript" src="~/Scripts/Application/koExtenders.js"></script>
 <script type="text/javascript">
 
     var startModule = sandler.appStart.module;
     var pageVM = function (opportunityObservable) {
         var self = this;
         self.opportunity = opportunityObservable;
+        self.opportunity.SALESREPLASTNAMEc = ko.observable(self.opportunity.SALESREPLASTNAME()).extend({ required: "*" });
+        if (self.opportunity.CreationDate != null && self.opportunity.CreationDate() != "") {
+            self.opportunity.CreationDateC = ko.observable(kendo.parseDate(self.opportunity.CreationDate()));
+        }
+        else {
+            self.opportunity.CreationDateC = ko.observable('');
+        }
+        if (self.opportunity.CLOSEDATE() != null && self.opportunity.CLOSEDATE() != "") {
+            self.opportunity.CLOSEDATEc = ko.observable(kendo.parseDate(self.opportunity.CLOSEDATE()));
+        }
+        else {
+            self.opportunity.CLOSEDATEc = ko.observable('');
+        }
         self.opportunity.companyName = ko.computed(function () {
             return startModule.getCompanyName(self.opportunity.COMPANYID());
         }, self);
@@ -292,9 +365,9 @@
         self.oppTypes = startModule.getOpportunityTypes();
         self.budgetIdentified = startModule.getYesNoOptions();
         self.moveForward = startModule.getYesNoOptions();
-        self.companyContacts = ko.computed(function () {return startModule.getUserContactsByCompany(self.opportunity.COMPANYID()); }, self);
+        self.companyContacts = ko.computed(function () { return startModule.getUserContactsByCompany(self.opportunity.COMPANYID()); }, self);
         self.primaryContact = ko.computed(function () {
-            var fullName='';
+            var fullName = '';
             $.each(self.companyContacts(), function (i, contactRecord) {
                 if (parseInt(contactRecord.contactsId) == parseInt(self.opportunity.CONTACTID())) {
                     fullName = contactRecord.fullName;
@@ -323,12 +396,32 @@
             });
             return fullName;
         }, self);
-        self.isVisible = ko.observable(true); 
-        self.isEditable = ko.observable(false); 
-        self.makeEditable =function () {
+        self.isVisible = ko.observable(true);
+        self.isEditable = ko.observable(false);
+        self.makeEditable = function () {
             self.isEditable(true);
             self.isVisible(false);
+            //self.saveVisible(true);
         };
+        self.saveVisible = ko.computed(function () { return self.isEditable(); }, self);
+        self.save = function () {
+            self.opportunity.CLOSEDATE(self.opportunity.CLOSEDATEc());
+            self.opportunity.CreationDate(self.opportunity.CreationDateC());
+            $.ajax({
+                url: 'api/PipelineSave',
+                type: "POST",
+                data: ko.toJSON(self.opportunity),
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                async: false,
+                success: function (response) {
+                    console.log('save pipeline');
+                },
+                error: function (response, errorText) {
+                    return false;
+                }
+            });
+        }
     }
     $(document).ready(function () {
         var vm = new pageVM(ko.mapping.fromJS( @Html.Raw(Json.Encode(@Model.EntityModel))));

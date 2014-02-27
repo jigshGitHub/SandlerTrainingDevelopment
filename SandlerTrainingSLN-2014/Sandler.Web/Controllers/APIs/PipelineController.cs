@@ -62,9 +62,20 @@ namespace Sandler.Web.Controllers.API
 
         public HttpResponseMessage Get(int id)
         {
-            var data = uow.Repository<TBL_COMPANIES>().GetById(id);
+            var data = uow.Repository<TBL_OPPORTUNITIES>().GetById(id);
 
             return Request.CreateResponse(data);
+        }
+
+        [Route("api/PipelineSave")]
+        [HttpPost()]
+        public HttpResponseMessage Save(TBL_OPPORTUNITIES opportunity)
+        {
+            //TBL_OPPORTUNITIES oppToSave = uow.Repository<TBL_OPPORTUNITIES>().GetById(opportunity.ID);
+            //oppToSave = opportunity;
+            uow.Repository<TBL_OPPORTUNITIES>().Update(opportunity);
+            uow.Save();
+            return Request.CreateResponse(opportunity);
         }
     }
 }

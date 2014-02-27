@@ -5,7 +5,7 @@ function showDetails(e) {
     var dataItem = $("#opportunitiesSearchgrid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
    // console.log(dataItem);
     var path = "navi?url=/CRM/Pipeline/Manage?id=" + dataItem.ID;
-    showModal_.html(path, null, '95%');
+    showModal_.html(path, null, '70%');
 }
 
 

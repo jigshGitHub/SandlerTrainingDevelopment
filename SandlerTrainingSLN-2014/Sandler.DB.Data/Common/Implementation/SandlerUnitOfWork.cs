@@ -34,7 +34,7 @@ namespace Sandler.DB.Data.Common.Implementation
         public void Save()
         {
             //System.Diagnostics.Debug.WriteLine("Committed");
-            RepositoryProvider.dbContext.Get().SaveChanges();
+            RepositoryProvider.dbContext.SaveChanges();
         }
 
         protected IRepositoryProvider RepositoryProvider { get; set; }

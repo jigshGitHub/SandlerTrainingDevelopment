@@ -10,5 +10,6 @@ namespace Sandler.DB.Data.Common.Interface
     public interface IDBContext
     {
         DbContext Get();
+        void SaveChanges();
     }
 }

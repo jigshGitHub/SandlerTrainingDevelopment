@@ -1084,6 +1084,7 @@
     <Content Include="Images\ST_large.png" />
     <Content Include="Images\ST_small.png" />
     <Content Include="Scripts\application.js" />
+    <Content Include="Scripts\Application\koExtenders.js" />
     <Content Include="Scripts\Application\ng-opportunities.js" />
     <Content Include="Scripts\Application\ng-contacts.js" />
     <Content Include="Scripts\Application\ng-companies.js" />
