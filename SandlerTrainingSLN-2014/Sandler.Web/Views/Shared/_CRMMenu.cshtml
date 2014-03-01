@@ -49,7 +49,7 @@
     {
         if (item.IsVisible)
         {
-        <li><a href="#">@item.Text</a>
+        <li><a href="javascript:click=anchorClick('@item.Link')">@item.Text</a>
             @if (@Model.Items.Last() != item)
             {
                 @Html.Label("|");
@@ -58,3 +58,8 @@
         }
     }
 </ul>
+<script type="text/javascript">
+    function anchorClick(url) {
+        showModal_.html(url, null, '90%');
+    }
+</script>

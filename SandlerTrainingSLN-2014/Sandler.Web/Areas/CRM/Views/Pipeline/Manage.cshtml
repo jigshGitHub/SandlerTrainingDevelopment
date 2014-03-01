@@ -10,10 +10,27 @@
         <div class="col-sm-9">
             :
             <span data-bind="text: opportunity.companyName, visible: isVisible" />
-            <select data-bind="options: companies, optionsText: 'name', optionsValue: 'id', value: opportunity.COMPANYID, visible: isEditable"></select>
+            <select data-bind="options: companies, optionsCaption: ' ',optionsText: 'name', optionsValue: 'id', value: opportunity.COMPANYID, visible: isEditable"></select>
+            <span class="label label-danger" data-bind='visible: opportunity.COMPANYID.hasError, text: opportunity.COMPANYID.validationMessage'></span>
         </div>
     </div>
     <div class="row">
+        <div class="col-sm-3">
+            Contacts
+        </div>
+
+        <div class="col-sm-9">
+            :
+            <span data-bind="text: primaryContact, visible: isVisible" />
+            <select data-bind="    options: companyContacts, optionsText: 'fullName', optionsValue: 'contactsId', visible: isEditable,selectedOptions:contactsSelected" multiple="true"></select><br />
+            <span class="label label-danger" data-bind='visible: opportunity.CONTACTID.hasError, text: opportunity.CONTACTID.validationMessage'></span>
+            <span data-bind="text: secondaryContact1, visible: isVisible" />
+            <br />
+            <span data-bind="text: secondaryContact2, visible: isVisible" />
+            <br />
+        </div>
+    </div>
+    <div class="row" data-bind="visible: !isNewOpportunity">
         <div class="col-sm-3">
             Opportunity ID
         </div>
@@ -21,7 +38,7 @@
         <div class="col-sm-9">
             :
             <span data-bind="text: opportunity.ID, visible: isVisible" />
-            <input data-bind="value: opportunity.ID, visible: isEditable" />
+            <input data-bind="value: opportunity.ID, visible: isEditable" disabled="disabled" />
         </div>
     </div>
     <div class="row">
@@ -33,6 +50,7 @@
             :
             <span data-bind="text: opportunity.NAME, visible: isVisible" />
             <input data-bind="value: opportunity.NAME, visible: isEditable" />
+            <span class="label label-danger" data-bind='visible: opportunity.NAME.hasError, text: opportunity.NAME.validationMessage'></span>
         </div>
     </div>
     <div class="row">
@@ -64,9 +82,9 @@
 
         <div class="col-sm-9">
             :
-            <span data-bind="text: opportunity.SALESREPLASTNAMEc, visible: isVisible" />
-            <input data-bind="value: opportunity.SALESREPLASTNAMEc, visible: isEditable" />
-            <span class="label label-danger" data-bind='visible: opportunity.SALESREPLASTNAMEc.hasError, text: opportunity.SALESREPLASTNAMEc.validationMessage'></span>
+            <span data-bind="text: opportunity.SALESREPLASTNAME, visible: isVisible" />
+            <input data-bind="value: opportunity.SALESREPLASTNAME, visible: isEditable" />
+            <span class="label label-danger" data-bind='visible: opportunity.SALESREPLASTNAME.hasError, text: opportunity.SALESREPLASTNAME.validationMessage'></span>
         </div>
     </div>
     <div class="row">
@@ -78,6 +96,7 @@
             :
             <span data-bind="text: opportunity.SALESREPFIRSTNAME, visible: isVisible" />
             <input data-bind="value: opportunity.SALESREPFIRSTNAME, visible: isEditable" />
+            <span class="label label-danger" data-bind='visible: opportunity.SALESREPFIRSTNAME.hasError, text: opportunity.SALESREPFIRSTNAME.validationMessage'></span>
         </div>
     </div>
     <div class="row">
@@ -100,7 +119,8 @@
         <div class="col-sm-9">
             :
             <span data-bind="text: opportunity.productName, visible: isVisible" />
-            <select data-bind="options: products, optionsText: 'ProductTypeName', optionsValue: 'Id', value: opportunity.ProductID, visible: isEditable"></select>
+            <select data-bind="options: products, optionsCaption:'',optionsText: 'ProductTypeName', optionsValue: 'Id', value: opportunity.ProductID, visible: isEditable"></select>
+            <span class="label label-danger" data-bind='visible: opportunity.ProductID.hasError, text: opportunity.ProductID.validationMessage'></span>
         </div>
     </div>
     <div class="row">
@@ -167,6 +187,7 @@
             :
             <span data-bind="text: opportunity.VALUE, visible: isVisible" />
             <input data-bind="value: opportunity.VALUE, visible: isEditable" />
+            <span class="label label-danger" data-bind='visible: opportunity.VALUE.hasError, text: opportunity.VALUE.validationMessage'></span>
         </div>
     </div>
     <div class="row">
@@ -222,6 +243,7 @@
             :
             <span data-bind="text: opportunity.CLOSEDATEc, visible: isVisible" />
             <input data-bind="kendoDatePicker: { value: opportunity.CLOSEDATEc, format: 'MM/dd/yyyy', visible: isEditable }" />
+            <span class="label label-danger" data-bind='visible: opportunity.CLOSEDATEc.hasError, text: opportunity.CLOSEDATEc.validationMessage'></span>
         </div>
     </div>
     <div class="row">
@@ -233,6 +255,7 @@
             :
             <span data-bind="text: opportunity.Pain, visible: isVisible" />
             <input data-bind="value: opportunity.Pain, visible: isEditable" />
+            <span class="label label-danger" data-bind='visible: opportunity.Pain.hasError, text: opportunity.Pain.validationMessage'></span>
         </div>
     </div>
     <div class="row">
@@ -292,21 +315,6 @@
     </div>
     <div class="row">
         <div class="col-sm-3">
-            Contacts
-        </div>
-
-        <div class="col-sm-9">
-            :
-            <span data-bind="text: primaryContact, visible: isVisible" />
-            <select data-bind="    options: companyContacts, optionsText: 'fullName', optionsValue: 'contactsId', visible: isEditable"></select><br />
-            <span data-bind="text: secondaryContact1, visible: isVisible" />
-            <br />
-            <span data-bind="text: secondaryContact2, visible: isVisible" />
-            <br />
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-sm-3">
             <input type="button" value="Edit" data-bind="click: makeEditable, visible: isVisible" />
             <input type="button" value="Save" data-bind="click: save, visible: saveVisible" />
         </div>
@@ -319,8 +327,11 @@
     var startModule = sandler.appStart.module;
     var pageVM = function (opportunityObservable) {
         var self = this;
+        self.isNewOpportunity = ko.observable(false);
         self.opportunity = opportunityObservable;
-        self.opportunity.SALESREPLASTNAMEc = ko.observable(self.opportunity.SALESREPLASTNAME()).extend({ required: "*" });
+        if (self.opportunity.ID() == 0)
+            self.isNewOpportunity(true);
+        
         if (self.opportunity.CreationDate != null && self.opportunity.CreationDate() != "") {
             self.opportunity.CreationDateC = ko.observable(kendo.parseDate(self.opportunity.CreationDate()));
         }
@@ -333,6 +344,16 @@
         else {
             self.opportunity.CLOSEDATEc = ko.observable('');
         }
+
+        self.opportunity.COMPANYID.extend({ required: "*" });
+        self.opportunity.NAME.extend({ required: "*" });
+        self.opportunity.SALESREPLASTNAME.extend({ required: "*" });
+        self.opportunity.SALESREPFIRSTNAME.extend({ required: "*" });
+        self.opportunity.ProductID.extend({ required: "*" });
+        self.opportunity.VALUE.extend({ required: "*" });
+        self.opportunity.CLOSEDATEc.extend({ required: "*" });
+        self.opportunity.Pain.extend({ required: "*" });
+
         self.opportunity.companyName = ko.computed(function () {
             return startModule.getCompanyName(self.opportunity.COMPANYID());
         }, self);
@@ -365,7 +386,27 @@
         self.oppTypes = startModule.getOpportunityTypes();
         self.budgetIdentified = startModule.getYesNoOptions();
         self.moveForward = startModule.getYesNoOptions();
-        self.companyContacts = ko.computed(function () { return startModule.getUserContactsByCompany(self.opportunity.COMPANYID()); }, self);
+
+        self.contactsSelected = ko.observableArray([]);
+        self.resetContactSelection = function () {
+            self.contactsSelected([]);
+            self.opportunity.CONTACTID('');
+            self.opportunity.SeconadryContactId1('');
+            self.opportunity.SeconadryContactId2('');
+        };
+        self.companyContacts = ko.computed(function () {
+            var localCompanyContacts = '';
+            //console.log('self.opportunity.COMPANYID()');
+            //console.log(self.opportunity.COMPANYID());
+            if (self.opportunity.COMPANYID() > 0) {
+                self.resetContactSelection();
+                localCompanyContacts = startModule.getUserContactsByCompany(self.opportunity.COMPANYID())
+                if (localCompanyContacts.length == 0) {
+                    showNoti_.error('Create contacts for the company selected.', false);
+                }
+            }
+            return localCompanyContacts;
+        }, self);
         self.primaryContact = ko.computed(function () {
             var fullName = '';
             $.each(self.companyContacts(), function (i, contactRecord) {
@@ -374,6 +415,8 @@
                     return false;
                 }
             });
+            //console.log('fullName');
+            //console.log(fullName);
             return fullName;
         }, self);
         self.secondaryContact1 = ko.computed(function () {
@@ -396,8 +439,9 @@
             });
             return fullName;
         }, self);
-        self.isVisible = ko.observable(true);
-        self.isEditable = ko.observable(false);
+
+        self.isVisible = ko.observable(false);
+        self.isEditable = ko.observable(true);
         self.makeEditable = function () {
             self.isEditable(true);
             self.isVisible(false);
@@ -405,6 +449,56 @@
         };
         self.saveVisible = ko.computed(function () { return self.isEditable(); }, self);
         self.save = function () {
+            //if (!self.opportunity.COMPANYID()) {
+            //    showNoti_.error('Please select a company first.', false);
+            //    return;
+            //}
+            //console.log('self.contactsSelected().length()')
+            //console.log(self.contactsSelected().length);
+            if (self.contactsSelected().length == 0) {
+                showNoti_.error('Please select at least one contact from the list OR make sure there are contact created for the company selected.', false);
+                return;
+            }
+            else if (self.contactsSelected().length > 3) {
+                showNoti_.error('Please select maximum 3 contacts from the list.', false);
+                return;
+            }
+            else {
+                self.opportunity.CONTACTID(self.contactsSelected()[0]);
+                if (self.contactsSelected().length > 1) self.opportunity.SeconadryContactId1(self.contactsSelected()[1]);
+                if (self.contactsSelected().length > 2) self.opportunity.SeconadryContactId2(self.contactsSelected()[2]);
+                //console.log('self.opportunity.SeconadryContactId1():' + self.opportunity.SeconadryContactId1());
+                //console.log('self.opportunity.SeconadryContactId2():' + self.opportunity.SeconadryContactId2());
+                
+            }
+            if (!self.opportunity.NAME()) {
+                showNoti_.error('Opportunity name is required.', false);
+                return;
+            }
+            if (!self.opportunity.SALESREPLASTNAME()) {
+                showNoti_.error('Lastname of sales representative is required', false);
+                return;
+            }
+            if (!self.opportunity.SALESREPFIRSTNAME()) {
+                showNoti_.error('Firstname of sales representative is required', false);
+                return;
+            }
+            if (!self.opportunity.ProductID()) {
+                showNoti_.error('Product selection is required', false);
+                return;
+            }
+            if (!self.opportunity.VALUE()) {
+                showNoti_.error('Value of opportunity is required', false);
+                return;
+            }
+            if (!self.opportunity.CLOSEDATEc()) {
+                showNoti_.error('Close date is required', false);
+                return;
+            }
+            if (!self.opportunity.Pain()) {
+                showNoti_.error('Pain is required', false);
+                return;
+            }
             self.opportunity.CLOSEDATE(self.opportunity.CLOSEDATEc());
             self.opportunity.CreationDate(self.opportunity.CreationDateC());
             $.ajax({
@@ -416,8 +510,10 @@
                 async: false,
                 success: function (response) {
                     console.log('save pipeline');
+                    showNoti_.info('Pipeline saved successfully.', true);
                 },
                 error: function (response, errorText) {
+                    showNoti_.error('Unable to save pipeline, server error occures.', true);
                     return false;
                 }
             });
@@ -425,7 +521,7 @@
     }
     $(document).ready(function () {
         var vm = new pageVM(ko.mapping.fromJS( @Html.Raw(Json.Encode(@Model.EntityModel))));
-        console.log(vm.opportunity);
+        //console.log(vm.opportunity);
         ko.applyBindings(vm, document.getElementById("container"));
 
     });

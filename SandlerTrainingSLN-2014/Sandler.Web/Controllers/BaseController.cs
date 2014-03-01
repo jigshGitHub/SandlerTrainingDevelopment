@@ -73,7 +73,7 @@ namespace Sandler.Web.Controllers
             items = new List<MenuItem>();
 
             items.Add(new MenuItem { Id = "Search", Text = "Search", Link = "~/CRM/Opportunities/Search.aspx", IsVisible = true });
-            items.Add(new MenuItem { Id = "AddOpportunity", Text = "Add New Opportunity", Link = "~/CRM/Opportunities/Add.aspx", IsVisible = !IsUserReadOnly(SandlerUserActions.Add, SandlerEntities.Opportunity) });
+            items.Add(new MenuItem { Id = "AddOpportunity", Text = "Add New Opportunity", Link = "navi?url=/CRM/Pipeline/Manage", IsVisible = !IsUserReadOnly(SandlerUserActions.Add, SandlerEntities.Opportunity) });
             items.Add(new MenuItem { Id = "ViewArchived", Text = "View Archived Records", Link = "~/CRM/Opportunities/ProcessArchive.aspx", IsVisible = true });
 
             CRMMenu.Add(new Menu { Title = "Opportunities", IsVisible = true, Items = items.Where(item => item.IsVisible == true).ToList() });

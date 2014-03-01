@@ -106,7 +106,7 @@ sandler.namespace("appStart").module= (function () {
         var contacts = $(document).data("sandler.appStart.userContacts");
         if (contacts)
             return contacts;
-        console.log('first time getting user contacts');
+        //console.log('first time getting user contacts');
         var data = jsonDataCaller.syncCall("/api/ContactView?&page=0&pageSize=0&companyId=0", null)
         contacts = new Array();
         $.each(data.results, function (i, contactRecord) {
@@ -131,7 +131,7 @@ sandler.namespace("appStart").module= (function () {
     
     var setUser = function (user) {
         if (getUser() == '' | getUser() == undefined) {
-            console.log('setting user');
+            //console.log('setting user');
             $(document).data("sandler.appStart.currentUser", user);
         }
         else {
@@ -176,7 +176,7 @@ sandler.namespace("appStart").module= (function () {
         var opportunitySources = jsonDataCaller.syncCall("/api/OpportunitySources/", null);
         setOpportunitySources(opportunitySources);
         var data = jsonDataCaller.syncCall("/api/CompanyView?&page=0&pageSize=0", null)
-        console.log('getting user companies');
+        //console.log('getting user companies');
         var companies = new Array();
         $.each(data.results, function (i,companyRecord) {
             companies.push(new company(companyRecord.COMPANYNAME, companyRecord.COMPANIESID));

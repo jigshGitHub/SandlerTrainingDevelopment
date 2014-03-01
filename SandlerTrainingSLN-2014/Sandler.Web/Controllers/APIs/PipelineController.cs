@@ -71,11 +71,49 @@ namespace Sandler.Web.Controllers.API
         [HttpPost()]
         public HttpResponseMessage Save(TBL_OPPORTUNITIES opportunity)
         {
-            //TBL_OPPORTUNITIES oppToSave = uow.Repository<TBL_OPPORTUNITIES>().GetById(opportunity.ID);
-            //oppToSave = opportunity;
-            uow.Repository<TBL_OPPORTUNITIES>().Update(opportunity);
+            if(!VerifyRequiredFields(opportunity))
+                return new HttpResponseMessage(HttpStatusCode.InternalServerError);
+            if (opportunity.ID > 0)
+            {
+                uow.Repository<TBL_OPPORTUNITIES>().Update(opportunity);
+                opportunity.UpdatedBy = CurrentUser.UserId.ToString();
+                opportunity.UpdatedDate = DateTime.Now;
+            }
+            else
+            {
+                opportunity.CreatedBy = CurrentUser.UserId.ToString();
+                opportunity.CreatedDate = DateTime.Now;
+                opportunity.IsActive = true;
+                uow.Repository<TBL_OPPORTUNITIES>().Add(opportunity);
+            }
+
             uow.Save();
             return Request.CreateResponse(opportunity);
+        }
+
+        private bool VerifyRequiredFields(TBL_OPPORTUNITIES opportunity)
+        {
+            //if (opportunity.COMPANYID == 0)
+            //    return false;
+            //else if (opportunity.CONTACTID == 0)
+            //    return false;
+            //else if (string.IsNullOrEmpty(opportunity.NAME))
+            //    return false;
+            //else if (string.IsNullOrEmpty(opportunity.SALESREPFIRSTNAME))
+            //    return false;
+            //else if (string.IsNullOrEmpty(opportunity.SALESREPLASTNAME))
+            //    return false;
+            //else if (opportunity.ProductID == 0)
+            //    return false;
+            //else if (string.IsNullOrEmpty(opportunity.VALUE.Value.ToString()))
+            //    return false;
+            //else if (!opportunity.CLOSEDATE.HasValue)
+            //    return false;
+            //else if (string.IsNullOrEmpty(opportunity.Pain))
+            //    return false;
+            //else
+            //    return true;
+            return (opportunity.COMPANYID > 0 && opportunity.CONTACTID > 0 && !string.IsNullOrEmpty(opportunity.NAME) && !string.IsNullOrEmpty(opportunity.SALESREPFIRSTNAME) && !string.IsNullOrEmpty(opportunity.SALESREPLASTNAME) && opportunity.ProductID > 0 && !string.IsNullOrEmpty(opportunity.VALUE.Value.ToString()) && opportunity.CLOSEDATE.HasValue && !string.IsNullOrEmpty(opportunity.Pain));
         }
     }
 }
