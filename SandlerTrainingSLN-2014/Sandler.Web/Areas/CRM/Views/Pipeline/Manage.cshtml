@@ -449,10 +449,10 @@
         };
         self.saveVisible = ko.computed(function () { return self.isEditable(); }, self);
         self.save = function () {
-            //if (!self.opportunity.COMPANYID()) {
-            //    showNoti_.error('Please select a company first.', false);
-            //    return;
-            //}
+            if (!self.opportunity.COMPANYID()) {
+                showNoti_.error('Please select a company first.', false);
+                return;
+            }
             //console.log('self.contactsSelected().length()')
             //console.log(self.contactsSelected().length);
             if (self.contactsSelected().length == 0) {

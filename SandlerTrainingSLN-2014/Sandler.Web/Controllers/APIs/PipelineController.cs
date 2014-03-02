@@ -93,26 +93,6 @@ namespace Sandler.Web.Controllers.API
 
         private bool VerifyRequiredFields(TBL_OPPORTUNITIES opportunity)
         {
-            //if (opportunity.COMPANYID == 0)
-            //    return false;
-            //else if (opportunity.CONTACTID == 0)
-            //    return false;
-            //else if (string.IsNullOrEmpty(opportunity.NAME))
-            //    return false;
-            //else if (string.IsNullOrEmpty(opportunity.SALESREPFIRSTNAME))
-            //    return false;
-            //else if (string.IsNullOrEmpty(opportunity.SALESREPLASTNAME))
-            //    return false;
-            //else if (opportunity.ProductID == 0)
-            //    return false;
-            //else if (string.IsNullOrEmpty(opportunity.VALUE.Value.ToString()))
-            //    return false;
-            //else if (!opportunity.CLOSEDATE.HasValue)
-            //    return false;
-            //else if (string.IsNullOrEmpty(opportunity.Pain))
-            //    return false;
-            //else
-            //    return true;
             return (opportunity.COMPANYID > 0 && opportunity.CONTACTID > 0 && !string.IsNullOrEmpty(opportunity.NAME) && !string.IsNullOrEmpty(opportunity.SALESREPFIRSTNAME) && !string.IsNullOrEmpty(opportunity.SALESREPLASTNAME) && opportunity.ProductID > 0 && !string.IsNullOrEmpty(opportunity.VALUE.Value.ToString()) && opportunity.CLOSEDATE.HasValue && !string.IsNullOrEmpty(opportunity.Pain));
         }
     }

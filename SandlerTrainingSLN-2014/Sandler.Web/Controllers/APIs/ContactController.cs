@@ -77,6 +77,33 @@ namespace Sandler.Web.Controllers.API
             return Request.CreateResponse(new { success = true, __count = (contacts.Count > 0) ? contacts.FirstOrDefault().TotalCount : 0, results = contacts });
         }
 
-        
+        [Route("api/ContactSave")]
+        [HttpPost()]
+        public HttpResponseMessage Save(TBL_CONTACTS contact)
+        {
+            if (!VerifyRequiredFields(contact))
+                return new HttpResponseMessage(HttpStatusCode.InternalServerError);
+            if (contact.CONTACTSID > 0)
+            {
+                uow.Repository<TBL_CONTACTS>().Update(contact);
+                contact.UpdatedBy = CurrentUser.UserId.ToString();
+                contact.UpdatedDate = DateTime.Now;
+            }
+            else
+            {
+                contact.CreatedBy = CurrentUser.UserId.ToString();
+                contact.CreatedDate = DateTime.Now;
+                contact.IsActive = true;
+                uow.Repository<TBL_CONTACTS>().Add(contact);
+            }
+
+            uow.Save();
+            return Request.CreateResponse(contact);
+        }
+
+        private bool VerifyRequiredFields(TBL_CONTACTS contact)
+        {
+            return (!string.IsNullOrEmpty(contact.FIRSTNAME) && !string.IsNullOrEmpty(contact.LASTNAME));
+        }
     }
 }

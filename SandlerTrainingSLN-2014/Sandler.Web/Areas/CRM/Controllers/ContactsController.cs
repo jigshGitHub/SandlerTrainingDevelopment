@@ -15,14 +15,13 @@ namespace Sandler.Web.Areas.CRM.Controllers
 {
     public class ContactsController : BaseController
     {
-        public EntityViewModel<TBL_COMPANIES> CompanyViewModel;
+        public EntityViewModel<TBL_CONTACTS> ContactsViewModel;
 
         public ContactsController(IUnitOfWork uow)
             : base(uow)
         {
-            CompanyViewModel = new EntityViewModel<TBL_COMPANIES>();
-            CompanyViewModel.BaseModel = this.BaseVM;
-            CompanyViewModel.EntityModel = new TBL_COMPANIES();
+            ContactsViewModel = new EntityViewModel<TBL_CONTACTS>();
+            ContactsViewModel.BaseModel = this.BaseVM;
         }
 
         public ContactsController():this(new SandlerUnitOfWork(new SandlerRepositoryProvider(new RepositoryFactories()), new SandlerDBContext()))
@@ -33,7 +32,16 @@ namespace Sandler.Web.Areas.CRM.Controllers
 
         public ActionResult Index()
         {
-            return PartialView(CompanyViewModel);
+            return PartialView(ContactsViewModel);
+        }
+
+        public ActionResult Manage(int? id)
+        {
+            if (id.HasValue)
+                ContactsViewModel.EntityModel = uow.Repository<TBL_CONTACTS>().GetById(long.Parse(id.ToString()));
+            else
+                ContactsViewModel.EntityModel = new TBL_CONTACTS();
+            return PartialView("Manage", ContactsViewModel);
         }
 
     }
