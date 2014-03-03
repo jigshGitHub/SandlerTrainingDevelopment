@@ -17,7 +17,8 @@ Create Procedure [dbo].[sp_ContactView](
 	@coachId INT=null,
 	@franchiseeId INT=null,
 	@companyId INT=null,
-	@userId VARCHAR(500)=null
+	@userId VARCHAR(500)=null,
+	@selectForExcel bit = 0
 	)
 As
 BEGIN
@@ -42,12 +43,63 @@ BEGIN
 	rg.Name as RegionName,
 	ct.ContactsId ,
 	cp.FranchiseeId,
-	f.CoachID
-	from tbl_contacts ct 
-    left join tbl_companies cp on ct.companyid = cp.COMPANIESID
-    left join TBL_FRANCHISEE f on f.ID = cp.FranchiseeId    
-	left join TBL_COACH ch on ch.ID = f.CoachID
-	left join TBL_REGION rg on ch.RegionID = rg.ID  
+	f.CoachID ';
+	IF @selectForExcel = 1 
+	BEGIN
+		SET @SQL = @SQL + ',
+		ct.DiscussionTopic,
+		ct.ACTIONSTEP, 
+		ct.Birthday,
+		ct.Anniversary,
+		ct.CompanyYears,
+		ct.BossName,
+		ct.LAST_CONTACT_DATE,
+		ct.NEXT_CONTACT_DATE,
+		ct.StartTime,
+		apts.ApptSourceName, 
+		cs.CourseName, 
+		ct.CourseTrainingDate,
+		ysn.Description as NewApptDesp,
+		ysr.Description as IsRegisteredForTraining,
+		ysre.Description as IsEmailSubscription,
+		ysrc.Description as NeedCallBack,
+		f.Name as FranchiseeName,
+		rg.ID as RegionID,
+		ct.Title, 
+		ct.ContactsDepartment , 
+		ct.ContactsRole ,
+		ct.MobilePhone , 
+		ct.HomePhone , 
+		ct.Fax , 
+		ct.PersonalEmail ,
+		ct.Address , 
+		ct.City , 
+		ct.State , 
+		ct.Zip , 
+		ct.LastAttemptedDate, 
+		ct.LastEmailedDate , 
+		ct.LastMeetingDate , 
+		ct.LetterSentDate, 
+		ct.SpouseName, 
+		ct.Notes , 
+		ct.Country, 
+		ct.CreatedBy,
+		ct.TrainingCourseName, 
+		ct.HowManyAttended,
+		ct.CompanyNameWhereTrainingConducted  ';
+	END
+	SET @SQL = @SQL + ' 			
+ 	from tbl_contacts ct 
+	left join tbl_companies cp on ct.companyid = cp.COMPANIESID
+	left join Tbl_AppointmentsSource apts on apts.ApptSourceId = ct.ApptSourceId
+	left join   Tbl_Course cs on cs.CourseId = ct.CourseId
+	left join Tbl_YesNoOptions ysn on ysn.Value = ct.IsNewAppointment 
+	left join Tbl_YesNoOptions ysr on ysr.Value = ct.IsRegisteredForTraining
+	left join Tbl_YesNoOptions ysre on ysre.Value = ct.IsEmailSubscription 
+	left join Tbl_YesNoOptions ysrc on ysrc.Value = ct.IsNeedCallBack 
+	left join TBL_FRANCHISEE f on f.ID = cp.FranchiseeId
+    left join TBL_COACH ch on ch.ID = f.CoachID
+    left join TBL_REGION rg on ch.RegionID = rg.ID 
     where ct.IsActive = 1  ';
 
 	If @coachId IS NOT NULL
@@ -100,8 +152,52 @@ BEGIN
 				Cast( ContactsId as int) as ContactsId,
 				Cast( CoachID as int) as CoachID,
 				Cast( FranchiseeId as int) as FranchiseeId,
-				RegionName
-			 FROM CTE_pageResult';
+				RegionName ';
+	IF @selectForExcel = 1 
+	BEGIN
+		SET @Q = @Q + ',
+		DiscussionTopic,
+		ACTIONSTEP, 
+		Birthday,
+		Anniversary,
+		CompanyYears,
+		BossName,
+		LAST_CONTACT_DATE,
+		NEXT_CONTACT_DATE,
+		StartTime,
+		ApptSourceName, 
+		CourseName, 
+		CourseTrainingDate,
+		NewApptDesp,
+		IsRegisteredForTraining,
+		IsEmailSubscription,
+		NeedCallBack,
+		FranchiseeName,
+		RegionID,
+		Title, 
+		ContactsDepartment , 
+		ContactsRole ,
+		MobilePhone , 
+		HomePhone , 
+		Fax , 
+		PersonalEmail ,
+		Address , 
+		City , 
+		State , 
+		Zip , 
+		LastAttemptedDate, 
+		LastEmailedDate , 
+		LastMeetingDate , 
+		LetterSentDate, 
+		SpouseName, 
+		Notes , 
+		Country, 
+		CreatedBy,
+		TrainingCourseName, 
+		HowManyAttended,
+		CompanyNameWhereTrainingConducted  ';
+	END
+	SET @Q = @Q + '	 FROM CTE_pageResult';
 	IF @pageTop > 0 
 	BEGIN 
 		SET @Q = @Q + ' WHERE RowIndex BETWEEN ' + CAST(@pageTop AS VARCHAR(10)) + ' AND ' + CAST(@pageBottom AS VARCHAR(10))

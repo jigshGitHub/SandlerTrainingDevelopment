@@ -71,7 +71,7 @@ function ng_contactsCtrl($scope, $http) {
                     read: {
                         url: "api/ContactView/",
                         dataType: "json",
-                        data: { companyId: '0' },
+                        data: { companyId: '0',selectForExcel:true },
                         cache: false //This is required othewise grid does not refresh after Edit operation in IE
                     }
                 },

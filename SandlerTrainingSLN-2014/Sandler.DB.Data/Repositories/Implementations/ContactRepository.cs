@@ -24,9 +24,9 @@ namespace Sandler.DB.Data.Repositories.Implementations
         {
             return (DBContext.Get() as SandlerDBEntities).GetNewAppointmentsWithAppointmentSource(month, year, userId);
         }
-        public IEnumerable<ContactView> Get(string orderBy, int? pageSize, int? pageNo, int? coachId, int? franchiseeId, int? companyId, string userId)
+        public IEnumerable<ContactView> Get(string orderBy, int? pageSize, int? pageNo, int? coachId, int? franchiseeId, int? companyId, string userId, bool selectForExcel)
         {
-            return (DBContext.Get() as SandlerDBEntities).GetContactView(orderBy, pageSize, pageNo, coachId, franchiseeId,companyId,userId);
+            return (DBContext.Get() as SandlerDBEntities).GetContactView(orderBy, pageSize, pageNo, coachId, franchiseeId, companyId, userId, selectForExcel);
         }
     }
 }

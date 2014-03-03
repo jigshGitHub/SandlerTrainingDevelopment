@@ -35,7 +35,7 @@ namespace Sandler.Web.Controllers.API
         //http://localhost:5580/api/ContactView?companyId=0&page=1&pageSize=100
         [System.Web.Http.HttpGet]
         [Route("api/ContactView/")]
-        public HttpResponseMessage GetContacts(int? page, int? pageSize)
+        public HttpResponseMessage GetContacts(int? page, int? pageSize, bool selectForExcel)
         {
             List<ContactView> contacts = null;
             //sort%5B0%5D%5Bfield%5D=COMPANYNAME&sort%5B0%5D%5Bdir%5D=asc
@@ -54,26 +54,26 @@ namespace Sandler.Web.Controllers.API
             if (companyId>0)
             {
                 if (CurrentUser.Role == SandlerRoles.FranchiseeUser)
-                    contacts = uow.ContactRepository().Get(orderBy, pageSize.Value, page.Value, null, null, null, CurrentUser.UserId.ToString()).ToList();
+                    contacts = uow.ContactRepository().Get(orderBy, pageSize.Value, page.Value, null, null, null, CurrentUser.UserId.ToString(), selectForExcel).ToList();
                 else
-                    contacts = uow.ContactRepository().Get(orderBy, pageSize.Value, page.Value, null, null, companyId, "").ToList();
+                    contacts = uow.ContactRepository().Get(orderBy, pageSize.Value, page.Value, null, null, companyId, "", selectForExcel).ToList();
             }
             else
             {
                 if (CurrentUser.Role == SandlerRoles.Corporate || CurrentUser.Role == SandlerRoles.SiteAdmin || CurrentUser.Role == SandlerRoles.HomeOfficeAdmin || CurrentUser.Role == SandlerRoles.HomeOfficeUser)
                 {
-                    contacts = uow.ContactRepository().Get(orderBy, pageSize.Value, page.Value, null, null, null, "").ToList();
+                    contacts = uow.ContactRepository().Get(orderBy, pageSize.Value, page.Value, null, null, null, "", selectForExcel).ToList();
                 }
                 else if (CurrentUser.Role == SandlerRoles.Coach)
                 {
-                    contacts = uow.ContactRepository().Get(orderBy, pageSize.Value, page.Value, CurrentUser.CoachID, null, null, "").ToList();
+                    contacts = uow.ContactRepository().Get(orderBy, pageSize.Value, page.Value, CurrentUser.CoachID, null, null, "", selectForExcel).ToList();
                 }
                 else if (CurrentUser.Role == SandlerRoles.FranchiseeOwner || CurrentUser.Role == SandlerRoles.Client)
                 {
-                    contacts = uow.ContactRepository().Get(orderBy, pageSize.Value, page.Value, null, CurrentUser.FranchiseeID, null, "").ToList();
+                    contacts = uow.ContactRepository().Get(orderBy, pageSize.Value, page.Value, null, CurrentUser.FranchiseeID, null, "", selectForExcel).ToList();
                 }
                 else
-                    contacts = uow.ContactRepository().Get(orderBy, pageSize.Value, page.Value, null, null, null, CurrentUser.UserId.ToString()).ToList();
+                    contacts = uow.ContactRepository().Get(orderBy, pageSize.Value, page.Value, null, null, null, CurrentUser.UserId.ToString(), selectForExcel).ToList();
             
             }
             return Request.CreateResponse(new { success = true, __count = (contacts.Count > 0) ? contacts.FirstOrDefault().TotalCount : 0, results = contacts });

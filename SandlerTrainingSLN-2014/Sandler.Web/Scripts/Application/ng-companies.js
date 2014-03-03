@@ -103,7 +103,7 @@ function get_gridDataSource(searchText, selectForExcel) {
             read: {
                 url: "api/CompanyView/",
                 dataType: "json",
-                data: { searchText: searchText ,selectForExcel:true},
+                data: { searchText: searchText ,selectForExcel:false},
                 cache: false //This is required othewise grid does not refresh after Edit operation in IE
             }
         },
