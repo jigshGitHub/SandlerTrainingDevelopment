@@ -142,7 +142,7 @@ function ng_companiesCtrl($scope, $http) {
             var searchText = $("#searchBox").attr('value');
             var grid = $("#CompaniesSearchgrid").data("kendoGrid");
             var dataSource = get_gridDataSource(searchText);
-            grid.dataSource.transport.options.read.data = { searchText: searchText };
+            grid.dataSource.transport.options.read.data = { searchText: searchText, selectForExcel: false };
             grid.dataSource.page(1);
         });
 

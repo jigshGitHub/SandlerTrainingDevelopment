@@ -20,7 +20,8 @@ CREATE Procedure [dbo].[sp_OpportunityView]
 	@orderBy VARCHAR(MAX),  -- Required 
 	@pageSize INT,    
 	@pageNo INT,
-	@companyId INT =NULL
+	@companyId INT =NULL,
+	@searchText VARCHAR(MAX)=null
 
 AS 
 Begin
@@ -92,6 +93,19 @@ Begin
 	BEGIN
 		SET @SQL = @SQL + ' AND COMPANYID = ' + CAST(@companyID AS VARCHAR(10)); 
 	END
+	
+	If @searchText is not null and @searchText != ''
+	BEGIN
+	   SET @SQL = @SQL + ' AND (Upper(vw.COMPANYNAME) like ''' + '%' + Upper(@searchText)  + '%' + '''' 
+	   SET @SQL = @SQL + ' OR Upper(vw.Type) like ''' + '%' + Upper(@searchText)  + '%' + '''' 
+	   SET @SQL = @SQL + ' OR Upper(vw.Status) like ''' + '%' + Upper(@searchText)  + '%' + '''' 
+	   SET @SQL = @SQL + ' OR Upper(vw.Source) like ''' + '%' + Upper(@searchText)  + '%' + '''' 
+	   SET @SQL = @SQL + ' OR Upper(vw.NAME) like ''' + '%' + Upper(@searchText)  + '%' + '''' 
+	   SET @SQL = @SQL + ' OR Upper(vw.SALESREPLASTNAME) like ''' + '%' + Upper(@searchText)  + '%' + '''' 
+	   SET @SQL = @SQL + ' OR Upper(vw.SALESREPFIRSTNAME) like ''' + '%' + Upper(@searchText)  + '%' + '''' 
+	   SET @SQL = @SQL + ' OR Upper(vw.ProductTypeName) like ''' + '%' + Upper(@searchText)  + '%' + '''' 
+	   SET @SQL = @SQL + ')'
+	END	
 	
 	SET @SQL = 'SELECT ROW_NUMBER() OVER (ORDER BY '+@OrderBy+') AS RowIndex, _MYQ.* FROM ('+@SQL+') _MYQ'
 	PRINt @SQL

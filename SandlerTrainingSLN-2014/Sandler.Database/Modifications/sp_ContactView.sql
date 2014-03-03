@@ -81,9 +81,6 @@ BEGIN
 		ct.LastMeetingDate , 
 		ct.LetterSentDate, 
 		ct.SpouseName, 
-		ct.Notes , 
-		ct.Country, 
-		ct.CreatedBy,
 		ct.TrainingCourseName, 
 		ct.HowManyAttended,
 		ct.CompanyNameWhereTrainingConducted  ';
@@ -190,9 +187,6 @@ BEGIN
 		LastMeetingDate , 
 		LetterSentDate, 
 		SpouseName, 
-		Notes , 
-		Country, 
-		CreatedBy,
 		TrainingCourseName, 
 		HowManyAttended,
 		CompanyNameWhereTrainingConducted  ';

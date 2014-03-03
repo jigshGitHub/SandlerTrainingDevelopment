@@ -41,9 +41,9 @@ namespace Sandler.DB.Data.Repositories.Implementations
         {
             return (DBContext.Get() as SandlerDBEntities).GetBenchMarkSalesFranchisee(month, year, franchiseeId);
         }
-        public IEnumerable<OpportunityView> Get(string orderBy, int? pageSize, int? pageNo, Guid userId, int? companyId)
+        public IEnumerable<OpportunityView> Get(string orderBy, int? pageSize, int? pageNo, Guid userId, int? companyId,string searchText)
         {
-            return (DBContext.Get() as SandlerDBEntities).GetOpportunityView(orderBy, pageSize, pageNo, userId, companyId);
+            return (DBContext.Get() as SandlerDBEntities).GetOpportunityView(orderBy, pageSize, pageNo, userId, companyId, searchText);
         }
     }
 }

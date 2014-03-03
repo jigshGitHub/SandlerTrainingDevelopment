@@ -20,7 +20,7 @@
         <div class='page-title'>Opportunities</div>
     </div>
     <div class="row">
-        <div class="col-md-4"><img src="~/Images/excel.jpg" />Export to Excel</div>
+        <div class="col-sm-4"><img src="~/Images/excel.jpg" />Export to Excel</div>
         <div class="pull-right">
             @{ var menusList = @Model.BaseModel.CRMMenu;}
             @if (menusList != null)
@@ -31,8 +31,17 @@
             }
         </div>
     </div>
-    <div class="row">
-        <input id="companiesSelection" />
+    <div class="row" style="margin-top:10px">
+        <div class="col-md-6 input-group">
+            <input class="form-control" id="searchBox" size="100" type="text" placeholder="Opportunity Name or Sandler Rep Last/First Name" onkeyup="triggerSearch(event);">
+            <span class="input-group-btn"> 
+                  <button id="btnSearch" class="btn btn-primary" type="button"><span class="glyphicon glyphicon-search" title="Quick Search" data-toggle="tooltip"></span></button>
+            </span>
+        </div>
+    </div>
+    <div class="row" style="margin-top:10px">
+        <div class="col-sm-3">Filter by company:</div>
+        <div class="col-sm-9"><input id="companiesSelection" /></div>
     </div>
     <div class="row" style="margin-top: 10px">
         <div id="searchGrid" class="k-content">

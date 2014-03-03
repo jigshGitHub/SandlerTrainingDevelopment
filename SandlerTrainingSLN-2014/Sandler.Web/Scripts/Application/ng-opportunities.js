@@ -8,7 +8,12 @@ function showDetails(e) {
     showModal_.html(path, null, '70%');
 }
 
-
+function triggerSearch(e) {
+    var unicode = e.keyCode ? e.keyCode : e.charCode;
+    if (unicode == 13) {
+        $("#btnSearch").click();
+    }
+}
 
 function ng_opportunitiesCtrl($scope, $http) {
     angular.element(document).ready(function () {
@@ -20,6 +25,15 @@ function ng_opportunitiesCtrl($scope, $http) {
 
         $('#companiesSelection').kendoDropDownList(get_kendoCompaniesData());
         showNoti_.hide();
+
+        //When Search Button is clicked 
+        $("#btnSearch").click(function () {
+            var searchText = $("#searchBox").attr('value');
+            var grid = $("#opportunitiesSearchgrid").data("kendoGrid");
+            var dataSource = get_gridDataSource(searchText);
+            grid.dataSource.transport.options.read.data = { searchText: searchText };
+            grid.dataSource.page(1);
+        });
 
         function get_kendoCompaniesData() {
             var startModule = sandler.appStart.module;
@@ -78,6 +92,7 @@ function ng_opportunitiesCtrl($scope, $http) {
                     read: {
                         url: "api/PipelineView/",
                         dataType: "json",
+                        data: { searchText: searchText },
                         cache: false //This is required othewise grid does not refresh after Edit operation in IE
                     }
                 },
