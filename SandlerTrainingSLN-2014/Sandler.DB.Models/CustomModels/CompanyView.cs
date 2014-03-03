@@ -29,7 +29,36 @@ namespace Sandler.DB.Models
         public Nullable<int> TotalCompanyValue { get; set; }
         public Nullable<int> CoachID { get; set; }
         public Nullable<int> FranchiseeId { get; set; }
+        public Nullable<int> RegionID { get; set; }
         public string RegionName { get; set; }
+        public string FranchiseeName { get; set; }
+		public string NewCompanyDesp { get; set; }
+		public string POCFullName { get; set; }
+		public string POCPhone { get; set; }
+		public string DiscussionTopic { get; set; }
+		public string ActionStep { get; set; }
+        public Nullable<DateTime> LASTCONTACT_DATE { get; set; }
+        public Nullable<DateTime> NEXTCONTACT_DATE { get; set; }
+        public Nullable<DateTime> CreationDate { get; set; }
+		public string Country { get; set; }
+		public string BillingAddress { get; set; }
+		public string BillingState { get; set; }
+		public string BillingZip { get; set; }
+		public string BillingCity { get; set; }
+		public string BillingCountry { get; set; }
+		public string CompanyOwnership { get; set; }
+		public string CompanyDescription { get; set; }
+		public string POCDepartment { get; set; }
+		public string POCEmail { get; set; }
+		public string POCFax { get; set; }
+		public string AssistantLastName { get; set; }
+		public string AssistantFirstName { get; set; }
+		public string AssistantPhone { get; set; }
+		public string Website { get; set; }
+		public Nullable<int> EmpQuantity { get; set; }
+		public string Notes { get; set; }
+		public Nullable<DateTime> StartTime { get; set; }
+        public string BillingDescription { get; set; }
     }
     public partial class ContactView
     {

@@ -10,7 +10,7 @@ namespace Sandler.DB.Models
 {
     public partial class SandlerDBEntities : DbContext
     {
-        public List<CompanyView> GetCompanyView(string searchText,string orderBy, int? pageSize, int? pageNo, int? coachId,int? franchiseeId)
+        public List<CompanyView> GetCompanyView(string searchText, string orderBy, int? pageSize, int? pageNo, int? coachId, int? franchiseeId, bool selectForExcel)
         {
             if (string.IsNullOrEmpty(searchText))
                searchText = "";
@@ -20,6 +20,8 @@ namespace Sandler.DB.Models
                 whereClause = whereClause + ",@coachId=" + coachId.Value;
             if (franchiseeId.HasValue)
                 whereClause = whereClause + ",@franchiseeId=" + franchiseeId.Value;
+            if(selectForExcel)
+                whereClause = whereClause + ",@selectForExcel=1";
 
             string query = string.Format("exec [sp_CompanyView] @orderBy='{0}' ,@pageSize={1},@pageNo={2}{3},@searchText='{4}'"
                 , orderBy, pageSize, pageNo, whereClause, searchText);

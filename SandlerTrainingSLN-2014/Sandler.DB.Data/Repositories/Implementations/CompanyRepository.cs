@@ -36,9 +36,9 @@ namespace Sandler.DB.Data.Repositories.Implementations
         {
             return (DBContext.Get() as SandlerDBEntities).ClientsAvgLengthWithIndustries(userId);
         }
-        public IEnumerable<CompanyView> Get(string searchText, string orderBy, int? pageSize, int? pageNo, int? coachId, int? franchiseeId)
+        public IEnumerable<CompanyView> Get(string searchText, string orderBy, int? pageSize, int? pageNo, int? coachId, int? franchiseeId, bool selectForExcel)
         {
-            return (DBContext.Get() as SandlerDBEntities).GetCompanyView(searchText, orderBy, pageSize, pageNo, coachId, franchiseeId);
+            return (DBContext.Get() as SandlerDBEntities).GetCompanyView(searchText, orderBy, pageSize, pageNo, coachId, franchiseeId,selectForExcel);
         }
 
         public int AddCompany(TBL_COMPANIES _company)

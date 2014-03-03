@@ -96,14 +96,14 @@ function get_kendoGridData(searchText) {
     return kendoGridData;
 }
 
-function get_gridDataSource(searchText) {
+function get_gridDataSource(searchText, selectForExcel) {
     var dataSource = {
         type: "json",
         transport: {
             read: {
                 url: "api/CompanyView/",
                 dataType: "json",
-                data: { searchText: searchText },
+                data: { searchText: searchText ,selectForExcel:true},
                 cache: false //This is required othewise grid does not refresh after Edit operation in IE
             }
         },

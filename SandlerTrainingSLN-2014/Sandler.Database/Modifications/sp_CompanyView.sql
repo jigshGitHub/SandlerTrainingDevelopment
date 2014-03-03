@@ -16,7 +16,8 @@ Create Procedure [dbo].[sp_CompanyView](
 	@pageNo INT, 
 	@coachId INT=null,
 	@franchiseeId INT=null,
-	@searchText VARCHAR(MAX)=null -- This is SearchText entered by the User
+	@searchText VARCHAR(MAX)=null,
+	@selectForExcel bit = 0 -- This is SearchText entered by the User
 	)
 As
 BEGIN
@@ -37,12 +38,49 @@ BEGIN
 	cp.RepFirstName,
 	p.Id as ProductId,
 	i.IndId as IndustryId,
-	cp.Address,	cp.Zip, cp.CreatedBy, 
-	cp.CITY,cp.STATE,
+	cp.Address,	
+	cp.Zip, 
+	cp.CreatedBy, 
+	cp.CITY,
+	cp.STATE,
 	dbo.GetTotalCompanyValue(COMPANIESID) as TotalCompanyValue,
 	f.CoachID,
 	f.ID as FranchiseeId,
-	rg.Name as RegionName
+	rg.ID AS RegionID,
+	rg.Name as RegionName';
+	IF (@selectForExcel = 1)
+	BEGIN
+		SET @SQL = @SQL + ',
+		f.Name as FranchiseeName ,
+		yno.Description as NewCompanyDesp,
+		cp.POCLastName+'', ''+ cp.POCFirstName as POCFullName,
+		cp.POCPhone,
+		cp.DiscussionTopic,
+		cp.ActionStep,
+		cp.LASTCONTACT_DATE,
+		cp.NEXTCONTACT_DATE,
+		cp.CreationDate,
+		cp.Country,
+		cp.BillingAddress,
+		cp.BillingState,
+		cp.BillingZip,
+		cp.BillingCity,
+		cp.BillingCountry,
+		cp.CompanyOwnership,
+		cp.CompanyDescription,
+		cp.POCDepartment,
+		cp.POCEmail,
+		cp.POCFax,
+		cp.AssistantLastName,
+		cp.AssistantFirstName,
+		cp.AssistantPhone,
+		cp.Website,
+		cp.EmpQuantity,
+		cp.Notes,
+		cp.StartTime,
+		ynb.Description as BillingDescription  '
+	END
+	SET @SQL = @SQL + ' 
 	FROM TBL_COMPANIES cp
 	left join TBL_FRANCHISEE f on f.ID = cp.FranchiseeId
 	left join Tbl_YesNoOptions yno on yno.Value = cp.IsNewCompany 
@@ -103,8 +141,41 @@ BEGIN
 				Cast( TotalCompanyValue as int) as TotalCompanyValue,
 				Cast( CoachID as int) as CoachID,
 				Cast( FranchiseeId as int) as FranchiseeId,
-				RegionName
-			 FROM CTE_pageResult';
+				RegionID,
+				RegionName ';
+	IF (@selectForExcel = 1)
+	BEGIN
+		SET @Q = @Q + ',
+		FranchiseeName ,
+		NewCompanyDesp,
+		POCFullName,
+		POCPhone,
+		DiscussionTopic,
+		ActionStep,
+		LASTCONTACT_DATE,
+		NEXTCONTACT_DATE,
+		CreationDate,
+		Country,
+		BillingAddress,
+		BillingState,
+		BillingZip,
+		BillingCity,
+		BillingCountry,
+		CompanyOwnership,
+		CompanyDescription,
+		POCDepartment,
+		POCEmail,
+		POCFax,
+		AssistantLastName,
+		AssistantFirstName,
+		AssistantPhone,
+		Website,
+		EmpQuantity,
+		Notes,
+		StartTime,
+		BillingDescription ';
+	END 
+	SET @Q = @Q + '	 FROM CTE_pageResult';
 
 	IF @pageTop > 0 
 	BEGIN 
