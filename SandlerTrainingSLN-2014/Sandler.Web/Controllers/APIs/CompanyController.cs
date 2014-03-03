@@ -13,18 +13,6 @@ using System.Web.Http;
 
 namespace Sandler.Web.Controllers.API
 {
-    public interface iItemType
-    {
-    }
-    public class genericResponse
-    {
-        public bool success { get; set; }
-        public string message { get; set; }
-        public int UniqueId { get; set; }
-
-        public int __count { get; set; }
-        public List<iItemType> results { get; set; }
-    }
     [Authorize]
     //[BreezeController]
     public class CompanyController : BaseApiController

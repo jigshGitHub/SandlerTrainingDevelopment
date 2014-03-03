@@ -218,6 +218,7 @@
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\EntityViewModels.cs" />
     <Compile Include="Models\enums.cs" />
+    <Compile Include="Models\genericResponse.cs" />
     <Compile Include="Models\Menu.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
