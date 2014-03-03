@@ -10,16 +10,19 @@ namespace Sandler.DB.Models
 {
     public partial class SandlerDBEntities : DbContext
     {
-        public List<CompanyView> GetCompanyView(string orderBy, int? pageSize, int? pageNo, int? coachId,int? franchiseeId)
+        public List<CompanyView> GetCompanyView(string searchText,string orderBy, int? pageSize, int? pageNo, int? coachId,int? franchiseeId)
         {
+            if (string.IsNullOrEmpty(searchText))
+               searchText = "";
+            
             string whereClause="";
             if (coachId.HasValue)
                 whereClause = whereClause + ",@coachId=" + coachId.Value;
             if (franchiseeId.HasValue)
                 whereClause = whereClause + ",@franchiseeId=" + franchiseeId.Value;
 
-            string query = string.Format("exec [sp_CompanyView] @orderBy='{0}' ,@pageSize={1},@pageNo={2}{3}"
-                , orderBy, pageSize, pageNo, whereClause);
+            string query = string.Format("exec [sp_CompanyView] @orderBy='{0}' ,@pageSize={1},@pageNo={2}{3},@searchText='{4}'"
+                , orderBy, pageSize, pageNo, whereClause, searchText);
 
             var q = Database.SqlQuery<CompanyView>(query);
 
@@ -34,9 +37,9 @@ namespace Sandler.DB.Models
             if (franchiseeId.HasValue)
                 whereClause = whereClause + ",@franchiseeId=" + franchiseeId.Value;
             if (companyId.HasValue)
-                whereClause = whereClause + ",@companyId=" + companyId.Value;
+                whereClause = whereClause + ",@companyId=" + franchiseeId.Value;
             if (!string.IsNullOrEmpty(userId))
-                whereClause = whereClause + ",@userId=" + userId;
+                whereClause = whereClause + ",@userId=" + franchiseeId.Value;
 
             string query = string.Format("exec [sp_ContactView] @orderBy='{0}' ,@pageSize={1},@pageNo={2}{3}"
                 , orderBy, pageSize, pageNo, whereClause);

@@ -16,7 +16,7 @@
     
 </style>
 <script src="~/Scripts/Application/ng-companies.js" type="text/javascript"></script>
-<div id="clubSearch" class="container" ng-controller="ng_companiesCtrl">
+<div id="companyMain" class="container" ng-controller="ng_companiesCtrl">
     @*Search button*@
     <div class="row">
         <div class='page-title'>Companies</div>
@@ -29,6 +29,16 @@
         Html.RenderPartial("~/Views/Shared/_CRMMenu.cshtml", menuEntity);
     }
     <br />
+
+    <div class="row" style="margin-top:10px">
+        <div class="col-md-6 input-group">
+            <input class="form-control" id="searchBox" size="100" type="text" placeholder="Company Name or City or Sandler Rep Last/First Name" onkeyup="triggerSearch(event);">
+            <span class="input-group-btn"> 
+                  <button id="btnSearch" class="btn btn-primary" type="button"><span class="glyphicon glyphicon-search" title="Quick Search" data-toggle="tooltip"></span></button>
+            </span>
+        </div>
+    </div>
+    
     <div class="row" style="margin-top: 10px">
         <div id="searchGrid" class="k-content">
             <div id="CompaniesSearchgrid"></div>

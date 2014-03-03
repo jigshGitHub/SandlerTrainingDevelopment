@@ -36,9 +36,41 @@ namespace Sandler.DB.Data.Repositories.Implementations
         {
             return (DBContext.Get() as SandlerDBEntities).ClientsAvgLengthWithIndustries(userId);
         }
-        public IEnumerable<CompanyView> Get(string orderBy,int? pageSize,int? pageNo,int? coachId,int? franchiseeId)
+        public IEnumerable<CompanyView> Get(string searchText, string orderBy, int? pageSize, int? pageNo, int? coachId, int? franchiseeId)
         {
-            return (DBContext.Get() as SandlerDBEntities).GetCompanyView(orderBy,pageSize,pageNo,coachId,franchiseeId);
+            return (DBContext.Get() as SandlerDBEntities).GetCompanyView(searchText, orderBy, pageSize, pageNo, coachId, franchiseeId);
+        }
+
+        public int AddCompany(TBL_COMPANIES _company)
+        {
+            Add(_company);
+            DBContext.SaveChanges();
+            return _company.COMPANIESID;
+        }
+
+        public int UpdateCompany(TBL_COMPANIES _company)
+        {
+            Update(_company);
+            DBContext.SaveChanges();
+            return _company.COMPANIESID;
+        }
+
+        //For Archive Company
+        public bool ArchiveCompany(int companyId, string userId)
+        {
+            string _sql = string.Format("UPDATE Tbl_Companies Set IsActive = 0, UpdatedDate = GetDate(), UpdatedBy = '{0}' where CompaniesId = {1} Select 1 as responseId", userId, companyId);
+            var _message = (DBContext.Get() as SandlerDBEntities).Database.SqlQuery<ReponseMessage>(_sql).FirstOrDefault();
+            //Now return the response
+            if (_message.responseId > 0)
+            {
+                //All Ok - Record is marked as Archived
+                return true;
+            }
+            else
+            {
+                //something went wrong
+                return false;
+            }
         }
     }
 }

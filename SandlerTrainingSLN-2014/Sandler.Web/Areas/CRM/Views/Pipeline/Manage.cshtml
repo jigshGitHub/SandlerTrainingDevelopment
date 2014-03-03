@@ -2,327 +2,233 @@
 @using Sandler.DB.Models;
 @model EntityViewModel<TBL_OPPORTUNITIES>
 
-<div id="container">
-    <div class="row">
-        <div class="col-sm-3">
-            Company
+
+<div id="pipeline_body" style="background-color:white">
+
+    @*Page Header*@
+    <div class="row page-header">
+        <div class="col-sm-8">
+            <div class="row"><div class='page-title'><span>Pipeline</span></div></div>
+            <div class="row sub-heading"><div class='page-subtitle' data-bind="text: pageTitle"></div></div>
         </div>
-        <div class="col-sm-9">
-            :
-            <span data-bind="text: opportunity.companyName, visible: isVisible" />
-            <select data-bind="options: companies, optionsCaption: ' ',optionsText: 'name', optionsValue: 'id', value: opportunity.COMPANYID, visible: isEditable"></select>
-            <span class="label label-danger" data-bind='visible: opportunity.COMPANYID.hasError, text: opportunity.COMPANYID.validationMessage'></span>
-        </div>
+        <div class="col-sm-4"></div>
     </div>
-    <div class="row">
-        <div class="col-sm-3">
-            Contacts
+    
+    <hr />
+
+
+      @* Pipeline Details *@
+    <div class="container">
+        <div class="row">
+            @* [[[[[ pipeline Related ]]]]] *@
+            <div class="col-md-6 no-margin">
+                <div class="col-title"><span>Pipeline Information</span></div>
+
+                <div class="row">
+
+                    <div class="col-sm-12 no-margin">
+                        <form role="form">
+                            <div class="form-group" >
+                                 <label>Company&nbsp;<span class="label label-danger" data-bind='visible: opportunity.COMPANYID.hasError, text: opportunity.COMPANYID.validationMessage'></span></label>                  
+                                <div class="controls">
+                                     <input id="pipeline_Company" type="text" data-bind="kendoDropDownList: { dataTextField: 'name', dataValueField: 'id', data: companies, value: opportunity.COMPANYID }"/>                                                                                           
+                                </div>
+                                
+                                 <label>Contacts</label>                                    
+                                <div class="controls">
+                                     <span data-bind="text: primaryContact, visible: isVisible" />
+                                        <select data-bind="    options: companyContacts, optionsText: 'fullName', optionsValue: 'contactsId', visible: isEditable, selectedOptions: contactsSelected"  style="width:200px;" multiple="true"></select><br />
+                                        <span class="label label-danger" data-bind='visible: opportunity.CONTACTID.hasError, text: opportunity.CONTACTID.validationMessage'></span>
+                                        <span data-bind="text: secondaryContact1, visible: isVisible" />
+                                        <br />
+                                        <span data-bind="text: secondaryContact2, visible: isVisible" />
+                                        <br />
+                                </div>                
+                                 <label data-bind="visible: !isNewOpportunity">Opportunity ID</label>
+                                <div class="controls" data-bind="visible: !isNewOpportunity">
+                                     <input id="pipeline_Opportunity" maxlength="50" type="text" class="form-control" data-bind="value: opportunity.ID"/>
+                                </div>
+                                   <label>Opportunity Name&nbsp;<span class="label label-danger" data-bind='visible: opportunity.NAME.hasError, text: opportunity.NAME.validationMessage'></span></label>                  
+                                <div class="controls">
+                                     <input id="pipeline_opportunityNAME" maxlength="50" type="text" class="form-control" data-bind="value: opportunity.NAME"/>
+                                </div>
+                                 <label>Opportunity Description</label>
+                                <div class="controls">
+                                     <input id="pipeline_opportunityDesc" maxlength="50" type="text" class="form-control" data-bind="value: opportunity.Description"/>
+                                </div>
+                                  <label>Opportunity Notes</label>
+                                <div class="controls">
+                                     <input id="Pipeline_opportunityNotes" maxlength="50" type="text" class="form-control" data-bind="value: opportunity.Notes"/>
+                                </div>
+                                <label>Sales Rep Last Name&nbsp;<span class="label label-danger" data-bind='visible: opportunity.SALESREPLASTNAME.hasError, text: opportunity.SALESREPLASTNAME.validationMessage'></span></label>                  
+                                <div class="controls">
+                                     <input id="pipeline_RepLastName" maxlength="50" type="text" class="form-control" data-bind="value: opportunity.SALESREPLASTNAME"/>
+                                </div>
+                                 <label>Sales Rep First Name&nbsp;<span class="label label-danger" data-bind='visible: opportunity.SALESREPFIRSTNAME.hasError, text: opportunity.SALESREPFIRSTNAME.validationMessage'></span></label>                  
+                                <div class="controls">
+                                     <input id="pipeline_RepFirstName" maxlength="50" type="text" class="form-control" data-bind="value: opportunity.SALESREPFIRSTNAME"/>
+                                </div>
+                                 <label>Sales Rep Phone</label>
+                                <div class="controls">
+                                     <input id="Pipeline_RepPhone" maxlength="50" type="text" class="form-control" data-bind="value: opportunity.SALESREPPHONE"/>
+                                </div>
+                                 
+
+                            </div>
+
+                        </form>
+                    </div>
+                    
+                    @*<div class="col-sm-6 no-margin">
+                        <form role="form">
+                            <div class="form-group">
+                                test2
+                            </div>
+                        </form>
+                    </div>
+                    *@
+
+                </div>
+ </div>
+ 
+            
+            <div class="col-md-6 no-margin">
+                <div class="col-title"><span>Pipeline Details</span></div>
+
+                <div class="row">
+
+                    <div class="col-sm-6 no-margin">
+                        <form role="form">
+                            <div class="form-group">
+                            <label>Product&nbsp;<span class="label label-danger" data-bind='visible: opportunity.ProductID.hasError, text: opportunity.ProductID.validationMessage'></span></label>                  
+                                <div class="controls">
+                                     <input id="pipeline_Product"  type="text" data-bind="kendoDropDownList: { dataTextField: 'ProductTypeName', dataValueField: 'Id', data: products, optionLabel: 'Please Select..', value: opportunity.ProductID }"/>                                                                                                    
+                                   </div>
+                            <label>Product Cost</label>
+                                <div class="controls">
+                                     <input id="pipeline_ProductCost" maxlength="50" type="text" class="form-control" data-bind="value: opportunity.ProductCost"/>
+                                </div>
+                                <label> Opportunity Status</label>
+                                <div class="controls">
+                                     <input id="pipeline_OppStatus" type="text" data-bind="kendoDropDownList: { dataTextField: 'Name', dataValueField: 'ID', data: oppStatus, optionLabel: 'Please Select..', value: opportunity.STATUSID }"/>                                                                                                    
+                                </div>
+                                <label> Opportunity Source</label>
+                                <div class="controls">
+                                     <input id="pipeline_OppSource" type="text" data-bind="kendoDropDownList: { dataTextField: 'Name', dataValueField: 'ID', data: oppSources, optionLabel: 'Please Select..', value: opportunity.SourceID }"/>                                                                                                    
+                                </div>
+                                 <label> Opportunity Type</label>
+                                <div class="controls">
+                                     <input id="pipeline_OppType" type="text" data-bind="kendoDropDownList: { dataTextField: 'Name', dataValueField: 'ID', data: oppTypes, optionLabel: 'Please Select..', value: opportunity.TypeID }"/>                                                                                                    
+                                </div>
+                                 <label> Why Lost?</label>
+                                <div class="controls">
+                                     <input id="pipeline_WhyLost" type="text" data-bind="kendoDropDownList: { dataTextField: 'Name', dataValueField: 'ID', data: whyLosts, optionLabel: 'Please Select..', value: opportunity.WhyLostID }"/>                                                                                                    
+                                </div>
+                                 <label>Opportunity Value&nbsp;<span class="label label-danger" data-bind='visible: opportunity.VALUE.hasError, text: opportunity.VALUE.validationMessage'></span></label>                  
+                                <div class="controls">
+                                     <input id="pipeline_oppVALUE" maxlength="50" type="text" class="form-control" data-bind="value: opportunity.VALUE"/>
+                                </div>
+                                <label>  Win Probability %</label>
+                                <div class="controls">
+                                    <input id="pipeline_Winprop" maxlength="50" type="text" class="form-control" data-bind="value: opportunity.WINPROBABILITY"/>
+                                </div>
+                                <label>  Weighted Value</label>
+                                <div class="controls">
+                                    <input id="pipeline_WeightedValue" maxlength="50" type="text" class="form-control" data-bind="value: opportunity.WEIGHTEDVALUE"/>
+                                </div>
+                                <label> Actual Value</label>
+                                <div class="controls">
+                                    <input id="pipeline_ActualValue" maxlength="50" type="text" class="form-control" data-bind="value: opportunity.ActualValue"/>
+                                </div>
+   
+                                 </div>
+                        </form>
+                    </div>
+    
+                    <div class="col-sm-6 no-margin">
+                        <form role="form">
+                            <div class="form-group">
+                                <label> Creation Date</label>
+                                <div class="controls">
+                                    <input id="pipeline_creationDate" style="max-width:150px;" maxlength="10" type="text" class="form-control" data-bind="kendoDatePicker: opportunity.CreationDateC"/>
+                                </div>
+                                <label>Close Date&nbsp;<span class="label label-danger" data-bind='visible: opportunity.CLOSEDATEc.hasError, text: opportunity.CLOSEDATEc.validationMessage'></span></label>                  
+                                <div class="controls">
+                                     <input id="pipeline_closeDate" style="max-width:150px;" maxlength="10" type="text" class="form-control" data-bind="kendoDatePicker: opportunity.CLOSEDATEc"/>
+                                </div>
+                                <label>Pain&nbsp;<span class="label label-danger" data-bind='visible: opportunity.Pain.hasError, text: opportunity.Pain.validationMessage'></span></label>                  
+                                <div class="controls">
+                                     <input id="pipeline_Pain" maxlength="50" type="text" class="form-control" data-bind="value: opportunity.Pain"/>
+                                </div>
+                                 <label>Length of Problem</label>
+                                <div class="controls">
+                                     <input id="pipeline_lengthofProblem" maxlength="50" type="text" class="form-control" data-bind="value: opportunity.LengthOfProblem"/>
+                                </div>
+                                 <label>Alternatives</label>
+                                <div class="controls">
+                                     <input id="pipeline_Alternatives" maxlength="50" type="text" class="form-control" data-bind="value: opportunity.Alternatives"/>
+                                </div>
+                                <label>Cost to Fix</label>
+                                <div class="controls">
+                                     <input id="pipeline_CosttoFix" maxlength="50" type="text" class="form-control" data-bind="value: opportunity.CostToFix"/>
+                                </div>
+                                 <label>Budget Identified?</label>
+                                <div class="controls">
+                                     <select data-bind="options: budgetIdentified, optionsText: 'Description', optionsValue: 'Value', value: opportunity.IsBudgeIdentified"></select>
+                                </div>
+                                 <label>Move Forward?</label>
+                                <div class="controls">
+                                     <select data-bind="options: moveForward, optionsText: 'Description', optionsValue: 'Value', value: opportunity.IsMoveForward"></select>
+                                </div>
+      </div>
+                        </form>
+                    </div>
+                    
+                </div>
+    
+    
+             </div>
+
+            
+             
+         </div>
+       
+
+
+        @* Page Footer *@
+        <div class="row page-footer">
+            <div class="pull-right">
+                <button id="bt_cancel_evt" type="button" class="btn btn-danger btn-cancel"  >Cancel</button>                
+                <button id="bt_save_evt" class="btn btn-primary btn-save" type="button" value="save" data-bind="enable: isDirty, click: save">Save</button>
+            </div>
         </div>
 
-        <div class="col-sm-9">
-            :
-            <span data-bind="text: primaryContact, visible: isVisible" />
-            <select data-bind="    options: companyContacts, optionsText: 'fullName', optionsValue: 'contactsId', visible: isEditable,selectedOptions:contactsSelected" multiple="true"></select><br />
-            <span class="label label-danger" data-bind='visible: opportunity.CONTACTID.hasError, text: opportunity.CONTACTID.validationMessage'></span>
-            <span data-bind="text: secondaryContact1, visible: isVisible" />
-            <br />
-            <span data-bind="text: secondaryContact2, visible: isVisible" />
-            <br />
-        </div>
-    </div>
-    <div class="row" data-bind="visible: !isNewOpportunity">
-        <div class="col-sm-3">
-            Opportunity ID
-        </div>
+     </div>
 
-        <div class="col-sm-9">
-            :
-            <span data-bind="text: opportunity.ID, visible: isVisible" />
-            <input data-bind="value: opportunity.ID, visible: isEditable" disabled="disabled" />
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-sm-3">
-            Opportunity Name
-        </div>
-
-        <div class="col-sm-9">
-            :
-            <span data-bind="text: opportunity.NAME, visible: isVisible" />
-            <input data-bind="value: opportunity.NAME, visible: isEditable" />
-            <span class="label label-danger" data-bind='visible: opportunity.NAME.hasError, text: opportunity.NAME.validationMessage'></span>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-sm-3">
-            Opportunity Description
-        </div>
-
-        <div class="col-sm-9">
-            :
-            <span data-bind="text: opportunity.Description, visible: isVisible" />
-            <input data-bind="value: opportunity.Description, visible: isEditable" textmode="MultiLine" />
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-sm-3">
-            Opportunity Notes
-        </div>
-
-        <div class="col-sm-9">
-            :
-            <span data-bind="text: opportunity.Notes, visible: isVisible" />
-            <input data-bind="value: opportunity.Notes, visible: isEditable" />
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-sm-3">
-            Sales Rep Last Name
-        </div>
-
-        <div class="col-sm-9">
-            :
-            <span data-bind="text: opportunity.SALESREPLASTNAME, visible: isVisible" />
-            <input data-bind="value: opportunity.SALESREPLASTNAME, visible: isEditable" />
-            <span class="label label-danger" data-bind='visible: opportunity.SALESREPLASTNAME.hasError, text: opportunity.SALESREPLASTNAME.validationMessage'></span>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-sm-3">
-            Sales Rep First Name
-        </div>
-
-        <div class="col-sm-9">
-            :
-            <span data-bind="text: opportunity.SALESREPFIRSTNAME, visible: isVisible" />
-            <input data-bind="value: opportunity.SALESREPFIRSTNAME, visible: isEditable" />
-            <span class="label label-danger" data-bind='visible: opportunity.SALESREPFIRSTNAME.hasError, text: opportunity.SALESREPFIRSTNAME.validationMessage'></span>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-sm-3">
-            Sales Rep Phone
-        </div>
-
-        <div class="col-sm-9">
-            :
-            <span data-bind="text: opportunity.SALESREPPHONE, visible: isVisible" />
-            <input data-bind="value: opportunity.SALESREPPHONE, visible: isEditable" />
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-sm-3">
-            Product
-        </div>
-
-        <div class="col-sm-9">
-            :
-            <span data-bind="text: opportunity.productName, visible: isVisible" />
-            <select data-bind="options: products, optionsCaption:'',optionsText: 'ProductTypeName', optionsValue: 'Id', value: opportunity.ProductID, visible: isEditable"></select>
-            <span class="label label-danger" data-bind='visible: opportunity.ProductID.hasError, text: opportunity.ProductID.validationMessage'></span>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-sm-3">
-            Product Cost
-        </div>
-
-        <div class="col-sm-9">
-            :
-            <span data-bind="text: opportunity.ProductCost, visible: isVisible" />
-            <input data-bind="value: opportunity.ProductCost, visible: isEditable" />
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-sm-3">
-            Opportunity Status
-        </div>
-
-        <div class="col-sm-9">
-            :
-            <span data-bind="text: opportunity.oppStatus, visible: isVisible" />
-            <select data-bind="options: oppStatus, optionsText: 'Name', optionsValue: 'ID', value: opportunity.STATUSID, visible: isEditable"></select>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-sm-3">
-            Opportunity Source
-        </div>
-
-        <div class="col-sm-9">
-            :
-            <span data-bind="text: opportunity.oppSource, visible: isVisible" />
-            <select data-bind="options: oppSources, optionsText: 'Name', optionsValue: 'ID', value: opportunity.SourceID, visible: isEditable"></select>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-sm-3">
-            Opportunity Type
-        </div>
-
-        <div class="col-sm-9">
-            :
-            <span data-bind="text: opportunity.type, visible: isVisible" />
-            <select data-bind="options: oppTypes, optionsText: 'Name', optionsValue: 'ID', value: opportunity.TypeID, visible: isEditable"></select>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-sm-3">
-            Why Lost?
-        </div>
-
-        <div class="col-sm-9">
-            :
-            <span data-bind="text: opportunity.whyLost, visible: isVisible" />
-            <select data-bind="options: whyLosts, optionsText: 'Name', optionsValue: 'ID', value: opportunity.WhyLostID, visible: isEditable"></select>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-sm-3">
-            Opportunity Value
-        </div>
-
-        <div class="col-sm-9">
-            :
-            <span data-bind="text: opportunity.VALUE, visible: isVisible" />
-            <input data-bind="value: opportunity.VALUE, visible: isEditable" />
-            <span class="label label-danger" data-bind='visible: opportunity.VALUE.hasError, text: opportunity.VALUE.validationMessage'></span>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-sm-3">
-            Win Probability %
-        </div>
-
-        <div class="col-sm-9">
-            :
-            <span data-bind="text: opportunity.WINPROBABILITY, visible: isVisible" />
-            <input data-bind="value: opportunity.WINPROBABILITY, visible: isEditable" />
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-sm-3">
-            Weighted Value
-        </div>
-
-        <div class="col-sm-9">
-            :
-            <span data-bind="text: opportunity.WEIGHTEDVALUE, visible: isVisible" />
-            <input data-bind="value: opportunity.WEIGHTEDVALUE, visible: isEditable" />
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-sm-3">
-            Actual Value
-        </div>
-
-        <div class="col-sm-9">
-            :
-            <span data-bind="text: opportunity.ActualValue, visible: isVisible" />
-            <input data-bind="value: opportunity.ActualValue, visible: isEditable" />
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-sm-3">
-            Creation Date
-        </div>
-
-        <div class="col-sm-9">
-            :
-            <span data-bind="text: opportunity.CreationDateC, visible: isVisible" />
-            <input data-bind="kendoDatePicker: { value: opportunity.CreationDateC, format: 'MM/dd/yyyy', visible: isEditable }" />
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-sm-3">
-            Close Date
-        </div>
-
-        <div class="col-sm-9">
-            :
-            <span data-bind="text: opportunity.CLOSEDATEc, visible: isVisible" />
-            <input data-bind="kendoDatePicker: { value: opportunity.CLOSEDATEc, format: 'MM/dd/yyyy', visible: isEditable }" />
-            <span class="label label-danger" data-bind='visible: opportunity.CLOSEDATEc.hasError, text: opportunity.CLOSEDATEc.validationMessage'></span>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-sm-3">
-            Pain
-        </div>
-
-        <div class="col-sm-9">
-            :
-            <span data-bind="text: opportunity.Pain, visible: isVisible" />
-            <input data-bind="value: opportunity.Pain, visible: isEditable" />
-            <span class="label label-danger" data-bind='visible: opportunity.Pain.hasError, text: opportunity.Pain.validationMessage'></span>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-sm-3">
-            Length of Problem
-        </div>
-
-        <div class="col-sm-9">
-            :
-            <span data-bind="text: opportunity.LengthOfProblem, visible: isVisible" />
-            <input data-bind="value: opportunity.LengthOfProblem, visible: isEditable" />
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-sm-3">
-            Alternatives
-        </div>
-
-        <div class="col-sm-9">
-            :
-            <span data-bind="text: opportunity.Alternatives, visible: isVisible" />
-            <input data-bind="value: opportunity.Alternatives, visible: isEditable" />
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-sm-3">
-            Cost to Fix
-        </div>
-
-        <div class="col-sm-9">
-            :
-            <span data-bind="text: opportunity.CostToFix, visible: isVisible" />
-            <input data-bind="value: opportunity.CostToFix, visible: isEditable" />
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-sm-3">
-            Budget Identified?
-        </div>
-
-        <div class="col-sm-9">
-            :
-            <span data-bind="text: opportunity.budget, visible: isVisible" />
-            <select data-bind="options: budgetIdentified, optionsText: 'Description', optionsValue: 'Value', value: opportunity.IsBudgeIdentified, visible: isEditable"></select>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-sm-3">
-            Move Forward?
-        </div>
-
-        <div class="col-sm-9">
-            :
-            <span data-bind="text: opportunity.moveForward, visible: isVisible" />
-            <select data-bind="options: moveForward, optionsText: 'Description', optionsValue: 'Value', value: opportunity.IsMoveForward, visible: isEditable"></select>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-sm-3">
-            <input type="button" value="Edit" data-bind="click: makeEditable, visible: isVisible" />
-            <input type="button" value="Save" data-bind="click: save, visible: saveVisible" />
-        </div>
-    </div>
 </div>
 
 <script type="text/javascript" src="~/Scripts/Application/koExtenders.js"></script>
+
 <script type="text/javascript">
+
+      @* Tracking whether there is unsaved change(s). *@
+    ko.dirtyFlag_company = function (root, isInitiallyDirty) {
+
+        var result = function () { },
+            _initialState = ko.observable(ko.toJSON(root)),
+            _isInitiallyDirty = ko.observable(isInitiallyDirty);
+
+        result.isDirty = ko.computed(function () {
+            return _isInitiallyDirty() || _initialState() !== ko.toJSON(root);
+        });
+
+        result.reset = function () {
+            _initialState(ko.toJSON(root));
+            _isInitiallyDirty(false);
+        };
+
+        return result;
+    };
 
     var startModule = sandler.appStart.module;
     var pageVM = function (opportunityObservable) {
@@ -331,7 +237,7 @@
         self.opportunity = opportunityObservable;
         if (self.opportunity.ID() == 0)
             self.isNewOpportunity(true);
-        
+
         if (self.opportunity.CreationDate != null && self.opportunity.CreationDate() != "") {
             self.opportunity.CreationDateC = ko.observable(kendo.parseDate(self.opportunity.CreationDate()));
         }
@@ -378,6 +284,9 @@
         self.opportunity.moveForward = ko.computed(function () {
             return startModule.getYesNo(self.opportunity.IsMoveForward());
         }, self);
+
+
+
         self.companies = startModule.getUserCompanies();
         self.products = startModule.getProductTypes();
         self.whyLosts = startModule.getOpportunityWhyLosts();
@@ -447,6 +356,16 @@
             self.isVisible(false);
             //self.saveVisible(true);
         };
+
+        self.pageTitle = ko.computed(function () {
+            return (self.opportunity.ID() > 0 ? "Edit Pipeline" : "Add Pipeline");
+        });
+        self.dirtyFlag = new ko.dirtyFlag_company(self);
+
+        self.isDirty = ko.computed(function () {
+            return self.dirtyFlag.isDirty()
+        }, this);
+
         self.saveVisible = ko.computed(function () { return self.isEditable(); }, self);
         self.save = function () {
             if (!self.opportunity.COMPANYID()) {
@@ -469,7 +388,7 @@
                 if (self.contactsSelected().length > 2) self.opportunity.SeconadryContactId2(self.contactsSelected()[2]);
                 //console.log('self.opportunity.SeconadryContactId1():' + self.opportunity.SeconadryContactId1());
                 //console.log('self.opportunity.SeconadryContactId2():' + self.opportunity.SeconadryContactId2());
-                
+
             }
             if (!self.opportunity.NAME()) {
                 showNoti_.error('Opportunity name is required.', false);
@@ -518,11 +437,27 @@
                 }
             });
         }
+
+
     }
     $(document).ready(function () {
+           @* Cancel (Close) Button *@
+        $("#bt_cancel_evt").click(function () {
+            @* Opened from Application Main Page in a Modal Window *@
+            if (navi_.singlePageInModal('pipeline_body'))
+                navi_.closeModal();
+            @* Opened from other page inside Navigator Page > Close this page *@
+            else if (navi_.totalPages() > 1)
+                navi_.closeCurrentPage();
+            @* Otherwise, redirect to Home Page *@
+        else
+            navi_.closeModal();
+
+        });
+
         var vm = new pageVM(ko.mapping.fromJS( @Html.Raw(Json.Encode(@Model.EntityModel))));
         //console.log(vm.opportunity);
-        ko.applyBindings(vm, document.getElementById("container"));
+        ko.applyBindings(vm, document.getElementById("pipeline_body"));
 
     });
 </script>

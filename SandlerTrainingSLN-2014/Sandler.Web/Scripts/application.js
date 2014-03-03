@@ -175,7 +175,7 @@ sandler.namespace("appStart").module= (function () {
         setOpportunityWhyLosts(opportunityWhyLosts);
         var opportunitySources = jsonDataCaller.syncCall("/api/OpportunitySources/", null);
         setOpportunitySources(opportunitySources);
-        var data = jsonDataCaller.syncCall("/api/CompanyView?&page=0&pageSize=0", null)
+        var data = jsonDataCaller.syncCall("/api/CompanyView?searchText=&page=0&pageSize=0", null)
         //console.log('getting user companies');
         var companies = new Array();
         $.each(data.results, function (i,companyRecord) {

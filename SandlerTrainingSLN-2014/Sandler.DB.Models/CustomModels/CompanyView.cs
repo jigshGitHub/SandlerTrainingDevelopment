@@ -91,4 +91,8 @@ namespace Sandler.DB.Models
         public Nullable<bool> IsBudgeIdentified { get; set; }
         public Nullable<bool> IsMoveForward { get; set; }
     }
+    public class ReponseMessage
+    {
+        public int responseId { get; set; }
+    }
 }

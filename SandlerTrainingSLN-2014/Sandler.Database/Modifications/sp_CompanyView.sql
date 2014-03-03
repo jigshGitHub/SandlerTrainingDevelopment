@@ -15,7 +15,8 @@ Create Procedure [dbo].[sp_CompanyView](
 	@pageSize INT,    
 	@pageNo INT, 
 	@coachId INT=null,
-	@franchiseeId INT=null
+	@franchiseeId INT=null,
+	@searchText VARCHAR(MAX)=null -- This is SearchText entered by the User
 	)
 As
 BEGIN
@@ -62,6 +63,15 @@ BEGIN
 	BEGIN
 		SET @SQL = @SQL + ' AND f.ID = ' + CAST(@franchiseeId AS VARCHAR(10));
 	END	 
+	-- Add condition is Search Text is Available
+	If @searchText is not null and @searchText != ''
+	BEGIN
+	   SET @SQL = @SQL + ' AND (Upper(cp.COMPANYNAME) like ''' + '%' + Upper(@searchText)  + '%' + '''' 
+	   SET @SQL = @SQL + ' OR Upper(cp.CITY) like ''' + '%' + Upper(@searchText)  + '%' + '''' 
+	   SET @SQL = @SQL + ' OR Upper(cp.RepLastName) like ''' + '%' + Upper(@searchText)  + '%' + '''' 
+	   SET @SQL = @SQL + ' OR Upper(cp.RepFirstName) like ''' + '%' + Upper(@searchText)  + '%' + '''' 
+	   SET @SQL = @SQL + ')'
+	END	
 	
 	If @pageNo > 0 AND @pageSize > 0
 	BEGIN

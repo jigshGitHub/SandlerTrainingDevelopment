@@ -13,6 +13,18 @@ using System.Web.Http;
 
 namespace Sandler.Web.Controllers.API
 {
+    public interface iItemType
+    {
+    }
+    public class genericResponse
+    {
+        public bool success { get; set; }
+        public string message { get; set; }
+        public int UniqueId { get; set; }
+
+        public int __count { get; set; }
+        public List<iItemType> results { get; set; }
+    }
     [Authorize]
     //[BreezeController]
     public class CompanyController : BaseApiController
@@ -47,7 +59,7 @@ namespace Sandler.Web.Controllers.API
         //    return Request.CreateResponse(returnObject);
         //}
         [Route("api/CompanyView/")]
-        public HttpResponseMessage GetCompanyView(int? page, int? pageSize)
+        public HttpResponseMessage GetCompanyView(string searchText, int? page, int? pageSize)
         {
             List<CompanyView> companies = null;
             //sort%5B0%5D%5Bfield%5D=COMPANYNAME&sort%5B0%5D%5Bdir%5D=asc
@@ -62,15 +74,15 @@ namespace Sandler.Web.Controllers.API
             
             if (CurrentUser.Role == SandlerRoles.Corporate || CurrentUser.Role == SandlerRoles.SiteAdmin || CurrentUser.Role == SandlerRoles.HomeOfficeAdmin || CurrentUser.Role == SandlerRoles.HomeOfficeUser)
             {
-                companies = uow.CompanyRepository().Get(orderBy, pageSize.Value, page.Value, null, null).ToList();
+                companies = uow.CompanyRepository().Get(searchText,orderBy, pageSize.Value, page.Value, null, null).ToList();
             }
             if (CurrentUser.Role == SandlerRoles.Coach)
             {
-                companies = uow.CompanyRepository().Get(orderBy, pageSize.Value, page.Value, CurrentUser.CoachID, null).ToList();
+                companies = uow.CompanyRepository().Get(searchText,orderBy, pageSize.Value, page.Value, CurrentUser.CoachID, null).ToList();
             }
             if (CurrentUser.Role == SandlerRoles.FranchiseeOwner || CurrentUser.Role == SandlerRoles.FranchiseeUser)
             {
-                companies = uow.CompanyRepository().Get(orderBy, pageSize.Value, page.Value, null, CurrentUser.FranchiseeID).ToList();
+                companies = uow.CompanyRepository().Get(searchText,orderBy, pageSize.Value, page.Value, null, CurrentUser.FranchiseeID).ToList();
             }
 
             var returnObject = new { success = true, __count = (companies.Count > 0) ? companies.FirstOrDefault().TotalCount : 0, results = companies };
@@ -80,9 +92,79 @@ namespace Sandler.Web.Controllers.API
 
         public HttpResponseMessage Get(int id)
         {
-            var data = uow.Repository<TBL_COMPANIES>().GetById(id);
-
+            //Let us Initiate the model with UniqueId and the Franchisee Id
+            var data = new TBL_COMPANIES() { COMPANIESID = 0, FranchiseeId = CurrentUser.FranchiseeID };
+            if (id > 0)
+            {
+                data = uow.Repository<TBL_COMPANIES>().GetById(id);
+            }
             return Request.CreateResponse(data);
+           
+
         }
+        
+        [HttpPost]
+        [Route("api/Company/Archive")]
+        public genericResponse ArchiveCompany(TBL_COMPANIES _company)
+        {
+            genericResponse _response;
+            try
+            {
+                if (uow.CompanyRepository().ArchiveCompany(_company.COMPANIESID, CurrentUser.UserId.ToString()))
+                {
+                    _response = new genericResponse() { success = true };
+                    return _response;
+                }
+                else
+                {
+                    _response = new genericResponse() { success = false, message = "There is a problem Archiving this Company Record. Please try again later." };
+                    return _response;
+                }
+
+            }
+            catch
+            {
+                _response = new genericResponse() { success = false, message = "There is a problem in deleting the Event. Please try again later." };
+                return _response;
+            }
+
+        }
+
+        [HttpPost]
+        [Route("api/Company/Save")]
+        public genericResponse Save(TBL_COMPANIES _company)
+        {
+            genericResponse _response;
+            try
+            {
+                int companiesId = _company.COMPANIESID;
+                _company.IsActive = true;
+                
+                if (companiesId > 0)
+                {
+                    //Update Operation
+                    _company.UpdatedBy = CurrentUser.UserId.ToString();
+                    _company.UpdatedDate = DateTime.Now;
+                    companiesId = uow.CompanyRepository().UpdateCompany(_company);
+                }
+                else
+                {
+                    //Add Operation
+                    _company.CreatedDate = DateTime.Now;
+                    _company.CreatedBy = CurrentUser.UserId.ToString();
+                    companiesId = uow.CompanyRepository().AddCompany(_company);
+                }
+                //We will send back the companiesId - Either newly created or from Updated record
+                _response = new genericResponse() { success = true, UniqueId = companiesId };
+                return _response;
+            }
+            catch
+            {
+                _response = new genericResponse() { success = false, message = "There is a problem in Saving Company Information. Please try again later." };
+                return _response;
+            }
+        }
+
+
     }
 }
