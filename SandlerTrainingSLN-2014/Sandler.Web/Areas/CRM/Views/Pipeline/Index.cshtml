@@ -19,13 +19,18 @@
     <div class="row">
         <div class='page-title'>Opportunities</div>
     </div>
-    @{ var menusList = @Model.BaseModel.CRMMenu;}
-    @if (menusList != null)
-    {
-        Menu menuEntity = menusList.Find(delegate(Menu menu) { return menu.Title == "Opportunities"; });
+    <div class="row">
+        <div class="col-md-4"><img src="~/Images/excel.jpg" />Export to Excel</div>
+        <div class="pull-right">
+            @{ var menusList = @Model.BaseModel.CRMMenu;}
+            @if (menusList != null)
+            {
+                Menu menuEntity = menusList.Find(delegate(Menu menu) { return menu.Title == "Opportunities"; });
 
-        Html.RenderPartial("~/Views/Shared/_CRMMenu.cshtml", menuEntity);
-    }
+                Html.RenderPartial("~/Views/Shared/_CRMMenu.cshtml", menuEntity);
+            }
+        </div>
+    </div>
     <div class="row">
         <input id="companiesSelection" />
     </div>

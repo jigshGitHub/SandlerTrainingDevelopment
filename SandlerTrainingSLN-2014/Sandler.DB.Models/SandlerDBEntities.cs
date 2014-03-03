@@ -34,9 +34,9 @@ namespace Sandler.DB.Models
             if (franchiseeId.HasValue)
                 whereClause = whereClause + ",@franchiseeId=" + franchiseeId.Value;
             if (companyId.HasValue)
-                whereClause = whereClause + ",@companyId=" + franchiseeId.Value;
+                whereClause = whereClause + ",@companyId=" + companyId.Value;
             if (!string.IsNullOrEmpty(userId))
-                whereClause = whereClause + ",@userId=" + franchiseeId.Value;
+                whereClause = whereClause + ",@userId=" + userId;
 
             string query = string.Format("exec [sp_ContactView] @orderBy='{0}' ,@pageSize={1},@pageNo={2}{3}"
                 , orderBy, pageSize, pageNo, whereClause);

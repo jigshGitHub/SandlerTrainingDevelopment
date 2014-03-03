@@ -64,7 +64,7 @@ namespace Sandler.Web.Controllers
 
             items.Add(new MenuItem { Id = "Search", Text = "Search", Link = "~/CRM/Contacts/Search.aspx", IsVisible = true });
             items.Add(new MenuItem { Id = "Upload", Text = "Upload Contact Data", Link = "~/CRM/Contacts/Upload.aspx", IsVisible = !IsUserReadOnly(SandlerUserActions.Add, SandlerEntities.Contact) });
-            items.Add(new MenuItem { Id = "AddContact", Text = "Add New Contact", Link = "~/CRM/Contacts/Add.aspx", IsVisible = !IsUserReadOnly(SandlerUserActions.Add, SandlerEntities.Contact) });
+            items.Add(new MenuItem { Id = "AddContact", Text = "Add New Contact", Link = "navi?url=/CRM/Contacts/Manage", IsVisible = !IsUserReadOnly(SandlerUserActions.Add, SandlerEntities.Contact) });
             items.Add(new MenuItem { Id = "CallList", Text = "View Call List", Link = "~/CRM/Contacts/CallList.aspx", IsVisible = true });
             items.Add(new MenuItem { Id = "ViewArchived", Text = "View Archived Records", Link = "~/CRM/Contacts/Archived.aspx", IsVisible = true });
 

@@ -24,7 +24,7 @@
 
     @* Contact Details *@
     <div class="container">
-        <div class="row" data-bind="with: contact">
+        <div class="row">
             @* [[[[[ Contact Related ]]]]] *@
             <div class="col-md-6 no-margin">
                 <div class="col-title"><span>Contact Information</span></div>
@@ -35,53 +35,53 @@
                             <div class="form-group">
                                 <label>Company</label>
                                 <div class="controls">
-                                    <input id="contact_Company" type="text" data-bind="kendoDropDownList: { dataTextField: 'name', dataValueField: 'id', data: $root.companies, value: COMPANYID }" />
+                                    <input id="contact_Company" type="text" data-bind="kendoDropDownList: { dataTextField: 'name', dataValueField: 'id', data: companies, value:contact.COMPANYID }" />
                                 </div>
 
-                                <label>Last Name&nbsp;<span class="label label-danger" data-bind='visible: LASTNAME.hasError, text: LASTNAME.validationMessage'></span>
+                                <label>Last Name&nbsp;<span class="label label-danger" data-bind='visible: contact.LASTNAME.hasError, text: contact.LASTNAME.validationMessage'></span>
                                 </label>
                                 <div class="controls">
-                                    <input id="contact_LastName" class="form-control" maxlength="50" type="text" data-bind="value: LASTNAME">
+                                    <input id="contact_LastName" class="form-control" maxlength="50" type="text" data-bind="value:contact.LASTNAME">
                                 </div>
-                                <label>First Name&nbsp;<span class="label label-danger" data-bind='visible: FIRSTNAME.hasError, text: FIRSTNAME.validationMessage'></span></label>
+                                <label>First Name&nbsp;<span class="label label-danger" data-bind='visible: contact.FIRSTNAME.hasError, text: contact.FIRSTNAME.validationMessage'></span></label>
                                 <div class="controls">
-                                    <input id="contact_FirstName" class="form-control" maxlength="50" type="text" data-bind="value: FIRSTNAME">
+                                    <input id="contact_FirstName" class="form-control" maxlength="50" type="text" data-bind="value:contact.FIRSTNAME">
                                 </div>
                                 <label>Title</label>
                                 <div class="controls">
-                                    <input id="contact_Title" class="form-control" maxlength="50" type="text" data-bind="value: Title">
+                                    <input id="contact_Title" class="form-control" maxlength="50" type="text" data-bind="value:contact.Title">
                                 </div>
                                 <label>Contact's Department</label>
                                 <div class="controls">
-                                    <input id="contact_Department" class="form-control" maxlength="50" type="text" data-bind="value: ContactsDepartment">
+                                    <input id="contact_Department" class="form-control" maxlength="50" type="text" data-bind="value:contact.ContactsDepartment">
                                 </div>
                                 <label>Contact's Role</label>
                                 <div class="controls">
-                                    <input id="contact_Role" class="form-control" maxlength="50" type="text" data-bind="value: ContactsRole">
+                                    <input id="contact_Role" class="form-control" maxlength="50" type="text" data-bind="value:contact.ContactsRole">
                                 </div>
                                 <label>Phone</label>
                                 <div class="controls">
-                                    <input id="contact_Phone" class="form-control" maxlength="50" type="text" data-bind="value: PHONE">
+                                    <input id="contact_Phone" class="form-control" maxlength="50" type="text" data-bind="value:contact.PHONE">
                                 </div>
                                 <label>Mobile Phone</label>
                                 <div class="controls">
-                                    <input id="contact_MobilePhone" class="form-control" maxlength="50" type="text" data-bind="value: MobilePhone">
+                                    <input id="contact_MobilePhone" class="form-control" maxlength="50" type="text" data-bind="value:contact.MobilePhone">
                                 </div>
                                 <label>Home Phone</label>
                                 <div class="controls">
-                                    <input id="contact_HomePhone" class="form-control" maxlength="50" type="text" data-bind="value: HomePhone">
+                                    <input id="contact_HomePhone" class="form-control" maxlength="50" type="text" data-bind="value:contact.HomePhone">
                                 </div>
                                 <label>Fax</label>
                                 <div class="controls">
-                                    <input id="contact_Fax" class="form-control" maxlength="50" type="text" data-bind="value: Fax">
+                                    <input id="contact_Fax" class="form-control" maxlength="50" type="text" data-bind="value:contact.Fax">
                                 </div>
                                 <label>Email</label>
                                 <div class="controls">
-                                    <input id="contact_Email" class="form-control" maxlength="50" type="text" data-bind="value: EMAIL">
+                                    <input id="contact_Email" class="form-control" maxlength="50" type="text" data-bind="value:contact.EMAIL">
                                 </div>
                                 <label>Personal Email</label>
                                 <div class="controls">
-                                    <input id="contact_PersonalEmail" class="form-control" maxlength="50" type="text" data-bind="value: PersonalEmail">
+                                    <input id="contact_PersonalEmail" class="form-control" maxlength="50" type="text" data-bind="value:contact.PersonalEmail">
                                 </div>
 
                             </div>
@@ -92,23 +92,23 @@
                             <div class="form-group">
                                 <label>Contact's Address</label>
                                 <div class="controls">
-                                    <input id="contacts_Address" class="form-control" maxlength="50" type="text" data-bind="value: Address">
+                                    <input id="contacts_Address" class="form-control" maxlength="50" type="text" data-bind="value:contact.Address">
                                 </div>
                                 <label>Contact's City</label>
                                 <div class="controls">
-                                    <input id="contacts_City" class="form-control" maxlength="50" type="text" data-bind="value: City">
+                                    <input id="contacts_City" class="form-control" maxlength="50" type="text" data-bind="value:contact.City">
                                 </div>
                                 <label>Contact's State</label>
                                 <div class="controls">
-                                    <input id="contacts_State" class="form-control" maxlength="50" type="text" data-bind="value: State">
+                                    <input id="contacts_State" class="form-control" maxlength="50" type="text" data-bind="value:contact.State">
                                 </div>
                                 <label>Contact's Zip</label>
                                 <div class="controls">
-                                    <input id="contacts_Zip" class="form-control" maxlength="50" type="text" data-bind="value: Zip">
+                                    <input id="contacts_Zip" class="form-control" maxlength="50" type="text" data-bind="value:contact.Zip">
                                 </div>
                                 <label>Contact's Country</label>
                                 <div class="controls">
-                                    <input id="contacts_Country" class="form-control" maxlength="50" type="text" data-bind="value: Country">
+                                    <input id="contacts_Country" class="form-control" maxlength="50" type="text" data-bind="value:contact.Country">
                                 </div>
                             </div>
                         </form>
@@ -129,68 +129,68 @@
                             <div class="form-group">
                                 <label>New Appointment?</label>
                                 <div class="controls">
-                                    <input id="contact_IsNewAppointment" type="text" data-bind="kendoDropDownList: { dataTextField: 'Description', dataValueField: 'Value', data: $root.yesNoData, value: IsNewAppointment }" />
+                                    <select data-bind="options: yesNoData, optionsText: 'Description', optionsValue: 'Value', value: contact.IsNewAppointment"></select>
                                 </div>
 
                                 <label>Appointment Source</label>
                                 <div class="controls">
-                                    <input id="contact_ApptSourceId" type="text" data-bind="kendoDropDownList: { dataTextField: 'ApptSourceName', dataValueField: 'ApptSourceId', data: $root.appointmentsource, value: ApptSourceId }" />
+                                    <select data-bind="options: appointmentsource, optionsText: 'ApptSourceName', optionsValue: 'ApptSourceId', value: contact.ApptSourceId"></select>
                                 </div>
                                 <label>Registered for Trng?</label>
                                 <div class="controls">
-                                    <input id="IsRegisteredForTraining" type="text" data-bind="kendoDropDownList: { dataTextField: 'Description', dataValueField: 'Value', data: $root.yesNoData, value: IsRegisteredForTraining }" />
+                                    <select data-bind="options: yesNoData, optionsText: 'Description', optionsValue: 'Value', value: contact.IsRegisteredForTraining"></select>
                                 </div>
                                 <label>Course Type</label>
                                 <div class="controls">
-                                    <input id="contact_CourseId" type="text" data-bind="kendoDropDownList: { dataTextField: 'CourseName', dataValueField: 'CourseId', data: $root.courses, value: CourseId }" />
+                                    <select data-bind="options: courses, optionsText: 'CourseName', optionsValue: 'CourseId', value: contact.CourseId"></select>
                                 </div>
                                 <label>Course Training Date</label>
                                 <div class="controls">
-                                    <input id="contact_TrainingDate" style="max-width: 150px;" maxlength="10" type="text" class="form-control" data-bind="kendoDatePicker: CourseTrainingDate" />
+                                    <input id="contact_TrainingDate" style="max-width: 150px;" maxlength="10" type="text" class="form-control" data-bind="kendoDatePicker: contact.CourseTrainingDate" />
                                 </div>
                                 <label>Training Course Name</label>
                                 <div class="controls">
-                                    <input id="contact_TrainingCourseName" maxlength="50" type="text" class="form-control" data-bind="value: TrainingCourseName" />
+                                    <input id="contact_TrainingCourseName" maxlength="50" type="text" class="form-control" data-bind="value:contact.TrainingCourseName" />
                                 </div>
                                 <label>Home Many Attended?</label>
                                 <div class="controls">
-                                    <input id="contact_HowManyAttended" maxlength="50" type="text" class="form-control" data-bind="value: HowManyAttended" />
+                                    <input id="contact_HowManyAttended" maxlength="50" type="text" class="form-control" data-bind="value:contact.HowManyAttended" />
                                 </div>
                                 <label>Company Name Where Training Conducted</label>
                                 <div class="controls">
-                                    <input id="contact_CompanyNameWhereTrainingConducted" maxlength="50" type="text" class="form-control" data-bind="value: CompanyNameWhereTrainingConducted" />
+                                    <input id="contact_CompanyNameWhereTrainingConducted" maxlength="50" type="text" class="form-control" data-bind="value:contact.CompanyNameWhereTrainingConducted" />
                                 </div>
                                 <label>Discussion Topic</label>
                                 <div class="controls">
-                                    <input id="contact_DiscussionTopic" maxlength="50" type="text" class="form-control" data-bind="value: DiscussionTopic" />
+                                    <input id="contact_DiscussionTopic" maxlength="50" type="text" class="form-control" data-bind="value:contact.DiscussionTopic" />
                                 </div>
                                 <label>Action Step</label>
                                 <div class="controls">
-                                    <input id="contact_ACTIONSTEP" maxlength="50" type="text" class="form-control" data-bind="value: ACTIONSTEP" />
+                                    <input id="contact_ACTIONSTEP" maxlength="50" type="text" class="form-control" data-bind="value:contact.ACTIONSTEP" />
                                 </div>
                                 <label>Date Last Attempted</label>
                                 <div class="controls">
-                                    <input id="contact_LastAttemptedDate" style="max-width: 150px;" maxlength="10" type="text" class="form-control" data-bind="kendoDatePicker: LastAttemptedDate" />
+                                    <input id="contact_LastAttemptedDate" style="max-width: 150px;" maxlength="10" type="text" class="form-control" data-bind="kendoDatePicker: contact.LastAttemptedDate" />
                                 </div>
                                 <label>Last Contact Date</label>
                                 <div class="controls">
-                                    <input id="contact_lastContactDate" style="max-width: 150px;" maxlength="10" type="text" class="form-control" data-bind="kendoDatePicker: LAST_CONTACT_DATE" />
+                                    <input id="contact_lastContactDate" style="max-width: 150px;" maxlength="10" type="text" class="form-control" data-bind="kendoDatePicker: contact.LAST_CONTACT_DATE" />
                                 </div>
                                 <label>Date Last Emailed</label>
                                 <div class="controls">
-                                    <input id="contact_DateLastEmailed" style="max-width: 150px;" maxlength="10" type="text" class="form-control" data-bind="kendoDatePicker: LastEmailedDate" />
+                                    <input id="contact_DateLastEmailed" style="max-width: 150px;" maxlength="10" type="text" class="form-control" data-bind="kendoDatePicker: contact.LastEmailedDate" />
                                 </div>
                                 <label>Date of Last Meeting</label>
                                 <div class="controls">
-                                    <input id="contact_LastMeetingDate" style="max-width: 150px;" maxlength="10" type="text" class="form-control" data-bind="kendoDatePicker: LastMeetingDate" />
+                                    <input id="contact_LastMeetingDate" style="max-width: 150px;" maxlength="10" type="text" class="form-control" data-bind="kendoDatePicker: contact.LastMeetingDate" />
                                 </div>
                                 <label>Date Letter Sent</label>
                                 <div class="controls">
-                                    <input id="contact_LetterSentDate" style="max-width: 150px;" maxlength="10" type="text" class="form-control" data-bind="kendoDatePicker: LetterSentDate" />
+                                    <input id="contact_LetterSentDate" style="max-width: 150px;" maxlength="10" type="text" class="form-control" data-bind="kendoDatePicker: contact.LetterSentDate" />
                                 </div>
                                 <label>Next Contact Date</label>
                                 <div class="controls">
-                                    <input id="contact_nextContactDate" style="max-width: 150px;" maxlength="10" type="text" class="form-control" data-bind="kendoDatePicker: NEXT_CONTACT_DATE" />
+                                    <input id="contact_nextContactDate" style="max-width: 150px;" maxlength="10" type="text" class="form-control" data-bind="kendoDatePicker: contact.NEXT_CONTACT_DATE" />
                                 </div>
 
                             </div>
@@ -202,39 +202,39 @@
                             <div class="form-group">
                                 <label>Email Subscription?</label>
                                 <div class="controls">
-                                    <input id="IsEmailSubscription" type="text" data-bind="kendoDropDownList: { dataTextField: 'Description', dataValueField: 'Value', data: $root.yesNoData, value: IsEmailSubscription }" />
+                                    <select data-bind="options: yesNoData, optionsText: 'Description', optionsValue: 'Value', value: contact.IsEmailSubscription"></select>
                                 </div>
                                 <label>Need to Call Back?</label>
                                 <div class="controls">
-                                    <input id="IsNeedCallBack" type="text" data-bind="kendoDropDownList: { dataTextField: 'Description', dataValueField: 'Value', data: $root.yesNoData, value: IsNeedCallBack }" />
+                                    <select data-bind="options: yesNoData, optionsText: 'Description', optionsValue: 'Value', value: contact.IsNeedCallBack"></select>
                                 </div>
                                 <label>BirthDay</label>
                                 <div class="controls">
-                                    <input id="contact_Birthday" maxlength="50" type="text" class="form-control" data-bind="value: Birthday" />
+                                    <input id="contact_Birthday" style="max-width: 150px;" maxlength="10" type="text" class="form-control" data-bind="kendoDatePicker: contact.Birthday" />
                                 </div>
                                 <label>Spouse's Name</label>
                                 <div class="controls">
-                                    <input id="contact_SpouseName" maxlength="50" type="text" class="form-control" data-bind="value: SpouseName" />
+                                    <input id="contact_SpouseName" maxlength="50" type="text" class="form-control" data-bind="value:contact.SpouseName" />
                                 </div>
                                 <label>Anniversary</label>
                                 <div class="controls">
-                                    <input id="contact_Anniversary" maxlength="50" type="text" class="form-control" data-bind="value: Anniversary" />
+                                    <input id="contact_Anniversary" style="max-width: 150px;" maxlength="10" type="text" class="form-control" data-bind="kendoDatePicker: contact.Anniversary" />
                                 </div>
                                 <label>Company Years</label>
                                 <div class="controls">
-                                    <input id="contact_CompanyYears" maxlength="50" type="text" class="form-control" data-bind="value: CompanyYears" />
+                                    <input id="contact_CompanyYears" maxlength="50" type="text" class="form-control" data-bind="value:contact.CompanyYears" />
                                 </div>
                                 <label>Boss Name</label>
                                 <div class="controls">
-                                    <input id="contact_BossName" maxlength="50" type="text" class="form-control" data-bind="value: BossName" />
+                                    <input id="contact_BossName" maxlength="50" type="text" class="form-control" data-bind="value:contact.BossName" />
                                 </div>
                                 <label>Referred By</label>
                                 <div class="controls">
-                                    <input id="contact_ReferredBy" maxlength="50" type="text" class="form-control" data-bind="value: ReferredBy" />
+                                    <input id="contact_ReferredBy" maxlength="50" type="text" class="form-control" data-bind="value:contact.ReferredBy" />
                                 </div>
                                 <label>Contact's Notes</label>
                                 <div class="controls">
-                                    <input id="contact_Notes" maxlength="50" type="text" class="form-control" data-bind="value: Notes" />
+                                    <input id="contact_Notes" maxlength="50" type="text" class="form-control" data-bind="value:contact.Notes" />
                                 </div>
 
                             </div>
@@ -322,7 +322,6 @@
         self.contact.FIRSTNAME.extend({ required: "" });
         
         self.yesNoData = startModule.getYesNoOptions();
-        
 
         self.appointmentsource = startModule.getAppointmentSources();
         self.courses = startModule.getCourses();
@@ -332,7 +331,9 @@
         self.LastEmailedDate = ko.observable((kendo.parseDate(self.contact.LastEmailedDate())));
         self.LastMeetingDate = ko.observable((kendo.parseDate(self.contact.LastMeetingDate())));
         self.LetterSentDate = ko.observable((kendo.parseDate(self.contact.LetterSentDate())));
-        self.NEXTCONTACT_DATE = ko.observable((kendo.parseDate(self.contact.NEXT_CONTACT_DATE())));
+        self.NEXT_CONTACT_DATE = ko.observable((kendo.parseDate(self.contact.NEXT_CONTACT_DATE())));
+        self.Birthday = ko.observable((kendo.parseDate(self.contact.Birthday())));
+        self.Anniversary = ko.observable((kendo.parseDate(self.contact.Anniversary())));
 
         self.dirtyFlag = new ko.dirtyFlag_contact(self);
         self.isDirty = ko.computed(function () {
@@ -350,8 +351,8 @@
                 $('#contact_FirstName').focus();
                 return;
             }
-            console.log('ko.toJSON(self.contact)');
-            console.log(ko.toJSON(self.contact));
+            //console.log('ko.toJSON(self.contact)');
+            //console.log(ko.toJSON(self.contact));
             $.ajax({
                 url: 'api/ContactSave',
                 type: "POST",

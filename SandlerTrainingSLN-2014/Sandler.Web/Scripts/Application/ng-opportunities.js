@@ -35,8 +35,6 @@ function ng_opportunitiesCtrl($scope, $http) {
             return kendoDropDownData;
         }
 
-        //To do
-        //Remove sorting for TotalCompanyValue
         function get_kendoGridData(searchText) {
             var dataSource = get_gridDataSource(searchText)
             var kendoGridData = {
@@ -108,14 +106,13 @@ function ng_opportunitiesCtrl($scope, $http) {
 
         function companyOnChange() {
             var companySelectedId = $("#companiesSelection").val();
-            console.log('selected company' + companySelectedId);
+            //console.log('selected company' + companySelectedId);
             if (companySelectedId) {
                 opportunitiesSearchgrid.data("kendoGrid").dataSource.filter({ field: "COMPANIESID", operator: "eq", value: parseInt(companySelectedId) });
             } else {
                 opportunitiesSearchgrid.data("kendoGrid").dataSource.filter({});
             }
-        };
-        
+        };        
         
     });
 

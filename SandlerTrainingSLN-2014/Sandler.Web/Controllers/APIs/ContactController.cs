@@ -35,19 +35,21 @@ namespace Sandler.Web.Controllers.API
         //http://localhost:5580/api/ContactView?companyId=0&page=1&pageSize=100
         [System.Web.Http.HttpGet]
         [Route("api/ContactView/")]
-        public HttpResponseMessage GetContacts(int? page, int? pageSize, int companyId)
+        public HttpResponseMessage GetContacts(int? page, int? pageSize)
         {
             List<ContactView> contacts = null;
             //sort%5B0%5D%5Bfield%5D=COMPANYNAME&sort%5B0%5D%5Bdir%5D=asc
             string sortField = HttpContext.Current.Request.QueryString["sort[0][field]"];
             string sortDir = HttpContext.Current.Request.QueryString["sort[0][dir]"];
-
+            bool filterByCompany = !string.IsNullOrEmpty(HttpContext.Current.Request.QueryString["filter[filters][0][field]"]);            
             string orderBy = "LastName ASC";
+            int? companyId = null;
             if (!string.IsNullOrEmpty(sortField))
                 orderBy = sortField;
             if (!string.IsNullOrEmpty(sortField) && !string.IsNullOrEmpty(sortDir))
                 orderBy = orderBy + " " + sortDir;
-
+            if (filterByCompany)
+                companyId = int.Parse(HttpContext.Current.Request.QueryString["filter[filters][0][value]"]);
 
             if (companyId>0)
             {

@@ -1,6 +1,6 @@
 ﻿function showDetails(e) {
     e.preventDefault();
-    var dataItem = $("#ContactsSearchgrid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
+    var dataItem = $("#contactsSearchgrid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
     // console.log(dataItem);
     var path = "navi?url=/CRM/Contacts/Manage?id=" + dataItem.ContactsId;
     showModal_.html(path, null, '70%');
@@ -12,13 +12,25 @@ function ng_contactsCtrl($scope, $http) {
         showNoti_.progress(NOTIFICMSG.PROCESSING, false);
 
         var kendoGridData = get_kendoGridData("");
-        $("#ContactsSearchgrid").kendoGrid(kendoGridData);
+        var contactsSearchgrid = $("#contactsSearchgrid").kendoGrid(kendoGridData);
+
+        $('#companiesSelection').kendoDropDownList(get_kendoCompaniesData());
         showNoti_.hide();
 
+        function get_kendoCompaniesData() {
+            var startModule = sandler.appStart.module;
+            var data = startModule.getUserCompanies();
+            var kendoDropDownData = {
+                dataTextField: "name",
+                dataValueField: "id",
+                optionLabel: "All",
+                dataSource: data,
+                index: 0,
+                change: companyOnChange
+            };
+            return kendoDropDownData;
+        }
 
-        //To do
-        //Remove sorting for TotalCompanyValue
-        //Set sorting for Representative 
         function get_kendoGridData(searchText) {
             var dataSource = get_gridDataSource(searchText)
             var kendoGridData = {
@@ -84,14 +96,15 @@ function ng_contactsCtrl($scope, $http) {
             return dataSource;
         }
 
-        function showDetails(e) {
-            e.preventDefault();
-            //var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
-            var dataItem = $("#ContactsSearchgrid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
-            console.log(dataItem);
-            //var path = "navi?url=/crm/Event/ManageEvent?eventId=" + dataItem.SPCEVNTID + "%26passThruParam=0"; @* Edit Window *@
-            //showModal_.html(path, null, '95%');
-        }
+        function companyOnChange() {
+            var companySelectedId = $("#companiesSelection").val();
+            //console.log('selected company' + companySelectedId);
+            if (companySelectedId) {
+                contactsSearchgrid.data("kendoGrid").dataSource.filter({ field: "COMPANIESID", operator: "eq", value: parseInt(companySelectedId) });
+            } else {
+                contactsSearchgrid.data("kendoGrid").dataSource.filter({});
+            }
+        };
     });
 
 };
