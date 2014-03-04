@@ -44,7 +44,7 @@ namespace Sandler.Web.Areas.CRM.Controllers
             return PartialView("Manage", PipelineViewModel);
         }
 
-        public ActionResult ExportCompany()
+        public ActionResult ExportPipeline()
         {
 
             string sToday = String.Format("{0:yyyyMMMdd__hh_mm_ss tt}", DateTime.Now);

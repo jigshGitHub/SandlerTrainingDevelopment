@@ -9,7 +9,9 @@ GO
 
 SET QUOTED_IDENTIFIER ON
 GO
---exec [sp_ContactView] @orderBy='LASTNAME ASC', @pageSize=0,@pageNo=0,@userId = '98428801-3032-4ef3-8ff4-4588f7876ece'
+--exec [sp_ContactView] @orderBy='' ,@pageSize=LastName ASC, @pageSize=50, @pageNo=1,@franchiseeId=8
+--exec [sp_ContactView] @orderBy='LastName ASC' ,@pageSize=50,@pageNo=1,@franchiseeId=8, @searchText=Janice
+--exec [sp_ContactView] @orderBy='NAME ASC' ,@pageSize=0,@pageNo=0
 Create Procedure [dbo].[sp_ContactView](
 	@orderBy VARCHAR(MAX),  -- Required 
 	@pageSize INT,    
@@ -18,7 +20,8 @@ Create Procedure [dbo].[sp_ContactView](
 	@franchiseeId INT=null,
 	@companyId INT=null,
 	@userId VARCHAR(500)=null,
-	@selectForExcel bit = 0
+	@selectForExcel bit = 0,	
+	@searchText VARCHAR(MAX)=null
 	)
 As
 BEGIN
@@ -83,13 +86,14 @@ BEGIN
 		ct.SpouseName, 
 		ct.TrainingCourseName, 
 		ct.HowManyAttended,
-		ct.CompanyNameWhereTrainingConducted  ';
+		ct.CompanyNameWhereTrainingConducted,
+		uCreated.UserName as CreatedByUser  ';
 	END
 	SET @SQL = @SQL + ' 			
  	from tbl_contacts ct 
 	left join tbl_companies cp on ct.companyid = cp.COMPANIESID
 	left join Tbl_AppointmentsSource apts on apts.ApptSourceId = ct.ApptSourceId
-	left join   Tbl_Course cs on cs.CourseId = ct.CourseId
+	left join Tbl_Course cs on cs.CourseId = ct.CourseId
 	left join Tbl_YesNoOptions ysn on ysn.Value = ct.IsNewAppointment 
 	left join Tbl_YesNoOptions ysr on ysr.Value = ct.IsRegisteredForTraining
 	left join Tbl_YesNoOptions ysre on ysre.Value = ct.IsEmailSubscription 
@@ -97,6 +101,7 @@ BEGIN
 	left join TBL_FRANCHISEE f on f.ID = cp.FranchiseeId
     left join TBL_COACH ch on ch.ID = f.CoachID
     left join TBL_REGION rg on ch.RegionID = rg.ID 
+    left outer join dbo.aspnet_Users AS uCreated WITH (NOLOCK) ON CAST(uCreated.UserId AS VARCHAR(200)) = ct.CreatedBy
     where ct.IsActive = 1  ';
 
 	If @coachId IS NOT NULL
@@ -118,7 +123,12 @@ BEGIN
 	BEGIN
 		SET @SQL = @SQL + ' AND ct.CreatedBy = ''' + @userId + '''';
 	END	 
-	  
+	If @searchText is not null and @searchText != ''
+	BEGIN
+	   SET @SQL = @SQL + ' AND (Upper(CT.LASTNAME) like ''' + '%' + Upper(@searchText)  + '%' + '''' 	
+	   SET @SQL = @SQL + ' OR Upper(CT.FIRSTNAME) like ''' + '%' + Upper(@searchText)  + '%' + '''' 
+	   SET @SQL = @SQL + ')'
+	END	
 	If @pageNo > 0 AND @pageSize > 0
 	BEGIN	   
 		SET @pageNo = @pageNo - 1    
@@ -189,7 +199,8 @@ BEGIN
 		SpouseName, 
 		TrainingCourseName, 
 		HowManyAttended,
-		CompanyNameWhereTrainingConducted  ';
+		CompanyNameWhereTrainingConducted,
+		CreatedByUser  ';
 	END
 	SET @Q = @Q + '	 FROM CTE_pageResult';
 	IF @pageTop > 0 

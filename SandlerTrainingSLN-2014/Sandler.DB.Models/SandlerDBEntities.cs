@@ -52,7 +52,7 @@ namespace Sandler.DB.Models
             return q.ToList();
         }
 
-        public List<ContactView> GetContactView(string orderBy, int? pageSize, int? pageNo, int? coachId, int? franchiseeId, int? companyId, string userId, bool selectForExcel)
+        public List<ContactView> GetContactView(string orderBy, int? pageSize, int? pageNo, int? coachId, int? franchiseeId, int? companyId, string userId, string searchText, bool selectForExcel)
         {
             string whereClause = "";
             if (coachId.HasValue)
@@ -63,6 +63,8 @@ namespace Sandler.DB.Models
                 whereClause = whereClause + ",@companyId=" + companyId.Value;
             if (!string.IsNullOrEmpty(userId))
                 whereClause = whereClause + ",@userId=" + userId;
+            if (!string.IsNullOrEmpty(searchText))
+                whereClause = whereClause + ", @searchText=" + searchText;
             if (selectForExcel)
                 whereClause = whereClause + ",@selectForExcel=" + selectForExcel;
 

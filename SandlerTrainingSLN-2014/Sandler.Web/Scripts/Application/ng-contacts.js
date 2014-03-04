@@ -5,6 +5,12 @@
     var path = "navi?url=/CRM/Contacts/Manage?id=" + dataItem.ContactsId;
     showModal_.html(path, null, '70%');
 }
+function triggerSearch(e) {
+    var unicode = e.keyCode ? e.keyCode : e.charCode;
+    if (unicode == 13) {
+        $("#btnSearch").click();
+    }
+}
 
 function ng_contactsCtrl($scope, $http) {
     angular.element(document).ready(function () {
@@ -16,6 +22,15 @@ function ng_contactsCtrl($scope, $http) {
 
         $('#companiesSelection').kendoDropDownList(get_kendoCompaniesData());
         showNoti_.hide();
+
+        //When Search Button is clicked 
+        $("#btnSearch").click(function () {
+            var searchText = $("#searchBox").attr('value');
+            var grid = $("#contactsSearchgrid").data("kendoGrid");
+            var dataSource = get_gridDataSource(searchText);
+            grid.dataSource.transport.options.read.data = { searchText: searchText, selectForExcel: false };
+            grid.dataSource.page(1);
+        });
 
         function get_kendoCompaniesData() {
             var startModule = sandler.appStart.module;
@@ -71,7 +86,7 @@ function ng_contactsCtrl($scope, $http) {
                     read: {
                         url: "api/ContactView/",
                         dataType: "json",
-                        data: { companyId: '0',selectForExcel:true },
+                        data: { companyId: '0', searchText: searchText, selectForExcel: false },
                         cache: false //This is required othewise grid does not refresh after Edit operation in IE
                     }
                 },
