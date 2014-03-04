@@ -31,6 +31,27 @@ namespace Sandler.DB.Models
             return q.ToList();
         }
 
+        public List<CompanyView> GetArchiveCompanyView(string searchText, string orderBy, int? pageSize, int? pageNo, int? coachId, int? franchiseeId, bool selectForExcel)
+        {
+            if (string.IsNullOrEmpty(searchText))
+                searchText = "";
+
+            string whereClause = "";
+            if (coachId.HasValue)
+                whereClause = whereClause + ",@coachId=" + coachId.Value;
+            if (franchiseeId.HasValue)
+                whereClause = whereClause + ",@franchiseeId=" + franchiseeId.Value;
+            if (selectForExcel)
+                whereClause = whereClause + ",@selectForExcel=1";
+
+            string query = string.Format("exec [sp_ArchiveCompanyView] @orderBy='{0}' ,@pageSize={1},@pageNo={2}{3},@searchText='{4}'"
+                , orderBy, pageSize, pageNo, whereClause, searchText);
+
+            var q = Database.SqlQuery<CompanyView>(query);
+
+            return q.ToList();
+        }
+
         public List<ContactView> GetContactView(string orderBy, int? pageSize, int? pageNo, int? coachId, int? franchiseeId, int? companyId, string userId, bool selectForExcel)
         {
             string whereClause = "";

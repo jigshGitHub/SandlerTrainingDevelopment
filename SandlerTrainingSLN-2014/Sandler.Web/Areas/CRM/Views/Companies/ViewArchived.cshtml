@@ -1,0 +1,196 @@
+﻿@{
+    Layout = "";
+ }
+<style type="text/css">
+    .k-grid999 tbody .k-button {
+        min-width: 12px;
+        width: 50px;
+        height: 25px;
+        vertical-align: middle;
+    }
+        
+</style>
+
+<div id="ArchivedCompanyMain" class="container">
+    @*Search button*@
+    <div class="row">
+        <div class='page-title'>Archived Companies</div>
+    </div>
+    
+    <br />
+
+    <div class="row" style="margin-top:10px">
+        <div class="col-md-6 input-group">
+            <input class="form-control" id="ArcsearchBox" size="100" type="text" placeholder="Company Name or City or Sandler Rep Last/First Name" onkeyup="triggerSearchArc(event);">
+            <span class="input-group-btn"> 
+                  <button id="btnArchiveSearch" class="btn btn-primary" type="button"><span class="glyphicon glyphicon-search" title="Quick Search" data-toggle="tooltip"></span></button>
+            </span>
+        </div>
+         @*For Export To Excel*@
+        <div class="pull-right">
+            <a title="Download a List in Excel" class="btn btn-default btn-xs fileinput-button" href="@Url.Action("ExportArchivedCompany","Companies")"><span class="glyphicon glyphicon-cloud-download"></span> Download</a>
+        </div>
+    </div>
+    
+    <div class="row" style="margin-top: 10px">
+        <div id="searchGrid" class="k-content">
+            <div id="ArchCompaniesSearchgrid"></div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+
+    function UnarchiveCompany(e) {
+        e.preventDefault();
+        var dataItem = $("#ArchCompaniesSearchgrid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
+        //Let us block the Div while we wait for User response
+        $('#ArchivedCompanyMain').block({ message: null });
+        showNoti_.confirm("Are you sure to UnArchive this Company - " + dataItem.COMPANYNAME + "?",
+              function () {
+                  showNoti_.progress(NOTIFICMSG.ARCHIVING, false);
+                  //Proceed with the Archive 
+                  $.ajax({
+                      url: "api/Company/UnArchive",
+                      type: 'POST',
+                      data: ko.toJSON(dataItem),
+                      contentType: 'application/json',
+                      success: function (result) {
+                          if (!result.success) {
+                              showNoti_.error(result.message, true);
+                              $("#ArchivedCompanyMain").unblock();
+                          }
+                          else {
+                              showNoti_.hide();
+                              //refresh the Archived company List
+                              RefreshGridArc();
+                              //also refresh the Index page
+                              RefreshGrid();
+                              $("#ArchivedCompanyMain").unblock();
+                          }
+                      },
+                      error: function (xhr, ajaxOptions, thrownError) {
+                          showNoti_.error("There is some issue in Archiving the Company. Please try again later.", true);
+                          $("#ArchivedCompanyMain").unblock();
+                      }
+                  });
+              },
+              function () {
+                  //user said no
+                  showNoti_.hide();
+                  $("#ArchivedCompanyMain").unblock();
+              });//confirm ends here
+
+    }
+
+    function RefreshGridArc() {
+        $("#btnArchiveSearch").click();
+    }//end refresh grid function
+
+
+    function triggerSearchArc(e) {
+        var unicode = e.keyCode ? e.keyCode : e.charCode;
+        if (unicode == 13) {
+            $("#btnArchiveSearch").click();
+        }
+    }
+
+    //To do
+    //Remove sorting for TotalCompanyValue
+    function get_kendoGridDataArc(searchText, selectForExcel) {
+        var dataSource = get_gridDataSourceArc(searchText, selectForExcel)
+        var kendoGridData = {
+            dataSource: dataSource,
+            height: 480,
+            filterable: false,
+            sortable: true,
+            pageable: {
+                refresh: true,
+                pageSizes: true
+            },
+            resizable: true,
+            columnMenu: true,
+            scrollable: true,
+            navigatable: true,
+            selectable: true,
+            columns: [
+                {
+                    command: [
+                            { template: "&nbsp;<button title='UnArchive Company' class='btn btn-danger btn-sm deletesa' onclick='UnarchiveCompany(event)'><span class='glyphicon glyphicon-ok'></span></button>" }
+                    ],
+                    title: " ", width: "20px"
+                },
+                { field: "COMPANYNAME", title: "Company Name", width: 80 },
+                { field: "IndustryTypeName", title: "Industry", width: 80 },
+                { field: "ProductTypeName", title: "Product", width: 60 },
+                { field: "Representative", title: "Sandler Rep Name", width: 60 },
+                { field: "TotalCompanyValue", title: "Total Company Value", width: 80, format: "{0:c2}" }
+
+            ]
+        }
+        return kendoGridData;
+    }
+
+    function get_gridDataSourceArc(searchText, selectForExcel) {
+        var dataSource = {
+            type: "json",
+            transport: {
+                read: {
+                    url: "api/ArchiveCompanyView/",
+                    dataType: "json",
+                    data: { searchText: searchText, selectForExcel: false },
+                    cache: false //This is required othewise grid does not refresh after Edit operation in IE
+                }
+            },
+            schema: {
+                data: "results",
+                total: "__count",
+                model: {
+                    fields: {
+                        COMPANYNAME: { type: 'string' },
+                        IndustryTypeName: { type: 'string' },
+                        ProductTypeName: { type: 'string' },
+                        Representative: { type: 'string' },
+                        TotalCompanyValue: { type: 'number' }
+                    }
+                }
+            },
+            pageSize: 50,
+            serverPaging: true,
+            serverFiltering: true,
+            serverSorting: true
+        };
+        return dataSource;
+    }
+
+</script>
+
+@*Document Ready *@
+<script>
+    $(document).ready(function () {
+        @*When Page Loads*@
+
+        //showNoti_.progress(NOTIFICMSG.PROCESSING, false);
+
+        var kendoGridData = get_kendoGridDataArc("", false);
+        $("#ArchCompaniesSearchgrid").kendoGrid(kendoGridData);
+        showNoti_.hide();
+
+        //When Search Button is clicked 
+        $("#btnArchiveSearch").click(function () {
+            var searchText = $("#ArcsearchBox").attr('value');
+            var grid = $("#ArchCompaniesSearchgrid").data("kendoGrid");
+            var dataSource = get_gridDataSourceArc(searchText, false);
+            grid.dataSource.transport.options.read.data = { searchText: searchText, selectForExcel: false };
+            grid.dataSource.page(1);
+        });
+
+        /* Tooltip */
+        $('[data-toggle=tooltip]').tooltip({ placement: 'bottom' });
+
+        //Hide any Pines Notify 
+        //showNoti_.hide();
+
+    });
+</script>

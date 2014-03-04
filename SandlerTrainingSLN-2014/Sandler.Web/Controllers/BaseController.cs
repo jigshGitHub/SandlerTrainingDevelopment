@@ -52,11 +52,11 @@ namespace Sandler.Web.Controllers
 
             List<MenuItem> items = new List<MenuItem>();
 
-            items.Add(new MenuItem { Id = "Search", Text = "Search", Link = "~/CRM/Companies/Search.aspx", IsVisible = true });
+            //items.Add(new MenuItem { Id = "Search", Text = "Search", Link = "~/CRM/Companies/Search.aspx", IsVisible = true });
             items.Add(new MenuItem { Id = "Upload", Text = "Upload Company Data", Link = "~/CRM/Companies/Upload.aspx", IsVisible = !IsUserReadOnly(SandlerUserActions.Add, SandlerEntities.Company) });
             items.Add(new MenuItem { Id = "AddProduct", Text = "Add New Product", Link = "~/CRM/Products/Add.aspx", IsVisible = !IsUserReadOnly(SandlerUserActions.Add, SandlerEntities.Company) });
             items.Add(new MenuItem { Id = "AddCompany", Text = "Add New Company", Link = "navi?url=/CRM/Companies/Edit?id=0", IsVisible = !IsUserReadOnly(SandlerUserActions.Add, SandlerEntities.Company) });
-            items.Add(new MenuItem { Id = "ViewArchived", Text = "View Archived Records", Link = "~/CRM/Companies/Archived.aspx", IsVisible = true });
+            items.Add(new MenuItem { Id = "ViewArchived", Text = "View Archived Records", Link = "navi?url=/CRM/Companies/ViewArchived", IsVisible = true });
 
             CRMMenu.Add(new Menu { Title = "Companies", IsVisible = true, Items = items.Where(item => item.IsVisible == true).ToList() });
 

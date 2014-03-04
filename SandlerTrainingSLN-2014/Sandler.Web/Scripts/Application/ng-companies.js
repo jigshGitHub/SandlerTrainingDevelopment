@@ -29,7 +29,7 @@ function archiveCompany(e) {
                           }
                           else {
                               showNoti_.hide();
-                              $("#btnSearch").click();
+                              RefreshGrid();
                               $("#content").unblock();
                           }
                       },
@@ -61,8 +61,8 @@ function triggerSearch(e) {
 
 //To do
 //Remove sorting for TotalCompanyValue
-function get_kendoGridData(searchText) {
-    var dataSource = get_gridDataSource(searchText)
+function get_kendoGridData(searchText, selectForExcel) {
+    var dataSource = get_gridDataSource(searchText, selectForExcel)
     var kendoGridData = {
         dataSource: dataSource,
         height: 480,
@@ -103,7 +103,7 @@ function get_gridDataSource(searchText, selectForExcel) {
             read: {
                 url: "api/CompanyView/",
                 dataType: "json",
-                data: { searchText: searchText ,selectForExcel:false},
+                data: { searchText: searchText , selectForExcel:false},
                 cache: false //This is required othewise grid does not refresh after Edit operation in IE
             }
         },
@@ -131,9 +131,9 @@ function get_gridDataSource(searchText, selectForExcel) {
 function ng_companiesCtrl($scope, $http) {
     angular.element(document).ready(function () {
 
-        showNoti_.progress(NOTIFICMSG.PROCESSING, false);
+        //showNoti_.progress(NOTIFICMSG.PROCESSING, false);
 
-        var kendoGridData = get_kendoGridData("");
+        var kendoGridData = get_kendoGridData("", false);
         $("#CompaniesSearchgrid").kendoGrid(kendoGridData);
         showNoti_.hide();
 
@@ -141,7 +141,7 @@ function ng_companiesCtrl($scope, $http) {
         $("#btnSearch").click(function () {
             var searchText = $("#searchBox").attr('value');
             var grid = $("#CompaniesSearchgrid").data("kendoGrid");
-            var dataSource = get_gridDataSource(searchText);
+            var dataSource = get_gridDataSource(searchText, false);
             grid.dataSource.transport.options.read.data = { searchText: searchText, selectForExcel: false };
             grid.dataSource.page(1);
         });

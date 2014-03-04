@@ -37,6 +37,10 @@
                   <button id="btnSearch" class="btn btn-primary" type="button"><span class="glyphicon glyphicon-search" title="Quick Search" data-toggle="tooltip"></span></button>
             </span>
         </div>
+        @*For Export To Excel*@
+        <div class="pull-right">
+            <a title="Download a List in Excel" class="btn btn-default btn-xs fileinput-button" href="@Url.Action("ExportCompany","Companies")"><span class="glyphicon glyphicon-cloud-download"></span> Download</a>
+        </div>
     </div>
     
     <div class="row" style="margin-top: 10px">

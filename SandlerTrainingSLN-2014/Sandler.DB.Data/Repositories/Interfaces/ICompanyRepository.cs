@@ -15,8 +15,10 @@ namespace Sandler.DB.Data.Repositories.Interfaces
         int GetPipelineOpportunityAnalysis(Nullable<int> month, Nullable<int> year, Nullable<System.Guid> userId, string analysisType, Nullable<bool> searchNewCompany, string companyIds);
         IEnumerable<ClientsAvgLengthWithIndustries> GetClientsAvgLengthWithIndustries(Nullable<System.Guid> userId);
         IEnumerable<CompanyView> Get(string searchText, string orderBy, int? pageSize, int? pageNo, int? coachId, int? franchiseeId, bool selectForExcel);
+        IEnumerable<CompanyView> GetArchive(string searchText, string orderBy, int? pageSize, int? pageNo, int? coachId, int? franchiseeId, bool selectForExcel);
         //For Archive Feature
         bool ArchiveCompany(int companyId, string userId);
+        bool UnArchiveCompany(int companyId, string userId);
         int AddCompany(TBL_COMPANIES _company);
         int UpdateCompany(TBL_COMPANIES _company);
 

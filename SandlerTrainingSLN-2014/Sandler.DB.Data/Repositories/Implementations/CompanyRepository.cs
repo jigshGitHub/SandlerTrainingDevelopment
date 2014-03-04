@@ -41,6 +41,11 @@ namespace Sandler.DB.Data.Repositories.Implementations
             return (DBContext.Get() as SandlerDBEntities).GetCompanyView(searchText, orderBy, pageSize, pageNo, coachId, franchiseeId,selectForExcel);
         }
 
+        public IEnumerable<CompanyView> GetArchive(string searchText, string orderBy, int? pageSize, int? pageNo, int? coachId, int? franchiseeId, bool selectForExcel)
+        {
+            return (DBContext.Get() as SandlerDBEntities).GetArchiveCompanyView(searchText, orderBy, pageSize, pageNo, coachId, franchiseeId, selectForExcel);
+        }
+
         public int AddCompany(TBL_COMPANIES _company)
         {
             Add(_company);
@@ -72,5 +77,24 @@ namespace Sandler.DB.Data.Repositories.Implementations
                 return false;
             }
         }
+
+        public bool UnArchiveCompany(int companyId, string userId)
+        {
+            string _sql = string.Format("UPDATE Tbl_Companies Set IsActive = 1, UpdatedDate = GetDate(), UpdatedBy = '{0}' where CompaniesId = {1} Select 1 as responseId", userId, companyId);
+            var _message = (DBContext.Get() as SandlerDBEntities).Database.SqlQuery<ReponseMessage>(_sql).FirstOrDefault();
+            //Now return the response
+            if (_message.responseId > 0)
+            {
+                //All Ok - Record is marked as Archived
+                return true;
+            }
+            else
+            {
+                //something went wrong
+                return false;
+            }
+        }
+
+
     }
 }
