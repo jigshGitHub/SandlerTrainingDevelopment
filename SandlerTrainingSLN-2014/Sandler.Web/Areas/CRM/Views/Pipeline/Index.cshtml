@@ -20,7 +20,6 @@
         <div class='page-title'>Opportunities</div>
     </div>
     <div class="row">
-        <div class="col-sm-4"><img src="~/Images/excel.jpg" />Export to Excel</div>
         <div class="pull-right">
             @{ var menusList = @Model.BaseModel.CRMMenu;}
             @if (menusList != null)
@@ -37,6 +36,10 @@
             <span class="input-group-btn"> 
                   <button id="btnSearch" class="btn btn-primary" type="button"><span class="glyphicon glyphicon-search" title="Quick Search" data-toggle="tooltip"></span></button>
             </span>
+        </div>
+        @*For Export To Excel*@
+        <div class="pull-right">
+            <a title="Download a List in Excel" class="btn btn-default btn-xs fileinput-button" href="@Url.Action("ExportCompany","Pipeline")"><span class="glyphicon glyphicon-cloud-download"></span> Download</a>
         </div>
     </div>
     <div class="row" style="margin-top:10px">
