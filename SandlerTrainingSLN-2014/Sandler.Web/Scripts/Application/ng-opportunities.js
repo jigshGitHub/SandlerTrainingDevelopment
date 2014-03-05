@@ -15,6 +15,40 @@ function triggerSearch(e) {
     }
 }
 
+function RefreshGrid() {
+    $("#btnSearch").click();
+}
+function archiveOpportunity(e) {
+    e.preventDefault();
+    var dataItem = $("#opportunitiesSearchgrid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
+    //Let us block the Div while we wait for User response
+    $('#content').block({ message: null });
+    showNoti_.confirm("Are you sure to Archive this opportunity - " + dataItem.NAME + "?",
+          function () {
+                  showNoti_.progress(NOTIFICMSG.ARCHIVING, false);
+                  //Proceed with the Archive 
+                  $.ajax({
+                      url: "api/PipelineArchive",
+                      type: 'GET',
+                      data: {id:dataItem.ID, isActive:false},
+                      contentType: 'application/json',
+                      success: function (response) {
+                          showNoti_.hide();
+                          RefreshGrid();
+                          $("#content").unblock();
+                      },
+                      error: function (response, errorText) {
+                          showNoti_.error('Unable to save pipeline, server error occures.', true);
+                      }
+                  });
+              },
+          function () {
+              //user said no
+              showNoti_.hide();
+              $("#content").unblock();
+          });//confirm ends here
+
+}
 function ng_opportunitiesCtrl($scope, $http) {
     angular.element(document).ready(function () {
 
@@ -68,9 +102,10 @@ function ng_opportunitiesCtrl($scope, $http) {
                 columns: [
                     {
                         command: [
-                                    { template: "<button title='View/Edit' class='btn btn-success btn-sm editsa' onclick='showDetails(event)'><span class='glyphicon glyphicon-search'></span></button>" }
+                                    { template: "<button title='View/Edit' class='btn btn-success btn-sm editsa' onclick='showDetails(event)'><span class='glyphicon glyphicon-search'></span></button>" },
+                                    { template: "&nbsp;<button title='Archive Opportunity' class='btn btn-danger btn-sm deletesa' onclick='archiveOpportunity(event)'><span class='glyphicon glyphicon-remove'></span></button>" }
                         ],
-                        title: " ", width: "20px"
+                        title: " ", width: "35px"
                     },
                     { field: "ID", title: "ID", width: "80px" },
                     { field: "NAME", title: "Name", width: "80px" },

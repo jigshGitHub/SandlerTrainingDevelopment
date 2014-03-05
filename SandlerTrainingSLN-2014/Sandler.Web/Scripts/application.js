@@ -107,7 +107,7 @@ sandler.namespace("appStart").module= (function () {
         if (contacts)
             return contacts;
         //console.log('first time getting user contacts');
-        var data = jsonDataCaller.syncCall("/api/ContactView?&page=0&pageSize=0&companyId=0&selectForExcel=false", null)
+        var data = jsonDataCaller.syncCall("/api/ContactView?&page=0&pageSize=0&companyId=0&searchText=&selectForExcel=false", null)
         contacts = new Array();
         $.each(data.results, function (i, contactRecord) {
             contacts.push(new contact(contactRecord.LastName, contactRecord.FirstName, contactRecord.FullName, contactRecord.ContactsId, contactRecord.CompanyId));

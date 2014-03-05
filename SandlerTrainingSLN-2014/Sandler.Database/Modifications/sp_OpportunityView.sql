@@ -13,7 +13,7 @@ GO
 
 /*
 exec [sp_OpportunityView]'98428801-3032-4EF3-8FF4-4588F7876ECE','ID ASc',0,0
-exec [sp_OpportunityView] '98428801-3032-4ef3-8ff4-4588f7876ece','NAME ASC',50,1,134042
+exec [sp_OpportunityView] '98428801-3032-4ef3-8ff4-4588f7876ece','NAME ASC',50,1
 */
 CREATE Procedure [dbo].[sp_OpportunityView]
 	@userId UniqueIdentifier,
@@ -88,6 +88,8 @@ Begin
 		WHERE vw.CreatedBy = ' + CAST(@userId AS VARCHAR(20));;
 		
 	END 
+	
+	SET @SQL = @SQL + ' AND vw.IsActive = 1'; 
 	
 	IF @companyID IS NOT NULL
 	BEGIN

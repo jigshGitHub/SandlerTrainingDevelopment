@@ -75,9 +75,9 @@ namespace Sandler.Web.Controllers.API
                 return new HttpResponseMessage(HttpStatusCode.InternalServerError);
             if (opportunity.ID > 0)
             {
-                uow.Repository<TBL_OPPORTUNITIES>().Update(opportunity);
                 opportunity.UpdatedBy = CurrentUser.UserId.ToString();
                 opportunity.UpdatedDate = DateTime.Now;
+                uow.Repository<TBL_OPPORTUNITIES>().Update(opportunity);
             }
             else
             {
@@ -94,6 +94,20 @@ namespace Sandler.Web.Controllers.API
         private bool VerifyRequiredFields(TBL_OPPORTUNITIES opportunity)
         {
             return (opportunity.COMPANYID > 0 && opportunity.CONTACTID > 0 && !string.IsNullOrEmpty(opportunity.NAME) && !string.IsNullOrEmpty(opportunity.SALESREPFIRSTNAME) && !string.IsNullOrEmpty(opportunity.SALESREPLASTNAME) && opportunity.ProductID > 0 && !string.IsNullOrEmpty(opportunity.VALUE.Value.ToString()) && opportunity.CLOSEDATE.HasValue && !string.IsNullOrEmpty(opportunity.Pain));
+        }
+
+        [Route("api/PipelineArchive")]
+        [HttpGet()]
+        public HttpResponseMessage Archive(int id, bool isActive)
+        {
+            TBL_OPPORTUNITIES opportunity = uow.Repository<TBL_OPPORTUNITIES>().GetById(id);
+            opportunity.IsActive = isActive;
+            opportunity.UpdatedBy = CurrentUser.UserId.ToString();
+            opportunity.UpdatedDate = DateTime.Now;
+            uow.Repository<TBL_OPPORTUNITIES>().Update(opportunity);
+            uow.Save();
+            return new HttpResponseMessage(HttpStatusCode.OK);
+   
         }
     }
 }
