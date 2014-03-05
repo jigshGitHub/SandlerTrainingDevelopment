@@ -12,5 +12,9 @@ namespace Sandler.DB.Data.Repositories.Interfaces
         IEnumerable<vw_Contacts> Get(Guid userId);
         IEnumerable<GetNewAppointmentsWithAppointmentSource> GetNewAppointmentsWithAppointmentSource(Nullable<int> month, Nullable<int> year, Nullable<System.Guid> userId);
         IEnumerable<ContactView> Get(string orderBy, int? pageSize, int? pageNo, int? coachId, int? franchiseeId, int? companyId, string userId, string searchText, bool selectForExcel);
+        //For Archive Feature
+        bool ArchiveContact(int contactId, string userId);
+        bool UnArchiveContact(int contactId, string userId);
+        IEnumerable<ContactView> GetArchiveContacts(string orderBy, int? pageSize, int? pageNo, int? coachId, int? franchiseeId, int? companyId, string userId, string searchText, bool selectForExcel);
     }
 }

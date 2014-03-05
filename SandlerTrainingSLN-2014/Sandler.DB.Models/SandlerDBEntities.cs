@@ -13,14 +13,14 @@ namespace Sandler.DB.Models
         public List<CompanyView> GetCompanyView(string searchText, string orderBy, int? pageSize, int? pageNo, int? coachId, int? franchiseeId, bool selectForExcel)
         {
             if (string.IsNullOrEmpty(searchText))
-               searchText = "";
-            
-            string whereClause="";
+                searchText = "";
+
+            string whereClause = "";
             if (coachId.HasValue)
                 whereClause = whereClause + ",@coachId=" + coachId.Value;
             if (franchiseeId.HasValue)
                 whereClause = whereClause + ",@franchiseeId=" + franchiseeId.Value;
-            if(selectForExcel)
+            if (selectForExcel)
                 whereClause = whereClause + ",@selectForExcel=1";
 
             string query = string.Format("exec [sp_CompanyView] @orderBy='{0}' ,@pageSize={1},@pageNo={2}{3},@searchText='{4}'"
@@ -75,13 +75,36 @@ namespace Sandler.DB.Models
 
             return q.ToList();
         }
+        public List<ContactView> GetArchiveContactView(string orderBy, int? pageSize, int? pageNo, int? coachId, int? franchiseeId, int? companyId, string userId, string searchText, bool selectForExcel)
+        {
+            string whereClause = "";
+            if (coachId.HasValue)
+                whereClause = whereClause + ",@coachId=" + coachId.Value;
+            if (franchiseeId.HasValue)
+                whereClause = whereClause + ",@franchiseeId=" + franchiseeId.Value;
+            if (companyId.HasValue)
+                whereClause = whereClause + ",@companyId=" + companyId.Value;
+            if (!string.IsNullOrEmpty(userId))
+                whereClause = whereClause + ",@userId=" + userId;
+            if (!string.IsNullOrEmpty(searchText))
+                whereClause = whereClause + ", @searchText=" + searchText;
+            if (selectForExcel)
+                whereClause = whereClause + ",@selectForExcel=" + selectForExcel;
 
-        public List<OpportunityView> GetOpportunityView(string orderBy, int? pageSize, int? pageNo, Guid userId, int? companyId,string searchText, bool bringArchive)
+            string query = string.Format("exec [sp_ArchiveContactView] @orderBy='{0}' ,@pageSize={1},@pageNo={2}{3}"
+                , orderBy, pageSize, pageNo, whereClause);
+
+            var q = Database.SqlQuery<ContactView>(query);
+
+            return q.ToList();
+        }
+
+        public List<OpportunityView> GetOpportunityView(string orderBy, int? pageSize, int? pageNo, Guid userId, int? companyId, string searchText, bool bringArchive)
         {
             string whereClause = "";
             if (companyId.HasValue)
                 whereClause = whereClause + ", @companyId=" + companyId.Value;
-            if(!string.IsNullOrEmpty(searchText))
+            if (!string.IsNullOrEmpty(searchText))
                 whereClause = whereClause + ", @searchText=" + searchText;
             if (bringArchive)
                 whereClause = whereClause + ", @isActive=0";

@@ -59,6 +59,17 @@ function triggerSearch(e) {
     }
 }
 
+function onDataBound(arg) {
+        
+      //Selects all Archive Buttons
+      $("#CompaniesSearchgrid tbody tr .deletesa").each(function () {
+          var currentDataItem = $("#CompaniesSearchgrid").data("kendoGrid").dataItem($(this).closest("tr"));
+            if ($("#SandlerRole").val() != "FranchiseeOwner") {
+                $(this).remove();
+            }
+        })
+    }
+
 //To do
 //Remove sorting for TotalCompanyValue
 function get_kendoGridData(searchText, selectForExcel) {
@@ -73,6 +84,7 @@ function get_kendoGridData(searchText, selectForExcel) {
             pageSizes: true
         },
         resizable: true,
+        dataBound: onDataBound,
         columnMenu: true,
         scrollable: true,
         navigatable: true,

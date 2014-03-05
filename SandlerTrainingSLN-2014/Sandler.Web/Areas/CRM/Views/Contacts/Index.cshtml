@@ -5,7 +5,10 @@
 @{
     ViewBag.Title = "Index";
 }
-
+@*Section for the Access rights *@
+ <div>
+ @Html.Hidden("SandlerRole", (string)(Model.BaseModel.CurrentUser.Role.ToString()))
+ </div>
 <style type="text/css">
     .k-grid999 tbody .k-button {
         min-width: 12px;

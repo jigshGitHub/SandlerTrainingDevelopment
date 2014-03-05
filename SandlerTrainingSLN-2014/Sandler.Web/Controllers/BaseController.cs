@@ -12,7 +12,7 @@ using Sandler.DB.Data.Repositories;
 using Sandler.Web.ViewModels;
 namespace Sandler.Web.Controllers
 {
-    public class BaseController:Controller
+    public class BaseController : Controller
     {
         protected BaseViewModel BaseVM;
         protected IUnitOfWork uow;
@@ -66,7 +66,7 @@ namespace Sandler.Web.Controllers
             items.Add(new MenuItem { Id = "Upload", Text = "Upload Contact Data", Link = "~/CRM/Contacts/Upload.aspx", IsVisible = !IsUserReadOnly(SandlerUserActions.Add, SandlerEntities.Contact) });
             items.Add(new MenuItem { Id = "AddContact", Text = "Add New Contact", Link = "navi?url=/CRM/Contacts/Manage", IsVisible = !IsUserReadOnly(SandlerUserActions.Add, SandlerEntities.Contact) });
             items.Add(new MenuItem { Id = "CallList", Text = "View Call List", Link = "~/CRM/Contacts/CallList.aspx", IsVisible = true });
-            items.Add(new MenuItem { Id = "ViewArchived", Text = "View Archived Records", Link = "~/CRM/Contacts/Archived.aspx", IsVisible = true });
+            items.Add(new MenuItem { Id = "ViewArchivedContacts", Text = "View Archived Records", Link = "navi?url=/CRM/Contacts/ViewArchivedContacts", IsVisible = true });
 
             CRMMenu.Add(new Menu { Title = "Contacts", IsVisible = true, Items = items.Where(item => item.IsVisible == true).ToList() });
 

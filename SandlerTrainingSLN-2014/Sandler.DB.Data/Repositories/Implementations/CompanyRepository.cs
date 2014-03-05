@@ -60,10 +60,10 @@ namespace Sandler.DB.Data.Repositories.Implementations
             return _company.COMPANIESID;
         }
 
-        //For Archive Company
+        //For Archive Company - Contact and Opps within Company
         public bool ArchiveCompany(int companyId, string userId)
         {
-            string _sql = string.Format("UPDATE Tbl_Companies Set IsActive = 0, UpdatedDate = GetDate(), UpdatedBy = '{0}' where CompaniesId = {1} Select 1 as responseId", userId, companyId);
+            string _sql = string.Format("UPDATE Tbl_Companies Set IsActive = 0, UpdatedDate = GetDate(), UpdatedBy = '{0}' where CompaniesId = {1} UPDATE Tbl_Contacts  Set IsActive = 0, UpdatedDate = GetDate(), UpdatedBy = '{0}' where Companyid = {1} Update TBL_OPPORTUNITIES Set IsActive = 0 , UpdatedDate = GetDate(), UpdatedBy = '{0}' where Companyid = {1} Select 1 as responseId", userId, companyId);
             var _message = (DBContext.Get() as SandlerDBEntities).Database.SqlQuery<ReponseMessage>(_sql).FirstOrDefault();
             //Now return the response
             if (_message.responseId > 0)
@@ -78,9 +78,10 @@ namespace Sandler.DB.Data.Repositories.Implementations
             }
         }
 
+        //To UnArchive Company - Contact and Opps within Comapny
         public bool UnArchiveCompany(int companyId, string userId)
         {
-            string _sql = string.Format("UPDATE Tbl_Companies Set IsActive = 1, UpdatedDate = GetDate(), UpdatedBy = '{0}' where CompaniesId = {1} Select 1 as responseId", userId, companyId);
+            string _sql = string.Format("UPDATE Tbl_Companies Set IsActive = 1, UpdatedDate = GetDate(), UpdatedBy = '{0}' where CompaniesId = {1} UPDATE Tbl_Contacts  Set IsActive = 1, UpdatedDate = GetDate(), UpdatedBy = '{0}' where Companyid = {1} Update TBL_OPPORTUNITIES Set IsActive = 1 , UpdatedDate = GetDate(), UpdatedBy = '{0}' where Companyid = {1} Select 1 as responseId", userId, companyId);
             var _message = (DBContext.Get() as SandlerDBEntities).Database.SqlQuery<ReponseMessage>(_sql).FirstOrDefault();
             //Now return the response
             if (_message.responseId > 0)

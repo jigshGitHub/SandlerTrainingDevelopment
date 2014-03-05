@@ -79,6 +79,108 @@ namespace Sandler.Web.Controllers.API
             return Request.CreateResponse(new { success = true, __count = (contacts.Count > 0) ? contacts.FirstOrDefault().TotalCount : 0, results = contacts });
         }
 
+        [System.Web.Http.HttpGet]
+        [Route("api/ArchiveContactView/")]
+        public HttpResponseMessage GetArchiveContactView(int? page, int? pageSize, string searchText, bool selectForExcel)
+        {
+            List<ContactView> contacts = null;
+            //sort%5B0%5D%5Bfield%5D=COMPANYNAME&sort%5B0%5D%5Bdir%5D=asc
+            string sortField = HttpContext.Current.Request.QueryString["sort[0][field]"];
+            string sortDir = HttpContext.Current.Request.QueryString["sort[0][dir]"];
+            bool filterByCompany = !string.IsNullOrEmpty(HttpContext.Current.Request.QueryString["filter[filters][0][field]"]);
+            string orderBy = "LastName ASC";
+            int? companyId = null;
+            if (!string.IsNullOrEmpty(sortField))
+                orderBy = sortField;
+            if (!string.IsNullOrEmpty(sortField) && !string.IsNullOrEmpty(sortDir))
+                orderBy = orderBy + " " + sortDir;
+            if (filterByCompany)
+                companyId = int.Parse(HttpContext.Current.Request.QueryString["filter[filters][0][value]"]);
+
+            if (companyId > 0)
+            {
+                if (CurrentUser.Role == SandlerRoles.FranchiseeUser)
+                    contacts = uow.ContactRepository().GetArchiveContacts(orderBy, pageSize.Value, page.Value, null, null, null, CurrentUser.UserId.ToString(), searchText, selectForExcel).ToList();
+                else
+                    contacts = uow.ContactRepository().GetArchiveContacts(orderBy, pageSize.Value, page.Value, null, null, companyId, "", searchText, selectForExcel).ToList();
+            }
+            else
+            {
+                if (CurrentUser.Role == SandlerRoles.Corporate || CurrentUser.Role == SandlerRoles.SiteAdmin || CurrentUser.Role == SandlerRoles.HomeOfficeAdmin || CurrentUser.Role == SandlerRoles.HomeOfficeUser)
+                {
+                    contacts = uow.ContactRepository().GetArchiveContacts(orderBy, pageSize.Value, page.Value, null, null, null, "", searchText, selectForExcel).ToList();
+                }
+                else if (CurrentUser.Role == SandlerRoles.Coach)
+                {
+                    contacts = uow.ContactRepository().GetArchiveContacts(orderBy, pageSize.Value, page.Value, CurrentUser.CoachID, null, null, "", searchText, selectForExcel).ToList();
+                }
+                else if (CurrentUser.Role == SandlerRoles.FranchiseeOwner || CurrentUser.Role == SandlerRoles.Client)
+                {
+                    contacts = uow.ContactRepository().GetArchiveContacts(orderBy, pageSize.Value, page.Value, null, CurrentUser.FranchiseeID, null, "", searchText, selectForExcel).ToList();
+                }
+                else
+                    contacts = uow.ContactRepository().GetArchiveContacts(orderBy, pageSize.Value, page.Value, null, null, null, CurrentUser.UserId.ToString(), searchText, selectForExcel).ToList();
+
+            }
+            return Request.CreateResponse(new { success = true, __count = (contacts.Count > 0) ? contacts.FirstOrDefault().TotalCount : 0, results = contacts });
+        }
+
+        [HttpPost]
+        [Route("api/Contact/Archive")]
+        public genericResponse ArchiveContact(TBL_CONTACTS _contact)
+        {
+            genericResponse _response;
+            try
+            {
+                if (uow.ContactRepository().ArchiveContact(_contact.CONTACTSID, CurrentUser.UserId.ToString()))
+                {
+                    _response = new genericResponse() { success = true };
+                    return _response;
+                }
+                else
+                {
+                    _response = new genericResponse() { success = false, message = "There is a problem Archiving this Contact Record. Please try again later." };
+                    return _response;
+                }
+
+            }
+            catch
+            {
+                _response = new genericResponse() { success = false, message = "There is a problem Archiving this Contact Record. Please try again later." };
+                return _response;
+            }
+
+        }
+        [HttpPost]
+        [Route("api/Contact/UnArchive")]
+        public genericResponse UnArchiveContact(TBL_CONTACTS _contact)
+        {
+            genericResponse _response;
+            try
+            {
+                if (uow.ContactRepository().UnArchiveContact(_contact.CONTACTSID, CurrentUser.UserId.ToString()))
+                {
+                    _response = new genericResponse() { success = true };
+                    return _response;
+                }
+                else
+                {
+                    _response = new genericResponse() { success = false, message = "There is a problem Unarchiving this Contact Record. Please try again later." };
+                    return _response;
+                }
+
+            }
+            catch
+            {
+                _response = new genericResponse() { success = false, message = "There is a problem Unarchiving this Contact Record. Please try again later." };
+                return _response;
+            }
+
+        }
+
+         
+
+
         [Route("api/ContactSave")]
         [HttpPost()]
         public HttpResponseMessage Save(TBL_CONTACTS contact)

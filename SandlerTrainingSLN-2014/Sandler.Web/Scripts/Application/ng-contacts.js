@@ -5,11 +5,66 @@
     var path = "navi?url=/CRM/Contacts/Manage?id=" + dataItem.ContactsId;
     showModal_.html(path, null, '70%');
 }
+
+function archiveContact(e) {
+    e.preventDefault();
+    var dataItem = $("#contactsSearchgrid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
+    //Let us block the Div while we wait for User response
+    $('#content').block({ message: null });
+    showNoti_.confirm("Are you sure to Archive this Contact - " + dataItem.FullName + "?",
+          function () {
+              showNoti_.progress(NOTIFICMSG.ARCHIVING, false);
+              //Proceed with the Archive 
+              $.ajax({
+                  url: "api/Contact/Archive",
+                  type: 'POST',
+                  data: ko.toJSON(dataItem),
+                  contentType: 'application/json',
+                  success: function (result) {
+                      if (!result.success) {
+                          showNoti_.error(result.message, true);
+                          $("#content").unblock();
+                      }
+                      else {
+                          showNoti_.hide();
+                          RefreshGrid();
+                          $("#content").unblock();
+                      }
+                  },
+                  error: function (xhr, ajaxOptions, thrownError) {
+                      showNoti_.error("There is some issue in Archiving the Contact. Please try again later.", true);
+                      $("#content").unblock();
+                  }
+              });
+          },
+          function () {
+              //user said no
+              showNoti_.hide();
+              $("#content").unblock();
+          });//confirm ends here
+
+}
+
+function RefreshGrid() {
+    $("#btnSearch").click();
+}//end refresh grid function
+
+
 function triggerSearch(e) {
     var unicode = e.keyCode ? e.keyCode : e.charCode;
     if (unicode == 13) {
         $("#btnSearch").click();
     }
+}
+function onDataBound(arg) {
+
+    //Selects all Archive Buttons
+    $("#contactsSearchgrid tbody tr .deletesa").each(function () {
+        var currentDataItem = $("#contactsSearchgrid").data("kendoGrid").dataItem($(this).closest("tr"));
+        if ($("#SandlerRole").val() != "FranchiseeOwner") {
+            $(this).remove();
+        }
+    })
 }
 
 function ng_contactsCtrl($scope, $http) {
@@ -58,6 +113,7 @@ function ng_contactsCtrl($scope, $http) {
                     pageSizes: true
                 },
                 resizable: true,
+                dataBound: onDataBound,
                 columnMenu: true,
                 scrollable: true,
                 navigatable: true,
@@ -65,9 +121,10 @@ function ng_contactsCtrl($scope, $http) {
                 columns: [
                     {
                         command: [
-                                    { template: "<button title='View/Edit' class='btn btn-success btn-sm editsa' onclick='showDetails(event)'><span class='glyphicon glyphicon-search'></span></button>" }
+                                    { template: "<button title='View/Edit' class='btn btn-success btn-sm editsa' onclick='showDetails(event)'><span class='glyphicon glyphicon-search'></span></button>" },
+                                     { template: "&nbsp;<button title='Archive Contact' class='btn btn-danger btn-sm deletesa' onclick='archiveContact(event)'><span class='glyphicon glyphicon-remove'></span></button>" }
                         ],
-                        title: " ", width: "20px"
+                        title: " ", width: "35px"
                     },
                     { field: "FullName", title: "Name", width: "80px" },
                     { field: "Phone", title: "Phone", width: "80px" },

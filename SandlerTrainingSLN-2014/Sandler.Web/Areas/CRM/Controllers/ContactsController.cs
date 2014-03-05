@@ -12,6 +12,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Configuration;
+using Sandler.Web.Models;
+using System.Data.Entity;
 
 namespace Sandler.Web.Areas.CRM.Controllers
 {
@@ -45,11 +47,15 @@ namespace Sandler.Web.Areas.CRM.Controllers
                 ContactsViewModel.EntityModel = new TBL_CONTACTS();
             return PartialView("Manage", ContactsViewModel);
         }
+        public ActionResult ViewArchivedContacts()
+        {
+            return PartialView("ViewArchivedContacts");
+        }
         public ActionResult ExportContact()
         {
 
             string sToday = String.Format("{0:yyyyMMMdd__hh_mm_ss tt}", DateTime.Now);
-            string moduleName = "Contact";
+            string moduleName = "Contacts";
 
             return new ExcelResult
             {
@@ -57,13 +63,70 @@ namespace Sandler.Web.Areas.CRM.Controllers
                 filePath = "~/Downloads/",
                 sheetName = moduleName,
                 clientsidefileName = moduleName + "_" + sToday + ".xlsx",
-                sqlStatement = GetSQLStatement(0),
+                sqlStatement = GetSQLStatement(true),
                 connectionSring = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString
             };
 
         }
+        public ActionResult ExportArchivedContact()
+        {
 
-        public string GetSQLStatement(int companyId)
+            string sToday = String.Format("{0:yyyyMMMdd__hh_mm_ss tt}", DateTime.Now);
+            string moduleName = "ArchivedContacts";
+
+            return new ExcelResult
+            {
+                fileName = moduleName + "_" + System.Guid.NewGuid() + "_" + sToday + ".xlsx",
+                filePath = "~/Downloads/",
+                sheetName = moduleName,
+                clientsidefileName = moduleName + "_" + sToday + ".xlsx",
+                sqlStatement = GetSQLStatement(false),
+                connectionSring = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString
+            };
+
+        }
+        public string GetSQLStatement(bool regularorArchived)
+        {
+            //Get the Current User
+            UserModel CurrentUser = BaseVM.CurrentUser;
+            string query = "";
+            string whereClause = "";
+
+            if (CurrentUser.Role == SandlerRoles.Corporate || CurrentUser.Role == SandlerRoles.SiteAdmin || CurrentUser.Role == SandlerRoles.HomeOfficeAdmin || CurrentUser.Role == SandlerRoles.HomeOfficeUser)
+            {
+                whereClause = whereClause + ",@userId=''";
+            }
+            else if (CurrentUser.Role == SandlerRoles.Coach)
+            {
+                if (CurrentUser.CoachID > 0)
+                    whereClause = whereClause + ",@coachId=" + CurrentUser.CoachID;
+            }
+            else if (CurrentUser.Role == SandlerRoles.FranchiseeOwner || CurrentUser.Role == SandlerRoles.Client)
+            {
+                if (CurrentUser.FranchiseeID > 0)
+                    whereClause = whereClause + ",@franchiseeId=" + CurrentUser.FranchiseeID;
+            }
+            else              
+                whereClause = whereClause + ",@userId=" + CurrentUser.UserId.ToString();
+                    
+
+            //Set PageSize and PageNo as 0 because we want all records
+            if (regularorArchived == true)
+            {
+                query = string.Format("exec [sp_ContactView] @orderBy='{0}' ,@pageSize={1},@pageNo={2}{3}"
+                , "LASTNAME ASC", 0, 0, whereClause);
+            }
+            else
+            {
+                query = string.Format("exec [sp_ArchiveContactView] @orderBy='{0}' ,@pageSize={1},@pageNo={2}{3}"
+                , "LASTNAME ASC", 0, 0, whereClause);
+            }
+            
+            //return
+            return query;
+        }
+
+      /*  public string GetSQLStatement(int companyId)
         {
             string whereClause = "";
             if (companyId > 0)
@@ -73,5 +136,6 @@ namespace Sandler.Web.Areas.CRM.Controllers
             return string.Format("exec [sp_ContactView] @orderBy='{0}' ,@pageSize={1},@pageNo={2}{3}"
                 , "LASTNAME ASC", 0, 0, whereClause);
         }
+       * */
     }
 }
