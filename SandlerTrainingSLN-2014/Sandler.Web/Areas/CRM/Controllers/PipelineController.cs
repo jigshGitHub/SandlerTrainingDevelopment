@@ -44,6 +44,12 @@ namespace Sandler.Web.Areas.CRM.Controllers
             return PartialView("Manage", PipelineViewModel);
         }
 
+        public ActionResult Archived()
+        {
+            PipelineViewModel.EntityModel = new TBL_OPPORTUNITIES();
+            return PartialView("Archived", PipelineViewModel);
+        }
+
         public ActionResult ExportPipeline()
         {
 
@@ -56,17 +62,36 @@ namespace Sandler.Web.Areas.CRM.Controllers
                 filePath = "~/Downloads/",
                 sheetName = moduleName,
                 clientsidefileName = moduleName + "_" + sToday + ".xlsx",
-                sqlStatement = GetSQLStatement(0),
+                sqlStatement = GetSQLStatement(0, false),
+                connectionSring = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString
+            };
+
+        }
+        public ActionResult ExportArchivePipeline()
+        {
+
+            string sToday = String.Format("{0:yyyyMMMdd__hh_mm_ss tt}", DateTime.Now);
+            string moduleName = "Pipeline";
+
+            return new ExcelResult
+            {
+                fileName = moduleName + "_" + System.Guid.NewGuid() + "_" + sToday + ".xlsx",
+                filePath = "~/Downloads/",
+                sheetName = moduleName,
+                clientsidefileName = moduleName + "_" + sToday + ".xlsx",
+                sqlStatement = GetSQLStatement(0, true),
                 connectionSring = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString
             };
 
         }
 
-        public string GetSQLStatement(int companyId)
+        public string GetSQLStatement(int companyId, bool bringArchive)
         {
             string whereClause = "";
             if (companyId > 0)
                 whereClause = whereClause + ", @companyId=" + companyId;
+            if (bringArchive)
+                whereClause = whereClause + ", @isActive=0";
 
             return string.Format("exec [sp_OpportunityView] @userId='{0}', @orderBy='{1}', @pageSize={2}, @pageNo={3}{4}"
                 , BaseVM.CurrentUser.UserId.ToString(), "NAME ASC", 0, 0, whereClause);

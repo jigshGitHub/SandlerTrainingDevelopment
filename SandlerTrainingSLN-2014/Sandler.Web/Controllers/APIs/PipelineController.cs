@@ -27,7 +27,7 @@ namespace Sandler.Web.Controllers.API
         }
 
         [Route("api/PipelineView/")]
-        public HttpResponseMessage GetPipelineView(int? page, int? pageSize,string searchText)
+        public HttpResponseMessage GetPipelineView(int? page, int? pageSize,string searchText, bool bringArchive=false)
         {
             List<OpportunityView> opportunities = null;
             //sort%5B0%5D%5Bfield%5D=COMPANYNAME&sort%5B0%5D%5Bdir%5D=asc
@@ -53,7 +53,7 @@ namespace Sandler.Web.Controllers.API
                 orderBy = orderBy + " " + sortDir;
             if (filterByCompany)
                 companyId = int.Parse(HttpContext.Current.Request.QueryString["filter[filters][0][value]"]);
-            opportunities = uow.OpportunityRepository().Get(orderBy, pageSize.Value, page.Value, CurrentUser.UserId, companyId,searchText).ToList();
+            opportunities = uow.OpportunityRepository().Get(orderBy, pageSize.Value, page.Value, CurrentUser.UserId, companyId, searchText, bringArchive).ToList();
 
             var returnObject = new { success = true, __count = (opportunities.Count > 0) ? opportunities.FirstOrDefault().TotalCount:0, results = opportunities };
             return Request.CreateResponse(returnObject);

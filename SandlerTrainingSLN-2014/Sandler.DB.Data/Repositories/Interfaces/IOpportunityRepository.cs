@@ -15,6 +15,6 @@ namespace Sandler.DB.Data.Repositories.Interfaces
         IEnumerable<GetBenchMarkFranchiseeRegion> GetBenchMarkFranchiseeRegions(Nullable<int> month, Nullable<int> year, Nullable<int> franchiseeId);
         IEnumerable<GetBenchMarkRegionCountry> GetBenchMarkRegionCountry(Nullable<int> month, Nullable<int> year, Nullable<int> regionId);
         IEnumerable<GetBenchMarkSalesFranchisee> GetBenchMarkSalesFranchisee(Nullable<int> month, Nullable<int> year, Nullable<int> franchiseeId);
-        IEnumerable<OpportunityView> Get(string orderBy, int? pageSize, int? pageNo, Guid userId, int? companyId,string searchText);        
+        IEnumerable<OpportunityView> Get(string orderBy, int? pageSize, int? pageNo, Guid userId, int? companyId,string searchText, bool bringArchive);        
     }
 }

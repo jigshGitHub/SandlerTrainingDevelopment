@@ -38,7 +38,7 @@ function archiveOpportunity(e) {
                           $("#content").unblock();
                       },
                       error: function (response, errorText) {
-                          showNoti_.error('Unable to save pipeline, server error occures.', true);
+                          showNoti_.error('Unable to archive opportunity, server error occures.', true);
                       }
                   });
               },

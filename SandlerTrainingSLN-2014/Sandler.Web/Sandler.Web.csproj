@@ -1051,6 +1051,8 @@
     <Content Include="Areas\CRM\Views\Pipeline\Index.cshtml" />
     <Content Include="Areas\CRM\Views\Pipeline\Manage.cshtml" />
     <Content Include="Areas\CRM\Views\Contacts\Manage.cshtml" />
+    <Content Include="Areas\CRM\Views\Pipeline\Archived.cshtml" />
+    <Content Include="Areas\CRM\Views\Companies\ViewArchived.cshtml" />
     <None Include="Properties\PublishProfiles\WebDeploy-DevEnvt.pubxml" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="Images\bg-capitol.png" />

@@ -1,0 +1,54 @@
+﻿@using Sandler.DB.Models;
+@using Sandler.Web.Models;
+@using Sandler.Web.ViewModels;
+@model EntityViewModel<TBL_OPPORTUNITIES>
+@{
+    ViewBag.Title = "Index";
+}
+<style type="text/css">
+    .k-grid999 tbody .k-button {
+        min-width: 12px;
+        width: 50px;
+        height: 25px;
+        vertical-align: middle;
+    }
+</style>
+<script src="~/Scripts/Application/ng-opportunities.js" type="text/javascript"></script>
+<div id="clubSearch" class="container" ng-controller="ng_opportunitiesCtrl">
+    @*Search button*@
+    <div class="row">
+        <div class='page-title'>Opportunities</div>
+    </div>
+    <div class="row">
+        <div class="pull-right">
+            @{ var menusList = @Model.BaseModel.CRMMenu;}
+            @if (menusList != null)
+            {
+                Menu menuEntity = menusList.Find(delegate(Menu menu) { return menu.Title == "Opportunities"; });
+
+                Html.RenderPartial("~/Views/Shared/_CRMMenu.cshtml", menuEntity);
+            }
+        </div>
+    </div>
+    <div class="row" style="margin-top:10px">
+        <div class="col-md-6 input-group">
+            <input class="form-control" id="searchBox" size="100" type="text" placeholder="Opportunity Name or Sandler Rep Last/First Name" onkeyup="triggerSearch(event);">
+            <span class="input-group-btn"> 
+                  <button id="btnSearch" class="btn btn-primary" type="button"><span class="glyphicon glyphicon-search" title="Quick Search" data-toggle="tooltip"></span></button>
+            </span>
+        </div>
+        @*For Export To Excel*@
+        <div class="pull-right">
+            <a title="Download a List in Excel" class="btn btn-default btn-xs fileinput-button" href="@Url.Action("ExportCompany","Pipeline")"><span class="glyphicon glyphicon-cloud-download"></span> Download</a>
+        </div>
+    </div>
+    <div class="row" style="margin-top:10px">
+        <div class="col-sm-3">Filter by company:</div>
+        <div class="col-sm-9"><input id="companiesSelection" /></div>
+    </div>
+    <div class="row" style="margin-top: 10px">
+        <div id="searchGrid" class="k-content">
+            <div id="opportunitiesSearchgrid"></div>
+        </div>
+    </div>
+</div>
