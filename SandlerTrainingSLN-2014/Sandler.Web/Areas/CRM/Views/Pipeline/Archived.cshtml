@@ -1,0 +1,192 @@
+﻿@{
+    Layout = "";
+ }
+<style type="text/css">
+    .k-grid999 tbody .k-button {
+        min-width: 12px;
+        width: 50px;
+        height: 25px;
+        vertical-align: middle;
+    }
+        
+</style>
+
+<div id="archivedPipelineMain" class="container">
+    @*Search button*@
+    <div class="row">
+        <div class='page-title'>Archived Opportunities</div>
+    </div>
+    
+    <br />
+
+    <div class="row" style="margin-top:10px">
+        <div class="col-md-6 input-group">
+            <input class="form-control" id="ArcsearchBox" size="100" type="text" placeholder="Opportunity Name or Sandler Rep Last/First Name" onkeyup="triggerSearchArc(event);">
+            <span class="input-group-btn"> 
+                  <button id="btnArchiveSearch" class="btn btn-primary" type="button"><span class="glyphicon glyphicon-search" title="Quick Search" data-toggle="tooltip"></span></button>
+            </span>
+        </div>
+         @*For Export To Excel*@
+        <div class="pull-right">
+            <a title="Download a List in Excel" class="btn btn-default btn-xs fileinput-button" href="@Url.Action("ExportArchivePipeline","Pipeline")"><span class="glyphicon glyphicon-cloud-download"></span> Download</a>
+        </div>
+    </div>
+    
+    <div class="row" style="margin-top: 10px">
+        <div id="searchGrid" class="k-content">
+            <div id="archivePipelineGrid"></div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+
+    function UnarchivePipeline(e) {
+        e.preventDefault();
+        var dataItem = $("#archivePipelineGrid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
+        //Let us block the Div while we wait for User response
+        $('#archivedPipelineMain').block({ message: null });
+        showNoti_.confirm("Are you sure to UnArchive this opportunity - " + dataItem.NAME + "?",
+              function () {
+                  showNoti_.progress(NOTIFICMSG.ARCHIVING, false);
+                  //Proceed with the Archive 
+                  $.ajax({
+                      url: "api/PipelineArchive",
+                      type: 'GET',
+                      data: { id: dataItem.ID, isActive: true },
+                      contentType: 'application/json',
+                      success: function (response) {
+                          showNoti_.hide();
+                          RefreshGridArc();
+                          RefreshGrid();
+                          $("#archivedPipelineMain").unblock();
+                      },
+                      error: function (response, errorText) {
+                          showNoti_.error('Unable to unarchive pipeline, server error occures.', true);
+                          $("#archivedPipelineMain").unblock();
+                      }
+                  });
+              },
+              function () {
+                  //user said no
+                  showNoti_.hide();
+                  $("#archivedPipelineMain").unblock();
+              });//confirm ends here
+
+    }
+
+    function RefreshGridArc() {
+        $("#btnArchiveSearch").click();
+    }//end refresh grid function
+
+
+    function triggerSearchArc(e) {
+        var unicode = e.keyCode ? e.keyCode : e.charCode;
+        if (unicode == 13) {
+            $("#btnArchiveSearch").click();
+        }
+    }
+
+    //To do
+    //Remove sorting for TotalCompanyValue
+    function get_kendoGridDataArc(searchText, selectForExcel) {
+        var dataSource = get_gridDataSourceArc(searchText)
+        var kendoGridData = {
+            dataSource: dataSource,
+            height: 480,
+            filterable: false,
+            sortable: true,
+            pageable: {
+                refresh: true,
+                pageSizes: true
+            },
+            resizable: true,
+            columnMenu: true,
+            scrollable: true,
+            navigatable: true,
+            selectable: true,
+            columns: [
+                {
+                    command: [
+                            { template: "&nbsp;<button title='UnArchive Opportunity' class='btn btn-danger btn-sm deletesa' onclick='UnarchivePipeline(event)'><span class='glyphicon glyphicon-ok'></span></button>" }
+                    ],
+                    title: " ", width: "20px"
+                },
+                { field: "ID", title: "ID", width: "80px" },
+                { field: "NAME", title: "Name", width: "80px" },
+                { field: "COMPANYNAME", title: "Company", width: "60px" },
+                { field: "VALUE", title: "Value", width: "60px" },
+                { field: "CLOSEDATE", title: "Close Date", width: "50px" },
+                { field: "SALESREP", title: "Sales Rep", width: "50px" },
+                { field: "Status", title: "Status", width: "50px" }
+
+            ]
+        }
+        return kendoGridData;
+    }
+
+    function get_gridDataSourceArc(searchText) {
+        var dataSource = {
+            type: "json",
+            transport: {
+                read: {
+                    url: "api/PipelineView/",
+                    dataType: "json",
+                    data: { searchText: searchText, bringArchive:true },
+                    cache: false //This is required othewise grid does not refresh after Edit operation in IE
+                }
+            },
+            schema: {
+                data: "results",
+                total: "__count",
+                model: {
+                    fields: {
+                        ID: { type: 'string' },
+                        NAME: { type: 'string' },
+                        COMPANYNAME: { type: 'string' },
+                        VALUE: { type: 'string' },
+                        CLOSEDATE: { type: 'string' },
+                        SALESREP: { type: 'string' },
+                        Status: { type: 'string' }
+                    }
+                }
+            },
+            pageSize: 50,
+            serverPaging: true,
+            serverFiltering: true,
+            serverSorting: true
+        };
+        return dataSource;
+    }
+
+</script>
+
+@*Document Ready *@
+<script>
+    $(document).ready(function () {
+        @*When Page Loads*@
+
+        //showNoti_.progress(NOTIFICMSG.PROCESSING, false);
+
+        var kendoGridData = get_kendoGridDataArc("", false);
+        $("#archivePipelineGrid").kendoGrid(kendoGridData);
+        showNoti_.hide();
+
+        //When Search Button is clicked 
+        $("#btnArchiveSearch").click(function () {
+            var searchText = $("#ArcsearchBox").attr('value');
+            var grid = $("#archivePipelineGrid").data("kendoGrid");
+            var dataSource = get_gridDataSourceArc(searchText);
+            grid.dataSource.transport.options.read.data = { searchText: searchText, bringArchive:true };
+            grid.dataSource.page(1);
+        });
+
+        /* Tooltip */
+        $('[data-toggle=tooltip]').tooltip({ placement: 'bottom' });
+
+        //Hide any Pines Notify 
+        //showNoti_.hide();
+
+    });
+</script>
