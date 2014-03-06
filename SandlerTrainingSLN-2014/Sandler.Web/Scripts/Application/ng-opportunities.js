@@ -4,7 +4,7 @@ function showDetails(e) {
     e.preventDefault();
     var dataItem = $("#opportunitiesSearchgrid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
    // console.log(dataItem);
-    var path = "navi?url=/CRM/Pipeline/Manage?id=" + dataItem.ID;
+    var path = "navi?url=" + baseUrl + "/CRM/Pipeline/Manage?id=" + dataItem.ID;
     showModal_.html(path, null, '70%');
 }
 
@@ -107,7 +107,7 @@ function ng_opportunitiesCtrl($scope, $http) {
                         ],
                         title: " ", width: "35px"
                     },
-                    { field: "ID", title: "ID", width: "80px" },
+                    { field: "ID", title: "ID", width: "30px" },
                     { field: "NAME", title: "Name", width: "80px" },
                     { field: "COMPANYNAME", title: "Company", width: "60px" },
                     { field: "VALUE", title: "Value", width: "60px" },

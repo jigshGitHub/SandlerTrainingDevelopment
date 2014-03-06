@@ -2,7 +2,7 @@
     e.preventDefault();
     var dataItem = $("#contactsSearchgrid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
     // console.log(dataItem);
-    var path = "navi?url=/CRM/Contacts/Manage?id=" + dataItem.ContactsId;
+    var path = "navi?url=" + baseUrl + "/CRM/Contacts/Manage?id=" + dataItem.ContactsId;
     showModal_.html(path, null, '70%');
 }
 

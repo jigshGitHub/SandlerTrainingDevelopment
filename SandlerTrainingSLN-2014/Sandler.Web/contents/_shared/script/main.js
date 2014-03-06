@@ -172,8 +172,8 @@ app_.controller('ngAppMainController', ['$scope', '$http', '$compile', '$routePa
 
             $scope.currentHost = '';
             $scope.UserId_i = 0;           
-            
-            $http.get('/module/menu').success(function (data) {
+			//console.log('loading menu from ' + baseUrl + '/module/menu');
+            $http.get(baseUrl + '/module/menu').success(function (data) {
                 $scope.menuDef = new menuDef_viewModel(data, $compile, $scope);
 
                 /* Default Page */

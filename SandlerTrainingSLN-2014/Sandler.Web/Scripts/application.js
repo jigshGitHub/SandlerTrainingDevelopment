@@ -1,7 +1,9 @@
 ﻿var applicationname = "";
+//var applicationname = "/SandlerTrainingNew";
 var myhost = window.location.protocol + "//" + window.location.host
 var absoluteapp = myhost + applicationname;
 var baseUrl = myhost + applicationname;
+//alert(baseUrl);
 var imagedir = "/Content/Images";
 var sandler = {
     namespace: function (name) {
@@ -107,7 +109,7 @@ sandler.namespace("appStart").module= (function () {
         if (contacts)
             return contacts;
         //console.log('first time getting user contacts');
-        var data = jsonDataCaller.syncCall("/api/ContactView?&page=0&pageSize=0&companyId=0&searchText=&selectForExcel=false", null)
+        var data = jsonDataCaller.syncCall(baseUrl + "/api/ContactView?&page=0&pageSize=0&companyId=0&searchText=&selectForExcel=false", null)
         contacts = new Array();
         $.each(data.results, function (i, contactRecord) {
             contacts.push(new contact(contactRecord.LastName, contactRecord.FirstName, contactRecord.FullName, contactRecord.ContactsId, contactRecord.CompanyId));
@@ -157,25 +159,25 @@ sandler.namespace("appStart").module= (function () {
     };
 
     var initialize = function () {
-        var industries = jsonDataCaller.syncCall("/api/Industries/", null);
+        var industries = jsonDataCaller.syncCall(baseUrl + "/api/Industries/", null);
         setIndustryTypes(industries);
-        var yesNoOptions = jsonDataCaller.syncCall("/api/YesNoOptions/", null);
+        var yesNoOptions = jsonDataCaller.syncCall(baseUrl + "/api/YesNoOptions/", null);
         setYesNoOptions(yesNoOptions);
-        var Products = jsonDataCaller.syncCall("/api/Products/", null);
+        var Products = jsonDataCaller.syncCall(baseUrl + "/api/Products/", null);
         setProductTypes(Products);
-        var appointmentsSources = jsonDataCaller.syncCall("/api/AppointmentsSources/", null);
+        var appointmentsSources = jsonDataCaller.syncCall(baseUrl + "/api/AppointmentsSources/", null);
         setAppointmentSources(appointmentsSources);
-        var courses = jsonDataCaller.syncCall("/api/Courses/", null);
+        var courses = jsonDataCaller.syncCall(baseUrl + "/api/Courses/", null);
         setCourses(courses);
-        var opportunityStatus = jsonDataCaller.syncCall("/api/OpportunityStatus/", null);
+        var opportunityStatus = jsonDataCaller.syncCall(baseUrl + "/api/OpportunityStatus/", null);
         setOpportunityStatus(opportunityStatus);
-        var opportunityTypes = jsonDataCaller.syncCall("/api/OpportunityTypes/", null);
+        var opportunityTypes = jsonDataCaller.syncCall(baseUrl + "/api/OpportunityTypes/", null);
         setOpportunityTypes(opportunityTypes);
-        var opportunityWhyLosts = jsonDataCaller.syncCall("/api/OpportunityWhyLosts/", null);
+        var opportunityWhyLosts = jsonDataCaller.syncCall(baseUrl + "/api/OpportunityWhyLosts/", null);
         setOpportunityWhyLosts(opportunityWhyLosts);
-        var opportunitySources = jsonDataCaller.syncCall("/api/OpportunitySources/", null);
+        var opportunitySources = jsonDataCaller.syncCall(baseUrl + "/api/OpportunitySources/", null);
         setOpportunitySources(opportunitySources);
-        var data = jsonDataCaller.syncCall("/api/CompanyView?searchText=&page=0&pageSize=0&selectForExcel=false", null)
+        var data = jsonDataCaller.syncCall(baseUrl + "/api/CompanyView?searchText=&page=0&pageSize=0&selectForExcel=false", null)
         //console.log('getting user companies');
         var companies = new Array();
         $.each(data.results, function (i,companyRecord) {

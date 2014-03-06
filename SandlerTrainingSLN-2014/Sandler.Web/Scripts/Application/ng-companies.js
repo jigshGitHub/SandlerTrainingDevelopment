@@ -3,7 +3,7 @@ function showDetails(e) {
     e.preventDefault();
     var dataItem = $("#CompaniesSearchgrid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
     //console.log(dataItem);
-    var path = "navi?url=/CRM/Companies/Edit?id=" + dataItem.COMPANIESID;
+    var path = "navi?url=" + baseUrl  + "/CRM/Companies/Edit?id=" + dataItem.COMPANIESID;
     //alert("before Navi");
     showModal_.html(path, null, '95%');
 }

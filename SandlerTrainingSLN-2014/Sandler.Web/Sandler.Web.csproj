@@ -1074,6 +1074,7 @@
     <Content Include="Images\ECO_small.png" />
     <Content Include="Images\excel.jpg" />
     <Content Include="Images\GARM_small.png" />
+    <Content Include="Images\header_logo.png" />
     <Content Include="Images\HE_large.png" />
     <Content Include="Images\HE_small.png" />
     <Content Include="Images\MSI_BI_Landing.png" />

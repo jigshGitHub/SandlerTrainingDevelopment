@@ -618,12 +618,12 @@
             @*Go Ahead with save*@
             self.dirtyFlag.reset();
             $('#company_body').block({ message: null });
-            dao_.save("/api/Company/Save", ko.toJSON(self),
+            dao_.save(baseUrl + "/api/Company/Save", ko.toJSON(self),
                 function (result) {
                     if (result.success)
                     {
                         @*Need to call and API again to get object*@
-                        var updatedData = jsonDataCaller.syncCall("/api/Company/Get?id=" + result.UniqueId, null);
+                        var updatedData = jsonDataCaller.syncCall(baseUrl + "/api/Company/Get?id=" + result.UniqueId, null);
                         initialize_companyF(updatedData);
                         $("#company_body").unblock();
                         showNoti_.hide(); 
@@ -732,7 +732,7 @@
                 navi_.closeModal();
         });
         
-        compData = jsonDataCaller.syncCall("/api/Company/Get?id=@Model.companyId", null);
+        compData = jsonDataCaller.syncCall(baseUrl + "/api/Company/Get?id=@Model.companyId", null);
                 
         //Lookup Data
         yesNoData = startModule.getYesNoOptions();

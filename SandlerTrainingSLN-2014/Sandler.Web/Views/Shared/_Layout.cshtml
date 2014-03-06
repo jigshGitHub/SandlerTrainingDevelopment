@@ -11,7 +11,7 @@
 
     @*///// Logo/Brand /////////////////*@
     <div id="header" >
-        <div id="logo-container" style="background:url('../../Images/header_logo.png') no-repeat scroll 0 2px / 100% auto ">
+        <div id="logo-container" style="background:url('../Images/header_logo.png') no-repeat scroll 0 2px / 100% auto ">
         </div>
         @if (Request.IsAuthenticated)
         {
@@ -50,7 +50,7 @@
                     </ul>
                 </li>*@
                 @*<li class="btn btn-default"><a title="" href="#"><i class="glyphicon-cog"></i> <span class="text">Settings</span></a></li>*@
-                <li class="btn"><a title="" href="/Account/LogOff"><span class="glyphicon glyphicon-remove-sign"></span> <span class="text">Logout</span></a></li>            
+                <li class="btn"><a title="" href="~/Account/LogOff"><span class="glyphicon glyphicon-remove-sign"></span> <span class="text">Logout</span></a></li>            
         </ul>
     </div>
     }
@@ -77,7 +77,7 @@
                 </div>
                 <div class="col-md-6" style="padding: 0px;">
                     <div class="pull-right fontsize80p" style="margin:5px; text-align:right;">
-                        <span class="poweredby">Powered by <a href="http://www.cmdi.com" target="_blank">CMDI</a></span> 
+                        <span class="poweredby">Powered by <a href="http://www.minedsystems.com" target="_blank">MSI</a></span> 
                         <span class="copyright">&#169; 2014.</span>
                     </div>
                 </div>
@@ -151,7 +151,7 @@ $(document).ready(function () {
             // server-side session keep-alive timer & url
             sessionKeepAliveTimer: 60000, // Ping the server at this interval in milliseconds. 60000 = 1 Minute
             // sessionKeepAliveTimer: false, // Set to false to disable pings.
-            sessionKeepAliveUrl: '/Account/sessionKeepAlive',  // url to ping
+            sessionKeepAliveUrl: baseUrl + '/Account/sessionKeepAlive',  // url to ping
         });
 
     }); 
