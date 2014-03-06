@@ -35,7 +35,7 @@ namespace Sandler.Web.Controllers
             currentUser.Load(uow);
             BaseVM.CurrentUser = currentUser;
             BaseVM.RoleEntityValue = new AccountProfile(currentUser.UserName).RoleEntityValue;
-            BaseVM.CRMMenu = GetCRMMenu();
+            BaseVM.CRMMenu = GetCRMMenu(System.Web.HttpContext.Current.Request.ApplicationPath);
         }
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
         {
@@ -46,7 +46,7 @@ namespace Sandler.Web.Controllers
             base.OnActionExecuting(filterContext);
         }
 
-        private List<Menu> GetCRMMenu()
+        private List<Menu> GetCRMMenu(string applicationPath)
         {
             List<Menu> CRMMenu = new List<Menu>();
 
@@ -55,8 +55,8 @@ namespace Sandler.Web.Controllers
             //items.Add(new MenuItem { Id = "Search", Text = "Search", Link = "~/CRM/Companies/Search.aspx", IsVisible = true });
             items.Add(new MenuItem { Id = "Upload", Text = "Upload Company Data", Link = "~/CRM/Companies/Upload.aspx", IsVisible = !IsUserReadOnly(SandlerUserActions.Add, SandlerEntities.Company) });
             items.Add(new MenuItem { Id = "AddProduct", Text = "Add New Product", Link = "~/CRM/Products/Add.aspx", IsVisible = !IsUserReadOnly(SandlerUserActions.Add, SandlerEntities.Company) });
-            items.Add(new MenuItem { Id = "AddCompany", Text = "Add New Company", Link = "navi?url=/CRM/Companies/Edit?id=0", IsVisible = !IsUserReadOnly(SandlerUserActions.Add, SandlerEntities.Company) });
-            items.Add(new MenuItem { Id = "ViewArchived", Text = "View Archived Records", Link = "navi?url=/CRM/Companies/ViewArchived", IsVisible = true });
+            items.Add(new MenuItem { Id = "AddCompany", Text = "Add New Company", Link = "navi?url=" + applicationPath + "/CRM/Companies/Edit?id=0", IsVisible = !IsUserReadOnly(SandlerUserActions.Add, SandlerEntities.Company) });
+            items.Add(new MenuItem { Id = "ViewArchived", Text = "View Archived Records", Link = "navi?url=" + applicationPath + "/CRM/Companies/ViewArchived", IsVisible = true });
 
             CRMMenu.Add(new Menu { Title = "Companies", IsVisible = true, Items = items.Where(item => item.IsVisible == true).ToList() });
 
@@ -64,17 +64,17 @@ namespace Sandler.Web.Controllers
 
             //items.Add(new MenuItem { Id = "Search", Text = "Search", Link = "~/CRM/Contacts/Search.aspx", IsVisible = true });
             items.Add(new MenuItem { Id = "Upload", Text = "Upload Contact Data", Link = "~/CRM/Contacts/Upload.aspx", IsVisible = !IsUserReadOnly(SandlerUserActions.Add, SandlerEntities.Contact) });
-            items.Add(new MenuItem { Id = "AddContact", Text = "Add New Contact", Link = "navi?url=/CRM/Contacts/Manage", IsVisible = !IsUserReadOnly(SandlerUserActions.Add, SandlerEntities.Contact) });
+            items.Add(new MenuItem { Id = "AddContact", Text = "Add New Contact", Link = "navi?url=" + applicationPath + "/CRM/Contacts/Manage", IsVisible = !IsUserReadOnly(SandlerUserActions.Add, SandlerEntities.Contact) });
             items.Add(new MenuItem { Id = "CallList", Text = "View Call List", Link = "~/CRM/Contacts/CallList.aspx", IsVisible = true });
-            items.Add(new MenuItem { Id = "ViewArchivedContacts", Text = "View Archived Records", Link = "navi?url=/CRM/Contacts/ViewArchivedContacts", IsVisible = true });
+            items.Add(new MenuItem { Id = "ViewArchivedContacts", Text = "View Archived Records", Link = "navi?url=" + applicationPath + "/CRM/Contacts/ViewArchivedContacts", IsVisible = true });
 
             CRMMenu.Add(new Menu { Title = "Contacts", IsVisible = true, Items = items.Where(item => item.IsVisible == true).ToList() });
 
             items = new List<MenuItem>();
 
             //items.Add(new MenuItem { Id = "Search", Text = "Search", Link = "~/CRM/Opportunities/Search.aspx", IsVisible = true });
-            items.Add(new MenuItem { Id = "AddOpportunity", Text = "Add New Opportunity", Link = "navi?url=/CRM/Pipeline/Manage", IsVisible = !IsUserReadOnly(SandlerUserActions.Add, SandlerEntities.Opportunity) });
-            items.Add(new MenuItem { Id = "ViewArchived", Text = "View Archived Records", Link = "navi?url=/CRM/Pipeline/Archived", IsVisible = true });
+            items.Add(new MenuItem { Id = "AddOpportunity", Text = "Add New Opportunity", Link = "navi?url=" + applicationPath + "/CRM/Pipeline/Manage", IsVisible = !IsUserReadOnly(SandlerUserActions.Add, SandlerEntities.Opportunity) });
+            items.Add(new MenuItem { Id = "ViewArchived", Text = "View Archived Records", Link = "navi?url=" + applicationPath + "/CRM/Pipeline/Archived", IsVisible = true });
 
             CRMMenu.Add(new Menu { Title = "Opportunities", IsVisible = true, Items = items.Where(item => item.IsVisible == true).ToList() });
 
