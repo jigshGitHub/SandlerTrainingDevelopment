@@ -48,6 +48,7 @@ namespace Sandler.Web.Controllers
 
         private List<Menu> GetCRMMenu(string applicationPath)
         {
+            applicationPath = (applicationPath.Length > 1) ? applicationPath : "";
             List<Menu> CRMMenu = new List<Menu>();
 
             List<MenuItem> items = new List<MenuItem>();

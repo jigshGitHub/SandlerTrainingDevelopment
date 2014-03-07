@@ -50,47 +50,30 @@ namespace Sandler.Web.Areas.CRM.Controllers
             return PartialView("Archived", PipelineViewModel);
         }
 
-        public ActionResult ExportPipeline()
+        public ActionResult ExportPipeline(bool bringArchiveRecords,int? companyId)
         {
 
             string sToday = String.Format("{0:yyyyMMMdd__hh_mm_ss tt}", DateTime.Now);
-            string moduleName = "Pipeline";
-
+            string moduleName = (bringArchiveRecords) ? "Archived" : "" + "Opportunities";
+            
             return new ExcelResult
             {
                 fileName = moduleName + "_" + System.Guid.NewGuid() + "_" + sToday + ".xlsx",
                 filePath = "~/Downloads/",
                 sheetName = moduleName,
                 clientsidefileName = moduleName + "_" + sToday + ".xlsx",
-                sqlStatement = GetSQLStatement(0, false),
-                connectionSring = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString
-            };
-
-        }
-        public ActionResult ExportArchivePipeline()
-        {
-
-            string sToday = String.Format("{0:yyyyMMMdd__hh_mm_ss tt}", DateTime.Now);
-            string moduleName = "Pipeline";
-
-            return new ExcelResult
-            {
-                fileName = moduleName + "_" + System.Guid.NewGuid() + "_" + sToday + ".xlsx",
-                filePath = "~/Downloads/",
-                sheetName = moduleName,
-                clientsidefileName = moduleName + "_" + sToday + ".xlsx",
-                sqlStatement = GetSQLStatement(0, true),
+                sqlStatement = GetSQLStatement(companyId, bringArchiveRecords),
                 connectionSring = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString
             };
 
         }
 
-        public string GetSQLStatement(int companyId, bool bringArchive)
+        public string GetSQLStatement(int? companyId, bool bringArchiveRecords)
         {
             string whereClause = "";
-            if (companyId > 0)
-                whereClause = whereClause + ", @companyId=" + companyId;
-            if (bringArchive)
+            if (companyId.HasValue)
+                whereClause = whereClause + ", @companyId=" + companyId.Value;
+            if (bringArchiveRecords)
                 whereClause = whereClause + ", @isActive=0";
 
             return string.Format("exec [sp_OpportunityView] @userId='{0}', @orderBy='{1}', @pageSize={2}, @pageNo={3}{4}"

@@ -39,7 +39,7 @@
         </div>
         @*For Export To Excel*@
         <div class="pull-right">
-            <a title="Download a List in Excel" class="btn btn-default btn-xs fileinput-button" href="@Url.Action("ExportPipeline","Pipeline")"><span class="glyphicon glyphicon-cloud-download"></span> Download</a>
+            <a id="excelDownload" title="Download a List in Excel" class="btn btn-default btn-xs fileinput-button" href="@Url.Action("ExportPipeline", "Pipeline", new { bringArchiveRecords = false })"><span class="glyphicon glyphicon-cloud-download"></span> Download</a>
         </div>
     </div>
     <div class="row" style="margin-top:10px">

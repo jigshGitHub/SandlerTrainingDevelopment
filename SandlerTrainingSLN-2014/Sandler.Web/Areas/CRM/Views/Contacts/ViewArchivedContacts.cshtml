@@ -28,7 +28,7 @@
         </div>
          @*For Export To Excel*@
         <div class="pull-right">
-            <a title="Download a List in Excel" class="btn btn-default btn-xs fileinput-button" href="@Url.Action("ExportArchivedContact","Contacts")"><span class="glyphicon glyphicon-cloud-download"></span> Download</a>
+            <a id="excelDownload" title="Download a List in Excel" class="btn btn-default btn-xs fileinput-button" href="@Url.Action("ExportContact", "Contacts", new { bringArchiveRecords = true })"><span class="glyphicon glyphicon-cloud-download"></span> Download</a>
         </div>
     </div>
     
@@ -191,6 +191,10 @@
 
         //Hide any Pines Notify 
         //showNoti_.hide();
-
+        //$("#excelDownload").click(function () {
+        //    $(this).attr('href', this.href + '&companyId=' + $('#companiesSelection').val());
+        //    alert($(this).attr('href'));
+        //    return true;
+        //});
     });
 </script>

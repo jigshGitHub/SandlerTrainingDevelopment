@@ -51,11 +51,11 @@ namespace Sandler.Web.Areas.CRM.Controllers
         {
             return PartialView("ViewArchivedContacts");
         }
-        public ActionResult ExportContact()
+        public ActionResult ExportContact(bool bringArchiveRecords, int? companyId)
         {
 
-            string sToday = String.Format("{0:yyyyMMMdd__hh_mm_ss tt}", DateTime.Now);
-            string moduleName = "Contacts";
+            string sToday = String.Format("{0:yyyyMMMdd__hh_mm_ss tt}", DateTime.Now); 
+            string moduleName = (bringArchiveRecords) ? "Archived" : "" + "Contacts";
 
             return new ExcelResult
             {
@@ -63,29 +63,29 @@ namespace Sandler.Web.Areas.CRM.Controllers
                 filePath = "~/Downloads/",
                 sheetName = moduleName,
                 clientsidefileName = moduleName + "_" + sToday + ".xlsx",
-                sqlStatement = GetSQLStatement(true),
+                sqlStatement = GetSQLStatement(bringArchiveRecords, companyId),
                 connectionSring = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString
             };
 
         }
-        public ActionResult ExportArchivedContact()
-        {
+        //public ActionResult ExportArchivedContact()
+        //{
 
-            string sToday = String.Format("{0:yyyyMMMdd__hh_mm_ss tt}", DateTime.Now);
-            string moduleName = "ArchivedContacts";
+        //    string sToday = String.Format("{0:yyyyMMMdd__hh_mm_ss tt}", DateTime.Now);
+        //    string moduleName = "ArchivedContacts";
 
-            return new ExcelResult
-            {
-                fileName = moduleName + "_" + System.Guid.NewGuid() + "_" + sToday + ".xlsx",
-                filePath = "~/Downloads/",
-                sheetName = moduleName,
-                clientsidefileName = moduleName + "_" + sToday + ".xlsx",
-                sqlStatement = GetSQLStatement(false),
-                connectionSring = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString
-            };
+        //    return new ExcelResult
+        //    {
+        //        fileName = moduleName + "_" + System.Guid.NewGuid() + "_" + sToday + ".xlsx",
+        //        filePath = "~/Downloads/",
+        //        sheetName = moduleName,
+        //        clientsidefileName = moduleName + "_" + sToday + ".xlsx",
+        //        sqlStatement = GetSQLStatement(false),
+        //        connectionSring = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString
+        //    };
 
-        }
-        public string GetSQLStatement(bool regularorArchived)
+        //}
+        public string GetSQLStatement(bool bringArchiveRecords, int? companyId)
         {
             //Get the Current User
             UserModel CurrentUser = BaseVM.CurrentUser;
@@ -108,10 +108,12 @@ namespace Sandler.Web.Areas.CRM.Controllers
             }
             else              
                 whereClause = whereClause + ",@userId=" + CurrentUser.UserId.ToString();
-                    
+
+            if (companyId.HasValue)
+                whereClause = whereClause + ",@companyId=" + companyId.Value;
 
             //Set PageSize and PageNo as 0 because we want all records
-            if (regularorArchived == true)
+            if (!bringArchiveRecords)
             {
                 query = string.Format("exec [sp_ContactView] @orderBy='{0}' ,@pageSize={1},@pageNo={2}{3}"
                 , "LASTNAME ASC", 0, 0, whereClause);

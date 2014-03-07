@@ -69,6 +69,11 @@ function ng_opportunitiesCtrl($scope, $http) {
             grid.dataSource.page(1);
         });
 
+        $("#excelDownload").click(function () {
+            $(this).attr('href', this.href + '&companyId=' + $('#companiesSelection').val());
+            return true;
+        });
+
         function get_kendoCompaniesData() {
             var startModule = sandler.appStart.module;
             var data = startModule.getUserCompanies();
