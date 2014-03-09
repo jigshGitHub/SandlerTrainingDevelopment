@@ -28,6 +28,10 @@ namespace Sandler.DB.Data.Repositories.Implementations
         {
             return (DBContext.Get() as SandlerDBEntities).GetContactView(orderBy, pageSize, pageNo, coachId, franchiseeId, companyId, userId,searchText, selectForExcel);
         }
+        public IEnumerable<GlobalSearchView> GetGlobalSearchRecords(string orderBy, int? pageSize, int? pageNo, int? coachId, int? franchiseeId, string userId, string searchText, string searchRecordType)
+        {
+            return (DBContext.Get() as SandlerDBEntities).GetGlobalSearchRecords(orderBy, pageSize, pageNo, coachId, franchiseeId,userId, searchText, searchRecordType);
+        }
         public IEnumerable<ContactView> GetArchiveContacts(string orderBy, int? pageSize, int? pageNo, int? coachId, int? franchiseeId, int? companyId, string userId, string searchText, bool selectForExcel)
         {
             return (DBContext.Get() as SandlerDBEntities).GetArchiveContactView(orderBy, pageSize, pageNo, coachId, franchiseeId, companyId, userId, searchText, selectForExcel);

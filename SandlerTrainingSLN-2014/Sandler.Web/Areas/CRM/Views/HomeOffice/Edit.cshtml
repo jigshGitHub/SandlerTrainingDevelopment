@@ -1,0 +1,1332 @@
+﻿@model dynamic
+<script src="~/Scripts/Application/ng-companies.js" type="text/javascript"></script>
+<script src="~/contents/knockout/knockout.mapping-latest.js" type="text/javascript"></script>
+
+
+<div id="franchisee_body" style="background-color:white">
+
+    @*Page Header*@
+    <div class="row page-header">
+        <div class="col-sm-8">
+            <div class="row"><div class='page-title'><span>Franchisee</span></div></div>
+            <div class="row sub-heading"><div class='page-subtitle' data-bind="text: pageTitle"></div></div>
+        </div>
+        <div class="col-sm-4"></div>
+    </div>
+    
+    <hr />
+    
+    
+    @* Franchisee Details *@
+    <div class="container">
+        <div class="row">
+            @* [[[[[ Contact Related ]]]]] *@
+            <div class="col-md-6 no-margin">
+                <div class="col-title"><span>Franchisee Information</span></div>
+
+                <div class="row">
+                    <div class="col-sm-6 no-margin">
+                        <form role="form">
+                            <div class="form-group">
+                                
+                                <label>Last Name&nbsp;<span class="label label-danger" data-bind='visible: LastName.hasError, text: LastName.validationMessage'></span></label>                  
+                                <div class="controls">
+                                     <input id="fr_LastName" maxlength="50" type="text"  class="form-control" data-bind="value: LastName"/>
+                                </div>
+                                <label>First Name&nbsp;<span class="label label-danger" data-bind='visible: FirstName.hasError, text: FirstName.validationMessage'></span></label>                  
+                                <div class="controls">
+                                     <input id="fr_FirstName" maxlength="50" type="text"  class="form-control" data-bind="value: FirstName"/>
+                                </div>
+                                <label>Title</label>
+                                <div class="controls" >
+                                    <input id="fr_Title"  class="form-control" maxlength="50" type="text"  data-bind="value: Title">
+                                </div>
+
+                                <label>Sandler Role</label>
+                                <div class="controls">
+                                    <input id="fr_SandlerRole" type="text" data-bind="kendoDropDownList: { dataTextField: 'SandlerRoleText', dataValueField: 'SandlerRoleId', data: sandlerRoles, value: SandlerRoleId, optionLabel : 'Please Select..' }"/>
+                                </div>
+
+                                <label>Part of a Master Franchise?</label>
+                                <div class="controls">
+                                    <input id="fr_partOfMasterFrs" type="text"  data-bind="kendoDropDownList: { dataTextField: 'Description', dataValueField: 'Value', data: yesNoData, value: IsMasterFranchiseeExistsInt }"/>
+                                </div>
+
+                                <label>Master Franchisee</label>
+                                <div class="controls">
+                                    <input id="fr_masterFr" type="text" data-bind="kendoDropDownList: { dataTextField: 'MasterFranchiseeName', dataValueField: 'MasterFranchiseeId', data: masterFranchisees, value: MasterFranchiseeId, optionLabel : 'Please Select..' }"/>
+                                </div>
+
+                                <label>Can Print Locally?</label>
+                                <div class="controls">
+                                    <input id="fr_canPrint" type="text"  data-bind="kendoDropDownList: { dataTextField: 'Description', dataValueField: 'Value', data: yesNoData, value: IsCanPrintLocallyInt }"/>
+                                </div>
+
+                                <label>Buy from SSI?</label>
+                                <div class="controls">
+                                    <input id="fr_buyFromSSI" type="text"  data-bind="kendoDropDownList: { dataTextField: 'Description', dataValueField: 'Value', data: yesNoData, value: IsBuyFromCustomerInt }"/>
+                                </div>
+
+                                <label>Fixed Price Purchase?</label>
+                                <div class="controls">
+                                    <input id="fr_fixedPrice" type="text"  data-bind="kendoDropDownList: { dataTextField: 'Description', dataValueField: 'Value', data: yesNoData, value: IsFixedPricePurchaseInt }"/>
+                                </div>
+                                
+                                <label>Cost Plus Amount</label>
+                                <div class="controls">
+                                    <input id="fr_costplusamt" type="text" data-bind="kendoDropDownList: { dataTextField: 'CostPlusAmountText', dataValueField: 'CostPlusAmountId', data: costplusamts, value: CostPlusAmountId, optionLabel : 'Please Select..' }"/>
+                                </div>
+                                
+                                <label>Behind in Territory Development?</label>
+                                <div class="controls">
+                                    <input id="fr_bhndterdev" type="text"  data-bind="kendoDropDownList: { dataTextField: 'Description', dataValueField: 'Value', data: yesNoData, value: IsBehindInTerDevInt }"/>
+                                </div>
+                                                                
+                                <label>Select Behind Amount</label>
+                                <div class="controls">
+                                    <input id="fr_bhndamt" type="text" data-bind="kendoDropDownList: { dataTextField: 'BehindAmountText', dataValueField: 'BehindAmountId', data: behindamts, value: BehindAmountId, optionLabel : 'Please Select..' }"/>
+                                </div>
+
+                                <label>Coach-Region&nbsp;<span class="label label-danger" data-bind='visible: CoachID.hasError, text: CoachID.validationMessage'></span></label>
+                                <div class="controls">
+                                    <input id="fr_coachregion" type="text" data-bind="kendoDropDownList: { dataTextField: 'Name', dataValueField: 'Id', data: sandlerCoachRegions, value: CoachID, optionLabel : 'Please Select..' }"/>
+                                </div>
+
+                                <label>Territory</label>
+                                <div class="controls" >
+                                    <input id="fr_Territory"  class="form-control" maxlength="120" type="text"  data-bind="value: Territory">
+                                </div>
+                                
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-sm-6 no-margin">
+                        <form role="form">
+                            <div class="form-group">
+                                
+                                <label>Business Focus Area</label>
+                                <div class="controls" >
+                                    <input id="fr_busfocusarea"  class="form-control" maxlength="120" type="text"  data-bind="value: BusinessFocusArea">
+                                </div>
+                                
+                                <label>Closest Metro Area</label>
+                                <div class="controls" >
+                                    <input id="fr_closestmetroarea"  class="form-control" maxlength="120" type="text"  data-bind="value: ClosestMetroArea">
+                                </div>
+
+                                <label>Franchise Name&nbsp;<span class="label label-danger" data-bind='visible: Name.hasError, text: Name.validationMessage'></span></label>
+                                <div class="controls" >
+                                    <input id="fr_frname"  class="form-control" maxlength="120" type="text"  data-bind="value: Name">
+                                </div>
+
+                                <label>Office Phone</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-suitcase"></i>
+                                    </span>
+                                    <input id="fr_offphone"  class="form-control" maxlength="50" type="text"  data-bind="value: OfficePhone">
+                                </div>
+
+                                <label>Mobile Phone</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-tablet"></i>
+                                    </span>
+                                    <input id="fr_mobphone"  class="form-control" maxlength="50" type="text"  data-bind="value: MobilePhone">
+                                </div>
+                                
+                                <label>Fax</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <span class=" glyphicon glyphicon-file"></span>
+                                    </span>
+                                    <input id="fr_Fax"  class="form-control" maxlength="50" type="text"  data-bind="value: Fax">
+                                </div>
+
+                                <label>Award Level</label>
+                                <div class="controls">
+                                    <input id="fr_awardlevel" type="text" data-bind="kendoDropDownList: { dataTextField: 'AwardLevelText', dataValueField: 'AwardLevelId', data: awardlevels, value: AwardLevelId, optionLabel : 'Please Select..' }"/>
+                                </div>
+                                
+                                <label>Purchase Level</label>
+                                <div class="controls">
+                                    <input id="fr_purchaselevel" type="text" data-bind="kendoDropDownList: { dataTextField: 'PurchaseLevelText', dataValueField: 'PurchaseLevelId', data: purchaselevels, value: PurchaseLevelId, optionLabel : 'Please Select..' }"/>
+                                </div>
+
+                                <label>Certified Level</label>
+                                <div class="controls">
+                                    <input id="fr_certifiedlevel" type="text" data-bind="kendoDropDownList: { dataTextField: 'CertifiedLevelText', dataValueField: 'CertifiedLevelId', data: certifiedlevels, value: CertifiedLevelId, optionLabel : 'Please Select..' }"/>
+                                </div>
+
+                                <label>Primary Business</label>
+                                <div class="controls">
+                                    <input id="fr_prmbusiness" type="text" data-bind="kendoDropDownList: { dataTextField: 'PrimaryBusinessText', dataValueField: 'PrimaryBusinessId', data: primarybusinesses, value: PrimaryBusinessId, optionLabel : 'Please Select..' }"/>
+                                </div>
+
+                                <label>Initial Contract Date</label>
+                                <div class="controls">
+                                     <input id="fr_intcontDate" style="max-width:230px;" maxlength="12" type="text" class="form-control" data-bind="kendoDatePicker: InitialContractDatec"/>
+                                </div>
+
+                                <label>Renewal Date</label>
+                                <div class="controls">
+                                     <input id="fr_rnwlDate" style="max-width:230px;" maxlength="12" type="text" class="form-control" data-bind="kendoDatePicker: RenewalDatec"/>
+                                </div>
+
+                                <label>Contract Form Date</label>
+                                <div class="controls">
+                                     <input id="fr_contformDate" style="max-width:230px;" maxlength="12" type="text" class="form-control" data-bind="kendoDatePicker: ContractFormDatec"/>
+                                </div>
+                                
+                                <label>Are Contractors Permitted?</label>
+                                <div class="controls">
+                                    <input id="fr_contpermitted" type="text"  data-bind="kendoDropDownList: { dataTextField: 'Description', dataValueField: 'Value', data: yesNoData, value: IsContractorPermittedInt }"/>
+                                </div>
+
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="col-md-6 no-margin">
+                <div class="col-title"><span>Personal Information</span></div>
+
+                <div class="row">
+
+                    <div class="col-sm-6 no-margin">
+                        <form role="form">
+                            <div class="form-group">
+                              
+                                <label>KOL Member?</label>
+                                <div class="controls">
+                                    <input id="fr_kolmember" type="text"  data-bind="kendoDropDownList: { dataTextField: 'Description', dataValueField: 'Value', data: yesNoData, value: IsKOLMemberInt }"/>
+                                </div>
+                                
+                                <label>Advisory Board?</label>
+                                <div class="controls">
+                                    <input id="fr_advboard" type="text"  data-bind="kendoDropDownList: { dataTextField: 'Description', dataValueField: 'Value', data: yesNoData, value: IsAdvBoardInt }"/>
+                                </div>
+
+                                <label>Marketing Committee?</label>
+                                <div class="controls">
+                                    <input id="fr_mktgcommittee" type="text"  data-bind="kendoDropDownList: { dataTextField: 'Description', dataValueField: 'Value', data: yesNoData, value: IsMktgCommitteeInt }"/>
+                                </div>
+
+                                <label>Using Sandler CRM?</label>
+                                <div class="controls">
+                                    <input id="fr_usingsandlercrm" type="text"  data-bind="kendoDropDownList: { dataTextField: 'Description', dataValueField: 'Value', data: yesNoData, value: IsUsingSandlerCRMInt }"/>
+                                </div>
+
+                                <label>DHS Award Winner?</label>
+                                <div class="controls">
+                                    <input id="fr_dhsawardwinner" type="text"  data-bind="kendoDropDownList: { dataTextField: 'Description', dataValueField: 'Value', data: yesNoData, value: IsDHSAwardWinnerInt }"/>
+                                </div>
+                                
+                                <label>DHS Award Date</label>
+                                <div class="controls">
+                                     <input id="fr_dhswardDate" style="max-width:230px;" maxlength="12" type="text" class="form-control" data-bind="kendoDatePicker: DHSAwardDatec"/>
+                                </div>
+
+                                <label>Initial Training Date</label>
+                                <div class="controls">
+                                     <input id="fr_inttrngDate" style="max-width:230px;" maxlength="12" type="text" class="form-control" data-bind="kendoDatePicker: InitialTrngDatec"/>
+                                </div>
+
+                                <label>Is Sandler Mail Required?</label>
+                                <div class="controls">
+                                    <input id="fr_sandlermailreqd" type="text"  data-bind="kendoDropDownList: { dataTextField: 'Description', dataValueField: 'Value', data: yesNoData, value: IsSandlerMailRequiredInt }"/>
+                                </div>
+                                
+                                <label>Required to submit Financials?</label>
+                                <div class="controls">
+                                    <input id="fr_reqdfins" type="text"  data-bind="kendoDropDownList: { dataTextField: 'Description', dataValueField: 'Value', data: yesNoData, value: IsReqToSubmitFinancialInt }"/>
+                                </div>
+
+                                 <label>Rep Agreement for Global Account?</label>
+                                <div class="controls">
+                                    <input id="fr_repAgreement" type="text"  data-bind="kendoDropDownList: { dataTextField: 'Description', dataValueField: 'Value', data: yesNoData, value: IsRepAgreementInt }"/>
+                                </div>
+                                
+                                <label>Primary Office Email</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-envelope"></span>
+                                    </span>
+                                    <input id="fr_prmofficeemail"  class="form-control" maxlength="50" type="text"  data-bind="value: WorkEmail">
+                                </div>
+
+                                <label>Primary Office Address</label>
+                                <div class="controls" >
+                                    <input id="fr_prmofficeadrs"  class="form-control" maxlength="120" type="text"  data-bind="value: WorkAddress">
+                                </div>
+
+                                <label>Primary Office City</label>
+                                <div class="controls">
+                                    <input id="fr_prmofficecity"  class="form-control" maxlength="50" type="text"  data-bind="value: WorkCity">
+                                </div>
+
+                                <label>Primary Office State</label>
+                                <div class="controls">
+                                    <input id="fr_prmofficestate" type="text" data-bind="kendoDropDownList: { dataTextField: 'Name', dataValueField: 'Id', data: states, value: WorkStateId, optionLabel : 'Please Select..' }"/>
+                                </div>
+
+                                <label>Primary Office Zip</label>
+                                <div class="controls" >
+                                    <input id="fr_prmofficezip"  class="form-control" maxlength="12" type="text"  data-bind="value: WorkZip">
+                                </div>
+
+                                <label>Primary Office Country</label>
+                                <div class="controls">
+                                    <input id="fr_prmofficecountry" type="text" data-bind="kendoDropDownList: { dataTextField: 'Name', dataValueField: 'ID', data: countries, value: WorkCountryId, optionLabel : 'Please Select..' }"/>
+                                </div>
+
+
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="col-sm-6 no-margin">
+                        <form role="form">
+                            <div class="form-group">
+                                
+                                <label>Spouse's Name</label>
+                                <div class="controls">
+                                    <input id="fr_spousename"  class="form-control" maxlength="50" type="text"  data-bind="value: SpouseName">
+                                </div>
+
+                                <label>Birthday</label>
+                                <div class="controls">
+                                     <input id="fr_brthday" style="max-width:230px;" maxlength="12" type="text" class="form-control" data-bind="kendoDatePicker: Birthdayc"/>
+                                </div>
+
+                                <label>Anniversary</label>
+                                <div class="controls">
+                                     <input id="fr_anniversary" style="max-width:230px;" maxlength="12" type="text" class="form-control" data-bind="kendoDatePicker: Anniversaryc"/>
+                                </div>
+
+                                <label>Years with Company</label>
+                                <div class="controls">
+                                    <input id="fr_yrswith"  class="form-control" maxlength="10" type="text"  data-bind="value: YearsWithCompany">
+                                </div>
+                                
+                                <label>Home Phone</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-home"></span>
+                                    </span>
+                                    <input id="fr_homephone"  class="form-control" maxlength="12" type="text"  data-bind="value: HomePhone">
+                                </div>
+
+                                <label>Alternate Email</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-envelope"></span>
+                                    </span>
+                                    <input id="fr_alternateEmail"  class="form-control" maxlength="50" type="text"  data-bind="value: AlternateEmail">
+                                </div>
+
+                                <label>Same Home Address?</label>
+                                <div class="controls">
+                                    <input id="fr_samehomeadrs" type="text"  data-bind="kendoDropDownList: { dataTextField: 'Description', dataValueField: 'Value', data: yesNoData, value: IsSameHomeAddressInt }"/>
+                                </div>
+                                
+                                <label>Home Address</label>
+                                <div class="controls">
+                                    <input id="fr_homeadrs"  class="form-control" maxlength="120" type="text"  data-bind="value: HomeAddress">
+                                </div>
+                                
+                                <label>Home City</label>
+                                <div class="controls">
+                                    <input id="fr_homecity"  class="form-control" maxlength="12" type="text"  data-bind="value: HomeCity">
+                                </div>
+
+                                <label>Home State</label>
+                                <div class="controls">
+                                    <input id="fr_homestate" type="text" data-bind="kendoDropDownList: { dataTextField: 'Name', dataValueField: 'Id', data: states, value: HomeStateId, optionLabel : 'Please Select..' }"/>
+                                </div>
+                                
+                                <label>Home Zip</label>
+                                <div class="controls" >
+                                    <input id="fr_homezip"  class="form-control" maxlength="12" type="text"  data-bind="value: HomeZip">
+                                </div>
+
+                                <label>Home Country</label>
+                                <div class="controls">
+                                    <input id="fr_homecountry" type="text" data-bind="kendoDropDownList: { dataTextField: 'Name', dataValueField: 'ID', data: countries, value: HomeCountryId, optionLabel : 'Please Select..' }"/>
+                                </div>
+
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        @* Page Footer *@
+        <div class="row page-footer">
+            <div class="pull-right">
+                <button id="bt_cancel_frc" class="btn btn-danger btn-cancel" type="button">Cancel</button>
+                <button id="bt_save_frc" class="btn btn-primary btn-save" type="button" data-bind="enable: isDirty, click: Save">Save</button>
+            </div>
+        </div>
+
+    </div>
+
+
+
+</div>
+
+@*Custom extender for Last Name-required *@
+<script>
+    ko.extenders.required = function (target, overrideMessage) {
+        //add some sub-observables to our observable
+        target.hasError = ko.observable();
+        target.validationMessage = ko.observable();
+
+        //define a function to do validation
+        function validate(newValue) {
+            target.hasError(newValue ? false : true);
+            target.validationMessage(newValue ? "" : overrideMessage || "*");
+        }
+        //initial validation
+        validate(target());
+        //validate whenever the value changes
+        target.subscribe(validate);
+        //return the original observable
+        return target;
+    };
+</script>
+
+<script>
+
+    var franchiseeVM;
+
+    //This is after Edit is perfomed
+    function initialize_franchiseeF(franchiseeData)
+    {
+        franchiseeVM.ID(franchiseeData.ID);
+        //string
+        franchiseeVM.Name(franchiseeData.Name);
+        franchiseeVM.Address1(franchiseeData.Address1);
+        franchiseeVM.Address2(franchiseeData.Address2);
+        franchiseeVM.City(franchiseeData.City);
+        franchiseeVM.State(franchiseeData.State);
+        franchiseeVM.Zip(franchiseeData.Zip);
+        franchiseeVM.WebAddress(franchiseeData.WebAddress);
+        franchiseeVM.EmailAddress(franchiseeData.EmailAddress);
+        franchiseeVM.PhoneNumber(franchiseeData.PhoneNumber);
+        franchiseeVM.FaxNumber(franchiseeData.FaxNumber);
+        franchiseeVM.LastName(franchiseeData.LastName);
+        franchiseeVM.FirstName(franchiseeData.FirstName);
+        franchiseeVM.Title(franchiseeData.Title);
+        franchiseeVM.OfficePhone(franchiseeData.OfficePhone);
+        franchiseeVM.HomePhone(franchiseeData.HomePhone);
+        franchiseeVM.MobilePhone(franchiseeData.MobilePhone);
+        franchiseeVM.Fax(franchiseeData.Fax);
+        franchiseeVM.WorkEmail(franchiseeData.WorkEmail);
+        franchiseeVM.WorkAddress(franchiseeData.WorkAddress);
+        franchiseeVM.WorkCity(franchiseeData.WorkCity);
+        franchiseeVM.WorkZip(franchiseeData.WorkZip);
+        franchiseeVM.AlternateEmail(franchiseeData.AlternateEmail);
+        franchiseeVM.HomeAddress(franchiseeData.HomeAddress);
+        franchiseeVM.HomeCity(franchiseeData.HomeCity);
+        franchiseeVM.HomeZip(franchiseeData.HomeZip);
+        franchiseeVM.SpouseName(franchiseeData.SpouseName);
+        franchiseeVM.BusinessFocusArea(franchiseeData.BusinessFocusArea);
+        franchiseeVM.ClosestMetroArea(franchiseeData.ClosestMetroArea);
+        franchiseeVM.Territory(franchiseeData.Territory);
+        franchiseeVM.LastUpdatedBy(franchiseeData.LastUpdatedBy);
+        franchiseeVM.CreatedBy(franchiseeData.CreatedBy);
+        //Int
+        franchiseeVM.CoachID(franchiseeData.CoachID);
+        franchiseeVM.MasterFranchiseeId(franchiseeData.MasterFranchiseeId);
+        franchiseeVM.CountryID(franchiseeData.CountryID);
+        franchiseeVM.AwardLevelId(franchiseeData.AwardLevelId);
+        franchiseeVM.PurchaseLevelId(franchiseeData.PurchaseLevelId);
+        franchiseeVM.CertifiedLevelId(franchiseeData.CertifiedLevelId);
+        franchiseeVM.PrimaryBusinessId(franchiseeData.PrimaryBusinessId);
+        franchiseeVM.SandlerRoleId(franchiseeData.SandlerRoleId);
+        franchiseeVM.WorkStateId(franchiseeData.WorkStateId);
+        franchiseeVM.WorkCountryId(franchiseeData.WorkCountryId);
+        franchiseeVM.HomeStateId(franchiseeData.HomeStateId);
+        franchiseeVM.HomeCountryId(franchiseeData.HomeCountryId);
+        franchiseeVM.YearsWithCompany(franchiseeData.YearsWithCompany);
+        franchiseeVM.CostPlusAmountId(franchiseeData.CostPlusAmountId);
+        franchiseeVM.BehindAmountId(franchiseeData.BehindAmountId);
+        //Date
+
+        //Last Created Date
+        if (franchiseeData.LastCreatedDate != null && franchiseeData.LastCreatedDate != "") {
+            franchiseeVM.LastCreatedDatec(kendo.parseDate(franchiseeData.LastCreatedDate));
+        }
+        else {
+            franchiseeVM.LastCreatedDatec();
+        }
+
+        //Created Date
+        if (franchiseeData.CreatedDate != null && franchiseeData.CreatedDate != "") {
+            franchiseeVM.CreatedDatec(kendo.parseDate(franchiseeData.CreatedDate));
+        }
+        else {
+            franchiseeVM.CreatedDatec();
+        }
+
+        //Initial Contract Date 
+        if (franchiseeData.InitialContractDate != null && franchiseeData.InitialContractDate != "") {
+            franchiseeVM.InitialContractDatec(kendo.parseDate(franchiseeData.InitialContractDate));
+        }
+        else {
+            franchiseeVM.InitialContractDatec();
+        }
+
+        //Renewal Date 
+        if (franchiseeData.RenewalDate != null && franchiseeData.RenewalDate != "") {
+            franchiseeVM.RenewalDatec(kendo.parseDate(franchiseeData.RenewalDate));
+        }
+        else {
+            franchiseeVM.RenewalDatec();
+        }
+
+        //Contract Form Date
+        if (franchiseeData.ContractFormDate != null && franchiseeData.ContractFormDate != "") {
+            franchiseeVM.ContractFormDatec(kendo.parseDate(franchiseeData.ContractFormDate));
+        }
+        else {
+            franchiseeVM.ContractFormDatec();
+        }
+
+        //Anniversary
+        if (franchiseeData.Anniversary != null && franchiseeData.Anniversary != "") {
+            franchiseeVM.Anniversaryc(kendo.parseDate(franchiseeData.Anniversary));
+        }
+        else {
+            franchiseeVM.Anniversaryc();
+        }
+
+        //Birthday
+        if (franchiseeData.Birthday != null && franchiseeData.Birthday != "") {
+            franchiseeVM.Birthdayc(kendo.parseDate(franchiseeData.Birthday));
+        }
+        else {
+            franchiseeVM.Birthdayc();
+        }
+
+        //DHS Award Date
+        if (franchiseeData.DHSAwardDate != null && franchiseeData.DHSAwardDate != "") {
+            franchiseeVM.DHSAwardDatec(kendo.parseDate(franchiseeData.DHSAwardDate));
+        }
+        else {
+            franchiseeVM.DHSAwardDatec();
+        }
+        
+        //Initial Trng Date 
+        if (franchiseeData.InitialTrngDate != null && franchiseeData.InitialTrngDate != "") {
+            franchiseeVM.InitialTrngDatec(kendo.parseDate(franchiseeData.InitialTrngDate));
+        }
+        else {
+            franchiseeVM.InitialTrngDatec();
+        }
+
+        //Initial Trng Date 
+        if (franchiseeData.InitialTrngDate != null && franchiseeData.InitialTrngDate != "") {
+            franchiseeVM.InitialTrngDatec(kendo.parseDate(franchiseeData.InitialTrngDate));
+        }
+        else {
+            franchiseeVM.InitialTrngDatec();
+        }
+
+        //Bit Fields
+
+        franchiseeVM.IsMasterFranchiseeExists(franchiseeData.IsMasterFranchiseeExists);
+        if(franchiseeData.IsMasterFranchiseeExists == true)
+        {
+            franchiseeVM.IsMasterFranchiseeExistsInt(1);
+        }
+        else
+        {
+            franchiseeVM.IsMasterFranchiseeExistsInt(0);
+        }
+
+        franchiseeVM.IsContractorPermitted(franchiseeData.IsContractorPermitted);
+        if(franchiseeData.IsContractorPermitted == true)
+        {
+            franchiseeVM.IsContractorPermittedInt(1);
+        }
+        else
+        {
+            franchiseeVM.IsContractorPermittedInt(0);
+        }
+
+        franchiseeVM.IsSandlerMailRequired(franchiseeData.IsSandlerMailRequired);
+        if(franchiseeData.IsSandlerMailRequired == true)
+        {
+            franchiseeVM.IsSandlerMailRequiredInt(1);
+        }
+        else
+        {
+            franchiseeVM.IsSandlerMailRequiredInt(0);
+        }
+
+        franchiseeVM.IsKOLMember(franchiseeData.IsKOLMember);
+        if(franchiseeData.IsKOLMember == true)
+        {
+            franchiseeVM.IsKOLMemberInt(1);
+        }
+        else
+        {
+            franchiseeVM.IsKOLMemberInt(0);
+        }
+
+        franchiseeVM.IsAdvBoard(franchiseeData.IsAdvBoard);
+        if(franchiseeData.IsAdvBoard == true)
+        {
+            franchiseeVM.IsAdvBoardInt(1);
+        }
+        else
+        {
+            franchiseeVM.IsAdvBoardInt(0);
+        }
+
+        franchiseeVM.IsMktgCommittee(franchiseeData.IsMktgCommittee);
+        if(franchiseeData.IsMktgCommittee == true)
+        {
+            franchiseeVM.IsMktgCommitteeInt(1);
+        }
+        else
+        {
+            franchiseeVM.IsMktgCommitteeInt(0);
+        }
+
+        franchiseeVM.IsUsingSandlerCRM(franchiseeData.IsUsingSandlerCRM);
+        if(franchiseeData.IsUsingSandlerCRM == true)
+        {
+            franchiseeVM.IsUsingSandlerCRMInt(1);
+        }
+        else
+        {
+            franchiseeVM.IsUsingSandlerCRMInt(0);
+        }
+
+        franchiseeVM.IsDHSAwardWinner(franchiseeData.IsDHSAwardWinner);
+        if(franchiseeData.IsDHSAwardWinner == true)
+        {
+            franchiseeVM.IsDHSAwardWinnerInt(1);
+        }
+        else
+        {
+            franchiseeVM.IsDHSAwardWinnerInt(0);
+        }
+
+        franchiseeVM.IsReqToSubmitFinancial(franchiseeData.IsReqToSubmitFinancial);
+        if(franchiseeData.IsDHSAwardWinner == true)
+        {
+            franchiseeVM.IsReqToSubmitFinancialInt(1);
+        }
+        else
+        {
+            franchiseeVM.IsReqToSubmitFinancialInt(0);
+        }
+
+        franchiseeVM.IsRepAgreement(franchiseeData.IsRepAgreement);
+        if(franchiseeData.IsRepAgreement == true)
+        {
+            franchiseeVM.IsRepAgreementInt(1);
+        }
+        else
+        {
+            franchiseeVM.IsRepAgreementInt(0);
+        }
+
+
+        franchiseeVM.IsSameHomeAddress(franchiseeData.IsSameHomeAddress);
+        if(franchiseeData.IsSameHomeAddress == true)
+        {
+            franchiseeVM.IsSameHomeAddressInt(1);
+        }
+        else
+        {
+            franchiseeVM.IsSameHomeAddressInt(0);
+        }
+
+        franchiseeVM.IsCanPrintLocally(franchiseeData.IsCanPrintLocally);
+        if(franchiseeData.IsCanPrintLocally == true)
+        {
+            franchiseeVM.IsCanPrintLocallyInt(1);
+        }
+        else
+        {
+            franchiseeVM.IsCanPrintLocallyInt(0);
+        }
+
+        franchiseeVM.IsBuyFromCustomer(franchiseeData.IsBuyFromCustomer);
+        if(franchiseeData.IsBuyFromCustomer == true)
+        {
+            franchiseeVM.IsBuyFromCustomerInt(1);
+        }
+        else
+        {
+            franchiseeVM.IsBuyFromCustomerInt(0);
+        }
+
+        franchiseeVM.IsFixedPricePurchase(franchiseeData.IsFixedPricePurchase);
+        if(franchiseeData.IsFixedPricePurchase == true)
+        {
+            franchiseeVM.IsFixedPricePurchaseInt(1);
+        }
+        else
+        {
+            franchiseeVM.IsFixedPricePurchaseInt(0);
+        }
+
+        franchiseeVM.IsBehindInTerDev(franchiseeData.IsBehindInTerDev);
+        if(franchiseeData.IsBehindInTerDev == true)
+        {
+            franchiseeVM.IsBehindInTerDevInt(1);
+        }
+        else
+        {
+            franchiseeVM.IsBehindInTerDevInt(0);
+        }
+
+
+    }
+
+
+</script>
+
+
+<script>
+
+    @* Tracking whether there is unsaved change(s). *@
+    ko.dirtyFlag_franchisee = function (root, isInitiallyDirty) {
+
+        var result = function () { },
+            _initialState = ko.observable(ko.toJSON(root)),
+            _isInitiallyDirty = ko.observable(isInitiallyDirty);
+
+        result.isDirty = ko.computed(function () {
+            return _isInitiallyDirty() || _initialState() !== ko.toJSON(root);
+        });
+
+        result.reset = function () {
+            _initialState(ko.toJSON(root));
+            _isInitiallyDirty(false);
+        };
+
+        return result;
+    };
+
+    //First time display the data
+    function franchiseeDataVM(franchiseeData) {
+
+        //Get Lookup Data
+        yesNoData = startModule.getYesNoOptions();
+        sandlerRoles = startModule.getSandlerRoles();
+        sandlerCoachRegions = startModule.getSandlerCoachRegions();
+        masterFranchisees = startModule.getMasterFranchisees();
+        costplusamts = startModule.getCostPlusAmt();
+        behindamts = startModule.getBehindAmount();
+        certifiedlevels = startModule.getCertifiedLevel();
+        purchaselevels = startModule.getPurchaseLevel();
+        awardlevels = startModule.getAwardLevel();
+        primarybusinesses = startModule.getPrimaryBusiness();
+        states = startModule.getStates();
+        countries = startModule.getCountries();
+                
+        var self = this;
+        //Process Look up Data
+        self.yesNoData = ko.observableArray(yesNoData);
+        self.sandlerRoles = ko.observableArray(sandlerRoles);
+        self.sandlerCoachRegions = ko.observableArray(sandlerCoachRegions);
+        self.masterFranchisees = ko.observableArray(masterFranchisees);
+        self.costplusamts = ko.observableArray(costplusamts);
+        self.behindamts = ko.observableArray(behindamts);
+        self.certifiedlevels = ko.observableArray(certifiedlevels);
+        self.purchaselevels = ko.observableArray(purchaselevels);
+        self.awardlevels = ko.observableArray(awardlevels);
+        self.primarybusinesses = ko.observableArray(primarybusinesses);
+        self.states = ko.observableArray(states);
+        self.countries = ko.observableArray(countries);
+        
+        //For Other Fields
+        self.ID = ko.observable(franchiseeData.ID);
+        self.Name = ko.observable(franchiseeData.Name).extend({ required: "" });
+        //string
+        self.Address1 = ko.observable(franchiseeData.Address1);
+        self.Address2 = ko.observable(franchiseeData.Address2);
+        self.City = ko.observable(franchiseeData.City);
+        self.State = ko.observable(franchiseeData.State);
+        self.Zip = ko.observable(franchiseeData.Zip);
+        self.WebAddress = ko.observable(franchiseeData.WebAddress);
+        self.EmailAddress = ko.observable(franchiseeData.EmailAddress);
+        self.PhoneNumber = ko.observable(franchiseeData.PhoneNumber);
+        self.FaxNumber = ko.observable(franchiseeData.FaxNumber);
+        self.LastName = ko.observable(franchiseeData.LastName).extend({ required: "" });
+        self.FirstName = ko.observable(franchiseeData.FirstName).extend({ required: "" });
+        self.Title = ko.observable(franchiseeData.Title);
+        self.OfficePhone = ko.observable(franchiseeData.OfficePhone);
+        self.HomePhone = ko.observable(franchiseeData.HomePhone);
+        self.MobilePhone = ko.observable(franchiseeData.MobilePhone);
+        self.Fax = ko.observable(franchiseeData.Fax);
+        self.WorkEmail = ko.observable(franchiseeData.WorkEmail);
+        self.WorkAddress = ko.observable(franchiseeData.WorkAddress);
+        self.WorkCity = ko.observable(franchiseeData.WorkCity);
+        self.WorkZip = ko.observable(franchiseeData.WorkZip);
+        self.AlternateEmail = ko.observable(franchiseeData.AlternateEmail);
+        self.HomeAddress = ko.observable(franchiseeData.HomeAddress);
+        self.HomeCity = ko.observable(franchiseeData.HomeCity);
+        self.HomeZip = ko.observable(franchiseeData.HomeZip);
+        self.SpouseName = ko.observable(franchiseeData.SpouseName);
+        self.BusinessFocusArea = ko.observable(franchiseeData.BusinessFocusArea);
+        self.ClosestMetroArea = ko.observable(franchiseeData.ClosestMetroArea);
+        self.Territory = ko.observable(franchiseeData.Territory);
+        self.LastUpdatedBy = ko.observable(franchiseeData.LastUpdatedBy);
+        self.CreatedBy = ko.observable(franchiseeData.CreatedBy);
+        //int
+        self.CoachID = ko.observable(franchiseeData.CoachID).extend({ required: "" });
+        self.MasterFranchiseeId = ko.observable(franchiseeData.MasterFranchiseeId);
+        self.CountryID = ko.observable(franchiseeData.CountryID);
+        self.AwardLevelId = ko.observable(franchiseeData.AwardLevelId);
+        self.PurchaseLevelId = ko.observable(franchiseeData.PurchaseLevelId);
+        self.CertifiedLevelId = ko.observable(franchiseeData.CertifiedLevelId);
+        self.PrimaryBusinessId = ko.observable(franchiseeData.PrimaryBusinessId);
+        self.SandlerRoleId = ko.observable(franchiseeData.SandlerRoleId);
+        self.WorkStateId = ko.observable(franchiseeData.WorkStateId);
+        self.WorkCountryId = ko.observable(franchiseeData.WorkCountryId);
+        self.HomeStateId = ko.observable(franchiseeData.HomeStateId);
+        self.HomeCountryId = ko.observable(franchiseeData.HomeCountryId);
+        self.YearsWithCompany = ko.observable(franchiseeData.YearsWithCompany);
+        self.CostPlusAmountId = ko.observable(franchiseeData.CostPlusAmountId);
+        self.BehindAmountId = ko.observable(franchiseeData.BehindAmountId);
+        //date
+        
+        //Last Created Date
+        if (franchiseeData.LastCreatedDate != null && franchiseeData.LastCreatedDate != "") {
+            self.LastCreatedDatec = ko.observable(kendo.parseDate(franchiseeData.LastCreatedDate));
+        }
+        else {
+              self.LastCreatedDatec = ko.observable();
+        }
+        self.LastCreatedDate = ko.computed(function () {
+              return dateUtil_.toNoTimeZone(self.LastCreatedDatec());
+        });
+
+        //Created Date
+        if (franchiseeData.CreatedDate != null && franchiseeData.CreatedDate != "") {
+            self.CreatedDatec = ko.observable(kendo.parseDate(franchiseeData.CreatedDate));
+        }
+        else {
+            self.CreatedDatec = ko.observable();
+        }
+        self.CreatedDate = ko.computed(function () {
+            return dateUtil_.toNoTimeZone(self.CreatedDatec());
+        });
+        
+        //Initial Contract Date 
+        if (franchiseeData.InitialContractDate != null && franchiseeData.InitialContractDate != "") {
+            self.InitialContractDatec = ko.observable(kendo.parseDate(franchiseeData.InitialContractDate));
+        }
+        else {
+            self.InitialContractDatec = ko.observable();
+        }
+        self.InitialContractDate = ko.computed(function () {
+            return dateUtil_.toNoTimeZone(self.InitialContractDatec());
+        });
+
+        //Renewal Date 
+        if (franchiseeData.RenewalDate != null && franchiseeData.RenewalDate != "") {
+            self.RenewalDatec = ko.observable(kendo.parseDate(franchiseeData.RenewalDate));
+        }
+        else {
+            self.RenewalDatec = ko.observable();
+        }
+        self.RenewalDate = ko.computed(function () {
+            return dateUtil_.toNoTimeZone(self.RenewalDatec());
+        });
+
+        //Contract Form Date
+        if (franchiseeData.ContractFormDate != null && franchiseeData.ContractFormDate != "") {
+            self.ContractFormDatec = ko.observable(kendo.parseDate(franchiseeData.ContractFormDate));
+        }
+        else {
+            self.ContractFormDatec = ko.observable();
+        }
+        self.ContractFormDate = ko.computed(function () {
+            return dateUtil_.toNoTimeZone(self.ContractFormDatec());
+        });
+             
+        //Anniversary 
+        if (franchiseeData.Anniversary != null && franchiseeData.Anniversary != "") {
+            self.Anniversaryc = ko.observable(kendo.parseDate(franchiseeData.Anniversary));
+        }
+        else {
+            self.Anniversaryc = ko.observable();
+        }
+        self.Anniversary = ko.computed(function () {
+            return dateUtil_.toNoTimeZone(self.Anniversaryc());
+        });
+
+        //Birthday 
+        if (franchiseeData.Birthday != null && franchiseeData.Birthday != "") {
+            self.Birthdayc = ko.observable(kendo.parseDate(franchiseeData.Birthday));
+        }
+        else {
+            self.Birthdayc = ko.observable();
+        }
+        self.Birthday = ko.computed(function () {
+            return dateUtil_.toNoTimeZone(self.Birthdayc());
+        });
+        
+        //DHS Award Date 
+        if (franchiseeData.DHSAwardDate != null && franchiseeData.DHSAwardDate != "") {
+            self.DHSAwardDatec = ko.observable(kendo.parseDate(franchiseeData.DHSAwardDate));
+        }
+        else {
+            self.DHSAwardDatec = ko.observable();
+        }
+        self.DHSAwardDate = ko.computed(function () {
+            return dateUtil_.toNoTimeZone(self.DHSAwardDatec());
+        });
+
+        //Initial Trng Date 
+        if (franchiseeData.InitialTrngDate != null && franchiseeData.InitialTrngDate != "") {
+            self.InitialTrngDatec = ko.observable(kendo.parseDate(franchiseeData.InitialTrngDate));
+        }
+        else {
+            self.InitialTrngDatec = ko.observable();
+        }
+        self.InitialTrngDate = ko.computed(function () {
+            return dateUtil_.toNoTimeZone(self.InitialTrngDatec());
+        });
+        
+        //Bit Fields
+
+        //Is Master Franchisee Exists
+        if(franchiseeData.IsMasterFranchiseeExists == true)
+        {
+            self.IsMasterFranchiseeExistsInt = ko.observable(1);
+        }
+        else
+        {
+            self.IsMasterFranchiseeExistsInt = ko.observable(0);
+        }
+        self.IsMasterFranchiseeExists =  ko.observable(franchiseeData.IsMasterFranchiseeExists);
+        
+        //Is Contractor Permitted
+        if(franchiseeData.IsContractorPermitted == true)
+        {
+            self.IsContractorPermittedInt = ko.observable(1);
+        }
+        else
+        {
+            self.IsContractorPermittedInt = ko.observable(0);
+        }
+        self.IsContractorPermitted =  ko.observable(franchiseeData.IsContractorPermitted);
+
+        //Is Sandler Mail Required
+        if(franchiseeData.IsSandlerMailRequired == true)
+        {
+            self.IsSandlerMailRequiredInt = ko.observable(1);
+        }
+        else
+        {
+            self.IsSandlerMailRequiredInt = ko.observable(0);
+        }
+        self.IsSandlerMailRequired =  ko.observable(franchiseeData.IsSandlerMailRequired);
+        
+        //Is KOL Member
+        if(franchiseeData.IsKOLMember == true)
+        {
+            self.IsKOLMemberInt = ko.observable(1);
+        }
+        else
+        {
+            self.IsKOLMemberInt = ko.observable(0);
+        }
+        self.IsKOLMember =  ko.observable(franchiseeData.IsKOLMember);
+        
+        //Is Adv Board
+        if(franchiseeData.IsAdvBoard == true)
+        {
+            self.IsAdvBoardInt = ko.observable(1);
+        }
+        else
+        {
+            self.IsAdvBoardInt = ko.observable(0);
+        }
+        self.IsAdvBoard =  ko.observable(franchiseeData.IsAdvBoard);
+
+        //Is Mktg Committee
+        if(franchiseeData.IsMktgCommittee == true)
+        {
+            self.IsMktgCommitteeInt = ko.observable(1);
+        }
+        else
+        {
+            self.IsMktgCommitteeInt = ko.observable(0);
+        }
+        self.IsMktgCommittee =  ko.observable(franchiseeData.IsMktgCommittee);
+
+        //Is Using Sandler CRM
+        if(franchiseeData.IsUsingSandlerCRM == true)
+        {
+            self.IsUsingSandlerCRMInt = ko.observable(1);
+        }
+        else
+        {
+            self.IsUsingSandlerCRMInt = ko.observable(0);
+        }
+        self.IsUsingSandlerCRM =  ko.observable(franchiseeData.IsUsingSandlerCRM);
+        
+        //Is DHS Award Winner
+        if(franchiseeData.IsDHSAwardWinner == true)
+        {
+            self.IsDHSAwardWinnerInt = ko.observable(1);
+        }
+        else
+        {
+            self.IsDHSAwardWinnerInt = ko.observable(0);
+        }
+        self.IsDHSAwardWinner =  ko.observable(franchiseeData.IsDHSAwardWinner);
+
+        //Is Req To Submit Financial
+        if(franchiseeData.IsReqToSubmitFinancial == true)
+        {
+            self.IsReqToSubmitFinancialInt = ko.observable(1);
+        }
+        else
+        {
+            self.IsReqToSubmitFinancialInt = ko.observable(0);
+        }
+        self.IsReqToSubmitFinancial =  ko.observable(franchiseeData.IsReqToSubmitFinancial);
+
+
+        //Is Rep Agreement
+        if(franchiseeData.IsRepAgreement == true)
+        {
+            self.IsRepAgreementInt = ko.observable(1);
+        }
+        else
+        {
+            self.IsRepAgreementInt = ko.observable(0);
+        }
+        self.IsRepAgreement =  ko.observable(franchiseeData.IsRepAgreement);
+        
+        //Is Same Home Address
+        if(franchiseeData.IsSameHomeAddress == true)
+        {
+            self.IsSameHomeAddressInt = ko.observable(1);
+        }
+        else
+        {
+            self.IsSameHomeAddressInt = ko.observable(0);
+        }
+        self.IsSameHomeAddress =  ko.observable(franchiseeData.IsSameHomeAddress);
+                
+        //Is Can Print Locally
+        if(franchiseeData.IsCanPrintLocally == true)
+        {
+            self.IsCanPrintLocallyInt = ko.observable(1);
+        }
+        else
+        {
+            self.IsCanPrintLocallyInt = ko.observable(0);
+        }
+        self.IsCanPrintLocally =  ko.observable(franchiseeData.IsCanPrintLocally);
+        
+        //Is Buy From Customer
+        if(franchiseeData.IsBuyFromCustomer == true)
+        {
+            self.IsBuyFromCustomerInt = ko.observable(1);
+        }
+        else
+        {
+            self.IsBuyFromCustomerInt = ko.observable(0);
+        }
+        self.IsBuyFromCustomer =  ko.observable(franchiseeData.IsBuyFromCustomer);
+
+
+        //Is Fixed Price Purchase
+        if(franchiseeData.IsFixedPricePurchase == true)
+        {
+            self.IsFixedPricePurchaseInt = ko.observable(1);
+        }
+        else
+        {
+            self.IsFixedPricePurchaseInt = ko.observable(0);
+        }
+        self.IsFixedPricePurchase =  ko.observable(franchiseeData.IsFixedPricePurchase);
+
+        //Is Behind In Ter Dev
+        if(franchiseeData.IsBehindInTerDev == true)
+        {
+            self.IsBehindInTerDevInt = ko.observable(1);
+        }
+        else
+        {
+            self.IsBehindInTerDevInt = ko.observable(0);
+        }
+        self.IsBehindInTerDev =  ko.observable(franchiseeData.IsBehindInTerDev);
+        
+        self.pageTitle = ko.computed(function () {
+            return (@Model.ID > 0 ? "Edit Franchisee" : "Add Franchisee");
+        });
+       
+        self.dirtyFlag = new ko.dirtyFlag_franchisee(self);
+
+        self.isDirty = ko.computed(function () {
+              return self.dirtyFlag.isDirty()
+        }, this);
+
+
+        self.TakeCareForBitFields = function()  {
+
+            //Take care of bit Fields
+            if(self.IsMasterFranchiseeExistsInt() > 0)
+            {
+                self.IsMasterFranchiseeExists(true);
+            }
+            else
+            {
+                self.IsMasterFranchiseeExists(false);
+            }
+
+            if(self.IsContractorPermittedInt() > 0)
+            {
+                self.IsContractorPermitted(true);
+            }
+            else
+            {
+                self.IsContractorPermitted(false);
+            }
+
+            if(self.IsSandlerMailRequiredInt() > 0)
+            {
+                self.IsSandlerMailRequired(true);
+            }
+            else
+            {
+                self.IsSandlerMailRequired(false);
+            }
+
+            if(self.IsKOLMemberInt() > 0)
+            {
+                self.IsKOLMember(true);
+            }
+            else
+            {
+                self.IsKOLMember(false);
+            }
+            
+            if(self.IsAdvBoardInt() > 0)
+            {
+                self.IsAdvBoard(true);
+            }
+            else
+            {
+                self.IsAdvBoard(false);
+            }
+
+            if(self.IsMktgCommitteeInt() > 0)
+            {
+                self.IsMktgCommittee(true);
+            }
+            else
+            {
+                self.IsMktgCommittee(false);
+            }
+
+            if(self.IsUsingSandlerCRMInt() > 0)
+            {
+                self.IsUsingSandlerCRM(true);
+            }
+            else
+            {
+                self.IsUsingSandlerCRM(false);
+            }
+
+            if(self.IsDHSAwardWinnerInt() > 0)
+            {
+                self.IsDHSAwardWinner(true);
+            }
+            else
+            {
+                self.IsDHSAwardWinner(false);
+            }
+
+            if(self.IsReqToSubmitFinancialInt() > 0)
+            {
+                self.IsReqToSubmitFinancial(true);
+            }
+            else
+            {
+                self.IsReqToSubmitFinancial(false);
+            }
+
+            if(self.IsRepAgreementInt() > 0)
+            {
+                self.IsRepAgreement(true);
+            }
+            else
+            {
+                self.IsRepAgreement(false);
+            }
+
+            if(self.IsSameHomeAddressInt() > 0)
+            {
+                self.IsSameHomeAddress(true);
+            }
+            else
+            {
+                self.IsSameHomeAddress(false);
+            }
+
+            if(self.IsCanPrintLocallyInt() > 0)
+            {
+                self.IsCanPrintLocally(true);
+            }
+            else
+            {
+                self.IsCanPrintLocally(false);
+            }
+
+            if(self.IsBuyFromCustomerInt() > 0)
+            {
+                self.IsBuyFromCustomer(true);
+            }
+            else
+            {
+                self.IsBuyFromCustomer(false);
+            }
+
+
+            if(self.IsFixedPricePurchaseInt() > 0)
+            {
+                self.IsFixedPricePurchase(true);
+            }
+            else
+            {
+                self.IsFixedPricePurchase(false);
+            }
+
+            if(self.IsBehindInTerDevInt() > 0)
+            {
+                self.IsBehindInTerDev(true);
+            }
+            else
+            {
+                self.IsBehindInTerDev(false);
+            }
+
+            
+            
+            
+
+            
+
+        };
+
+        self.continueWithSave = function () {
+            @*Go Ahead with save*@
+            self.dirtyFlag.reset();
+            $('#franchisee_body').block({ message: null });
+            dao_.save("/api/HomeOffice/Save", ko.toJSON(self),
+                function (result) {
+                    if (result.success)
+                    {
+                        @*Need to call and API again to get object*@
+                        var updatedData = jsonDataCaller.syncCall("/api/HomeOffice/Get?id=" + result.UniqueId, null);
+                        initialize_franchiseeF(updatedData);
+                        $("#franchisee_body").unblock();
+                        showNoti_.hide(); 
+                        @*This will refresh the Company view - Companies/Index.cshtml*@
+                        RefreshGrid();
+                    }
+                    else {
+                        $("#franchisee_body").unblock();
+                        showNoti_.hide();
+                        showNoti_.error(result.message, false);
+                    }
+                },
+                function () {
+                    $("#franchisee_body").unblock();
+                    showNoti_.hide();
+                });
+
+        };
+
+
+        self.Save = function () {
+            @* Validation *@
+
+            if (!self.LastName()) {
+                showNoti_.error('Last Name is Required!!', false);
+                $('#fr_LastName').focus();
+                return;
+            }
+
+            if (!self.FirstName()) {
+                showNoti_.error('First Name is Required!!', false);
+                $('#fr_FirstName').focus();
+                return;
+            }
+
+            if (!self.Name()) {
+                showNoti_.error('Franchisee Name is Required!!', false);
+                $('#fr_frname').focus();
+                return;
+            }
+
+            if (!self.CoachID()) {
+                showNoti_.error('Coach is Required!!', false);
+                $('#fr_coachregion').focus();
+                return;
+            }
+            //Take care of Bit Fields
+            self.TakeCareForBitFields();
+            //Now Save
+            self.continueWithSave();
+
+        };
+
+    }
+
+
+
+</script>
+
+
+<script>
+
+    $(document).ready(function () {
+
+        var startModule = sandler.appStart.module;
+
+        @* Cancel (Close) Button *@
+        $("#bt_cancel_frc").click(function () {
+            @* Opened from Application Main Page in a Modal Window *@
+            if (navi_.singlePageInModal('franchisee_body'))
+                navi_.closeModal();
+            @* Opened from other page inside Navigator Page > Close this page *@
+        else if (navi_.totalPages() > 1)
+            navi_.closeCurrentPage();
+            @* Otherwise, redirect to Home Page *@
+            else
+                navi_.closeModal();
+        });
+
+        franchiseeData = jsonDataCaller.syncCall("/api/HomeOffice/Get?id=@Model.ID", null);
+
+        franchiseeVM = new franchiseeDataVM(franchiseeData);
+        ko.applyBindings(franchiseeVM, document.getElementById("franchisee_body"));
+
+
+    });
+
+</script>

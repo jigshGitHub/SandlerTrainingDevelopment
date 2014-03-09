@@ -75,6 +75,7 @@ namespace Sandler.DB.Models
 
             return q.ToList();
         }
+        
         public List<ContactView> GetArchiveContactView(string orderBy, int? pageSize, int? pageNo, int? coachId, int? franchiseeId, int? companyId, string userId, string searchText, bool selectForExcel)
         {
             string whereClause = "";
@@ -116,5 +117,64 @@ namespace Sandler.DB.Models
 
             return q.ToList();
         }
+
+
+        public List<FranchiseeView> GetFranchiseeView(string searchText, string orderBy, int? pageSize, int? pageNo, bool selectForExcel)
+        {
+            if (string.IsNullOrEmpty(searchText))
+                searchText = "";
+
+            string whereClause = "";
+            
+            if (selectForExcel)
+                whereClause = whereClause + ",@selectForExcel=1";
+
+            string query = string.Format("exec [sp_FranchiseeView] @orderBy='{0}' ,@pageSize={1},@pageNo={2}{3},@searchText='{4}'"
+                , orderBy, pageSize, pageNo, whereClause, searchText);
+
+            var q = Database.SqlQuery<FranchiseeView>(query);
+
+            return q.ToList();
+        }
+
+        public List<GlobalSearchView> GetGlobalSearchRecords(string orderBy, int? pageSize, int? pageNo, int? coachId, int? franchiseeId, string userId, string searchText, string searchRecordType)
+        {
+            string whereClause = "";
+            if (coachId.HasValue)
+                whereClause = whereClause + ",@coachId=" + coachId.Value;
+            if (franchiseeId.HasValue)
+                whereClause = whereClause + ",@franchiseeId=" + franchiseeId.Value;
+            if (!string.IsNullOrEmpty(searchText))
+                whereClause = whereClause + ", @searchText=" + searchText;
+
+            string query = string.Format("exec [sp_AdvancedSearch] @userId='{0}' ,@orderBy='{1}', @pageSize={2},@pageNo={3}{4},@searchRecordType='{5}'"
+               , userId.ToString(), orderBy, pageSize, pageNo, whereClause, searchRecordType);
+
+
+
+            var q = Database.SqlQuery<GlobalSearchView>(query);
+
+            return q.ToList();
+        }
+
+        public List<FranchiseeView> GetArchiveFranchiseeView(string searchText, string orderBy, int? pageSize, int? pageNo, bool selectForExcel)
+        {
+            if (string.IsNullOrEmpty(searchText))
+                searchText = "";
+
+            string whereClause = "";
+
+            if (selectForExcel)
+                whereClause = whereClause + ",@selectForExcel=1";
+
+            string query = string.Format("exec [sp_ArchiveFranchiseeView] @orderBy='{0}' ,@pageSize={1},@pageNo={2}{3},@searchText='{4}'"
+                , orderBy, pageSize, pageNo, whereClause, searchText);
+
+            var q = Database.SqlQuery<FranchiseeView>(query);
+
+            return q.ToList();
+        }
+        
+
     }
 }

@@ -1,0 +1,52 @@
+﻿@using Sandler.DB.Models;
+@using Sandler.Web.Models;
+@using Sandler.Web.ViewModels;
+
+@{
+    ViewBag.Title = "Index";
+}
+<style type="text/css">
+    .k-grid999 tbody .k-button {
+        min-width: 12px;
+        width: 50px;
+        height: 25px;
+        vertical-align: middle;
+    }
+
+    
+</style>
+<script src="~/Scripts/Application/ng-globalSearch.js" type="text/javascript"></script>
+<div id="companyMain" class="container" ng-controller="ng_globalSearchCtrl">
+    @*Search button*@
+    <div class="row">
+        <div class='page-title'>Global Search</div>
+    </div>
+   
+    <br />
+
+    <div class="row" style="margin-top:10px">
+        <div class="col-md-6 input-group">
+           <div class="col-sm-3"> Search Text: </div>
+            <div class="col-sm-9">   <input class="form-control" id="searchBox" size="100" type="text" placeholder="Search by any field" onkeyup="triggerSearch(event);">
+                </div>
+           
+        </div>
+        
+    </div>
+     <div class="row" style="margin-top:10px">
+          <div class="col-md-6 input-group">
+        <div class="col-sm-3">Filter by Type:</div>
+        <div class="col-sm-9"><input id="SearchRecordTypeSelection" /></div>
+              </div>
+         <span class="input-group-btn"> 
+                  <button id="btnSearch" class="btn btn-primary" type="button"><span class="glyphicon glyphicon-search" title="Global Search" data-toggle="tooltip"></span></button>
+            </span>
+    </div>
+    
+    <div class="row" style="margin-top: 10px">
+        <div id="searchGrid" class="k-content">
+            <div id="GlobalSearchgrid"></div>
+            
+        </div>
+    </div>
+</div>

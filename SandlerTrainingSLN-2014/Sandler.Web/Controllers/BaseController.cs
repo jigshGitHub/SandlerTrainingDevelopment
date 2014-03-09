@@ -49,6 +49,7 @@ namespace Sandler.Web.Controllers
         private List<Menu> GetCRMMenu(string applicationPath)
         {
             applicationPath = (applicationPath.Length > 1) ? applicationPath : "";
+
             List<Menu> CRMMenu = new List<Menu>();
 
             List<MenuItem> items = new List<MenuItem>();
@@ -89,8 +90,9 @@ namespace Sandler.Web.Controllers
             items = new List<MenuItem>();
 
             items.Add(new MenuItem { Id = "Search", Text = "Detailed Search", Link = "~/CRM/HomeOffice/Search.aspx", IsVisible = !IsUserReadOnly(SandlerUserActions.Add, SandlerEntities.HomeOffice) });
-            items.Add(new MenuItem { Id = "AddFranchisee", Text = "Add New..", Link = "~/CRM/HomeOffice/Add.aspx", IsVisible = !IsUserReadOnly(SandlerUserActions.View, SandlerEntities.HomeOffice) });
-            items.Add(new MenuItem { Id = "ViewArchived", Text = "View Archived Records", Link = "~/CRM/HomeOffice/Archived.aspx", IsVisible = !IsUserReadOnly(SandlerUserActions.View, SandlerEntities.HomeOffice) });
+            items.Add(new MenuItem { Id = "AddFranchisee", Text = "Add New..", Link = "navi?url=" + applicationPath + "/CRM/HomeOffice/Edit?id=0", IsVisible = !IsUserReadOnly(SandlerUserActions.View, SandlerEntities.HomeOffice) });
+            items.Add(new MenuItem { Id = "ViewArchived", Text = "View Archived Records", Link = "navi?url=" + applicationPath + "/CRM/HomeOffice/ViewArchived", IsVisible = !IsUserReadOnly(SandlerUserActions.View, SandlerEntities.HomeOffice) });
+
 
             CRMMenu.Add(new Menu { Title = "HomeOffice", IsVisible = true, Items = items.Where(item => item.IsVisible == true).ToList() });
 

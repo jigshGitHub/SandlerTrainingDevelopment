@@ -16,5 +16,6 @@ namespace Sandler.DB.Data.Repositories.Interfaces
         bool ArchiveContact(int contactId, string userId);
         bool UnArchiveContact(int contactId, string userId);
         IEnumerable<ContactView> GetArchiveContacts(string orderBy, int? pageSize, int? pageNo, int? coachId, int? franchiseeId, int? companyId, string userId, string searchText, bool selectForExcel);
+        IEnumerable<GlobalSearchView> GetGlobalSearchRecords(string orderBy, int? pageSize, int? pageNo, int? coachId, int? franchiseeId, string userId, string searchText, string searchRecordType);
     }
 }

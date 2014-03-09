@@ -1,0 +1,197 @@
+﻿@{
+    Layout = "";
+ }
+<style type="text/css">
+    .k-grid999 tbody .k-button {
+        min-width: 12px;
+        width: 50px;
+        height: 25px;
+        vertical-align: middle;
+    }
+        
+</style>
+
+<div id="ArchivedMain" class="container">
+    @*Search button*@
+    <div class="row">
+        <div class='page-title'>Archived Franchisee</div>
+    </div>
+    
+    <br />
+
+    <div class="row" style="margin-top:10px">
+        <div class="col-md-6 input-group">
+            <input class="form-control" id="ArcsearchBox" size="100" type="text" placeholder="Franchisee Name or WorkEmail or Last/First Name" onkeyup="triggerSearchArc(event);">
+            <span class="input-group-btn"> 
+                  <button id="btnArchiveSearch" class="btn btn-primary" type="button"><span class="glyphicon glyphicon-search" title="Quick Search" data-toggle="tooltip"></span></button>
+            </span>
+        </div>
+         @*For Export To Excel*@
+        <div class="pull-right">
+            <a title="Download a List in Excel" class="btn btn-default btn-xs fileinput-button" href="@Url.Action("ExportArchivedFranchisee","HomeOffice")"><span class="glyphicon glyphicon-cloud-download"></span> Download</a>
+        </div>
+    </div>
+    
+    <div class="row" style="margin-top: 10px">
+        <div id="searchGrid" class="k-content">
+            <div id="ArchSearchgrid"></div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+
+    function UnarchiveCompany(e) {
+        e.preventDefault();
+        var dataItem = $("#ArchSearchgrid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
+        //Let us block the Div while we wait for User response
+        $('#ArchivedMain').block({ message: null });
+        showNoti_.confirm("Are you sure to UnArchive this Franchisee - " + dataItem.Name + "?",
+              function () {
+                  showNoti_.progress(NOTIFICMSG.ARCHIVING, false);
+                  //Proceed with the Archive 
+                  $.ajax({
+                      url: "api/Franchisee/UnArchive",
+                      type: 'POST',
+                      data: ko.toJSON(dataItem),
+                      contentType: 'application/json',
+                      success: function (result) {
+                          if (!result.success) {
+                              showNoti_.error(result.message, true);
+                              $("#ArchivedMain").unblock();
+                          }
+                          else {
+                              showNoti_.hide();
+                              //refresh the Archived company List
+                              RefreshGridArc();
+                              //also refresh the Index page
+                              RefreshFrGrid();
+                              $("#ArchivedMain").unblock();
+                          }
+                      },
+                      error: function (xhr, ajaxOptions, thrownError) {
+                          showNoti_.error("There is some issue in UnArchiving the Franchisee. Please try again later.", true);
+                          $("#ArchivedMain").unblock();
+                      }
+                  });
+              },
+              function () {
+                  //user said no
+                  showNoti_.hide();
+                  $("#ArchivedMain").unblock();
+              });//confirm ends here
+
+    }
+
+    function RefreshGridArc() {
+        $("#btnArchiveSearch").click();
+    }//end refresh grid function
+    
+    function triggerSearchArc(e) {
+        var unicode = e.keyCode ? e.keyCode : e.charCode;
+        if (unicode == 13) {
+            $("#btnArchiveSearch").click();
+        }
+    }
+
+    //To do
+    //Remove sorting for TotalCompanyValue
+    function get_kendoGridDataArc(searchText, selectForExcel) {
+        var dataSource = get_gridDataSourceArc(searchText, selectForExcel)
+        var kendoGridData = {
+            dataSource: dataSource,
+            height: 480,
+            filterable: false,
+            sortable: true,
+            pageable: {
+                refresh: true,
+                pageSizes: true
+            },
+            resizable: true,
+            columnMenu: true,
+            scrollable: true,
+            navigatable: true,
+            selectable: true,
+            columns: [
+                {
+                    command: [
+                            { template: "&nbsp;<button title='UnArchive Franchisee' class='btn btn-danger btn-sm deletesa' onclick='UnarchiveCompany(event)'><span class='glyphicon glyphicon-ok'></span></button>" }
+                    ],
+                    title: " ", width: "20px"
+                },
+                { field: "Name", title: "Franchise Name", width: 80 },
+                { field: "LastName", title: "Last Name", width: 80 },
+                { field: "FirstName", title: "First Name", width: 80 },
+                { field: "WorkEmail", title: "Primary Office Email", width: 80 },
+                { field: "OfficePhone", title: "Contact Number", width: 80 },
+                { field: "LastUpdatedDate", title: "Last Updated", width: 80, format: "{0:MM/dd/yyyy}" },
+
+            ]
+        }
+        return kendoGridData;
+    }
+
+    function get_gridDataSourceArc(searchText, selectForExcel) {
+        var dataSource = {
+            type: "json",
+            transport: {
+                read: {
+                    url: "api/ArchiveFranchiseeView/",
+                    dataType: "json",
+                    data: { searchText: searchText, selectForExcel: false },
+                    cache: false //This is required othewise grid does not refresh after Edit operation in IE
+                }
+            },
+            schema: {
+                data: "results",
+                total: "__count",
+                model: {
+                    fields: {
+                        Name: { type: 'string' },
+                        LastName: { type: 'string' },
+                        FirstName: { type: 'string' },
+                        WorkEmail: { type: 'string' },
+                        OfficePhone: { type: 'string' },
+                        LastUpdatedDate: { type: "date" }
+                    }
+                }
+            },
+            pageSize: 50,
+            serverPaging: true,
+            serverFiltering: true,
+            serverSorting: true
+        };
+        return dataSource;
+    }
+
+</script>
+
+@*Document Ready *@
+<script>
+    $(document).ready(function () {
+        @*When Page Loads*@
+
+        //showNoti_.progress(NOTIFICMSG.PROCESSING, false);
+
+        var kendoGridData = get_kendoGridDataArc("", false);
+        $("#ArchSearchgrid").kendoGrid(kendoGridData);
+        showNoti_.hide();
+
+        //When Search Button is clicked 
+        $("#btnArchiveSearch").click(function () {
+            var searchText = $("#ArcsearchBox").attr('value');
+            var grid = $("#ArchSearchgrid").data("kendoGrid");
+            var dataSource = get_gridDataSourceArc(searchText, false);
+            grid.dataSource.transport.options.read.data = { searchText: searchText, selectForExcel: false };
+            grid.dataSource.page(1);
+        });
+
+        /* Tooltip */
+        $('[data-toggle=tooltip]').tooltip({ placement: 'bottom' });
+
+        //Hide any Pines Notify 
+        //showNoti_.hide();
+
+    });
+</script>

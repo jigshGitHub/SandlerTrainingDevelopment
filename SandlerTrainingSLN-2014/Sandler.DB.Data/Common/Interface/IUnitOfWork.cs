@@ -17,5 +17,6 @@ namespace Sandler.DB.Data.Common.Interface
         IContactRepository ContactRepository();
         IOpportunityRepository OpportunityRepository();
         IMenuRepository MenuRepository();
+        IFranchiseeRepository FranchiseeRepository();
     }
 }

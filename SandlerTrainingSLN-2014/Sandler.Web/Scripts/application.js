@@ -41,6 +41,110 @@ sandler.namespace("appStart").module= (function () {
         $(document).data("sandler.appStart.industryTypes", industryTypes);
     };
 
+    //For Sandler Roles
+    var getSandlerRoles = function () {
+        return $(document).data("sandler.appStart.sandlerRoles");
+    };
+
+    var setSandlerRoles = function (sandlerRoles) {
+        $(document).data("sandler.appStart.sandlerRoles", sandlerRoles);
+    };
+    //Done
+
+    //For Master Frs
+    var getMasterFranchisees = function () {
+        return $(document).data("sandler.appStart.masterfranchisees");
+    };
+
+    var setMasterFranchisees = function (masterfranchisees) {
+        $(document).data("sandler.appStart.masterfranchisees", masterfranchisees);
+    };
+    //done
+    
+    //For Sandler Coach + Region 
+    var getSandlerCoachRegions = function () {
+        return $(document).data("sandler.appStart.sandlerCoachRegions");
+    };
+
+    var setSandlerCoachRegions = function (sandlerCoachRegions) {
+        $(document).data("sandler.appStart.sandlerCoachRegions", sandlerCoachRegions);
+    };
+    //Done
+
+    //For Coach
+    var getCoaches = function () {
+        return $(document).data("sandler.appStart.setcoaches");
+    };
+
+    var setCoaches = function (setcoaches) {
+        $(document).data("sandler.appStart.setcoaches", setcoaches);
+    };
+        
+    //For Cost Plus Amount
+    var getCostPlusAmt = function () {
+        return $(document).data("sandler.appStart.costplusamt");
+    };
+    var setCostPlusAmt = function (costplusamt) {
+        $(document).data("sandler.appStart.costplusamt", costplusamt);
+    };
+
+    //Behind Amount
+    var getBehindAmount = function () {
+        return $(document).data("sandler.appStart.behindamts");
+    };
+
+    var setBehindAmount = function (behindamts) {
+        $(document).data("sandler.appStart.behindamts", behindamts);
+    };
+
+    //Award Level
+    var getAwardLevel = function () {
+        return $(document).data("sandler.appStart.awardlevels");
+    };
+    var setAwardLevel = function (awardlevels) {
+        $(document).data("sandler.appStart.awardlevels", awardlevels);
+    };
+    //Certified Level
+    var getCertifiedLevel = function () {
+        return $(document).data("sandler.appStart.certifiedlevels");
+    };
+    var setCertifiedLevel = function (certifiedlevels) {
+        $(document).data("sandler.appStart.certifiedlevels", certifiedlevels);
+    };
+    //Purchase Level
+    var getPurchaseLevel = function () {
+        return $(document).data("sandler.appStart.purchaselevels");
+    };
+
+    var setPurchaseLevel = function (purchaselevels) {
+        $(document).data("sandler.appStart.purchaselevels", purchaselevels);
+    };
+    //Primary Business
+    var getPrimaryBusiness = function () {
+        return $(document).data("sandler.appStart.primarybusiness");
+    };
+
+    var setPrimaryBusiness = function (primarybusiness) {
+        $(document).data("sandler.appStart.primarybusiness", primarybusiness);
+    };
+    //Countries
+    var getCountries = function () {
+        return $(document).data("sandler.appStart.countries");
+    };
+
+    var setCountries = function (countries) {
+        $(document).data("sandler.appStart.countries", countries);
+    };
+
+    //States
+    var getStates = function () {
+        return $(document).data("sandler.appStart.states");
+    };
+
+    var setStates = function (states) {
+        $(document).data("sandler.appStart.states", states);
+    };
+
     var getYesNoOptions= function () {
         return $(document).data("sandler.appStart.yesNoOptions");
     };
@@ -150,6 +254,11 @@ sandler.namespace("appStart").module= (function () {
         this.id = companyId;
     };
 
+    var coachregion = function (CoachRegionName, regionId) {
+        this.Name = CoachRegionName;
+        this.Id = regionId;
+    };
+
     var contact = function (lastName, firstName, fullName, contactsId, companyId) {
         this.lastName = lastName;
         this.firstName = firstName;
@@ -177,6 +286,48 @@ sandler.namespace("appStart").module= (function () {
         setOpportunityWhyLosts(opportunityWhyLosts);
         var opportunitySources = jsonDataCaller.syncCall(baseUrl + "/api/OpportunitySources/", null);
         setOpportunitySources(opportunitySources);
+
+        //For Master Franchisees
+        var masterfranchisees = jsonDataCaller.syncCall(baseUrl + "/api/MasterFranchisees/", null);
+        setMasterFranchisees(masterfranchisees);
+        //For Master Franchisees
+        var behindamts = jsonDataCaller.syncCall(baseUrl + "/api/BehindAmount/", null);
+        setBehindAmount(behindamts);
+        //For Award Level
+        var awardlevels = jsonDataCaller.syncCall(baseUrl + "/api/AwardLevel/", null);
+        setAwardLevel(awardlevels);
+        //For Certified Level
+        var certifiedlevels = jsonDataCaller.syncCall(baseUrl + "/api/CertifiedLevel/", null);
+        setCertifiedLevel(certifiedlevels);
+        //For Purchase Level
+        var purchaselevels = jsonDataCaller.syncCall(baseUrl + "/api/PurchaseLevel/", null);
+        setPurchaseLevel(purchaselevels);
+        //For Primary Business
+        var primarybusiness = jsonDataCaller.syncCall(baseUrl + "/api/PrimaryBusiness/", null);
+        setPrimaryBusiness(primarybusiness);
+        //Country
+        var countries = jsonDataCaller.syncCall(baseUrl + "/api/Countries/", null);
+        setCountries(countries);
+        //States
+        var states = jsonDataCaller.syncCall(baseUrl + "/api/States/", null);
+        setStates(states);
+
+        //Cost Plus Amount
+        var costplusamt = jsonDataCaller.syncCall(baseUrl + "/api/CostPlusAmount/", null);
+        setCostPlusAmt(costplusamt);
+        //For Sandler Roles
+        var sandlerroles = jsonDataCaller.syncCall(baseUrl + "/api/SandlerRoles/", null);
+        setSandlerRoles(sandlerroles);
+        //For Coaches
+        var coaches = jsonDataCaller.syncCall(baseUrl + "/api/Coaches/", null);
+        setCoaches(coaches);
+        var sandlercoachregions = new Array();
+        $.each(coaches, function (i, coachregionRecord) {
+            sandlercoachregions.push(new coachregion(coachregionRecord.FirstName + ' ' + coachregionRecord.LastName + " - Region " + coachregionRecord.RegionID, coachregionRecord.RegionID));
+            
+        });
+        setSandlerCoachRegions(sandlercoachregions);
+        
         var data = jsonDataCaller.syncCall(baseUrl + "/api/CompanyView?searchText=&page=0&pageSize=0&selectForExcel=false", null)
         //console.log('getting user companies');
         var companies = new Array();
@@ -188,7 +339,19 @@ sandler.namespace("appStart").module= (function () {
 
     return {
         getProductTypes:getProductTypes,
-        getIndustryTypes:getIndustryTypes,
+        getIndustryTypes: getIndustryTypes,
+        getSandlerRoles: getSandlerRoles,
+        getCoaches: getCoaches,
+        getStates:getStates,
+        getCountries: getCountries,
+        getPrimaryBusiness: getPrimaryBusiness,
+        getCertifiedLevel: getCertifiedLevel,
+        getPurchaseLevel:getPurchaseLevel,
+        getAwardLevel: getAwardLevel,
+        getBehindAmount: getBehindAmount,
+        getCostPlusAmt: getCostPlusAmt,
+        getMasterFranchisees: getMasterFranchisees,
+        getSandlerCoachRegions: getSandlerCoachRegions,
         getAppointmentSources:getAppointmentSources,
         getYesNoOptions:getYesNoOptions,
         getCourses: getCourses,

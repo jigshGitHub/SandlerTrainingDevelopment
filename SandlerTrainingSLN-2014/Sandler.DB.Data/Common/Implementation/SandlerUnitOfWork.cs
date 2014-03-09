@@ -21,6 +21,7 @@ namespace Sandler.DB.Data.Common.Implementation
 
         // Repositories
         public ICompanyRepository CompanyRepository (){return new CompanyRepository(RepositoryProvider.dbContext); }
+        public IFranchiseeRepository FranchiseeRepository() { return new FranchiseeRepository(RepositoryProvider.dbContext); }
         public IContactRepository ContactRepository (){return new ContactRepository(RepositoryProvider.dbContext); }
         public IOpportunityRepository  OpportunityRepository (){return new OpportunityRepository(RepositoryProvider.dbContext);}
         public IMenuRepository MenuRepository() { return new MenuRepository(RepositoryProvider.dbContext); }

@@ -60,6 +60,7 @@ namespace Sandler.DB.Models
         public Nullable<DateTime> StartTime { get; set; }
         public string BillingDescription { get; set; }
     }
+    
     public partial class ContactView
     {
         public int TotalCount { get; set; }
@@ -158,8 +159,41 @@ namespace Sandler.DB.Models
         public Nullable<bool> IsBudgeIdentified { get; set; }
         public Nullable<bool> IsMoveForward { get; set; }
     }
+
+    public partial class GlobalSearchView
+    {
+        public string RecordType { get; set; }
+        public string COMPANYNAME { get; set; }
+        public string FranchiseeName { get; set; }
+        public string POCName { get; set; }
+        public string OppName { get; set; }
+        public Nullable<int> RecordId { get; set; }
+        public int TotalCount { get; set; }
+
+
+    }
+
+    #region [[ Created by Bhavesh ]]
+    
+    public partial class FranchiseeView
+    {
+        public int TotalCount { get; set; }
+        public int ID { get; set; }
+        public string LastName { get; set; }
+        public string FirstName { get; set; }
+        public string Name { get; set; }
+        public string WorkEmail { get; set; }
+        public string OfficePhone { get; set; }
+        public Nullable<DateTime> LastCreatedDate { get; set; }
+        public Nullable<DateTime> LastUpdatedDate { get; set; }
+    }
+
     public class ReponseMessage
     {
         public int responseId { get; set; }
     }
+
+    #endregion
+
+    
 }

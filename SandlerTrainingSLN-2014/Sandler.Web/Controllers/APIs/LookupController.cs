@@ -74,5 +74,82 @@ namespace Sandler.Web.Controllers.API
         {
             return Request.CreateResponse(uow.Repository<TBL_OpportunitySource>().GetAll().Where(r => r.IsActive == true));
         }
+
+        [Route("api/SandlerRoles/")]
+        public HttpResponseMessage GetSandlerRoles()
+        {
+            return Request.CreateResponse(uow.Repository<Tbl_SandlerRole>().GetAll().Where(r => r.IsActive == true));
+        }
+
+        //[Route("api/SandlerCoachRegions/")]
+        //public HttpResponseMessage GetSandlerCoachRegions()
+        //{
+        //    var coaches = from record in uow.Repository<TBL_COACH>().GetAll().Where(r => r.IsActive == true)
+        //                  select new { Id = record.ID, Name = record.FirstName + ' ' + record.LastName + " - Region " + record.RegionID };
+
+        //    return Request.CreateResponse(coaches);
+        //}
+
+        [Route("api/Coaches/")]
+        public HttpResponseMessage GetCoaches()
+        {
+            return Request.CreateResponse(uow.Repository<TBL_COACH>().GetAll().Where(r => r.IsActive == true));
+        }
+
+        [Route("api/MasterFranchisees/")]
+        public HttpResponseMessage GetMasterFranchisees()
+        {
+            return Request.CreateResponse(uow.Repository<Tbl_MasterFranchisee>().GetAll());
+        }
+
+        [Route("api/CostPlusAmount/")]
+        public HttpResponseMessage GetCostPlusAmount()
+        {
+            return Request.CreateResponse(uow.Repository<Tbl_CostPlusAmount>().GetAll());
+        }
+
+        [Route("api/BehindAmount/")]
+        public HttpResponseMessage GetBehindAmount()
+        {
+            return Request.CreateResponse(uow.Repository<Tbl_BehindAmount>().GetAll());
+        }
+
+        [Route("api/AwardLevel/")]
+        public HttpResponseMessage GetAwardLevel()
+        {
+            return Request.CreateResponse(uow.Repository<Tbl_AwardLevel>().GetAll());
+        }
+
+        [Route("api/CertifiedLevel/")]
+        public HttpResponseMessage GetCertifiedLevel()
+        {
+            return Request.CreateResponse(uow.Repository<Tbl_CertifiedLevel>().GetAll());
+        }
+
+        [Route("api/PurchaseLevel/")]
+        public HttpResponseMessage GetPurchaseLevel()
+        {
+            return Request.CreateResponse(uow.Repository<Tbl_PurchaseLevel>().GetAll());
+        }
+
+        [Route("api/PrimaryBusiness/")]
+        public HttpResponseMessage GetPrimaryBusiness()
+        {
+            return Request.CreateResponse(uow.Repository<Tbl_PrimaryBusiness>().GetAll());
+        }
+
+        [Route("api/Countries/")]
+        public HttpResponseMessage GetCountries()
+        {
+            return Request.CreateResponse(uow.Repository<TBL_COUNTRY>().GetAll());
+        }
+
+        [Route("api/States/")]
+        public HttpResponseMessage GetStates()
+        {
+            return Request.CreateResponse(uow.Repository<TBL_State>().GetAll());
+        }
+
+
     }
 }
