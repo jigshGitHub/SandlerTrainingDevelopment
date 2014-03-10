@@ -18,5 +18,6 @@ namespace Sandler.DB.Data.Common.Interface
         IOpportunityRepository OpportunityRepository();
         IMenuRepository MenuRepository();
         IFranchiseeRepository FranchiseeRepository();
+        IMyTaskRepository MyTaskRepository();
     }
 }

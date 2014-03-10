@@ -52,9 +52,11 @@
     <Compile Include="Repositories\Implementations\ContactRepository.cs" />
     <Compile Include="Repositories\Implementations\FranchiseeRepository.cs" />
     <Compile Include="Repositories\Implementations\MenuRepository.cs" />
+    <Compile Include="Repositories\Implementations\MyTaskRepository.cs" />
     <Compile Include="Repositories\Implementations\OpportunityRepository.cs" />
     <Compile Include="Repositories\Interfaces\IFranchiseeRepository.cs" />
     <Compile Include="Repositories\Interfaces\IMenuRepository.cs" />
+    <Compile Include="Repositories\Interfaces\IMyTaskRepository.cs" />
     <Compile Include="Repositories\Interfaces\IOpportunityRepository.cs" />
     <Compile Include="Repositories\Interfaces\IContactRepository.cs" />
     <Compile Include="Repositories\Interfaces\ICompanyRepository.cs" />

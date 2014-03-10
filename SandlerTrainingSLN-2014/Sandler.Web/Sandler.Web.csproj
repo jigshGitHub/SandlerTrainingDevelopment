@@ -195,15 +195,22 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\CRM\Controllers\CompaniesController.cs" />
     <Compile Include="Areas\CRM\Controllers\ContactsController.cs" />
+    <Compile Include="Areas\CRM\Controllers\GlobalSearchController.cs" />
+    <Compile Include="Areas\CRM\Controllers\HomeOfficeController.cs" />
     <Compile Include="Areas\CRM\Controllers\PipelineController.cs" />
     <Compile Include="Areas\CRM\CRMAreaRegistration.cs" />
     <Compile Include="Areas\Dashboard\Controllers\HomeController.cs" />
     <Compile Include="Areas\Dashboard\DashboardAreaRegistration.cs" />
+    <Compile Include="Areas\MyDay\Controllers\HomeController.cs" />
+    <Compile Include="Areas\MyDay\MyDayAreaRegistration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\APIs\BaseAPIController.cs" />
     <Compile Include="Controllers\APIs\ChartController.cs" />
     <Compile Include="Controllers\APIs\CompanyController.cs" />
     <Compile Include="Controllers\APIs\ContactController.cs" />
+    <Compile Include="Controllers\APIs\GlobalSearchController.cs" />
+    <Compile Include="Controllers\APIs\HomeOfficeController.cs" />
+    <Compile Include="Controllers\APIs\MyDayController.cs" />
     <Compile Include="Controllers\APIs\PipelineController.cs" />
     <Compile Include="Controllers\APIs\LookupController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
@@ -1054,6 +1061,13 @@
     <Content Include="Areas\CRM\Views\Pipeline\Archived.cshtml" />
     <Content Include="Areas\CRM\Views\Companies\ViewArchived.cshtml" />
     <Content Include="Areas\CRM\Views\Contacts\ViewArchivedContacts.cshtml" />
+    <Content Include="Areas\CRM\Views\GlobalSearch\Index.cshtml" />
+    <Content Include="Areas\CRM\Views\HomeOffice\Edit.cshtml" />
+    <Content Include="Areas\CRM\Views\HomeOffice\Index.cshtml" />
+    <Content Include="Areas\CRM\Views\HomeOffice\ViewArchived.cshtml" />
+    <Content Include="Areas\MyDay\Views\Home\Dashboard.cshtml" />
+    <Content Include="Areas\MyDay\Views\Home\Index.cshtml" />
+    <Content Include="Areas\MyDay\Views\Web.config" />
     <None Include="Properties\PublishProfiles\WebDeploy-DevEnvt.pubxml" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="Images\bg-capitol.png" />
@@ -1092,6 +1106,9 @@
     <Content Include="Images\ST_small.png" />
     <Content Include="Scripts\application.js" />
     <Content Include="Scripts\Application\koExtenders.js" />
+    <Content Include="Scripts\Application\ng-franchisees.js" />
+    <Content Include="Scripts\Application\ng-globalSearch.js" />
+    <Content Include="Scripts\Application\ng-mytasks.js" />
     <Content Include="Scripts\Application\ng-opportunities.js" />
     <Content Include="Scripts\Application\ng-contacts.js" />
     <Content Include="Scripts\Application\ng-companies.js" />
@@ -1180,6 +1197,8 @@
     <Folder Include="Areas\CRM\Views\Shared\" />
     <Folder Include="Areas\Dashboard\Models\" />
     <Folder Include="Areas\Dashboard\Views\Shared\" />
+    <Folder Include="Areas\MyDay\Models\" />
+    <Folder Include="Areas\MyDay\Views\Shared\" />
     <Folder Include="Downloads\" />
   </ItemGroup>
   <ItemGroup>

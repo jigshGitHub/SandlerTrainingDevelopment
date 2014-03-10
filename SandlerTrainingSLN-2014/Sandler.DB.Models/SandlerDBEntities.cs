@@ -31,6 +31,26 @@ namespace Sandler.DB.Models
             return q.ToList();
         }
 
+        public List<MyTaskView> GetMyTaskView(string Role, string UserId, int? FranchiseeId, int? RegionId)
+        {
+            string query = string.Format("exec [sp_GetAllTasks] @Role='{0}',@UserId= '{1}',@FranchiseeId={2},@RegionId={3} ", Role, UserId, FranchiseeId, RegionId);
+
+            var q = Database.SqlQuery<MyTaskView>(query);
+
+            return q.ToList();
+        }
+
+        public List<MyTaskView> GetMyTaskViewByDate(string Role, string UserId, int? FranchiseeId, int? RegionId, DateTime seldate)
+        {
+            string dateonly = seldate.ToString("d");
+
+            string query = string.Format("exec [sp_GetAllTasksByDate] @Role='{0}',@UserId= '{1}',@FranchiseeId={2},@RegionId={3},@SelDate='{4}' ", Role, UserId, FranchiseeId, RegionId, dateonly);
+
+            var q = Database.SqlQuery<MyTaskView>(query);
+
+            return q.ToList();
+        }
+
         public List<CompanyView> GetArchiveCompanyView(string searchText, string orderBy, int? pageSize, int? pageNo, int? coachId, int? franchiseeId, bool selectForExcel)
         {
             if (string.IsNullOrEmpty(searchText))
@@ -75,7 +95,7 @@ namespace Sandler.DB.Models
 
             return q.ToList();
         }
-        
+
         public List<ContactView> GetArchiveContactView(string orderBy, int? pageSize, int? pageNo, int? coachId, int? franchiseeId, int? companyId, string userId, string searchText, bool selectForExcel)
         {
             string whereClause = "";
@@ -125,7 +145,7 @@ namespace Sandler.DB.Models
                 searchText = "";
 
             string whereClause = "";
-            
+
             if (selectForExcel)
                 whereClause = whereClause + ",@selectForExcel=1";
 
@@ -174,7 +194,7 @@ namespace Sandler.DB.Models
 
             return q.ToList();
         }
-        
+
 
     }
 }

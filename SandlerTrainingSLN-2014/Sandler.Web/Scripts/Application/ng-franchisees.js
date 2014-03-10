@@ -3,7 +3,7 @@ function showFrDetails(e) {
     e.preventDefault();
     var dataItem = $("#FranchiseeSearchgrid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
     //console.log(dataItem);
-    var path = "navi?url=/CRM/HomeOffice/Edit?id=" + dataItem.ID;
+    var path = "navi?url=" + baseUrl + "/CRM/HomeOffice/Edit?id=" + dataItem.ID;
     //alert("before Navi");
     showModal_.html(path, null, '95%');
 }

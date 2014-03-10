@@ -83,6 +83,7 @@
     <Compile Include="module.cs">
       <DependentUpon>SandlerEDM.tt</DependentUpon>
     </Compile>
+    <Compile Include="MyTask.cs" />
     <Compile Include="pageMenu.cs">
       <DependentUpon>SandlerEDM.tt</DependentUpon>
     </Compile>

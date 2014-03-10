@@ -1,0 +1,94 @@
+﻿
+@*This holds the schedular*@
+
+<script src="~/Scripts/Application/ng-mytasks.js" type="text/javascript"></script>
+<div id="myDayCalendar" class="container" ng-controller="ng_mytasksCtrl">
+    
+    @*This is where the Schedular resides*@
+    <div class="row">
+       <div id="scheduler"></div>
+        
+    </div>
+
+    <br />
+
+    <div class="row" id="add_task">
+
+         @*Add Folloup Item Div*@
+         <div class="col-md-3 no-margin">
+
+             <div class="col-title"><span>Add Follow Up Item</span></div>
+
+             <div class="row">
+                 <div class="col-sm-12 no-margin">
+                        <form role="form">
+                            <div class="form-group" >
+
+                                <label>Follow up Date&nbsp;<span class="label label-danger" data-bind='visible: FollowUpDatec.hasError, text: FollowUpDatec.validationMessage'></span></label>
+                                <div class="controls">
+                                     <input id="task_followUpdate" style="max-width:180px;" maxlength="12" type="text" class="form-control" data-bind="kendoDatePicker: FollowUpDatec"/>
+                                </div>
+
+                                <label>Start Time</label>
+                                <div class="controls">
+                                    <input id="task_starttime" style="max-width:200px;" data-bind="kendoTimePicker: { value: StartTimec, min: minTime, max: maxTime } "/>
+                                </div>
+
+
+                                <label>Topic&nbsp;<span class="label label-danger" data-bind='visible: Topic.hasError, text: Topic.validationMessage'></span></label>                  
+                                <div class="controls">
+                                     <input id="task_topic" maxlength="50" type="text"  class="form-control" data-bind="value: Topic"/>
+                                </div>
+                                <label>Description&nbsp;<span class="label label-danger" data-bind='visible: Description.hasError, text: Description.validationMessage'></span></label>                  
+                                <div class="controls">
+                                     <input id="task_description" maxlength="50" type="text"  class="form-control" data-bind="value: Description"/>
+                                </div>
+
+                                <label>Phone</label>                  
+                                <div class="controls">
+                                     <input id="task_Phone" maxlength="50" type="text"  class="form-control" data-bind="value: Phone"/>
+                                </div>
+
+                                <span data-bind="visible: IsJustAdded" style="color:red">Task Added Successfully!</span>
+
+                             </div>
+
+                        </form>
+
+                    </div>
+             </div>
+             <br />
+             @* Page Footer *@
+             <div class="row page-footer">
+                <div class="pull-left">
+                    <button id="bt_save_task" class="btn btn-primary btn-save" type="button" data-bind="enable: isDirty, click: Save">Add Task</button>
+                </div>
+             </div>
+             @*For some space at the end*@
+             <div style="height:40px"></div>
+             
+         </div>
+
+         @*For space between Add Item and View Item section*@
+         <div class="col-md-1 no-margin"></div>
+
+
+         @*View Items Div - Kendo Grid Here as per user selection of date in the Calendar*@
+         <div class="col-md-8 no-margin">
+             
+             <div class="col-title"><span data-bind="text: TaskLabel"></span></div>
+             @*This is My Tasks Search Grid*@
+             <div class="row" style="margin-top: 10px">
+                <div id="searchGrid" class="k-content">
+                   <div id="MyTasksSearchgrid"></div>
+                </div>
+             </div>
+
+
+
+
+         </div>
+
+    </div>
+  
+</div>
