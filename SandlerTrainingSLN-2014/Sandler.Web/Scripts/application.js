@@ -328,6 +328,8 @@ sandler.namespace("appStart").module= (function () {
         });
         setSandlerCoachRegions(sandlercoachregions);
         
+        var franchisees = jsonDataCaller.syncCall(baseUrl + "/api/FranchiseeView/?searchText=&page=0&pageSize=0&selectForExcel=false", null);
+
         var data = jsonDataCaller.syncCall(baseUrl + "/api/CompanyView?searchText=&page=0&pageSize=0&selectForExcel=false", null)
         //console.log('getting user companies');
         var companies = new Array();

@@ -44,10 +44,40 @@
         <ng-view></ng-view>
         
     </div>
+
+
+    <div class="modal" id="franchiseeSelection">
+	    <div class="modal-dialog">
+            <div class="modal-content">
+            <div class="modal-header">
+                <button class="close" aria-hidden="true" type="button" data-dismiss="modal">×</button>
+                <h3 id="modal-headerLabel"></h3>
+            </div>
+            <div id="user_body" class="modal-body">
+                This is franchisee selection view
+            </div>
+            <div class="modal-footer">
+		        <a id="btnFranchiseeSelect" class="btn btn-sm btn-primary savesa">Select</a>
+            </div>
+            </div>
+        </div>
+    </div>
     <script type="text/javascript">
         var startModule = sandler.appStart.module;
         var currentUser = @Html.Raw(Json.Encode(@Model.CurrentUser));
         startModule.setUser(currentUser);
+        
+        if(currentUser.Role = 1)
+        {
+            console.log('Role:' + currentUser.Role);
+            var modalOptions = { backdrop: 'static', show: true };
+            var modalHeader = 'Select your franchisee';
+            $('#modal-headerLabel').text(modalHeader);
+            $('#franchiseeSelection').modal(modalOptions);
+            $('#btnFranchiseeSelect').click(function(){
+                alert('Franchisee set');
+            });
+        }
     </script>
 </dcontent>
 

@@ -8,10 +8,7 @@ IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[sp_Ar
 DROP PROCEDURE [dbo].[sp_ArchiveFranchiseeView]
 GO
 
-/****** Object:  StoredProcedure [dbo].[sp_FranchiseeView]    Script Date: 03/07/2014 21:31:14 ******/
-IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[sp_FranchiseeView]') AND type in (N'P', N'PC'))
-DROP PROCEDURE [dbo].[sp_FranchiseeView]
-GO
+
 
 
 /****** Object:  StoredProcedure [dbo].[sp_AdvancedSearch]    Script Date: 03/07/2014 21:31:14 ******/
@@ -246,90 +243,6 @@ END
 
 GO
 
-/****** Object:  StoredProcedure [dbo].[sp_FranchiseeView]    Script Date: 03/07/2014 21:31:14 ******/
-SET ANSI_NULLS ON
-GO
 
-SET QUOTED_IDENTIFIER ON
-GO
-
-
-CREATE Procedure [dbo].[sp_FranchiseeView](
-	@orderBy VARCHAR(MAX),  -- Required 
-	@pageSize INT,    
-	@pageNo INT, 
-	@searchText VARCHAR(MAX)=null,-- This is SearchText entered by the User
-	@selectForExcel bit = 0 -- for Excel Export
-	)
-As
-BEGIN
-	DECLARE @SQL VARCHAR(MAX),
-	@pageTop INT,
-	@pageBottom INT,
-	@Q VARCHAR(MAX)		     
-
-	SET @SQL = '
-	SELECT 
-	F.ID,
-	F.LastName, 
-	F.FirstName,
-	F.LastCreatedDate,
-	F.Name,
-	F.WorkEmail, 
-	F.OfficePhone,
-	F.LastCreatedDate as LastUpdatedDate';
-	SET @SQL = @SQL + ' 
-	FROM TBL_Franchisee F
-	where (F.WorkEmail is null or Upper(F.WorkEmail) != ''SANDLERSPM@MINEDSYSTEMS.COM'')
-	and F.IsActive = 1';
-	 
-	-- Add condition is Search Text is Available
-	If @searchText is not null and @searchText != ''
-	BEGIN
-	   SET @SQL = @SQL + ' AND (Upper(F.Name) like ''' + '%' + Upper(@searchText)  + '%' + '''' 
-	   SET @SQL = @SQL + ' OR Upper(F.LastName) like ''' + '%' + Upper(@searchText)  + '%' + '''' 
-	   SET @SQL = @SQL + ' OR Upper(F.FirstName) like ''' + '%' + Upper(@searchText)  + '%' + '''' 
-	   SET @SQL = @SQL + ' OR Upper(F.WorkEmail) like ''' + '%' + Upper(@searchText)  + '%' + '''' 
-	   SET @SQL = @SQL + ')'
-	END	
-	
-	If @pageNo > 0 AND @pageSize > 0
-	BEGIN
-		SET @pageNo = @pageNo - 1    
-		SET @pageTop = (@pageNo * @pageSize) + 1  
-		SET @pageBottom = (@pageNo * @pageSize) + @pageSize
-	END
-	
-	--Casting to int is required in following select clause
-	--Look for this article
-	--http://mythicalcode.com/2013/10/30/the-specified-cast-from-a-materialized-system-int64-type-to-the-system-int32-type-is-not-valid/
-	SET @SQL = 'SELECT ROW_NUMBER() OVER (ORDER BY '+@OrderBy+') AS RowIndex, _MYQ.* FROM ('+@SQL+') _MYQ'
-	SET @Q = '
-		WITH CTE_pageResult AS (' + CHAR(13) + @SQL + CHAR(13) + ')'
-		+'
-		SELECT
-				(SELECT cast(COUNT(*) as int)  FROM CTE_pageResult) AS TotalCount,
-				Cast( ID as int) AS ID,
-				LastName,
-				FirstName,
-				LastCreatedDate,
-				Name,
-				WorkEmail,
-				OfficePhone,
-				LastUpdatedDate';
-	 
-	SET @Q = @Q + '	 FROM CTE_pageResult';
-
-	IF @pageTop > 0 
-	BEGIN 
-		SET @Q = @Q + ' WHERE RowIndex BETWEEN ' + CAST(@pageTop AS VARCHAR(10)) + ' AND ' + CAST(@pageBottom AS VARCHAR(10))
-	END
-	
-	PRINT @Q
-	EXEC (@Q)	    
-END
-
-
-GO
 
 
