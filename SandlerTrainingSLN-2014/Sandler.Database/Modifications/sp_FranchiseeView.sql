@@ -1,13 +1,8 @@
-USE [SandlerDB]
-GO
-
 /****** Object:  StoredProcedure [dbo].[sp_FranchiseeView]    Script Date: 03/10/2014 17:08:26 ******/
 IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[sp_FranchiseeView]') AND type in (N'P', N'PC'))
 DROP PROCEDURE [dbo].[sp_FranchiseeView]
 GO
 
-USE [SandlerDB]
-GO
 
 /****** Object:  StoredProcedure [dbo].[sp_FranchiseeView]    Script Date: 03/10/2014 17:08:26 ******/
 SET ANSI_NULLS ON
@@ -24,7 +19,8 @@ CREATE Procedure [dbo].[sp_FranchiseeView](
 	@pageSize INT,    
 	@pageNo INT, 
 	@searchText VARCHAR(MAX)=null,-- This is SearchText entered by the User
-	@selectForExcel bit = 0 -- for Excel Export
+	@selectForExcel bit = 0, -- for Excel Export	
+	@isActive BIT = 1
 	)
 As
 BEGIN
@@ -87,7 +83,7 @@ BEGIN
 		
 	END 
 	
-	SET @SQL = @SQL + ' AND F.IsActive = 1';
+	SET @SQL = @SQL + ' AND F.IsActive = ' + CAST(@isActive AS VARCHAR(5));
 	
 	
 	--SET @SQL = '

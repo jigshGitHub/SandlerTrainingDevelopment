@@ -208,6 +208,22 @@ sandler.namespace("appStart").module= (function () {
         $(document).data("sandler.appStart.userCompanies", companies);
     };
 
+    var setUserFranchisees = function (franchisees) {
+        $(document).data("sandler.appStart.userFranchisees", franchisees);
+    }
+
+    var getUserFranchisees = function () {
+        return $(document).data("sandler.appStart.userFranchisees");
+    }
+
+    var setUserFranchisee = function (franchisee) {
+        $(document).data("sandler.appStart.userFranchisee", franchisee);
+    }
+
+    var getUserFranchisee = function () {
+        return $(document).data("sandler.appStart.userFranchisee");
+    }
+
     var getUserContacts = function () {
         var contacts = $(document).data("sandler.appStart.userContacts");
         if (contacts)
@@ -267,76 +283,93 @@ sandler.namespace("appStart").module= (function () {
         this.companyId = companyId;
     };
 
+    var appInitialized = function (value) {
+        if (value) {
+            $(document).data("sandler.appStart.appInitialized", value);
+            return;
+        }
+        else
+            return $(document).data("sandler.appStart.appInitialized");
+    }
     var initialize = function () {
-        var industries = jsonDataCaller.syncCall(baseUrl + "/api/Industries/", null);
-        setIndustryTypes(industries);
-        var yesNoOptions = jsonDataCaller.syncCall(baseUrl + "/api/YesNoOptions/", null);
-        setYesNoOptions(yesNoOptions);
-        var Products = jsonDataCaller.syncCall(baseUrl + "/api/Products/", null);
-        setProductTypes(Products);
-        var appointmentsSources = jsonDataCaller.syncCall(baseUrl + "/api/AppointmentsSources/", null);
-        setAppointmentSources(appointmentsSources);
-        var courses = jsonDataCaller.syncCall(baseUrl + "/api/Courses/", null);
-        setCourses(courses);
-        var opportunityStatus = jsonDataCaller.syncCall(baseUrl + "/api/OpportunityStatus/", null);
-        setOpportunityStatus(opportunityStatus);
-        var opportunityTypes = jsonDataCaller.syncCall(baseUrl + "/api/OpportunityTypes/", null);
-        setOpportunityTypes(opportunityTypes);
-        var opportunityWhyLosts = jsonDataCaller.syncCall(baseUrl + "/api/OpportunityWhyLosts/", null);
-        setOpportunityWhyLosts(opportunityWhyLosts);
-        var opportunitySources = jsonDataCaller.syncCall(baseUrl + "/api/OpportunitySources/", null);
-        setOpportunitySources(opportunitySources);
+        //console.log('appInitialized()=' + appInitialized());
+        if (appInitialized() == undefined) {
+            //console.log('appStart.initialize');
+            var industries = jsonDataCaller.syncCall(baseUrl + "/api/Industries/", null);
+            setIndustryTypes(industries);
+            var yesNoOptions = jsonDataCaller.syncCall(baseUrl + "/api/YesNoOptions/", null);
+            setYesNoOptions(yesNoOptions);
+            var Products = jsonDataCaller.syncCall(baseUrl + "/api/Products/", null);
+            setProductTypes(Products);
+            var appointmentsSources = jsonDataCaller.syncCall(baseUrl + "/api/AppointmentsSources/", null);
+            setAppointmentSources(appointmentsSources);
+            var courses = jsonDataCaller.syncCall(baseUrl + "/api/Courses/", null);
+            setCourses(courses);
+            var opportunityStatus = jsonDataCaller.syncCall(baseUrl + "/api/OpportunityStatus/", null);
+            setOpportunityStatus(opportunityStatus);
+            var opportunityTypes = jsonDataCaller.syncCall(baseUrl + "/api/OpportunityTypes/", null);
+            setOpportunityTypes(opportunityTypes);
+            var opportunityWhyLosts = jsonDataCaller.syncCall(baseUrl + "/api/OpportunityWhyLosts/", null);
+            setOpportunityWhyLosts(opportunityWhyLosts);
+            var opportunitySources = jsonDataCaller.syncCall(baseUrl + "/api/OpportunitySources/", null);
+            setOpportunitySources(opportunitySources);
 
-        //For Master Franchisees
-        var masterfranchisees = jsonDataCaller.syncCall(baseUrl + "/api/MasterFranchisees/", null);
-        setMasterFranchisees(masterfranchisees);
-        //For Master Franchisees
-        var behindamts = jsonDataCaller.syncCall(baseUrl + "/api/BehindAmount/", null);
-        setBehindAmount(behindamts);
-        //For Award Level
-        var awardlevels = jsonDataCaller.syncCall(baseUrl + "/api/AwardLevel/", null);
-        setAwardLevel(awardlevels);
-        //For Certified Level
-        var certifiedlevels = jsonDataCaller.syncCall(baseUrl + "/api/CertifiedLevel/", null);
-        setCertifiedLevel(certifiedlevels);
-        //For Purchase Level
-        var purchaselevels = jsonDataCaller.syncCall(baseUrl + "/api/PurchaseLevel/", null);
-        setPurchaseLevel(purchaselevels);
-        //For Primary Business
-        var primarybusiness = jsonDataCaller.syncCall(baseUrl + "/api/PrimaryBusiness/", null);
-        setPrimaryBusiness(primarybusiness);
-        //Country
-        var countries = jsonDataCaller.syncCall(baseUrl + "/api/Countries/", null);
-        setCountries(countries);
-        //States
-        var states = jsonDataCaller.syncCall(baseUrl + "/api/States/", null);
-        setStates(states);
+            //For Master Franchisees
+            var masterfranchisees = jsonDataCaller.syncCall(baseUrl + "/api/MasterFranchisees/", null);
+            setMasterFranchisees(masterfranchisees);
+            //For Master Franchisees
+            var behindamts = jsonDataCaller.syncCall(baseUrl + "/api/BehindAmount/", null);
+            setBehindAmount(behindamts);
+            //For Award Level
+            var awardlevels = jsonDataCaller.syncCall(baseUrl + "/api/AwardLevel/", null);
+            setAwardLevel(awardlevels);
+            //For Certified Level
+            var certifiedlevels = jsonDataCaller.syncCall(baseUrl + "/api/CertifiedLevel/", null);
+            setCertifiedLevel(certifiedlevels);
+            //For Purchase Level
+            var purchaselevels = jsonDataCaller.syncCall(baseUrl + "/api/PurchaseLevel/", null);
+            setPurchaseLevel(purchaselevels);
+            //For Primary Business
+            var primarybusiness = jsonDataCaller.syncCall(baseUrl + "/api/PrimaryBusiness/", null);
+            setPrimaryBusiness(primarybusiness);
+            //Country
+            var countries = jsonDataCaller.syncCall(baseUrl + "/api/Countries/", null);
+            setCountries(countries);
+            //States
+            var states = jsonDataCaller.syncCall(baseUrl + "/api/States/", null);
+            setStates(states);
 
-        //Cost Plus Amount
-        var costplusamt = jsonDataCaller.syncCall(baseUrl + "/api/CostPlusAmount/", null);
-        setCostPlusAmt(costplusamt);
-        //For Sandler Roles
-        var sandlerroles = jsonDataCaller.syncCall(baseUrl + "/api/SandlerRoles/", null);
-        setSandlerRoles(sandlerroles);
-        //For Coaches
-        var coaches = jsonDataCaller.syncCall(baseUrl + "/api/Coaches/", null);
-        setCoaches(coaches);
-        var sandlercoachregions = new Array();
-        $.each(coaches, function (i, coachregionRecord) {
-            sandlercoachregions.push(new coachregion(coachregionRecord.FirstName + ' ' + coachregionRecord.LastName + " - Region " + coachregionRecord.RegionID, coachregionRecord.RegionID));
-            
-        });
-        setSandlerCoachRegions(sandlercoachregions);
-        
-        var franchisees = jsonDataCaller.syncCall(baseUrl + "/api/FranchiseeView/?searchText=&page=0&pageSize=0&selectForExcel=false", null);
+            //Cost Plus Amount
+            var costplusamt = jsonDataCaller.syncCall(baseUrl + "/api/CostPlusAmount/", null);
+            setCostPlusAmt(costplusamt);
+            //For Sandler Roles
+            var sandlerroles = jsonDataCaller.syncCall(baseUrl + "/api/SandlerRoles/", null);
+            setSandlerRoles(sandlerroles);
+            //For Coaches
+            var coaches = jsonDataCaller.syncCall(baseUrl + "/api/Coaches/", null);
+            setCoaches(coaches);
+            var sandlercoachregions = new Array();
+            $.each(coaches, function (i, coachregionRecord) {
+                sandlercoachregions.push(new coachregion(coachregionRecord.FirstName + ' ' + coachregionRecord.LastName + " - Region " + coachregionRecord.RegionID, coachregionRecord.RegionID));
 
-        var data = jsonDataCaller.syncCall(baseUrl + "/api/CompanyView?searchText=&page=0&pageSize=0&selectForExcel=false", null)
-        //console.log('getting user companies');
-        var companies = new Array();
-        $.each(data.results, function (i,companyRecord) {
-            companies.push(new company(companyRecord.COMPANYNAME, companyRecord.COMPANIESID));
-        });
-        setUserCompanies(companies);
+            });
+            setSandlerCoachRegions(sandlercoachregions);
+
+            var franchisees = jsonDataCaller.syncCall(baseUrl + "/api/FranchiseeView/?searchText=&page=0&pageSize=0&selectForExcel=false", null);
+            setUserFranchisees(franchisees.results);
+
+            var data = jsonDataCaller.syncCall(baseUrl + "/api/CompanyView?searchText=&page=0&pageSize=0&selectForExcel=false", null)
+            //console.log('getting user companies');
+            var companies = new Array();
+            $.each(data.results, function (i, companyRecord) {
+                companies.push(new company(companyRecord.COMPANYNAME, companyRecord.COMPANIESID));
+            });
+            setUserCompanies(companies);
+            appInitialized(true)
+        }
+        //else {
+        //    console.log('allready appStart.initialize');
+        //}
     };
 
     return {
@@ -364,6 +397,9 @@ sandler.namespace("appStart").module= (function () {
         initialize: initialize,
         setUser: setUser,
         getUser: getUser,
+        getUserFranchisees: getUserFranchisees,
+        setUserFranchisee: setUserFranchisee,
+        getUserFranchisee:getUserFranchisee,
         getUserCompanies: getUserCompanies,
         getUserContacts: getUserContacts,
         getUserContactsByCompany: getUserContactsByCompany,

@@ -139,7 +139,7 @@ namespace Sandler.DB.Models
         }
 
 
-        public List<FranchiseeView> GetFranchiseeView(string searchText, string orderBy, int? pageSize, int? pageNo, bool selectForExcel)
+        public List<FranchiseeView> GetFranchiseeView(string searchText, string orderBy, int? pageSize, int? pageNo, bool selectForExcel, Guid userId, bool bringArchive)
         {
             if (string.IsNullOrEmpty(searchText))
                 searchText = "";
@@ -147,10 +147,12 @@ namespace Sandler.DB.Models
             string whereClause = "";
 
             if (selectForExcel)
-                whereClause = whereClause + ",@selectForExcel=1";
+                whereClause = whereClause + ", @selectForExcel=1";
+            if (bringArchive)
+                whereClause = whereClause + ", @isActive=0";
 
-            string query = string.Format("exec [sp_FranchiseeView] @orderBy='{0}' ,@pageSize={1},@pageNo={2}{3},@searchText='{4}'"
-                , orderBy, pageSize, pageNo, whereClause, searchText);
+            string query = string.Format("exec [sp_FranchiseeView] @userId='{0}', @orderBy='{1}' ,@pageSize={2},@pageNo={3}{4},@searchText='{5}'"
+                , userId.ToString(), orderBy, pageSize, pageNo, whereClause, searchText);
 
             var q = Database.SqlQuery<FranchiseeView>(query);
 

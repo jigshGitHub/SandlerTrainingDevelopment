@@ -46,7 +46,7 @@
     </div>
 
 
-    <div class="modal" id="franchiseeSelection">
+    <div class="modal" id="franchiseeSelectionContainer">
 	    <div class="modal-dialog">
             <div class="modal-content">
             <div class="modal-header">
@@ -54,7 +54,7 @@
                 <h3 id="modal-headerLabel"></h3>
             </div>
             <div id="user_body" class="modal-body">
-                This is franchisee selection view
+                <input id="franchiseeSelection" />
             </div>
             <div class="modal-footer">
 		        <a id="btnFranchiseeSelect" class="btn btn-sm btn-primary savesa">Select</a>
@@ -64,6 +64,8 @@
     </div>
     <script type="text/javascript">
         var startModule = sandler.appStart.module;
+        startModule.initialize();
+
         var currentUser = @Html.Raw(Json.Encode(@Model.CurrentUser));
         startModule.setUser(currentUser);
         
@@ -73,9 +75,22 @@
             var modalOptions = { backdrop: 'static', show: true };
             var modalHeader = 'Select your franchisee';
             $('#modal-headerLabel').text(modalHeader);
-            $('#franchiseeSelection').modal(modalOptions);
+            $('#franchiseeSelectionContainer').modal(modalOptions);
+            $('#franchiseeSelection').kendoDropDownList(getFranchisees());
+            //console.log(startModule.getUserFranchisees());
+            function getFranchisees() {                
+                return {
+                    dataTextField: "Name",
+                    dataValueField: "ID",
+                    optionLabel: "",
+                    dataSource: startModule.getUserFranchisees(),
+                    index: 0
+                };
+            }
             $('#btnFranchiseeSelect').click(function(){
-                alert('Franchisee set');
+                //alert('Franchisee set');
+                startModule.setUserFranchisee($("#franchiseeSelection").val());
+                console.log(startModule.getUserFranchisee());
             });
         }
     </script>

@@ -84,18 +84,20 @@ namespace Sandler.Web.Controllers.API
             if (!string.IsNullOrEmpty(sortField) && !string.IsNullOrEmpty(sortDir))
                 orderBy = orderBy + " " + sortDir;
 
-            if (CurrentUser.Role == SandlerRoles.Corporate || CurrentUser.Role == SandlerRoles.SiteAdmin || CurrentUser.Role == SandlerRoles.HomeOfficeAdmin || CurrentUser.Role == SandlerRoles.HomeOfficeUser)
-            {
-                franchisees = uow.FranchiseeRepository().Get(searchText, orderBy, pageSize.Value, page.Value, selectForExcel).ToList();
-            }
-            if (CurrentUser.Role == SandlerRoles.Coach)
-            {
-                franchisees = uow.FranchiseeRepository().Get(searchText, orderBy, pageSize.Value, page.Value, selectForExcel).ToList();
-            }
-            if (CurrentUser.Role == SandlerRoles.FranchiseeOwner || CurrentUser.Role == SandlerRoles.FranchiseeUser)
-            {
-                franchisees = uow.FranchiseeRepository().Get(searchText, orderBy, pageSize.Value, page.Value, selectForExcel).ToList();
-            }
+            //if (CurrentUser.Role == SandlerRoles.Corporate || CurrentUser.Role == SandlerRoles.SiteAdmin || CurrentUser.Role == SandlerRoles.HomeOfficeAdmin || CurrentUser.Role == SandlerRoles.HomeOfficeUser)
+            //{
+            //    franchisees = uow.FranchiseeRepository().Get(searchText, orderBy, pageSize.Value, page.Value, selectForExcel).ToList();
+            //}
+            //if (CurrentUser.Role == SandlerRoles.Coach)
+            //{
+            //    franchisees = uow.FranchiseeRepository().Get(searchText, orderBy, pageSize.Value, page.Value, selectForExcel).ToList();
+            //}
+            //if (CurrentUser.Role == SandlerRoles.FranchiseeOwner || CurrentUser.Role == SandlerRoles.FranchiseeUser)
+            //{
+            //    franchisees = uow.FranchiseeRepository().Get(searchText, orderBy, pageSize.Value, page.Value, selectForExcel).ToList();
+            //}
+            
+            franchisees = uow.FranchiseeRepository().Get(searchText, orderBy, pageSize.Value, page.Value, selectForExcel,CurrentUser.UserId,false).ToList();
 
             var returnObject = new { success = true, __count = (franchisees.Count > 0) ? franchisees.FirstOrDefault().TotalCount : 0, results = franchisees };
             return Request.CreateResponse(returnObject);
@@ -117,18 +119,20 @@ namespace Sandler.Web.Controllers.API
             if (!string.IsNullOrEmpty(sortField) && !string.IsNullOrEmpty(sortDir))
                 orderBy = orderBy + " " + sortDir;
 
-            if (CurrentUser.Role == SandlerRoles.Corporate || CurrentUser.Role == SandlerRoles.SiteAdmin || CurrentUser.Role == SandlerRoles.HomeOfficeAdmin || CurrentUser.Role == SandlerRoles.HomeOfficeUser)
-            {
-                franchisees = uow.FranchiseeRepository().GetArchive(searchText, orderBy, pageSize.Value, page.Value, selectForExcel).ToList();
-            }
-            if (CurrentUser.Role == SandlerRoles.Coach)
-            {
-                franchisees = uow.FranchiseeRepository().GetArchive(searchText, orderBy, pageSize.Value, page.Value, selectForExcel).ToList();
-            }
-            if (CurrentUser.Role == SandlerRoles.FranchiseeOwner || CurrentUser.Role == SandlerRoles.FranchiseeUser)
-            {
-                franchisees = uow.FranchiseeRepository().GetArchive(searchText, orderBy, pageSize.Value, page.Value, selectForExcel).ToList();
-            }
+            //if (CurrentUser.Role == SandlerRoles.Corporate || CurrentUser.Role == SandlerRoles.SiteAdmin || CurrentUser.Role == SandlerRoles.HomeOfficeAdmin || CurrentUser.Role == SandlerRoles.HomeOfficeUser)
+            //{
+            //    franchisees = uow.FranchiseeRepository().GetArchive(searchText, orderBy, pageSize.Value, page.Value, selectForExcel).ToList();
+            //}
+            //if (CurrentUser.Role == SandlerRoles.Coach)
+            //{
+            //    franchisees = uow.FranchiseeRepository().GetArchive(searchText, orderBy, pageSize.Value, page.Value, selectForExcel).ToList();
+            //}
+            //if (CurrentUser.Role == SandlerRoles.FranchiseeOwner || CurrentUser.Role == SandlerRoles.FranchiseeUser)
+            //{
+            //    franchisees = uow.FranchiseeRepository().GetArchive(searchText, orderBy, pageSize.Value, page.Value, selectForExcel).ToList();
+            //}
+
+            franchisees = uow.FranchiseeRepository().Get(searchText, orderBy, pageSize.Value, page.Value, selectForExcel, CurrentUser.UserId, true).ToList();
 
             var returnObject = new { success = true, __count = (franchisees.Count > 0) ? franchisees.FirstOrDefault().TotalCount : 0, results = franchisees };
             return Request.CreateResponse(returnObject);

@@ -16,15 +16,15 @@ namespace Sandler.DB.Data.Repositories.Implementations
         {
         }
 
-        public IEnumerable<FranchiseeView> Get(string searchText, string orderBy, int? pageSize, int? pageNo, bool selectForExcel)
+        public IEnumerable<FranchiseeView> Get(string searchText, string orderBy, int? pageSize, int? pageNo, bool selectForExcel, Guid userId, bool bringArchive)
         {
-            return (DBContext.Get() as SandlerDBEntities).GetFranchiseeView(searchText, orderBy, pageSize, pageNo, selectForExcel);
+            return (DBContext.Get() as SandlerDBEntities).GetFranchiseeView(searchText, orderBy, pageSize, pageNo, selectForExcel, userId, bringArchive);
         }
 
-        public IEnumerable<FranchiseeView> GetArchive(string searchText, string orderBy, int? pageSize, int? pageNo, bool selectForExcel)
-        {
-            return (DBContext.Get() as SandlerDBEntities).GetArchiveFranchiseeView(searchText, orderBy, pageSize, pageNo, selectForExcel);
-        }
+        //public IEnumerable<FranchiseeView> GetArchive(string searchText, string orderBy, int? pageSize, int? pageNo, bool selectForExcel)
+        //{
+        //    return (DBContext.Get() as SandlerDBEntities).GetArchiveFranchiseeView(searchText, orderBy, pageSize, pageNo, selectForExcel);
+        //}
 
         public int AddFranchisee(TBL_FRANCHISEE _franchisee)
         {
