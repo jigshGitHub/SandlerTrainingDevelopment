@@ -201,18 +201,7 @@ sandler.namespace("appStart").module= (function () {
         $(document).data("sandler.appStart.opportunitySources", opportunitySources);
     };
     var getUserCompanies = function () {
-        var companies = $(document).data("sandler.appStart.userCompanies");
-        if (companies)
-            return companies;
-
-        var data = jsonDataCaller.syncCall(baseUrl + "/api/CompanyView?searchText=&page=0&pageSize=0&selectForExcel=false&franchiseeId=" + getUserFranchisee(), null)
-        //console.log('getting user companies');
-        companies = new Array();
-        $.each(data.results, function (i, companyRecord) {
-            companies.push(new company(companyRecord.COMPANYNAME, companyRecord.COMPANIESID));
-        });
-        setUserCompanies(companies);
-        return companies;
+        return $(document).data("sandler.appStart.userCompanies");
     };
 
     var setUserCompanies = function (companies) {
@@ -245,12 +234,8 @@ sandler.namespace("appStart").module= (function () {
         $.each(data.results, function (i, contactRecord) {
             contacts.push(new contact(contactRecord.LastName, contactRecord.FirstName, contactRecord.FullName, contactRecord.ContactsId, contactRecord.CompanyId));
         });
-        setUserContacts(contacts);
-        return contacts;
-    };
-
-    var setUserContacts = function (contacts) {
         $(document).data("sandler.appStart.userContacts", contacts);
+        return contacts;
     };
 
     var getUserContactsByCompany = function (companyId) {
@@ -307,6 +292,7 @@ sandler.namespace("appStart").module= (function () {
             return $(document).data("sandler.appStart.appInitialized");
     }
     var initialize = function () {
+        //console.log('appInitialized()=' + appInitialized());
         if (appInitialized() == undefined) {
             //console.log('appStart.initialize');
             var industries = jsonDataCaller.syncCall(baseUrl + "/api/Industries/", null);
@@ -368,9 +354,17 @@ sandler.namespace("appStart").module= (function () {
 
             });
             setSandlerCoachRegions(sandlercoachregions);
+
             var franchisees = jsonDataCaller.syncCall(baseUrl + "/api/FranchiseeView/?searchText=&page=0&pageSize=0&selectForExcel=false", null);
             setUserFranchisees(franchisees.results);
 
+            var data = jsonDataCaller.syncCall(baseUrl + "/api/CompanyView?searchText=&page=0&pageSize=0&selectForExcel=false", null)
+            //console.log('getting user companies');
+            var companies = new Array();
+            $.each(data.results, function (i, companyRecord) {
+                companies.push(new company(companyRecord.COMPANYNAME, companyRecord.COMPANIESID));
+            });
+            setUserCompanies(companies);
             appInitialized(true)
         }
         //else {
