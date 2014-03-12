@@ -3,7 +3,7 @@
 function showAllRecordDetails(e) {
     e.preventDefault();
     var dataItem = $("#homeOfficeReportgrid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
-    var path = "navi?url=/CRM/HomeOffice/Edit?id=" + dataItem.ID;
+    var path = "navi?url=" + baseUrl + "/CRM/HomeOffice/Edit?id=" + dataItem.ID;
     showModal_.html(path, null, '95%');
 
 }
@@ -136,7 +136,7 @@ function get_frbyawlevelgridDataSource(reportType, recordType) {
         type: "json",
         transport: {
             read: {
-                url: "api/HomeOfficeReports/",
+                url: baseUrl + "/api/HomeOfficeReports/",
                 dataType: "json",
                 data: { reportType: reportType, recordType: recordType },
                 cache: false //This is required othewise grid does not refresh after Edit operation in IE
@@ -208,7 +208,7 @@ function get_frbybusareagridDataSource(reportType, recordType) {
         type: "json",
         transport: {
             read: {
-                url: "api/HomeOfficeReports/",
+                url: baseUrl + "/api/HomeOfficeReports/",
                 dataType: "json",
                 data: { reportType: reportType, recordType: recordType },
                 cache: false //This is required othewise grid does not refresh after Edit operation in IE
@@ -280,7 +280,7 @@ function get_frbycertlevelgridDataSource(reportType, recordType) {
         type: "json",
         transport: {
             read: {
-                url: "api/HomeOfficeReports/",
+                url: baseUrl + "/api/HomeOfficeReports/",
                 dataType: "json",
                 data: { reportType: reportType, recordType: recordType },
                 cache: false //This is required othewise grid does not refresh after Edit operation in IE
@@ -352,7 +352,7 @@ function get_frbycoachgridDataSource(reportType, recordType) {
         type: "json",
         transport: {
             read: {
-                url: "api/HomeOfficeReports/",
+                url: baseUrl + "/api/HomeOfficeReports/",
                 dataType: "json",
                 data: { reportType: reportType, recordType: recordType },
                 cache: false //This is required othewise grid does not refresh after Edit operation in IE
@@ -426,7 +426,7 @@ function get_frbycontdetailsgridDataSource(reportType, recordType) {
         type: "json",
         transport: {
             read: {
-                url: "api/HomeOfficeReports/",
+                url: baseUrl + "/api/HomeOfficeReports/",
                 dataType: "json",
                 data: { reportType: reportType, recordType: recordType },
                 cache: false //This is required othewise grid does not refresh after Edit operation in IE
@@ -500,7 +500,7 @@ function get_ctragridDataSource(reportType, recordType) {
         type: "json",
         transport: {
             read: {
-                url: "api/HomeOfficeReports/",
+                url: baseUrl + "/api/HomeOfficeReports/",
                 dataType: "json",
                 data: { reportType: reportType, recordType: recordType },
                 cache: false //This is required othewise grid does not refresh after Edit operation in IE
@@ -572,7 +572,7 @@ function get_frbycountrygridDataSource(reportType, recordType) {
         type: "json",
         transport: {
             read: {
-                url: "api/HomeOfficeReports/",
+                url: baseUrl + "/api/HomeOfficeReports/",
                 dataType: "json",
                 data: { reportType: reportType, recordType: recordType },
                 cache: false //This is required othewise grid does not refresh after Edit operation in IE
@@ -644,7 +644,7 @@ function get_frbytrngdategridDataSource(reportType, recordType) {
         type: "json",
         transport: {
             read: {
-                url: "api/HomeOfficeReports/",
+                url: baseUrl + "/api/HomeOfficeReports/",
                 dataType: "json",
                 data: { reportType: reportType, recordType: recordType },
                 cache: false //This is required othewise grid does not refresh after Edit operation in IE
@@ -716,7 +716,7 @@ function get_msfcgridDataSource(reportType, recordType) {
         type: "json",
         transport: {
             read: {
-                url: "api/HomeOfficeReports/",
+                url: baseUrl + "/api/HomeOfficeReports/",
                 dataType: "json",
                 data: { reportType: reportType, recordType: recordType },
                 cache: false //This is required othewise grid does not refresh after Edit operation in IE
@@ -788,7 +788,7 @@ function get_prplgridDataSource(reportType, recordType) {
         type: "json",
         transport: {
             read: {
-                url: "api/HomeOfficeReports/",
+                url: baseUrl + "/api/HomeOfficeReports/",
                 dataType: "json",
                 data: { reportType: reportType, recordType: recordType },
                 cache: false //This is required othewise grid does not refresh after Edit operation in IE
@@ -860,7 +860,7 @@ function get_frbyregiongridDataSource(reportType, recordType) {
         type: "json",
         transport: {
             read: {
-                url: "api/HomeOfficeReports/",
+                url: baseUrl + "/api/HomeOfficeReports/",
                 dataType: "json",
                 data: { reportType: reportType, recordType: recordType },
                 cache: false //This is required othewise grid does not refresh after Edit operation in IE
@@ -933,7 +933,7 @@ function get_seregridDataSource(reportType, recordType) {
         type: "json",
         transport: {
             read: {
-                url: "api/HomeOfficeReports/",
+                url: baseUrl + "/api/HomeOfficeReports/",
                 dataType: "json",
                 data: { reportType: reportType, recordType: recordType },
                 cache: false //This is required othewise grid does not refresh after Edit operation in IE
@@ -1005,7 +1005,7 @@ function get_frbystategridDataSource(reportType, recordType) {
         type: "json",
         transport: {
             read: {
-                url: "api/HomeOfficeReports/",
+                url: baseUrl + "/api/HomeOfficeReports/",
                 dataType: "json",
                 data: { reportType: reportType, recordType: recordType },
                 cache: false //This is required othewise grid does not refresh after Edit operation in IE
@@ -1077,7 +1077,7 @@ function get_frbyusingcrmgridDataSource(reportType, recordType) {
         type: "json",
         transport: {
             read: {
-                url: "api/HomeOfficeReports/",
+                url: baseUrl + "/api/HomeOfficeReports/",
                 dataType: "json",
                 data: { reportType: reportType, recordType: recordType },
                 cache: false //This is required othewise grid does not refresh after Edit operation in IE
@@ -1153,7 +1153,7 @@ function get_zcbtgridDataSource(reportType, recordType) {
         type: "json",
         transport: {
             read: {
-                url: "api/HomeOfficeReports/",
+                url: baseUrl + "/api/HomeOfficeReports/",
                 dataType: "json",
                 data: { reportType: reportType, recordType: recordType },
                 cache: false //This is required othewise grid does not refresh after Edit operation in IE
@@ -1231,7 +1231,7 @@ function get_mfrdgridDataSource(reportType, recordType) {
         type: "json",
         transport: {
             read: {
-                url: "api/HomeOfficeReports/",
+                url: baseUrl + "/api/HomeOfficeReports/",
                 dataType: "json",
                 data: { reportType: reportType, recordType: recordType },
                 cache: false //This is required othewise grid does not refresh after Edit operation in IE
@@ -1305,7 +1305,7 @@ function get_msfrgridDataSource(reportType, recordType) {
         type: "json",
         transport: {
             read: {
-                url: "api/HomeOfficeReports/",
+                url: baseUrl + "/api/HomeOfficeReports/",
                 dataType: "json",
                 data: { reportType: reportType, recordType: recordType },
                 cache: false //This is required othewise grid does not refresh after Edit operation in IE
@@ -1376,7 +1376,7 @@ function get_msrbykeyopnldrgridDataSource(reportType, recordType) {
         type: "json",
         transport: {
             read: {
-                url: "api/HomeOfficeReports/",
+                url: baseUrl + "/api/HomeOfficeReports/",
                 dataType: "json",
                 data: { reportType: reportType, recordType: recordType },
                 cache: false //This is required othewise grid does not refresh after Edit operation in IE
@@ -1446,7 +1446,7 @@ function get_msrbyadvboardgridDataSource(reportType, recordType) {
         type: "json",
         transport: {
             read: {
-                url: "api/HomeOfficeReports/",
+                url: baseUrl + "/api/HomeOfficeReports/",
                 dataType: "json",
                 data: { reportType: reportType, recordType: recordType },
                 cache: false //This is required othewise grid does not refresh after Edit operation in IE
@@ -1516,7 +1516,7 @@ function get_msrbymktgcomgridDataSource(reportType, recordType) {
         type: "json",
         transport: {
             read: {
-                url: "api/HomeOfficeReports/",
+                url: baseUrl + "/api/HomeOfficeReports/",
                 dataType: "json",
                 data: { reportType: reportType, recordType: recordType },
                 cache: false //This is required othewise grid does not refresh after Edit operation in IE
@@ -1587,7 +1587,7 @@ function get_dhsagridDataSource(reportType, recordType) {
         type: "json",
         transport: {
             read: {
-                url: "api/HomeOfficeReports/",
+                url: baseUrl + "/api/HomeOfficeReports/",
                 dataType: "json",
                 data: { reportType: reportType, recordType: recordType },
                 cache: false //This is required othewise grid does not refresh after Edit operation in IE
@@ -1658,7 +1658,7 @@ function get_frmdgridDataSource(reportType, recordType) {
         type: "json",
         transport: {
             read: {
-                url: "api/HomeOfficeReports/",
+                url: baseUrl + "/api/HomeOfficeReports/",
                 dataType: "json",
                 data: { reportType: reportType, recordType: recordType },
                 cache: false //This is required othewise grid does not refresh after Edit operation in IE
@@ -1729,7 +1729,7 @@ function get_glaagridDataSource(reportType, recordType) {
         type: "json",
         transport: {
             read: {
-                url: "api/HomeOfficeReports/",
+                url: baseUrl + "/api/HomeOfficeReports/",
                 dataType: "json",
                 data: { reportType: reportType, recordType: recordType },
                 cache: false //This is required othewise grid does not refresh after Edit operation in IE

@@ -1,5 +1,6 @@
-﻿var applicationname = "";
-//var applicationname = "/SandlerTrainingNew";
+﻿﻿//var applicationname = "";
+var applicationname = "/SandlerTrainingNew";
+
 var myhost = window.location.protocol + "//" + window.location.host
 var absoluteapp = myhost + applicationname;
 var baseUrl = myhost + applicationname;
@@ -201,7 +202,18 @@ sandler.namespace("appStart").module= (function () {
         $(document).data("sandler.appStart.opportunitySources", opportunitySources);
     };
     var getUserCompanies = function () {
-        return $(document).data("sandler.appStart.userCompanies");
+        var companies = $(document).data("sandler.appStart.userCompanies");
+        if (companies)
+            return companies;
+
+        var data = jsonDataCaller.syncCall(baseUrl + "/api/CompanyView?searchText=&page=0&pageSize=0&selectForExcel=false&franchiseeId=" + getUserFranchisee(), null)
+        //console.log('getting user companies');
+        companies = new Array();
+        $.each(data.results, function (i, companyRecord) {
+            companies.push(new company(companyRecord.COMPANYNAME, companyRecord.COMPANIESID));
+        });
+        setUserCompanies(companies);
+        return companies;
     };
 
     var setUserCompanies = function (companies) {
@@ -358,13 +370,6 @@ sandler.namespace("appStart").module= (function () {
             var franchisees = jsonDataCaller.syncCall(baseUrl + "/api/FranchiseeView/?searchText=&page=0&pageSize=0&selectForExcel=false", null);
             setUserFranchisees(franchisees.results);
 
-            var data = jsonDataCaller.syncCall(baseUrl + "/api/CompanyView?searchText=&page=0&pageSize=0&selectForExcel=false", null)
-            //console.log('getting user companies');
-            var companies = new Array();
-            $.each(data.results, function (i, companyRecord) {
-                companies.push(new company(companyRecord.COMPANYNAME, companyRecord.COMPANIESID));
-            });
-            setUserCompanies(companies);
             appInitialized(true)
         }
         //else {

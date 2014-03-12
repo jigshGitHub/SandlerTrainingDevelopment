@@ -197,6 +197,7 @@
     <Compile Include="Areas\CRM\Controllers\ContactsController.cs" />
     <Compile Include="Areas\CRM\Controllers\GlobalSearchController.cs" />
     <Compile Include="Areas\CRM\Controllers\HomeOfficeController.cs" />
+    <Compile Include="Areas\CRM\Controllers\HomeOfficeReportsController.cs" />
     <Compile Include="Areas\CRM\Controllers\PipelineController.cs" />
     <Compile Include="Areas\CRM\CRMAreaRegistration.cs" />
     <Compile Include="Areas\Dashboard\Controllers\HomeController.cs" />
@@ -210,6 +211,7 @@
     <Compile Include="Controllers\APIs\ContactController.cs" />
     <Compile Include="Controllers\APIs\GlobalSearchController.cs" />
     <Compile Include="Controllers\APIs\HomeOfficeController.cs" />
+    <Compile Include="Controllers\APIs\HomeOfficeReportsController.cs" />
     <Compile Include="Controllers\APIs\MyDayController.cs" />
     <Compile Include="Controllers\APIs\PipelineController.cs" />
     <Compile Include="Controllers\APIs\LookupController.cs" />
@@ -1068,6 +1070,7 @@
     <Content Include="Areas\MyDay\Views\Home\Dashboard.cshtml" />
     <Content Include="Areas\MyDay\Views\Home\Index.cshtml" />
     <Content Include="Areas\MyDay\Views\Web.config" />
+    <Content Include="Areas\CRM\Views\HomeOfficeReports\Index.cshtml" />
     <None Include="Properties\PublishProfiles\WebDeploy-DevEnvt.pubxml" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="Images\bg-capitol.png" />
@@ -1108,6 +1111,7 @@
     <Content Include="Scripts\Application\koExtenders.js" />
     <Content Include="Scripts\Application\ng-franchisees.js" />
     <Content Include="Scripts\Application\ng-globalSearch.js" />
+    <Content Include="Scripts\Application\ng-homeOfficeReports.js" />
     <Content Include="Scripts\Application\ng-mytasks.js" />
     <Content Include="Scripts\Application\ng-opportunities.js" />
     <Content Include="Scripts\Application\ng-contacts.js" />

@@ -37,17 +37,9 @@ namespace Sandler.Web.Controllers.API
         {
             return Request.CreateResponse(uow.Repository<TBL_COMPANIES>().GetAll().Take(10));
         }
-
-        //usage api/CompanyView/310577A7-8751-4EC3-B8F7-3E831AF186CB
-        //[Route("api/CompanyView/{userId}")]
-        //public HttpResponseMessage Get(string userId)
-        //{
-        //    List<vw_Companies> data = uow.CompanyRepository().Get(new Guid(userId)).ToList();
-        //    var returnObject = new { success = true, __count = data.Count(), results = data };
-        //    return Request.CreateResponse(returnObject);
-        //}
+                
         [Route("api/CompanyView/")]
-        public HttpResponseMessage GetCompanyView(string searchText, int? page, int? pageSize, bool selectForExcel)
+        public HttpResponseMessage GetCompanyView(string searchText, int? page, int? pageSize, bool selectForExcel, int? coachId = null, int? franchiseeId = null)
         {
             List<CompanyView> companies = null;
             //sort%5B0%5D%5Bfield%5D=COMPANYNAME&sort%5B0%5D%5Bdir%5D=asc
@@ -60,19 +52,25 @@ namespace Sandler.Web.Controllers.API
             if (!string.IsNullOrEmpty(sortField) && !string.IsNullOrEmpty(sortDir))
                 orderBy = orderBy + " " + sortDir;
             
-            if (CurrentUser.Role == SandlerRoles.Corporate || CurrentUser.Role == SandlerRoles.SiteAdmin || CurrentUser.Role == SandlerRoles.HomeOfficeAdmin || CurrentUser.Role == SandlerRoles.HomeOfficeUser)
-            {
-                companies = uow.CompanyRepository().Get(searchText,orderBy, pageSize.Value, page.Value, null, null, selectForExcel).ToList();
-            }
-            if (CurrentUser.Role == SandlerRoles.Coach)
-            {
-                companies = uow.CompanyRepository().Get(searchText,orderBy, pageSize.Value, page.Value, CurrentUser.CoachID, null,selectForExcel).ToList();
-            }
-            if (CurrentUser.Role == SandlerRoles.FranchiseeOwner || CurrentUser.Role == SandlerRoles.FranchiseeUser)
-            {
-                companies = uow.CompanyRepository().Get(searchText,orderBy, pageSize.Value, page.Value, null, CurrentUser.FranchiseeID,selectForExcel).ToList();
-            }
+            //if (CurrentUser.Role == SandlerRoles.Corporate || CurrentUser.Role == SandlerRoles.SiteAdmin || CurrentUser.Role == SandlerRoles.HomeOfficeAdmin || CurrentUser.Role == SandlerRoles.HomeOfficeUser)
+            //{
+            //    companies = uow.CompanyRepository().Get(searchText,orderBy, pageSize.Value, page.Value, null, null, selectForExcel).ToList();
+            //}
+            //if (CurrentUser.Role == SandlerRoles.Coach)
+            //{
+            //    companies = uow.CompanyRepository().Get(searchText,orderBy, pageSize.Value, page.Value, CurrentUser.CoachID, null,selectForExcel).ToList();
+            //}
+            //if (CurrentUser.Role == SandlerRoles.FranchiseeOwner || CurrentUser.Role == SandlerRoles.FranchiseeUser)
+            //{
+            //    companies = uow.CompanyRepository().Get(searchText,orderBy, pageSize.Value, page.Value, null, CurrentUser.FranchiseeID,selectForExcel).ToList();
+            //}
 
+            if (!coachId.HasValue && !franchiseeId.HasValue && CurrentUser.Role == SandlerRoles.Coach)
+                coachId = CurrentUser.CoachID;
+            if (!coachId.HasValue && !franchiseeId.HasValue && (CurrentUser.Role == SandlerRoles.FranchiseeOwner || CurrentUser.Role == SandlerRoles.FranchiseeUser))
+                franchiseeId = CurrentUser.FranchiseeID;
+
+            companies = uow.CompanyRepository().Get(searchText, orderBy, pageSize.Value, page.Value, coachId, franchiseeId, selectForExcel).ToList();
             var returnObject = new { success = true, __count = (companies.Count > 0) ? companies.FirstOrDefault().TotalCount : 0, results = companies };
             return Request.CreateResponse(returnObject);
             

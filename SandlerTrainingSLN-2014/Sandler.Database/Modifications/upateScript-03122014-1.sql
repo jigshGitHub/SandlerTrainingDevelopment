@@ -2367,3 +2367,5 @@ END
 GO
 
 
+Update [dbo].[pageMenu] Set pagePath = '/CRM/HomeOfficeReports/Index' Where pageMenuId = 5;
+GO

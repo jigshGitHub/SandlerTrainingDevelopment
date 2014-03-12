@@ -69,7 +69,7 @@
         var currentUser = @Html.Raw(Json.Encode(@Model.CurrentUser));
         startModule.setUser(currentUser);
         
-        if(currentUser.Role = 1)
+        if(currentUser.Role == 1)
         {
             console.log('Role:' + currentUser.Role);
             var modalOptions = { backdrop: 'static', show: true };
@@ -91,6 +91,7 @@
                 //alert('Franchisee set');
                 startModule.setUserFranchisee($("#franchiseeSelection").val());
                 console.log(startModule.getUserFranchisee());
+                $('#franchiseeSelectionContainer').modal('hide');
             });
         }
     </script>

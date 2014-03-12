@@ -62,7 +62,7 @@ Begin
 		SET @SQL = 'Select vw.*  
 		FROM [vw_Opportunities] vw
 		INNER JOIN TBL_COACH ch WITH(NOLOCK) ON ch.ID = vw.CoachId
-		WHERE ch.UserID = ' + CAST(@userId AS VARCHAR(20));
+		WHERE ch.UserID = ''' + CAST(@userId AS VARCHAR(100)) + '''';
 		
 	END 
 	
