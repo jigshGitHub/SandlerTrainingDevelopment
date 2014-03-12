@@ -11,6 +11,7 @@ namespace Sandler.DB.Data.Repositories.Interfaces
     {
         IEnumerable<FranchiseeView> Get(string searchText, string orderBy, int? pageSize, int? pageNo, bool selectForExcel,Guid userId, bool bringArchive);
         //IEnumerable<FranchiseeView> GetArchive(string searchText, string orderBy, int? pageSize, int? pageNo, bool selectForExcel);
+        IEnumerable<ReportView> GetReportData(string reportType, string orderBy, int? pageSize, int? pageNo, string recordType);
         //For Archive Feature
         bool ArchiveFranchisee(int id, string userId);
         bool UnArchiveFranchisee(int id, string userId);

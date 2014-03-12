@@ -156,7 +156,7 @@ namespace Sandler.Web.Controllers.API
             {
                 int companiesId = _company.COMPANIESID;
                 _company.IsActive = true;
-                
+
                 if (companiesId > 0)
                 {
                     //Update Operation
@@ -170,6 +170,30 @@ namespace Sandler.Web.Controllers.API
                     _company.CreatedDate = DateTime.Now;
                     _company.CreatedBy = CurrentUser.UserId.ToString();
                     companiesId = uow.CompanyRepository().AddCompany(_company);
+
+                    if (_company.POCFirstName != "" && _company.POCLastName != "")
+                    {
+                        TBL_CONTACTS contact = new TBL_CONTACTS();
+                        contact.COMPANYID = companiesId;
+                        contact.FIRSTNAME = _company.POCFirstName;
+                        contact.LASTNAME = _company.POCLastName;
+                        contact.PHONE = _company.POCPhone;
+                        contact.EMAIL = _company.POCEmail;
+                        contact.Fax = _company.POCFax;
+                        contact.ContactsDepartment = _company.POCDepartment;
+                        contact.NEXT_CONTACT_DATE = _company.NEXTCONTACT_DATE;
+                        contact.IsActive = true;
+                        contact.CreatedBy = _company.CreatedBy;
+                        contact.CreatedDate = _company.CreatedDate;
+                        contact.UpdatedDate = _company.UpdatedDate;
+                        contact.IsEmailSubscription = true;
+                        contact.IsNeedCallBack = false;
+                        contact.IsRegisteredForTraining = false;
+                        contact.IsNewAppointment = false;
+                        uow.Repository<TBL_CONTACTS>().Add(contact);
+                        uow.Save();
+                    }
+
                 }
                 //We will send back the companiesId - Either newly created or from Updated record
                 _response = new genericResponse() { success = true, UniqueId = companiesId };

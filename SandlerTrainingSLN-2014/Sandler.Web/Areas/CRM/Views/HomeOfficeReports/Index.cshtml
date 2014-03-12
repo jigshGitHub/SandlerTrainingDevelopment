@@ -1,0 +1,55 @@
+﻿@using Sandler.DB.Models;
+@using Sandler.Web.Models;
+@using Sandler.Web.ViewModels;
+
+@{
+    ViewBag.Title = "Index";
+}
+<style type="text/css">
+    .k-grid999 tbody .k-button {
+        min-width: 12px;
+        width: 50px;
+        height: 25px;
+        vertical-align: middle;
+    }
+
+    
+</style>
+<script src="~/Scripts/Application/ng-homeOfficeReports.js" type="text/javascript"></script>
+<div id="homeOfficeReportsMain" class="container" ng-controller="ng_homeOfficeReportsCtrl">
+    @*Search button*@
+    <div class="row">
+        <div class='page-title'>Home Office Reports</div>
+    </div>
+   
+    <br />
+
+    <div class="row" style="margin-top:10px">
+        <div class="col-md-8 input-group">
+           <div class="col-sm-3"> Select a report: </div>
+            <div class="col-sm-9">   <input id="reportTypeSelection" />
+                </div>
+            <span class="input-group-btn"> 
+                  <button id="btnSearch" class="btn btn-primary" type="button"><span class="glyphicon glyphicon-search" title="Global Search" data-toggle="tooltip"></span></button>
+            </span>
+           
+        </div>
+          @*For Export To Excel*@
+        <div class="pull-right" data-bind="visible : IsReportHasData">
+            <a title="Download a List in Excel" class="btn btn-default btn-xs fileinput-button" href="@Url.Action("ExportReport","HomeOfficeReports")"><span class="glyphicon glyphicon-cloud-download"></span> Download</a>
+        </div>
+        
+    </div>
+    @* <div class="row" style="margin-top: 10px">        
+            <div class="col-md-6 input-group">
+           <div class="col-sm-12">  <span id="reportLabel" data-bind="text: firstName"></span></div>              
+                </div>      
+    </div>*@
+    
+    <div class="row" style="margin-top: 10px">
+        <div id="searchGrid" class="k-content">
+            <div id="homeOfficeReportgrid" ></div>
+            
+        </div>
+    </div>
+</div>

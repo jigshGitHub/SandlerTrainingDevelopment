@@ -83,13 +83,11 @@ namespace Sandler.DB.Models
                 whereClause = whereClause + ",@companyId=" + companyId.Value;
             if (!string.IsNullOrEmpty(userId))
                 whereClause = whereClause + ",@userId=" + userId;
-            if (!string.IsNullOrEmpty(searchText))
-                whereClause = whereClause + ", @searchText=" + searchText;
             if (selectForExcel)
                 whereClause = whereClause + ",@selectForExcel=" + selectForExcel;
 
-            string query = string.Format("exec [sp_ContactView] @orderBy='{0}' ,@pageSize={1},@pageNo={2}{3}"
-                , orderBy, pageSize, pageNo, whereClause);
+            string query = string.Format("exec [sp_ContactView] @orderBy='{0}' ,@pageSize={1},@pageNo={2}{3},@searchText='{4}'"
+                , orderBy, pageSize, pageNo, whereClause, searchText);
 
             var q = Database.SqlQuery<ContactView>(query);
 
@@ -107,13 +105,11 @@ namespace Sandler.DB.Models
                 whereClause = whereClause + ",@companyId=" + companyId.Value;
             if (!string.IsNullOrEmpty(userId))
                 whereClause = whereClause + ",@userId=" + userId;
-            if (!string.IsNullOrEmpty(searchText))
-                whereClause = whereClause + ", @searchText=" + searchText;
             if (selectForExcel)
                 whereClause = whereClause + ",@selectForExcel=" + selectForExcel;
 
-            string query = string.Format("exec [sp_ArchiveContactView] @orderBy='{0}' ,@pageSize={1},@pageNo={2}{3}"
-                , orderBy, pageSize, pageNo, whereClause);
+            string query = string.Format("exec [sp_ArchiveContactView] @orderBy='{0}' ,@pageSize={1},@pageNo={2}{3},@searchText='{4}'"
+                , orderBy, pageSize, pageNo, whereClause, searchText);
 
             var q = Database.SqlQuery<ContactView>(query);
 
@@ -125,13 +121,11 @@ namespace Sandler.DB.Models
             string whereClause = "";
             if (companyId.HasValue)
                 whereClause = whereClause + ", @companyId=" + companyId.Value;
-            if (!string.IsNullOrEmpty(searchText))
-                whereClause = whereClause + ", @searchText=" + searchText;
             if (bringArchive)
                 whereClause = whereClause + ", @isActive=0";
 
-            string query = string.Format("exec [sp_OpportunityView] @userId='{0}', @orderBy='{1}', @pageSize={2}, @pageNo={3}{4}"
-                , userId.ToString(), orderBy, pageSize, pageNo, whereClause);
+            string query = string.Format("exec [sp_OpportunityView] @userId='{0}', @orderBy='{1}', @pageSize={2}, @pageNo={3}{4}, @searchText='{5}'"
+                , userId.ToString(), orderBy, pageSize, pageNo, whereClause, searchText);
 
             var q = Database.SqlQuery<OpportunityView>(query);
 
@@ -159,6 +153,18 @@ namespace Sandler.DB.Models
             return q.ToList();
         }
 
+        public List<ReportView> GetReportData(string reportType, string orderBy, int? pageSize, int? pageNo, string recordType)
+        {
+
+
+            string query = string.Format("[" + reportType + "] @orderBy='{0}', @pageSize={1},@pageNo={2},@recordType='{3}'"
+                , orderBy, pageSize, pageNo, recordType);
+
+            var q = Database.SqlQuery<ReportView>(query);
+
+            return q.ToList();
+        }
+
         public List<GlobalSearchView> GetGlobalSearchRecords(string orderBy, int? pageSize, int? pageNo, int? coachId, int? franchiseeId, string userId, string searchText, string searchRecordType)
         {
             string whereClause = "";
@@ -166,11 +172,10 @@ namespace Sandler.DB.Models
                 whereClause = whereClause + ",@coachId=" + coachId.Value;
             if (franchiseeId.HasValue)
                 whereClause = whereClause + ",@franchiseeId=" + franchiseeId.Value;
-            if (!string.IsNullOrEmpty(searchText))
-                whereClause = whereClause + ", @searchText=" + searchText;
 
-            string query = string.Format("exec [sp_AdvancedSearch] @userId='{0}' ,@orderBy='{1}', @pageSize={2},@pageNo={3}{4},@searchRecordType='{5}'"
-               , userId.ToString(), orderBy, pageSize, pageNo, whereClause, searchRecordType);
+
+            string query = string.Format("exec [sp_AdvancedSearch] @userId='{0}' ,@orderBy='{1}', @pageSize={2},@pageNo={3}{4},@searchRecordType='{5}',@searchText='{6}'"
+               , userId.ToString(), orderBy, pageSize, pageNo, whereClause, searchRecordType, searchText);
 
 
 

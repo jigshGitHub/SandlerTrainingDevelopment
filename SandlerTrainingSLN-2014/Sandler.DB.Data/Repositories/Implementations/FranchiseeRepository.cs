@@ -26,6 +26,11 @@ namespace Sandler.DB.Data.Repositories.Implementations
         //    return (DBContext.Get() as SandlerDBEntities).GetArchiveFranchiseeView(searchText, orderBy, pageSize, pageNo, selectForExcel);
         //}
 
+        public IEnumerable<ReportView> GetReportData(string reportType, string orderBy, int? pageSize, int? pageNo, string recordType)
+        {
+            return (DBContext.Get() as SandlerDBEntities).GetReportData(reportType, orderBy, pageSize, pageNo, recordType);
+        }
+
         public int AddFranchisee(TBL_FRANCHISEE _franchisee)
         {
             Add(_franchisee);
