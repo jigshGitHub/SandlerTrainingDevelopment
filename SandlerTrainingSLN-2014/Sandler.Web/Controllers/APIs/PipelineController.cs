@@ -69,9 +69,11 @@ namespace Sandler.Web.Controllers.API
 
         [Route("api/PipelineSave")]
         [HttpPost()]
-        public HttpResponseMessage Save(TBL_OPPORTUNITIES opportunity)
+        public HttpResponseMessage Save(TBL_OPPORTUNITIES opportunity, bool quickstartSave = false)
         {
             if(!VerifyRequiredFields(opportunity))
+                return new HttpResponseMessage(HttpStatusCode.InternalServerError);
+            if (quickstartSave && !VerifyQuickstartRequiredFields(opportunity))
                 return new HttpResponseMessage(HttpStatusCode.InternalServerError);
             if (opportunity.ID > 0)
             {
@@ -93,7 +95,22 @@ namespace Sandler.Web.Controllers.API
 
         private bool VerifyRequiredFields(TBL_OPPORTUNITIES opportunity)
         {
-            return (opportunity.COMPANYID > 0 && opportunity.CONTACTID > 0 && !string.IsNullOrEmpty(opportunity.NAME) && !string.IsNullOrEmpty(opportunity.SALESREPFIRSTNAME) && !string.IsNullOrEmpty(opportunity.SALESREPLASTNAME) && opportunity.ProductID > 0 && !string.IsNullOrEmpty(opportunity.VALUE.Value.ToString()) && opportunity.CLOSEDATE.HasValue && !string.IsNullOrEmpty(opportunity.Pain));
+            return (opportunity.COMPANYID > 0 && 
+                opportunity.CONTACTID > 0 && 
+                !string.IsNullOrEmpty(opportunity.NAME) && 
+                !string.IsNullOrEmpty(opportunity.SALESREPFIRSTNAME) && 
+                !string.IsNullOrEmpty(opportunity.SALESREPLASTNAME) && 
+                opportunity.ProductID > 0 && 
+                !string.IsNullOrEmpty(opportunity.VALUE.Value.ToString()) && 
+                opportunity.CLOSEDATE.HasValue && 
+                !string.IsNullOrEmpty(opportunity.Pain));
+        }
+
+        private bool VerifyQuickstartRequiredFields(TBL_OPPORTUNITIES opportunity)
+        {
+            return (opportunity.STATUSID > 0 &&
+                opportunity.SourceID > 0 &&
+                opportunity.TypeID > 0);
         }
 
         [Route("api/PipelineArchive")]

@@ -183,10 +183,13 @@ namespace Sandler.Web.Controllers.API
 
         [Route("api/ContactSave")]
         [HttpPost()]
-        public HttpResponseMessage Save(TBL_CONTACTS contact)
+        public HttpResponseMessage Save(TBL_CONTACTS contact, bool quickstartSave = false)
         {
             if (!VerifyRequiredFields(contact))
                 return new HttpResponseMessage(HttpStatusCode.InternalServerError);
+            if(quickstartSave && !VerifyQuickstartRequiredFields(contact))
+                return new HttpResponseMessage(HttpStatusCode.InternalServerError);
+
             if (contact.CONTACTSID > 0)
             {
                 uow.Repository<TBL_CONTACTS>().Update(contact);
@@ -208,6 +211,17 @@ namespace Sandler.Web.Controllers.API
         private bool VerifyRequiredFields(TBL_CONTACTS contact)
         {
             return (!string.IsNullOrEmpty(contact.FIRSTNAME) && !string.IsNullOrEmpty(contact.LASTNAME));
+        }
+
+        private bool VerifyQuickstartRequiredFields(TBL_CONTACTS contact)
+        {
+            bool trainingcheck = true;
+            if(contact.IsRegisteredForTraining.HasValue == true)
+                 trainingcheck = (contact.CourseId > 0 && 
+                !string.IsNullOrEmpty(contact.TrainingCourseName) && 
+                contact.CourseTrainingDate.HasValue && 
+                contact.HowManyAttended > 0);
+            return trainingcheck && contact.ApptSourceId > 0;
         }
     }
 }
