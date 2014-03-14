@@ -129,14 +129,14 @@ function ng_contactsCtrl($scope, $http) {
                     {
                         command: [
                                     { template: "<button title='View/Edit' class='btn btn-success btn-sm editsa' onclick='showDetails(event)'><span class='glyphicon glyphicon-search'></span></button>" },
-                                     { template: "&nbsp;<button title='Archive Contact' class='btn btn-danger btn-sm deletesa' onclick='archiveContact(event)'><span class='glyphicon glyphicon-remove'></span></button>" }
+                                     { template: "&nbsp;<button title='Archive Contact' class='btn btn-warning btn-sm deletesa' onclick='archiveContact(event)'><span class='glyphicon glyphicon-remove'></span></button>" }
                         ],
                         title: " ", width: "35px"
                     },
-                    { field: "FullName", title: "Name", width: "80px" },
-                    { field: "Phone", title: "Phone", width: "80px" },
-                    { field: "Email", title: "Email", width: "80px" },
-                    { field: "COMPANYNAME", title: "Company", width: "60px" },
+                    { field: "FullName", title: "Name", width: "80px", attributes: { "class": "sptablecell" } },
+                    { field: "Phone", title: "Phone", width: "80px", attributes: { "class": "sptablecell" } },
+                    { field: "Email", title: "Email", width: "80px", attributes: { "class": "sptablecell" } },
+                    { field: "COMPANYNAME", title: "Company", width: "60px", attributes: { "class": "sptablecell" } },
                     { field: "ContactsId", hidden:"true" }
                 ]
             }

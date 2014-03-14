@@ -108,17 +108,17 @@ function ng_opportunitiesCtrl($scope, $http) {
                     {
                         command: [
                                     { template: "<button title='View/Edit' class='btn btn-success btn-sm editsa' onclick='showDetails(event)'><span class='glyphicon glyphicon-search'></span></button>" },
-                                    { template: "&nbsp;<button title='Archive Opportunity' class='btn btn-danger btn-sm deletesa' onclick='archiveOpportunity(event)'><span class='glyphicon glyphicon-remove'></span></button>" }
+                                    { template: "&nbsp;<button title='Archive Opportunity' class='btn btn-warning btn-sm deletesa' onclick='archiveOpportunity(event)'><span class='glyphicon glyphicon-remove'></span></button>" }
                         ],
                         title: " ", width: "35px"
                     },
-                    { field: "ID", title: "ID", width: "30px" },
-                    { field: "NAME", title: "Name", width: "80px" },
-                    { field: "COMPANYNAME", title: "Company", width: "60px" },
-                    { field: "VALUE", title: "Value", width: "60px" },
-                    { field: "CLOSEDATE", title: "Close Date", width: "50px" },
-                    { field: "SALESREP", title: "Sales Rep", width: "50px" },
-                    { field: "Status", title: "Status", width: "50px" }
+                    { field: "ID", title: "ID", width: "30px", attributes: { "class": "sptablecell" } },
+                    { field: "NAME", title: "Name", width: "80px", attributes: { "class": "sptablecell" } },
+                    { field: "COMPANYNAME", title: "Company", width: "60px", attributes: { "class": "sptablecell" } },
+                    { field: "VALUE", title: "Value", width: "60px", format: "{0:c2}",attributes: { "class": "sptablecell" } },
+                    { field: "CLOSEDATE", title: "Close Date", width: "50px", format: "{0:MM/dd/yyyy}", attributes: { "class": "sptablecell" } },
+                    { field: "SALESREP", title: "Sales Rep", width: "50px", attributes: { "class": "sptablecell" } },
+                    { field: "Status", title: "Status", width: "50px", attributes: { "class": "sptablecell" } }
 
                 ]
             }
@@ -144,8 +144,8 @@ function ng_opportunitiesCtrl($scope, $http) {
                             ID: { type: 'string' },
                             NAME: { type: 'string' },
                             COMPANYNAME: { type: 'string' },
-                            VALUE: { type: 'string' },
-                            CLOSEDATE: { type: 'string' },
+                            VALUE: { type: 'number' },
+                            CLOSEDATE: { type: 'date' },
                             SALESREP: { type: 'string' },
                             Status: { type: 'string' }
                         }

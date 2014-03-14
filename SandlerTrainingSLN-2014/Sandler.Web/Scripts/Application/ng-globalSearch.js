@@ -137,11 +137,11 @@ function ng_globalSearchCtrl($scope, $http) {
                         ],
                         title: " ", width: "35px"
                     },
-                    { field: "RecordType", title: "Record Type", width: "80px" },                    
-                    { field: "COMPANYNAME", title: "Company", width: "80px" },
-                    { field: "FranchiseeName", title: "Franchisee", width: "60px" },
-                    { field: "POCName", title: "POC Name", width: "60px" },                    
-                    { field: "OppName", title: "Opportunity Name", width: "60px" },                    
+                    { field: "RecordType", title: "Record Type", width: "80px", attributes: { "class": "sptablecell" } },                    
+                    { field: "COMPANYNAME", title: "Company", width: "80px", attributes: { "class": "sptablecell" } },
+                    { field: "FranchiseeName", title: "Franchisee", width: "60px", attributes: { "class": "sptablecell" } },
+                    { field: "POCName", title: "POC Name", width: "60px", attributes: { "class": "sptablecell" } },                    
+                    { field: "OppName", title: "Opportunity Name", width: "60px", attributes: { "class": "sptablecell" } },                    
                     { field: "RecordId", hidden: "true" }
 
                 ]
@@ -204,11 +204,11 @@ function ng_globalSearchCtrl($scope, $http) {
                         ],
                         title: " ", width: "35px"
                     },
-                    { field: "COMPANYNAME", title: "Company Name", width: 80 },
-                    { field: "IndustryTypeName", title: "Industry", width: 80 },
-                    { field: "ProductTypeName", title: "Product", width: 60 },
-                    { field: "Representative", title: "Sandler Rep Name", width: 60 },
-                    { field: "TotalCompanyValue", title: "Total Company Value", width: 60, format: "{0:c2}" }
+                    { field: "COMPANYNAME", title: "Company Name", width: 80, attributes: { "class": "sptablecell" } },
+                    { field: "IndustryTypeName", title: "Industry", width: 80 , attributes: { "class": "sptablecell" }},
+                    { field: "ProductTypeName", title: "Product", width: 60, attributes: { "class": "sptablecell" } },
+                    { field: "Representative", title: "Sandler Rep Name", width: 60, attributes: { "class": "sptablecell" } },
+                    { field: "TotalCompanyValue", title: "Total Company Value", width: 60, format: "{0:c2}", attributes: { "class": "sptablecell" } }
 
                 ]
             }
@@ -269,10 +269,10 @@ function ng_globalSearchCtrl($scope, $http) {
                         ],
                         title: " ", width: "35px"
                     },
-                    { field: "FullName", title: "Name", width: "80px" },
-                    { field: "Phone", title: "Phone", width: "80px" },
-                    { field: "Email", title: "Email", width: "80px" },
-                    { field: "COMPANYNAME", title: "Company", width: "60px" },
+                    { field: "FullName", title: "Name", width: "80px", attributes: { "class": "sptablecell" } },
+                    { field: "Phone", title: "Phone", width: "80px", attributes: { "class": "sptablecell" } },
+                    { field: "Email", title: "Email", width: "80px", attributes: { "class": "sptablecell" } },
+                    { field: "COMPANYNAME", title: "Company", width: "60px", attributes: { "class": "sptablecell" } },
                     { field: "ContactsId", hidden: "true" }
                 ]
             }
@@ -333,13 +333,13 @@ function ng_globalSearchCtrl($scope, $http) {
                         ],
                         title: " ", width: "35px"
                     },
-                    { field: "ID", title: "ID", width: "30px" },
-                    { field: "NAME", title: "Name", width: "80px" },
-                    { field: "COMPANYNAME", title: "Company", width: "60px" },
-                    { field: "VALUE", title: "Value", width: "60px" },
-                    { field: "CLOSEDATE", title: "Close Date", width: "50px" },
-                    { field: "SALESREP", title: "Sales Rep", width: "50px" },
-                    { field: "Status", title: "Status", width: "50px" }
+                    { field: "ID", title: "ID", width: "30px", attributes: { "class": "sptablecell" } },
+                    { field: "NAME", title: "Name", width: "80px", attributes: { "class": "sptablecell" } },
+                    { field: "COMPANYNAME", title: "Company", width: "60px", attributes: { "class": "sptablecell" } },
+                    { field: "VALUE", title: "Value", width: "60px", attributes: { "class": "sptablecell" } },
+                    { field: "CLOSEDATE", title: "Close Date", width: "50px", attributes: { "class": "sptablecell" } },
+                    { field: "SALESREP", title: "Sales Rep", width: "50px", attributes: { "class": "sptablecell" } },
+                    { field: "Status", title: "Status", width: "50px", attributes: { "class": "sptablecell" } }
 
                 ]
             }

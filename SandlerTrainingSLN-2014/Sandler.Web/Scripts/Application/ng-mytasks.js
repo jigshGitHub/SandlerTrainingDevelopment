@@ -19,10 +19,10 @@ function get_kendoGridData(selDte) {
         selectable: true,
         columns: [
             
-            { field: "Topic", title: "Topic", width: 80 },
-            { field: "Description", title: "Description", width: 80 },
-            { field: "Phone", title: "Phone", width: 60 },
-            { field: "StartTime", title: "Start Time", width: 60, format: "{0:hh:mm tt}" }
+            { field: "Topic", title: "Topic", width: 80, attributes: { "class": "sptablecell" } },
+            { field: "Description", title: "Description", width: 80, attributes: { "class": "sptablecell" } },
+            { field: "Phone", title: "Phone", width: 60, attributes: { "class": "sptablecell" } },
+            { field: "StartTime", title: "Start Time", width: 60, format: "{0:hh:mm tt}", attributes: { "class": "sptablecell" } }
             
         ]
     }

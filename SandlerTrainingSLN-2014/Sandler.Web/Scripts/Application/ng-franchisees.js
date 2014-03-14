@@ -105,12 +105,12 @@ function get_kendoGridData(searchText, selectForExcel) {
             selectable: true,
             columns: [
                 
-                { field: "Name", title: "Franchise Name", width: 80 },
-                { field: "LastName", title: "Last Name", width: 40 },
-                { field: "FirstName", title: "First Name", width: 40 },
-                { field: "WorkEmail", title: "Primary Office Email", width: 80 },
-                { field: "OfficePhone", title: "Contact Number", width: 60 },
-                { field: "LastUpdatedDate", title: "Last Updated", width: 40, format: "{0:MM/dd/yyyy}" }
+                { field: "Name", title: "Franchise Name", width: 80, attributes: { "class": "sptablecell" } },
+                { field: "LastName", title: "Last Name", width: 40, attributes: { "class": "sptablecell" }},
+                { field: "FirstName", title: "First Name", width: 40, attributes: { "class": "sptablecell" }},
+                { field: "WorkEmail", title: "Primary Office Email", width: 80, attributes: { "class": "sptablecell" } },
+                { field: "OfficePhone", title: "Contact Number", width: 60, attributes: { "class": "sptablecell" } },
+                { field: "LastUpdatedDate", title: "Last Updated", width: 40, format: "{0:MM/dd/yyyy}", attributes: { "class": "sptablecell" } }
                 
             ]
         }
@@ -142,12 +142,12 @@ function get_kendoGridData(searchText, selectForExcel) {
                     ],
                     title: " ", width: "35px"
                 },
-                { field: "Name", title: "Franchise Name", width: 80 },
-                { field: "LastName", title: "Last Name", width: 40 },
-                { field: "FirstName", title: "First Name", width: 40 },
-                { field: "WorkEmail", title: "Primary Office Email", width: 80 },
-                { field: "OfficePhone", title: "Contact Number", width: 60 },
-                { field: "LastUpdatedDate", title: "Last Updated", width: 40, format: "{0:MM/dd/yyyy}" }
+                { field: "Name", title: "Franchise Name", width: 80, attributes: { "class": "sptablecell" } },
+                { field: "LastName", title: "Last Name", width: 40, attributes: { "class": "sptablecell" } },
+                { field: "FirstName", title: "First Name", width: 40, attributes: { "class": "sptablecell" } },
+                { field: "WorkEmail", title: "Primary Office Email", width: 80, attributes: { "class": "sptablecell" } },
+                { field: "OfficePhone", title: "Contact Number", width: 60, attributes: { "class": "sptablecell" } },
+                { field: "LastUpdatedDate", title: "Last Updated", width: 40, format: "{0:MM/dd/yyyy}", attributes: { "class": "sptablecell" } }
                 
             ]
         }

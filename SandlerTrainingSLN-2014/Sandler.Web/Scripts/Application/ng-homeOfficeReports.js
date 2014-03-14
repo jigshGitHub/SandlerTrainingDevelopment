@@ -118,13 +118,13 @@ function get_frbyawlevelkendoGridData(reportType, recordType) {
                 ],
                 title: " ", width: "35px"
             },
-            { field: "AwardLevelText", title: "Award Level", width: "80px" },
-            { field: "LastName", title: "Last Name", width: "80px" },
-            { field: "FirstName", title: "First Name", width: "60px" },
-            { field: "FranchiseName", title: "Franchise Name", width: "60px" },
-            { field: "PrimaryOfficeEmail", title: "Primary Office Email", width: "60px" },
-            { field: "ContactNumber", title: "Contact Number", width: "60px" },
-            { field: "LastUpdated", title: "Last Updated", width: "60px" },
+            { field: "AwardLevelText", title: "Award Level", width: "80px", attributes: { "class": "sptablecell" } },
+            { field: "LastName", title: "Last Name", width: "80px", attributes: { "class": "sptablecell" } },
+            { field: "FirstName", title: "First Name", width: "60px", attributes: { "class": "sptablecell" } },
+            { field: "FranchiseName", title: "Franchise Name", width: "60px", attributes: { "class": "sptablecell" } },
+            { field: "PrimaryOfficeEmail", title: "Primary Office Email", width: "60px", attributes: { "class": "sptablecell" } },
+            { field: "ContactNumber", title: "Contact Number", width: "60px", attributes: { "class": "sptablecell" } },
+            { field: "LastUpdated", title: "Last Updated", width: "60px", attributes: { "class": "sptablecell" } },
             { field: "ID", hidden: "true" }
 
         ]
@@ -190,13 +190,13 @@ function get_frbybusareakendoGridData(reportType, recordType) {
                 ],
                 title: " ", width: "35px"
             },
-            { field: "BusinessFocusArea", title: "Business Focus Area", width: "80px" },
-           { field: "LastName", title: "Last Name", width: "80px" },
-            { field: "FirstName", title: "First Name", width: "60px" },
-            { field: "FranchiseName", title: "Franchise Name", width: "60px" },
-            { field: "PrimaryOfficeEmail", title: "Primary Office Email", width: "60px" },
-            { field: "ContactNumber", title: "Contact Number", width: "60px" },
-            { field: "LastUpdated", title: "Last Updated", width: "60px" },
+            { field: "BusinessFocusArea", title: "Business Focus Area", width: "80px", attributes: { "class": "sptablecell" } },
+            { field: "LastName", title: "Last Name", width: "80px", attributes: { "class": "sptablecell" } },
+            { field: "FirstName", title: "First Name", width: "60px", attributes: { "class": "sptablecell" } },
+            { field: "FranchiseName", title: "Franchise Name", width: "60px", attributes: { "class": "sptablecell" } },
+            { field: "PrimaryOfficeEmail", title: "Primary Office Email", width: "60px", attributes: { "class": "sptablecell" } },
+            { field: "ContactNumber", title: "Contact Number", width: "60px", attributes: { "class": "sptablecell" } },
+            { field: "LastUpdated", title: "Last Updated", width: "60px", attributes: { "class": "sptablecell" } },
             { field: "ID", hidden: "true" }
 
         ]
@@ -262,13 +262,13 @@ function get_frbycertlevelkendoGridData(reportType, recordType) {
                 ],
                 title: " ", width: "35px"
             },
-            { field: "CertificationLevel", title: "Certification Level", width: "80px" },
-           { field: "LastName", title: "Last Name", width: "80px" },
-            { field: "FirstName", title: "First Name", width: "60px" },
-            { field: "FranchiseName", title: "Franchise Name", width: "60px" },
-            { field: "PrimaryOfficeEmail", title: "Primary Office Email", width: "60px" },
-            { field: "ContactNumber", title: "Contact Number", width: "60px" },
-            { field: "LastUpdated", title: "Last Updated", width: "60px" },
+            { field: "CertificationLevel", title: "Certification Level", width: "80px", attributes: { "class": "sptablecell" } },
+           { field: "LastName", title: "Last Name", width: "80px", attributes: { "class": "sptablecell" } },
+            { field: "FirstName", title: "First Name", width: "60px", attributes: { "class": "sptablecell" } },
+            { field: "FranchiseName", title: "Franchise Name", width: "60px", attributes: { "class": "sptablecell" } },
+            { field: "PrimaryOfficeEmail", title: "Primary Office Email", width: "60px", attributes: { "class": "sptablecell" } },
+            { field: "ContactNumber", title: "Contact Number", width: "60px", attributes: { "class": "sptablecell" } },
+            { field: "LastUpdated", title: "Last Updated", width: "60px", attributes: { "class": "sptablecell" } },
             { field: "ID", hidden: "true" }
 
         ]
@@ -334,13 +334,13 @@ function get_frbycoachkendoGridData(reportType, recordType) {
                 ],
                 title: " ", width: "35px"
             },
-            { field: "Coach", title: "Coach", width: "80px" },
-           { field: "LastName", title: "Last Name", width: "80px" },
-            { field: "FirstName", title: "First Name", width: "60px" },
-            { field: "FranchiseName", title: "Franchise Name", width: "60px" },
-            { field: "PrimaryOfficeEmail", title: "Primary Office Email", width: "60px" },
-            { field: "ContactNumber", title: "Contact Number", width: "60px" },
-            { field: "LastUpdated", title: "Last Updated", width: "60px" },
+            { field: "Coach", title: "Coach", width: "80px", attributes: { "class": "sptablecell" } },
+            { field: "LastName", title: "Last Name", width: "80px", attributes: { "class": "sptablecell" } },
+            { field: "FirstName", title: "First Name", width: "60px", attributes: { "class": "sptablecell" } },
+            { field: "FranchiseName", title: "Franchise Name", width: "60px", attributes: { "class": "sptablecell" } },
+            { field: "PrimaryOfficeEmail", title: "Primary Office Email", width: "60px", attributes: { "class": "sptablecell" } },
+            { field: "ContactNumber", title: "Contact Number", width: "60px", attributes: { "class": "sptablecell" } },
+            { field: "LastUpdated", title: "Last Updated", width: "60px", attributes: { "class": "sptablecell" } },
             { field: "ID", hidden: "true" }
 
         ]
@@ -406,15 +406,15 @@ function get_frbycontdetailskendoGridData(reportType, recordType) {
                 ],
                 title: " ", width: "35px"
             },
-            { field: "FranchiseName", title: "Franchise Name", width: "80px" },
-           { field: "InitialContractDate", title: "Initial Contract Date", width: "80px" },
-            { field: "RenewalDate", title: "Renewal Date", width: "60px" },
-            { field: "ContractFormDate", title: "Contract Form Date", width: "60px" },
-            { field: "LastName", title: "Last Name", width: "60px" },
-            { field: "FirstName", title: "First Name", width: "60px" },
-            { field: "PrimaryOfficeEmail", title: "PrimaryOfficeEmail", width: "60px" },
-            { field: "ContactNumber", title: "Contact Number", width: "60px" },
-            { field: "LastUpdated", title: "Last Updated", width: "60px" },
+            { field: "FranchiseName", title: "Franchise Name", width: "80px", attributes: { "class": "sptablecell" } },
+            { field: "InitialContractDate", title: "Initial Contract Date", width: "80px", attributes: { "class": "sptablecell" } },
+            { field: "RenewalDate", title: "Renewal Date", width: "60px", attributes: { "class": "sptablecell" } },
+            { field: "ContractFormDate", title: "Contract Form Date", width: "60px", attributes: { "class": "sptablecell" } },
+            { field: "LastName", title: "Last Name", width: "60px", attributes: { "class": "sptablecell" } },
+            { field: "FirstName", title: "First Name", width: "60px", attributes: { "class": "sptablecell" } },
+            { field: "PrimaryOfficeEmail", title: "PrimaryOfficeEmail", width: "60px", attributes: { "class": "sptablecell" } },
+            { field: "ContactNumber", title: "Contact Number", width: "60px", attributes: { "class": "sptablecell" } },
+            { field: "LastUpdated", title: "Last Updated", width: "60px", attributes: { "class": "sptablecell" } },
             { field: "ID", hidden: "true" }
 
         ]
@@ -482,13 +482,13 @@ function get_ctrakendoGridData(reportType, recordType) {
                 ],
                 title: " ", width: "35px"
             },
-            { field: "ContractorAllowed", title: "Contractor Allowed", width: "80px" },
-            { field: "LastName", title: "Last Name", width: "80px" },
-            { field: "FirstName", title: "First Name", width: "60px" },
-            { field: "FranchiseName", title: "Franchise Name", width: "60px" },
-            { field: "PrimaryOfficeEmail", title: "Primary Office Email", width: "60px" },
-            { field: "ContactNumber", title: "Contact Number", width: "60px" },
-            { field: "LastUpdated", title: "Last Updated", width: "60px" },
+            { field: "ContractorAllowed", title: "Contractor Allowed", width: "80px", attributes: { "class": "sptablecell" } },
+            { field: "LastName", title: "Last Name", width: "80px", attributes: { "class": "sptablecell" } },
+            { field: "FirstName", title: "First Name", width: "60px", attributes: { "class": "sptablecell" } },
+            { field: "FranchiseName", title: "Franchise Name", width: "60px", attributes: { "class": "sptablecell" } },
+            { field: "PrimaryOfficeEmail", title: "Primary Office Email", width: "60px", attributes: { "class": "sptablecell" } },
+            { field: "ContactNumber", title: "Contact Number", width: "60px", attributes: { "class": "sptablecell" } },
+            { field: "LastUpdated", title: "Last Updated", width: "60px", attributes: { "class": "sptablecell" } },
             { field: "ID", hidden: "true" }
 
         ]
@@ -554,13 +554,13 @@ function get_frbycountrykendoGridData(reportType, recordType) {
                 ],
                 title: " ", width: "35px"
             },
-            { field: "Country", title: "Country", width: "80px" },
-            { field: "LastName", title: "Last Name", width: "80px" },
-            { field: "FirstName", title: "First Name", width: "60px" },
-            { field: "FranchiseName", title: "Franchise Name", width: "60px" },
-            { field: "PrimaryOfficeEmail", title: "Primary Office Email", width: "60px" },
-            { field: "ContactNumber", title: "Contact Number", width: "60px" },
-            { field: "LastUpdated", title: "Last Updated", width: "60px" },
+            { field: "Country", title: "Country", width: "80px", attributes: { "class": "sptablecell" } },
+            { field: "LastName", title: "Last Name", width: "80px", attributes: { "class": "sptablecell" } },
+            { field: "FirstName", title: "First Name", width: "60px", attributes: { "class": "sptablecell" } },
+            { field: "FranchiseName", title: "Franchise Name", width: "60px", attributes: { "class": "sptablecell" } },
+            { field: "PrimaryOfficeEmail", title: "Primary Office Email", width: "60px", attributes: { "class": "sptablecell" } },
+            { field: "ContactNumber", title: "Contact Number", width: "60px", attributes: { "class": "sptablecell" } },
+            { field: "LastUpdated", title: "Last Updated", width: "60px", attributes: { "class": "sptablecell" } },
             { field: "ID", hidden: "true" }
 
         ]
@@ -626,13 +626,13 @@ function get_frbytrngdatekendoGridData(reportType, recordType) {
                 ],
                 title: " ", width: "35px"
             },
-            { field: "InitialTrainingDate", title: "Initial Training Date", width: "80px", format: "{0:MM/dd/yy}" },
-            { field: "LastName", title: "Last Name", width: "80px" },
-            { field: "FirstName", title: "First Name", width: "60px" },
-            { field: "FranchiseName", title: "Franchise Name", width: "60px" },
-            { field: "PrimaryOfficeEmail", title: "Primary Office Email", width: "60px" },
-            { field: "ContactNumber", title: "Contact Number", width: "60px" },
-            { field: "LastUpdated", title: "Last Updated", width: "60px" },
+            { field: "InitialTrainingDate", title: "Initial Training Date", width: "80px", format: "{0:MM/dd/yy}", attributes: { "class": "sptablecell" } },
+            { field: "LastName", title: "Last Name", width: "80px", attributes: { "class": "sptablecell" } },
+            { field: "FirstName", title: "First Name", width: "60px", attributes: { "class": "sptablecell" } },
+            { field: "FranchiseName", title: "Franchise Name", width: "60px", attributes: { "class": "sptablecell" } },
+            { field: "PrimaryOfficeEmail", title: "Primary Office Email", width: "60px", attributes: { "class": "sptablecell" } },
+            { field: "ContactNumber", title: "Contact Number", width: "60px", attributes: { "class": "sptablecell" } },
+            { field: "LastUpdated", title: "Last Updated", width: "60px", attributes: { "class": "sptablecell" } },
             { field: "ID", hidden: "true" }
 
         ]
@@ -698,13 +698,13 @@ function get_msfckendoGridData(reportType, recordType) {
                 ],
                 title: " ", width: "35px"
             },
-            { field: "MustSubmit", title: "Must Submit", width: "80px" },
-            { field: "LastName", title: "Last Name", width: "80px" },
-            { field: "FirstName", title: "First Name", width: "60px" },
-            { field: "FranchiseName", title: "Franchise Name", width: "60px" },
-            { field: "PrimaryOfficeEmail", title: "Primary Office Email", width: "60px" },
-            { field: "ContactNumber", title: "Contact Number", width: "60px" },
-            { field: "LastUpdated", title: "Last Updated", width: "60px" },
+            { field: "MustSubmit", title: "Must Submit", width: "80px", attributes: { "class": "sptablecell" } },
+            { field: "LastName", title: "Last Name", width: "80px", attributes: { "class": "sptablecell" } },
+            { field: "FirstName", title: "First Name", width: "60px", attributes: { "class": "sptablecell" } },
+            { field: "FranchiseName", title: "Franchise Name", width: "60px", attributes: { "class": "sptablecell" } },
+            { field: "PrimaryOfficeEmail", title: "Primary Office Email", width: "60px", attributes: { "class": "sptablecell" } },
+            { field: "ContactNumber", title: "Contact Number", width: "60px", attributes: { "class": "sptablecell" } },
+            { field: "LastUpdated", title: "Last Updated", width: "60px", attributes: { "class": "sptablecell" } },
             { field: "ID", hidden: "true" }
 
         ]
@@ -770,13 +770,13 @@ function get_prplkendoGridData(reportType, recordType) {
                 ],
                 title: " ", width: "35px"
             },
-            { field: "ProductLevel", title: "Product Level", width: "80px" },
-            { field: "LastName", title: "Last Name", width: "80px" },
-            { field: "FirstName", title: "First Name", width: "60px" },
-            { field: "FranchiseName", title: "Franchise Name", width: "60px" },
-            { field: "PrimaryOfficeEmail", title: "Primary Office Email", width: "60px" },
-            { field: "ContactNumber", title: "Contact Number", width: "60px" },
-            { field: "LastUpdated", title: "Last Updated", width: "60px" },
+            { field: "ProductLevel", title: "Product Level", width: "80px", attributes: { "class": "sptablecell" } },
+            { field: "LastName", title: "Last Name", width: "80px", attributes: { "class": "sptablecell" } },
+            { field: "FirstName", title: "First Name", width: "60px", attributes: { "class": "sptablecell" } },
+            { field: "FranchiseName", title: "Franchise Name", width: "60px", attributes: { "class": "sptablecell" } },
+            { field: "PrimaryOfficeEmail", title: "Primary Office Email", width: "60px", attributes: { "class": "sptablecell" } },
+            { field: "ContactNumber", title: "Contact Number", width: "60px", attributes: { "class": "sptablecell" } },
+            { field: "LastUpdated", title: "Last Updated", width: "60px", attributes: { "class": "sptablecell" } },
             { field: "ID", hidden: "true" }
 
         ]
@@ -842,13 +842,13 @@ function get_frbyregionkendoGridData(reportType, recordType) {
                 ],
                 title: " ", width: "35px"
             },
-            { field: "Region", title: "Region", width: "80px" },
-            { field: "LastName", title: "Last Name", width: "80px" },
-            { field: "FirstName", title: "First Name", width: "60px" },
-            { field: "FranchiseName", title: "Franchise Name", width: "60px" },
-            { field: "PrimaryOfficeEmail", title: "Primary Office Email", width: "60px" },
-            { field: "ContactNumber", title: "Contact Number", width: "60px" },
-            { field: "LastUpdated", title: "Last Updated", width: "60px" },
+            { field: "Region", title: "Region", width: "80px", attributes: { "class": "sptablecell" } },
+            { field: "LastName", title: "Last Name", width: "80px", attributes: { "class": "sptablecell" } },
+            { field: "FirstName", title: "First Name", width: "60px", attributes: { "class": "sptablecell" } },
+            { field: "FranchiseName", title: "Franchise Name", width: "60px", attributes: { "class": "sptablecell" } },
+            { field: "PrimaryOfficeEmail", title: "Primary Office Email", width: "60px", attributes: { "class": "sptablecell" } },
+            { field: "ContactNumber", title: "Contact Number", width: "60px", attributes: { "class": "sptablecell" } },
+            { field: "LastUpdated", title: "Last Updated", width: "60px", attributes: { "class": "sptablecell" } },
             { field: "ID", hidden: "true" }
 
         ]
@@ -915,13 +915,13 @@ function get_serekendoGridData(reportType, recordType) {
                 ],
                 title: " ", width: "35px"
             },
-            { field: "EMailRequired", title: "EMail Required", width: "80px" },
-            { field: "LastName", title: "Last Name", width: "80px" },
-            { field: "FirstName", title: "First Name", width: "60px" },
-            { field: "FranchiseName", title: "Franchise Name", width: "60px" },
-            { field: "PrimaryOfficeEmail", title: "Primary Office Email", width: "60px" },
-            { field: "ContactNumber", title: "Contact Number", width: "60px" },
-            { field: "LastUpdated", title: "Last Updated", width: "60px" },
+            { field: "EMailRequired", title: "EMail Required", width: "80px", attributes: { "class": "sptablecell" } },
+            { field: "LastName", title: "Last Name", width: "80px", attributes: { "class": "sptablecell" } },
+            { field: "FirstName", title: "First Name", width: "60px", attributes: { "class": "sptablecell" } },
+            { field: "FranchiseName", title: "Franchise Name", width: "60px", attributes: { "class": "sptablecell" } },
+            { field: "PrimaryOfficeEmail", title: "Primary Office Email", width: "60px", attributes: { "class": "sptablecell" } },
+            { field: "ContactNumber", title: "Contact Number", width: "60px", attributes: { "class": "sptablecell" } },
+            { field: "LastUpdated", title: "Last Updated", width: "60px", attributes: { "class": "sptablecell" } },
             { field: "ID", hidden: "true" }
 
         ]
@@ -987,13 +987,13 @@ function get_frbystatekendoGridData(reportType, recordType) {
                 ],
                 title: " ", width: "35px"
             },
-            { field: "State", title: "Region", width: "80px" },
-            { field: "LastName", title: "Last Name", width: "80px" },
-            { field: "FirstName", title: "First Name", width: "60px" },
-            { field: "FranchiseName", title: "Franchise Name", width: "60px" },
-            { field: "PrimaryOfficeEmail", title: "Primary Office Email", width: "60px" },
-            { field: "ContactNumber", title: "Contact Number", width: "60px" },
-            { field: "LastUpdated", title: "Last Updated", width: "60px" },
+            { field: "State", title: "Region", width: "80px", attributes: { "class": "sptablecell" } },
+            { field: "LastName", title: "Last Name", width: "80px", attributes: { "class": "sptablecell" } },
+            { field: "FirstName", title: "First Name", width: "60px", attributes: { "class": "sptablecell" } },
+            { field: "FranchiseName", title: "Franchise Name", width: "60px", attributes: { "class": "sptablecell" } },
+            { field: "PrimaryOfficeEmail", title: "Primary Office Email", width: "60px", attributes: { "class": "sptablecell" } },
+            { field: "ContactNumber", title: "Contact Number", width: "60px", attributes: { "class": "sptablecell" } },
+            { field: "LastUpdated", title: "Last Updated", width: "60px", attributes: { "class": "sptablecell" } },
             { field: "ID", hidden: "true" }
 
         ]
@@ -1059,13 +1059,13 @@ function get_frbyusingcrmkendoGridData(reportType, recordType) {
                 ],
                 title: " ", width: "35px"
             },
-            { field: "UsingCRM", title: "Using CRM", width: "80px" },
-            { field: "LastName", title: "Last Name", width: "80px" },
-            { field: "FirstName", title: "First Name", width: "60px" },
-            { field: "FranchiseName", title: "Franchise Name", width: "60px" },
-            { field: "PrimaryOfficeEmail", title: "Primary Office Email", width: "60px" },
-            { field: "ContactNumber", title: "Contact Number", width: "60px" },
-            { field: "LastUpdated", title: "Last Updated", width: "60px" },
+            { field: "UsingCRM", title: "Using CRM", width: "80px", attributes: { "class": "sptablecell" } },
+            { field: "LastName", title: "Last Name", width: "80px", attributes: { "class": "sptablecell" } },
+            { field: "FirstName", title: "First Name", width: "60px", attributes: { "class": "sptablecell" } },
+            { field: "FranchiseName", title: "Franchise Name", width: "60px", attributes: { "class": "sptablecell" } },
+            { field: "PrimaryOfficeEmail", title: "Primary Office Email", width: "60px", attributes: { "class": "sptablecell" } },
+            { field: "ContactNumber", title: "Contact Number", width: "60px", attributes: { "class": "sptablecell" } },
+            { field: "LastUpdated", title: "Last Updated", width: "60px", attributes: { "class": "sptablecell" } },
             { field: "ID", hidden: "true" }
 
         ]
@@ -1131,17 +1131,17 @@ function get_zcbtkendoGridData(reportType, recordType) {
                 ],
                 title: " ", width: "35px"
             },
-            { field: "Territory", title: "Territory", width: "80px" },
-            { field: "State", title: "State", width: "80px" },
-            { field: "BusinessFocusArea", title: "Business Focus Area", width: "80px" },
-            { field: "ClosestMetroArea", title: "Closest Metro Area", width: "80px" },
-            { field: "ZipCode", title: "Zip Code", width: "80px" },
-            { field: "LastName", title: "Last Name", width: "80px" },
-            { field: "FirstName", title: "First Name", width: "60px" },
-            { field: "FranchiseName", title: "Franchise Name", width: "60px" },
-            { field: "PrimaryOfficeEmail", title: "Primary Office Email", width: "60px" },
-            { field: "ContactNumber", title: "Contact Number", width: "60px" },
-            { field: "LastUpdated", title: "Last Updated", width: "60px" },
+            { field: "Territory", title: "Territory", width: "80px", attributes: { "class": "sptablecell" } },
+            { field: "State", title: "State", width: "80px", attributes: { "class": "sptablecell" } },
+            { field: "BusinessFocusArea", title: "Business Focus Area", width: "80px", attributes: { "class": "sptablecell" } },
+            { field: "ClosestMetroArea", title: "Closest Metro Area", width: "80px", attributes: { "class": "sptablecell" } },
+            { field: "ZipCode", title: "Zip Code", width: "80px", attributes: { "class": "sptablecell" } },
+            { field: "LastName", title: "Last Name", width: "80px", attributes: { "class": "sptablecell" } },
+            { field: "FirstName", title: "First Name", width: "60px", attributes: { "class": "sptablecell" } },
+            { field: "FranchiseName", title: "Franchise Name", width: "60px", attributes: { "class": "sptablecell" } },
+            { field: "PrimaryOfficeEmail", title: "Primary Office Email", width: "60px", attributes: { "class": "sptablecell" } },
+            { field: "ContactNumber", title: "Contact Number", width: "60px", attributes: { "class": "sptablecell" } },
+            { field: "LastUpdated", title: "Last Updated", width: "60px", attributes: { "class": "sptablecell" } },
             { field: "ID", hidden: "true" }
 
         ]
@@ -1211,15 +1211,15 @@ function get_mfrdkendoGridData(reportType, recordType) {
                 ],
                 title: " ", width: "35px"
             },
-            { field: "MasterFranchise", title: "Master Franchise", width: "80px" },
-            { field: "LastName", title: "Last Name", width: "80px" },
-            { field: "FirstName", title: "First Name", width: "60px" },
-            { field: "LocalPrint", title: "Local Print", width: "60px" },
-            { field: "BuyFromSSI", title: "Buy From SSI", width: "60px" },
-            { field: "FixedPricePurchase", title: "Fixed Price Purchase", width: "60px" },
-            { field: "ProductCost", title: "Product Cost", width: "60px" },
-            { field: "PercentBehind", title: "Percent Behind", width: "60px" },
-            { field: "LastUpdated", title: "Last Updated", width: "60px" },
+            { field: "MasterFranchise", title: "Master Franchise", width: "80px", attributes: { "class": "sptablecell" } },
+            { field: "LastName", title: "Last Name", width: "80px", attributes: { "class": "sptablecell" } },
+            { field: "FirstName", title: "First Name", width: "60px", attributes: { "class": "sptablecell" } },
+            { field: "LocalPrint", title: "Local Print", width: "60px", attributes: { "class": "sptablecell" } },
+            { field: "BuyFromSSI", title: "Buy From SSI", width: "60px", attributes: { "class": "sptablecell" } },
+            { field: "FixedPricePurchase", title: "Fixed Price Purchase", width: "60px", attributes: { "class": "sptablecell" } },
+            { field: "ProductCost", title: "Product Cost", width: "60px", attributes: { "class": "sptablecell" } },
+            { field: "PercentBehind", title: "Percent Behind", width: "60px", attributes: { "class": "sptablecell" } },
+            { field: "LastUpdated", title: "Last Updated", width: "60px", attributes: { "class": "sptablecell" } },
             { field: "ID", hidden: "true" }
 
         ]
@@ -1287,13 +1287,13 @@ function get_msfrkendoGridData(reportType, recordType) {
                 ],
                 title: " ", width: "35px"
             },
-            { field: "MasterFranchise", title: "Master Franchise", width: "80px" },
-            { field: "FranchiseName", title: "Franchise Name", width: "60px" },
-            { field: "LastName", title: "Last Name", width: "80px" },
-            { field: "FirstName", title: "First Name", width: "60px" },
-            { field: "PrimaryOfficeEmail", title: "Primary Office Email", width: "60px" },
-            { field: "ContactNumber", title: "Contact Number", width: "60px" },
-            { field: "LastUpdated", title: "Last Updated", width: "60px" },
+            { field: "MasterFranchise", title: "Master Franchise", width: "80px", attributes: { "class": "sptablecell" } },
+            { field: "FranchiseName", title: "Franchise Name", width: "60px", attributes: { "class": "sptablecell" } },
+            { field: "LastName", title: "Last Name", width: "80px", attributes: { "class": "sptablecell" } },
+            { field: "FirstName", title: "First Name", width: "60px", attributes: { "class": "sptablecell" } },
+            { field: "PrimaryOfficeEmail", title: "Primary Office Email", width: "60px", attributes: { "class": "sptablecell" } },
+            { field: "ContactNumber", title: "Contact Number", width: "60px", attributes: { "class": "sptablecell" } },
+            { field: "LastUpdated", title: "Last Updated", width: "60px", attributes: { "class": "sptablecell" } },
             { field: "ID", hidden: "true" }
 
         ]
@@ -1359,12 +1359,12 @@ function get_msrbykeyopnldrkendoGridData(reportType, recordType) {
                 ],
                 title: " ", width: "35px"
             },
-            { field: "LastName", title: "Last Name", width: "80px" },
-            { field: "FirstName", title: "First Name", width: "60px" },
-            { field: "FranchiseName", title: "Franchise Name", width: "60px" },
-            { field: "PrimaryOfficeEmail", title: "Primary Office Email", width: "60px" },
-            { field: "ContactNumber", title: "Contact Number", width: "60px" },
-            { field: "LastUpdated", title: "Last Updated", width: "60px" },
+            { field: "LastName", title: "Last Name", width: "80px", attributes: { "class": "sptablecell" } },
+            { field: "FirstName", title: "First Name", width: "60px", attributes: { "class": "sptablecell" } },
+            { field: "FranchiseName", title: "Franchise Name", width: "60px", attributes: { "class": "sptablecell" } },
+            { field: "PrimaryOfficeEmail", title: "Primary Office Email", width: "60px", attributes: { "class": "sptablecell" } },
+            { field: "ContactNumber", title: "Contact Number", width: "60px", attributes: { "class": "sptablecell" } },
+            { field: "LastUpdated", title: "Last Updated", width: "60px", attributes: { "class": "sptablecell" } },
             { field: "ID", hidden: "true" }
 
         ]
@@ -1429,12 +1429,12 @@ function get_msrbyadvboardkendoGridData(reportType, recordType) {
                 ],
                 title: " ", width: "35px"
             },
-              { field: "LastName", title: "Last Name", width: "80px" },
-            { field: "FirstName", title: "First Name", width: "60px" },
-            { field: "FranchiseName", title: "Franchise Name", width: "60px" },
-            { field: "PrimaryOfficeEmail", title: "Primary Office Email", width: "60px" },
-            { field: "ContactNumber", title: "Contact Number", width: "60px" },
-            { field: "LastUpdated", title: "Last Updated", width: "60px" },
+              { field: "LastName", title: "Last Name", width: "80px", attributes: { "class": "sptablecell" } },
+            { field: "FirstName", title: "First Name", width: "60px", attributes: { "class": "sptablecell" } },
+            { field: "FranchiseName", title: "Franchise Name", width: "60px", attributes: { "class": "sptablecell" } },
+            { field: "PrimaryOfficeEmail", title: "Primary Office Email", width: "60px", attributes: { "class": "sptablecell" } },
+            { field: "ContactNumber", title: "Contact Number", width: "60px", attributes: { "class": "sptablecell" } },
+            { field: "LastUpdated", title: "Last Updated", width: "60px", attributes: { "class": "sptablecell" } },
             { field: "ID", hidden: "true" }
 
         ]
@@ -1499,12 +1499,12 @@ function get_msrbymktgcomkendoGridData(reportType, recordType) {
                 ],
                 title: " ", width: "35px"
             },
-              { field: "LastName", title: "Last Name", width: "80px" },
-            { field: "FirstName", title: "First Name", width: "60px" },
-            { field: "FranchiseName", title: "Franchise Name", width: "60px" },
-            { field: "PrimaryOfficeEmail", title: "Primary Office Email", width: "60px" },
-            { field: "ContactNumber", title: "Contact Number", width: "60px" },
-            { field: "LastUpdated", title: "Last Updated", width: "60px" },
+              { field: "LastName", title: "Last Name", width: "80px", attributes: { "class": "sptablecell" } },
+            { field: "FirstName", title: "First Name", width: "60px", attributes: { "class": "sptablecell" } },
+            { field: "FranchiseName", title: "Franchise Name", width: "60px", attributes: { "class": "sptablecell" } },
+            { field: "PrimaryOfficeEmail", title: "Primary Office Email", width: "60px", attributes: { "class": "sptablecell" } },
+            { field: "ContactNumber", title: "Contact Number", width: "60px", attributes: { "class": "sptablecell" } },
+            { field: "LastUpdated", title: "Last Updated", width: "60px", attributes: { "class": "sptablecell" } },
             { field: "ID", hidden: "true" }
 
         ]
@@ -1569,13 +1569,13 @@ function get_dhsakendoGridData(reportType, recordType) {
                 ],
                 title: " ", width: "35px"
             },
-            { field: "LastName", title: "Last Name", width: "80px" },
-            { field: "FirstName", title: "First Name", width: "60px" },
-            { field: "FranchiseName", title: "Franchise Name", width: "60px" },
-            { field: "DHSAwardDate", title: "DHS Award Date", width: "80px" },
-            { field: "PrimaryOfficeEmail", title: "Primary Office Email", width: "60px" },
-            { field: "ContactNumber", title: "Contact Number", width: "60px" },
-            { field: "LastUpdated", title: "Last Updated", width: "60px" },
+            { field: "LastName", title: "Last Name", width: "80px", attributes: { "class": "sptablecell" } },
+            { field: "FirstName", title: "First Name", width: "60px", attributes: { "class": "sptablecell" } },
+            { field: "FranchiseName", title: "Franchise Name", width: "60px", attributes: { "class": "sptablecell" } },
+            { field: "DHSAwardDate", title: "DHS Award Date", width: "80px", attributes: { "class": "sptablecell" } },
+            { field: "PrimaryOfficeEmail", title: "Primary Office Email", width: "60px", attributes: { "class": "sptablecell" } },
+            { field: "ContactNumber", title: "Contact Number", width: "60px", attributes: { "class": "sptablecell" } },
+            { field: "LastUpdated", title: "Last Updated", width: "60px", attributes: { "class": "sptablecell" } },
             { field: "ID", hidden: "true" }
 
         ]
@@ -1641,12 +1641,12 @@ function get_frmdkendoGridData(reportType, recordType) {
                 ],
                 title: " ", width: "35px"
             },
-            { field: "LastName", title: "Last Name", width: "80px" },
-            { field: "FirstName", title: "First Name", width: "60px" },
-            { field: "FranchiseName", title: "Franchise Name", width: "60px" },
-            { field: "PrimaryOfficeEmail", title: "Primary Office Email", width: "60px" },
-            { field: "ContactNumber", title: "Contact Number", width: "60px" },
-            { field: "LastUpdated", title: "Last Updated", width: "60px" },
+            { field: "LastName", title: "Last Name", width: "80px", attributes: { "class": "sptablecell" } },
+            { field: "FirstName", title: "First Name", width: "60px", attributes: { "class": "sptablecell" } },
+            { field: "FranchiseName", title: "Franchise Name", width: "60px", attributes: { "class": "sptablecell" } },
+            { field: "PrimaryOfficeEmail", title: "Primary Office Email", width: "60px", attributes: { "class": "sptablecell" } },
+            { field: "ContactNumber", title: "Contact Number", width: "60px", attributes: { "class": "sptablecell" } },
+            { field: "LastUpdated", title: "Last Updated", width: "60px", attributes: { "class": "sptablecell" } },
             { field: "ID", hidden: "true" }
 
         ]
@@ -1711,13 +1711,13 @@ function get_glaakendoGridData(reportType, recordType) {
                 ],
                 title: " ", width: "35px"
             },
-            { field: "Agreement", title: "Agreement", width: "80px" },
-            { field: "LastName", title: "Last Name", width: "80px" },
-            { field: "FirstName", title: "First Name", width: "60px" },
-            { field: "FranchiseName", title: "Franchise Name", width: "60px" },
-            { field: "PrimaryOfficeEmail", title: "Primary Office Email", width: "60px" },
-            { field: "ContactNumber", title: "Contact Number", width: "60px" },
-            { field: "LastUpdated", title: "Last Updated", width: "60px" },
+            { field: "Agreement", title: "Agreement", width: "80px", attributes: { "class": "sptablecell" } },
+            { field: "LastName", title: "Last Name", width: "80px", attributes: { "class": "sptablecell" } },
+            { field: "FirstName", title: "First Name", width: "60px", attributes: { "class": "sptablecell" } },
+            { field: "FranchiseName", title: "Franchise Name", width: "60px", attributes: { "class": "sptablecell" } },
+            { field: "PrimaryOfficeEmail", title: "Primary Office Email", width: "60px", attributes: { "class": "sptablecell" } },
+            { field: "ContactNumber", title: "Contact Number", width: "60px", attributes: { "class": "sptablecell" } },
+            { field: "LastUpdated", title: "Last Updated", width: "60px", attributes: { "class": "sptablecell" } },
             { field: "ID", hidden: "true" }
 
         ]

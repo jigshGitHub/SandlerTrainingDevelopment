@@ -508,3 +508,9 @@ div#Modalloading
 {
     white-space:nowrap;
 }
+
+
+.sptablecell
+    {
+        color: black;
+    }

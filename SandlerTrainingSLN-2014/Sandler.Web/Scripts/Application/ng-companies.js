@@ -93,15 +93,15 @@ function get_kendoGridData(searchText, selectForExcel) {
             {
                 command: [
                             { template: "<button title='View/Edit Company' class='btn btn-success btn-sm editsa' onclick='showDetails(event)'><span class='glyphicon glyphicon-search'></span></button>" },
-                             { template: "&nbsp;<button title='Archive Company' class='btn btn-danger btn-sm deletesa' onclick='archiveCompany(event)'><span class='glyphicon glyphicon-remove'></span></button>" }
+                             { template: "&nbsp;<button title='Archive Company' class='btn btn-warning btn-sm deletesa' onclick='archiveCompany(event)'><span class='glyphicon glyphicon-remove'></span></button>" }
                 ],
                 title: " ", width: "35px"
             },
-            { field: "COMPANYNAME", title: "Company Name", width: 80 },
-            { field: "IndustryTypeName", title: "Industry", width: 80 },
-            { field: "ProductTypeName", title: "Product", width: 60 },
-            { field: "Representative", title: "Sandler Rep Name", width: 60 },
-            { field: "TotalCompanyValue", title: "Total Company Value", width: 80, format: "{0:c2}" }
+            { field: "COMPANYNAME", title: "Company Name", width: 80, attributes: { "class": "sptablecell" } },
+            { field: "IndustryTypeName", title: "Industry", width: 80, attributes: { "class": "sptablecell" } },
+            { field: "ProductTypeName", title: "Product", width: 60, attributes: { "class": "sptablecell" } },
+            { field: "Representative", title: "Sandler Rep Name", width: 60 , attributes: { "class": "sptablecell" }},
+            { field: "TotalCompanyValue", title: "Total Company Value", width: 80, format: "{0:c2}", attributes: { "class": "sptablecell" } }
 
         ]
     }
