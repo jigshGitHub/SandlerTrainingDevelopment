@@ -18,6 +18,7 @@ namespace SandlerModels
         private string userName;
         private string franchiseeName;
         private int countryId;
+        private bool isLDAPUser;
         public SandlerRoles Role
         {
             get
@@ -122,6 +123,18 @@ namespace SandlerModels
             set
             {
                 emailAdrs = value;
+            }
+        }
+
+        public bool IsLDAPUser
+        {
+            get
+            {
+                return isLDAPUser;
+            }
+            set
+            {
+                isLDAPUser = value;
             }
         }
 

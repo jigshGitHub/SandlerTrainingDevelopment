@@ -5,12 +5,18 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.Security;
+using System.Configuration;
 public partial class Account_ChangePassword : BasePage
 {
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)
         {
+            if (CurrentUser.IsLDAPUser)
+            {
+                pnlChangePassword.Visible = false;
+                lblPasswordCanBeChanged.Text = ConfigurationManager.AppSettings["PasswordCanBeChangedMessage"].ToString();
+            }
             if (Request.QueryString["intialPasswordChange"] != null)
             {
                 lblIntialPwdChange.Visible = (Request.QueryString["intialPasswordChange"] == "true");

@@ -5,7 +5,9 @@
 <asp:Content ID="HeaderContent" runat="server" ContentPlaceHolderID="HeadContent">
 </asp:Content>
 <asp:Content ID="BodyContent" runat="server" ContentPlaceHolderID="MainContent">
-    <table class="changePassword">
+    <asp:Label ID="lblPasswordCanBeChanged" ForeColor="White" runat="server"></asp:Label>
+    <asp:Panel ID="pnlChangePassword" runat="server">
+        <table class="changePassword">
         <tr>
             <td>
                 <h2>
@@ -74,4 +76,5 @@
             </td>
         </tr>
     </table>
+    </asp:Panel>
 </asp:Content>

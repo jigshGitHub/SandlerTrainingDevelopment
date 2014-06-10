@@ -30,4 +30,55 @@ public partial class Login : Page
         //else
         //    Response.Redirect("~/AcceptAgreements.aspx");
     }
+
+    private void SetLoginFailureText(string text)
+    {
+        if (string.IsNullOrEmpty(sandlerLogin.FailureText))
+            sandlerLogin.FailureText = text;
+    }
+    protected void sandlerLogin_Authenticate(object sender, AuthenticateEventArgs e)
+    {
+        sandlerLogin.FailureText = "";
+        MembershipUser user = Membership.GetUser(sandlerLogin.UserName);
+        if(user != null)
+            SetLoginFailureText("Username/password is incorrect.");
+        else
+            SetLoginFailureText("No User/Login found in the system");
+
+        if (Membership.ValidateUser(sandlerLogin.UserName, sandlerLogin.Password))
+        {
+            e.Authenticated = true;
+        }
+        else if(user!= null && LDAPValidation("108.40.102.115:389",sandlerLogin.UserName, sandlerLogin.Password))
+        {
+            e.Authenticated = true;
+            if (Session["IsLDAPUser"] == null)
+                Session["IsLDAPUser"] = true;
+        }
+        else{
+            SetLoginFailureText("No User/Login found in the system");
+        }
+
+    }
+
+    private bool LDAPValidation(string ldapDomain, string userName, string password)
+    {
+        sandlerLogin.FailureText = "";
+
+        System.DirectoryServices.DirectoryEntry de = new System.DirectoryServices.DirectoryEntry(@"LDAP://" + ldapDomain, userName, password);
+
+        try
+        {
+            object o = de.NativeObject;
+            //This means LDAP has found the entry with username and Password
+            return true;
+        }
+        catch (Exception ex)
+        {
+            //Either User does not exists or password is Wrong
+            SetLoginFailureText("LDAP validation failed:" + ex.Message);
+            return false;
+        }
+    }
+
 }

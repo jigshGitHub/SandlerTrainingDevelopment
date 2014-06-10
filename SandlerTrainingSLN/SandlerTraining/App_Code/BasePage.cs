@@ -119,6 +119,8 @@ public abstract class BasePage : System.Web.UI.Page
                 new UserDataModel().Load(user);
 
                 Session[UserSessionKey] = user;
+                if(Session["IsLDAPUser"] != null)
+                    user.IsLDAPUser = (bool) Session["IsLDAPUser"];
             }
             return user;
         }

@@ -44,6 +44,7 @@ namespace SandlerModels.DataIntegration
         {
             if (userEntities != null)
                 userEntities = null;
+            System.Web.HttpContext.Current.Session["UserOpps"] = null;
         }
 
         public static void DeleteUserWithRoles(string userName, string role)
