@@ -195,6 +195,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\CRM\Controllers\CompaniesController.cs" />
     <Compile Include="Areas\CRM\Controllers\ContactsController.cs" />
+    <Compile Include="Areas\CRM\Controllers\QuickStartController.cs" />
     <Compile Include="Areas\CRM\Controllers\GlobalSearchController.cs" />
     <Compile Include="Areas\CRM\Controllers\HomeOfficeController.cs" />
     <Compile Include="Areas\CRM\Controllers\HomeOfficeReportsController.cs" />
@@ -1071,6 +1072,7 @@
     <Content Include="Areas\MyDay\Views\Home\Index.cshtml" />
     <Content Include="Areas\MyDay\Views\Web.config" />
     <Content Include="Areas\CRM\Views\HomeOfficeReports\Index.cshtml" />
+    <Content Include="Areas\CRM\Views\QuickStart\Index.cshtml" />
     <None Include="Properties\PublishProfiles\WebDeploy-DevEnvt.pubxml" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="Images\bg-capitol.png" />
@@ -1116,6 +1118,7 @@
     <Content Include="Scripts\Application\ng-opportunities.js" />
     <Content Include="Scripts\Application\ng-contacts.js" />
     <Content Include="Scripts\Application\ng-companies.js" />
+    <Content Include="Scripts\Application\ng-quickStart.js" />
     <Content Include="Scripts\compliance.js" />
     <Content Include="Scripts\ng-manageUsersCtrl.js" />
     <Content Include="Scripts\ng-reportRCCtrl.js" />

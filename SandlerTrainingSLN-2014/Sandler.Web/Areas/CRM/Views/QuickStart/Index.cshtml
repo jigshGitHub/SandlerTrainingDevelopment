@@ -1,0 +1,71 @@
+﻿@using Sandler.Web.ViewModels;
+@using Sandler.DB.Models;
+@model EntityViewModel<TBL_OPPORTUNITIES>
+
+<script src="~/Scripts/Application/ng-quickStart.js" type="text/javascript"></script>
+<script src="~/contents/knockout/knockout.mapping-latest.js" type="text/javascript"></script>
+<script type="text/javascript">
+    var opportunityObservable = ko.mapping.fromJS( @Html.Raw(Json.Encode(@Model.EntityModel)));
+
+</script>
+
+<div id="quickStart_body" style="background-color: white; margin-left: 10px; margin-right: 10px" ng-controller="ng_quickStartCtrl">
+
+    @*Page Header*@
+    <div class="row page-header">
+        <div class="col-sm-8">
+            <div class="row">
+                <div class='page-title'><span>QuickStart</span></div>
+            </div>
+            <div class="row sub-heading">
+                <div class='page-subtitle' data-bind="text: opportunity.pageTitle"></div>
+            </div>
+        </div>
+        <div class="col-sm-4"></div>
+    </div>
+
+    <hr />
+
+    @* QuickStart Add/Edit Details *@
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 no-margin">
+                <div class="col-title"><span>QuickStart Information</span></div>
+
+                <div class="row">
+
+                    
+
+                </div>
+
+                <div class="row">
+                    <form>
+                        <div class="form-group">
+                            <label>Notes</label>
+                            <div class="controls">
+                                <textarea id="QS_Notes" maxlength="100" type="text" class="form-control col-md-12" rows="5" data-bind="value: opportunity.Notes" />
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+
+
+        </div>
+
+        @* Page Footer *@
+        <div class="row page-footer">
+            <div class="pull-left">
+                <span data-bind="visible: opportunity.IsSaved" style="color: red">3-In-1 Record Created Successfully!</span>
+            </div>
+            <div class="pull-right">
+                <button id="bt_cancel_evt" class="btn btn-danger btn-cancel" type="button">Clear</button>
+                <button id="bt_save_evt" class="btn btn-primary btn-save" type="button" data-bind="enable: isDirty, click: Save">Save</button>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+

@@ -1,5 +1,5 @@
-﻿﻿//var applicationname = "";
-var applicationname = "/SandlerTrainingNew";
+﻿var applicationname = "";
+//var applicationname = "/SandlerTrainingNew";
 
 var myhost = window.location.protocol + "//" + window.location.host
 var absoluteapp = myhost + applicationname;
@@ -210,7 +210,7 @@ sandler.namespace("appStart").module= (function () {
         //console.log('getting user companies');
         companies = new Array();
         $.each(data.results, function (i, companyRecord) {
-            companies.push(new company(companyRecord.COMPANYNAME, companyRecord.COMPANIESID));
+            companies.push(new company(companyRecord.COMPANYNAME, companyRecord.COMPANIESID, companyRecord.IsNewCompany, companyRecord.IndustryId));
         });
         setUserCompanies(companies);
         return companies;
@@ -244,7 +244,20 @@ sandler.namespace("appStart").module= (function () {
         var data = jsonDataCaller.syncCall(baseUrl + "/api/ContactView?&page=0&pageSize=0&companyId=0&searchText=&selectForExcel=false", null)
         contacts = new Array();
         $.each(data.results, function (i, contactRecord) {
-            contacts.push(new contact(contactRecord.LastName, contactRecord.FirstName, contactRecord.FullName, contactRecord.ContactsId, contactRecord.CompanyId));
+            contacts.push(new contact(contactRecord.LastName,
+                contactRecord.FirstName,
+                contactRecord.FullName,
+                contactRecord.ContactsId,
+                contactRecord.CompanyId,
+                contactRecord.IsNewAppointment,
+                contactRecord.IsRegisteredForTraining,
+                contactRecord.CourseId,
+                contactRecord.CourseTrainingDate,
+                contactRecord.TrainingCourseName,
+                contactRecord.HowManyAttended,
+                contactRecord.EMAIL,
+                contactRecord.ApptSourceId,
+                contactRecord.HomePhone));
         });
         $(document).data("sandler.appStart.userContacts", contacts);
         return contacts;
@@ -262,6 +275,36 @@ sandler.namespace("appStart").module= (function () {
         //console.log(companyContacts);
         return companyContacts;
     };
+
+    var getContactById = function (contactId) {
+        //console.log('contactId');
+        //console.log(contactId);
+        var contact;
+        $.each(getUserContacts(), function (i, contactRecord) {
+            if (contactRecord.contactsId == contactId) {
+                contact = contactRecord;
+                return;
+            }
+        });
+        //console.log('contact');
+        //console.log(contact);
+        return contact;
+    };
+
+    var getCompanyById = function (companyId) {
+        //console.log('companyId');
+        //console.log(companyId);
+        var company;
+        $.each(getUserCompanies(), function (i, companyRecord) {
+            if (contactRecord.id == companyId) {
+                company = companyRecord;
+                return;
+            }
+        });
+        //console.log('company');
+        //console.log(company);
+        return company;
+    };
     
     var setUser = function (user) {
         if (getUser() == '' | getUser() == undefined) {
@@ -277,9 +320,11 @@ sandler.namespace("appStart").module= (function () {
         return $(document).data("sandler.appStart.currentUser");
     }
 
-    var company = function (companyName, companyId) {
+    var company = function (companyName, companyId, isNewCompany,industryId) {
         this.name = companyName;
         this.id = companyId;
+        this.isNewCompany = isNewCompany;
+        this.industryId = industryId;
     };
 
     var coachregion = function (CoachRegionName, regionId) {
@@ -287,12 +332,21 @@ sandler.namespace("appStart").module= (function () {
         this.Id = regionId;
     };
 
-    var contact = function (lastName, firstName, fullName, contactsId, companyId) {
+    var contact = function (lastName, firstName, fullName, contactsId, companyId, isNewAppointment, isRegisteredForTraining, courseId, courseTrainingDate, trainingCourseName, howManyAttended, email, apptSourceId, homePhone) {
         this.lastName = lastName;
         this.firstName = firstName;
         this.fullName = fullName;
         this.contactsId = contactsId;
         this.companyId = companyId;
+        this.isNewAppointment = isNewAppointment,
+        this.isRegisteredForTraining = isRegisteredForTraining,
+        this.courseId = courseId,
+        this.courseTrainingDate = courseTrainingDate,
+        this.trainingCourseName = trainingCourseName,
+        this.howManyAttended = howManyAttended,
+        this.email = email,
+        this.apptSourceId = apptSourceId,
+        this.homePhone = homePhone;
     };
 
     var appInitialized = function (value) {
@@ -408,6 +462,10 @@ sandler.namespace("appStart").module= (function () {
         getUserCompanies: getUserCompanies,
         getUserContacts: getUserContacts,
         getUserContactsByCompany: getUserContactsByCompany,
+        getContactById: getContactById,
+        getCompanyById: getCompanyById,
+        createCompany: function () { return new company('','','','',''); },
+        createContact: function () { return new contact('','','','','','','','','','','','','',''); },
         getProductName: function (productId) {
             var option = getProductTypes().filter(function (o) {
                 return o.Id == productId;
