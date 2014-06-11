@@ -1,9 +1,16 @@
-/****** Object:  StoredProcedure [dbo].[sp_OpportunityView]    Script Date: 02/24/2014 13:06:00 ******/
-IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[sp_OpportunityView]') AND type in (N'P', N'PC'))
+USE [SandlerDB]
+GO
+
+UPDATE pageMenu SET pagePath = '/CRM/QuickStart/Index' WHERE pagemenuid=11 AND name = 'QuickStart';
+
+USE [SandlerDB]
+GO
+
+/****** Object:  StoredProcedure [dbo].[sp_OpportunityView]    Script Date: 6/11/2014 1:11:36 PM ******/
 DROP PROCEDURE [dbo].[sp_OpportunityView]
 GO
 
-/****** Object:  StoredProcedure [dbo].[sp_OpportunityView]    Script Date: 02/24/2014 13:06:00 ******/
+/****** Object:  StoredProcedure [dbo].[sp_OpportunityView]    Script Date: 6/11/2014 1:11:36 PM ******/
 SET ANSI_NULLS ON
 GO
 
@@ -11,9 +18,11 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 
+
 /*
-exec [sp_OpportunityView]'98428801-3032-4EF3-8FF4-4588F7876ECE','ID ASc',0,0,@isActive=0
-exec [sp_OpportunityView] '98428801-3032-4ef3-8ff4-4588f7876ece','NAME ASC',50,1
+exec [sp_OpportunityView]'B4B0D519-57D6-402B-B960-2496EC03567E','ID ASc',0,0,@isActive=0
+exec [sp_OpportunityView] 'B4B0D519-57D6-402B-B960-2496EC03567E','NAME ASC',50,1
+Select *  FROM [vw_Opportunities] vw WHERE 1=1 AND vw.IsActive = 1
 */
 CREATE Procedure [dbo].[sp_OpportunityView]
 	@userId UniqueIdentifier,
@@ -52,7 +61,7 @@ Begin
 	Begin
     
 		SET @SQL = 'Select *  
-		FROM [vw_Opportunities] vw
+		FROM [vw_Opportunities] VW
 		WHERE 1=1';
 	END
 	
@@ -172,6 +181,6 @@ End
 
 
 
-GO
 
+GO
 

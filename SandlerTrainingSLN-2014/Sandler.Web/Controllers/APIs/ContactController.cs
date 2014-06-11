@@ -178,7 +178,18 @@ namespace Sandler.Web.Controllers.API
 
         }
 
-         
+        public HttpResponseMessage Get(int id)
+        {
+            //Let us Initiate the model with UniqueId and the Franchisee Id
+            var data = new TBL_CONTACTS() { CONTACTSID= 0, COMPANYID=0};
+            if (id > 0)
+            {
+                data = uow.Repository<TBL_CONTACTS>().GetById(id);
+            }
+            return Request.CreateResponse(data);
+
+
+        }
 
 
         [Route("api/ContactSave")]
