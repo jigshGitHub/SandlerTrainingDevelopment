@@ -215,7 +215,7 @@ namespace Sandler.Web.Controllers.API
                 uow.Repository<TBL_CONTACTS>().Add(contact);
             }
 
-            uow.Save();
+            //uow.Save();
             return Request.CreateResponse(contact);
         }
 

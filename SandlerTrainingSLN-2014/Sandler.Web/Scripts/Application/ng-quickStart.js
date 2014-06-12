@@ -139,22 +139,22 @@ function initialize_quickStartF(type) {
         self.companyObservable.COMPANYNAME.extend({ required: "" });
         self.companyObservable.POCLastName.extend({ required: "" });
         self.companyObservable.POCFirstName.extend({ required: "" });
-
         self.companyObservable.IndustryId.extend({ required: "" });
 
-        if (self.contactObservable.CourseTrainingDate() != null && self.contactObservable.CourseTrainingDate() != "") {
-            self.contactObservable.CourseTrainingDatec = ko.observable(kendo.parseDate(self.contactObservable.CourseTrainingDate())).extend({ required: "" });
-        }
-        else {
-            self.contactObservable.CourseTrainingDatec = ko.observable('').extend({ required: "" });
-        }
+        //if (self.contactObservable.CourseTrainingDate() != null && self.contactObservable.CourseTrainingDate() != "") {
+        //    self.contactObservable.CourseTrainingDatec = ko.observable(kendo.parseDate(self.contactObservable.CourseTrainingDate())).extend({ required: "" });
+        //}
+        //else {
+        //    self.contactObservable.CourseTrainingDatec = ko.observable('').extend({ required: "" });
+        //}
+
         if (self.contactObservable.NEXT_CONTACT_DATE() != null && self.contactObservable.NEXT_CONTACT_DATE() != "") {
             self.contactObservable.NextContactDatec = ko.observable(kendo.parseDate(self.contactObservable.NEXT_CONTACT_DATE())).extend({ required: "" });
         }
         else {
             self.contactObservable.NextContactDatec = ko.observable('').extend({ required: "" });
         }
-        
+        self.contactObservable.ApptSourceId.extend({ required: "" });
 
         self.opportunity.NAME.extend({ required: "" });
         self.opportunity.Pain.extend({ required: "" });
@@ -190,111 +190,102 @@ function initialize_quickStartF(type) {
 
 
         self.continueWithSave = function () {
-
+            console.log(self.companyObservable);
+            console.log(self.contactObservable);
+            console.log(self.opportunity);
             self.dirtyFlag.reset();
             $('#quickStart_body').block({ message: null });
-            dao_.save(baseUrl + "/api/QuickStart/Save", ko.toJSON(self),
-                function (result) {
-                    if (result.success) {
-                        $("#quickStart_body").unblock();
-                        showNoti_.hide();
-                        initialize_quickStartF('Save');
-                    }
-                    else {
-                        $("#quickStart_body").unblock();
-                        showNoti_.hide();
-                        showNoti_.error(result.message, false);
-                    }
+            
+            $.ajax({
+                url: 'api/ContactSave',
+                type: "POST",
+                data: { contact: ko.toJSON(self.contactObservable), quickstartSave: true },
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                async: false,
+                success: function (response) {
+                    console.log('saved contact');
+                    showNoti_.info('Contact saved successfully.', true);
+                    //RefreshGrid();
                 },
-                function () {
-                    $("#quickStart_body").unblock();
-                    showNoti_.hide();
-                });
+                error: function (response, errorText) {
+                    showNoti_.error('Unable to save contact, server error occures.', true);
+                    return false;
+                }
+            });
         };
 
 
         self.Save = function () {
 
 
-            if (!self.CompanyName()) {
+            if (!self.companyObservable.COMPANYNAME()) {
                 showNoti_.error('Company Name is Required!!', false);
                 $('#QS_CompanyName').focus();
                 return;
             }
-            if (!self.POCFirstName()) {
+            if (!self.companyObservable.POCFirstName()) {
                 showNoti_.error('POC First Name is Required!!', false);
                 $('#QS_POCFirstName').focus();
                 return;
             }
-            if (!self.POCLastName()) {
+            if (!self.companyObservable.POCLastName()) {
                 showNoti_.error('POC Last Name is Required!!', false);
                 $('#QS_POCLastName').focus();
                 return;
             }
-            if (!self.NAME()) {
+            if (!self.opportunity.NAME()) {
                 showNoti_.error('Opportunity Name is Required!!', false);
                 $('#QS_OpportunityName').focus();
                 return;
             }
-            if (!self.Pain()) {
+            if (!self.opportunity.Pain()) {
                 showNoti_.error('Pain is Required!!', false);
                 $('#QS_Pain').focus();
                 return;
             }
 
-
-            if (!self.ProductID()) {
+            if (!self.opportunity.ProductID()) {
                 showNoti_.error('Product is Required!!', false);
                 $('#QS_Product').focus();
                 return;
             }
-            if (!self.STATUSID()) {
+            if (!self.opportunity.STATUSID()) {
                 showNoti_.error('Opportunity Status is Required!!', false);
                 $('#QS_OppStatus').focus();
                 return;
             }
-            if (!self.SourceID()) {
+            if (!self.opportunity.SourceID()) {
                 showNoti_.error('Opportunity Source is Required!!', false);
                 $('#QS_OppSource').focus();
                 return;
             }
-            if (!self.TypeID()) {
+            if (!self.opportunity.TypeID()) {
                 showNoti_.error('Opportunity Type is Required!!', false);
                 $('#QS_OppType').focus();
                 return;
             }
-            if (!self.Value()) {
+            if (!self.opportunity.VALUE()) {
                 showNoti_.error('Estimated Opportunity Value is Required!!', false);
                 $('#QS_Value').focus();
                 return;
             }
-            if (!self.ApptSourceId()) {
+            if (!self.contactObservable.ApptSourceId()) {
                 showNoti_.error('Appointment Source is Required!!', false);
                 $('#QS_AppSource').focus();
                 return;
-            }
-
-            var dte2 = $('#QS_CourseTrainingDate').val();
-            if (!dte2 == "") {
-                var d = kendo.parseDate(dte2, "MM/dd/yyyy");
-                if (d == null) {
-                    showNoti_.error('Course Training Date is NOT a valid date.', false);
-                    $('#QS_CourseTrainingDate').focus();
-                    return;
-                }
-            }
+            }          
 
             //Conditional check if Registered for Training is Yes
 
-            if (self.IsRegisteredForTrainingInt() == "1") {
+            if (self.contactObservable.IsRegisteredForTraining() == "1") {
 
-                if (!self.CourseTypeID()) {
+                if (!self.contactObservable.CourseId()) {
                     showNoti_.error('Course Type is Required!!', false);
                     $('#QS_CourseType').focus();
                     return;
                 }
 
-                //For Last Contact Date
                 var dte = $('#QS_CourseTrainingDate').val();
                 if (!dte == "") {
                     var d = kendo.parseDate(dte, "MM/dd/yyyy");
@@ -312,12 +303,12 @@ function initialize_quickStartF(type) {
                 }
 
 
-                if (!self.TrainingCourseName()) {
+                if (!self.contactObservable.TrainingCourseName()) {
                     showNoti_.error('Training Course Name is Required!!', false);
                     $('#QS_TrainingCourseName').focus();
                     return;
                 }
-                if (!self.HowManyAttended()) {
+                if (!self.contactObservable.HowManyAttended()) {
                     showNoti_.error('Class Head Count is Required!!', false);
                     $('#QS_ClassHeadCount').focus();
                     return;
@@ -325,11 +316,12 @@ function initialize_quickStartF(type) {
 
             }
 
-            if (!self.IndustryId()) {
+            if (!self.companyObservable.IndustryId()) {
                 showNoti_.error('Industry is Required!!', false);
                 $('#QS_Industry').focus();
                 return;
             }
+
             var dte1 = $('#QS_EstOppCloseDate').val();
             if (!dte1 == "") {
                 var d1 = kendo.parseDate(dte1, "MM/dd/yyyy");
@@ -339,41 +331,46 @@ function initialize_quickStartF(type) {
                     return;
                 }
             }
+            else {
+                showNoti_.error('Estimated Opportunity Close Date is required.', false);
+                $('#QS_EstOppCloseDate').focus();
+                return;
+            }
 
 
-            //Take care of bit Fields
-            if (self.IsBudgeIdentifiedInt() > 0) {
-                self.IsBudgeIdentified(true);
-            }
-            else {
-                self.IsBudgeIdentified(false);
-            }
-            if (self.IsMoveForwardInt() > 0) {
-                self.IsMoveForward(true);
-            }
-            else {
-                self.IsMoveForward(false);
-            }
+            ////Take care of bit Fields
+            //if (self.IsBudgeIdentifiedInt() > 0) {
+            //    self.IsBudgeIdentified(true);
+            //}
+            //else {
+            //    self.IsBudgeIdentified(false);
+            //}
+            //if (self.IsMoveForwardInt() > 0) {
+            //    self.IsMoveForward(true);
+            //}
+            //else {
+            //    self.IsMoveForward(false);
+            //}
 
-            if (self.IsNewAppointmentInt() > 0) {
-                self.IsNewAppointment(true);
-            }
-            else {
-                self.IsNewAppointment(false);
-            }
+            //if (self.IsNewAppointmentInt() > 0) {
+            //    self.IsNewAppointment(true);
+            //}
+            //else {
+            //    self.IsNewAppointment(false);
+            //}
 
-            if (self.IsRegisteredForTrainingInt() > 0) {
-                self.IsRegisteredForTraining(true);
-            }
-            else {
-                self.IsRegisteredForTraining(false);
-            }
-            if (self.IsNewCompanyInt() > 0) {
-                self.IsNewCompany(true);
-            }
-            else {
-                self.IsNewCompany(false);
-            }
+            //if (self.IsRegisteredForTrainingInt() > 0) {
+            //    self.IsRegisteredForTraining(true);
+            //}
+            //else {
+            //    self.IsRegisteredForTraining(false);
+            //}
+            //if (self.IsNewCompanyInt() > 0) {
+            //    self.IsNewCompany(true);
+            //}
+            //else {
+            //    self.IsNewCompany(false);
+            //}
             //Now Continue
             self.continueWithSave();
         };
