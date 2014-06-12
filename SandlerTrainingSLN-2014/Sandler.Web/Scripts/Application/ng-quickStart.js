@@ -109,7 +109,7 @@ function initialize_quickStartF(type) {
         self.oppTypes = startModule.getOpportunityTypes();
         self.industries = startModule.getIndustryTypes();
         self.appSources = startModule.getAppointmentSources();
-        self.yesNoDataSrces = startModule.getYesNoOptions();
+        self.yesNoData = startModule.getYesNoOptions();
         self.courseTypes = startModule.getCourses();
 
 
@@ -125,16 +125,36 @@ function initialize_quickStartF(type) {
         }
         else {
             company = jsonDataCaller.syncCall(baseUrl + "/api/Company/Get?id=0", null);
-            contact = ko.observable(jsonDataCaller.syncCall(baseUrl + "/api/Contact/Get?id=0", null));
+            self.companyObservable = ko.mapping.fromJS(jsonDataCaller.syncCall(baseUrl + "/api/Company/Get?id=0", null));
+            self.contactObservable = ko.mapping.fromJS(jsonDataCaller.syncCall(baseUrl + "/api/Contact/Get?id=0", null));
         }
-        console.log(company);
         self.IsSaved = ko.observable(false);
-        self.COMPANYNAME = ko.observable(company.COMPANYNAME).extend({ required: "" });
-        self.POCLastName = ko.observable(company.POCLastName).extend({ required: "" });
-        self.POCFirstName = ko.observable(company.POCFirstName).extend({ required: "" });
-        self.POCPhone = ko.observable(company.POCPhone);
-        self.POCDepartment = ko.observable(company.POCDepartment);
-        self.POCEmail = ko.observable(company.POCEmail);
+        //self.COMPANYNAME = ko.observable(company.COMPANYNAME).extend({ required: "" });
+        //self.POCLastName = ko.observable(company.POCLastName).extend({ required: "" });
+        //self.POCFirstName = ko.observable(company.POCFirstName).extend({ required: "" });
+        //self.POCPhone = ko.observable(company.POCPhone);
+        //self.POCDepartment = ko.observable(company.POCDepartment);
+        //self.POCEmail = ko.observable(company.POCEmail);
+
+        self.companyObservable.COMPANYNAME.extend({ required: "" });
+        self.companyObservable.POCLastName.extend({ required: "" });
+        self.companyObservable.POCFirstName.extend({ required: "" });
+
+        self.companyObservable.IndustryId.extend({ required: "" });
+
+        if (self.contactObservable.CourseTrainingDate() != null && self.contactObservable.CourseTrainingDate() != "") {
+            self.contactObservable.CourseTrainingDatec = ko.observable(kendo.parseDate(self.contactObservable.CourseTrainingDate())).extend({ required: "" });
+        }
+        else {
+            self.contactObservable.CourseTrainingDatec = ko.observable('').extend({ required: "" });
+        }
+        if (self.contactObservable.NEXT_CONTACT_DATE() != null && self.contactObservable.NEXT_CONTACT_DATE() != "") {
+            self.contactObservable.NextContactDatec = ko.observable(kendo.parseDate(self.contactObservable.NEXT_CONTACT_DATE())).extend({ required: "" });
+        }
+        else {
+            self.contactObservable.NextContactDatec = ko.observable('').extend({ required: "" });
+        }
+        
 
         self.opportunity.NAME.extend({ required: "" });
         self.opportunity.Pain.extend({ required: "" });
@@ -144,6 +164,12 @@ function initialize_quickStartF(type) {
         self.opportunity.TypeID.extend({ required: "" });
         self.opportunity.VALUE.extend({ required: "" });
 
+        if (self.opportunity.CLOSEDATE() != null && self.opportunity.CLOSEDATE() != "") {
+            self.opportunity.OppCloseDatec = ko.observable(kendo.parseDate(self.opportunity.CLOSEDATE())).extend({ required: "" });
+        }
+        else {
+            self.opportunity.OppCloseDatec = ko.observable('').extend({ required: "" });
+        }
 
 
 

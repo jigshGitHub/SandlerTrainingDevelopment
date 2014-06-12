@@ -37,53 +37,53 @@
                             <form role="form">
                                 <div class="form-group" >
                                 
-                                    <label>Company Name&nbsp;<span class="label label-danger" data-bind='visible: COMPANYNAME.hasError, text: COMPANYNAME.validationMessage'></span></label>                  
+                                    <label>Company Name&nbsp;<span class="label label-danger" data-bind='visible: companyObservable.COMPANYNAME.hasError, text: companyObservable.COMPANYNAME.validationMessage'></span></label>                  
                                     <div class="controls">
-                                         <input id="QS_CompanyName" maxlength="50" type="text"  class="form-control" data-bind="value: COMPANYNAME"/>
+                                         <input id="QS_CompanyName" maxlength="50" type="text"  class="form-control" data-bind="value: companyObservable.COMPANYNAME"/>
                                     </div>
-                                     <label>POC First Name&nbsp;<span class="label label-danger" data-bind='visible: POCFirstName.hasError, text: POCFirstName.validationMessage'></span></label>                  
+                                     <label>POC First Name&nbsp;<span class="label label-danger" data-bind='visible: companyObservable.POCFirstName.hasError, text: companyObservable.POCFirstName.validationMessage'></span></label>                  
                                     <div class="controls">
-                                         <input id="QS_POCFirstName" maxlength="50" type="text"  class="form-control" data-bind="value: POCFirstName"/>
+                                         <input id="QS_POCFirstName" maxlength="50" type="text"  class="form-control" data-bind="value: companyObservable.POCFirstName"/>
                                     </div>
-                                     <label>POC Last Name&nbsp;<span class="label label-danger" data-bind='visible: POCLastName.hasError, text: POCLastName.validationMessage'></span></label>                  
+                                     <label>POC Last Name&nbsp;<span class="label label-danger" data-bind='visible: companyObservable.POCLastName.hasError, text: companyObservable.POCLastName.validationMessage'></span></label>                  
                                     <div class="controls">
-                                         <input id="QS_POCLastName" maxlength="50" type="text"  class="form-control" data-bind="value: POCLastName"/>
+                                         <input id="QS_POCLastName" maxlength="50" type="text"  class="form-control" data-bind="value: companyObservable.POCLastName"/>
                                     </div>
                                     <label>Phone</label>
                                     <div class="controls">
-                                        <input id="QS_Phone" class="form-control"  maxlength="50" type="text"  data-bind="value: POCPhone">
+                                        <input id="QS_Phone" class="form-control"  maxlength="50" type="text"  data-bind="value: companyObservable.POCPhone">
                                     </div>
                                      <label>E-mail</label>
                                     <div class="controls">
-                                        <input id="QS_Email" class="form-control"  maxlength="50" type="text"  data-bind="value: POCEmail">
+                                        <input id="QS_Email" class="form-control"  maxlength="50" type="text"  data-bind="value: companyObservable.POCEmail">
                                     </div>
-                                     <label>Opportunity Name&nbsp;<span class="label label-danger" data-bind='visible: OppName.hasError, text: OppName.validationMessage'></span></label>                  
+                                     <label>Opportunity Name&nbsp;<span class="label label-danger" data-bind='visible: opportunity.NAME.hasError, text: opportunity.NAME.validationMessage'></span></label>                  
                                     <div class="controls">
-                                         <input id="QS_OpportunityName" maxlength="50" type="text"  class="form-control" data-bind="value: OppName"/>
+                                         <input id="QS_OpportunityName" maxlength="50" type="text"  class="form-control" data-bind="value: opportunity.NAME"/>
                                     </div>
                                      <label>Sales Rep Last Name</label>
                                     <div class="controls" >
-                                        <input id="QS_RepLastName"  class="form-control" maxlength="150" type="text"  data-bind="value: SalesRepLastName">
+                                        <input id="QS_RepLastName"  class="form-control" maxlength="150" type="text"  data-bind="value: opportunity.SALESREPLASTNAME">
                                     </div>
                                      <label>Sales Rep First Name</label>
                                     <div class="controls">
-                                        <input id="QS_RepFirstName" class="form-control"  maxlength="50" type="text"  data-bind="value: SalesRepFirstName">
+                                        <input id="QS_RepFirstName" class="form-control"  maxlength="50" type="text"  data-bind="value: opportunity.SALESREPFIRSTNAME">
                                     </div>
-                                     <label>Pain&nbsp;<span class="label label-danger" data-bind='visible: Pain.hasError, text: Pain.validationMessage'></span></label>                  
+                                     <label>Pain&nbsp;<span class="label label-danger" data-bind='visible: opportunity.Pain.hasError, text: opportunity.Pain.validationMessage'></span></label>                  
                                     <div class="controls">
-                                         <input id="QS_Pain" maxlength="50" type="text"  class="form-control" data-bind="value: Pain"/>
+                                         <input id="QS_Pain" maxlength="50" type="text"  class="form-control" data-bind="value: opportunity.Pain"/>
                                     </div>
                                       <label>Length Of Problem?</label>
                                     <div class="controls">
-                                        <input id="QS_LengthOfProblem" class="form-control"  maxlength="50" type="text"  data-bind="value: LengthofProblem">
+                                        <input id="QS_LengthOfProblem" class="form-control"  maxlength="50" type="text"  data-bind="value: opportunity.LengthofProblem">
                                     </div>
                                       <label>Alternatives?</label>
                                     <div class="controls">
-                                        <input id="QS_Alternatives" class="form-control"  maxlength="7" type="text"  data-bind="value: Alternatives">
+                                        <input id="QS_Alternatives" class="form-control"  maxlength="7" type="text"  data-bind="value: opportunity.Alternatives">
                                     </div>
                                      <label>Perceived Cost to Fix?</label>
                                     <div class="controls">
-                                        <input id="QS_PerceivedCostToFix" class="form-control"  maxlength="50" type="text"  data-bind="value: CostToFix">
+                                        <input id="QS_PerceivedCostToFix" class="form-control"  maxlength="50" type="text"  data-bind="value: opportunity.CostToFix">
                                     </div>
                                                               
 
@@ -117,43 +117,43 @@
                                 <div class="form-group">
                                      <label>Budget Identified?</label>
                                      <div class="controls">
-                                        <input id="QS_BudgetIdentified" type="text" data-bind="kendoDropDownList: { dataTextField: 'Description', dataValueField: 'Value', data: yesNoData, value: IsBudgeIdentifiedInt }"/>
+                                        <input id="QS_BudgetIdentified" type="text" data-bind="kendoDropDownList: { dataTextField: 'Description', dataValueField: 'Value', data: yesNoData, value: opportunity.IsBudgeIdentified }"/>
                                      </div>
                                      <label>Move Forward?</label>
                                      <div class="controls">
-                                        <input id="QS_MoveForward" type="text" data-bind="kendoDropDownList: { dataTextField: 'Description', dataValueField: 'Value', data: yesNoData, value: IsMoveForwardInt }"/>
+                                        <input id="QS_MoveForward" type="text" data-bind="kendoDropDownList: { dataTextField: 'Description', dataValueField: 'Value', data: yesNoData, value: opportunity.IsMoveForward }"/>
                                      </div>
-                                     <label>Product&nbsp;<span class="label label-danger" data-bind='visible: ProductID.hasError, text: ProductID.validationMessage'></span></label>
+                                     <label>Product&nbsp;<span class="label label-danger" data-bind='visible: opportunity.ProductID.hasError, text: opportunity.ProductID.validationMessage'></span></label>
                                      <div class="controls">
-                                        <input id="QS_Product" type="text" data-bind="kendoDropDownList: { dataTextField: 'ProductTypeName', dataValueField: 'Id', data: products, value: ProductID, optionLabel : 'Please Select..' }"/>                                    
+                                        <input id="QS_Product" type="text" data-bind="kendoDropDownList: { dataTextField: 'ProductTypeName', dataValueField: 'Id', data: products, value: opportunity.ProductID, optionLabel : 'Please Select..' }"/>                                    
                                      </div>
-                                     <label>Opportunity Status&nbsp;<span class="label label-danger" data-bind='visible: OppStatusID.hasError, text: OppStatusID.validationMessage'></span></label>
+                                     <label>Opportunity Status&nbsp;<span class="label label-danger" data-bind='visible: opportunity.STATUSID.hasError, text: opportunity.STATUSID.validationMessage'></span></label>
                                      <div class="controls">
-                                        <input id="QS_OppStatus" type="text" data-bind="kendoDropDownList: { dataTextField: 'Name', dataValueField: 'ID', data: oppStatuses, value: OppStatusID, optionLabel : 'Please Select..' }"/>
+                                        <input id="QS_OppStatus" type="text" data-bind="kendoDropDownList: { dataTextField: 'Name', dataValueField: 'ID', data: oppStatus, value: opportunity.STATUSID, optionLabel : 'Please Select..' }"/>
                                      </div>
-                                     <label>Opportunity Source&nbsp;<span class="label label-danger" data-bind='visible: OppSourceID.hasError, text: OppSourceID.validationMessage'></span></label>
+                                     <label>Opportunity Source&nbsp;<span class="label label-danger" data-bind='visible: opportunity.SourceID.hasError, text: opportunity.SourceID.validationMessage'></span></label>
                                      <div class="controls">
-                                        <input id="QS_OppSource" type="text" data-bind="kendoDropDownList: { dataTextField: 'Name', dataValueField: 'ID', data: oppSources, value: OppSourceID, optionLabel : 'Please Select..' }"/>
+                                        <input id="QS_OppSource" type="text" data-bind="kendoDropDownList: { dataTextField: 'Name', dataValueField: 'ID', data: oppSources, value: opportunity.SourceID, optionLabel : 'Please Select..' }"/>
                                      </div>
-                                     <label>Opportunity Type&nbsp;<span class="label label-danger" data-bind='visible: OppTypeID.hasError, text: OppTypeID.validationMessage'></span></label>
+                                     <label>Opportunity Type&nbsp;<span class="label label-danger" data-bind='visible: opportunity.TypeID.hasError, text: opportunity.TypeID.validationMessage'></span></label>
                                      <div class="controls">
-                                        <input id="QS_OppType" type="text" data-bind="kendoDropDownList: { dataTextField: 'Name', dataValueField: 'ID', data: oppTypes, value: OppTypeID, optionLabel : 'Please Select..' }"/>
+                                        <input id="QS_OppType" type="text" data-bind="kendoDropDownList: { dataTextField: 'Name', dataValueField: 'ID', data: oppTypes, value: opportunity.TypeID, optionLabel : 'Please Select..' }"/>
                                      </div>
-                                     <label>Estimated Opportunity Value&nbsp;<span class="label label-danger" data-bind='visible: Value.hasError, text: Value.validationMessage'></span></label>                  
+                                     <label>Estimated Opportunity Value&nbsp;<span class="label label-danger" data-bind='visible: opportunity.VALUE.hasError, text: opportunity.VALUE.validationMessage'></span></label>                  
                                     <div class="controls">
-                                         <input id="QS_EstOppValue" maxlength="50" type="text" class="form-control" data-bind="value: Value"/>
+                                         <input id="QS_EstOppValue" maxlength="50" type="text" class="form-control" data-bind="value: opportunity.VALUE"/>
                                     </div>
                                      <label>Next Step</label>
                                     <div class="controls" >
-                                        <input id="QS_NextStep"  class="form-control" maxlength="150" type="text"  data-bind="value: ActionStep">
+                                        <input id="QS_NextStep"  class="form-control" maxlength="150" type="text"  data-bind="value: contactObservable.ACTIONSTEP">
                                     </div>
                                     <label>New Appointment?</label>
                                      <div class="controls">
-                                        <input id="QS_NewApp" type="text" data-bind="kendoDropDownList: { dataTextField: 'Description', dataValueField: 'Value', data: yesNoData, value: IsNewAppointmentInt }"/>
+                                        <input id="QS_NewApp" type="text" data-bind="kendoDropDownList: { dataTextField: 'Description', dataValueField: 'Value', data: yesNoData, value: contactObservable.IsNewAppointment }"/>
                                      </div>
-                                     <label>Appointment Source&nbsp;<span class="label label-danger" data-bind='visible: ApptSourceID.hasError, text: ApptSourceID.validationMessage'></span></label>
+                                     <label>Appointment Source&nbsp;<span class="label label-danger" data-bind='visible: contactObservable.ApptSourceId.hasError, text: contactObservable.ApptSourceId.validationMessage'></span></label>
                                      <div class="controls">
-                                        <input id="QS_AppSource" type="text" data-bind="kendoDropDownList: { dataTextField: 'ApptSourceName', dataValueField: 'ApptSourceId', data: appSources, value: ApptSourceID, optionLabel : 'Please Select..' }"/>
+                                        <input id="QS_AppSource" type="text" data-bind="kendoDropDownList: { dataTextField: 'ApptSourceName', dataValueField: 'ApptSourceId', data: appSources, value:contactObservable.ApptSourceId, optionLabel : 'Please Select..' }"/>
                                      </div>                                 
                                 
                                 </div>
@@ -165,42 +165,42 @@
                                 <div class="form-group">
                                       <label>Registered for Training?</label>
                                      <div class="controls">
-                                        <input id="QS_RegForTraining" type="text" data-bind="kendoDropDownList: { dataTextField: 'Description', dataValueField: 'Value', data: yesNoData, value: IsRegisteredForTrainingInt }"/>
+                                        <input id="QS_RegForTraining" type="text" data-bind="kendoDropDownList: { dataTextField: 'Description', dataValueField: 'Value', data: yesNoData, value: contactObservable.IsRegisteredForTraining }"/>
                                      </div>
-                                     <label>Course Type&nbsp;<span class="label label-danger" data-bind='visible: CourseTypeID.hasError, text: CourseTypeID.validationMessage'></span></label>
+                                     <label>Course Type&nbsp;<span class="label label-danger" data-bind='visible: contactObservable.CourseId.hasError, text: contactObservable.CourseId.validationMessage'></span></label>
                                      <div class="controls">
-                                        <input id="QS_CourseType" type="text" data-bind="kendoDropDownList: { dataTextField: 'CourseName', dataValueField: 'CourseId', data: courseTypes, value: CourseTypeID, optionLabel : 'Please Select..' }"/>
+                                        <input id="QS_CourseType" type="text" data-bind="kendoDropDownList: { dataTextField: 'CourseName', dataValueField: 'CourseId', data: courseTypes, value: contactObservable.CourseId, optionLabel : 'Please Select..' }"/>
                                      </div> 
-                                     <label>Course Training Date&nbsp;<span class="label label-danger" data-bind='visible: CourseTrainingDatec.hasError, text: CourseTrainingDatec.validationMessage'></span></label>
+                                     <label>Course Training Date&nbsp;<span class="label label-danger" data-bind='visible: contactObservable.CourseTrainingDatec.hasError, text: contactObservable.CourseTrainingDatec.validationMessage'></span></label>
                                     <div class="controls">
-                                         <input id="QS_CourseTrainingDate" style="max-width:180px;" maxlength="10" type="text" class="form-control" data-bind="kendoDatePicker: CourseTrainingDatec"/>
+                                         <input id="QS_CourseTrainingDate" style="max-width:180px;" maxlength="10" type="text" class="form-control" data-bind="kendoDatePicker: contactObservable.CourseTrainingDatec"/>
                                     </div>
 
-                                     <label>Training Course Name&nbsp;<span class="label label-danger" data-bind='visible: TrainingCourseName.hasError, text: TrainingCourseName.validationMessage'></span></label>
+                                     <label>Training Course Name&nbsp;<span class="label label-danger" data-bind='visible: contactObservable.TrainingCourseName.hasError, text: contactObservable.TrainingCourseName.validationMessage'></span></label>
                                     <div class="controls">
-                                         <input id="QS_TrainingCourseName" maxlength="50" type="text" class="form-control" data-bind="value: TrainingCourseName"/>
+                                         <input id="QS_TrainingCourseName" maxlength="50" type="text" class="form-control" data-bind="value: contactObservable.TrainingCourseName"/>
                                     </div>
-                                      <label>Class Head Count&nbsp;<span class="label label-danger" data-bind='visible: HowManyAttended.hasError, text: HowManyAttended.validationMessage'></span></label>
+                                      <label>Class Head Count&nbsp;<span class="label label-danger" data-bind='visible: contactObservable.HowManyAttended.hasError, text: contactObservable.HowManyAttended.validationMessage'></span></label>
                                     <div class="controls">
-                                         <input id="QS_ClassHeadCount" maxlength="50" type="text" class="form-control" data-bind="value: HowManyAttended"/>
+                                         <input id="QS_ClassHeadCount" maxlength="50" type="text" class="form-control" data-bind="value: contactObservable.HowManyAttended"/>
                                     </div>
                                      <label>New Company?</label>
                                      <div class="controls">
-                                        <input id="QS_NewCompany" type="text" data-bind="kendoDropDownList: { dataTextField: 'Description', dataValueField: 'Value', data: yesNoData, value: IsNewCompanyInt }"/>
+                                        <input id="QS_NewCompany" type="text" data-bind="kendoDropDownList: { dataTextField: 'Description', dataValueField: 'Value', data: yesNoData, value: companyObservable.IsNewCompany }"/>
                                      </div>
-                                      <label>Industry&nbsp;<span class="label label-danger" data-bind='visible: IndustryId.hasError, text: IndustryId.validationMessage'></span></label>
+                                      <label>Industry&nbsp;<span class="label label-danger" data-bind='visible: companyObservable.IndustryId.hasError, text: companyObservable.IndustryId.validationMessage'></span></label>
                                      <div class="controls">
-                                        <input id="QS_Industry" type="text" data-bind="kendoDropDownList: { dataTextField: 'IndustryTypeName', dataValueField: 'IndId', data: industries, value: IndustryId, optionLabel : 'Please Select..' }"/>
+                                        <input id="QS_Industry" type="text" data-bind="kendoDropDownList: { dataTextField: 'IndustryTypeName', dataValueField: 'IndId', data: industries, value: companyObservable.IndustryId, optionLabel : 'Please Select..' }"/>
                                      </div>
                                   
                                       <label>Next Contact Date</label>
                                     <div class="controls">
-                                         <input id="company_nextContactDate" style="max-width:180px;" maxlength="10" type="text" class="form-control" data-bind="kendoDatePicker: NextContactDatec"/>
+                                         <input id="company_nextContactDate" style="max-width:180px;" maxlength="10" type="text" class="form-control" data-bind="kendoDatePicker: contactObservable.NextContactDatec"/>
                                     </div>
 
-                                      <label>Est. Opportunity Close Date&nbsp;<span class="label label-danger" data-bind='visible: OppCloseDatec.hasError, text: OppCloseDatec.validationMessage'></span></label>
+                                      <label>Est. Opportunity Close Date&nbsp;<span class="label label-danger" data-bind='visible: opportunity.OppCloseDatec.hasError, text: opportunity.OppCloseDatec.validationMessage'></span></label>
                                     <div class="controls">
-                                         <input id="QS_EstOppCloseDate" style="max-width:180px;" maxlength="10" type="text" class="form-control" data-bind="kendoDatePicker: OppCloseDatec"/>
+                                         <input id="QS_EstOppCloseDate" style="max-width:180px;" maxlength="10" type="text" class="form-control" data-bind="kendoDatePicker:opportunity.OppCloseDatec"/>
                                     </div>
                               
 
