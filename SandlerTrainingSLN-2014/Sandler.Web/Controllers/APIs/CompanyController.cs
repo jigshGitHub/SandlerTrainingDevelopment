@@ -147,7 +147,7 @@ namespace Sandler.Web.Controllers.API
 
         [HttpPost]
         [Route("api/Company/Save")]
-        public genericResponse Save(TBL_COMPANIES _company, bool quickstartSave = false)
+        public genericResponse Save(TBL_COMPANIES _company)
         {
             genericResponse _response;
             try
@@ -157,10 +157,8 @@ namespace Sandler.Web.Controllers.API
 
                 if (!VerifyRequiredFields(_company))
                     return new genericResponse() { success = false, UniqueId = 0 };
-                if (quickstartSave && !VerifyQuickstartRequiredFields(_company))
-                    return new genericResponse() { success = false, UniqueId = 0 };
 
-                if (companiesId > 0 && !quickstartSave)
+                if (companiesId > 0)
                 {
                     //Update Operation
                     _company.UpdatedBy = CurrentUser.UserId.ToString();
@@ -174,7 +172,7 @@ namespace Sandler.Web.Controllers.API
                     _company.CreatedBy = CurrentUser.UserId.ToString();
                     companiesId = uow.CompanyRepository().AddCompany(_company);
 
-                    if (_company.POCFirstName != "" && _company.POCLastName != "" && !quickstartSave) //For quickstart save, check of training related fields required, so handling quickstart save in contacts controller it self
+                    if (_company.POCFirstName != "" && _company.POCLastName != "") 
                     {
                         TBL_CONTACTS contact = new TBL_CONTACTS();
                         contact.COMPANYID = companiesId;
@@ -214,10 +212,6 @@ namespace Sandler.Web.Controllers.API
             return (!string.IsNullOrEmpty(company.COMPANYNAME) && !string.IsNullOrEmpty(company.POCFirstName) && !string.IsNullOrEmpty(company.POCLastName));
         }
 
-        private bool VerifyQuickstartRequiredFields(TBL_COMPANIES company)
-        {
-            return (company.IndustryId > 0);
-        }
         [Route("api/ArchiveCompanyView/")]
         public HttpResponseMessage GetArchiveCompanyView(string searchText, int? page, int? pageSize, bool selectForExcel)
         {

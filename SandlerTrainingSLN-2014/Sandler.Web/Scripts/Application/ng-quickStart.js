@@ -141,12 +141,12 @@ function initialize_quickStartF(type) {
         self.companyObservable.POCFirstName.extend({ required: "" });
         self.companyObservable.IndustryId.extend({ required: "" });
 
-        //if (self.contactObservable.CourseTrainingDate() != null && self.contactObservable.CourseTrainingDate() != "") {
-        //    self.contactObservable.CourseTrainingDatec = ko.observable(kendo.parseDate(self.contactObservable.CourseTrainingDate())).extend({ required: "" });
-        //}
-        //else {
-        //    self.contactObservable.CourseTrainingDatec = ko.observable('').extend({ required: "" });
-        //}
+        if (self.contactObservable.CourseTrainingDate() != null && self.contactObservable.CourseTrainingDate() != "") {
+            self.contactObservable.CourseTrainingDatec = ko.observable(kendo.parseDate(self.contactObservable.CourseTrainingDate())).extend({ required: "" });
+        }
+        else {
+            self.contactObservable.CourseTrainingDatec = ko.observable('');
+        }
 
         if (self.contactObservable.NEXT_CONTACT_DATE() != null && self.contactObservable.NEXT_CONTACT_DATE() != "") {
             self.contactObservable.NextContactDatec = ko.observable(kendo.parseDate(self.contactObservable.NEXT_CONTACT_DATE())).extend({ required: "" });
@@ -172,6 +172,22 @@ function initialize_quickStartF(type) {
         }
 
 
+        //Set some defaults...remove once testing done
+        self.companyObservable.COMPANYNAME('JCInc');
+        self.companyObservable.POCLastName('POCLn');
+        self.companyObservable.POCFirstName('POCFn');
+        self.companyObservable.IndustryId('1');
+
+        self.opportunity.NAME('JCIncOpp');
+        self.opportunity.Pain('None');
+        self.opportunity.ProductID('1');
+        self.opportunity.STATUSID('1');
+        self.opportunity.SourceID('1');
+        self.opportunity.TypeID('1');
+        self.opportunity.VALUE('5000000');
+        self.opportunity.OppCloseDatec('7/1/2014');
+        self.contactObservable.NextContactDatec('7/1/2014');
+        self.contactObservable.ApptSourceId('1');
 
 
         //For Notes
@@ -190,26 +206,67 @@ function initialize_quickStartF(type) {
 
 
         self.continueWithSave = function () {
-            console.log(self.companyObservable);
-            console.log(self.contactObservable);
-            console.log(self.opportunity);
+            //console.log(self.companyObservable);
+            //console.log(self.contactObservable);
+            //console.log(self.opportunity);
             self.dirtyFlag.reset();
             $('#quickStart_body').block({ message: null });
-            
+            self.companyObservable.NEXTCONTACT_DATE(self.contactObservable.NextContactDatec());
+
+            self.contactObservable.FIRSTNAME(self.companyObservable.POCLastName());
+            self.contactObservable.LASTNAME(self.companyObservable.POCFirstName());
+            self.contactObservable.NEXT_CONTACT_DATE(self.contactObservable.NextContactDatec());
+            self.contactObservable.CourseTrainingDate(self.contactObservable.CourseTrainingDatec());
+
+            self.opportunity.CLOSEDATE(self.opportunity.OppCloseDatec());
             $.ajax({
-                url: 'api/ContactSave',
+                url: 'api/QS/CompanySave',
                 type: "POST",
-                data: { contact: ko.toJSON(self.contactObservable), quickstartSave: true },
+                data: ko.toJSON(self.companyObservable),
                 dataType: "json",
                 contentType: "application/json; charset=utf-8",
                 async: false,
                 success: function (response) {
-                    console.log('saved contact');
-                    showNoti_.info('Contact saved successfully.', true);
-                    //RefreshGrid();
+                    if (response.success) {
+                        self.contactObservable.COMPANYID(response.UniqueId);
+                        $.ajax({
+                            url: 'api/QS/ContactSave',
+                            type: "POST",
+                            data: ko.toJSON(self.contactObservable),
+                            dataType: "json",
+                            contentType: "application/json; charset=utf-8",
+                            async: false,
+                            success: function (response) {
+                                if (response != undefined) {
+                                    self.opportunity.COMPANYID(response.COMPANYID);
+                                    self.opportunity.CONTACTID(response.CONTACTSID);
+                                    $.ajax({
+                                        url: 'api/QS/PipelineSave',
+                                        type: "POST",
+                                        data: ko.toJSON(self.opportunity),
+                                        dataType: "json",
+                                        contentType: "application/json; charset=utf-8",
+                                        async: false,
+                                        success: function (response) {
+                                            console.log('saved contact');
+                                            showNoti_.info('Saved successfully.', true);
+                                        },
+                                        error: function (response, errorText) {
+                                            showNoti_.error('Unable to save pipeline, server error occures.', true);
+                                            return false;
+                                        }
+                                    });
+                                }
+                            },
+                            error: function (response, errorText) {
+                                showNoti_.error('Unable to save contact, server error occures.', true);
+                                return false;
+                            }
+                        });
+                    }
                 },
                 error: function (response, errorText) {
-                    showNoti_.error('Unable to save contact, server error occures.', true);
+                    showNoti_.error('Unable to save company, server error occures.', true);
                     return false;
                 }
             });
