@@ -8,7 +8,7 @@ function ng_quickStartCtrl($scope, $http) {
 
         });        
         
-        var vm = new quickStartDataVM(observable);
+        var vm = new quickStartDataVM(observable, scenario);
         ko.applyBindings(vm, document.getElementById("quickStart_body"));
     });
         
@@ -98,9 +98,9 @@ function initialize_quickStartF(type) {
 }
     var startModule = sandler.appStart.module;
     //First time display the data
-    function quickStartDataVM(opportunityObservable) {
+    function quickStartDataVM(opportunityObservable, scenario) {
         var self = this;
-
+        self.scenario = scenario;
         self.products = startModule.getProductTypes();
         console.log(startModule.getProductTypes());
         self.whyLosts = startModule.getOpportunityWhyLosts();
@@ -111,30 +111,22 @@ function initialize_quickStartF(type) {
         self.appSources = startModule.getAppointmentSources();
         self.yesNoData = startModule.getYesNoOptions();
         self.courseTypes = startModule.getCourses();
+        self.companies = startModule.getUserCompanies();
+        self.companyObservable = ko.mapping.fromJS(jsonDataCaller.syncCall(baseUrl + "/api/Company/Get?id=0", null));
+        self.contactObservable = ko.mapping.fromJS(jsonDataCaller.syncCall(baseUrl + "/api/Contact/Get?id=0", null));
 
-
+        self.selectedCompanyId = ko.observable();
+        self.selectedCompanyId.subscribe(function (newValue) {
+            if (newValue != '') 
+            {
+                self.companyObservable = ko.mapping.fromJS(jsonDataCaller.syncCall(baseUrl + "/api/Company/Get?id=" + newValue, null));
+            }
+        });
         self.opportunity = opportunityObservable;
 
-        var company;
-        if (self.opportunity.ID > 0) {
-            //load company
-            //self.company = 
-            //load primary contact for POC
-            company = startModule.getCompanyById(self.opportunity.COMPANYID);
-            self.contact = ko.observable(startModule.getCompanyById(self.opportunity.CONTACTID));
-        }
-        else {
-            company = jsonDataCaller.syncCall(baseUrl + "/api/Company/Get?id=0", null);
-            self.companyObservable = ko.mapping.fromJS(jsonDataCaller.syncCall(baseUrl + "/api/Company/Get?id=0", null));
-            self.contactObservable = ko.mapping.fromJS(jsonDataCaller.syncCall(baseUrl + "/api/Contact/Get?id=0", null));
-        }
+        
+
         self.IsSaved = ko.observable(false);
-        //self.COMPANYNAME = ko.observable(company.COMPANYNAME).extend({ required: "" });
-        //self.POCLastName = ko.observable(company.POCLastName).extend({ required: "" });
-        //self.POCFirstName = ko.observable(company.POCFirstName).extend({ required: "" });
-        //self.POCPhone = ko.observable(company.POCPhone);
-        //self.POCDepartment = ko.observable(company.POCDepartment);
-        //self.POCEmail = ko.observable(company.POCEmail);
 
         self.companyObservable.COMPANYNAME.extend({ required: "" });
         self.companyObservable.POCLastName.extend({ required: "" });
@@ -194,7 +186,12 @@ function initialize_quickStartF(type) {
         self.Notes = ko.observable(self.opportunity.Notes());
 
         self.pageTitle = ko.computed(function () {
-            return ("Add 3-In-1");
+            if (self.scenario != undefined && self.scenario == 'add')
+                return 'Add New Opportunity';
+            else if (self.scenario == 'edit')
+                return 'Edit Opportunity';
+            else
+                return 'Add 3 In 1';
         });
 
         self.dirtyFlag = new ko.dirtyFlag_quickStart(self);
