@@ -117,9 +117,8 @@ function initialize_quickStartF(type) {
 
         self.selectedCompanyId = ko.observable();
         self.selectedCompanyId.subscribe(function (newValue) {
-            if (newValue != '') 
-            {
-                self.companyObservable = ko.mapping.fromJS(jsonDataCaller.syncCall(baseUrl + "/api/Company/Get?id=" + newValue, null));
+            if (newValue != '') {
+                self.companyObservable.COMPANIESID(newValue);
             }
         });
         self.opportunity = opportunityObservable;

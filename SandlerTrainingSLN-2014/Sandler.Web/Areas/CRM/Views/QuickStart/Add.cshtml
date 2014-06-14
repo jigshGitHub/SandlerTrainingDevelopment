@@ -37,9 +37,9 @@
                         <div class="col-sm-12 no-margin">
                             <form role="form">
                                 <div class="form-group" >
-                                    <label>Company Name&nbsp;<span class="label label-danger" data-bind='visible: companyObservable.COMPANYNAME.hasError, text: companyObservable.COMPANYNAME.validationMessage'></span></label>                  
+                                    <label>Company Name&nbsp;<span class="label label-danger" data-bind="visible: companyObservable.COMPANYNAME.hasError, text: companyObservable.COMPANYNAME.validationMessage" ></span></label>                  
                                     <div class="controls">
-                                        <input id="QS_CompanyName" type="text" data-bind="kendoDropDownList: { dataTextField: 'name', dataValueField: 'id', data: companies, value: selectedCompanyId }" />
+                                        <input id="QS_CompanyName" type="text" data-bind="kendoDropDownList: { dataTextField: 'name', dataValueField: 'id', data: companies, value: selectedCompanyId, optionLabel: 'Please Select...' }" />
                                     </div>
                                      <label>POC First Name&nbsp;<span class="label label-danger" data-bind='visible: companyObservable.POCFirstName.hasError, text: companyObservable.POCFirstName.validationMessage'></span></label>                  
                                     <div class="controls">
