@@ -60,6 +60,23 @@ namespace Sandler.Web.Controllers.API
 
         }
 
+        [Route("api/PipelineViewForCompany/")]
+        public HttpResponseMessage GetPipelineForCompanies(int companyId)
+        {
+            List<OpportunityView> opportunities = null;
+            
+            string sortField = HttpContext.Current.Request.QueryString["sort[0][field]"];
+            string sortDir = HttpContext.Current.Request.QueryString["sort[0][dir]"];
+            bool filterByCompany = !string.IsNullOrEmpty(HttpContext.Current.Request.QueryString["filter[filters][0][field]"]);
+            string orderBy = "NAME ASC";
+            opportunities = uow.OpportunityRepository().Get(orderBy, 0, 0, CurrentUser.UserId, companyId, "", false).ToList();
+
+            var returnObject = new { success = true, __count = (opportunities.Count > 0) ? opportunities.FirstOrDefault().TotalCount : 0, results = opportunities };
+            return Request.CreateResponse(returnObject);
+
+        }
+
+
         public HttpResponseMessage Get(int id)
         {
             var data = uow.Repository<TBL_OPPORTUNITIES>().GetById(id);

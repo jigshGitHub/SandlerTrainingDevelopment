@@ -43,5 +43,10 @@ namespace Sandler.Web.Areas.CRM.Controllers
         {
             return PartialView(QuickStartViewModel);
         }
+
+        public ActionResult Edit()
+        {
+            return PartialView(QuickStartViewModel);
+        }
     }
 }
