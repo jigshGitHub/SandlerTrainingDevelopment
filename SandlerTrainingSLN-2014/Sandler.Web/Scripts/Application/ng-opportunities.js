@@ -5,7 +5,7 @@ function showDetails(e) {
     var dataItem = $("#opportunitiesSearchgrid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
    // console.log(dataItem);
     var path = "navi?url=" + baseUrl + "/CRM/Pipeline/Manage?id=" + dataItem.ID;
-    showModal_.html(path, null, '70%');
+    showModal_.html(path, null, '95%');
 }
 
 function triggerSearch(e) {
@@ -18,6 +18,102 @@ function triggerSearch(e) {
 function RefreshGrid() {
     $("#btnSearch").click();
 }
+
+//function get_kendoCompaniesData() {
+//    var startModule = sandler.appStart.module;
+//    var data = startModule.getUserCompanies();
+//    var kendoDropDownData = {
+//        dataTextField: "name",
+//        dataValueField: "id",
+//        optionLabel: "All",
+//        dataSource: data,
+//        index: 0,
+//        change: companyOnChange
+//    };
+//    return kendoDropDownData;
+//}
+
+function get_kendoGridData(searchText) {
+    var dataSource = get_gridDataSource(searchText)
+    var kendoGridData = {
+        dataSource: dataSource,
+        height: 480,
+        filterable: false,
+        sortable: true,
+        pageable: {
+            refresh: true,
+            pageSizes: true
+        },
+        resizable: true,
+        columnMenu: true,
+        scrollable: true,
+        navigatable: true,
+        selectable: true,
+        columns: [
+            {
+                command: [
+                            { template: "<button title='View/Edit' class='btn btn-success btn-sm editsa' onclick='showDetails(event)'><span class='glyphicon glyphicon-search'></span></button>" },
+                            { template: "&nbsp;<button title='Archive Opportunity' class='btn btn-warning btn-sm deletesa' onclick='archiveOpportunity(event)'><span class='glyphicon glyphicon-remove'></span></button>" }
+                ],
+                title: " ", width: "35px"
+            },
+            { field: "ID", title: "ID", width: "30px", attributes: { "class": "sptablecell" } },
+            { field: "NAME", title: "Name", width: "80px", attributes: { "class": "sptablecell" } },
+            { field: "COMPANYNAME", title: "Company", width: "60px", attributes: { "class": "sptablecell" } },
+            { field: "VALUE", title: "Value", width: "60px", format: "{0:c2}", attributes: { "class": "sptablecell" } },
+            { field: "CLOSEDATE", title: "Close Date", width: "50px", format: "{0:MM/dd/yyyy}", attributes: { "class": "sptablecell" } },
+            { field: "SALESREP", title: "Sales Rep", width: "50px", attributes: { "class": "sptablecell" } },
+            { field: "Status", title: "Status", width: "50px", attributes: { "class": "sptablecell" } }
+
+        ]
+    }
+    return kendoGridData;
+}
+
+function get_gridDataSource(searchText) {
+    var dataSource = {
+        type: "json",
+        transport: {
+            read: {
+                url: "api/PipelineView/",
+                dataType: "json",
+                data: { searchText: searchText },
+                cache: false //This is required othewise grid does not refresh after Edit operation in IE
+            }
+        },
+        schema: {
+            data: "results",
+            total: "__count",
+            model: {
+                fields: {
+                    ID: { type: 'string' },
+                    NAME: { type: 'string' },
+                    COMPANYNAME: { type: 'string' },
+                    VALUE: { type: 'number' },
+                    CLOSEDATE: { type: 'date' },
+                    SALESREP: { type: 'string' },
+                    Status: { type: 'string' }
+                }
+            }
+        },
+        pageSize: 50,
+        serverPaging: true,
+        serverFiltering: true,
+        serverSorting: true
+    };
+    return dataSource;
+}
+
+//function companyOnChange() {
+//    var companySelectedId = $("#companiesSelection").val();
+//    //console.log('selected company' + companySelectedId);
+//    if (companySelectedId) {
+//        opportunitiesSearchgrid.data("kendoGrid").dataSource.filter({ field: "COMPANIESID", operator: "eq", value: parseInt(companySelectedId) });
+//    } else {
+//        opportunitiesSearchgrid.data("kendoGrid").dataSource.filter({});
+//    }
+//};
+
 function archiveOpportunity(e) {
     e.preventDefault();
     var dataItem = $("#opportunitiesSearchgrid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
@@ -49,6 +145,7 @@ function archiveOpportunity(e) {
           });//confirm ends here
 
 }
+
 function ng_opportunitiesCtrl($scope, $http) {
     angular.element(document).ready(function () {
 
@@ -57,7 +154,7 @@ function ng_opportunitiesCtrl($scope, $http) {
         var kendoGridData = get_kendoGridData("");
         var opportunitiesSearchgrid = $("#opportunitiesSearchgrid").kendoGrid(kendoGridData);
 
-        $('#companiesSelection').kendoDropDownList(get_kendoCompaniesData());
+        //$('#companiesSelection').kendoDropDownList(get_kendoCompaniesData());
         showNoti_.hide();
 
         //When Search Button is clicked 
@@ -74,100 +171,55 @@ function ng_opportunitiesCtrl($scope, $http) {
             return true;
         });
 
-        function get_kendoCompaniesData() {
-            var startModule = sandler.appStart.module;
-            var data = startModule.getUserCompanies();
-            var kendoDropDownData = {
-                dataTextField: "name",
-                dataValueField: "id",
-                optionLabel: "All",
-                dataSource: data,
-                index: 0,
-                change: companyOnChange
-            };
-            return kendoDropDownData;
-        }
-
-        function get_kendoGridData(searchText) {
-            var dataSource = get_gridDataSource(searchText)
-            var kendoGridData = {
-                dataSource: dataSource,
-                height: 480,
-                filterable: false,
-                sortable: true,
-                pageable: {
-                    refresh: true,
-                    pageSizes: true
-                },
-                resizable: true,
-                columnMenu: true,
-                scrollable: true,
-                navigatable: true,
-                selectable: true,
-                columns: [
-                    {
-                        command: [
-                                    { template: "<button title='View/Edit' class='btn btn-success btn-sm editsa' onclick='showDetails(event)'><span class='glyphicon glyphicon-search'></span></button>" },
-                                    { template: "&nbsp;<button title='Archive Opportunity' class='btn btn-warning btn-sm deletesa' onclick='archiveOpportunity(event)'><span class='glyphicon glyphicon-remove'></span></button>" }
-                        ],
-                        title: " ", width: "35px"
-                    },
-                    { field: "ID", title: "ID", width: "30px", attributes: { "class": "sptablecell" } },
-                    { field: "NAME", title: "Name", width: "80px", attributes: { "class": "sptablecell" } },
-                    { field: "COMPANYNAME", title: "Company", width: "60px", attributes: { "class": "sptablecell" } },
-                    { field: "VALUE", title: "Value", width: "60px", format: "{0:c2}",attributes: { "class": "sptablecell" } },
-                    { field: "CLOSEDATE", title: "Close Date", width: "50px", format: "{0:MM/dd/yyyy}", attributes: { "class": "sptablecell" } },
-                    { field: "SALESREP", title: "Sales Rep", width: "50px", attributes: { "class": "sptablecell" } },
-                    { field: "Status", title: "Status", width: "50px", attributes: { "class": "sptablecell" } }
-
-                ]
-            }
-            return kendoGridData;
-        }
-
-        function get_gridDataSource(searchText) {
-            var dataSource = {
-                type: "json",
+        //Auto Complete Lookup for Company Selection
+        $("#cmp_Lookup").kendoAutoComplete({
+            minLength: 3,
+            filter: "startswith",
+            select: function (e) {
+                var dataItem = this.dataItem(e.item.index());
+                //console.log(dataItem.COMPANIESID);
+                var companySelectedId = dataItem.COMPANIESID;
+                if (companySelectedId > 0) {
+                    opportunitiesSearchgrid.data("kendoGrid").dataSource.filter({ field: "COMPANIESID", operator: "eq", value: parseInt(companySelectedId) });
+                }
+            },
+            dataTextField: "COMPANYNAME",
+            dataValueField: "COMPANIESID",
+            dataSource:
+            {
+                type: "odata",
+                serverFiltering: true,
+                serverPaging: true,
+                pageSize: 10,
                 transport: {
                     read: {
-                        url: "api/PipelineView/",
                         dataType: "json",
-                        data: { searchText: searchText },
-                        cache: false //This is required othewise grid does not refresh after Edit operation in IE
+                        url: "api/CompanyLookup/"
+                    },
+                    parameterMap: function () {
+                        //We need to pass parameters 
+                        return { criteria: $("#cmp_Lookup").val() };
                     }
                 },
                 schema: {
-                    data: "results",
-                    total: "__count",
-                    model: {
-                        fields: {
-                            ID: { type: 'string' },
-                            NAME: { type: 'string' },
-                            COMPANYNAME: { type: 'string' },
-                            VALUE: { type: 'number' },
-                            CLOSEDATE: { type: 'date' },
-                            SALESREP: { type: 'string' },
-                            Status: { type: 'string' }
-                        }
+                    data: function (data) {
+                        return data.results;//Actual list is within results
+                    },
+                    total: function (data) {
+                        return 10;//Always max 10
                     }
-                },
-                pageSize: 50,
-                serverPaging: true,
-                serverFiltering: true,
-                serverSorting: true
-            };
-            return dataSource;
-        }
+                }
+            },
+            //Clear the selction after user has selected the FEC from Lookup
+            change: function (e) {
+                if ($("#cmp_Lookup").val() == "") {
+                    //User wants to see them all
+                    opportunitiesSearchgrid.data("kendoGrid").dataSource.filter({});
+                }
 
-        function companyOnChange() {
-            var companySelectedId = $("#companiesSelection").val();
-            //console.log('selected company' + companySelectedId);
-            if (companySelectedId) {
-                opportunitiesSearchgrid.data("kendoGrid").dataSource.filter({ field: "COMPANIESID", operator: "eq", value: parseInt(companySelectedId) });
-            } else {
-                opportunitiesSearchgrid.data("kendoGrid").dataSource.filter({});
             }
-        };        
+        });
+
         
     });
 

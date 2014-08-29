@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="5f1e4f31ed1d40daaca1aecfe34018e2" Name="Diagram1">
+      <Diagram DiagramId="5f1e4f31ed1d40daaca1aecfe34018e2" Name="Diagram1" ZoomLevel="81">
         <EntityTypeShape EntityType="SandlerDBModel.Tbl_AppointmentsSource" Width="1.5" PointX="12.75" PointY="25.5" IsExpanded="true" />
         <EntityTypeShape EntityType="SandlerDBModel.Tbl_AwardLevel" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="SandlerDBModel.Tbl_BehindAmount" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
@@ -83,7 +83,6 @@
         <AssociationConnector Association="SandlerDBModel.FK_TBL_OpportunitiesHistory_TBL_OPPORTUNITIES" ManuallyRouted="false" />
         <EntityTypeShape EntityType="SandlerDBModel.vw_Contacts" Width="1.5" PointX="3.375" PointY="13.75" />
         <EntityTypeShape EntityType="SandlerDBModel.vw_Opportunities" Width="1.5" PointX="20.375" PointY="0.75" />
-        <EntityTypeShape EntityType="SandlerDBModel.vw_Companies" Width="1.5" PointX="15.375" PointY="0.75" />
         <EntityTypeShape EntityType="SandlerDBModel.TBL_CONTACTS" Width="1.5" PointX="15" PointY="19.75" />
         <AssociationConnector Association="SandlerDBModel.FK_TBL_CONTACTS_Tbl_AppointmentsSource" />
         <AssociationConnector Association="SandlerDBModel.FK_TBL_CONTACTS_TBL_Companies" />
@@ -97,6 +96,7 @@
         <EntityTypeShape EntityType="SandlerDBModel.pageMenu" Width="1.5" PointX="11.336769718367965" PointY="14.307682252632306" />
         <EntityTypeShape EntityType="SandlerDBModel.pageMenuGroup" Width="1.5" PointX="1.5282929137015215" PointY="5.23253721242423" />
         <EntityTypeShape EntityType="SandlerDBModel.Tbl_ModulesForRoles" Width="1.5" PointX="4.614406839299205" PointY="12.790893188114694" />
+        <EntityTypeShape EntityType="SandlerDBModel.vw_Companies" Width="1.5" PointX="6.5012650091672626" PointY="20.986581201193193" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

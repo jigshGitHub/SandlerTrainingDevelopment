@@ -31,6 +31,27 @@ namespace Sandler.DB.Models
             return q.ToList();
         }
 
+        public List<CompanyView> GetCompanyLookup(string searchText, string orderBy, int? pageSize, int? pageNo, int? coachId, int? franchiseeId, bool selectForExcel)
+        {
+            if (string.IsNullOrEmpty(searchText))
+                searchText = "";
+
+            string whereClause = "";
+            if (coachId.HasValue)
+                whereClause = whereClause + ",@coachId=" + coachId.Value;
+            if (franchiseeId.HasValue)
+                whereClause = whereClause + ",@franchiseeId=" + franchiseeId.Value;
+            if (selectForExcel)
+                whereClause = whereClause + ",@selectForExcel=1";
+
+            string query = string.Format("exec [sp_CompanyLookup] @orderBy='{0}' ,@pageSize={1},@pageNo={2}{3},@searchText='{4}'"
+                , orderBy, pageSize, pageNo, whereClause, searchText);
+
+            var q = Database.SqlQuery<CompanyView>(query);
+
+            return q.ToList();
+        }
+
         public List<MyTaskView> GetMyTaskView(string Role, string UserId, int? FranchiseeId, int? RegionId)
         {
             string query = string.Format("exec [sp_GetAllTasks] @Role='{0}',@UserId= '{1}',@FranchiseeId={2},@RegionId={3} ", Role, UserId, FranchiseeId, RegionId);
@@ -202,6 +223,82 @@ namespace Sandler.DB.Models
             return q.ToList();
         }
 
+        public List<MyTaskView> GetmytasksList(string orderBy, int? pageSize, int? pageNo, string UserId, int? FranchiseeId, int? CoachId)
+        {
+            //string whereClause = "";
+            //if (CoachId.HasValue)
+            //    whereClause = whereClause + ",@CoachId=" + CoachId.Value;
+            //if (FranchiseeId.HasValue)
+            //    whereClause = whereClause + ",@FranchiseeId=" + FranchiseeId.Value;
+
+            //string query = string.Format("exec [sp_GetMyTaskList] @orderBy='{0}' ,@pageSize={1},@pageNo={2}, @UserId='{3}'{4} ", orderBy, pageSize, pageNo, UserId, whereClause);
+            string query = string.Format("exec [sp_GetMyTaskList] @orderBy='{0}' ,@pageSize={1},@pageNo={2}, @UserId='{3}' ", orderBy, pageSize, pageNo, UserId);
+
+            var q = Database.SqlQuery<MyTaskView>(query);
+
+            return q.ToList();
+        }
+
+        public List<MyTaskView> GetmyAppointmentsList(string orderBy, int? pageSize, int? pageNo, string UserId, int? FranchiseeId, int? CoachId)
+        {
+            //string whereClause = "";
+            //if (CoachId.HasValue)
+            //    whereClause = whereClause + ",@CoachId=" + CoachId.Value;
+            //if (FranchiseeId.HasValue)
+            //    whereClause = whereClause + ",@FranchiseeId=" + FranchiseeId.Value;
+
+            //string query = string.Format("exec [sp_GetMyAppointmentList] @orderBy='{0}' ,@pageSize={1},@pageNo={2}, @UserId='{3}'{4} ", orderBy, pageSize, pageNo, UserId, whereClause);
+            string query = string.Format("exec [sp_GetMyAppointmentList] @orderBy='{0}' ,@pageSize={1},@pageNo={2}, @UserId='{3}' ", orderBy, pageSize, pageNo, UserId);
+
+            var q = Database.SqlQuery<MyTaskView>(query);
+
+            return q.ToList();
+            
+        }
+        
+        public List<MyTaskView> GetmyOpportunityList(string orderBy, int? pageSize, int? pageNo, string UserId, int? FranchiseeId, int? CoachId)
+        {
+            //string whereClause = "";
+            //if (CoachId.HasValue)
+            //    whereClause = whereClause + ",@CoachId=" + CoachId.Value;
+            //if (FranchiseeId.HasValue)
+            //    whereClause = whereClause + ",@FranchiseeId=" + FranchiseeId.Value;
+
+            //string query = string.Format("exec [sp_GetMyOpportunityList] @orderBy='{0}' ,@pageSize={1},@pageNo={2}, @UserId='{3}'{4} ", orderBy, pageSize, pageNo, UserId, whereClause);
+            string query = string.Format("exec [sp_GetMyOpportunityList] @orderBy='{0}' ,@pageSize={1},@pageNo={2}, @UserId='{3}' ", orderBy, pageSize, pageNo, UserId);
+
+            var q = Database.SqlQuery<MyTaskView>(query);
+
+            return q.ToList();
+        }
+
+
+        public List<initiativePieCHARTdata> GetPieChartData()
+        {
+            string query = "SELECT [_activityGROUPid] ,[_activityGROUP] ,[_activityCODEid] ,[_activityCODE] ,[_activityYvalue] ,[_activityXlabel] FROM [dbo].[initiativePieCHARTdata]";
+
+            var q = Database.SqlQuery<initiativePieCHARTdata>(query);
+
+            return q.ToList();
+        }
+
+        public List<initiativescrollLineCHARTdata> GetScrollLineChartData()
+        {
+            string query = "SELECT [_date],[_monthYear] ,[_signUpCount] ,[_uniqActivityCount] FROM [dbo].[initiativescrollLineCHARTdata]";
+
+            var q = Database.SqlQuery<initiativescrollLineCHARTdata>(query);
+
+            return q.ToList();
+        }
+
+        public List<initiativeLineCHARTdata> GetLineChartData()
+        {
+            string query = "SELECT [_week] ,[_batchdte] ,[_date] ,[_date1] ,[_donationCOUNT] ,[_donationDOLLAR] FROM [dbo].[initiativeLineCHARTdata]";
+
+            var q = Database.SqlQuery<initiativeLineCHARTdata>(query);
+
+            return q.ToList();
+        }
 
     }
 }

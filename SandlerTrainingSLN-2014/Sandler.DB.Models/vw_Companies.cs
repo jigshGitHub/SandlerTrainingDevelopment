@@ -62,6 +62,5 @@ namespace Sandler.DB.Models
         public string Notes { get; set; }
         public Nullable<bool> IsSameBillingAddress { get; set; }
         public string Country { get; set; }
-        public Nullable<System.DateTime> StartTime { get; set; }
     }
 }

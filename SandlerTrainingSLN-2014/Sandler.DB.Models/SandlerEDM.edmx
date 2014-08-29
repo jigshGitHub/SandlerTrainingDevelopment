@@ -110,8 +110,7 @@
       [vw_Companies].[EmpQuantity] AS [EmpQuantity], 
       [vw_Companies].[Notes] AS [Notes], 
       [vw_Companies].[IsSameBillingAddress] AS [IsSameBillingAddress], 
-      [vw_Companies].[Country] AS [Country], 
-      [vw_Companies].[StartTime] AS [StartTime]
+      [vw_Companies].[Country] AS [Country]
       FROM [dbo].[vw_Companies] AS [vw_Companies]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="vw_Contacts" EntityType="SandlerDBModel.Store.vw_Contacts" store:Type="Views" store:Schema="dbo" store:Name="vw_Contacts">
@@ -673,7 +672,7 @@
           <Property Name="LetterSentDate" Type="datetime" />
           <Property Name="SpouseName" Type="varchar" MaxLength="50" />
           <Property Name="ReferredBy" Type="varchar" MaxLength="50" />
-          <Property Name="Notes" Type="varchar" MaxLength="1000" />
+          <Property Name="Notes" Type="varchar(max)" />
           <Property Name="Country" Type="varchar" MaxLength="80" />
           <Property Name="TrainingCourseName" Type="varchar" MaxLength="150" />
           <Property Name="HowManyAttended" Type="int" />
@@ -852,6 +851,18 @@
           <Property Name="CountryID" Type="int" />
           <Property Name="IsEmailSubscription" Type="bit" />
           <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="JanRevenueGoal" Type="int" />
+          <Property Name="FebRevenueGoal" Type="int" />
+          <Property Name="MarRevenueGoal" Type="int" />
+          <Property Name="AprRevenueGoal" Type="int" />
+          <Property Name="MayRevenueGoal" Type="int" />
+          <Property Name="JunRevenueGoal" Type="int" />
+          <Property Name="JulRevenueGoal" Type="int" />
+          <Property Name="AugRevenueGoal" Type="int" />
+          <Property Name="SepRevenueGoal" Type="int" />
+          <Property Name="OctRevenueGoal" Type="int" />
+          <Property Name="NovRevenueGoal" Type="int" />
+          <Property Name="DecRevenueGoal" Type="int" />
         </EntityType>
         <EntityType Name="TBL_GA_EstBenefitsGained">
           <Key>
@@ -1051,6 +1062,7 @@
           <Property Name="UpdatedDate" Type="datetime" />
           <Property Name="CreatedBy" Type="uniqueidentifier" />
           <Property Name="UpdatedBy" Type="uniqueidentifier" />
+          <Property Name="STATUSID" Type="int" />
         </EntityType>
         <EntityType Name="TBL_OpportunitySource">
           <Key>
@@ -1070,6 +1082,7 @@
           </Key>
           <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="WinProbability" Type="varchar" MaxLength="50" />
           <Property Name="IsActive" Type="bit" />
           <Property Name="CreateBy" Type="uniqueidentifier" />
           <Property Name="CreatedDate" Type="datetime" />
@@ -1174,7 +1187,7 @@
           <Property Name="IsActive" Type="bit" />
         </EntityType>
         <!--Errors Found During Generation:
-      warning 6002: The table/view 'SandlerDB.dbo.TBL_Trng_Expenditure' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      warning 6002: The table/view 'MetricsIntelligence.dbo.TBL_Trng_Expenditure' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
       -->
         <EntityType Name="TBL_Trng_Expenditure">
           <Key>
@@ -1207,7 +1220,7 @@
           <Property Name="Value" Type="int" />
         </EntityType>
         <!--Errors Found During Generation:
-      warning 6002: The table/view 'SandlerDB.dbo.vw_Companies' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      warning 6002: The table/view 'MetricsIntelligence.dbo.vw_Companies' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
       -->
         <EntityType Name="vw_Companies">
           <Key>
@@ -1262,13 +1275,12 @@
           <Property Name="AssistantPhone" Type="varchar" MaxLength="50" />
           <Property Name="Website" Type="varchar" MaxLength="100" />
           <Property Name="EmpQuantity" Type="int" />
-          <Property Name="Notes" Type="varchar" MaxLength="1000" />
+          <Property Name="Notes" Type="varchar" MaxLength="300" />
           <Property Name="IsSameBillingAddress" Type="bit" />
           <Property Name="Country" Type="varchar" MaxLength="80" />
-          <Property Name="StartTime" Type="datetime" />
         </EntityType>
         <!--Errors Found During Generation:
-      warning 6002: The table/view 'SandlerDB.dbo.vw_Contacts' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      warning 6002: The table/view 'MetricsIntelligence.dbo.vw_Contacts' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
       -->
         <EntityType Name="vw_Contacts">
           <Key>
@@ -1348,7 +1360,7 @@
           <Property Name="StartTime" Type="datetime" />
         </EntityType>
         <!--Errors Found During Generation:
-      warning 6002: The table/view 'SandlerDB.dbo.vw_Opportunities' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      warning 6002: The table/view 'MetricsIntelligence.dbo.vw_Opportunities' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
       -->
         <EntityType Name="vw_Opportunities">
           <Key>
@@ -2158,7 +2170,7 @@
             <End Role="TBL_OPPORTUNITIES" EntitySet="TBL_OPPORTUNITIES" />
             <End Role="TBL_OpportunitiesHistory" EntitySet="TBL_OpportunitiesHistory" />
           </AssociationSet>
-          <FunctionImport Name="GetCompaniesByUser" EntitySet="vw_Companies" ReturnType="Collection(SandlerDBModel.vw_Companies)">
+          <FunctionImport Name="GetCompaniesByUser">
           <Parameter Name="userId" Mode="In" Type="Guid" />
           </FunctionImport>
           <EntitySet Name="vw_Contacts" EntityType="SandlerDBModel.vw_Contacts" />
@@ -2220,7 +2232,6 @@
             <Parameter Name="searchNewCompany" Mode="In" Type="Boolean" />
             <Parameter Name="companyIds" Mode="In" Type="String" />
           </FunctionImport>
-          <EntitySet Name="vw_Companies" EntityType="SandlerDBModel.vw_Companies" />
           <EntitySet Name="TBL_CONTACTS" EntityType="SandlerDBModel.TBL_CONTACTS" />
           <AssociationSet Name="FK_TBL_CONTACTS_Tbl_AppointmentsSource" Association="SandlerDBModel.FK_TBL_CONTACTS_Tbl_AppointmentsSource">
             <End Role="Tbl_AppointmentsSource" EntitySet="Tbl_AppointmentsSource" />
@@ -2264,6 +2275,7 @@
           <FunctionImport Name="GetMenuDetail" ReturnType="Collection(SandlerDBModel.MenuDetail)">
           <Parameter Name="appId" Mode="In" Type="Int32" />
           </FunctionImport>
+          <EntitySet Name="vw_Companies" EntityType="SandlerDBModel.vw_Companies" />
         </EntityContainer>
         <EntityType Name="Tbl_AppointmentsSource">
           <Key>
@@ -2625,6 +2637,18 @@
           <Property Name="ID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
           <NavigationProperty Name="TBL_COUNTRY" Relationship="SandlerDBModel.FK_TBL_FRANCHISEE_USERS_TBL_COUNTRY" FromRole="TBL_FRANCHISEE_USERS" ToRole="TBL_COUNTRY" />
           <NavigationProperty Name="TBL_FRANCHISEE" Relationship="SandlerDBModel.FK_TBL_FRANCHISEE_USERS_TBL_FRANCHISEE" FromRole="TBL_FRANCHISEE_USERS" ToRole="TBL_FRANCHISEE" />
+          <Property Type="Int32" Name="JanRevenueGoal" />
+          <Property Type="Int32" Name="FebRevenueGoal" />
+          <Property Type="Int32" Name="MarRevenueGoal" />
+          <Property Type="Int32" Name="AprRevenueGoal" />
+          <Property Type="Int32" Name="MayRevenueGoal" />
+          <Property Type="Int32" Name="JunRevenueGoal" />
+          <Property Type="Int32" Name="JulRevenueGoal" />
+          <Property Type="Int32" Name="AugRevenueGoal" />
+          <Property Type="Int32" Name="SepRevenueGoal" />
+          <Property Type="Int32" Name="OctRevenueGoal" />
+          <Property Type="Int32" Name="NovRevenueGoal" />
+          <Property Type="Int32" Name="DecRevenueGoal" />
         </EntityType>
         <EntityType Name="TBL_GA_EstBenefitsGained">
           <Key>
@@ -2857,6 +2881,7 @@
           <NavigationProperty Name="TBL_COMPANIES" Relationship="SandlerDBModel.FK_TBL_OpportunitiesHistory_TBL_COMPANIES" FromRole="TBL_OpportunitiesHistory" ToRole="TBL_COMPANIES" />
           <NavigationProperty Name="TBL_OPPORTUNITIES" Relationship="SandlerDBModel.FK_TBL_OpportunitiesHistory_TBL_OPPORTUNITIES" FromRole="TBL_OpportunitiesHistory" ToRole="TBL_OPPORTUNITIES" />
           <NavigationProperty Name="TBL_CONTACTS" Relationship="SandlerDBModel.FK_TBL_OpportunitiesHistory_TBL_CONTACTS" FromRole="TBL_OpportunitiesHistory" ToRole="TBL_CONTACTS" />
+          <Property Type="Int32" Name="STATUSID" />
         </EntityType>
         <EntityType Name="TBL_OpportunitySource">
           <Key>
@@ -2884,6 +2909,7 @@
           <Property Name="LastUpdatedDate" Type="DateTime" Precision="3" />
           <Property Name="SortOrder" Type="Int32" />
           <NavigationProperty Name="TBL_OPPORTUNITIES" Relationship="SandlerDBModel.FK_TBL_OPPORTUNITIES_TBL_OPPORTUNITYSTATUS" FromRole="TBL_OPPORTUNITYSTATUS" ToRole="TBL_OPPORTUNITIES" />
+          <Property Type="String" Name="WinProbability" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="TBL_OpportunityTypes">
           <Key>
@@ -3598,64 +3624,6 @@
           <Property Type="Int32" Name="DateDiffInMonths" Nullable="true" />
           <Property Type="Int32" Name="MultipleOfSix" Nullable="true" />
         </ComplexType>
-        <EntityType Name="vw_Companies">
-          <Key>
-            <PropertyRef Name="RegionID" />
-            <PropertyRef Name="Region" />
-            <PropertyRef Name="CoachID" />
-            <PropertyRef Name="FranchiseeName" />
-            <PropertyRef Name="COMPANIESID" />
-          </Key>
-          <Property Name="RegionID" Type="Int32" Nullable="false" />
-          <Property Name="Region" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="CoachID" Type="Int32" Nullable="false" />
-          <Property Name="CoachName" Type="String" MaxLength="101" FixedLength="false" Unicode="true" />
-          <Property Name="FranchiseeName" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="COMPANIESID" Type="Int32" Nullable="false" />
-          <Property Name="COMPANYNAME" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="CITY" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="STATE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="POCLastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="POCFirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="POCPhone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="IsNewCompany" Type="Boolean" />
-          <Property Name="COMPANYVALUEGOAL" Type="Int32" />
-          <Property Name="IndustryId" Type="Int32" />
-          <Property Name="RepLastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="RepFirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="DiscussionTopic" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="ACTIONSTEP" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="LASTCONTACT_DATE" Type="DateTime" Precision="3" />
-          <Property Name="NEXTCONTACT_DATE" Type="DateTime" Precision="3" />
-          <Property Name="CreationDate" Type="DateTime" Precision="3" />
-          <Property Name="FranchiseeId" Type="Int32" />
-          <Property Name="IsActive" Type="Boolean" />
-          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
-          <Property Name="CreatedBy" Type="String" MaxLength="80" FixedLength="false" Unicode="false" />
-          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
-          <Property Name="UpdatedBy" Type="String" MaxLength="80" FixedLength="false" Unicode="false" />
-          <Property Name="Address" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
-          <Property Name="Zip" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="CompanyOwnership" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="CompanyDescription" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="BillingAddress" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
-          <Property Name="BillingState" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="BillingCity" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="BillingZip" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="BillingCountry" Type="String" MaxLength="80" FixedLength="false" Unicode="false" />
-          <Property Name="POCDepartment" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="POCEmail" Type="String" MaxLength="80" FixedLength="false" Unicode="false" />
-          <Property Name="POCFax" Type="String" MaxLength="80" FixedLength="false" Unicode="false" />
-          <Property Name="AssistantLastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="AssistantFirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="AssistantPhone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Website" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="EmpQuantity" Type="Int32" />
-          <Property Name="Notes" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
-          <Property Name="IsSameBillingAddress" Type="Boolean" />
-          <Property Name="Country" Type="String" MaxLength="80" FixedLength="false" Unicode="false" />
-          <Property Type="DateTime" Name="StartTime" Precision="3" />
-        </EntityType>
         <EntityType Name="TBL_CONTACTS">
           <Key>
             <PropertyRef Name="CONTACTSID" />
@@ -3704,7 +3672,7 @@
           <Property Name="LetterSentDate" Type="DateTime" Precision="3" />
           <Property Name="SpouseName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="ReferredBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Notes" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="Country" Type="String" MaxLength="80" FixedLength="false" Unicode="false" />
           <Property Name="TrainingCourseName" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
           <Property Name="HowManyAttended" Type="Int32" />
@@ -3871,6 +3839,63 @@
           <Property Type="String" Name="IndustryTypeName" Nullable="true" MaxLength="150" />
           <Property Type="Int32" Name="AvgCreationDate" Nullable="true" />
         </ComplexType>
+        <EntityType Name="vw_Companies">
+          <Key>
+            <PropertyRef Name="RegionID" />
+            <PropertyRef Name="Region" />
+            <PropertyRef Name="CoachID" />
+            <PropertyRef Name="FranchiseeName" />
+            <PropertyRef Name="COMPANIESID" />
+          </Key>
+          <Property Type="Int32" Name="RegionID" Nullable="false" />
+          <Property Type="String" Name="Region" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="CoachID" Nullable="false" />
+          <Property Type="String" Name="CoachName" MaxLength="101" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="FranchiseeName" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="COMPANIESID" Nullable="false" />
+          <Property Type="String" Name="COMPANYNAME" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="CITY" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="STATE" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="POCLastName" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="POCFirstName" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="POCPhone" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Boolean" Name="IsNewCompany" />
+          <Property Type="Int32" Name="COMPANYVALUEGOAL" />
+          <Property Type="Int32" Name="IndustryId" />
+          <Property Type="String" Name="RepLastName" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="RepFirstName" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="DiscussionTopic" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="ACTIONSTEP" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="LASTCONTACT_DATE" Precision="3" />
+          <Property Type="DateTime" Name="NEXTCONTACT_DATE" Precision="3" />
+          <Property Type="DateTime" Name="CreationDate" Precision="3" />
+          <Property Type="Int32" Name="FranchiseeId" />
+          <Property Type="Boolean" Name="IsActive" />
+          <Property Type="DateTime" Name="CreatedDate" Precision="3" />
+          <Property Type="String" Name="CreatedBy" MaxLength="80" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="UpdatedDate" Precision="3" />
+          <Property Type="String" Name="UpdatedBy" MaxLength="80" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Address" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Zip" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="CompanyOwnership" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="CompanyDescription" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="BillingAddress" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="BillingState" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="BillingCity" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="BillingZip" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="BillingCountry" MaxLength="80" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="POCDepartment" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="POCEmail" MaxLength="80" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="POCFax" MaxLength="80" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="AssistantLastName" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="AssistantFirstName" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="AssistantPhone" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Website" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="EmpQuantity" />
+          <Property Type="String" Name="Notes" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Type="Boolean" Name="IsSameBillingAddress" />
+          <Property Type="String" Name="Country" MaxLength="80" FixedLength="false" Unicode="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -4215,6 +4240,18 @@
           <EntitySetMapping Name="TBL_FRANCHISEE_USERS">
             <EntityTypeMapping TypeName="SandlerDBModel.TBL_FRANCHISEE_USERS">
               <MappingFragment StoreEntitySet="TBL_FRANCHISEE_USERS">
+                <ScalarProperty Name="DecRevenueGoal" ColumnName="DecRevenueGoal" />
+                <ScalarProperty Name="NovRevenueGoal" ColumnName="NovRevenueGoal" />
+                <ScalarProperty Name="OctRevenueGoal" ColumnName="OctRevenueGoal" />
+                <ScalarProperty Name="SepRevenueGoal" ColumnName="SepRevenueGoal" />
+                <ScalarProperty Name="AugRevenueGoal" ColumnName="AugRevenueGoal" />
+                <ScalarProperty Name="JulRevenueGoal" ColumnName="JulRevenueGoal" />
+                <ScalarProperty Name="JunRevenueGoal" ColumnName="JunRevenueGoal" />
+                <ScalarProperty Name="MayRevenueGoal" ColumnName="MayRevenueGoal" />
+                <ScalarProperty Name="AprRevenueGoal" ColumnName="AprRevenueGoal" />
+                <ScalarProperty Name="MarRevenueGoal" ColumnName="MarRevenueGoal" />
+                <ScalarProperty Name="FebRevenueGoal" ColumnName="FebRevenueGoal" />
+                <ScalarProperty Name="JanRevenueGoal" ColumnName="JanRevenueGoal" />
                 <ScalarProperty Name="FranchiseeID" ColumnName="FranchiseeID" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
@@ -4424,6 +4461,7 @@
           <EntitySetMapping Name="TBL_OpportunitiesHistory">
             <EntityTypeMapping TypeName="SandlerDBModel.TBL_OpportunitiesHistory">
               <MappingFragment StoreEntitySet="TBL_OpportunitiesHistory">
+                <ScalarProperty Name="STATUSID" ColumnName="STATUSID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="OpportunityID" ColumnName="OpportunityID" />
                 <ScalarProperty Name="CompanyID" ColumnName="CompanyID" />
@@ -4452,6 +4490,7 @@
           <EntitySetMapping Name="TBL_OPPORTUNITYSTATUS">
             <EntityTypeMapping TypeName="SandlerDBModel.TBL_OPPORTUNITYSTATUS">
               <MappingFragment StoreEntitySet="TBL_OPPORTUNITYSTATUS">
+                <ScalarProperty Name="WinProbability" ColumnName="WinProbability" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />
@@ -4832,61 +4871,6 @@
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="PipelineOpportunityAnalysis" FunctionName="SandlerDBModel.Store.sp_PipelineOpportunityAnalysis" />
-          <EntitySetMapping Name="vw_Companies">
-            <EntityTypeMapping TypeName="SandlerDBModel.vw_Companies">
-              <MappingFragment StoreEntitySet="vw_Companies">
-                <ScalarProperty Name="StartTime" ColumnName="StartTime" />
-                <ScalarProperty Name="Country" ColumnName="Country" />
-                <ScalarProperty Name="IsSameBillingAddress" ColumnName="IsSameBillingAddress" />
-                <ScalarProperty Name="Notes" ColumnName="Notes" />
-                <ScalarProperty Name="EmpQuantity" ColumnName="EmpQuantity" />
-                <ScalarProperty Name="Website" ColumnName="Website" />
-                <ScalarProperty Name="AssistantPhone" ColumnName="AssistantPhone" />
-                <ScalarProperty Name="AssistantFirstName" ColumnName="AssistantFirstName" />
-                <ScalarProperty Name="AssistantLastName" ColumnName="AssistantLastName" />
-                <ScalarProperty Name="POCFax" ColumnName="POCFax" />
-                <ScalarProperty Name="POCEmail" ColumnName="POCEmail" />
-                <ScalarProperty Name="POCDepartment" ColumnName="POCDepartment" />
-                <ScalarProperty Name="BillingCountry" ColumnName="BillingCountry" />
-                <ScalarProperty Name="BillingZip" ColumnName="BillingZip" />
-                <ScalarProperty Name="BillingCity" ColumnName="BillingCity" />
-                <ScalarProperty Name="BillingState" ColumnName="BillingState" />
-                <ScalarProperty Name="BillingAddress" ColumnName="BillingAddress" />
-                <ScalarProperty Name="CompanyDescription" ColumnName="CompanyDescription" />
-                <ScalarProperty Name="CompanyOwnership" ColumnName="CompanyOwnership" />
-                <ScalarProperty Name="Zip" ColumnName="Zip" />
-                <ScalarProperty Name="Address" ColumnName="Address" />
-                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
-                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-                <ScalarProperty Name="FranchiseeId" ColumnName="FranchiseeId" />
-                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
-                <ScalarProperty Name="NEXTCONTACT_DATE" ColumnName="NEXTCONTACT_DATE" />
-                <ScalarProperty Name="LASTCONTACT_DATE" ColumnName="LASTCONTACT_DATE" />
-                <ScalarProperty Name="ACTIONSTEP" ColumnName="ACTIONSTEP" />
-                <ScalarProperty Name="DiscussionTopic" ColumnName="DiscussionTopic" />
-                <ScalarProperty Name="RepFirstName" ColumnName="RepFirstName" />
-                <ScalarProperty Name="RepLastName" ColumnName="RepLastName" />
-                <ScalarProperty Name="IndustryId" ColumnName="IndustryId" />
-                <ScalarProperty Name="COMPANYVALUEGOAL" ColumnName="COMPANYVALUEGOAL" />
-                <ScalarProperty Name="IsNewCompany" ColumnName="IsNewCompany" />
-                <ScalarProperty Name="POCPhone" ColumnName="POCPhone" />
-                <ScalarProperty Name="POCFirstName" ColumnName="POCFirstName" />
-                <ScalarProperty Name="POCLastName" ColumnName="POCLastName" />
-                <ScalarProperty Name="STATE" ColumnName="STATE" />
-                <ScalarProperty Name="CITY" ColumnName="CITY" />
-                <ScalarProperty Name="COMPANYNAME" ColumnName="COMPANYNAME" />
-                <ScalarProperty Name="COMPANIESID" ColumnName="COMPANIESID" />
-                <ScalarProperty Name="FranchiseeName" ColumnName="FranchiseeName" />
-                <ScalarProperty Name="CoachName" ColumnName="CoachName" />
-                <ScalarProperty Name="CoachID" ColumnName="CoachID" />
-                <ScalarProperty Name="Region" ColumnName="Region" />
-                <ScalarProperty Name="RegionID" ColumnName="RegionID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="TBL_CONTACTS">
             <EntityTypeMapping TypeName="SandlerDBModel.TBL_CONTACTS">
               <MappingFragment StoreEntitySet="TBL_CONTACTS">
@@ -5003,6 +4987,60 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="vw_Companies">
+            <EntityTypeMapping TypeName="SandlerDBModel.vw_Companies">
+              <MappingFragment StoreEntitySet="vw_Companies">
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="IsSameBillingAddress" ColumnName="IsSameBillingAddress" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+                <ScalarProperty Name="EmpQuantity" ColumnName="EmpQuantity" />
+                <ScalarProperty Name="Website" ColumnName="Website" />
+                <ScalarProperty Name="AssistantPhone" ColumnName="AssistantPhone" />
+                <ScalarProperty Name="AssistantFirstName" ColumnName="AssistantFirstName" />
+                <ScalarProperty Name="AssistantLastName" ColumnName="AssistantLastName" />
+                <ScalarProperty Name="POCFax" ColumnName="POCFax" />
+                <ScalarProperty Name="POCEmail" ColumnName="POCEmail" />
+                <ScalarProperty Name="POCDepartment" ColumnName="POCDepartment" />
+                <ScalarProperty Name="BillingCountry" ColumnName="BillingCountry" />
+                <ScalarProperty Name="BillingZip" ColumnName="BillingZip" />
+                <ScalarProperty Name="BillingCity" ColumnName="BillingCity" />
+                <ScalarProperty Name="BillingState" ColumnName="BillingState" />
+                <ScalarProperty Name="BillingAddress" ColumnName="BillingAddress" />
+                <ScalarProperty Name="CompanyDescription" ColumnName="CompanyDescription" />
+                <ScalarProperty Name="CompanyOwnership" ColumnName="CompanyOwnership" />
+                <ScalarProperty Name="Zip" ColumnName="Zip" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="FranchiseeId" ColumnName="FranchiseeId" />
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+                <ScalarProperty Name="NEXTCONTACT_DATE" ColumnName="NEXTCONTACT_DATE" />
+                <ScalarProperty Name="LASTCONTACT_DATE" ColumnName="LASTCONTACT_DATE" />
+                <ScalarProperty Name="ACTIONSTEP" ColumnName="ACTIONSTEP" />
+                <ScalarProperty Name="DiscussionTopic" ColumnName="DiscussionTopic" />
+                <ScalarProperty Name="RepFirstName" ColumnName="RepFirstName" />
+                <ScalarProperty Name="RepLastName" ColumnName="RepLastName" />
+                <ScalarProperty Name="IndustryId" ColumnName="IndustryId" />
+                <ScalarProperty Name="COMPANYVALUEGOAL" ColumnName="COMPANYVALUEGOAL" />
+                <ScalarProperty Name="IsNewCompany" ColumnName="IsNewCompany" />
+                <ScalarProperty Name="POCPhone" ColumnName="POCPhone" />
+                <ScalarProperty Name="POCFirstName" ColumnName="POCFirstName" />
+                <ScalarProperty Name="POCLastName" ColumnName="POCLastName" />
+                <ScalarProperty Name="STATE" ColumnName="STATE" />
+                <ScalarProperty Name="CITY" ColumnName="CITY" />
+                <ScalarProperty Name="COMPANYNAME" ColumnName="COMPANYNAME" />
+                <ScalarProperty Name="COMPANIESID" ColumnName="COMPANIESID" />
+                <ScalarProperty Name="FranchiseeName" ColumnName="FranchiseeName" />
+                <ScalarProperty Name="CoachName" ColumnName="CoachName" />
+                <ScalarProperty Name="CoachID" ColumnName="CoachID" />
+                <ScalarProperty Name="Region" ColumnName="Region" />
+                <ScalarProperty Name="RegionID" ColumnName="RegionID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

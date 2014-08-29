@@ -345,6 +345,7 @@ function initialize_quickStartF(type) {
                                         async: false,
                                         success: function (response) {
                                             console.log('saved contact');
+                                            $('#quickStart_body').unblock();
                                             showNoti_.info('Opportunity added successfully.', true);
                                         },
                                         error: function (response, errorText) {
@@ -356,6 +357,7 @@ function initialize_quickStartF(type) {
                             },
                             error: function (response, errorText) {
                                 showNoti_.error('Unable to save contact, server error occures.', true);
+                                $('#quickStart_body').unblock();
                                 return false;
                             }
                         });

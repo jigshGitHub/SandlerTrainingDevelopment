@@ -16,6 +16,7 @@ namespace Sandler.DB.Data.Repositories.Interfaces
         IEnumerable<ClientsAvgLengthWithIndustries> GetClientsAvgLengthWithIndustries(Nullable<System.Guid> userId);
         IEnumerable<CompanyView> Get(string searchText, string orderBy, int? pageSize, int? pageNo, int? coachId, int? franchiseeId, bool selectForExcel);
         IEnumerable<CompanyView> GetArchive(string searchText, string orderBy, int? pageSize, int? pageNo, int? coachId, int? franchiseeId, bool selectForExcel);
+        IEnumerable<CompanyView> GetCompanyLookup(string searchText, string orderBy, int? pageSize, int? pageNo, int? coachId, int? franchiseeId, bool selectForExcel);
         //For Archive Feature
         bool ArchiveCompany(int companyId, string userId);
         bool UnArchiveCompany(int companyId, string userId);

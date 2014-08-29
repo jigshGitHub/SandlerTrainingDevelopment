@@ -26,6 +26,18 @@ namespace Sandler.DB.Models
         public Nullable<int> CountryID { get; set; }
         public Nullable<bool> IsEmailSubscription { get; set; }
         public int ID { get; set; }
+        public Nullable<int> JanRevenueGoal { get; set; }
+        public Nullable<int> FebRevenueGoal { get; set; }
+        public Nullable<int> MarRevenueGoal { get; set; }
+        public Nullable<int> AprRevenueGoal { get; set; }
+        public Nullable<int> MayRevenueGoal { get; set; }
+        public Nullable<int> JunRevenueGoal { get; set; }
+        public Nullable<int> JulRevenueGoal { get; set; }
+        public Nullable<int> AugRevenueGoal { get; set; }
+        public Nullable<int> SepRevenueGoal { get; set; }
+        public Nullable<int> OctRevenueGoal { get; set; }
+        public Nullable<int> NovRevenueGoal { get; set; }
+        public Nullable<int> DecRevenueGoal { get; set; }
     
         public virtual TBL_COUNTRY TBL_COUNTRY { get; set; }
         public virtual TBL_FRANCHISEE TBL_FRANCHISEE { get; set; }

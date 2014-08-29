@@ -195,28 +195,37 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\CRM\Controllers\CompaniesController.cs" />
     <Compile Include="Areas\CRM\Controllers\ContactsController.cs" />
-    <Compile Include="Areas\CRM\Controllers\QuickStartController.cs" />
     <Compile Include="Areas\CRM\Controllers\GlobalSearchController.cs" />
     <Compile Include="Areas\CRM\Controllers\HomeOfficeController.cs" />
     <Compile Include="Areas\CRM\Controllers\HomeOfficeReportsController.cs" />
     <Compile Include="Areas\CRM\Controllers\PipelineController.cs" />
+    <Compile Include="Areas\CRM\Controllers\QuickStartController.cs" />
     <Compile Include="Areas\CRM\CRMAreaRegistration.cs" />
     <Compile Include="Areas\Dashboard\Controllers\HomeController.cs" />
     <Compile Include="Areas\Dashboard\DashboardAreaRegistration.cs" />
     <Compile Include="Areas\MyDay\Controllers\HomeController.cs" />
     <Compile Include="Areas\MyDay\MyDayAreaRegistration.cs" />
+    <Compile Include="Areas\RDL\Controllers\HomeController.cs" />
+    <Compile Include="Areas\RDL\RDLAreaRegistration.cs" />
+    <Compile Include="Areas\RDL\Report.aspx.cs">
+      <DependentUpon>Report.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Areas\RDL\Report.aspx.designer.cs">
+      <DependentUpon>Report.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\APIs\BaseAPIController.cs" />
     <Compile Include="Controllers\APIs\ChartController.cs" />
     <Compile Include="Controllers\APIs\CompanyController.cs" />
     <Compile Include="Controllers\APIs\ContactController.cs" />
-    <Compile Include="Controllers\APIs\QuickStartController.cs" />
     <Compile Include="Controllers\APIs\GlobalSearchController.cs" />
     <Compile Include="Controllers\APIs\HomeOfficeController.cs" />
     <Compile Include="Controllers\APIs\HomeOfficeReportsController.cs" />
     <Compile Include="Controllers\APIs\MyDayController.cs" />
     <Compile Include="Controllers\APIs\PipelineController.cs" />
     <Compile Include="Controllers\APIs\LookupController.cs" />
+    <Compile Include="Controllers\APIs\QuickStartController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\moduleController.cs" />
@@ -240,6 +249,7 @@
     <Compile Include="ViewModels\module_and_PageMenuGroup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Areas\RDL\Report.aspx" />
     <Content Include="contents\bootbox\bootbox.min.js" />
     <Content Include="contents\bootstrap_ua\buttons.html" />
     <Content Include="contents\bootstrap_ua\calendar.html" />
@@ -1053,7 +1063,6 @@
     <Content Include="contents\_shared\dataSource\internet-users.json" />
     <Content Include="Areas\Dashboard\Views\Web.config" />
     <Content Include="Areas\Dashboard\Views\_ViewStart.cshtml" />
-    <Content Include="Areas\Dashboard\Views\Home\Index.cshtml" />
     <Content Include="Disclaimer\MSI_Disclaimer.docx" />
     <Content Include="Areas\CRM\Views\Web.config" />
     <Content Include="Areas\CRM\Views\Companies\Index.cshtml" />
@@ -1069,13 +1078,27 @@
     <Content Include="Areas\CRM\Views\HomeOffice\Edit.cshtml" />
     <Content Include="Areas\CRM\Views\HomeOffice\Index.cshtml" />
     <Content Include="Areas\CRM\Views\HomeOffice\ViewArchived.cshtml" />
-    <Content Include="Areas\MyDay\Views\Home\Dashboard.cshtml" />
+    <Content Include="Areas\MyDay\Views\Home\Dashboard_Old.cshtml" />
     <Content Include="Areas\MyDay\Views\Home\Index.cshtml" />
     <Content Include="Areas\MyDay\Views\Web.config" />
     <Content Include="Areas\CRM\Views\HomeOfficeReports\Index.cshtml" />
+    <Content Include="Areas\MyDay\Views\Home\Dashboard.cshtml" />
+    <Content Include="Areas\Dashboard\Views\Home\Index.cshtml" />
+    <Content Include="Areas\RDL\Views\Web.config" />
+    <Content Include="Areas\RDL\Views\Home\Index.cshtml" />
+    <Content Include="Areas\RDL\Views\Home\BenchMarks.cshtml" />
+    <Content Include="Areas\RDL\Views\Home\SandlerRules.cshtml" />
+    <Content Include="Areas\RDL\Views\Home\SPMHelp.cshtml" />
+    <Content Include="Areas\RDL\Views\Home\Performance.cshtml" />
+    <Content Include="Areas\RDL\Views\Home\Associates.cshtml" />
+    <Content Include="Areas\RDL\Views\Home\Assignments.cshtml" />
     <Content Include="Areas\CRM\Views\QuickStart\Index.cshtml" />
-    <Content Include="Areas\CRM\Views\QuickStart\Add.cshtml" />
-    <Content Include="Areas\CRM\Views\QuickStart\Edit.cshtml" />
+    <Content Include="Areas\CRM\Views\QuickStart\Add.cshtml">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Areas\CRM\Views\QuickStart\Edit.cshtml">
+      <SubType>Code</SubType>
+    </Content>
     <None Include="Properties\PublishProfiles\WebDeploy-DevEnvt.pubxml" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="Images\bg-capitol.png" />
@@ -1108,15 +1131,23 @@
     <Content Include="Images\MSI_LP_smaller.png" />
     <Content Include="Images\PM_large.png" />
     <Content Include="Images\PM_small.png" />
+    <Content Include="Images\Scorecard icon.png" />
+    <Content Include="Images\scorecard.png" />
     <Content Include="Images\SC_large.png" />
     <Content Include="Images\SC_small.png" />
+    <Content Include="Images\Speedometer.png" />
+    <Content Include="Images\SPM2_Speedometer.png" />
+    <Content Include="Images\SPMAssignments.png" />
     <Content Include="Images\ST_large.png" />
     <Content Include="Images\ST_small.png" />
+    <Content Include="Images\washington.png" />
     <Content Include="Scripts\application.js" />
     <Content Include="Scripts\Application\koExtenders.js" />
+    <Content Include="Scripts\Application\ng-dashboard.js" />
     <Content Include="Scripts\Application\ng-franchisees.js" />
     <Content Include="Scripts\Application\ng-globalSearch.js" />
     <Content Include="Scripts\Application\ng-homeOfficeReports.js" />
+    <Content Include="Scripts\Application\ng-mydashboard.js" />
     <Content Include="Scripts\Application\ng-mytasks.js" />
     <Content Include="Scripts\Application\ng-opportunities.js" />
     <Content Include="Scripts\Application\ng-contacts.js" />
@@ -1209,7 +1240,10 @@
     <Folder Include="Areas\Dashboard\Views\Shared\" />
     <Folder Include="Areas\MyDay\Models\" />
     <Folder Include="Areas\MyDay\Views\Shared\" />
+    <Folder Include="Areas\RDL\Models\" />
+    <Folder Include="Areas\RDL\Views\Shared\" />
     <Folder Include="Downloads\" />
+    <Folder Include="UserDocs\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

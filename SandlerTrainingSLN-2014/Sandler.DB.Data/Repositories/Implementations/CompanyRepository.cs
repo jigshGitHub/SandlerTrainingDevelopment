@@ -41,6 +41,11 @@ namespace Sandler.DB.Data.Repositories.Implementations
             return (DBContext.Get() as SandlerDBEntities).GetCompanyView(searchText, orderBy, pageSize, pageNo, coachId, franchiseeId,selectForExcel);
         }
 
+        public IEnumerable<CompanyView> GetCompanyLookup(string searchText, string orderBy, int? pageSize, int? pageNo, int? coachId, int? franchiseeId, bool selectForExcel)
+        {
+            return (DBContext.Get() as SandlerDBEntities).GetCompanyLookup(searchText, orderBy, pageSize, pageNo, coachId, franchiseeId, selectForExcel);
+        }
+        
         public IEnumerable<CompanyView> GetArchive(string searchText, string orderBy, int? pageSize, int? pageNo, int? coachId, int? franchiseeId, bool selectForExcel)
         {
             return (DBContext.Get() as SandlerDBEntities).GetArchiveCompanyView(searchText, orderBy, pageSize, pageNo, coachId, franchiseeId, selectForExcel);

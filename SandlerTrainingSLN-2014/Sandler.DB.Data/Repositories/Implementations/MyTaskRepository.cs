@@ -29,6 +29,23 @@ namespace Sandler.DB.Data.Repositories.Implementations
 
         }
 
+        public IEnumerable<MyTaskView> GetmytasksList(string orderBy, int? pageSize, int? pageNo, string UserId, int? FranchiseeId, int? CoachId)
+        {
+            return (DBContext.Get() as SandlerDBEntities).GetmytasksList(orderBy, pageSize, pageNo, UserId, FranchiseeId, CoachId);
+
+        }
+        public IEnumerable<MyTaskView> GetmyAppointmentsList(string orderBy, int? pageSize, int? pageNo, string UserId, int? FranchiseeId, int? CoachId)
+        {
+            return (DBContext.Get() as SandlerDBEntities).GetmyAppointmentsList(orderBy, pageSize, pageNo, UserId, FranchiseeId, CoachId);
+
+        }
+        public IEnumerable<MyTaskView> GetmyOpportunityList(string orderBy, int? pageSize, int? pageNo, string UserId, int? FranchiseeId, int? CoachId)
+        {
+            return (DBContext.Get() as SandlerDBEntities).GetmyOpportunityList(orderBy, pageSize, pageNo, UserId, FranchiseeId, CoachId);
+
+        }
+
+
         public int AddTask(Tbl_FollowUpItemsList _followupItem)
         {
             Add(_followupItem);

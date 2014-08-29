@@ -3,7 +3,7 @@
     var dataItem = $("#contactsSearchgrid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
     // console.log(dataItem);
     var path = "navi?url=" + baseUrl + "/CRM/Contacts/Manage?id=" + dataItem.ContactsId;
-    showModal_.html(path, null, '70%');
+    showModal_.html(path, null, '95%');
 }
 
 function archiveContact(e) {
@@ -49,6 +49,96 @@ function RefreshGrid() {
     $("#btnSearch").click();
 }//end refresh grid function
 
+//function get_kendoCompaniesData() {
+//    var startModule = sandler.appStart.module;
+//    var data = startModule.getUserCompanies();
+//    var kendoDropDownData = {
+//        dataTextField: "name",
+//        dataValueField: "id",
+//        optionLabel: "All",
+//        dataSource: data,
+//        index: 0,
+//        change: companyOnChange
+//    };
+//    return kendoDropDownData;
+//}
+
+function get_kendoGridData(searchText) {
+    var dataSource = get_gridDataSource(searchText)
+    var kendoGridData = {
+        dataSource: dataSource,
+        height: 480,
+        filterable: false,
+        sortable: true,
+        pageable: {
+            refresh: true,
+            pageSizes: true
+        },
+        resizable: true,
+        dataBound: onDataBound,
+        columnMenu: true,
+        scrollable: true,
+        navigatable: true,
+        selectable: true,
+        columns: [
+            {
+                command: [
+                            { template: "<button title='View/Edit' class='btn btn-success btn-sm editsa' onclick='showDetails(event)'><span class='glyphicon glyphicon-search'></span></button>" },
+                             { template: "&nbsp;<button title='Archive Contact' class='btn btn-warning btn-sm deletesa' onclick='archiveContact(event)'><span class='glyphicon glyphicon-remove'></span></button>" }
+                ],
+                title: " ", width: "35px"
+            },
+            { field: "FullName", title: "Name", width: "80px", attributes: { "class": "sptablecell" } },
+            { field: "Phone", title: "Phone", width: "80px", attributes: { "class": "sptablecell" } },
+            { field: "Email", title: "Email", width: "80px", attributes: { "class": "sptablecell" } },
+            { field: "COMPANYNAME", title: "Company", width: "60px", attributes: { "class": "sptablecell" } },
+            { field: "ContactsId", hidden: "true" }
+        ]
+    }
+    return kendoGridData;
+}
+
+function get_gridDataSource(searchText) {
+    var dataSource = {
+        type: "json",
+        transport: {
+            read: {
+                url: "api/ContactView/",
+                dataType: "json",
+                data: { companyId: '0', searchText: searchText, selectForExcel: false },
+                cache: false //This is required othewise grid does not refresh after Edit operation in IE
+            }
+        },
+        schema: {
+            data: "results",
+            total: "__count",
+            model: {
+                fields: {
+                    FullName: { type: 'string' },
+                    Phone: { type: 'string' },
+                    Email: { type: 'string' },
+                    COMPANYNAME: { type: 'string' },
+                    ContactsId: { type: 'string' }
+                }
+            }
+        },
+        pageSize: 50,
+        serverPaging: true,
+        serverFiltering: true,
+        serverSorting: true
+    };
+    return dataSource;
+}
+
+//function companyOnChange() {
+//    var companySelectedId = $("#companiesSelection").val();
+//    //console.log('selected company' + companySelectedId);
+//    if (companySelectedId) {
+//        contactsSearchgrid.data("kendoGrid").dataSource.filter({ field: "COMPANIESID", operator: "eq", value: parseInt(companySelectedId) });
+//    } else {
+//        contactsSearchgrid.data("kendoGrid").dataSource.filter({});
+//    }
+//};
 
 function triggerSearch(e) {
     var unicode = e.keyCode ? e.keyCode : e.charCode;
@@ -56,6 +146,7 @@ function triggerSearch(e) {
         $("#btnSearch").click();
     }
 }
+
 function onDataBound(arg) {
 
     //Selects all Archive Buttons
@@ -75,7 +166,7 @@ function ng_contactsCtrl($scope, $http) {
         var kendoGridData = get_kendoGridData("");
         var contactsSearchgrid = $("#contactsSearchgrid").kendoGrid(kendoGridData);
 
-        $('#companiesSelection').kendoDropDownList(get_kendoCompaniesData());
+        //$('#companiesSelection').kendoDropDownList(get_kendoCompaniesData());
         showNoti_.hide();
 
         //When Search Button is clicked 
@@ -93,97 +184,57 @@ function ng_contactsCtrl($scope, $http) {
             console.log($(this).attr('href'));
             return true;
         });
-
-        function get_kendoCompaniesData() {
-            var startModule = sandler.appStart.module;
-            var data = startModule.getUserCompanies();
-            var kendoDropDownData = {
-                dataTextField: "name",
-                dataValueField: "id",
-                optionLabel: "All",
-                dataSource: data,
-                index: 0,
-                change: companyOnChange
-            };
-            return kendoDropDownData;
-        }
-
-        function get_kendoGridData(searchText) {
-            var dataSource = get_gridDataSource(searchText)
-            var kendoGridData = {
-                dataSource: dataSource,
-                height: 480,
-                filterable: false,
-                sortable: true,
-                pageable: {
-                    refresh: true,
-                    pageSizes: true
-                },
-                resizable: true,
-                dataBound: onDataBound,
-                columnMenu: true,
-                scrollable: true,
-                navigatable: true,
-                selectable: true,
-                columns: [
-                    {
-                        command: [
-                                    { template: "<button title='View/Edit' class='btn btn-success btn-sm editsa' onclick='showDetails(event)'><span class='glyphicon glyphicon-search'></span></button>" },
-                                     { template: "&nbsp;<button title='Archive Contact' class='btn btn-warning btn-sm deletesa' onclick='archiveContact(event)'><span class='glyphicon glyphicon-remove'></span></button>" }
-                        ],
-                        title: " ", width: "35px"
-                    },
-                    { field: "FullName", title: "Name", width: "80px", attributes: { "class": "sptablecell" } },
-                    { field: "Phone", title: "Phone", width: "80px", attributes: { "class": "sptablecell" } },
-                    { field: "Email", title: "Email", width: "80px", attributes: { "class": "sptablecell" } },
-                    { field: "COMPANYNAME", title: "Company", width: "60px", attributes: { "class": "sptablecell" } },
-                    { field: "ContactsId", hidden:"true" }
-                ]
-            }
-            return kendoGridData;
-        }
-
-        function get_gridDataSource(searchText) {
-            var dataSource = {
-                type: "json",
+        
+        //Auto Complete Lookup for Company Selection
+        $("#cmp_Lookup").kendoAutoComplete({
+            minLength: 3,
+            filter: "startswith",
+            select: function (e) {
+                var dataItem = this.dataItem(e.item.index());
+                //console.log(dataItem.COMPANIESID);
+                var companySelectedId = dataItem.COMPANIESID;
+                if (companySelectedId > 0)
+                {
+                    contactsSearchgrid.data("kendoGrid").dataSource.filter({ field: "COMPANIESID", operator: "eq", value: parseInt(companySelectedId) });
+                }
+            },
+            dataTextField: "COMPANYNAME",
+            dataValueField: "COMPANIESID",
+            dataSource:
+            {
+                type: "odata",
+                serverFiltering: true,
+                serverPaging: true,
+                pageSize: 10,
                 transport: {
                     read: {
-                        url: "api/ContactView/",
                         dataType: "json",
-                        data: { companyId: '0', searchText: searchText, selectForExcel: false },
-                        cache: false //This is required othewise grid does not refresh after Edit operation in IE
+                        url: "api/CompanyLookup/"
+                    },
+                    parameterMap: function () {
+                        //We need to pass parameters 
+                        return { criteria: $("#cmp_Lookup").val() };
                     }
                 },
                 schema: {
-                    data: "results",
-                    total: "__count",
-                    model: {
-                        fields: {
-                            FullName: { type: 'string' },
-                            Phone: { type: 'string' },
-                            Email: { type: 'string' },
-                            COMPANYNAME: { type: 'string' },
-                            ContactsId: { type: 'string' }
-                        }
+                    data: function (data) {
+                        return data.results;//Actual list is within results
+                    },
+                    total: function (data) {
+                        return 10;//Always max 10
                     }
-                },
-                pageSize: 50,
-                serverPaging: true,
-                serverFiltering: true,
-                serverSorting: true
-            };
-            return dataSource;
-        }
-
-        function companyOnChange() {
-            var companySelectedId = $("#companiesSelection").val();
-            //console.log('selected company' + companySelectedId);
-            if (companySelectedId) {
-                contactsSearchgrid.data("kendoGrid").dataSource.filter({ field: "COMPANIESID", operator: "eq", value: parseInt(companySelectedId) });
-            } else {
-                contactsSearchgrid.data("kendoGrid").dataSource.filter({});
+                }
+            },
+            //Clear the selction after user has selected the FEC from Lookup
+            change: function (e) {
+                if ($("#cmp_Lookup").val() == "")
+                {
+                    //User wants to see them all
+                    contactsSearchgrid.data("kendoGrid").dataSource.filter({});
+                }
+                
             }
-        };
+        });
+                
     });
-
 };

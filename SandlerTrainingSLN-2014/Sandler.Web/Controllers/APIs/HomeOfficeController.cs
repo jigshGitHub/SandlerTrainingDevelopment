@@ -193,5 +193,29 @@ namespace Sandler.Web.Controllers.API
 
         }
 
+        [Route("api/InitiativeInteractGraph/")]
+        public HttpResponseMessage GetInitiativeInteractGraph()
+        {
+            List<initiativePieCHARTdata> pieList = null;
+            List<initiativescrollLineCHARTdata> lineList = null;
+
+            pieList = uow.KendoChartsRepository().GetPieChartData().ToList();
+            lineList = uow.KendoChartsRepository().GetScrollLineChartData().ToList();
+
+            var returnObject = new { success = true, plist = pieList, pcount = pieList.Count(), lList = lineList, lcount = lineList.Count() };
+            return Request.CreateResponse(returnObject);
+        }
+
+        [Route("api/InitiativeFundGraph/")]
+        public HttpResponseMessage GetInitiativeFundGraph()
+        {
+            List<initiativeLineCHARTdata> cdList_initiative = null;
+
+            cdList_initiative = uow.KendoChartsRepository().GetLineChartData().ToList();
+
+            var returnObject = new { success = true, list = cdList_initiative, count = cdList_initiative.Count() };
+            return Request.CreateResponse(returnObject);
+
+        }
     }
 }

@@ -55,6 +55,7 @@
     </Compile>
     <Compile Include="CustomModels\ClosedSalesAnalysis.cs" />
     <Compile Include="CustomModels\CompanyView.cs" />
+    <Compile Include="CustomModels\FromCrimson.cs" />
     <Compile Include="CustomModels\module.cs" />
     <Compile Include="GetBenchMarkCountry.cs">
       <DependentUpon>SandlerEDM.tt</DependentUpon>

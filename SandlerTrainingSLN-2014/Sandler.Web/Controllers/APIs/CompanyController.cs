@@ -37,7 +37,26 @@ namespace Sandler.Web.Controllers.API
         {
             return Request.CreateResponse(uow.Repository<TBL_COMPANIES>().GetAll().Take(10));
         }
-                
+
+        [HttpGet]
+        [Route("api/CompanyLookup/")]
+        public HttpResponseMessage CompanyLookup(string criteria)
+        {
+            List<CompanyView> companies = null;
+            int? coachId = null;
+            int? franchiseeId = null;
+
+            if (CurrentUser.Role == SandlerRoles.Coach)
+                coachId = CurrentUser.CoachID;
+            if (CurrentUser.Role == SandlerRoles.FranchiseeOwner || CurrentUser.Role == SandlerRoles.FranchiseeUser)
+                franchiseeId = CurrentUser.FranchiseeID;
+
+            companies = uow.CompanyRepository().GetCompanyLookup(criteria, "COMPANYNAME ASC", 0, 0, coachId, franchiseeId, false).ToList();
+            var returnObject = new { success = true, __count = (companies.Count > 0) ? companies.FirstOrDefault().TotalCount : 0, results = companies };
+            return Request.CreateResponse(returnObject);
+
+        }
+                        
         [Route("api/CompanyView/")]
         public HttpResponseMessage GetCompanyView(string searchText, int? page, int? pageSize, bool selectForExcel, int? coachId = null, int? franchiseeId = null)
         {
@@ -85,10 +104,19 @@ namespace Sandler.Web.Controllers.API
                 data = uow.Repository<TBL_COMPANIES>().GetById(id);
             }
             return Request.CreateResponse(data);
-           
-
         }
-        
+
+        public string GetCompanyName(int id)
+        {
+            //Let us Initiate the model with UniqueId and the Franchisee Id
+            var data = new TBL_COMPANIES();
+            if (id > 0)
+            {
+                data = uow.Repository<TBL_COMPANIES>().GetById(id);
+            }
+            return data.COMPANYNAME;
+        }
+                
         [HttpPost]
         [Route("api/Company/Archive")]
         public genericResponse ArchiveCompany(TBL_COMPANIES _company)

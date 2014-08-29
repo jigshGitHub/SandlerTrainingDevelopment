@@ -81,7 +81,7 @@ function scheduler_edit(e) {
             type: "json",
             transport: {
                 read: {
-                    url: "/api/TasksView/",
+                    url: "api/TasksView/",
                     dataType: "json"
                 }
             },
@@ -209,7 +209,7 @@ function scheduler_edit(e) {
 
          self.dirtyFlag.reset();
          $('#add_task').block({ message: null });
-         dao_.save("/api/MyTask/Save", ko.toJSON(self),
+         dao_.save("api/MyTask/Save", ko.toJSON(self),
              function (result) {
                  if (result.success)
                  {

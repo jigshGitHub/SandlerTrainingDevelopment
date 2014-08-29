@@ -26,6 +26,99 @@ namespace Sandler.Web.Controllers.API
 
         }
 
+        [Route("api/MytasksListView/")]
+        public HttpResponseMessage GetMytasksListView(int? page, int? pageSize)
+        {
+            List<MyTaskView> mytasksList = null;
+            string sortField = HttpContext.Current.Request.QueryString["sort[0][field]"];
+            string sortDir = HttpContext.Current.Request.QueryString["sort[0][dir]"];
+
+            //string orderBy = "CompanyName ASC";
+            string orderBy = "FollowUpDate ASC";
+                 
+            if (!string.IsNullOrEmpty(sortField))
+                orderBy = sortField;
+            if (!string.IsNullOrEmpty(sortField) && !string.IsNullOrEmpty(sortDir))
+                orderBy = orderBy + " " + sortDir;
+
+            if (CurrentUser.Role == SandlerRoles.Coach)
+            {
+                mytasksList = uow.MyTaskRepository().GetmytasksList(orderBy, pageSize.Value, page.Value, CurrentUser.UserId.ToString(), null, CurrentUser.CoachID).ToList();
+            }
+            else if (CurrentUser.Role == SandlerRoles.FranchiseeOwner || CurrentUser.Role == SandlerRoles.Client)
+            {
+                mytasksList = uow.MyTaskRepository().GetmytasksList(orderBy, pageSize.Value, page.Value, CurrentUser.UserId.ToString(), CurrentUser.FranchiseeID, null).ToList();
+            }
+            else
+                mytasksList = uow.MyTaskRepository().GetmytasksList(orderBy, pageSize.Value, page.Value, CurrentUser.UserId.ToString(), null, null).ToList();
+
+            var returnObject = new { success = true, __count = (mytasksList.Count > 0) ? mytasksList.FirstOrDefault().TotalCount : 0, results = mytasksList };
+            return Request.CreateResponse(returnObject);
+
+        }
+
+        [Route("api/MyAppointmentsListView/")]
+        public HttpResponseMessage GetMyAppointmentsListView(int? page, int? pageSize)
+        {
+            List<MyTaskView> myAppointmentsList = null;
+            string sortField = HttpContext.Current.Request.QueryString["sort[0][field]"];
+            string sortDir = HttpContext.Current.Request.QueryString["sort[0][dir]"];
+
+            //string orderBy = "CompanyName ASC";
+
+            string orderBy = "StartTime DESC";
+
+            if (!string.IsNullOrEmpty(sortField))
+                orderBy = sortField;
+            if (!string.IsNullOrEmpty(sortField) && !string.IsNullOrEmpty(sortDir))
+                orderBy = orderBy + " " + sortDir;
+
+            if (CurrentUser.Role == SandlerRoles.Coach)
+            {
+                myAppointmentsList = uow.MyTaskRepository().GetmyAppointmentsList(orderBy, pageSize.Value, page.Value, CurrentUser.UserId.ToString(), null, CurrentUser.CoachID).ToList();
+            }
+            else if (CurrentUser.Role == SandlerRoles.FranchiseeOwner || CurrentUser.Role == SandlerRoles.Client)
+            {
+                myAppointmentsList = uow.MyTaskRepository().GetmyAppointmentsList(orderBy, pageSize.Value, page.Value, CurrentUser.UserId.ToString(), CurrentUser.FranchiseeID, null).ToList();
+            }
+            else
+                myAppointmentsList = uow.MyTaskRepository().GetmyAppointmentsList(orderBy, pageSize.Value, page.Value, CurrentUser.UserId.ToString(), null, null).ToList();
+
+            var returnObject = new { success = true, __count = (myAppointmentsList.Count > 0) ? myAppointmentsList.FirstOrDefault().TotalCount : 0, results = myAppointmentsList };
+            return Request.CreateResponse(returnObject);
+
+        }
+       
+        [Route("api/MyOpportunityListView/")]
+        public HttpResponseMessage GetMyOpportunityListView(int? page, int? pageSize)
+        {
+            List<MyTaskView> myOpportunityList = null;
+            string sortField = HttpContext.Current.Request.QueryString["sort[0][field]"];
+            string sortDir = HttpContext.Current.Request.QueryString["sort[0][dir]"];
+
+            //string orderBy = "CompanyName ASC";
+            string orderBy = "NEXT_CONTACT_DATE ASC";
+
+            if (!string.IsNullOrEmpty(sortField))
+                orderBy = sortField;
+            if (!string.IsNullOrEmpty(sortField) && !string.IsNullOrEmpty(sortDir))
+                orderBy = orderBy + " " + sortDir;
+
+            if (CurrentUser.Role == SandlerRoles.Coach)
+            {
+                myOpportunityList = uow.MyTaskRepository().GetmyOpportunityList(orderBy, pageSize.Value, page.Value, CurrentUser.UserId.ToString(), null, CurrentUser.CoachID).ToList();
+            }
+            else if (CurrentUser.Role == SandlerRoles.FranchiseeOwner || CurrentUser.Role == SandlerRoles.Client)
+            {
+                myOpportunityList = uow.MyTaskRepository().GetmyOpportunityList(orderBy, pageSize.Value, page.Value, CurrentUser.UserId.ToString(), CurrentUser.FranchiseeID, null).ToList();
+            }
+            else
+                myOpportunityList = uow.MyTaskRepository().GetmyOpportunityList(orderBy, pageSize.Value, page.Value, CurrentUser.UserId.ToString(), null, null).ToList();
+
+            var returnObject = new { success = true, __count = (myOpportunityList.Count > 0) ? myOpportunityList.FirstOrDefault().TotalCount : 0, results = myOpportunityList };
+            return Request.CreateResponse(returnObject);
+
+        }
 
         [Route("api/TasksView/")]
         public HttpResponseMessage GetTasksView()

@@ -23,6 +23,7 @@ namespace Sandler.DB.Models
         public Nullable<System.DateTime> UpdatedDate { get; set; }
         public Nullable<System.Guid> CreatedBy { get; set; }
         public Nullable<System.Guid> UpdatedBy { get; set; }
+        public Nullable<int> STATUSID { get; set; }
     
         public virtual TBL_COMPANIES TBL_COMPANIES { get; set; }
         public virtual TBL_OPPORTUNITIES TBL_OPPORTUNITIES { get; set; }

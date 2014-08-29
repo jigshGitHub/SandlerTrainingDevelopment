@@ -29,12 +29,21 @@
                     <div class="col-sm-12 no-margin">
                         <form role="form">
                             <div class="form-group" >
-                                 <label>Company&nbsp;<span class="label label-danger" data-bind='visible: opportunity.COMPANYID.hasError, text: opportunity.COMPANYID.validationMessage'></span></label>                  
+                                 @*<label>Company&nbsp;<span class="label label-danger" data-bind='visible: opportunity.COMPANYID.hasError, text: opportunity.COMPANYID.validationMessage'></span></label>                  
                                 <div class="controls">
                                      <input id="pipeline_Company" type="text" data-bind="kendoDropDownList: { dataTextField: 'name', dataValueField: 'id', data: companies, value: opportunity.COMPANYID }"/>                                                                                           
+                                </div>*@
+                                
+                                <label>Company</label>
+                                <div class="controls" data-bind="visible: IsEdit()">
+                                    <input id="compName" class="form-control" maxlength="50" type="text" data-bind="value: opportunity.companyName" readonly="true">
+                                </div>
+
+                                <div class="controls" data-bind="visible: !IsEdit()">
+                                    <input id="cmpopp_Lookup" class="form-control" type="text"  placeholder="Company Lookup : Enter first three letters"/>
                                 </div>
                                 
-                                 <label>Contacts</label>                                    
+                                <label>Contacts</label>                                    
                                 <div class="controls">
                                      <span data-bind="text: primaryContact, visible: isVisible" />
                                         <select data-bind="    options: companyContacts, optionsText: 'fullName', optionsValue: 'contactsId', visible: isEditable, selectedOptions: contactsSelected"  style="width:200px;" multiple="true"></select><br />
@@ -261,8 +270,10 @@
         self.opportunity.Pain.extend({ required: "*" });
 
         self.opportunity.companyName = ko.computed(function () {
-            return startModule.getCompanyName(self.opportunity.COMPANYID());
+            return jsonDataCaller.syncCall(baseUrl + "/api/Company/GetCompanyName?id=" + self.opportunity.COMPANYID(), null)
+            //return startModule.getCompanyName(self.opportunity.COMPANYID());
         }, self);
+        
         self.opportunity.productName = ko.computed(function () {
             return startModule.getProductName(self.opportunity.ProductID());
         }, self);
@@ -285,9 +296,7 @@
             return startModule.getYesNo(self.opportunity.IsMoveForward());
         }, self);
 
-
-
-        self.companies = startModule.getUserCompanies();
+        //self.companies = startModule.getUserCompanies();
         self.products = startModule.getProductTypes();
         self.whyLosts = startModule.getOpportunityWhyLosts();
         self.oppStatus = startModule.getOpportunityStatus();
@@ -360,6 +369,11 @@
         self.pageTitle = ko.computed(function () {
             return (self.opportunity.ID() > 0 ? "Edit Pipeline" : "Add Pipeline");
         });
+        
+        self.IsEdit = ko.computed(function () {
+            return (self.opportunity.ID() > 0 ? true : false);
+        });
+        
         self.dirtyFlag = new ko.dirtyFlag_company(self);
 
         self.isDirty = ko.computed(function () {
@@ -430,6 +444,7 @@
                 success: function (response) {
                     console.log('save pipeline');
                     showNoti_.info('Pipeline saved successfully.', true);
+                    RefreshGrid();
                 },
                 error: function (response, errorText) {
                     showNoti_.error('Unable to save pipeline, server error occures.', true);
@@ -454,7 +469,46 @@
             navi_.closeModal();
 
         });
-
+        
+        //Auto Complete Lookup for Company Selection
+        $("#cmpopp_Lookup").kendoAutoComplete({
+            minLength: 3,
+            filter: "startswith",
+            select: function (e) {
+                var dataItem = this.dataItem(e.item.index());
+                //console.log(dataItem.COMPANIESID);
+                var companySelectedId = dataItem.COMPANIESID;
+                vm.opportunity.COMPANYID(companySelectedId);
+            },
+            dataTextField: "COMPANYNAME",
+            dataValueField: "COMPANIESID",
+            dataSource:
+            {
+                type: "odata",
+                serverFiltering: true,
+                serverPaging: true,
+                pageSize: 10,
+                transport: {
+                    read: {
+                        dataType: "json",
+                        url: "api/CompanyLookup/"
+                    },
+                    parameterMap: function () {
+                        //We need to pass parameters 
+                        return { criteria: $("#cmpopp_Lookup").val() };
+                    }
+                },
+                schema: {
+                    data: function (data) {
+                        return data.results;//Actual list is within results
+                    },
+                    total: function (data) {
+                        return 10;//Always max 10
+                    }
+                }
+            }
+        });
+        
         var vm = new pageVM(ko.mapping.fromJS( @Html.Raw(Json.Encode(@Model.EntityModel))));
         //console.log(vm.opportunity);
         ko.applyBindings(vm, document.getElementById("pipeline_body"));

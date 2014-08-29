@@ -19,5 +19,6 @@ namespace Sandler.DB.Data.Common.Interface
         IMenuRepository MenuRepository();
         IFranchiseeRepository FranchiseeRepository();
         IMyTaskRepository MyTaskRepository();
+        IKendoChartsRepository KendoChartsRepository(); 
     }
 }

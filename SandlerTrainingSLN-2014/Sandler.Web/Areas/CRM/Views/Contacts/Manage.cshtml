@@ -1,8 +1,8 @@
 ﻿@using Sandler.Web.ViewModels;
 @using Sandler.DB.Models;
 @model EntityViewModel<TBL_CONTACTS>
-<script src="~/Scripts/Application/ng-contacts.js" type="text/javascript"></script>
-<script src="~/contents/knockout/knockout.mapping-latest.js" type="text/javascript"></script>
+@*<script src="~/Scripts/Application/ng-contacts.js" type="text/javascript"></script>
+<script src="~/contents/knockout/knockout.mapping-latest.js" type="text/javascript"></script>*@
 
 <div id="contact_body" style="background-color: white">
 
@@ -33,11 +33,19 @@
                     <div class="col-sm-6 no-margin">
                         <form role="form">
                             <div class="form-group">
-                                <label>Company</label>
+                                @*<label>Company</label>
                                 <div class="controls">
                                     <input id="contact_Company" type="text" data-bind="kendoDropDownList: { dataTextField: 'name', dataValueField: 'id', data: companies, value: contact.COMPANYID }" />
+                                </div>*@
+                                <label>Company</label>
+                                <div class="controls" data-bind="visible: IsEdit()">
+                                    <input id="compName" class="form-control" maxlength="50" type="text" data-bind="value: COMPANYNAME" readonly="true">
                                 </div>
 
+                                <div class="controls" data-bind="visible: !IsEdit()">
+                                    <input id="cmpcnt_Lookup" class="form-control" type="text"  placeholder="Company Lookup : Enter first three letters"/>
+                                </div>
+                                
                                 <label>Last Name&nbsp;<span class="label label-danger" data-bind='visible: contact.LASTNAME.hasError, text: contact.LASTNAME.validationMessage'></span>
                                 </label>
                                 <div class="controls">
@@ -88,14 +96,14 @@
                                     <input id="contact_Fax" class="form-control" maxlength="50" type="text" data-bind="value: contact.Fax">
                                 </div>
                                 <label>Email</label>
-                                 <div class="input-group">
+                                <div class="input-group">
                                     <span class="input-group-addon">
                                         <span class="glyphicon glyphicon-envelope"></span>
                                     </span> 
                                     <input id="contact_Email" class="form-control" maxlength="50" type="text" data-bind="value: contact.EMAIL">
                                 </div>
                                 <label>Personal Email</label>
-                                 <div class="input-group">
+                                <div class="input-group">
                                     <span class="input-group-addon">
                                         <span class="glyphicon glyphicon-envelope"></span>
                                     </span> 
@@ -326,35 +334,32 @@
 
     var startModule = sandler.appStart.module;
     var pageVM = function (contactsObservable) {
-        console.log('contactsObservable');
-        console.log(contactsObservable);
+        //console.log('contactsObservable');
+        //console.log(contactsObservable);
         var self = this;
-        self.companies = startModule.getUserCompanies();
+        //self.companies = startModule.getUserCompanies();
 
         self.contact = contactsObservable;
+        self.contact.COMPANYID = ko.observable(contactsObservable.COMPANYID());
+        if (self.contact.COMPANYID() != null && self.contact.COMPANYID() != "" && self.contact.COMPANYID() > 0) {
+            compName = jsonDataCaller.syncCall(baseUrl + "/api/Company/GetCompanyName?id=" + self.contact.COMPANYID(), null);
+            self.COMPANYNAME = ko.observable(compName);
+        }
+        else {
+            self.COMPANYNAME = ko.observable('');
+        }
+
+        self.IsEdit = ko.computed(function () {
+            return (self.contact.CONTACTSID() > 0 ? true : false);
+        });
+
         self.pageTitle = ko.computed(function () {
             return (self.contact.CONTACTSID() > 0 ? "Edit Contact" : "Add Contact");
         });
-        //self.COMPANYID = ko.observable(contactsObservable.COMPANYID);
 
         self.contact.LASTNAME.extend({ required: "" });
         self.contact.FIRSTNAME.extend({ required: "" });
-        //self.Title = ko.observable(contactsObservable.Title);
-        //self.ContactsDepartment = ko.observable(contactsObservable.ContactsDepartment);
-        //self.ContactsRole = ko.observable(contactsObservable.ContactsRole);
-        //self.PHONE = ko.observable(contactsObservable.PHONE);
-        //self.MobilePhone = ko.observable(contactsObservable.MobilePhone);
-        //self.HomePhone = ko.observable(contactsObservable.HomePhone);
-        //self.Fax = ko.observable(contactsObservable.Fax);
-        //self.EMAIL = ko.observable(contactsObservable.EMAIL);
-        //self.PersonalEmail = ko.observable(contactsObservable.PersonalEmail);
-        //self.Address = ko.observable(contactsObservable.Address);
-        //self.City = ko.observable(contactsObservable.City);
-        //self.State = ko.observable(contactsObservable.State);
-        //self.Zip = ko.observable(contactsObservable.Zip);
-        //self.Country = ko.observable(contactsObservable.Country);
-
-
+        
         self.yesNoData = startModule.getYesNoOptions();
 
         self.appointmentsource = startModule.getAppointmentSources();
@@ -413,31 +418,20 @@
         else {
             self.contact.Anniversaryc = ko.observable('');
         }
-
-
-        //self.CourseTrainingDate = ko.observable((kendo.parseDate(self.contact.CourseTrainingDate())));
-        //self.LastAttemptedDate = ko.observable((kendo.parseDate(self.contact.LastAttemptedDate())));
-        //self.LAST_CONTACT_DATE = ko.observable((kendo.parseDate(self.contact.LAST_CONTACT_DATE())));
-        //self.LastEmailedDate = ko.observable((kendo.parseDate(self.contact.LastEmailedDate())));
-        //self.LastMeetingDate = ko.observable((kendo.parseDate(self.contact.LastMeetingDate())));
-        //self.LetterSentDate = ko.observable((kendo.parseDate(self.contact.LetterSentDate())));
-        //self.NEXT_CONTACT_DATE = ko.observable((kendo.parseDate(self.contact.NEXT_CONTACT_DATE())));
-        // self.Birthday = ko.observable((kendo.parseDate(self.contact.Birthday())));
-        //self.Anniversary = ko.observable((kendo.parseDate(self.contact.Anniversary())));
-
-        //self.SpouseName = ko.observable(contactsObservable.SpouseName);
-        //self.CompanyYears = ko.observable(contactsObservable.CompanyYears);
-        //self.BossName = ko.observable(contactsObservable.BossName);
-        //self.ReferredBy = ko.observable(contactsObservable.ReferredBy);
-        //self.Notes = ko.observable(contactsObservable.Notes);
-
-
+        
         self.dirtyFlag = new ko.dirtyFlag_contact(self);
         self.isDirty = ko.computed(function () {
             return self.dirtyFlag.isDirty()
         }, this);
 
         self.Save = function () {
+
+            if (!self.contact.COMPANYID()) {
+                showNoti_.error('Company is required', false);
+                $('#cmpcnt_Lookup').focus();
+                return;
+            }
+
             if (!self.contact.LASTNAME()) {
                 showNoti_.error('Lastname is required', false);
                 $('#contact_LastName').focus();
@@ -469,9 +463,9 @@
                 contentType: "application/json; charset=utf-8",
                 async: false,
                 success: function (response) {
-                    console.log('saved contact');
+                    //console.log('saved contact');
                     showNoti_.info('Contact saved successfully.', true);
-                    //RefreshGrid();
+                    RefreshGrid();//This will Refresh the Index page
                 },
                 error: function (response, errorText) {
                     showNoti_.error('Unable to save contact, server error occures.', true);
@@ -497,6 +491,45 @@
             else
                 navi_.closeModal();
 
+        });
+
+        //Auto Complete Lookup for Company Selection
+        $("#cmpcnt_Lookup").kendoAutoComplete({
+            minLength: 3,
+            filter: "startswith",
+            select: function (e) {
+                var dataItem = this.dataItem(e.item.index());
+                //console.log(dataItem.COMPANIESID);
+                var companySelectedId = dataItem.COMPANIESID;
+                vm.contact.COMPANYID(companySelectedId);
+            },
+            dataTextField: "COMPANYNAME",
+            dataValueField: "COMPANIESID",
+            dataSource:
+            {
+                type: "odata",
+                serverFiltering: true,
+                serverPaging: true,
+                pageSize: 10,
+                transport: {
+                    read: {
+                        dataType: "json",
+                        url: "api/CompanyLookup/"
+                    },
+                    parameterMap: function () {
+                        //We need to pass parameters 
+                        return { criteria: $("#cmpcnt_Lookup").val() };
+                    }
+                },
+                schema: {
+                    data: function (data) {
+                        return data.results;//Actual list is within results
+                    },
+                    total: function (data) {
+                        return 10;//Always max 10
+                    }
+                }
+            }
         });
 
         var vm = new pageVM(ko.mapping.fromJS( @Html.Raw(Json.Encode(@Model.EntityModel))));
