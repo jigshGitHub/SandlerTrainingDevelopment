@@ -114,6 +114,17 @@ function initialize_quickStartF(type) {
         self.companies = startModule.getUserCompanies();
         self.companyObservable = ko.mapping.fromJS(jsonDataCaller.syncCall(baseUrl + "/api/Company/Get?id=0", null));
         self.contactObservable = ko.mapping.fromJS(jsonDataCaller.syncCall(baseUrl + "/api/Contact/Get?id=0", null));
+        self.salesReps = ko.computed(function () {
+            var data = jsonDataCaller.syncCall("/api/FranchiseeUsersView?searchText=&page=0&pageSize=0&sort[0][field]=LastName&sort[0][dir]=ASC", null)
+
+            var filteredSalesReps = new Array();
+            $.each(data.results, function (i, item) {
+                if (item.FirstName != null && item.LastName != null)
+                    filteredSalesReps.push({ 'id': item.ID, 'fullName' : item.LastName + ', ' + item.FirstName, 'lastName':item.LastName, 'firstName':item.FirstName });
+            });
+            console.log(filteredSalesReps);
+            return filteredSalesReps;
+        }, self);
 
         self.selectedCompanyId = ko.observable();
         self.selectedOpportunity = ko.observable();
@@ -252,6 +263,8 @@ function initialize_quickStartF(type) {
         self.opportunity.Pain.extend({ required: "" });
         self.opportunity.ProductID.extend({ required: "" });
         self.opportunity.STATUSID.extend({ required: "" });
+        self.opportunity.salesRepId = ko.observable(false);
+        self.opportunity.salesRepId.extend({ required: "" });
         self.opportunity.STATUSID.subscribe(function (newValue) {
             if (newValue != '') {
                 console.log(newValue);
@@ -266,6 +279,20 @@ function initialize_quickStartF(type) {
                 }
                 else
                     self.opportunity.NAME('');
+            }
+        });
+        self.opportunity.salesRepId.subscribe(function (newValue) {
+            self.opportunity.SALESREPLASTNAME('');
+            self.opportunity.SALESREPFIRSTNAME('');
+            if (newValue != '') {
+                console.log(newValue);
+                var salesRepObj = $.grep(self.salesReps(), function (element, index) {
+                    return element.id == newValue;
+                });
+                console.log(salesRepObj[0]);
+
+                self.opportunity.SALESREPLASTNAME(salesRepObj[0].lastName);
+                self.opportunity.SALESREPFIRSTNAME(salesRepObj[0].firstName);
             }
         });
 

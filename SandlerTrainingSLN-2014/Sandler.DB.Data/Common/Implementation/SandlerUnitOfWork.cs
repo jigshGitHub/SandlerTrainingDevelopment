@@ -22,6 +22,7 @@ namespace Sandler.DB.Data.Common.Implementation
         // Repositories
         public ICompanyRepository CompanyRepository (){return new CompanyRepository(RepositoryProvider.dbContext); }
         public IFranchiseeRepository FranchiseeRepository() { return new FranchiseeRepository(RepositoryProvider.dbContext); }
+        public IFranchiseeUsersRepository FranchiseeUsersRepository() { return new FranchiseeUsersRepository(RepositoryProvider.dbContext); }
         public IKendoChartsRepository KendoChartsRepository() { return new KendoChartsRepository(RepositoryProvider.dbContext); }
         public IMyTaskRepository MyTaskRepository() { return new MyTaskRepository(RepositoryProvider.dbContext); }
         public IContactRepository ContactRepository (){return new ContactRepository(RepositoryProvider.dbContext); }

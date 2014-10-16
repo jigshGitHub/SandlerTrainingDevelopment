@@ -55,6 +55,13 @@
     </Compile>
     <Compile Include="CustomModels\ClosedSalesAnalysis.cs" />
     <Compile Include="CustomModels\CompanyView.cs" />
+    <Compile Include="CustomModels\ContactView.cs" />
+    <Compile Include="CustomModels\ReponseMessage.cs" />
+    <Compile Include="CustomModels\ReportView.cs" />
+    <Compile Include="CustomModels\FranchiseeView.cs" />
+    <Compile Include="CustomModels\GlobalSearchView.cs" />
+    <Compile Include="CustomModels\OpportunityView.cs" />
+    <Compile Include="CustomModels\FranchiseeUsersView.cs" />
     <Compile Include="CustomModels\FromCrimson.cs" />
     <Compile Include="CustomModels\module.cs" />
     <Compile Include="GetBenchMarkCountry.cs">

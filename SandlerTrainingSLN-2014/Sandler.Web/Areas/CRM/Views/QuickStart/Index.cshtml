@@ -66,14 +66,10 @@
                                     <div class="controls">
                                          <input id="QS_OpportunityName" maxlength="50" type="text"  class="form-control" data-bind="value: opportunity.NAME"/>
                                     </div>
-                                     <label>Sales Rep Last Name</label>
-                                    <div class="controls" >
-                                        <input id="QS_RepLastName"  class="form-control" maxlength="150" type="text"  data-bind="value: opportunity.SALESREPLASTNAME">
-                                    </div>
-                                     <label>Sales Rep First Name</label>
-                                    <div class="controls">
-                                        <input id="QS_RepFirstName" class="form-control"  maxlength="50" type="text"  data-bind="value: opportunity.SALESREPFIRSTNAME">
-                                    </div>
+                                    <label>Sales Rep&nbsp;<span class="label label-danger" data-bind='visible: opportunity.salesRepId.hasError, text: opportunity.salesRepId.validationMessage'></span></label>
+                                     <div class="controls">
+                                        <input id="QS_SalesRep" type="text" data-bind="kendoDropDownList: { dataTextField: 'fullName', dataValueField: 'id', data: salesReps, value: opportunity.salesRepId, optionLabel: 'Please Select..' }"/>
+                                     </div>
                                      <label>Pain&nbsp;<span class="label label-danger" data-bind='visible: opportunity.Pain.hasError, text: opportunity.Pain.validationMessage'></span></label>                  
                                     <div class="controls">
                                          <input id="QS_Pain" maxlength="50" type="text"  class="form-control" data-bind="value: opportunity.Pain"/>

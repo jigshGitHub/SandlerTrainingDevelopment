@@ -153,6 +153,17 @@ namespace Sandler.DB.Models
             return q.ToList();
         }
 
+        public List<FranchiseeUsersView> GetFranchiseeUsersView(string orderBy, int? pageSize, int? pageNo, Guid userId, string searchText)
+        {
+
+            string query = string.Format("exec [sp_FranchiseeUsersView] @userId='{0}', @orderBy='{1}', @pageSize={2}, @pageNo={3}, @searchText='{4}'"
+                , userId, orderBy, pageSize, pageNo, searchText);
+
+            var q = Database.SqlQuery<FranchiseeUsersView>(query);
+
+            return q.ToList();
+        }
+
 
         public List<FranchiseeView> GetFranchiseeView(string searchText, string orderBy, int? pageSize, int? pageNo, bool selectForExcel, Guid userId, bool bringArchive)
         {
