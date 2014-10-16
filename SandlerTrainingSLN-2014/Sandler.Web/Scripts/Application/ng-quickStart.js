@@ -268,17 +268,18 @@ function initialize_quickStartF(type) {
         self.opportunity.STATUSID.subscribe(function (newValue) {
             if (newValue != '') {
                 console.log(newValue);
+                var statusObj = $.grep(self.oppStatus, function (element, index) {
+                    return element.ID == newValue;
+                });
                 if(newValue == '1' || newValue == '2')
-                {
-                    var statusObj = $.grep(self.oppStatus, function (element, index) {
-                        return element.ID == newValue;
-                    });
+                {                    
                     console.log(statusObj[0].Name);
-
                     self.opportunity.NAME(((self.companyObservable.COMPANYNAME() == null) ? '' : self.companyObservable.COMPANYNAME()) + '-' + statusObj[0].Name);
                 }
                 else
                     self.opportunity.NAME('');
+
+                self.opportunity.WINPROBABILITY(statusObj[0].WinProbability);
             }
         });
         self.opportunity.salesRepId.subscribe(function (newValue) {
@@ -299,7 +300,12 @@ function initialize_quickStartF(type) {
         self.opportunity.SourceID.extend({ required: "" });
         self.opportunity.TypeID.extend({ required: "" });
         self.opportunity.VALUE.extend({ required: "" });
-
+        self.opportunity.WINPROBABILITY.extend({ required: "" });
+        self.opportunity.WEIGHTEDVALUE = ko.computed(function () {
+            if ($.isNumeric(self.opportunity.VALUE()) && $.isNumeric(self.opportunity.WINPROBABILITY())) {
+                return self.opportunity.VALUE() * self.opportunity.WINPROBABILITY()/100;
+            }
+        }, self);
         if (self.opportunity.CLOSEDATE() != null && self.opportunity.CLOSEDATE() != "") {
             self.opportunity.OppCloseDatec = ko.observable(kendo.parseDate(self.opportunity.CLOSEDATE())).extend({ required: "" });
         }

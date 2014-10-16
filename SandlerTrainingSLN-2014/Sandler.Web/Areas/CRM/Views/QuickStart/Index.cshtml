@@ -140,6 +140,14 @@
                                     <div class="controls">
                                          <input id="QS_EstOppValue" maxlength="50" type="text" class="form-control" data-bind="value: opportunity.VALUE"/>
                                     </div>
+                                    <label>Win Probability Percent&nbsp;<span class="label label-danger" data-bind='visible: opportunity.WINPROBABILITY.hasError, text: opportunity.WINPROBABILITY.validationMessage'></span></label>                  
+                                    <div class="controls">
+                                         <input id="QS_WinProbabilityPercent" maxlength="50" type="text" class="form-control" data-bind="value: opportunity.WINPROBABILITY"/>
+                                    </div>
+                                    <label>Weighted Opportunity Value</label>                  
+                                    <div class="controls">
+                                         <input id="QS_WeightedOpportunityValue" maxlength="50" type="text" class="form-control" data-bind="enable: false,value: opportunity.WEIGHTEDVALUE"/>
+                                    </div>
                                      <label>Next Step</label>
                                     <div class="controls" >
                                         <input id="QS_NextStep"  class="form-control" maxlength="150" type="text"  data-bind="value: contactObservable.ACTIONSTEP">
