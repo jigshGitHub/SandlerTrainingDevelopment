@@ -102,7 +102,7 @@ function initialize_quickStartF(type) {
         var self = this;
         self.scenario = scenario;
         self.products = startModule.getProductTypes();
-        console.log(startModule.getProductTypes());
+        //console.log(startModule.getProductTypes());
         self.whyLosts = startModule.getOpportunityWhyLosts();
         self.oppStatus = startModule.getOpportunityStatus();
         self.oppSources = startModule.getOpportunitySources();
@@ -252,6 +252,23 @@ function initialize_quickStartF(type) {
         self.opportunity.Pain.extend({ required: "" });
         self.opportunity.ProductID.extend({ required: "" });
         self.opportunity.STATUSID.extend({ required: "" });
+        self.opportunity.STATUSID.subscribe(function (newValue) {
+            if (newValue != '') {
+                console.log(newValue);
+                if(newValue == '1' || newValue == '2')
+                {
+                    var statusObj = $.grep(self.oppStatus, function (element, index) {
+                        return element.ID == newValue;
+                    });
+                    console.log(statusObj[0].Name);
+
+                    self.opportunity.NAME(((self.companyObservable.COMPANYNAME() == null) ? '' : self.companyObservable.COMPANYNAME()) + '-' + statusObj[0].Name);
+                }
+                else
+                    self.opportunity.NAME('');
+            }
+        });
+
         self.opportunity.SourceID.extend({ required: "" });
         self.opportunity.TypeID.extend({ required: "" });
         self.opportunity.VALUE.extend({ required: "" });
@@ -290,7 +307,7 @@ function initialize_quickStartF(type) {
             else if (self.scenario == 'edit')
                 return 'Edit Opportunity';
             else
-                return 'Add 3 In 1';
+                return 'Add 3-in-1:Company, Contact & Opportunity';
         });
 
         self.dirtyFlag = new ko.dirtyFlag_quickStart(self);

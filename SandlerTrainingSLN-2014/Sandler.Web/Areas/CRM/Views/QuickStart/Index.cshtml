@@ -15,7 +15,7 @@
         <div class="row page-header">
             <div class="col-sm-8">
                 <div class="row">
-                    <div class='page-title'><span>QuickStart</span></div>
+                    <div class='page-title'><span>QuickStart - New Customer</span></div>
                 </div>
                 <div class="row sub-heading">
                     <div class='page-subtitle' data-bind="text: pageTitle"></div>
@@ -58,6 +58,10 @@
                                     <div class="controls">
                                         <input id="QS_Email" class="form-control"  maxlength="50" type="text"  data-bind="value: companyObservable.POCEmail">
                                     </div>
+                                     <label>Opportunity Status&nbsp;<span class="label label-danger" data-bind='visible: opportunity.STATUSID.hasError, text: opportunity.STATUSID.validationMessage'></span></label>
+                                     <div class="controls">
+                                        <input id="QS_OppStatus" type="text" data-bind="kendoDropDownList: { dataTextField: 'Name', dataValueField: 'ID', data: oppStatus, value: opportunity.STATUSID, optionLabel: 'Please Select..' }"/>
+                                     </div>
                                      <label>Opportunity Name&nbsp;<span class="label label-danger" data-bind='visible: opportunity.NAME.hasError, text: opportunity.NAME.validationMessage'></span></label>                  
                                     <div class="controls">
                                          <input id="QS_OpportunityName" maxlength="50" type="text"  class="form-control" data-bind="value: opportunity.NAME"/>
@@ -127,10 +131,6 @@
                                      <label>Product&nbsp;<span class="label label-danger" data-bind='visible: opportunity.ProductID.hasError, text: opportunity.ProductID.validationMessage'></span></label>
                                      <div class="controls">
                                         <input id="QS_Product" type="text" data-bind="kendoDropDownList: { dataTextField: 'ProductTypeName', dataValueField: 'Id', data: products, value: opportunity.ProductID, optionLabel : 'Please Select..' }"/>                                    
-                                     </div>
-                                     <label>Opportunity Status&nbsp;<span class="label label-danger" data-bind='visible: opportunity.STATUSID.hasError, text: opportunity.STATUSID.validationMessage'></span></label>
-                                     <div class="controls">
-                                        <input id="QS_OppStatus" type="text" data-bind="kendoDropDownList: { dataTextField: 'Name', dataValueField: 'ID', data: oppStatus, value: opportunity.STATUSID, optionLabel : 'Please Select..' }"/>
                                      </div>
                                      <label>Opportunity Source&nbsp;<span class="label label-danger" data-bind='visible: opportunity.SourceID.hasError, text: opportunity.SourceID.validationMessage'></span></label>
                                      <div class="controls">
