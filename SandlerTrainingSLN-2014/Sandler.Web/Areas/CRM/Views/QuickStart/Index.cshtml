@@ -148,26 +148,29 @@
                                     <div class="controls">
                                          <input id="QS_WeightedOpportunityValue" maxlength="50" type="text" class="form-control" data-bind="enable: false,value: opportunity.WEIGHTEDVALUE"/>
                                     </div>
-                                     <label>Next Step</label>
+                                     <label>Next Step&nbsp;<span class="label label-danger" data-bind='visible: contactObservable.ACTIONSTEP.hasError, text: contactObservable.ACTIONSTEP.validationMessage'></span></label>
                                     <div class="controls" >
                                         <input id="QS_NextStep"  class="form-control" maxlength="150" type="text"  data-bind="value: contactObservable.ACTIONSTEP">
-                                    </div>
-                                    <label>New Appointment?</label>
-                                     <div class="controls">
-                                        <input id="QS_NewApp" type="text" data-bind="kendoDropDownList: { dataTextField: 'Description', dataValueField: 'Value', data: yesNoData, value: contactObservable.IsNewAppointment }"/>
-                                     </div>
-                                     <label>Appointment Source&nbsp;<span class="label label-danger" data-bind='visible: contactObservable.ApptSourceId.hasError, text: contactObservable.ApptSourceId.validationMessage'></span></label>
-                                     <div class="controls">
-                                        <input id="QS_AppSource" type="text" data-bind="kendoDropDownList: { dataTextField: 'ApptSourceName', dataValueField: 'ApptSourceId', data: appSources, value:contactObservable.ApptSourceId, optionLabel : 'Please Select..' }"/>
-                                     </div>                                 
-                                
+                                    </div>                                  
+                                      <label>Next Contact Date&nbsp;<span class="label label-danger" data-bind='visible: contactObservable.NextContactDatec.hasError, text: contactObservable.NextContactDatec.validationMessage'></span></label>
+                                    <div class="controls">
+                                         <input id="company_nextContactDate" style="max-width:180px;" maxlength="10" type="text" class="form-control" data-bind="kendoDatePicker: contactObservable.NextContactDatec"/>
+                                    </div>                                
                                 </div>
                             </form>
                         </div>
                     
                         <div class="col-sm-6 no-margin">
                             <form role="form">
-                                <div class="form-group">
+                                <div class="form-group">                                    
+                                    <label>New Appointment?&nbsp;<span class="label label-danger" data-bind='visible: contactObservable.IsNewAppointment.hasError, text: contactObservable.IsNewAppointment.validationMessage'></span></label>
+                                     <div class="controls">
+                                        <input id="QS_NewApp" type="text" data-bind="kendoDropDownList: { dataTextField: 'Description', dataValueField: 'Value', data: yesNoData, value: contactObservable.IsNewAppointment }"/>
+                                     </div>
+                                     <label>Appointment Source&nbsp;<span class="label label-danger" data-bind='visible: contactObservable.ApptSourceId.hasError, text: contactObservable.ApptSourceId.validationMessage'></span></label>
+                                     <div class="controls">
+                                        <input id="QS_AppSource" type="text" data-bind="kendoDropDownList: { dataTextField: 'ApptSourceName', dataValueField: 'ApptSourceId', data: appSources, value: contactObservable.ApptSourceId, optionLabel: 'Please Select..' }"/>
+                                     </div>    
                                       <label>Registered for Training?</label>
                                      <div class="controls">
                                         <input id="QS_RegForTraining" type="text" data-bind="kendoDropDownList: { dataTextField: 'Description', dataValueField: 'Value', data: yesNoData, value: contactObservable.IsRegisteredForTraining }"/>
@@ -197,12 +200,6 @@
                                      <div class="controls">
                                         <input id="QS_Industry" type="text" data-bind="kendoDropDownList: { dataTextField: 'IndustryTypeName', dataValueField: 'IndId', data: industries, value: companyObservable.IndustryId, optionLabel : 'Please Select..' }"/>
                                      </div>
-                                  
-                                      <label>Next Contact Date</label>
-                                    <div class="controls">
-                                         <input id="company_nextContactDate" style="max-width:180px;" maxlength="10" type="text" class="form-control" data-bind="kendoDatePicker: contactObservable.NextContactDatec"/>
-                                    </div>
-
                                       <label>Est. Opportunity Close Date&nbsp;<span class="label label-danger" data-bind='visible: opportunity.OppCloseDatec.hasError, text: opportunity.OppCloseDatec.validationMessage'></span></label>
                                     <div class="controls">
                                          <input id="QS_EstOppCloseDate" style="max-width:180px;" maxlength="10" type="text" class="form-control" data-bind="kendoDatePicker:opportunity.OppCloseDatec"/>

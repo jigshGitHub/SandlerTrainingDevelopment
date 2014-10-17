@@ -243,7 +243,7 @@ function initialize_quickStartF(type) {
         self.companyObservable.POCLastName.extend({ required: "" });
         self.companyObservable.POCFirstName.extend({ required: "" });
         self.companyObservable.IndustryId.extend({ required: "" });
-
+        self.companyObservable.IsNewCompany(1);//default set to Yes
         if (self.contactObservable.CourseTrainingDate() != null && self.contactObservable.CourseTrainingDate() != "") {
             self.contactObservable.CourseTrainingDatec = ko.observable(kendo.parseDate(self.contactObservable.CourseTrainingDate())).extend({ required: "" });
         }
@@ -258,6 +258,8 @@ function initialize_quickStartF(type) {
             self.contactObservable.NextContactDatec = ko.observable('').extend({ required: "" });
         }
         self.contactObservable.ApptSourceId.extend({ required: "" });
+        self.contactObservable.ACTIONSTEP.extend({ required: "" });
+        self.contactObservable.IsNewAppointment(1);//default set to Yes
 
         self.opportunity.NAME.extend({ required: "" });
         self.opportunity.Pain.extend({ required: "" });
