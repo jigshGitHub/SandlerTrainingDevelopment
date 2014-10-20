@@ -331,7 +331,8 @@ function initialize_quickStartF(type) {
         self.opportunity.OppCloseDatec('7/1/2014');
         self.contactObservable.NextContactDatec('7/1/2014');
         self.contactObservable.ApptSourceId('1');
-
+        self.contactObservable.ACTIONSTEP('test step');
+        
 
         //For Notes
         self.Notes = ko.observable(self.opportunity.Notes());
@@ -367,7 +368,46 @@ function initialize_quickStartF(type) {
             self.contactObservable.CourseTrainingDate(self.contactObservable.CourseTrainingDatec());
 
             self.opportunity.CLOSEDATE(self.opportunity.OppCloseDatec());
-            self.companySave();
+            self.companySave(function (response) {
+                if (response != null || response != undefined) {
+                    self.companyObservable.COMPANIESID(response.UniqueId);
+                    self.contactObservable.COMPANYID(response.UniqueId);
+                    if (response.success) {
+                        self.contactSave(function (response) {
+                            if (response != undefined) {
+                                self.contactObservable.CONTACTSID(response.CONTACTSID);
+                                if (response.CONTACTSID > 0) {
+                                    self.opportunity.COMPANYID(response.COMPANYID);
+                                    self.opportunity.CONTACTID(response.CONTACTSID);
+                                    self.pipelineSave();
+                                } else {
+                                    showNoti_.error('Unable to save contact.', true);
+                                }
+                            }
+                        });
+                    }
+                    else {
+                        //showNoti_.error('Unable to save company, company already exists.', true);
+                        if (response.UniqueId > 0) {
+                            self.companySave();
+                            self.contactSave(function (response) {
+                                if (response != undefined) {
+                                    self.contactObservable.CONTACTSID(response.CONTACTSID);
+                                    if (response.CONTACTSID > 0) {
+                                        self.opportunity.COMPANYID(response.COMPANYID);
+                                        self.opportunity.CONTACTID(response.CONTACTSID);
+                                        self.pipelineSave();
+                                    } else {
+                                        showNoti_.error('Unable to save contact.', true);
+                                    }
+                                }
+                            });
+                        }
+                    }
+                }
+               
+            });
+        
         };
 
 
@@ -530,7 +570,7 @@ function initialize_quickStartF(type) {
             self.continueWithSave();
         };
 
-        self.companySave = function () {
+        self.companySave = function (callback) {
             $.ajax({
                 url: 'api/QS/CompanySave',
                 type: "POST",
@@ -539,15 +579,8 @@ function initialize_quickStartF(type) {
                 contentType: "application/json; charset=utf-8",
                 async: false,
                 success: function (response) {
-                    console.log(response);
-                    if (response.success) {
-                        self.contactObservable.COMPANYID(response.UniqueId);
-                        self.contactSave();
-                    }
-                    else {
-                        showNoti_.error('Unable to save company, server error occures.', true);
-                        return false;
-                    }
+                    if(callback != undefined || callback != null)
+                        callback(response);
                 },
                 error: function (response, errorText) {
                     showNoti_.error('Unable to save company, server error occures.', true);
@@ -556,7 +589,7 @@ function initialize_quickStartF(type) {
             });
         }
 
-        self.contactSave = function () {
+        self.contactSave = function (callback) {
             $.ajax({
                 url: 'api/QS/ContactSave',
                 type: "POST",
@@ -565,11 +598,8 @@ function initialize_quickStartF(type) {
                 contentType: "application/json; charset=utf-8",
                 async: false,
                 success: function (response) {
-                    if (response != undefined) {
-                        self.opportunity.COMPANYID(response.COMPANYID);
-                        self.opportunity.CONTACTID(response.CONTACTSID);
-                        self.pipelineSave();
-                    }
+                    if (callback != undefined || callback != null)
+                        callback(response);
                 },
                 error: function (response, errorText) {
                     showNoti_.error('Unable to save contact, server error occures.', true);

@@ -91,3 +91,12 @@ INNER JOIN TBL_FRANCHISEE f on c.FranchiseeId = f.ID
 INNER JOIN TBL_FRANCHISEE_USERS fu on fu.FranchiseeID = f.ID
 INNER JOIN aspnet_Users u on u.UserId = fu.UserID
 WHERE u.UserName = 'msi.andrew'
+
+select  * from TBL_OPPORTUNITIES where CompanyId= 623067;
+select  * from TBL_CONTACTS  where CompanyId= 623067;
+select  * from TBL_COMPANIES where CompaniesID= 623067;
+
+
+--delete from TBL_OPPORTUNITIES where CompanyId= 623067;
+--delete from TBL_CONTACTS where CompanyId= 623067;
+--delete from TBL_COMPANIES where CompaniesID= 623067;
