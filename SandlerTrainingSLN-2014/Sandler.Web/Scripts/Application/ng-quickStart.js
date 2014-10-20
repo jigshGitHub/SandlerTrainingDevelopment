@@ -317,20 +317,20 @@ function initialize_quickStartF(type) {
 
 
         //Set some defaults...remove once testing done
-        //self.companyObservable.COMPANYNAME('JCInc');
-        //self.companyObservable.POCLastName('POCLn');
-        //self.companyObservable.POCFirstName('POCFn');
-        //self.companyObservable.IndustryId('1');
-        //self.opportunity.NAME('JCIncOpp');
-        //self.opportunity.Pain('None');
-        //self.opportunity.ProductID('1');
-        //self.opportunity.STATUSID('1');
-        //self.opportunity.SourceID('1');
-        //self.opportunity.TypeID('1');
-        //self.opportunity.VALUE('5000000');
-        //self.opportunity.OppCloseDatec('7/1/2014');
-        //self.contactObservable.NextContactDatec('7/1/2014');
-        //self.contactObservable.ApptSourceId('1');
+        self.companyObservable.COMPANYNAME('JCInc');
+        self.companyObservable.POCLastName('POCLn');
+        self.companyObservable.POCFirstName('POCFn');
+        self.companyObservable.IndustryId('1');
+        self.opportunity.NAME('JCIncOpp');
+        self.opportunity.Pain('None');
+        self.opportunity.ProductID('1');
+        self.opportunity.STATUSID('1');
+        self.opportunity.SourceID('1');
+        self.opportunity.TypeID('1');
+        self.opportunity.VALUE('5000000');
+        self.opportunity.OppCloseDatec('7/1/2014');
+        self.contactObservable.NextContactDatec('7/1/2014');
+        self.contactObservable.ApptSourceId('1');
 
 
         //For Notes
@@ -367,59 +367,7 @@ function initialize_quickStartF(type) {
             self.contactObservable.CourseTrainingDate(self.contactObservable.CourseTrainingDatec());
 
             self.opportunity.CLOSEDATE(self.opportunity.OppCloseDatec());
-            $.ajax({
-                url: 'api/QS/CompanySave',
-                type: "POST",
-                data: ko.toJSON(self.companyObservable),
-                dataType: "json",
-                contentType: "application/json; charset=utf-8",
-                async: false,
-                success: function (response) {
-                    if (response.success) {
-                        self.contactObservable.COMPANYID(response.UniqueId);
-                        $.ajax({
-                            url: 'api/QS/ContactSave',
-                            type: "POST",
-                            data: ko.toJSON(self.contactObservable),
-                            dataType: "json",
-                            contentType: "application/json; charset=utf-8",
-                            async: false,
-                            success: function (response) {
-                                if (response != undefined) {
-                                    self.opportunity.COMPANYID(response.COMPANYID);
-                                    self.opportunity.CONTACTID(response.CONTACTSID);
-                                    $.ajax({
-                                        url: 'api/QS/PipelineSave',
-                                        type: "POST",
-                                        data: ko.toJSON(self.opportunity),
-                                        dataType: "json",
-                                        contentType: "application/json; charset=utf-8",
-                                        async: false,
-                                        success: function (response) {
-                                            console.log('saved contact');
-                                            $('#quickStart_body').unblock();
-                                            showNoti_.info('Opportunity added successfully.', true);
-                                        },
-                                        error: function (response, errorText) {
-                                            showNoti_.error('Unable to save pipeline, server error occures.', true);
-                                            return false;
-                                        }
-                                    });
-                                }
-                            },
-                            error: function (response, errorText) {
-                                showNoti_.error('Unable to save contact, server error occures.', true);
-                                $('#quickStart_body').unblock();
-                                return false;
-                            }
-                        });
-                    }
-                },
-                error: function (response, errorText) {
-                    showNoti_.error('Unable to save company, server error occures.', true);
-                    return false;
-                }
-            });
+            self.companySave();
         };
 
 
@@ -580,6 +528,75 @@ function initialize_quickStartF(type) {
             //}
             //Now Continue
             self.continueWithSave();
+        };
+
+        self.companySave = function () {
+            $.ajax({
+                url: 'api/QS/CompanySave',
+                type: "POST",
+                data: ko.toJSON(self.companyObservable),
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                async: false,
+                success: function (response) {
+                    console.log(response);
+                    if (response.success) {
+                        self.contactObservable.COMPANYID(response.UniqueId);
+                        self.contactSave();
+                    }
+                    else {
+                        showNoti_.error('Unable to save company, server error occures.', true);
+                        return false;
+                    }
+                },
+                error: function (response, errorText) {
+                    showNoti_.error('Unable to save company, server error occures.', true);
+                    return false;
+                }
+            });
+        }
+
+        self.contactSave = function () {
+            $.ajax({
+                url: 'api/QS/ContactSave',
+                type: "POST",
+                data: ko.toJSON(self.contactObservable),
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                async: false,
+                success: function (response) {
+                    if (response != undefined) {
+                        self.opportunity.COMPANYID(response.COMPANYID);
+                        self.opportunity.CONTACTID(response.CONTACTSID);
+                        self.pipelineSave();
+                    }
+                },
+                error: function (response, errorText) {
+                    showNoti_.error('Unable to save contact, server error occures.', true);
+                    $('#quickStart_body').unblock();
+                    return false;
+                }
+            });
+        };
+
+        self.pipelineSave = function () {
+            $.ajax({
+                url: 'api/QS/PipelineSave',
+                type: "POST",
+                data: ko.toJSON(self.opportunity),
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                async: false,
+                success: function (response) {
+                    console.log('saved pipeline');
+                    $('#quickStart_body').unblock();
+                    showNoti_.info('Opportunity added successfully.', true);
+                },
+                error: function (response, errorText) {
+                    showNoti_.error('Unable to save pipeline, server error occures.', true);
+                    return false;
+                }
+            });
         };
 
     }

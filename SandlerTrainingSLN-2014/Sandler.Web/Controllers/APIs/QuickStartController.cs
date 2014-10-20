@@ -130,6 +130,13 @@ namespace Sandler.Web.Controllers.API
                 }
                 else
                 {
+                    List<CompanyView> companies = uow.CompanyRepository().Get("", "COMPANYNAME ASC", 0, 0,null, CurrentUser.FranchiseeID, false).ToList().Where(r => r.COMPANYNAME == _company.COMPANYNAME).ToList<CompanyView>();
+
+                    if (companies.Count > 0)
+                    {
+                        _response = new genericResponse() { success = false, UniqueId = companies[0].COMPANIESID };
+                        return _response;
+                    }
                     //Add Operation
                     _company.CreatedDate = DateTime.Now;
                     _company.CreatedBy = CurrentUser.UserId.ToString();

@@ -1,3 +1,4 @@
+
 SELECT u.* from aspnet_Users u 
 inner join aspnet_Membership m on m.UserId = u.UserId 
 inner join aspnet_UsersInRoles ur on ur.UserId = u.UserId 
@@ -81,3 +82,12 @@ exec sp_DeleteDocumentsOfUser 1,'fd4cce62-2a92-4715-a804-03f5bb957b9b';
 exec sp_DeleteOpportunitiesOfUser  1,'fd4cce62-2a92-4715-a804-03f5bb957b9b';
 
 exec sp_DeleteContactsOfUser  1,'fd4cce62-2a92-4715-a804-03f5bb957b9b';
+
+exec [sp_CompanyLookup] 'CompaniesID ASC',0,0,null,8,null,0
+exec [sp_CompanyView] 'CompaniesID ASC',0,0,null,8,null,0
+
+SELECT c.* FROM TBL_COMPANIES c 
+INNER JOIN TBL_FRANCHISEE f on c.FranchiseeId = f.ID
+INNER JOIN TBL_FRANCHISEE_USERS fu on fu.FranchiseeID = f.ID
+INNER JOIN aspnet_Users u on u.UserId = fu.UserID
+WHERE u.UserName = 'msi.andrew'
