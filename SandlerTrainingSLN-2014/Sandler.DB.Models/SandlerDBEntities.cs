@@ -103,7 +103,7 @@ namespace Sandler.DB.Models
             if (companyId.HasValue)
                 whereClause = whereClause + ",@companyId=" + companyId.Value;
             if (!string.IsNullOrEmpty(userId))
-                whereClause = whereClause + ",@userId=" + userId;
+                whereClause = whereClause + ",@userId='" + userId + "'";
             if (selectForExcel)
                 whereClause = whereClause + ",@selectForExcel=" + selectForExcel;
 
@@ -125,7 +125,7 @@ namespace Sandler.DB.Models
             if (companyId.HasValue)
                 whereClause = whereClause + ",@companyId=" + companyId.Value;
             if (!string.IsNullOrEmpty(userId))
-                whereClause = whereClause + ",@userId=" + userId;
+                whereClause = whereClause + ",@userId=" + userId + "'";
             if (selectForExcel)
                 whereClause = whereClause + ",@selectForExcel=" + selectForExcel;
 

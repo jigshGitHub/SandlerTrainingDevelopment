@@ -222,12 +222,36 @@
                     <span data-bind="visible: IsSaved" style="color: red">3-In-1 Record Created Successfully!</span>
                 </div>
                 <div class="pull-right">
-                    <button id="bt_cancel_evt" class="btn btn-danger btn-cancel" type="button">Clear</button>
+                    <button id="bt_cancel_evt" class="btn btn-danger btn-cancel" type="button" data-bind="">Clear</button>
                     <button id="bt_save_evt" class="btn btn-primary btn-save" type="button" data-bind="enable: isDirty, click: Save">Save</button>
                 </div>
             </div>
 
+            <div class="modal" id="saveEditContainer">
+	            <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button class="close" aria-hidden="true" type="button" data-dismiss="modal">×</button>
+                            <h3 id="modal-headerLabel"></h3>
+                        </div>
+                        <div id="user_body" class="modal-body">
+                            <p>
+                                This Company already exists. Click "Save" to continue and update the Contact and Opportunity records for this company with the information you have provided. <a class="btn btn-sm btn-primary savesa" data-bind="click:editSave">Save</a>
+                            </p>
+                            <p>
+                                This Company already exists. Click "Edit" to go back and edit the Company Name for this record before saving.<a class="btn btn-sm btn-primary savesa" data-bind="click: hideEditContainer">Edit</a>
+                            </p>
+                        </div>
+                        <div class="modal-footer">
+		        
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
     </div>
+
+
+    
 </div>

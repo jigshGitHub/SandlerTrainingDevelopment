@@ -77,6 +77,13 @@ namespace Sandler.Web.Controllers.API
             if (!VerifyContactRequiredFields(contact))
                 return new HttpResponseMessage(HttpStatusCode.InternalServerError);
 
+            List<ContactView> contacts = uow.ContactRepository().Get("LastName ASC", 0, 0, null, CurrentUser.FranchiseeID, null, CurrentUser.UserId.ToString(), "", false).Where(r => r.FirstName == contact.FIRSTNAME && r.LastName == contact.LASTNAME).ToList<ContactView>(); ;
+
+            if (contacts.Count > 0)
+            {
+                contact.CONTACTSID = contacts[0].ContactsId;
+            }
+
             if (contact.CONTACTSID > 0)
             {
                 uow.Repository<TBL_CONTACTS>().Update(contact);
@@ -147,7 +154,7 @@ namespace Sandler.Web.Controllers.API
                 _response = new genericResponse() { success = true, UniqueId = companiesId };
                 return _response;
             }
-            catch
+            catch (Exception ex)
             {
                 _response = new genericResponse() { success = false, message = "There is a problem in Saving Company Information. Please try again later." };
                 return _response;
