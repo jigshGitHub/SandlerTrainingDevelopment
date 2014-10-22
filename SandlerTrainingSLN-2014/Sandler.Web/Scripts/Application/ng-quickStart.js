@@ -380,6 +380,10 @@ function quickStartDataVM(opportunityObservable, scenario) {
 
     self.hideEditContainer = function () {
         $('#saveEditContainer').modal('hide');
+        $('#quickStart_body').unblock();
+        self.companyObservable.COMPANIESID('');
+        self.contactObservable.COMPANYID('');
+        self.dirtyFlag.reset();
     };
 
     self.editSave = function () {
@@ -392,6 +396,7 @@ function quickStartDataVM(opportunityObservable, scenario) {
                     self.opportunity.CONTACTID(response.CONTACTSID);
                     self.pipelineSave();
                     $('#saveEditContainer').modal('hide');
+                    $('#quickStart_body').unblock();
                 } else {
                     showNoti_.error('Unable to save contact.', true);
                 }
@@ -649,7 +654,7 @@ function quickStartDataVM(opportunityObservable, scenario) {
             async: false,
             success: function (response) {
                 //console.log('saved pipeline');
-                $('#quickStart_body').unblock();
+                $('#quickStart_body').unblock(); self.reset();
                 showNoti_.info('Opportunity added successfully.', true);
             },
             error: function (response, errorText) {
@@ -659,6 +664,70 @@ function quickStartDataVM(opportunityObservable, scenario) {
         });
     };
 
+    self.reset = function(type) {
+
+        self.companyObservable.COMPANYNAME('');
+        self.companyObservable.POCFirstName('');
+        self.companyObservable.POCLastName('');
+        self.companyObservable.POCPhone('');
+        self.companyObservable.POCEmail('');
+        self.companyObservable.IsNewCompany('');
+        self.companyObservable.IndustryId('');
+        self.companyObservable.COMPANIESID('');
+
+        self.contactObservable.ACTIONSTEP('');
+        self.contactObservable.IsNewAppointment('');
+        self.contactObservable.ApptSourceId('');
+        self.contactObservable.IsRegisteredForTraining('');
+        self.contactObservable.CourseId('');
+        self.contactObservable.CourseTrainingDatec('');
+        self.contactObservable.TrainingCourseName('');
+        self.contactObservable.HowManyAttended('');
+        self.contactObservable.NextContactDatec('');
+        self.contactObservable.COMPANYID('');
+        self.contactObservable.CONTACTSID('');
+
+        self.opportunity.NAME('');
+        self.opportunity.Pain('');
+        self.opportunity.LengthOfProblem('');
+        self.opportunity.Alternatives('');
+        self.opportunity.CostToFix('');
+        self.opportunity.IsBudgeIdentified('');
+        self.opportunity.IsMoveForward('');
+        self.opportunity.ProductID('');
+        self.opportunity.STATUSID('');
+        self.opportunity.SourceID('');
+        self.opportunity.TypeID('');
+        self.opportunity.VALUE('');
+        self.opportunity.IsActive(false);
+        self.opportunity.Notes('');
+        self.opportunity.OppCloseDatec('');
+        self.opportunity.CONTACTID();
+        self.opportunity.SALESREPFIRSTNAME('');
+        self.opportunity.SALESREPLASTNAME('');
+        self.opportunity.WINPROBABILITY('');
+        self.opportunity.salesRepId('');
+        self.opportunity.COMPANYID('');
+        self.opportunity.CONTACTID('');
+
+        self.opportunityModeSelectionId('');
+        self.selectOppsVisible(false);
+        self.POCs([]);
+        self.selectedPOC('');
+        self.selectedCompanyId('');
+        self.selectedOpportunity();
+        self.opportunities([]);
+        self.Notes('');
+
+        //self.dirtyFlag.reset();
+
+        if (type != 'Clear') {
+            self.IsSaved(true);
+        }
+        else {
+            self.IsSaved(false);
+        }
+    }
 }
 
 //////////////

@@ -77,12 +77,10 @@ namespace Sandler.Web.Controllers.API
             if (!VerifyContactRequiredFields(contact))
                 return new HttpResponseMessage(HttpStatusCode.InternalServerError);
 
-            List<ContactView> contacts = uow.ContactRepository().Get("LastName ASC", 0, 0, null, CurrentUser.FranchiseeID, null, CurrentUser.UserId.ToString(), "", false).Where(r => r.FirstName == contact.FIRSTNAME && r.LastName == contact.LASTNAME).ToList<ContactView>(); ;
+            List<ContactView> contacts = uow.ContactRepository().Get("LastName ASC", 0, 0, null, CurrentUser.FranchiseeID, null, CurrentUser.UserId.ToString(), "", false).Where(r => r.FirstName == contact.FIRSTNAME && r.LastName == contact.LASTNAME && r.CompanyId == contact.COMPANYID).ToList<ContactView>(); ;
 
             if (contacts.Count > 0)
-            {
                 contact.CONTACTSID = contacts[0].ContactsId;
-            }
 
             if (contact.CONTACTSID > 0)
             {
@@ -110,7 +108,7 @@ namespace Sandler.Web.Controllers.API
                !string.IsNullOrEmpty(contact.TrainingCourseName) &&
                contact.CourseTrainingDate.HasValue &&
                contact.HowManyAttended > 0);
-            return trainingcheck && (!string.IsNullOrEmpty(contact.FIRSTNAME) && !string.IsNullOrEmpty(contact.LASTNAME) && contact.ApptSourceId > 0);
+            return trainingcheck && (contact.COMPANYID > 0 && !string.IsNullOrEmpty(contact.FIRSTNAME) && !string.IsNullOrEmpty(contact.LASTNAME) && contact.ApptSourceId > 0);
         }
         #endregion
 
