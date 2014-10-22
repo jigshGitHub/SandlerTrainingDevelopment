@@ -44,7 +44,7 @@ var quickStartVM;
 
 //This is after Edit is perfomed
 function initialize_quickStartF(type) {
-    
+
     quickStartVM.companyObservable.COMPANYNAME('');
     quickStartVM.companyObservable.POCFirstName('');
     quickStartVM.companyObservable.POCLastName('');
@@ -148,7 +148,7 @@ function quickStartDataVM(opportunityObservable, scenario) {
             if (item.FirstName != null && item.LastName != null)
                 filteredSalesReps.push({ 'id': item.ID, 'fullName': item.LastName + ', ' + item.FirstName, 'lastName': item.LastName, 'firstName': item.FirstName });
         });
-        console.log(filteredSalesReps);
+        //console.log(filteredSalesReps);
         return filteredSalesReps;
     }, self);
 
@@ -168,7 +168,7 @@ function quickStartDataVM(opportunityObservable, scenario) {
                     contentType: "application/json; charset=utf-8",
                     async: false,
                     success: function (response) {
-                        console.log(response);
+                        //console.log(response);
                         self.companyObservable.COMPANYNAME(response.COMPANYNAME);
                         self.companyObservable.POCLastName(response.POCLastName);
                         self.companyObservable.POCFirstName(response.POCFirstName);
@@ -180,8 +180,8 @@ function quickStartDataVM(opportunityObservable, scenario) {
                 });
                 self.POCs(startModule.getUserContactsByCompany(newValue))
                 $.each(self.POCs(), function (i, item) {
-                    console.log(item.lastName + '-' + self.companyObservable.POCLastName());
-                    console.log(item.firstName + '-' + self.companyObservable.POCFirstName());
+                    //console.log(item.lastName + '-' + self.companyObservable.POCLastName());
+                    //console.log(item.firstName + '-' + self.companyObservable.POCFirstName());
                     if (item.lastName == self.companyObservable.POCLastName() && item.firstName == self.companyObservable.POCFirstName()) {
                         //console.log(item.contactsId);
                         self.selectedPOC(item.contactsId);
@@ -293,12 +293,12 @@ function quickStartDataVM(opportunityObservable, scenario) {
     self.opportunity.salesRepId.extend({ required: "" });
     self.opportunity.STATUSID.subscribe(function (newValue) {
         if (newValue != '') {
-            console.log(newValue);
+            //console.log(newValue);
             var statusObj = $.grep(self.oppStatus, function (element, index) {
                 return element.ID == newValue;
             });
             if (newValue == '1' || newValue == '2') {
-                console.log(statusObj[0].Name);
+                //console.log(statusObj[0].Name);
                 self.opportunity.NAME(((self.companyObservable.COMPANYNAME() == null) ? '' : self.companyObservable.COMPANYNAME()) + '-' + statusObj[0].Name);
             }
             else
@@ -311,11 +311,11 @@ function quickStartDataVM(opportunityObservable, scenario) {
         self.opportunity.SALESREPLASTNAME('');
         self.opportunity.SALESREPFIRSTNAME('');
         if (newValue != '') {
-            console.log(newValue);
+            //console.log(newValue);
             var salesRepObj = $.grep(self.salesReps(), function (element, index) {
                 return element.id == newValue;
             });
-            console.log(salesRepObj[0]);
+            //console.log(salesRepObj[0]);
 
             self.opportunity.SALESREPLASTNAME(salesRepObj[0].lastName);
             self.opportunity.SALESREPFIRSTNAME(salesRepObj[0].firstName);
@@ -340,23 +340,23 @@ function quickStartDataVM(opportunityObservable, scenario) {
 
 
     //Set some defaults...remove once testing done
-    self.companyObservable.COMPANYNAME('JCInc');
-    self.companyObservable.POCLastName('POCLn');
-    self.companyObservable.POCFirstName('POCFn');
-    self.companyObservable.POCPhone('8458458458');
-    self.companyObservable.POCEmail('pocemail@gmail.com');
-    self.companyObservable.IndustryId('1');
-    self.opportunity.NAME('JCIncOpp');
-    self.opportunity.Pain('None');
-    self.opportunity.ProductID('1');
-    self.opportunity.STATUSID('1');
-    self.opportunity.SourceID('1');
-    self.opportunity.TypeID('1');
-    self.opportunity.VALUE('5000000');
-    self.opportunity.OppCloseDatec('7/1/2014');
-    self.contactObservable.NextContactDatec('7/1/2014');
-    self.contactObservable.ApptSourceId('1');
-    self.contactObservable.ACTIONSTEP('test step');
+    //self.companyObservable.COMPANYNAME('JCInc');
+    //self.companyObservable.POCLastName('POCLn');
+    //self.companyObservable.POCFirstName('POCFn');
+    //self.companyObservable.POCPhone('8458458458');
+    //self.companyObservable.POCEmail('pocemail@gmail.com');
+    //self.companyObservable.IndustryId('1');
+    //self.opportunity.NAME('JCIncOpp');
+    //self.opportunity.Pain('None');
+    //self.opportunity.ProductID('1');
+    //self.opportunity.STATUSID('1');
+    //self.opportunity.SourceID('1');
+    //self.opportunity.TypeID('1');
+    //self.opportunity.VALUE('5000000');
+    //self.opportunity.OppCloseDatec('7/1/2014');
+    //self.contactObservable.NextContactDatec('7/1/2014');
+    //self.contactObservable.ApptSourceId('1');
+    //self.contactObservable.ACTIONSTEP('test step');
 
 
     //For Notes
@@ -413,6 +413,7 @@ function quickStartDataVM(opportunityObservable, scenario) {
 
         self.opportunity.CLOSEDATE(self.opportunity.OppCloseDatec());
         self.companySave(function (response) {
+            console.log(response);
             if (response != null || response != undefined) {
                 self.companyObservable.COMPANIESID(response.UniqueId);
                 self.contactObservable.COMPANYID(response.UniqueId);
@@ -460,9 +461,19 @@ function quickStartDataVM(opportunityObservable, scenario) {
             $('#QS_POCLastName').focus();
             return;
         }
+        if (!self.opportunity.STATUSID()) {
+            showNoti_.error('Opportunity Status is Required!!', false);
+            $('#QS_OppStatus').focus();
+            return;
+        }
         if (!self.opportunity.NAME()) {
             showNoti_.error('Opportunity Name is Required!!', false);
             $('#QS_OpportunityName').focus();
+            return;
+        }
+        if (!self.opportunity.salesRepId()) {
+            showNoti_.error('Sales Rep is Required!!', false);
+            $('#QS_SalesRep').focus();
             return;
         }
         if (!self.opportunity.Pain()) {
@@ -496,6 +507,27 @@ function quickStartDataVM(opportunityObservable, scenario) {
             $('#QS_Value').focus();
             return;
         }
+        if (!self.contactObservable.ACTIONSTEP()) {
+            showNoti_.error('Next Step is Required!!', false);
+            $('#QS_NextStep').focus();
+            return;
+        }
+
+        var nextContactDate = $('#QS_NextContactDate').val();
+        if (!nextContactDate == "") {
+            var d1 = kendo.parseDate(nextContactDate, "MM/dd/yyyy");
+            if (d1 == null) {
+                showNoti_.error('Next Contact Date is NOT a valid date.', false);
+                $('#QS_NextContactDate').focus();
+                return;
+            }
+        }
+        else {
+            showNoti_.error('Next Contact Date Date is required.', false);
+            $('#QS_NextContactDate').focus();
+            return;
+        }
+
         if (!self.contactObservable.ApptSourceId()) {
             showNoti_.error('Appointment Source is Required!!', false);
             $('#QS_AppSource').focus();
@@ -548,9 +580,9 @@ function quickStartDataVM(opportunityObservable, scenario) {
             return;
         }
 
-        var dte1 = $('#QS_EstOppCloseDate').val();
-        if (!dte1 == "") {
-            var d1 = kendo.parseDate(dte1, "MM/dd/yyyy");
+        var estOppCloseDate = $('#QS_EstOppCloseDate').val();
+        if (!estOppCloseDate == "") {
+            var d1 = kendo.parseDate(estOppCloseDate, "MM/dd/yyyy");
             if (d1 == null) {
                 showNoti_.error('Estimated Opportunity Close Date is NOT a valid date.', false);
                 $('#QS_EstOppCloseDate').focus();
@@ -563,40 +595,6 @@ function quickStartDataVM(opportunityObservable, scenario) {
             return;
         }
 
-
-        ////Take care of bit Fields
-        //if (self.IsBudgeIdentifiedInt() > 0) {
-        //    self.IsBudgeIdentified(true);
-        //}
-        //else {
-        //    self.IsBudgeIdentified(false);
-        //}
-        //if (self.IsMoveForwardInt() > 0) {
-        //    self.IsMoveForward(true);
-        //}
-        //else {
-        //    self.IsMoveForward(false);
-        //}
-
-        //if (self.IsNewAppointmentInt() > 0) {
-        //    self.IsNewAppointment(true);
-        //}
-        //else {
-        //    self.IsNewAppointment(false);
-        //}
-
-        //if (self.IsRegisteredForTrainingInt() > 0) {
-        //    self.IsRegisteredForTraining(true);
-        //}
-        //else {
-        //    self.IsRegisteredForTraining(false);
-        //}
-        //if (self.IsNewCompanyInt() > 0) {
-        //    self.IsNewCompany(true);
-        //}
-        //else {
-        //    self.IsNewCompany(false);
-        //}
         //Now Continue
         self.continueWithSave();
     };
@@ -641,6 +639,7 @@ function quickStartDataVM(opportunityObservable, scenario) {
     };
 
     self.pipelineSave = function () {
+        console.log(ko.toJSON(self.opportunity));
         $.ajax({
             url: 'api/QS/PipelineSave',
             type: "POST",
@@ -649,7 +648,7 @@ function quickStartDataVM(opportunityObservable, scenario) {
             contentType: "application/json; charset=utf-8",
             async: false,
             success: function (response) {
-                console.log('saved pipeline');
+                //console.log('saved pipeline');
                 $('#quickStart_body').unblock();
                 showNoti_.info('Opportunity added successfully.', true);
             },
