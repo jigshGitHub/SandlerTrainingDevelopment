@@ -248,6 +248,42 @@
                     </div>
                 </div>
             </div>
+            <div class="modal" id="meetingInviteContainer">
+	            <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button class="close" aria-hidden="true" type="button" data-dismiss="modal">×</button>                            
+                        </div>
+                        <div id="meetingInviteBody" class="modal-body">
+                            <p>
+                                Would you like to send a meeting invite to the company Point of Contact now?
+                            </p>
+                        </div>
+                        <div class="modal-footer">
+                            <a href="#" class="btn btn-primary" data-bind="click: sendInvite">Yes</a>
+                            <a href="#" class="btn" data-bind="click: denySendInvite">No</a>                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal" id="newEntryResponseContainer">
+	            <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button class="close" aria-hidden="true" type="button" data-dismiss="modal">×</button>                            
+                        </div>
+                        <div id="newEntryResponseBody" class="modal-body">
+                            <p>
+                                Would you like to create another opportunity for this same company at this time?
+                            </p>
+                        </div>
+                        <div class="modal-footer">
+                            <a href="#" class="btn btn-primary" data-bind="click: createAnotherOpportunity">Yes</a>
+                            <a href="#" class="btn" data-bind="click: denyCreateAnotherOpportunity">No</a>                            
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
     </div>

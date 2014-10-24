@@ -103,6 +103,7 @@ function initialize_quickStartF(type) {
     }
 }
 var startModule = sandler.appStart.module;
+var modalOptions;
 //First time display the data
 function quickStartDataVM(opportunityObservable, scenario) {
     var self = this;
@@ -418,7 +419,7 @@ function quickStartDataVM(opportunityObservable, scenario) {
 
         self.opportunity.CLOSEDATE(self.opportunity.OppCloseDatec());
         self.companySave(function (response) {
-            console.log(response);
+            //console.log(response);
             if (response != null || response != undefined) {
                 self.companyObservable.COMPANIESID(response.UniqueId);
                 self.contactObservable.COMPANYID(response.UniqueId);
@@ -437,7 +438,7 @@ function quickStartDataVM(opportunityObservable, scenario) {
                     });
                 }
                 else {
-                    var modalOptions = { backdrop: 'static', show: true };
+                    modalOptions = { backdrop: 'static', show: true };
                     var modalHeader = 'Make your selection';
                     $('#modal-headerLabel').text(modalHeader);
                     $('#saveEditContainer').modal(modalOptions);
@@ -644,7 +645,7 @@ function quickStartDataVM(opportunityObservable, scenario) {
     };
 
     self.pipelineSave = function () {
-        console.log(ko.toJSON(self.opportunity));
+        //console.log(ko.toJSON(self.opportunity));
         $.ajax({
             url: 'api/QS/PipelineSave',
             type: "POST",
@@ -654,8 +655,10 @@ function quickStartDataVM(opportunityObservable, scenario) {
             async: false,
             success: function (response) {
                 //console.log('saved pipeline');
-                $('#quickStart_body').unblock(); self.reset();
+                $('#quickStart_body').unblock();                
                 showNoti_.info('Opportunity added successfully.', true);
+                modalOptions = { backdrop: 'static', show: true };
+                $('#meetingInviteContainer').modal(modalOptions);
             },
             error: function (response, errorText) {
                 showNoti_.error('Unable to save pipeline, server error occures.', true);
@@ -728,6 +731,43 @@ function quickStartDataVM(opportunityObservable, scenario) {
             self.IsSaved(false);
         }
     }
+
+    self.sendInvite = function () {
+
+        //call to send invite
+
+        //hide this modal
+        $('#meetingInviteContainer').modal('hide');
+        $('#quickStart_body').unblock();
+
+        //open next modal
+        modalOptions = { backdrop: 'static', show: true };
+        $('#newEntryResponseContainer').modal(modalOptions);
+    };
+
+    self.denySendInvite = function () {
+        $('#meetingInviteContainer').modal('hide');
+        $('#quickStart_body').unblock();
+
+        //open next modal
+        modalOptions = { backdrop: 'static', show: true };
+        $('#newEntryResponseContainer').modal(modalOptions);
+    };
+
+    self.createAnotherOpportunity = function () {
+        self.contactObservable.COMPANYID('');
+        self.opportunity.COMPANYID('');
+        self.opportunity.CONTACTID('');
+
+        $('#newEntryResponseContainer').modal('hide');
+        $('#quickStart_body').unblock();
+    };
+
+    self.denyCreateAnotherOpportunity = function () {
+        $('#newEntryResponseContainer').modal('hide');
+        $('#quickStart_body').unblock();
+        self.reset();
+    };
 }
 
 //////////////
