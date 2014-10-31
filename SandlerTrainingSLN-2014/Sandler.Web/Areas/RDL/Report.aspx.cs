@@ -21,7 +21,41 @@ namespace Sandler.Web.Areas.RDL
         private void LoadReport()
         {
             string reportName = Request.QueryString["rpt"];
+            
+            #region [[ Report Parameters ]]
             List<ReportParameter> rptParams = new List<ReportParameter>();
+            //UserId
+            string UserID = (string)Session["UserID"];
+            if (UserID != null)
+            {
+                string[] UserIDArray = new string[] { UserID };
+                ReportParameter paramUserId = new ReportParameter("UserID");
+                paramUserId.Values.AddRange(UserIDArray);
+                rptParams.Add(paramUserId);
+            }
+
+            //UserRole
+            string UserRole = (string)Session["UserRole"];
+            if (UserRole != null)
+            {
+                string[] UserRoleArray = new string[] { UserRole };
+                ReportParameter paramUserRole = new ReportParameter("UserRole");
+                paramUserRole.Values.AddRange(UserRoleArray);
+                rptParams.Add(paramUserRole);
+            }
+
+            ////UserName
+            string UserName = (string)Session["UserName"];
+            if (UserName != null)
+            {
+                string[] UserNameArray = new string[] { UserName };
+                ReportParameter paramUserName = new ReportParameter("UserName");
+                paramUserName.Values.AddRange(UserNameArray);
+                rptParams.Add(paramUserName);
+            }
+
+            #endregion
+
 
             #region [[ Commented code ]]
             //switch (reportName)
@@ -74,7 +108,12 @@ namespace Sandler.Web.Areas.RDL
                 ReportViewer1.ShowParameterPrompts = false;
             }
             ReportViewer1.ShowPrintButton = true;
-            this.ReportViewer1.ServerReport.SetParameters(rptParams);
+
+            if (reportName.ToUpper().Contains("WITHDPARA")) // Pass direct parameters like UserId, UserRole etc
+            {
+                this.ReportViewer1.ServerReport.SetParameters(rptParams);
+            }
+                        
             ReportViewer1.ServerReport.Refresh();
 
         }

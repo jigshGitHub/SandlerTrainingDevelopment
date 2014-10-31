@@ -17,5 +17,7 @@ namespace Sandler.Web.Models
 
         public int __count { get; set; }
         public List<iItemType> results { get; set; }
+        public string orgfilename{get;set;}
+        public string serverfilename { get; set; }
     }
 }

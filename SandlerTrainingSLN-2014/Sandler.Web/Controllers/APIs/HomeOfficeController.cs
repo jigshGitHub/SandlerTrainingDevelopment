@@ -103,8 +103,7 @@ namespace Sandler.Web.Controllers.API
             return Request.CreateResponse(returnObject);
 
         }
-
-
+        
         [Route("api/ArchiveFranchiseeView/")]
         public HttpResponseMessage GetArchiveFranchiseeView(string searchText, int? page, int? pageSize, bool selectForExcel)
         {

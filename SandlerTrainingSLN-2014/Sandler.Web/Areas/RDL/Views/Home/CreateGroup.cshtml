@@ -1,0 +1,237 @@
+﻿
+<style>
+
+ .form-group {
+    display: inline-block;
+    vertical-align: top;
+}
+
+ .keep-on-line {
+    white-space: nowrap;
+}
+  .panel.blue .panel-heading
+ {
+	background-color: #25a0da;
+	border-color: #25a0da;
+	color: white;
+	border-radius: 0px;
+ }
+ /*This is for Multiselect background blue color and font white*/
+ .k-multiselect-wrap li
+ {
+    background-color: #25a0da;
+    color: white;
+ }
+ .splfont
+ {
+    font-size:12px;
+ }
+  /*This is for Multiselect background other than bluee color and font white : Used for main counter*/
+ .msmain .k-multiselect-wrap li
+ {
+   background-color: #b200ff;
+   color: white;
+ }
+ /*For all MS we need red background when user mouse hover over it*/
+ .k-multiselect-wrap li:hover{
+    background: red;
+    border-color: red;
+ }
+ /*Let us remove border for all MS*/
+ .k-multiselect.k-header
+ {
+   border: 0px;
+ }
+ </style>
+
+<script src="~/Scripts/Application/ng-CreateGroup.js" type="text/javascript"></script>
+
+<div id="createGroupMainDiv" class="container" ng-controller="ng_CreateGroupCtrl">
+
+    @* Page Header: Title and Buttons *@
+   <div class="row page-header">
+        <div class="row">
+            <div class='page-title'>Create<span> Email Group</span></div>
+        </div> 
+   </div>
+
+   <div class="row" style="height:12px"></div> @*This is for some space*@
+
+   <div class="row">
+       @*Column 1 here*@
+       <div class="col-md-6 no-margin">
+                  <div class="row">
+                      <div class="panel-group" id="accordion">
+
+                           <div class="panel panel-default blue">
+                      <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" target="_self">
+                       <div class="panel-heading">
+                           <h4 class="panel-title">
+                              Franchisee Name & Coach
+                                <i data-bind="css: Div1Hideshow"></i>
+                          </h4>
+                       </div>
+                      </a>
+                       
+                       <div id="collapseOne" class="panel-collapse collapse in">
+                    @*<div id="collapseOne" class="panel-collapse collapse">*@
+                      <div class="panel-body" style="overflow:scroll; height:200px"> @*Height is not required : height:500px*@
+                          
+                          
+                          <label style="font-size:small">Franchisee Name</label>                  
+                          <div class="controls">
+                              <span id="cg_frname" class="form-control" data-bind="text: FRNAME" />
+                          </div>
+                          
+                          @*Dummy Row*@
+                          <div class="row" style="height:15px"></div>
+
+                          <label style="font-size:small">Coach</label>
+                          <div class="controls">
+                              <input type="checkbox" data-bind="checked: IsAllCoachEmail" />&nbsp;<b>Check/Uncheck All</b>
+                              <div style="height:10px"></div>
+                              <table id="coachTable">
+                                    <tbody data-bind="foreach: frcoachEmails">
+                                        <tr data-bind="css: {selected: IsSelected}">
+                                            <td>
+                                                <input type="checkbox" data-bind="checked: IsSelected" />&nbsp;
+                                            </td>
+                                            <td data-bind="text: name"></td>
+                                        </tr>
+                                    </tbody>
+                              </table>
+                          </div>
+                          
+                                                                                                                                  
+                      </div>
+                    </div>
+                  </div>
+                          
+                           <div class="panel panel-default blue" data-bind="visible: fruserEmails().length > 0">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" target="_self">
+                      <div class="panel-heading">
+                      <h4 class="panel-title">
+                          Franchisee User(s) 
+                          <i data-bind="css: Div3Hideshow"></i>
+                       </h4>
+                      </div>
+                   </a>
+                    <div id="collapseThree" class="panel-collapse collapse">
+                      <div class="panel-body" style="overflow:scroll; height:190px">
+                                    
+                          <input type="checkbox" data-bind="checked: IsAllFrUserEmail" />&nbsp;<b>Check/Uncheck All</b>
+                          <div style="height:10px"></div>
+                          <table id="FruserGroupTable">
+                                <tbody data-bind="foreach: fruserEmails">
+                                    <tr data-bind="css: {selected: IsSelected}">
+                                        <td>
+                                            <input type="checkbox" data-bind="checked: IsSelected" />&nbsp;
+                                        </td>
+                                        <td data-bind="text: name"></td>
+                                    </tr>
+                                </tbody>
+                          </table>
+
+                          
+                      </div>
+                    </div>
+                  </div>
+                          
+                                                                          
+                       </div>
+                  </div>
+            </div>
+       @*Column 2 here*@
+       <div class="col-md-6 no-margin">
+                  <div class="row">
+                      <div class="panel-group" id="accordion1">
+
+                            <div class="panel panel-default blue">
+                    <a data-toggle="collapse" data-parent="#accordion1" href="#collapseTwo" target="_self">
+                      <div class="panel-heading">
+                      <h4 class="panel-title">
+                          Email Group & Franchisee Owner(s) 
+                          <i data-bind="css: Div2Hideshow"></i>
+                      </h4>
+                    </div>
+                    </a>
+                    <div id="collapseTwo" class="panel-collapse collapse in">
+                      <div class="panel-body" style="overflow:scroll; height:200px">
+                                
+                          <label style="font-size:small">Group Name&nbsp;<span class="label label-danger" data-bind='visible: GRPNAME.hasError, text: GRPNAME.validationMessage'></span></label>                  
+                          <div class="controls">
+                               <input id="cg_grp" maxlength="80" type="text" class="form-control" data-bind="value: GRPNAME" placeholder="Type Email Group.."/>
+                          </div>
+                             
+                           @*Dummy Row*@
+                          <div class="row" style="height:15px"></div>
+
+                          <label style="font-size:small">Franchisee Owner(s)</label>
+                          <div class="controls">
+                              <input type="checkbox" data-bind="checked: IsAllFrOwnerEmail" />&nbsp;<b>Check/Uncheck All</b>
+                              <div style="height:10px"></div>
+                              <table id="ownerTable">
+                                    <tbody data-bind="foreach: frownerEmails">
+                                        <tr data-bind="css: {selected: IsSelected}">
+                                            <td>
+                                                <input type="checkbox" data-bind="checked: IsSelected" />&nbsp;
+                                            </td>
+                                            <td data-bind="text: name"></td>
+                                        </tr>
+                                    </tbody>
+                              </table>
+                          </div>
+                          
+                          
+                                                                               
+                          
+                      </div>
+                    </div>
+                  </div>
+                          
+                            <div class="panel panel-default blue" data-bind="visible: frcontactEmails().length > 0">
+                    <a data-toggle="collapse" data-parent="#accordion1" href="#collapseFour" target="_self">
+                      <div class="panel-heading">
+                      <h4 class="panel-title">
+                          Franchisee Contact(s) 
+                          <i data-bind="css: Div4Hideshow"></i>
+                       </h4>
+                      </div>
+                   </a>
+                    <div id="collapseFour" class="panel-collapse collapse">
+                      <div class="panel-body" style="overflow:scroll; height:190px">
+                                    
+                          <input type="checkbox" data-bind="checked: IsAllFrContactEmail" />&nbsp;<b>Check/Uncheck All</b>
+                          <div style="height:10px"></div>
+                          <table id="FrcntGroupTable">
+                                <tbody data-bind="foreach: frcontactEmails">
+                                    <tr data-bind="css: {selected: IsSelected}">
+                                        <td>
+                                            <input type="checkbox" data-bind="checked: IsSelected" />&nbsp;
+                                        </td>
+                                        <td data-bind="text: name"></td>
+                                    </tr>
+                                </tbody>
+                          </table>
+
+                          
+                      </div>
+                    </div>
+                  </div>
+                                                                
+                       </div>
+                  </div>
+            </div>
+   </div>
+    
+   <div class="row" style="height:6px"></div> @*This is for some space*@
+    
+   @* Page Footer *@
+   <div class="row page-footer">
+      <div class="pull-right">
+          <button id="bt_save_frc" class="btn btn-primary btn-save" type="button" style="width:110px" data-bind="enable: isDirty, click: Send">Create Group</button>
+       </div>
+   </div>
+
+
+</div>

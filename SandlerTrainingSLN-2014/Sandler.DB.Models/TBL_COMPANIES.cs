@@ -67,6 +67,9 @@ namespace Sandler.DB.Models
         public Nullable<bool> IsSameBillingAddress { get; set; }
         public string Country { get; set; }
         public Nullable<System.DateTime> StartTime { get; set; }
+        public string FACEBOOKID { get; set; }
+        public string TWITTERID { get; set; }
+        public string LINKEDINID { get; set; }
     
         public virtual TBL_FRANCHISEE TBL_FRANCHISEE { get; set; }
         public virtual Tbl_IndustryType Tbl_IndustryType { get; set; }

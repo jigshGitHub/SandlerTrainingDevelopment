@@ -73,6 +73,9 @@ namespace Sandler.DB.Models
         public Nullable<int> HowManyAttended { get; set; }
         public string CompanyNameWhereTrainingConducted { get; set; }
         public Nullable<System.DateTime> StartTime { get; set; }
+        public string FACEBOOKID { get; set; }
+        public string TWITTERID { get; set; }
+        public string LINKEDINID { get; set; }
     
         public virtual Tbl_AppointmentsSource Tbl_AppointmentsSource { get; set; }
         public virtual TBL_COMPANIES TBL_COMPANIES { get; set; }

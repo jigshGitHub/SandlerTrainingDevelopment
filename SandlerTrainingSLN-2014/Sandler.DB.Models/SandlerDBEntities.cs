@@ -311,5 +311,103 @@ namespace Sandler.DB.Models
             return q.ToList();
         }
 
+        #region [[ For Email related by Bhavesh ]]
+
+        public List<EmailAddressInfo> GetAllCoachAddresses()
+        {
+            string query = string.Format("exec [sp_GetAllCoachAddresses]");
+
+            var q = Database.SqlQuery<EmailAddressInfo>(query);
+
+            return q.ToList();
+        }
+
+        public List<EmailAddressInfo> GetAllFranchiseeAddresses(string Role)
+        {
+            string query = string.Format("exec [sp_GetAllFranchiseeAddresses] @RoleName='{0}'", Role);
+
+            var q = Database.SqlQuery<EmailAddressInfo>(query);
+
+            return q.ToList();
+        }
+
+        public List<EmailAddressInfo> GetFranchiseeAddresses(string Role, int FrId)
+        {
+            string query = string.Format("exec [sp_GetFranchiseeAddresses] @RoleName='{0}',@FranchiseeId={1}", Role, FrId);
+
+            var q = Database.SqlQuery<EmailAddressInfo>(query);
+
+            return q.ToList();
+        }
+
+        public List<EmailAddressInfo> GetAllContactsAddresses(int FrId)
+        {
+            string query = string.Format("exec [sp_GetAllContactsAddresses] @FranchiseeId={0}", FrId);
+
+            var q = Database.SqlQuery<EmailAddressInfo>(query);
+
+            return q.ToList();
+        }
+
+        public List<EmailAddressInfo> GetUserEmailGroupAddresses(int GroupId)
+        {
+            string query = string.Format("exec [sp_GetUserEmailGroupAddresses] @GroupId={0}", GroupId);
+
+            var q = Database.SqlQuery<EmailAddressInfo>(query);
+
+            return q.ToList();
+        }
+
+        public List<TBL_BlastEmailGroup> GetBlastEmailGroups(string Role)
+        {
+            string query = string.Format("exec [sp_GetBlastEmailGroupsByRole] @Role='{0}'", Role);
+
+            var q = Database.SqlQuery<TBL_BlastEmailGroup>(query);
+
+            return q.ToList();
+        }
+
+        public List<TBL_UserEmailGroup> GetUserEmailGroups(string UserId)
+        {
+            string query = string.Format("exec [sp_GetUserEmailGroup] @UserId='{0}'", UserId);
+
+            var q = Database.SqlQuery<TBL_UserEmailGroup>(query);
+
+            return q.ToList();
+        }
+
+        #endregion
+
+        #region [[ For Create Email Group by Bhavesh ]]
+
+        public List<CoachEmailInfo> GetAllCoachAddressesByFrId(int FrId)
+        {
+            string query = string.Format("exec [sp_GetAllCoachAddressesByFrId] @FranchiseeId={0}", FrId);
+
+            var q = Database.SqlQuery<CoachEmailInfo>(query);
+
+            return q.ToList();
+        }
+
+        public List<FranchiseeEmailInfo> GetAllFranchiseeAddressesByFrId(string Role, int FrId)
+        {
+            string query = string.Format("exec [sp_GetAllFranchiseeAddressesByFrId] @RoleName='{0}',@FranchiseeId={1}", Role, FrId);
+
+            var q = Database.SqlQuery<FranchiseeEmailInfo>(query);
+
+            return q.ToList();
+        }
+
+        public List<ContactEmailInfo> GetAllContactsAddressesByFrId(int FrId)
+        {
+            string query = string.Format("exec [sp_GetAllContactsAddressesByFrId] @FranchiseeId={0}", FrId);
+
+            var q = Database.SqlQuery<ContactEmailInfo>(query);
+
+            return q.ToList();
+        }
+
+        #endregion
+
     }
 }

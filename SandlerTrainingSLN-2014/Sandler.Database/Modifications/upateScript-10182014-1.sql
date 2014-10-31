@@ -1,13 +1,11 @@
-USE [MetricsIntelligence]
-GO
+
 
 /****** Object:  StoredProcedure [dbo].[sp_CompanyLookup]    Script Date: 10/18/2014 12:51:18 ******/
 IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[sp_CompanyLookup]') AND type in (N'P', N'PC'))
 DROP PROCEDURE [dbo].[sp_CompanyLookup]
 GO
 
-USE [MetricsIntelligence]
-GO
+
 
 /****** Object:  StoredProcedure [dbo].[sp_CompanyLookup]    Script Date: 10/18/2014 12:51:18 ******/
 SET ANSI_NULLS ON

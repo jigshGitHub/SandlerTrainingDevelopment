@@ -623,6 +623,9 @@
           <Property Name="IsSameBillingAddress" Type="bit" />
           <Property Name="Country" Type="varchar" MaxLength="80" />
           <Property Name="StartTime" Type="datetime" />
+          <Property Name="FACEBOOKID" Type="varchar" MaxLength="50" />
+          <Property Name="TWITTERID" Type="varchar" MaxLength="50" />
+          <Property Name="LINKEDINID" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="TBL_CONTACTS">
           <Key>
@@ -678,6 +681,9 @@
           <Property Name="HowManyAttended" Type="int" />
           <Property Name="CompanyNameWhereTrainingConducted" Type="varchar" MaxLength="150" />
           <Property Name="StartTime" Type="datetime" />
+          <Property Name="FACEBOOKID" Type="varchar" MaxLength="150" />
+          <Property Name="TWITTERID" Type="varchar" MaxLength="150" />
+          <Property Name="LINKEDINID" Type="varchar" MaxLength="150" />
         </EntityType>
         <EntityType Name="Tbl_CostPlusAmount">
           <Key>
@@ -2450,6 +2456,9 @@
           <NavigationProperty Name="TBL_OPPORTUNITIES" Relationship="SandlerDBModel.FK_TBL_OPPORTUNITIES_TBL_COMPANIES" FromRole="TBL_COMPANIES" ToRole="TBL_OPPORTUNITIES" />
           <NavigationProperty Name="TBL_OpportunitiesHistory" Relationship="SandlerDBModel.FK_TBL_OpportunitiesHistory_TBL_COMPANIES" FromRole="TBL_COMPANIES" ToRole="TBL_OpportunitiesHistory" />
           <NavigationProperty Name="TBL_CONTACTS" Relationship="SandlerDBModel.FK_TBL_CONTACTS_TBL_Companies" FromRole="TBL_COMPANIES" ToRole="TBL_CONTACTS" />
+          <Property Type="String" Name="FACEBOOKID" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="TWITTERID" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="LINKEDINID" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Tbl_CostPlusAmount">
           <Key>
@@ -3686,6 +3695,9 @@
           <NavigationProperty Name="TBL_OPPORTUNITIES1" Relationship="SandlerDBModel.FK_TBL_OPPORTUNITIES_TBL_CONTACTS1" FromRole="TBL_CONTACTS" ToRole="TBL_OPPORTUNITIES" />
           <NavigationProperty Name="TBL_OPPORTUNITIES2" Relationship="SandlerDBModel.FK_TBL_OPPORTUNITIES_TBL_CONTACTS2" FromRole="TBL_CONTACTS" ToRole="TBL_OPPORTUNITIES" />
           <NavigationProperty Name="TBL_OpportunitiesHistory" Relationship="SandlerDBModel.FK_TBL_OpportunitiesHistory_TBL_CONTACTS" FromRole="TBL_CONTACTS" ToRole="TBL_OpportunitiesHistory" />
+          <Property Type="String" Name="FACEBOOKID" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="TWITTERID" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="LINKEDINID" MaxLength="150" FixedLength="false" Unicode="false" />
         </EntityType>
         <Association Name="FK_TBL_CONTACTS_Tbl_AppointmentsSource">
           <End Type="SandlerDBModel.Tbl_AppointmentsSource" Role="Tbl_AppointmentsSource" Multiplicity="0..1" />
@@ -4027,6 +4039,9 @@
           <EntitySetMapping Name="TBL_COMPANIES">
             <EntityTypeMapping TypeName="SandlerDBModel.TBL_COMPANIES">
               <MappingFragment StoreEntitySet="TBL_COMPANIES">
+                <ScalarProperty Name="LINKEDINID" ColumnName="LINKEDINID" />
+                <ScalarProperty Name="TWITTERID" ColumnName="TWITTERID" />
+                <ScalarProperty Name="FACEBOOKID" ColumnName="FACEBOOKID" />
                 <ScalarProperty Name="COMPANIESID" ColumnName="COMPANIESID" />
                 <ScalarProperty Name="COMPANYNAME" ColumnName="COMPANYNAME" />
                 <ScalarProperty Name="CITY" ColumnName="CITY" />
@@ -4874,6 +4889,9 @@
           <EntitySetMapping Name="TBL_CONTACTS">
             <EntityTypeMapping TypeName="SandlerDBModel.TBL_CONTACTS">
               <MappingFragment StoreEntitySet="TBL_CONTACTS">
+                <ScalarProperty Name="LINKEDINID" ColumnName="LINKEDINID" />
+                <ScalarProperty Name="TWITTERID" ColumnName="TWITTERID" />
+                <ScalarProperty Name="FACEBOOKID" ColumnName="FACEBOOKID" />
                 <ScalarProperty Name="StartTime" ColumnName="StartTime" />
                 <ScalarProperty Name="CompanyNameWhereTrainingConducted" ColumnName="CompanyNameWhereTrainingConducted" />
                 <ScalarProperty Name="HowManyAttended" ColumnName="HowManyAttended" />
