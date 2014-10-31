@@ -33,24 +33,31 @@ namespace Sandler.Web.Controllers.API
         [HttpPost()]
         public HttpResponseMessage SavePipeline(TBL_OPPORTUNITIES opportunity)
         {
-            if (!VerifyPipelineRequiredFields(opportunity))
-                return new HttpResponseMessage(HttpStatusCode.InternalServerError);
-            if (opportunity.ID > 0)
+            try
             {
-                opportunity.UpdatedBy = CurrentUser.UserId.ToString();
-                opportunity.UpdatedDate = DateTime.Now;
-                uow.Repository<TBL_OPPORTUNITIES>().Update(opportunity);
-            }
-            else
-            {
-                opportunity.CreatedBy = CurrentUser.UserId.ToString();
-                opportunity.CreatedDate = DateTime.Now;
-                opportunity.IsActive = true;
-                uow.Repository<TBL_OPPORTUNITIES>().Add(opportunity);
-            }
+                if (!VerifyPipelineRequiredFields(opportunity))
+                    throw new Exception("Pipeline required fields are not submiited");
+                if (opportunity.ID > 0)
+                {
+                    opportunity.UpdatedBy = CurrentUser.UserId.ToString();
+                    opportunity.UpdatedDate = DateTime.Now;
+                    uow.Repository<TBL_OPPORTUNITIES>().Update(opportunity);
+                }
+                else
+                {
+                    opportunity.CreatedBy = CurrentUser.UserId.ToString();
+                    opportunity.CreatedDate = DateTime.Now;
+                    opportunity.IsActive = true;
+                    uow.Repository<TBL_OPPORTUNITIES>().Add(opportunity);
+                }
 
-            uow.Save();
-            return Request.CreateResponse(opportunity);
+                uow.Save();
+                return Request.CreateResponse(opportunity);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("There is a problem in Saving Pipeline Information. Please try again later.", ex);
+            }
         }        
 
         private bool VerifyPipelineRequiredFields(TBL_OPPORTUNITIES opportunity)
@@ -74,30 +81,41 @@ namespace Sandler.Web.Controllers.API
         [HttpPost()]
         public HttpResponseMessage SaveContact(TBL_CONTACTS contact)
         {
-            if (!VerifyContactRequiredFields(contact))
-                return new HttpResponseMessage(HttpStatusCode.InternalServerError);
-
-            List<ContactView> contacts = uow.ContactRepository().Get("LastName ASC", 0, 0, null, CurrentUser.FranchiseeID, null, CurrentUser.UserId.ToString(), "", false).Where(r => r.FirstName == contact.FIRSTNAME && r.LastName == contact.LASTNAME && r.CompanyId == contact.COMPANYID).ToList<ContactView>(); ;
-
-            if (contacts.Count > 0)
-                contact.CONTACTSID = contacts[0].ContactsId;
-
-            if (contact.CONTACTSID > 0)
+            try
             {
-                uow.Repository<TBL_CONTACTS>().Update(contact);
-                contact.UpdatedBy = CurrentUser.UserId.ToString();
-                contact.UpdatedDate = DateTime.Now;
-            }
-            else
-            {
-                contact.CreatedBy = CurrentUser.UserId.ToString();
-                contact.CreatedDate = DateTime.Now;
-                contact.IsActive = true;
-                uow.Repository<TBL_CONTACTS>().Add(contact);
-            }
+                if (!VerifyContactRequiredFields(contact))
+                    throw new Exception("Contact required fields are not submiited");
 
-            uow.Save();
-            return Request.CreateResponse(contact);
+                List<ContactView> contacts = uow.ContactRepository().Get("LastName ASC", 0, 0, null, CurrentUser.FranchiseeID, null, CurrentUser.UserId.ToString(), "", false).Where(r => r.FirstName == contact.FIRSTNAME && r.LastName == contact.LASTNAME && r.CompanyId == contact.COMPANYID).ToList<ContactView>(); ;
+
+                if (contacts.Count > 0)
+                {
+                    contact.CONTACTSID = contacts [0].ContactsId;
+                    contact.CreatedBy = contacts[0].CreatedBy;
+                    contact.CreatedDate = DateTime.Now;
+                }
+
+                if (contact.CONTACTSID > 0)
+                {
+                    uow.Repository<TBL_CONTACTS>().Update(contact);
+                    contact.UpdatedBy = CurrentUser.UserId.ToString();
+                    contact.UpdatedDate = DateTime.Now;
+                }
+                else
+                {
+                    contact.CreatedBy = CurrentUser.UserId.ToString();
+                    contact.CreatedDate = DateTime.Now;
+                    contact.IsActive = true;
+                    uow.Repository<TBL_CONTACTS>().Add(contact);
+                }
+
+                uow.Save();
+                return Request.CreateResponse(contact);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("There is a problem in Saving Contact Information. Please try again later.", ex);
+            }
         }
 
         private bool VerifyContactRequiredFields(TBL_CONTACTS contact)
@@ -124,7 +142,7 @@ namespace Sandler.Web.Controllers.API
                 _company.IsActive = true;
 
                 if (!VerifyCompanyRequiredFields(_company))
-                    return new genericResponse() { success = false, UniqueId = 0 };
+                    throw new Exception("Company required fields are not submiited");
 
                 if (companiesId > 0)
                 {
@@ -154,8 +172,9 @@ namespace Sandler.Web.Controllers.API
             }
             catch (Exception ex)
             {
-                _response = new genericResponse() { success = false, message = "There is a problem in Saving Company Information. Please try again later." };
-                return _response;
+                //_response = new genericResponse() { success = false, message = "There is a problem in Saving Company Information. Please try again later." };
+                //return _response;
+                throw new Exception("There is a problem in Saving Company Information. Please try again later.", ex);
             }
         }
 

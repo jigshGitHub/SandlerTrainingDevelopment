@@ -85,6 +85,7 @@ exec sp_DeleteContactsOfUser  1,'fd4cce62-2a92-4715-a804-03f5bb957b9b';
 
 exec [sp_CompanyLookup] 'CompaniesID ASC',0,0,null,8,null,0
 exec [sp_CompanyView] 'CompaniesID ASC',0,0,null,8,null,0
+exec [sp_ContactView] @orderBy='LastName ASC' ,@pageSize=0,@pageNo=0,@franchiseeId=8,@userId='98428801-3032-4ef3-8ff4-4588f7876ece',@searchText=''
 
 SELECT c.* FROM TBL_COMPANIES c 
 INNER JOIN TBL_FRANCHISEE f on c.FranchiseeId = f.ID
@@ -92,11 +93,44 @@ INNER JOIN TBL_FRANCHISEE_USERS fu on fu.FranchiseeID = f.ID
 INNER JOIN aspnet_Users u on u.UserId = fu.UserID
 WHERE u.UserName = 'msi.andrew'
 
-select  * from TBL_OPPORTUNITIES where CompanyId= 623067;
-select  * from TBL_CONTACTS  where CompanyId= 623067;
-select  * from TBL_COMPANIES where CompaniesID= 623067;
+--update TBL_CONTACTS set createddate=updateddate, createdby=updatedby,isactive=1 where CompanyId= 623083;
+
+select  * from TBL_OPPORTUNITIES where CompanyId= 623083;
+select  * from TBL_CONTACTS  where CompanyId= 623083;
+select   * from TBL_COMPANIES where CompaniesID= 623083;
 
 
---delete from TBL_OPPORTUNITIES where CompanyId= 623067;
---delete from TBL_CONTACTS where CompanyId= 623067;
---delete from TBL_COMPANIES where CompaniesID= 623067;
+--delete from TBL_OPPORTUNITIES where CompanyId= 623083;
+--delete from TBL_CONTACTS where CompanyId= 623083;
+--delete from TBL_COMPANIES where CompaniesID= 623083;
+
+
+select 
+	ct.LastName,
+	ct.FirstName,
+	ct.lastname + ', ' + ct.FirstName as FullName, 
+	ct.Phone,
+	ct.ReferredBy , 
+	ct.Notes , 
+	ct.Country, 
+	ct.CreatedBy,
+	ct.Email, 
+	ct.CompanyId,
+	cp.COMPANYNAME,
+	rg.Name as RegionName,
+	ct.ContactsId ,
+	cp.FranchiseeId,
+	f.CoachID  			
+ 	from tbl_contacts ct 
+	left join tbl_companies cp on ct.companyid = cp.COMPANIESID
+	left join Tbl_AppointmentsSource apts on apts.ApptSourceId = ct.ApptSourceId
+	left join Tbl_Course cs on cs.CourseId = ct.CourseId
+	left join Tbl_YesNoOptions ysn on ysn.Value = ct.IsNewAppointment 
+	left join Tbl_YesNoOptions ysr on ysr.Value = ct.IsRegisteredForTraining
+	left join Tbl_YesNoOptions ysre on ysre.Value = ct.IsEmailSubscription 
+	left join Tbl_YesNoOptions ysrc on ysrc.Value = ct.IsNeedCallBack 
+	left join TBL_FRANCHISEE f on f.ID = cp.FranchiseeId
+    left join TBL_COACH ch on ch.ID = f.CoachID
+    left join TBL_REGION rg on ch.RegionID = rg.ID 
+    left outer join dbo.aspnet_Users AS uCreated WITH (NOLOCK) ON CAST(uCreated.UserId AS VARCHAR(200)) = ct.CreatedBy
+    where ct.IsActive = 1   AND f.ID = 8 AND ct.CreatedBy = '98428801-3032-4ef3-8ff4-4588f7876ece'

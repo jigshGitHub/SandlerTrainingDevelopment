@@ -341,23 +341,23 @@ function quickStartDataVM(opportunityObservable, scenario) {
 
 
     //Set some defaults...remove once testing done
-    //self.companyObservable.COMPANYNAME('JCInc');
-    //self.companyObservable.POCLastName('POCLn');
-    //self.companyObservable.POCFirstName('POCFn');
-    //self.companyObservable.POCPhone('8458458458');
-    //self.companyObservable.POCEmail('pocemail@gmail.com');
-    //self.companyObservable.IndustryId('1');
-    //self.opportunity.NAME('JCIncOpp');
-    //self.opportunity.Pain('None');
-    //self.opportunity.ProductID('1');
-    //self.opportunity.STATUSID('1');
-    //self.opportunity.SourceID('1');
-    //self.opportunity.TypeID('1');
-    //self.opportunity.VALUE('5000000');
-    //self.opportunity.OppCloseDatec('7/1/2014');
-    //self.contactObservable.NextContactDatec('7/1/2014');
-    //self.contactObservable.ApptSourceId('1');
-    //self.contactObservable.ACTIONSTEP('test step');
+    self.companyObservable.COMPANYNAME('BitSoft Inc');
+    self.companyObservable.POCLastName('BSPocLn');
+    self.companyObservable.POCFirstName('BSPocFn');
+    self.companyObservable.POCPhone('8458458458');
+    self.companyObservable.POCEmail('pocemail@gmail.com');
+    self.companyObservable.IndustryId('1');
+    self.opportunity.NAME('BSPocFn');
+    self.opportunity.Pain('None');
+    self.opportunity.ProductID('1');
+    self.opportunity.STATUSID('1');
+    self.opportunity.SourceID('1');
+    self.opportunity.TypeID('1');
+    self.opportunity.VALUE('5000000');
+    self.opportunity.OppCloseDatec('12/30/2014');
+    self.contactObservable.NextContactDatec('11/30/2014');
+    self.contactObservable.ApptSourceId('1');
+    self.contactObservable.ACTIONSTEP('test step');
 
 
     //For Notes
@@ -619,6 +619,7 @@ function quickStartDataVM(opportunityObservable, scenario) {
             },
             error: function (response, errorText) {
                 showNoti_.error('Unable to save company, server error occures.', true);
+                $('#quickStart_body').unblock();
                 return false;
             }
         });
@@ -756,6 +757,7 @@ function quickStartDataVM(opportunityObservable, scenario) {
 
     self.createAnotherOpportunity = function () {
         self.contactObservable.COMPANYID('');
+        self.contactObservable.CONTACTSID('');
         self.opportunity.COMPANYID('');
         self.opportunity.CONTACTID('');
 
