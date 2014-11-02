@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Sandler.DB.Data.Common.Implementation
 {
-    public class SandlerUnitOfWork : IUnitOfWork 
+    public class SandlerUnitOfWork : IUnitOfWork
     {
         public SandlerUnitOfWork(IRepositoryProvider repositoryProvider, IDBContext dbContext)
         {
@@ -20,13 +20,14 @@ namespace Sandler.DB.Data.Common.Implementation
         }
 
         // Repositories
-        public ICompanyRepository CompanyRepository (){return new CompanyRepository(RepositoryProvider.dbContext); }
+        public ICompanyRepository CompanyRepository() { return new CompanyRepository(RepositoryProvider.dbContext); }
+        public IEmailRepository EmailRepository() { return new EmailRepository(RepositoryProvider.dbContext); }
         public IFranchiseeRepository FranchiseeRepository() { return new FranchiseeRepository(RepositoryProvider.dbContext); }
         public IFranchiseeUsersRepository FranchiseeUsersRepository() { return new FranchiseeUsersRepository(RepositoryProvider.dbContext); }
         public IKendoChartsRepository KendoChartsRepository() { return new KendoChartsRepository(RepositoryProvider.dbContext); }
         public IMyTaskRepository MyTaskRepository() { return new MyTaskRepository(RepositoryProvider.dbContext); }
-        public IContactRepository ContactRepository (){return new ContactRepository(RepositoryProvider.dbContext); }
-        public IOpportunityRepository  OpportunityRepository (){return new OpportunityRepository(RepositoryProvider.dbContext);}
+        public IContactRepository ContactRepository() { return new ContactRepository(RepositoryProvider.dbContext); }
+        public IOpportunityRepository OpportunityRepository() { return new OpportunityRepository(RepositoryProvider.dbContext); }
         public IMenuRepository MenuRepository() { return new MenuRepository(RepositoryProvider.dbContext); }
         public IRepository<T> Repository<T>() where T : class
         {

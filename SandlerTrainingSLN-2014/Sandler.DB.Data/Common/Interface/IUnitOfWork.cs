@@ -13,13 +13,14 @@ namespace Sandler.DB.Data.Common.Interface
         void Save();
         void Dispose(bool disposing);
         IRepository<T> Repository<T>() where T : class;
-        ICompanyRepository  CompanyRepository();
+        ICompanyRepository CompanyRepository();
+        IEmailRepository EmailRepository();
         IContactRepository ContactRepository();
         IOpportunityRepository OpportunityRepository();
         IMenuRepository MenuRepository();
         IFranchiseeRepository FranchiseeRepository();
         IFranchiseeUsersRepository FranchiseeUsersRepository();
         IMyTaskRepository MyTaskRepository();
-        IKendoChartsRepository KendoChartsRepository(); 
+        IKendoChartsRepository KendoChartsRepository();
     }
 }

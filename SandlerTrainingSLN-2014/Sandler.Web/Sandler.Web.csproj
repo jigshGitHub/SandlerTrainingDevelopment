@@ -219,6 +219,7 @@
     <Compile Include="Controllers\APIs\ChartController.cs" />
     <Compile Include="Controllers\APIs\CompanyController.cs" />
     <Compile Include="Controllers\APIs\ContactController.cs" />
+    <Compile Include="Controllers\APIs\EmailController.cs" />
     <Compile Include="Controllers\APIs\FranchiseeUserController.cs" />
     <Compile Include="Controllers\APIs\GlobalSearchController.cs" />
     <Compile Include="Controllers\APIs\HomeOfficeController.cs" />
@@ -1100,6 +1101,13 @@
     <Content Include="Areas\CRM\Views\QuickStart\Edit.cshtml">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="Areas\RDL\Views\Home\CreateGroup.cshtml" />
+    <Content Include="Areas\RDL\Views\Home\NewFunctionality1.cshtml" />
+    <Content Include="Areas\RDL\Views\Home\NewFunctionality4.cshtml" />
+    <Content Include="Areas\RDL\Views\Home\Reports.cshtml" />
+    <Content Include="Areas\RDL\Views\Home\SendMail.cshtml" />
+    <Content Include="Areas\RDL\Views\Home\NewFunctionality2.cshtml" />
+    <Content Include="Areas\RDL\Views\Home\NewFunctionality3.cshtml" />
     <None Include="Properties\PublishProfiles\WebDeploy-DevEnvt.pubxml" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="Images\bg-capitol.png" />
@@ -1144,6 +1152,7 @@
     <Content Include="Images\washington.png" />
     <Content Include="Scripts\application.js" />
     <Content Include="Scripts\Application\koExtenders.js" />
+    <Content Include="Scripts\Application\ng-CreateGroup.js" />
     <Content Include="Scripts\Application\ng-dashboard.js" />
     <Content Include="Scripts\Application\ng-franchisees.js" />
     <Content Include="Scripts\Application\ng-globalSearch.js" />
@@ -1154,6 +1163,7 @@
     <Content Include="Scripts\Application\ng-contacts.js" />
     <Content Include="Scripts\Application\ng-companies.js" />
     <Content Include="Scripts\Application\ng-quickStart.js" />
+    <Content Include="Scripts\Application\ng-SendEmail.js" />
     <Content Include="Scripts\compliance.js" />
     <Content Include="Scripts\ng-manageUsersCtrl.js" />
     <Content Include="Scripts\ng-reportRCCtrl.js" />
