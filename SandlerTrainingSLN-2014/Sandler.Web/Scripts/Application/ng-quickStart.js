@@ -128,16 +128,19 @@ function quickStartDataVM(opportunityObservable, scenario) {
     }, self);
     self.opportunityModeSelectionId = ko.observable();
     self.opportunityModeSelectionId.extend({ required: "" });
+    self.initialCountOfCompanyOpportunties = 0;
     self.opportunityModeSelectionId.subscribe(function (newValue) {
         if (newValue != '') {
             self.companies([]);
             if (newValue == '1') {
-                //console.log('getting companies that has opportunties');
-                var data = jsonDataCaller.syncCall(baseUrl + "/api/CompanyOpportuntiesView?searchText=&page=0&pageSize=0&selectForExcel=false", null)
-                
-                $.each(data.results, function (i, companyRecord) {
-                    self.companies.push({ 'name': companyRecord.COMPANYNAME, 'id': companyRecord.COMPANIESID });
-                });
+                if (self.initialCountOfCompanyOpportunties== 0){
+                    console.log('getting companies that has opportunties');
+                    var data = jsonDataCaller.syncCall(baseUrl + "/api/CompanyOpportuntiesView?searchText=&page=0&pageSize=0&selectForExcel=false", null)
+                    self.initialCountOfCompanyOpportunties = data.__count;
+                    $.each(data.results, function (i, companyRecord) {
+                        self.companies.push({ 'name': companyRecord.COMPANYNAME, 'id': companyRecord.COMPANIESID });
+                    });
+                }
             }
             else {
                 self.companies(startModule.getUserCompanies());
@@ -150,6 +153,20 @@ function quickStartDataVM(opportunityObservable, scenario) {
     self.selectPOCVisible = ko.observable((self.scenario == 'edit'));
     self.POCs = ko.observableArray([]);
     self.selectedPOC = ko.observable();
+    self.selectedPOC.subscribe(function (newValue) {
+        if (newValue != '') {
+            var userContacts = startModule.getUserContactsByCompany(self.companyObservable.COMPANIESID());
+            var contactObj = $.grep(userContacts, function (element, index) {
+                return element.contactsId == newValue;
+            });
+            if (contactObj != null) {
+                self.companyObservable.POCLastName(contactObj[0].lastName);
+                self.companyObservable.POCFirstName(contactObj[0].firstName);
+                self.companyObservable.POCPhone(contactObj[0].phone);
+                self.companyObservable.POCEmail(contactObj[0].email);
+            }
+        }
+    });
     self.salesReps = ko.computed(function () {
         var data = jsonDataCaller.syncCall("/api/FranchiseeUsersView?searchText=&page=0&pageSize=0&sort[0][field]=LastName&sort[0][dir]=ASC", null)
 
@@ -189,19 +206,19 @@ function quickStartDataVM(opportunityObservable, scenario) {
                     },
                     error: function () { }
                 });
-                //$.ajax({
-                //    url: 'api/PipelineViewForCompany',
-                //    type: "GET",
-                //    data: { companyId: newValue },
-                //    dataType: "json",
-                //    contentType: "application/json; charset=utf-8",
-                //    async: false,
-                //    success: function (response) {
-                //        self.opportunities(response.results);
-                //        console.log(self.opportunities());
-                //    },
-                //    error: function () { }
-                //});
+                $.ajax({
+                    url: 'api/PipelineViewForCompany',
+                    type: "GET",
+                    data: { companyId: newValue },
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8",
+                    async: false,
+                    success: function (response) {
+                        self.opportunities(response.results);
+                        console.log(self.opportunities());
+                    },
+                    error: function () { }
+                });
                 self.POCs(startModule.getUserContactsByCompany(newValue))
                 $.each(self.POCs(), function (i, item) {
                     //console.log(item.lastName + '-' + self.companyObservable.POCLastName());
@@ -364,23 +381,23 @@ function quickStartDataVM(opportunityObservable, scenario) {
 
 
     //Set some defaults...remove once testing done
-    self.companyObservable.COMPANYNAME('BitSoft Inc');
-    self.companyObservable.POCLastName('BSPocLn');
-    self.companyObservable.POCFirstName('BSPocFn');
-    self.companyObservable.POCPhone('8458458458');
-    self.companyObservable.POCEmail('pocemail@gmail.com');
-    self.companyObservable.IndustryId('1');
-    self.opportunity.NAME('BSPocFn');
-    self.opportunity.Pain('None');
-    self.opportunity.ProductID('1');
-    self.opportunity.STATUSID('1');
-    self.opportunity.SourceID('1');
-    self.opportunity.TypeID('1');
-    self.opportunity.VALUE('5000000');
-    self.opportunity.OppCloseDatec('12/30/2014');
-    self.contactObservable.NextContactDatec('11/30/2014');
-    self.contactObservable.ApptSourceId('1');
-    self.contactObservable.ACTIONSTEP('test step');
+    //self.companyObservable.COMPANYNAME('BitSoft Inc');
+    //self.companyObservable.POCLastName('BSPocLn');
+    //self.companyObservable.POCFirstName('BSPocFn');
+    //self.companyObservable.POCPhone('8458458458');
+    //self.companyObservable.POCEmail('pocemail@gmail.com');
+    //self.companyObservable.IndustryId('1');
+    //self.opportunity.NAME('BSPocFn');
+    //self.opportunity.Pain('None');
+    //self.opportunity.ProductID('1');
+    //self.opportunity.STATUSID('1');
+    //self.opportunity.SourceID('1');
+    //self.opportunity.TypeID('1');
+    //self.opportunity.VALUE('5000000');
+    //self.opportunity.OppCloseDatec('12/30/2014');
+    //self.contactObservable.NextContactDatec('11/30/2014');
+    //self.contactObservable.ApptSourceId('1');
+    //self.contactObservable.ACTIONSTEP('test step');
 
 
     //For Notes

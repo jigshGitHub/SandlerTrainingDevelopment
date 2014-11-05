@@ -245,7 +245,7 @@ sandler.namespace("appStart").module= (function () {
         var data = jsonDataCaller.syncCall(baseUrl + "/api/ContactView?&page=0&pageSize=0&companyId=0&searchText=&selectForExcel=false", null)
         contacts = new Array();
         $.each(data.results, function (i, contactRecord) {
-            contacts.push(new contact(contactRecord.LastName, contactRecord.FirstName, contactRecord.FullName, contactRecord.ContactsId, contactRecord.CompanyId));
+            contacts.push(new contact(contactRecord.LastName, contactRecord.FirstName, contactRecord.FullName, contactRecord.ContactsId, contactRecord.CompanyId,contactRecord.Email, contactRecord.Phone));
         });
         $(document).data("sandler.appStart.userContacts", contacts);
         return contacts;
@@ -288,12 +288,14 @@ sandler.namespace("appStart").module= (function () {
         this.Id = regionId;
     };
 
-    var contact = function (lastName, firstName, fullName, contactsId, companyId) {
+    var contact = function (lastName, firstName, fullName, contactsId, companyId, email, phone) {
         this.lastName = lastName;
         this.firstName = firstName;
         this.fullName = fullName;
         this.contactsId = contactsId;
         this.companyId = companyId;
+        this.email = email;
+        this.phone = phone;
     };
 
     var appInitialized = function (value) {

@@ -93,16 +93,16 @@ INNER JOIN TBL_FRANCHISEE_USERS fu on fu.FranchiseeID = f.ID
 INNER JOIN aspnet_Users u on u.UserId = fu.UserID
 WHERE u.UserName = 'msi.andrew'
 
---update TBL_CONTACTS set createddate=updateddate, createdby=updatedby,isactive=1 where CompanyId= 623083;
+--update TBL_CONTACTS set createddate=updateddate, createdby=updatedby,isactive=1 where CompanyId= 2942;
 
-select  * from TBL_OPPORTUNITIES where CompanyId= 623083;
-select  * from TBL_CONTACTS  where CompanyId= 623083;
-select   * from TBL_COMPANIES where CompaniesID= 623083;
+select  * from TBL_OPPORTUNITIES where CompanyId= 2942;
+select  * from TBL_CONTACTS  where CompanyId= 2942;
+select   * from TBL_COMPANIES where CompaniesID= 2942;
 
 
---delete from TBL_OPPORTUNITIES where CompanyId= 623083;
---delete from TBL_CONTACTS where CompanyId= 623083;
---delete from TBL_COMPANIES where CompaniesID= 623083;
+--delete from TBL_OPPORTUNITIES where CompanyId= 2942;
+--delete from TBL_CONTACTS where CompanyId= 2942;
+--delete from TBL_COMPANIES where CompaniesID= 2942;
 
 
 select 

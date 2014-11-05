@@ -31,19 +31,6 @@ AS
 
 Begin
 
-if(@roleName != 'FranchiseeOwner')
-
-Begin
-
-select distinct m.moduleId, m.pageMenuGroups from module m join tbl_modulesForRoles mr
-on m.moduleId = mr.ModuleId where Upper(mr.RoleName) = @roleName
-
-End
-
-if(@roleName = 'FranchiseeOwner')
-
-Begin
-
 select distinct m.moduleId, m.pageMenuGroups 
 from module m join tbl_modulesForRoles mr
 on m.moduleId = mr.ModuleId 
@@ -52,10 +39,7 @@ Union
 Select distinct m.moduleId, m.pageMenuGroups 
 from module m join tbl_modulesForUserIds mr
 on m.moduleId = mr.ModuleId 
-where Upper(mr.UserId) = Upper(@userId) 
-
-
-End
+where Upper(mr.UserId) = Upper(@userId)
 
 End
 
