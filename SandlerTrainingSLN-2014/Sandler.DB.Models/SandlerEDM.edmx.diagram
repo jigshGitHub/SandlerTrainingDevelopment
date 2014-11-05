@@ -97,6 +97,7 @@
         <EntityTypeShape EntityType="SandlerDBModel.pageMenuGroup" Width="1.5" PointX="1.5282929137015215" PointY="5.23253721242423" />
         <EntityTypeShape EntityType="SandlerDBModel.Tbl_ModulesForRoles" Width="1.5" PointX="4.614406839299205" PointY="12.790893188114694" />
         <EntityTypeShape EntityType="SandlerDBModel.vw_Companies" Width="1.5" PointX="6.5012650091672626" PointY="20.986581201193193" />
+        <EntityTypeShape EntityType="SandlerDBModel.Tbl_ModulesForUserIds" Width="1.5" PointX="4.2121842560415086" PointY="11.142766287151149" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

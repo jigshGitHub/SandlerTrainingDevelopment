@@ -80,6 +80,7 @@ namespace Sandler.DB.Models
         public DbSet<pageMenu> pageMenus { get; set; }
         public DbSet<pageMenuGroup> pageMenuGroups { get; set; }
         public DbSet<Tbl_ModulesForRoles> Tbl_ModulesForRoles { get; set; }
+        public DbSet<Tbl_ModulesForUserIds> Tbl_ModulesForUserIds { get; set; }
     
         public virtual ObjectResult<vw_Companies> GetCompaniesByUser(Nullable<System.Guid> userId)
         {

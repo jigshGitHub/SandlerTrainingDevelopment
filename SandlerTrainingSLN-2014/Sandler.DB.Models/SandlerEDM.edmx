@@ -40,6 +40,7 @@
           <EntitySet Name="Tbl_MeetingFrequencyType" EntityType="SandlerDBModel.Store.Tbl_MeetingFrequencyType" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Tbl_MeetingType" EntityType="SandlerDBModel.Store.Tbl_MeetingType" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Tbl_ModulesForRoles" EntityType="SandlerDBModel.Store.Tbl_ModulesForRoles" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Tbl_ModulesForUserIds" EntityType="SandlerDBModel.Store.Tbl_ModulesForUserIds" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="TBL_OPPORTUNITIES" EntityType="SandlerDBModel.Store.TBL_OPPORTUNITIES" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="TBL_OpportunitiesHistory" EntityType="SandlerDBModel.Store.TBL_OpportunitiesHistory" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="TBL_OpportunitySource" EntityType="SandlerDBModel.Store.TBL_OpportunitySource" store:Type="Tables" Schema="dbo" />
@@ -1014,6 +1015,14 @@
           </Key>
           <Property Name="ModuleId" Type="int" Nullable="false" />
           <Property Name="RoleName" Type="nvarchar" Nullable="false" MaxLength="256" />
+        </EntityType>
+        <EntityType Name="Tbl_ModulesForUserIds">
+          <Key>
+            <PropertyRef Name="ModuleId" />
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="ModuleId" Type="int" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" Nullable="false" MaxLength="256" />
         </EntityType>
         <EntityType Name="TBL_OPPORTUNITIES">
           <Key>
@@ -2282,6 +2291,7 @@
           <Parameter Name="appId" Mode="In" Type="Int32" />
           </FunctionImport>
           <EntitySet Name="vw_Companies" EntityType="SandlerDBModel.vw_Companies" />
+          <EntitySet Name="Tbl_ModulesForUserIds" EntityType="SandlerDBModel.Tbl_ModulesForUserIds" />
         </EntityContainer>
         <EntityType Name="Tbl_AppointmentsSource">
           <Key>
@@ -3908,6 +3918,14 @@
           <Property Type="Boolean" Name="IsSameBillingAddress" />
           <Property Type="String" Name="Country" MaxLength="80" FixedLength="false" Unicode="false" />
         </EntityType>
+        <EntityType Name="Tbl_ModulesForUserIds">
+          <Key>
+            <PropertyRef Name="ModuleId" />
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Type="Int32" Name="ModuleId" Nullable="false" />
+          <Property Type="String" Name="UserId" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -5056,6 +5074,14 @@
                 <ScalarProperty Name="CoachID" ColumnName="CoachID" />
                 <ScalarProperty Name="Region" ColumnName="Region" />
                 <ScalarProperty Name="RegionID" ColumnName="RegionID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_ModulesForUserIds">
+            <EntityTypeMapping TypeName="SandlerDBModel.Tbl_ModulesForUserIds">
+              <MappingFragment StoreEntitySet="Tbl_ModulesForUserIds">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ModuleId" ColumnName="ModuleId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

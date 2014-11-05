@@ -209,6 +209,9 @@
     <Compile Include="Tbl_ModulesForRoles.cs">
       <DependentUpon>SandlerEDM.tt</DependentUpon>
     </Compile>
+    <Compile Include="Tbl_ModulesForUserIds.cs">
+      <DependentUpon>SandlerEDM.tt</DependentUpon>
+    </Compile>
     <Compile Include="TBL_OPPORTUNITIES.cs">
       <DependentUpon>SandlerEDM.tt</DependentUpon>
     </Compile>
