@@ -309,23 +309,31 @@ namespace Sandler.DB.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("PipelineOpportunityAnalysis", monthParameter, yearParameter, userIdParameter, analysisTypeParameter, searchNewCompanyParameter, companyIdsParameter);
         }
-    
-        public virtual ObjectResult<module> GetMenuForARole(string roleName)
+
+        public virtual ObjectResult<module> GetMenuForARole(string roleName, string userId)
         {
             var roleNameParameter = roleName != null ?
                 new ObjectParameter("roleName", roleName) :
                 new ObjectParameter("roleName", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<module>("GetMenuForARole", roleNameParameter);
+
+            var userIdParameter = userId != null ?
+                new ObjectParameter("userId", userId) :
+                new ObjectParameter("userId", typeof(string));
+
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<module>("GetMenuForARole", roleNameParameter, userIdParameter);
         }
-    
-        public virtual ObjectResult<module> GetMenuForARole(string roleName, MergeOption mergeOption)
+
+        public virtual ObjectResult<module> GetMenuForARole(string roleName, string userId, MergeOption mergeOption)
         {
             var roleNameParameter = roleName != null ?
                 new ObjectParameter("roleName", roleName) :
                 new ObjectParameter("roleName", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<module>("GetMenuForARole", mergeOption, roleNameParameter);
+
+            var userIdParameter = userId != null ?
+                new ObjectParameter("userId", userId) :
+                new ObjectParameter("userId", typeof(string));
+
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<module>("GetMenuForARole", mergeOption, roleNameParameter, userIdParameter);
         }
     
         public virtual ObjectResult<MenuDetail> GetMenuDetail(Nullable<int> appId)

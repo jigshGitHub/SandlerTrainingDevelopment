@@ -21,14 +21,16 @@ namespace Sandler.Web.Controllers
 {
     public class moduleController : Controller
     {
-        readonly static IUnitOfWork uow=new SandlerUnitOfWork(new SandlerRepositoryProvider(new RepositoryFactories()), new SandlerDBContext());
+        readonly static IUnitOfWork uow = new SandlerUnitOfWork(new SandlerRepositoryProvider(new RepositoryFactories()), new SandlerDBContext());
         public moduleController()
-        {}
+        { }
         public static string UserName { get { return System.Web.HttpContext.Current.User.Identity.Name; } }
-        
+
+        public static Guid UserId { get { return (Guid)Membership.GetUser(System.Web.HttpContext.Current.User.Identity.Name).ProviderUserKey; } }
+
         public static string GetRoleName()
         {
-            return Roles.GetRolesForUser(UserName)[0].ToString(); 
+            return Roles.GetRolesForUser(UserName)[0].ToString();
         }
 
         public static IEnumerable<pageMenuGroupId_and_pageMenuId> get_myPageMenuGroupIds_and_pageMenuIds(int _appId)
@@ -60,7 +62,7 @@ namespace Sandler.Web.Controllers
                            pageMenuGroupId = record.pageMenuGroupId,
                            listOrder = record.listOrder.Value
                        };
-                                    
+
             }
             catch (Exception ex)
             {
@@ -91,7 +93,10 @@ namespace Sandler.Web.Controllers
                 //}
                 ////Close the datareader
                 //rdr.Close();
-                data = uow.MenuRepository().GetMenuForARole(GetRoleName()).ToList();
+
+                //data = uow.MenuRepository().GetMenuForARole(GetRoleName()).ToList();
+                data = uow.MenuRepository().GetMenuForARole(GetRoleName(), UserId.ToString()).ToList();
+
             }
             catch (Exception ex)
             {
@@ -99,7 +104,7 @@ namespace Sandler.Web.Controllers
             }
             //return data.AsEnumerable<module>();
             return data;
-            
+
         }
 
 
@@ -108,10 +113,10 @@ namespace Sandler.Web.Controllers
             get
             {
                 List<pageMenuGroupId_and_pageMenuId> myPageMenuGroupId_and_pageMenuId;
-                                
+
                 List<pageMenuGroupId_and_pageMenuId> _myPageMenuGroupId_and_pageMenuId = get_myPageMenuGroupIds_and_pageMenuIds(1).ToList();
                 myPageMenuGroupId_and_pageMenuId = _myPageMenuGroupId_and_pageMenuId;
-                
+
                 List<module_and_PageMenuGroup> _module_and_PageMenuGroups = new List<module_and_PageMenuGroup>();
 
                 //Get Modules
@@ -131,7 +136,7 @@ namespace Sandler.Web.Controllers
                 IQueryable<pageMenu> active_pageMenus = null;
                 active_pageMenus = uow.Repository<pageMenu>().GetAll().AsQueryable<pageMenu>();//pageMenuRepository.GetAll().AsQueryable<pageMenu>();
 
-                
+
                 foreach (module _module in myModules)
                 {
                     if (_module.pageMenuGroups != null)
@@ -160,13 +165,13 @@ namespace Sandler.Web.Controllers
                         }
                     }
                 }
-                
+
                 return _module_and_PageMenuGroups;
-                
+
             }
         }
-        
-        
+
+
         [HttpGet]
         public JsonResult menu()
         {
@@ -205,7 +210,7 @@ namespace Sandler.Web.Controllers
                 JsonResult _result = Json(_response, JsonRequestBehavior.AllowGet);
                 return Json(_response, JsonRequestBehavior.AllowGet);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 HttpContext.Response.StatusCode = 500;
                 _response = new genericResponse { success = false };
@@ -228,7 +233,7 @@ namespace Sandler.Web.Controllers
         {
             pageMenuId = 32;
             pageMenuGroupId = 5;
-            
+
             pageMenu menu = (from groups in myModulePageMenuGroups.Where(record => record.pageMenuGroup.pageMenuGroupId == pageMenuGroupId.Value)
                              select groups).SingleOrDefault().pageMenus.Where(m => m.pageMenuId == pageMenuId).SingleOrDefault();
 
@@ -240,7 +245,7 @@ namespace Sandler.Web.Controllers
         {
             pageMenuId = 34;
             pageMenuGroupId = 2;
-            
+
             pageMenu menu = (from groups in myModulePageMenuGroups.Where(record => record.pageMenuGroup.pageMenuGroupId == pageMenuGroupId.Value)
                              select groups).SingleOrDefault().pageMenus.Where(m => m.pageMenuId == pageMenuId).SingleOrDefault();
 
@@ -252,7 +257,7 @@ namespace Sandler.Web.Controllers
         {
             pageMenuId = 35;
             pageMenuGroupId = 4;
-            
+
             pageMenu menu = (from groups in myModulePageMenuGroups.Where(record => record.pageMenuGroup.pageMenuGroupId == pageMenuGroupId.Value)
                              select groups).SingleOrDefault().pageMenus.Where(m => m.pageMenuId == pageMenuId).SingleOrDefault();
 
@@ -260,8 +265,8 @@ namespace Sandler.Web.Controllers
 
         }
 
-        
 
-        
+
+
     }
 }

@@ -49,6 +49,10 @@
                                     <div class="controls" data-bind="visible: selectOppsVisible">
                                         <input id="QS_Opportunity" type="text" data-bind="kendoDropDownList: { dataTextField: 'NAME', dataValueField: 'ID', data: opportunities, value: selectedOpportunity, optionLabel: 'Please Select...' }" />
                                     </div>
+                                    <label data-bind="visible: (!selectOppsVisible)">Opportunity Name&nbsp;<span class="label label-danger" data-bind='visible: opportunity.NAME.hasError, text: opportunity.NAME.validationMessage'></span></label>                  
+                                    <div class="controls" data-bind="visible: (!selectOppsVisible)">
+                                         <input id="QS_OpportunityName" maxlength="50" type="text"  class="form-control" data-bind="value: opportunity.NAME"/>
+                                    </div>
                                     <label data-bind="visible: selectPOCVisible">POC</label>
                                     <div class="controls" data-bind="visible: selectPOCVisible">
                                         <input id="QS_POCFnames" type="text" data-bind="kendoDropDownList: { dataTextField: 'fullName', dataValueField: 'contactsId', data: POCs, value: selectedPOC, optionLabel: 'Please Select...' }" />
@@ -72,11 +76,7 @@
                                      <label>Opportunity Status&nbsp;<span class="label label-danger" data-bind='visible: opportunity.STATUSID.hasError, text: opportunity.STATUSID.validationMessage'></span></label>
                                      <div class="controls">
                                         <input id="QS_OppStatus" type="text" data-bind="kendoDropDownList: { dataTextField: 'Name', dataValueField: 'ID', data: oppStatus, value: opportunity.STATUSID, optionLabel: 'Please Select..' }"/>
-                                     </div>
-                                     <label>Opportunity Name&nbsp;<span class="label label-danger" data-bind='visible: opportunity.NAME.hasError, text: opportunity.NAME.validationMessage'></span></label>                  
-                                    <div class="controls">
-                                         <input id="QS_OpportunityName" maxlength="50" type="text"  class="form-control" data-bind="value: opportunity.NAME"/>
-                                    </div>
+                                     </div>                                     
                                     <label>Sales Rep&nbsp;<span class="label label-danger" data-bind='visible: opportunity.salesRepId.hasError, text: opportunity.salesRepId.validationMessage'></span></label>
                                      <div class="controls">
                                         <input id="QS_SalesRep" type="text" data-bind="kendoDropDownList: { dataTextField: 'fullName', dataValueField: 'id', data: salesReps, value: opportunity.salesRepId, optionLabel: 'Please Select..' }"/>

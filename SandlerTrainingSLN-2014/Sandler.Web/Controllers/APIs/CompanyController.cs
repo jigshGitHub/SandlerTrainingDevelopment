@@ -94,6 +94,34 @@ namespace Sandler.Web.Controllers.API
             return Request.CreateResponse(returnObject);
             
         }
+        /*
+         * Bring all companies that has opportunties.
+         * 
+         */
+        [Route("api/CompanyOpportuntiesView/")]
+        public HttpResponseMessage GetCompanyOpportuntiesView(string searchText, int? page, int? pageSize, bool selectForExcel, int? coachId = null, int? franchiseeId = null)
+        {
+            List<CompanyView> companies = null;
+            //sort%5B0%5D%5Bfield%5D=COMPANYNAME&sort%5B0%5D%5Bdir%5D=asc
+            string sortField = HttpContext.Current.Request.QueryString["sort[0][field]"];
+            string sortDir = HttpContext.Current.Request.QueryString["sort[0][dir]"];
+
+            string orderBy = "COMPANYNAME ASC";
+            if (!string.IsNullOrEmpty(sortField))
+                orderBy = sortField;
+            if (!string.IsNullOrEmpty(sortField) && !string.IsNullOrEmpty(sortDir))
+                orderBy = orderBy + " " + sortDir;
+
+            if (!coachId.HasValue && !franchiseeId.HasValue && CurrentUser.Role == SandlerRoles.Coach)
+                coachId = CurrentUser.CoachID;
+            if (!coachId.HasValue && !franchiseeId.HasValue && (CurrentUser.Role == SandlerRoles.FranchiseeOwner || CurrentUser.Role == SandlerRoles.FranchiseeUser))
+                franchiseeId = CurrentUser.FranchiseeID;
+
+            companies = uow.CompanyRepository().GetCompanyOpportunities(searchText, orderBy, pageSize.Value, page.Value, coachId, franchiseeId, selectForExcel).ToList();
+            var returnObject = new { success = true, __count = (companies.Count > 0) ? companies.FirstOrDefault().TotalCount : 0, results = companies };
+            return Request.CreateResponse(returnObject);
+
+        }
 
         public HttpResponseMessage Get(int id)
         {

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Sandler.DB.Data.Repositories.Implementations
 {
-    public class MenuRepository:RepositoryBase<module>, IMenuRepository
+    public class MenuRepository : RepositoryBase<module>, IMenuRepository
     {
         public MenuRepository(IDBContext dbContext)
             : base(dbContext)
@@ -19,9 +19,9 @@ namespace Sandler.DB.Data.Repositories.Implementations
         {
             return (DBContext.Get() as SandlerDBEntities).GetMenuDetail(appId);
         }
-        public IEnumerable<module> GetMenuForARole(string role)
+        public IEnumerable<module> GetMenuForARole(string role, string UserId)
         {
-            return (DBContext.Get() as SandlerDBEntities).GetMenuForARole(role);
+            return (DBContext.Get() as SandlerDBEntities).GetMenuForARole(role, UserId);
         }
     }
 }

@@ -130,10 +130,19 @@ function quickStartDataVM(opportunityObservable, scenario) {
     self.opportunityModeSelectionId.extend({ required: "" });
     self.opportunityModeSelectionId.subscribe(function (newValue) {
         if (newValue != '') {
-            if (newValue == '1')
-                self.selectOppsVisible(true);
-            else
+            self.companies([]);
+            if (newValue == '1') {
+                //console.log('getting companies that has opportunties');
+                var data = jsonDataCaller.syncCall(baseUrl + "/api/CompanyOpportuntiesView?searchText=&page=0&pageSize=0&selectForExcel=false", null)
+                
+                $.each(data.results, function (i, companyRecord) {
+                    self.companies.push({ 'name': companyRecord.COMPANYNAME, 'id': companyRecord.COMPANIESID });
+                });
+            }
+            else {
                 self.companies(startModule.getUserCompanies());
+            }
+            console.log(self.companies().length)
         }
     });
 
@@ -161,6 +170,7 @@ function quickStartDataVM(opportunityObservable, scenario) {
         if (newValue != '') {
             self.companyObservable.COMPANIESID(newValue);
             if (self.scenario == 'edit') {
+                self.selectOppsVisible((self.opportunityModeSelectionId() == 1));
                 $.ajax({
                     url: 'api/company',
                     type: "GET",
@@ -179,6 +189,19 @@ function quickStartDataVM(opportunityObservable, scenario) {
                     },
                     error: function () { }
                 });
+                //$.ajax({
+                //    url: 'api/PipelineViewForCompany',
+                //    type: "GET",
+                //    data: { companyId: newValue },
+                //    dataType: "json",
+                //    contentType: "application/json; charset=utf-8",
+                //    async: false,
+                //    success: function (response) {
+                //        self.opportunities(response.results);
+                //        console.log(self.opportunities());
+                //    },
+                //    error: function () { }
+                //});
                 self.POCs(startModule.getUserContactsByCompany(newValue))
                 $.each(self.POCs(), function (i, item) {
                     //console.log(item.lastName + '-' + self.companyObservable.POCLastName());

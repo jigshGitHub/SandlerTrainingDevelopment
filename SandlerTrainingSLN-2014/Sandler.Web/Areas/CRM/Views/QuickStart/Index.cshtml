@@ -6,7 +6,7 @@
 <script src="~/contents/knockout/knockout.mapping-latest.js" type="text/javascript"></script>
 <script type="text/javascript">
     var observable = ko.mapping.fromJS( @Html.Raw(Json.Encode(@Model.EntityModel)));
-    var scenario = '';
+    var scenario = 'add';
 </script>
 <div ng-controller="ng_quickStartCtrl">
     <div id="quickStart_body" style="background-color: white; margin-left: 10px; margin-right: 10px">

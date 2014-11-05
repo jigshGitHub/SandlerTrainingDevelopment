@@ -8,8 +8,16 @@ using System.Threading.Tasks;
 
 namespace Sandler.DB.Models
 {
+    public static class Extentions
+    {
+        public static IEnumerable<T> DistinctBy<T, TKey>(this IEnumerable<T> items, Func<T, TKey> property)
+        {
+            return items.GroupBy(property).Select(x => x.First());
+        }
+    }
     public partial class SandlerDBEntities : DbContext
     {
+        
         public List<CompanyView> GetCompanyView(string searchText, string orderBy, int? pageSize, int? pageNo, int? coachId, int? franchiseeId, bool selectForExcel)
         {
             if (string.IsNullOrEmpty(searchText))
@@ -26,7 +34,28 @@ namespace Sandler.DB.Models
             string query = string.Format("exec [sp_CompanyView] @orderBy='{0}' ,@pageSize={1},@pageNo={2}{3},@searchText='{4}'"
                 , orderBy, pageSize, pageNo, whereClause, searchText);
 
-            var q = Database.SqlQuery<CompanyView>(query);
+            var q = Database.SqlQuery<CompanyView>(query).DistinctBy(r => r.COMPANIESID);
+
+            return q.ToList();
+        }
+
+        public List<CompanyView> GetCompanyOpportunitiesView(string searchText, string orderBy, int? pageSize, int? pageNo, int? coachId, int? franchiseeId, bool selectForExcel)
+        {
+            if (string.IsNullOrEmpty(searchText))
+                searchText = "";
+
+            string whereClause = "";
+            if (coachId.HasValue)
+                whereClause = whereClause + ",@coachId=" + coachId.Value;
+            if (franchiseeId.HasValue)
+                whereClause = whereClause + ",@franchiseeId=" + franchiseeId.Value;
+            if (selectForExcel)
+                whereClause = whereClause + ",@selectForExcel=1";
+
+            string query = string.Format("exec [sp_CompanyHasOpporunitiesView] @orderBy='{0}' ,@pageSize={1},@pageNo={2}{3},@searchText='{4}'"
+                , orderBy, pageSize, pageNo, whereClause, searchText);
+
+            var q = Database.SqlQuery<CompanyView>(query).DistinctBy(r => r.COMPANIESID);
 
             return q.ToList();
         }

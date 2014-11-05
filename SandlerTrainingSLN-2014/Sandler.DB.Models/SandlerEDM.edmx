@@ -1945,6 +1945,10 @@
         <Function Name="MSI_GetLeftSideMenu" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="roleName" Type="varchar" Mode="In" />
         </Function>
+        <Function Name="MSI_GetLeftSideMenuWithUserId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="roleName" Type="varchar" Mode="In" />
+          <Parameter Name="userId" Type="varchar" Mode="In" />
+        </Function>
         <Function Name="MSI_GetMenuDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="appId" Type="int" Mode="In" />
         </Function>
@@ -2286,6 +2290,7 @@
           <EntitySet Name="Tbl_ModulesForRoles" EntityType="SandlerDBModel.Tbl_ModulesForRoles" />
           <FunctionImport Name="GetMenuForARole" EntitySet="modules" ReturnType="Collection(SandlerDBModel.module)">
           <Parameter Name="roleName" Mode="In" Type="String" />
+            <Parameter Name="userId" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="GetMenuDetail" ReturnType="Collection(SandlerDBModel.MenuDetail)">
           <Parameter Name="appId" Mode="In" Type="Int32" />
@@ -3926,6 +3931,10 @@
           <Property Type="Int32" Name="ModuleId" Nullable="false" />
           <Property Type="String" Name="UserId" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
         </EntityType>
+        <ComplexType Name="MSI_GetLeftSideMenuWithUserId_Result">
+          <Property Type="Int32" Name="moduleId" Nullable="false" />
+          <Property Type="String" Name="pageMenuGroups" Nullable="true" MaxLength="1000" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -5013,7 +5022,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="GetMenuForARole" FunctionName="SandlerDBModel.Store.MSI_GetLeftSideMenu" />
+          <FunctionImportMapping FunctionImportName="GetMenuForARole" FunctionName="SandlerDBModel.Store.MSI_GetLeftSideMenuWithUserId" />
           <FunctionImportMapping FunctionImportName="GetMenuDetail" FunctionName="SandlerDBModel.Store.MSI_GetMenuDetails">
             <ResultMapping>
               <ComplexTypeMapping TypeName="SandlerDBModel.MenuDetail">

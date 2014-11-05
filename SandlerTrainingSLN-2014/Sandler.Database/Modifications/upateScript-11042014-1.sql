@@ -14,8 +14,7 @@ IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[MSI_G
 DROP PROCEDURE [dbo].[MSI_GetLeftSideMenuWithUserId]
 GO
 
-USE [MetricsIntelligence]
-GO
+
 
 /****** Object:  StoredProcedure [dbo].[MSI_GetLeftSideMenuWithUserId]    Script Date: 11/04/2014 14:10:29 ******/
 SET ANSI_NULLS ON

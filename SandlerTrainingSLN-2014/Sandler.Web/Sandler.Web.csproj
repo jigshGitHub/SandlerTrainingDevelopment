@@ -1095,9 +1095,6 @@
     <Content Include="Areas\RDL\Views\Home\Associates.cshtml" />
     <Content Include="Areas\RDL\Views\Home\Assignments.cshtml" />
     <Content Include="Areas\CRM\Views\QuickStart\Index.cshtml" />
-    <Content Include="Areas\CRM\Views\QuickStart\Add.cshtml">
-      <SubType>Code</SubType>
-    </Content>
     <Content Include="Areas\CRM\Views\QuickStart\Edit.cshtml">
       <SubType>Code</SubType>
     </Content>

@@ -10,6 +10,6 @@ namespace Sandler.DB.Data.Repositories.Interfaces
     public interface IMenuRepository
     {
         IEnumerable<MenuDetail> GetMenuDetails(int? appId);
-        IEnumerable<module> GetMenuForARole(string role);
+        IEnumerable<module> GetMenuForARole(string role, string UserId);
     }
 }
