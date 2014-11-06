@@ -86,13 +86,27 @@ namespace Sandler.Web.Controllers.API
                 if (!VerifyContactRequiredFields(contact))
                     throw new Exception("Contact required fields are not submiited");
 
-                List<ContactView> contacts = uow.ContactRepository().Get("LastName ASC", 0, 0, null, CurrentUser.FranchiseeID, null, CurrentUser.UserId.ToString(), "", false).Where(r => r.FirstName == contact.FIRSTNAME && r.LastName == contact.LASTNAME && r.CompanyId == contact.COMPANYID).ToList<ContactView>(); ;
+                //List<ContactView> contacts = uow.ContactRepository().Get("LastName ASC", 0, 0, null, CurrentUser.FranchiseeID, null, CurrentUser.UserId.ToString(), "", false).Where(r => r.FirstName == contact.FIRSTNAME && r.LastName == contact.LASTNAME && r.CompanyId == contact.COMPANYID).ToList<ContactView>(); ;
+                List<ContactView> contacts = uow.ContactRepository().Get("LastName ASC", 0, 0, null, CurrentUser.FranchiseeID, null,"", "", false).Where(r => r.FirstName == contact.FIRSTNAME && r.LastName == contact.LASTNAME && r.CompanyId == contact.COMPANYID).ToList<ContactView>(); ;
+                                  
 
                 if (contacts.Count > 0)
                 {
-                    contact.CONTACTSID = contacts [0].ContactsId;
-                    contact.CreatedBy = contacts[0].CreatedBy;
-                    contact.CreatedDate = DateTime.Now;
+                    TBL_CONTACTS tmpContact = uow.Repository<TBL_CONTACTS>().GetById(contacts[0].ContactsId);
+                    tmpContact.CourseTrainingDate = contact.CourseTrainingDate;
+                    tmpContact.NEXT_CONTACT_DATE = contact.NEXT_CONTACT_DATE;
+                    tmpContact.ApptSourceId = contact.ApptSourceId;
+                    tmpContact.IsNewAppointment = contact.IsNewAppointment;
+                    tmpContact.IsRegisteredForTraining = contact.IsRegisteredForTraining;
+                    tmpContact.CourseId = contact.CourseId;
+                    tmpContact.TrainingCourseName = contact.TrainingCourseName;
+                    tmpContact.HowManyAttended = contact.HowManyAttended;
+                    tmpContact.ACTIONSTEP = contact.ACTIONSTEP;
+                    tmpContact.FIRSTNAME = contact.FIRSTNAME;
+                    tmpContact.LASTNAME = contact.LASTNAME;
+                    tmpContact.PHONE = contact.PHONE;
+                    tmpContact.EMAIL = contact.EMAIL;
+                    contact = tmpContact;
                 }
 
                 if (contact.CONTACTSID > 0)

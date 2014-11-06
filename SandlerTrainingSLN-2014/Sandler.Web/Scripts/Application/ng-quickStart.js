@@ -133,7 +133,7 @@ function quickStartDataVM(opportunityObservable, scenario) {
         if (newValue != '') {
             self.companies([]);
             if (newValue == '1') {
-                if (self.initialCountOfCompanyOpportunties== 0){
+                if (self.initialCountOfCompanyOpportunties == 0) {
                     console.log('getting companies that has opportunties');
                     var data = jsonDataCaller.syncCall(baseUrl + "/api/CompanyOpportuntiesView?searchText=&page=0&pageSize=0&selectForExcel=false", null)
                     self.initialCountOfCompanyOpportunties = data.__count;
@@ -206,6 +206,16 @@ function quickStartDataVM(opportunityObservable, scenario) {
                     },
                     error: function () { }
                 });
+                self.POCs(startModule.getUserContactsByCompany(newValue))
+                $.each(self.POCs(), function (i, item) {
+                    //console.log(item.lastName + '-' + self.companyObservable.POCLastName());
+                    //console.log(item.firstName + '-' + self.companyObservable.POCFirstName());
+                    if (item.lastName == self.companyObservable.POCLastName() && item.firstName == self.companyObservable.POCFirstName()) {
+                        //console.log(item.contactsId);
+                        self.selectedPOC(item.contactsId);
+                        return;
+                    }
+                });
                 $.ajax({
                     url: 'api/PipelineViewForCompany',
                     type: "GET",
@@ -219,16 +229,7 @@ function quickStartDataVM(opportunityObservable, scenario) {
                     },
                     error: function () { }
                 });
-                self.POCs(startModule.getUserContactsByCompany(newValue))
-                $.each(self.POCs(), function (i, item) {
-                    //console.log(item.lastName + '-' + self.companyObservable.POCLastName());
-                    //console.log(item.firstName + '-' + self.companyObservable.POCFirstName());
-                    if (item.lastName == self.companyObservable.POCLastName() && item.firstName == self.companyObservable.POCFirstName()) {
-                        //console.log(item.contactsId);
-                        self.selectedPOC(item.contactsId);
-                        return;
-                    }
-                });
+
             }
         }
     });
@@ -244,10 +245,11 @@ function quickStartDataVM(opportunityObservable, scenario) {
                 contentType: "application/json; charset=utf-8",
                 async: false,
                 success: function (response) {
+                    //console.log(response.NAME);
+                    self.opportunity.STATUSID(response.STATUSID);
                     self.opportunity.NAME(response.NAME);
                     self.opportunity.Pain(response.Pain);
                     self.opportunity.ProductID(response.ProductID);
-                    self.opportunity.STATUSID(response.STATUSID);
                     self.opportunity.SourceID(response.SourceID);
                     self.opportunity.TypeID(response.TypeID);
                     self.opportunity.VALUE(response.VALUE);
@@ -278,6 +280,21 @@ function quickStartDataVM(opportunityObservable, scenario) {
                 contentType: "application/json; charset=utf-8",
                 async: false,
                 success: function (response) {
+                    //self.contactObservable = ko.observable();
+                    //self.contactObservable = ko.mapping.fromJS(response);
+                    //console.log(self.contactObservable.ApptSourceId());
+                    ////self.contactObservable.CONTACTSID(self.opportunity.CONTACTID());
+
+                    //console.log(self.contactObservable.ACTIONSTEP());
+                    //console.log(self.contactObservable.NEXT_CONTACT_DATE());
+                    //console.log(self.contactObservable.IsNewAppointment());
+                    //console.log(self.contactObservable.ApptSourceId());
+                    //console.log(self.contactObservable.IsRegisteredForTraining());
+                    //console.log(self.contactObservable.CourseId());
+                    //console.log(self.contactObservable.CourseTrainingDate());
+                    //console.log(self.contactObservable.TrainingCourseName());
+                    //console.log(self.contactObservable.HowManyAttended());
+
                     self.contactObservable.CONTACTSID(self.opportunity.CONTACTID());
                     if (response.CourseTrainingDate != null && response.CourseTrainingDate != "") {
                         self.contactObservable.CourseTrainingDatec(kendo.parseDate(response.CourseTrainingDate));
@@ -696,7 +713,7 @@ function quickStartDataVM(opportunityObservable, scenario) {
             async: false,
             success: function (response) {
                 //console.log('saved pipeline');
-                $('#quickStart_body').unblock();                
+                $('#quickStart_body').unblock();
                 showNoti_.info('Opportunity added successfully.', true);
                 modalOptions = { backdrop: 'static', show: true };
                 $('#meetingInviteContainer').modal(modalOptions);
@@ -708,7 +725,7 @@ function quickStartDataVM(opportunityObservable, scenario) {
         });
     };
 
-    self.reset = function(type) {
+    self.reset = function (type) {
 
         self.companyObservable.COMPANYNAME('');
         self.companyObservable.POCFirstName('');
