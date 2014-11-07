@@ -219,22 +219,23 @@ function quickStartDataVM(opportunityObservable, scenario) {
                         return;
                     }
                 });
-                $.ajax({
-                    url: 'api/PipelineViewForCompany',
-                    type: "GET",
-                    data: { companyId: newValue },
-                    dataType: "json",
-                    contentType: "application/json; charset=utf-8",
-                    async: false,
-                    success: function (response) {
-                        self.opportunities(response.results);
-                        if (self.opportunities().length == 1)
-                            self.selectedOpportunity(self.opportunities()[0].ID);
-                        //console.log(self.opportunities());
-                    },
-                    error: function () { }
-                });
-
+                if( self.opportunityModeSelectionId() == 1){
+                    $.ajax({
+                        url: 'api/PipelineViewForCompany',
+                        type: "GET",
+                        data: { companyId: newValue },
+                        dataType: "json",
+                        contentType: "application/json; charset=utf-8",
+                        async: false,
+                        success: function (response) {
+                            self.opportunities(response.results);
+                            if (self.opportunities().length == 1)
+                                self.selectedOpportunity(self.opportunities()[0].ID);
+                            //console.log(self.opportunities());
+                        },
+                        error: function () { }
+                    });
+                }
             }
         }
     });

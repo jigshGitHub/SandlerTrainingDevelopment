@@ -144,7 +144,7 @@ namespace Sandler.Web.Controllers.API
         private bool VerifyContactRequiredFields(TBL_CONTACTS contact)
         {            
             bool trainingcheck = true;
-            if (contact.IsRegisteredForTraining.HasValue == true)
+            if (contact.IsRegisteredForTraining.HasValue == true && contact.IsRegisteredForTraining.Value == true)
                 trainingcheck = (contact.CourseId > 0 &&
                !string.IsNullOrEmpty(contact.TrainingCourseName) &&
                contact.CourseTrainingDate.HasValue &&
