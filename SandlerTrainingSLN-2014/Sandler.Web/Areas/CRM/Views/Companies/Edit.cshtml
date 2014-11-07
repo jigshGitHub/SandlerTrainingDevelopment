@@ -145,8 +145,6 @@
                                     </span> 
                                     <input id="company_pocPhone" maxlength="50" type="text" class="form-control" data-bind="value: POCPhone"/>
                                 </div>
-                               
-                                
                                 
                                 <label>POC Department</label>
                                 <div class="controls">
@@ -183,7 +181,38 @@
                                     </span> 
                                     <input id="company_assistant Phone" maxlength="50" type="text" class="form-control" data-bind="value: AssistantPhone"/>
                                 </div>
-                                
+
+                                @*Additional Fields*@
+                                <label>Facebook</label>
+                                <div class="input-group">
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-info" type="button" data-bind="enable: fbClickEnabled, click: fbClick">
+                                            <i class="fa fa-facebook-square"></i>
+                                        </button>
+                                    </span>
+                                    <input id="company_facebook" class="form-control" type="text" data-bind="value: FACEBOOKID" maxlength="100">
+                                </div>
+
+                                <label>Twitter</label>
+                                <div class="input-group">
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-info" type="button" data-bind="enable: twClickEnabled, click: twClick">
+                                            <i class="fa fa-twitter"></i>
+                                        </button>
+                                    </span>
+                                    <input id="company_twitter" class="form-control" type="text" data-bind="value: TWITTERID" maxlength="100">
+                                </div>
+                                     
+                                <label>Linkedin</label>
+                                <div class="input-group">
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-info" type="button" data-bind="enable: lnkedClickEnabled, click: lnkClick">
+                                            <i class="fa fa-linkedin"></i>
+                                        </button>
+                                    </span>
+                                    <input id="company_linkedin" class="form-control" type="text" data-bind="value: LINKEDINID" maxlength="100">
+                                </div>
+                                                           
                             </div>
                         </form>
                     </div>
@@ -353,6 +382,11 @@
             companyVM.IsNewCompanyInt(0);
         }
         companyVM.Website(compData.Website);
+
+        companyVM.FACEBOOKID(compData.FACEBOOKID);
+        companyVM.TWITTERID(compData.TWITTERID);
+        companyVM.LINKEDINID(compData.LINKEDINID);
+
         companyVM.EmpQuantity(compData.EmpQuantity);
         companyVM.COMPANYVALUEGOAL(compData.COMPANYVALUEGOAL);
         companyVM.RepLastName(compData.RepLastName);
@@ -467,6 +501,29 @@
         self.STATE = ko.observable(compData.STATE);
         self.Zip = ko.observable(compData.Zip);
         self.Country = ko.observable(compData.Country);
+        //Additions...
+        self.FACEBOOKID = ko.observable(compData.FACEBOOKID);
+        self.fbClickEnabled = ko.computed(function () {
+            return (!(!self.FACEBOOKID()));
+        });
+        self.fbClick = function () {
+            window.open(get_facebookUrl(self.FACEBOOKID()));
+        };
+        self.TWITTERID = ko.observable(compData.TWITTERID);
+        self.twClickEnabled = ko.computed(function () {
+            return (!(!self.TWITTERID()));
+        });
+        self.twClick = function () {
+            window.open(get_twitterUrl(self.TWITTERID()));
+        };
+        self.LINKEDINID = ko.observable(compData.LINKEDINID);
+        self.lnkClick = function () {
+            window.open(get_linkedinUrl(self.LINKEDINID()));
+        };
+        self.lnkedClickEnabled = ko.computed(function () {
+            return (!(!self.LINKEDINID()));
+        });        
+        //Additions...End Here...    
         
         self.yesNoData = ko.observableArray(yesNoData);
         

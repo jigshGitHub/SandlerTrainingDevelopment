@@ -220,6 +220,37 @@
                                     <input id="contact_nextContactDate" style="max-width: 150px;" maxlength="10" type="text" class="form-control" data-bind="kendoDatePicker: contact.NEXT_CONTACT_DATEc" />
                                 </div>
 
+                                @*Additional Fields*@
+                                <label>Facebook</label>
+                                <div class="input-group">
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-info" type="button" data-bind="enable: contact.fbClickEnabled, click: contact.fbClick">
+                                            <i class="fa fa-facebook-square"></i>
+                                        </button>
+                                    </span>
+                                    <input id="contact_facebook" class="form-control" type="text" data-bind="value: contact.FACEBOOKID" maxlength="100">
+                                </div>
+                                
+                                <label>Twitter</label>
+                                <div class="input-group">
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-info" type="button" data-bind="enable: contact.twClickEnabled, click: contact.twClick">
+                                            <i class="fa fa-twitter"></i>
+                                        </button>
+                                    </span>
+                                    <input id="contact_twitter" class="form-control" type="text" data-bind="value: contact.TWITTERID" maxlength="100">
+                                </div>
+                                
+                                <label>Linkedin</label>
+                                <div class="input-group">
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-info" type="button" data-bind="enable: contact.lnkedClickEnabled, click: contact.lnkClick">
+                                            <i class="fa fa-linkedin"></i>
+                                        </button>
+                                    </span>
+                                    <input id="contact_linkedin" class="form-control" type="text" data-bind="value: contact.LINKEDINID" maxlength="100">
+                                </div>     
+
                             </div>
                         </form>
                     </div>
@@ -263,7 +294,8 @@
                                 <div class="controls">
                                     <input id="contact_Notes" maxlength="50" type="text" class="form-control" data-bind="value: contact.Notes" />
                                 </div>
-
+                                
+                                
                             </div>
                         </form>
                     </div>
@@ -279,7 +311,7 @@
         </div>
 
         @* Page Footer *@
-        <div class="row page-footer">
+        <div class="row page-footer" style="margin-top:10px">
             <div class="pull-right">
                 <button id="bt_cancel_evt" class="btn btn-danger btn-cancel" type="button">Cancel</button>
                 <button id="bt_save_evt" class="btn btn-primary btn-save" type="button" data-bind="enable: isDirty, click: Save">Save</button>
@@ -360,6 +392,32 @@
         self.contact.LASTNAME.extend({ required: "" });
         self.contact.FIRSTNAME.extend({ required: "" });
         
+        //Additions...
+        self.contact.FACEBOOKID = ko.observable(contactsObservable.FACEBOOKID());
+        self.contact.fbClickEnabled = ko.computed(function () {
+            return (!(!self.contact.FACEBOOKID()));
+        });
+        self.contact.fbClick = function () {
+            window.open(get_facebookUrl(self.contact.FACEBOOKID()));
+        };
+        self.contact.TWITTERID = ko.observable(contactsObservable.TWITTERID());
+        self.contact.twClickEnabled = ko.computed(function () {
+            return (!(!self.contact.TWITTERID()));
+        });
+        self.contact.twClick = function () {
+            window.open(get_twitterUrl(self.contact.TWITTERID()));
+        };
+
+        self.contact.LINKEDINID = ko.observable(contactsObservable.LINKEDINID());
+        
+        self.contact.lnkedClickEnabled = ko.computed(function () {
+            return (!(!self.contact.LINKEDINID()));
+        });
+        self.contact.lnkClick = function () {
+            window.open(get_linkedinUrl(self.contact.LINKEDINID()));
+        };
+        //Additions...End Here...    
+
         self.yesNoData = startModule.getYesNoOptions();
 
         self.appointmentsource = startModule.getAppointmentSources();

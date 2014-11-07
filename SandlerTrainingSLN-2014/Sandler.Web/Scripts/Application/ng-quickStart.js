@@ -171,7 +171,7 @@ function quickStartDataVM(opportunityObservable, scenario) {
         }
     });
     self.salesReps = ko.computed(function () {
-        var data = jsonDataCaller.syncCall("/api/FranchiseeUsersView?searchText=&page=0&pageSize=0&sort[0][field]=LastName&sort[0][dir]=ASC", null)
+        var data = jsonDataCaller.syncCall(baseUrl + "/api/FranchiseeUsersView?searchText=&page=0&pageSize=0&sort[0][field]=LastName&sort[0][dir]=ASC", null)
 
         var filteredSalesReps = new Array();
         $.each(data.results, function (i, item) {

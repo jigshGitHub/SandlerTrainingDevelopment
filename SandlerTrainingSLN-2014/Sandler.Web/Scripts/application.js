@@ -569,3 +569,40 @@ var NOTIFICMSG = {
     PROCESSING: "Processing. Please wait.."
 };
 
+
+function get_fullUrl(url) {
+    if (url == null)
+        return "";
+    else if (url.toLowerCase().match("^http"))
+        return url;
+    else
+        return "http://" + url;
+};
+
+function get_facebookUrl(str) {
+    if (str == null)
+        return "";
+    else if (str.toLowerCase().match("^http"))
+        return str;
+    else
+        return "http://www.facebook.com/" + str;
+};
+
+function get_twitterUrl(str) {
+    if (str == null)
+        return "";
+    else if (str.toLowerCase().match("^http"))
+        return str;
+    else
+        return "http://twitter.com/" + str;
+};
+
+function get_linkedinUrl(str) {
+    if (str == null)
+        return "";
+    else if (str.toLowerCase().match("^http"))
+        return str;
+    else
+        return "http://www.linkedin.com/vsearch/p?type=people&keywords=" + str;
+
+};
