@@ -83,37 +83,46 @@ namespace Sandler.Web.Controllers.API
         {
             try
             {
-                if (!VerifyContactRequiredFields(contact))
-                    throw new Exception("Contact required fields are not submiited");
+                
 
                 //List<ContactView> contacts = uow.ContactRepository().Get("LastName ASC", 0, 0, null, CurrentUser.FranchiseeID, null, CurrentUser.UserId.ToString(), "", false).Where(r => r.FirstName == contact.FIRSTNAME && r.LastName == contact.LASTNAME && r.CompanyId == contact.COMPANYID).ToList<ContactView>(); ;
-                List<ContactView> contacts = uow.ContactRepository().Get("LastName ASC", 0, 0, null, CurrentUser.FranchiseeID, null,"", "", false).Where(r => r.FirstName == contact.FIRSTNAME && r.LastName == contact.LASTNAME && r.CompanyId == contact.COMPANYID).ToList<ContactView>(); ;
-                                  
+                List<ContactView> contacts = uow.ContactRepository().Get("LastName ASC", 0, 0, null, CurrentUser.FranchiseeID, null,"", "", false).Where(r => r.FirstName == contact.FIRSTNAME && r.LastName == contact.LASTNAME && r.CompanyId == contact.COMPANYID).ToList<ContactView>();
+
+                TBL_CONTACTS tmpContact;
 
                 if (contacts.Count > 0)
                 {
-                    TBL_CONTACTS tmpContact = uow.Repository<TBL_CONTACTS>().GetById(contacts[0].ContactsId);
-                    tmpContact.CourseTrainingDate = contact.CourseTrainingDate;
-                    tmpContact.NEXT_CONTACT_DATE = contact.NEXT_CONTACT_DATE;
-                    tmpContact.ApptSourceId = contact.ApptSourceId;
-                    tmpContact.IsNewAppointment = contact.IsNewAppointment;
-                    tmpContact.IsRegisteredForTraining = contact.IsRegisteredForTraining;
-                    tmpContact.CourseId = contact.CourseId;
-                    tmpContact.TrainingCourseName = contact.TrainingCourseName;
-                    tmpContact.HowManyAttended = contact.HowManyAttended;
-                    tmpContact.ACTIONSTEP = contact.ACTIONSTEP;
-                    tmpContact.FIRSTNAME = contact.FIRSTNAME;
-                    tmpContact.LASTNAME = contact.LASTNAME;
-                    tmpContact.PHONE = contact.PHONE;
-                    tmpContact.EMAIL = contact.EMAIL;
-                    contact = tmpContact;
+                    tmpContact = uow.Repository<TBL_CONTACTS>().GetById(contacts[0].ContactsId);
                 }
+                else
+                {
+                    tmpContact = new TBL_CONTACTS();
+                }
+                tmpContact.COMPANYID = contact.COMPANYID;
+                tmpContact.CourseTrainingDate = contact.CourseTrainingDate;
+                tmpContact.NEXT_CONTACT_DATE = contact.NEXT_CONTACT_DATE;
+                tmpContact.ApptSourceId = contact.ApptSourceId;
+                tmpContact.IsNewAppointment = contact.IsNewAppointment;
+                tmpContact.IsRegisteredForTraining = contact.IsRegisteredForTraining;
+                tmpContact.CourseId = contact.CourseId;
+                tmpContact.TrainingCourseName = contact.TrainingCourseName;
+                tmpContact.HowManyAttended = contact.HowManyAttended;
+                tmpContact.ACTIONSTEP = contact.ACTIONSTEP;
+                tmpContact.FIRSTNAME = contact.FIRSTNAME;
+                tmpContact.LASTNAME = contact.LASTNAME;
+                tmpContact.PHONE = contact.PHONE;
+                tmpContact.EMAIL = contact.EMAIL;
+                
+                contact = tmpContact;
+
+                if (!VerifyContactRequiredFields(contact))
+                    throw new Exception("Contact required fields are not submiited");
 
                 if (contact.CONTACTSID > 0)
-                {
-                    uow.Repository<TBL_CONTACTS>().Update(contact);
+                {                    
                     contact.UpdatedBy = CurrentUser.UserId.ToString();
                     contact.UpdatedDate = DateTime.Now;
+                    uow.Repository<TBL_CONTACTS>().Update(contact);
                 }
                 else
                 {

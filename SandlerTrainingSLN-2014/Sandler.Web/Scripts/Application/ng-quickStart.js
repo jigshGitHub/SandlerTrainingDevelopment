@@ -93,6 +93,7 @@ function initialize_quickStartF(type) {
     quickStartVM.opportunities([]);
     quickStartVM.Notes('');
 
+    quickStartVM.initialCountOfCompanyOpportunties = 0;
     quickStartVM.dirtyFlag.reset();
 
     if (type != 'Clear') {
@@ -807,6 +808,7 @@ function quickStartDataVM(opportunityObservable, scenario) {
         self.opportunities([]);
         self.Notes('');
 
+        self.initialCountOfCompanyOpportunties = 0;
         //self.dirtyFlag.reset();
 
         if (type != 'Clear') {
@@ -836,9 +838,7 @@ function quickStartDataVM(opportunityObservable, scenario) {
 
         //open next modal
         modalOptions = { backdrop: 'static', show: true };
-        $('#newEntryResponseContainer').modal(modalOptions);
-        if (self.scenario == "edit")
-            self.reset();
+        $('#newEntryResponseContainer').modal(modalOptions);        
     };
 
     self.createAnotherOpportunity = function () {
@@ -846,6 +846,22 @@ function quickStartDataVM(opportunityObservable, scenario) {
         self.contactObservable.CONTACTSID('');
         self.opportunity.COMPANYID('');
         self.opportunity.CONTACTID('');
+
+        $('#newEntryResponseContainer').modal('hide');
+        $('#quickStart_body').unblock();
+    };
+
+    self.createAnotherOpportunityEditMode = function () {
+        self.contactObservable.COMPANYID('');
+        self.contactObservable.CONTACTSID('');
+        self.opportunity.COMPANYID('');
+        self.opportunity.CONTACTID('');
+
+        $('#newEntryResponseContainer').modal('hide');
+        $('#quickStart_body').unblock();
+    };
+
+    self.editExistingOpportunityEditMode = function () {
 
         $('#newEntryResponseContainer').modal('hide');
         $('#quickStart_body').unblock();

@@ -256,6 +256,28 @@
                     </div>
                 </div>
             </div>
+            <div class="modal" id="newEntryResponseContainer">
+	            <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button class="close" aria-hidden="true" type="button" data-dismiss="modal">×</button>                            
+                        </div>
+                        <div id="newEntryResponseBody" class="modal-body">
+                            <p>
+                                While working with this same company would you like to:<br />
+                                a. Edit another existing opportunity for this same company?<br />
+                                b. Add another opportunity for this same company?<br />
+                                c. Exit quickstart?
+                            </p>
+                        </div>
+                        <div class="modal-footer">
+                            <a href="#" class="btn btn-primary" data-bind="click: editExistingOpportunityEditMode">Edit</a>
+                            <a href="#" class="btn btn-primary" data-bind="click: createAnotherOpportunityEditMode">Add</a>
+                            <a href="#" class="btn" data-bind="click: denyCreateAnotherOpportunity">Exit</a>                            
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
     </div>
