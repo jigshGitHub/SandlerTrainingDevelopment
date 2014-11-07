@@ -159,7 +159,9 @@ function quickStartDataVM(opportunityObservable, scenario) {
             var contactObj = $.grep(userContacts, function (element, index) {
                 return element.contactsId == newValue;
             });
-            if (contactObj != null) {
+            //console.log('contactObj=' + newValue);
+            //console.log('userContacts=' + userContacts)
+            if (contactObj != null && contactObj.length > 0) {
                 self.companyObservable.POCLastName(contactObj[0].lastName);
                 self.companyObservable.POCFirstName(contactObj[0].firstName);
                 self.companyObservable.POCPhone(contactObj[0].phone);
@@ -225,7 +227,9 @@ function quickStartDataVM(opportunityObservable, scenario) {
                     async: false,
                     success: function (response) {
                         self.opportunities(response.results);
-                        console.log(self.opportunities());
+                        if (self.opportunities().length == 1)
+                            self.selectedOpportunity(self.opportunities()[0].ID);
+                        //console.log(self.opportunities());
                     },
                     error: function () { }
                 });
@@ -245,11 +249,11 @@ function quickStartDataVM(opportunityObservable, scenario) {
                 contentType: "application/json; charset=utf-8",
                 async: false,
                 success: function (response) {
-                    //console.log(response.NAME);
                     self.opportunity.STATUSID(response.STATUSID);
                     self.opportunity.NAME(response.NAME);
                     self.opportunity.Pain(response.Pain);
                     self.opportunity.ProductID(response.ProductID);
+                    console.log('self.opportunity.ProductID()'+self.opportunity.ProductID());
                     self.opportunity.SourceID(response.SourceID);
                     self.opportunity.TypeID(response.TypeID);
                     self.opportunity.VALUE(response.VALUE);
@@ -261,8 +265,8 @@ function quickStartDataVM(opportunityObservable, scenario) {
                     self.opportunity.CostToFix(response.CostToFix);
 
                     self.opportunity.Notes(response.Notes);
-                    self.opportunity.IsBudgeIdentified(response.IsBudgeIdentified);
-                    self.opportunity.IsMoveForward(response.IsMoveForward);
+                    self.opportunity.IsBudgeIdentified(response.IsBudgeIdentified?1:0);
+                    self.opportunity.IsMoveForward(response.IsMoveForward?1:0);
                     self.opportunity.VALUE(response.VALUE);
                     self.opportunity.CostToFix(response.CostToFix);
                     self.opportunity.IsActive(true);
@@ -280,20 +284,7 @@ function quickStartDataVM(opportunityObservable, scenario) {
                 contentType: "application/json; charset=utf-8",
                 async: false,
                 success: function (response) {
-                    //self.contactObservable = ko.observable();
-                    //self.contactObservable = ko.mapping.fromJS(response);
-                    //console.log(self.contactObservable.ApptSourceId());
-                    ////self.contactObservable.CONTACTSID(self.opportunity.CONTACTID());
-
-                    //console.log(self.contactObservable.ACTIONSTEP());
-                    //console.log(self.contactObservable.NEXT_CONTACT_DATE());
-                    //console.log(self.contactObservable.IsNewAppointment());
-                    //console.log(self.contactObservable.ApptSourceId());
-                    //console.log(self.contactObservable.IsRegisteredForTraining());
-                    //console.log(self.contactObservable.CourseId());
-                    //console.log(self.contactObservable.CourseTrainingDate());
-                    //console.log(self.contactObservable.TrainingCourseName());
-                    //console.log(self.contactObservable.HowManyAttended());
+                    console.log(response.IsRegisteredForTraining);
 
                     self.contactObservable.CONTACTSID(self.opportunity.CONTACTID());
                     if (response.CourseTrainingDate != null && response.CourseTrainingDate != "") {
@@ -303,13 +294,14 @@ function quickStartDataVM(opportunityObservable, scenario) {
                         self.contactObservable.NextContactDatec(kendo.parseDate(response.NEXT_CONTACT_DATE));
                     }
                     self.contactObservable.ApptSourceId(response.ApptSourceId);
-                    self.contactObservable.IsNewAppointment(response.IsNewAppointment);
-                    self.contactObservable.IsRegisteredForTraining(response.IsRegisteredForTraining);
+                    self.contactObservable.IsNewAppointment(response.IsNewAppointment?1:0);
+                    self.contactObservable.IsRegisteredForTraining(response.IsRegisteredForTraining ? 1:0);
                     self.contactObservable.CourseId(response.CourseId);
                     self.contactObservable.TrainingCourseName(response.TrainingCourseName);
                     self.contactObservable.HowManyAttended(response.HowManyAttended);
                     self.contactObservable.ACTIONSTEP(response.ACTIONSTEP);
 
+                    self.selectedPOC(self.opportunity.CONTACTID());
                 },
                 error: function () { }
             });
@@ -658,6 +650,37 @@ function quickStartDataVM(opportunityObservable, scenario) {
             return;
         }
 
+        ////Take care of bit Fields
+        //if (self.IsBudgeIdentifiedInt() > 0) {
+        // self.IsBudgeIdentified(true);
+        //}
+        //else {
+        // self.IsBudgeIdentified(false);
+        //}
+        //if (self.IsMoveForwardInt() > 0) {
+        // self.IsMoveForward(true);
+        //}
+        //else {
+        // self.IsMoveForward(false);
+        //}
+        //if (self.IsNewAppointmentInt() > 0) {
+        // self.IsNewAppointment(true);
+        //}
+        //else {
+        // self.IsNewAppointment(false);
+        //}
+        //if (self.IsRegisteredForTrainingInt() > 0) {
+        // self.IsRegisteredForTraining(true);
+        //}
+        //else {
+        // self.IsRegisteredForTraining(false);
+        //}
+        //if (self.IsNewCompanyInt() > 0) {
+        // self.IsNewCompany(true);
+        //}
+        //else {
+        // self.IsNewCompany(false);
+        //}
         //Now Continue
         self.continueWithSave();
     };
@@ -683,6 +706,8 @@ function quickStartDataVM(opportunityObservable, scenario) {
     }
 
     self.contactSave = function (callback) {
+        self.contactObservable.IsRegisteredForTraining(self.contactObservable.IsRegisteredForTraining() == 1 ? true : false);
+        self.contactObservable.IsNewAppointment(self.contactObservable.IsNewAppointment() == 1 ? true : false);
         $.ajax({
             url: 'api/QS/ContactSave',
             type: "POST",
@@ -704,6 +729,8 @@ function quickStartDataVM(opportunityObservable, scenario) {
 
     self.pipelineSave = function () {
         //console.log(ko.toJSON(self.opportunity));
+        self.opportunity.IsBudgeIdentified(self.opportunity.IsBudgeIdentified() == 1 ? true : false);
+        self.opportunity.IsMoveForward(self.opportunity.IsMoveForward() == 1 ? true : false);
         $.ajax({
             url: 'api/QS/PipelineSave',
             type: "POST",
@@ -810,6 +837,8 @@ function quickStartDataVM(opportunityObservable, scenario) {
         //open next modal
         modalOptions = { backdrop: 'static', show: true };
         $('#newEntryResponseContainer').modal(modalOptions);
+        if (self.scenario == "edit")
+            self.reset();
     };
 
     self.createAnotherOpportunity = function () {
