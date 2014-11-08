@@ -1,0 +1,315 @@
+﻿
+
+<style>
+
+ .form-group {
+    display: inline-block;
+    vertical-align: top;
+}
+
+ .keep-on-line {
+    white-space: nowrap;
+}
+  .panel.blue .panel-heading
+ {
+	background-color: #25a0da;
+	border-color: #25a0da;
+	color: white;
+	border-radius: 0px;
+ }
+ /*This is for Multiselect background blue color and font white*/
+ .k-multiselect-wrap li
+ {
+    background-color: #25a0da;
+    color: white;
+ }
+ .splfont
+ {
+    font-size:12px;
+ }
+  /*This is for Multiselect background other than bluee color and font white : Used for main counter*/
+ .msmain .k-multiselect-wrap li
+ {
+   background-color: #b200ff;
+   color: white;
+ }
+ /*For all MS we need red background when user mouse hover over it*/
+ .k-multiselect-wrap li:hover{
+    background: red;
+    border-color: red;
+ }
+ /*Let us remove border for all MS*/
+ .k-multiselect.k-header
+ {
+   border: 0px;
+ }
+ </style>
+
+<script src="~/Scripts/Application/ng-SendInvite.js" type="text/javascript"></script>
+
+<div id="sendInviteDiv" class="container" ng-controller="ng_SendInviteCtrl">
+
+   @* Page Header: Title and Buttons *@
+   <div class="row page-header">
+        <div class="row">
+            <div class='page-title'>Send<span> Meeting Invite</span></div>
+        </div> 
+   </div>
+   <div class="row" style="height:12px"></div> @*This is for some space*@
+    
+    <div class="row">
+       @*Column 1 here*@
+       <div class="col-md-6 no-margin">
+                  <div class="row">
+                      <div class="panel-group" id="accordion">
+            
+                            <div class="panel panel-default blue">
+                      <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" target="_self">
+                       <div class="panel-heading">
+                           <h4 class="panel-title">
+                              Subject, Type, Location and Date(s)
+                                <i data-bind="css: Div1Hideshow"></i>
+                          </h4>
+                       </div>
+                      </a>
+                       
+                       <div id="collapseOne" class="panel-collapse collapse in">
+                    @*<div id="collapseOne" class="panel-collapse collapse">*@
+                      <div class="panel-body" style="overflow:scroll"> @*Height is not required : height:500px*@
+                          
+                          <label style="font-size:small">Meeting Subject&nbsp;<span class="label label-danger" data-bind='visible: SUBJECT.hasError, text: SUBJECT.validationMessage'></span></label>                  
+                          <div class="controls">
+                               <input id="sinv_subject" maxlength="80" type="text" class="form-control" data-bind="value: SUBJECT" placeholder="Type Meeting Subject.."/>
+                          </div>
+                          
+                          @*Dummy Row*@
+                          <div class="row" style="height:8px"></div>
+
+                          @*Metting type and Location*@
+                          <div class="row no-margin" data-bind="visible: IsEndRowVisible">
+                               @*Column 1 here*@
+                               <div class="col-md-6 no-margin">
+                                       <label>Meeting Type</label>
+                                       <div class="controls">
+                                           <input id="sinv_mtgtype" type="text"  data-bind="kendoDropDownList: { dataTextField: 'TypeName', dataValueField: 'TypeId', data: MTGTYPEDATA, value: TypeId, optionLabel : 'Please Select..' }"/>
+                                       </div>
+                               </div>
+                               @*Column 2 here*@
+                               <div class="col-md-6 no-margin">
+                                     <label style="font-size:small">Location&nbsp;<span class="label label-danger" data-bind='visible: LOCATION.hasError, text: LOCATION.validationMessage'></span></label>                  
+                                     <div class="controls">
+                                           <input id="sinv_lcn" maxlength="80" type="text" class="form-control" data-bind="value: LOCATION" placeholder="Type Meeting Location.."/>
+                                     </div>
+                               </div>
+                          </div>
+                          
+                          @*Dummy Row*@
+                          <div class="row" style="height:8px"></div>
+                          
+                          @*Start Time and Date*@
+                          <div class="row no-margin">
+                               @*Column 1 here*@
+                               <div class="col-md-6 no-margin">
+                                       <label>Start Date&nbsp;<span class="label label-danger" data-bind='visible: STARTDTEc.hasError, text: STARTDTEc.validationMessage'></span></label>
+                                       <div class="controls"> 
+                                            <input id="sinv_startdte" data-bind="kendoDatePicker: { value: STARTDTEc, format: 'MM/dd/yyyy' } "/>
+                                       </div>
+                               </div>
+                               @*Column 2 here*@
+                               <div class="col-md-6 no-margin">
+                                     <label>Start Time</label>
+                                     <div class="controls">
+                                             <input id="sinv_starttime" data-bind="kendoTimePicker: { value: STARTTIMEc, min: minTime, max: maxTime } "/>
+                                     </div>
+                               </div>
+                           </div>
+                          
+                          @*Dummy Row*@
+                          <div class="row" style="height:8px"></div>
+                          
+                          @*End Time and Date*@
+                          <div class="row no-margin" data-bind="visible: IsEndRowVisible">
+                               @*Column 1 here*@
+                               <div class="col-md-6 no-margin">
+                                       <label>End Date</label>
+                                       <div class="controls"> 
+                                            <input id="sinv_enddte" data-bind="kendoDatePicker: { value: ENDDTEc, format: 'MM/dd/yyyy' } "/>
+                                       </div>
+                               </div>
+                               @*Column 2 here*@
+                               <div class="col-md-6 no-margin">
+                                     <label>End Time</label>
+                                     <div class="controls">
+                                             <input id="sinv_endtime" data-bind="kendoTimePicker: { value: ENDTIMEc, min: minTime, max: maxTime } "/>
+                                     </div>
+                               </div>
+                           </div>
+                                                                                                                                                                                      
+                      </div>
+                    </div>
+                  </div>
+                                                                                
+                            <div class="panel panel-default blue">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseFour" target="_self">
+                      <div class="panel-heading">
+                      <h4 class="panel-title">
+                          Select Own Group(s) 
+                          <i data-bind="css: Div4Hideshow"></i>
+                       </h4>
+                      </div>
+                   </a>
+                    <div id="collapseFour" class="panel-collapse collapse">
+                      <div class="panel-body" style="overflow:scroll; height:230px">
+                                   
+                          <input type="checkbox" data-bind="checked: IsAllUserGroup" />&nbsp;<b>Check/Uncheck All</b>
+                          <div style="height:10px"></div>
+                          <table id="UserGroupTable">
+                                <tbody data-bind="foreach: userEmailGroups">
+                                    <tr data-bind="css: {selected: IsSelected}">
+                                        <td>
+                                            <input type="checkbox" data-bind="checked: IsSelected" />&nbsp;
+                                        </td>
+                                        <td data-bind="text: name"></td>
+                                    </tr>
+                                </tbody>
+                          </table>                 
+                                                   
+                      </div>
+                    </div>
+                  </div>
+                                   
+                       </div>
+                  </div>
+       </div>
+       @*Column 2 here*@
+       <div class="col-md-6 no-margin">
+                  <div class="row">
+                      <div class="panel-group" id="accordion1">
+            
+                          <div class="panel panel-default blue">
+                    <a data-toggle="collapse" data-parent="#accordion1" href="#collapseTwo" target="_self">
+                      <div class="panel-heading">
+                      <h4 class="panel-title">
+                          Recipient(s), Attach File and Recurring Options
+                          <i data-bind="css: Div2Hideshow"></i>
+                      </h4>
+                    </div>
+                    </a>
+                    <div id="collapseTwo" class="panel-collapse collapse in">
+                      <div class="panel-body" style="overflow:scroll">
+
+                          @*Dummy Row*@
+                          <div class="row" style="height:5px"></div>
+                          <label style="font-size:small">Recipient(s)</label>                  
+                          <div class="controls">
+                               <input id="sm_receipient" maxlength="150" type="text" class="form-control" data-bind="value: RCPNTS" placeholder="Type Recipient.."/>
+                          </div>
+                          <label style="font-size:small">Note: Please use comma (,) seperator for multiple addresses.</label>
+
+
+                          @*Dummy Row*@
+                          <div class="row" style="height:12px"></div>
+                          @*Attach Document Here*@
+                          <div class="row">
+                            <span id="bt_attach" class="btn btn-sm fileinput-button">
+                                <span class="glyphicon glyphicon-cloud-upload"></span>
+                                <span>Attach File</span>
+                                <!-- The file input field used as target for the file upload widget -->
+                                <input id="fileupload_sm" type="file" name="file">
+                            </span>
+                         </div>
+                           
+                         @*Dummy Row*@
+                         <div class="row" style="height:9px"></div>
+                         <label style="font-size:small; color:green" data-bind="visible: FILEINFO().length > 0, text: FILEINFO"></label>
+
+                         @*Dummy Row*@
+                         <div class="row" style="height:10px"></div>
+
+                          @*Is Recurring and Frequency*@
+                          <div class="row no-margin">
+                               @*Column 1 here*@
+                               <div data-bind="attr: { 'class' : recOptionClass }">
+                                       <label>Is Recurring?</label>
+                                       <div class="controls">
+                                             <input id="sinv_isRecurring" type="text"  data-bind="kendoDropDownList: { dataTextField: 'Description', dataValueField: 'Value', data: yesNoData, value: IsRecurring }"/>
+                                       </div>
+                               </div>
+                               @*Column 2 here*@
+                               <div class="col-md-6 no-margin" data-bind="visible: !IsEndRowVisible()">
+                                     <label>Frequency</label>
+                                     <div class="controls">
+                                             <input id="sinv_recFreq" type="text"  data-bind="kendoDropDownList: { dataTextField: 'FreqType', dataValueField: 'FreqId', data: MTGFREQDATA, value: FreqId, optionLabel : 'Please Select..' }"/>
+                                     </div>
+                               </div>
+                           </div>
+
+                          @*Duration and Recurrence count*@
+                          <div class="row no-margin" data-bind="visible: !IsEndRowVisible()">
+                               @*Column 1 here*@
+                               <div class="col-md-6 no-margin">
+                                       <label>Enter Duration(in Hours):</label>
+                                       <div class="controls">
+                                             <input id="sinv_duration" maxlength="50" type="text" class="form-control" data-bind="value: Duration"/>
+                                       </div>
+                               </div>
+                               @*Column 2 here*@
+                               <div class="col-md-6 no-margin" data-bind="visible: !IsEndRowVisible()">
+                                     <label>Enter Recurrence count</label>
+                                     <div class="controls">
+                                         <input id="sinv_reccount" maxlength="50" type="text" class="form-control" data-bind="value: RecurrenceCount"/>
+                                     </div>
+                               </div>
+                           </div>
+
+                          @*Dummy Row*@
+                         <div class="row" style="height:34px"></div>
+                       
+                          
+                      </div>
+                    </div>
+                  </div>
+
+
+                           <div class="panel panel-default blue">
+                    <a data-toggle="collapse" data-parent="#accordion1" href="#collapseThree" target="_self">
+                      <div class="panel-heading">
+                      <h4 class="panel-title">
+                          Message 
+                          <i data-bind="css: Div3Hideshow"></i>
+                      </h4>
+                    </div>
+                    </a>
+                    <div id="collapseThree" class="panel-collapse collapse">
+                      <div class="panel-body" style="overflow:scroll">
+                         
+                         @*Dummy Row*@
+                         <div class="row" style="height:4px"></div>
+
+                         <label style="font-size:small">Message&nbsp;<span class="label label-danger" data-bind='visible: MESSAGE.hasError, text: MESSAGE.validationMessage'></span></label>
+                         <div class="controls">
+                              <textarea id="sinv_message" class="form-control" data-bind="value: MESSAGE" rows="8" placeholder="Type Message here.."></textarea>
+                         </div>
+                                                 
+                          
+                      </div>
+                    </div>
+                  </div>
+
+            
+                       </div>
+                  </div>
+            </div>
+   </div>
+
+
+   <div class="row" style="height:6px"></div> @*This is for some space*@
+    
+    @* Page Footer *@
+    <div class="row page-footer">
+        <div class="pull-right">
+             <button id="bt_save_frc" class="btn btn-primary btn-save" type="button" data-bind="enable: isDirty, click: Send">Send Email</button>
+        </div>
+    </div>
+
+</div>

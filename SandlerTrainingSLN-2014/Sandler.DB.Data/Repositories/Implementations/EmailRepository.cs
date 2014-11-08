@@ -86,7 +86,29 @@ namespace Sandler.DB.Data.Repositories.Implementations
             }
         }
         
+        public IEnumerable<Tbl_MeetingType> GetMeetingTypeOptions()
+        {
+            return (DBContext.Get() as SandlerDBEntities).GetMeetingTypeOptions();
+        }
 
+
+        public string GetMeetingTypeName(int typeId)
+        {
+            return (DBContext.Get() as SandlerDBEntities).GetMeetingTypeName(typeId);
+        }
+
+        public string GetMeetingFreqTypeName(int freqId)
+        {
+            return (DBContext.Get() as SandlerDBEntities).GetMeetingFreqTypeName(freqId);
+        }
+        
+
+        public IEnumerable<Tbl_MeetingFrequencyType> GetMeetingFrequencyTypes()
+        {
+            return (DBContext.Get() as SandlerDBEntities).GetMeetingFrequencyTypes();
+        }
+
+        
     }
   
 }

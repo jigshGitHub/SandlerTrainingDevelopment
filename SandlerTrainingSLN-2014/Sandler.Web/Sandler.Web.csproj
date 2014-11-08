@@ -41,6 +41,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DDay.Collections, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\DDay.Collections.dll</HintPath>
+    </Reference>
+    <Reference Include="DDay.iCal, Version=1.0.2.575, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\DDay.iCal.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.ReportViewer.WebForms, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -1161,6 +1169,7 @@
     <Content Include="Scripts\Application\ng-companies.js" />
     <Content Include="Scripts\Application\ng-quickStart.js" />
     <Content Include="Scripts\Application\ng-SendEmail.js" />
+    <Content Include="Scripts\Application\ng-SendInvite.js" />
     <Content Include="Scripts\compliance.js" />
     <Content Include="Scripts\ng-manageUsersCtrl.js" />
     <Content Include="Scripts\ng-reportRCCtrl.js" />

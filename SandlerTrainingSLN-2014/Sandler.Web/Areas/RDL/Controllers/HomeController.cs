@@ -89,6 +89,11 @@ namespace Sandler.Web.Areas.RDL.Controllers
             return View();
         }
 
+        public ActionResult SendInvite()
+        {
+            return View();
+        }
+        
         public ActionResult CreateGroup()
         {
             return View();

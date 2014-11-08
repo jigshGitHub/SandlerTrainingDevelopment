@@ -17,7 +17,7 @@ namespace Sandler.DB.Models
     }
     public partial class SandlerDBEntities : DbContext
     {
-        
+
         public List<CompanyView> GetCompanyView(string searchText, string orderBy, int? pageSize, int? pageNo, int? coachId, int? franchiseeId, bool selectForExcel)
         {
             if (string.IsNullOrEmpty(searchText))
@@ -293,9 +293,9 @@ namespace Sandler.DB.Models
             var q = Database.SqlQuery<MyTaskView>(query);
 
             return q.ToList();
-            
+
         }
-        
+
         public List<MyTaskView> GetmyOpportunityList(string orderBy, int? pageSize, int? pageNo, string UserId, int? FranchiseeId, int? CoachId)
         {
             //string whereClause = "";
@@ -347,6 +347,43 @@ namespace Sandler.DB.Models
             string query = string.Format("exec [sp_GetAllCoachAddresses]");
 
             var q = Database.SqlQuery<EmailAddressInfo>(query);
+
+            return q.ToList();
+        }
+
+        public List<Tbl_MeetingType> GetMeetingTypeOptions()
+        {
+            string query = string.Format("exec [sp_GetMeetingTypeOptions]");
+
+            var q = Database.SqlQuery<Tbl_MeetingType>(query);
+
+            return q.ToList();
+        }
+
+
+        public string GetMeetingTypeName(int typeId)
+        {
+            string query = string.Format("SELECT TypeName FROM Tbl_MeetingType where TypeId = {0}", typeId);
+
+            var q = Database.SqlQuery<string>(query);
+
+            return q.FirstOrDefault();
+        }
+
+        public string GetMeetingFreqTypeName(int freqId)
+        {
+            string query = string.Format("SELECT FreqType FROM Tbl_MeetingFrequencyType where FreqId = {0}", freqId);
+
+            var q = Database.SqlQuery<string>(query);
+
+            return q.FirstOrDefault();
+        }
+
+        public List<Tbl_MeetingFrequencyType> GetMeetingFrequencyTypes()
+        {
+            string query = string.Format("exec [sp_GetMeetingFrequencyType]");
+
+            var q = Database.SqlQuery<Tbl_MeetingFrequencyType>(query);
 
             return q.ToList();
         }

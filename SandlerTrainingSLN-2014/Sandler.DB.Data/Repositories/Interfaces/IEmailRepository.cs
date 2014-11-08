@@ -22,6 +22,14 @@ namespace Sandler.DB.Data.Repositories.Interfaces
         IEnumerable<FranchiseeEmailInfo> GetAllFranchiseeAddressesByFrId(string Role,int FrId);
         IEnumerable<ContactEmailInfo> GetAllContactsAddressesByFrId(int FrId);
         bool AddEmailUserGroup(string GroupName, string CoachIds, string FrOwnerIds, string FrUsersIds, string FrContactsIds, string UserId);
+
+
+        IEnumerable<Tbl_MeetingType> GetMeetingTypeOptions();
+        string GetMeetingTypeName(int typeId);
+        string GetMeetingFreqTypeName(int freqId);
+
+        IEnumerable<Tbl_MeetingFrequencyType> GetMeetingFrequencyTypes();
+
         
                 
     }
