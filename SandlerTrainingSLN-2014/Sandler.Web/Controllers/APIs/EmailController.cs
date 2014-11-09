@@ -282,25 +282,18 @@ namespace Sandler.Web.Controllers.API
 
         public bool CheckDateElements(SendMeetingInvite meetingInfo)
         {
-
-            if(meetingInfo.STARTDTE == null || meetingInfo.STARTTIME == null)
+            if (meetingInfo.STARTDTE == null || meetingInfo.STARTTIME == null)
                 return false;
-
-            if (meetingInfo.ENDDTE != null || meetingInfo.ENDTIME == null)
+            if (meetingInfo.ENDDTE != null && meetingInfo.ENDTIME == null)
                 return false;
-
-            if (meetingInfo.ENDDTE == null || meetingInfo.ENDTIME != null)
+            if (meetingInfo.ENDDTE == null && meetingInfo.ENDTIME != null)
                 return false;
-
-            if(meetingInfo.IsRecurring != null && meetingInfo.IsRecurring =="2" && meetingInfo.Duration == null)
+            if (meetingInfo.IsRecurring != null && meetingInfo.IsRecurring == "2" && meetingInfo.Duration == null)
                 return false;
-
             if (meetingInfo.IsRecurring != null && meetingInfo.IsRecurring == "2" && meetingInfo.RecurrenceCount == null)
                 return false;
-
             if (meetingInfo.IsRecurring != null && meetingInfo.IsRecurring == "2" && meetingInfo.FreqId == null)
                 return false;
-
             //All good..
             return true;
         }

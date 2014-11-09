@@ -134,16 +134,17 @@ namespace Sandler.Web.Controllers.API
             return Request.CreateResponse(data);
         }
 
-        //public string GetCompanyName(int id)
-        //{
-        //    //Let us Initiate the model with UniqueId and the Franchisee Id
-        //    var data = new TBL_COMPANIES();
-        //    if (id > 0)
-        //    {
-        //        data = uow.Repository<TBL_COMPANIES>().GetById(id);
-        //    }
-        //    return data.COMPANYNAME;
-        //}
+        [Route("api/Company/GetCompanyName/")]
+        public string GetCompanyName(int id)
+        {
+            //Let us Initiate the model with UniqueId and the Franchisee Id
+            var data = new TBL_COMPANIES();
+            if (id > 0)
+            {
+                data = uow.Repository<TBL_COMPANIES>().GetById(id);
+            }
+            return data.COMPANYNAME;
+        }
                 
         [HttpPost]
         [Route("api/Company/Archive")]
