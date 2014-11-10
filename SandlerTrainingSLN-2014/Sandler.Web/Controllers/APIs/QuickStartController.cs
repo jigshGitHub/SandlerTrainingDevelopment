@@ -207,19 +207,6 @@ namespace Sandler.Web.Controllers.API
         }
 
         #endregion
-
-        [Route("api/PipelineArchive")]
-        [HttpGet()]
-        public HttpResponseMessage Archive(int id, bool isActive)
-        {
-            TBL_OPPORTUNITIES opportunity = uow.Repository<TBL_OPPORTUNITIES>().GetById(id);
-            opportunity.IsActive = isActive;
-            opportunity.UpdatedBy = CurrentUser.UserId.ToString();
-            opportunity.UpdatedDate = DateTime.Now;
-            uow.Repository<TBL_OPPORTUNITIES>().Update(opportunity);
-            uow.Save();
-            return new HttpResponseMessage(HttpStatusCode.OK);
-   
-        }
+        
     }
 }

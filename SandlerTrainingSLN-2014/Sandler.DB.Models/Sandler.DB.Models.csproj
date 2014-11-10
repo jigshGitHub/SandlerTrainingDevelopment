@@ -230,6 +230,12 @@
     <Compile Include="TBL_OpportunityWhyLost.cs">
       <DependentUpon>SandlerEDM.tt</DependentUpon>
     </Compile>
+    <Compile Include="TBL_PerformanceActuals.cs">
+      <DependentUpon>SandlerEDM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TBL_PerformanceGoals.cs">
+      <DependentUpon>SandlerEDM.tt</DependentUpon>
+    </Compile>
     <Compile Include="Tbl_PrimaryBusiness.cs">
       <DependentUpon>SandlerEDM.tt</DependentUpon>
     </Compile>

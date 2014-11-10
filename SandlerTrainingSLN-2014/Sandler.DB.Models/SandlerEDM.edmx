@@ -47,6 +47,8 @@
           <EntitySet Name="TBL_OPPORTUNITYSTATUS" EntityType="SandlerDBModel.Store.TBL_OPPORTUNITYSTATUS" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="TBL_OpportunityTypes" EntityType="SandlerDBModel.Store.TBL_OpportunityTypes" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="TBL_OpportunityWhyLost" EntityType="SandlerDBModel.Store.TBL_OpportunityWhyLost" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="TBL_PerformanceActuals" EntityType="SandlerDBModel.Store.TBL_PerformanceActuals" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="TBL_PerformanceGoals" EntityType="SandlerDBModel.Store.TBL_PerformanceGoals" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Tbl_PrimaryBusiness" EntityType="SandlerDBModel.Store.Tbl_PrimaryBusiness" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Tbl_ProductType" EntityType="SandlerDBModel.Store.Tbl_ProductType" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Tbl_PurchaseLevel" EntityType="SandlerDBModel.Store.Tbl_PurchaseLevel" store:Type="Tables" Schema="dbo" />
@@ -676,7 +678,7 @@
           <Property Name="LetterSentDate" Type="datetime" />
           <Property Name="SpouseName" Type="varchar" MaxLength="50" />
           <Property Name="ReferredBy" Type="varchar" MaxLength="50" />
-          <Property Name="Notes" Type="varchar(max)" />
+          <Property Name="Notes" Type="varchar" MaxLength="1000" />
           <Property Name="Country" Type="varchar" MaxLength="80" />
           <Property Name="TrainingCourseName" Type="varchar" MaxLength="150" />
           <Property Name="HowManyAttended" Type="int" />
@@ -1129,6 +1131,28 @@
           <Property Name="LastUpdateBy" Type="uniqueidentifier" />
           <Property Name="LastUpdatedDate" Type="datetime" />
           <Property Name="SortOrder" Type="int" />
+        </EntityType>
+        <EntityType Name="TBL_PerformanceActuals">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="varchar" MaxLength="50" />
+          <Property Name="ActivityDate" Type="date" />
+          <Property Name="CallsMade" Type="int" />
+          <Property Name="MeetingsHeld" Type="int" />
+        </EntityType>
+        <EntityType Name="TBL_PerformanceGoals">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="varchar" MaxLength="50" />
+          <Property Name="Year" Type="varchar" MaxLength="50" />
+          <Property Name="Month" Type="int" />
+          <Property Name="CallsGoal" Type="int" />
+          <Property Name="MeetingsGoal" Type="int" />
+          <Property Name="SalesGoal" Type="money" />
         </EntityType>
         <EntityType Name="Tbl_PrimaryBusiness">
           <Key>
@@ -2297,6 +2321,8 @@
           </FunctionImport>
           <EntitySet Name="vw_Companies" EntityType="SandlerDBModel.vw_Companies" />
           <EntitySet Name="Tbl_ModulesForUserIds" EntityType="SandlerDBModel.Tbl_ModulesForUserIds" />
+          <EntitySet Name="TBL_PerformanceActuals" EntityType="SandlerDBModel.TBL_PerformanceActuals" />
+          <EntitySet Name="TBL_PerformanceGoals" EntityType="SandlerDBModel.TBL_PerformanceGoals" />
         </EntityContainer>
         <EntityType Name="Tbl_AppointmentsSource">
           <Key>
@@ -3696,7 +3722,7 @@
           <Property Name="LetterSentDate" Type="DateTime" Precision="3" />
           <Property Name="SpouseName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="ReferredBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Notes" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
           <Property Name="Country" Type="String" MaxLength="80" FixedLength="false" Unicode="false" />
           <Property Name="TrainingCourseName" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
           <Property Name="HowManyAttended" Type="Int32" />
@@ -3935,6 +3961,28 @@
           <Property Type="Int32" Name="moduleId" Nullable="false" />
           <Property Type="String" Name="pageMenuGroups" Nullable="true" MaxLength="1000" />
         </ComplexType>
+        <EntityType Name="TBL_PerformanceActuals">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="UserId" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="ActivityDate" Precision="0" />
+          <Property Type="Int32" Name="CallsMade" />
+          <Property Type="Int32" Name="MeetingsHeld" />
+        </EntityType>
+        <EntityType Name="TBL_PerformanceGoals">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="UserId" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Year" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="Month" />
+          <Property Type="Int32" Name="CallsGoal" />
+          <Property Type="Int32" Name="MeetingsGoal" />
+          <Property Type="Decimal" Name="SalesGoal" Precision="19" Scale="4" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -5091,6 +5139,30 @@
               <MappingFragment StoreEntitySet="Tbl_ModulesForUserIds">
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="ModuleId" ColumnName="ModuleId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_PerformanceActuals">
+            <EntityTypeMapping TypeName="SandlerDBModel.TBL_PerformanceActuals">
+              <MappingFragment StoreEntitySet="TBL_PerformanceActuals">
+                <ScalarProperty Name="MeetingsHeld" ColumnName="MeetingsHeld" />
+                <ScalarProperty Name="CallsMade" ColumnName="CallsMade" />
+                <ScalarProperty Name="ActivityDate" ColumnName="ActivityDate" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_PerformanceGoals">
+            <EntityTypeMapping TypeName="SandlerDBModel.TBL_PerformanceGoals">
+              <MappingFragment StoreEntitySet="TBL_PerformanceGoals">
+                <ScalarProperty Name="SalesGoal" ColumnName="SalesGoal" />
+                <ScalarProperty Name="MeetingsGoal" ColumnName="MeetingsGoal" />
+                <ScalarProperty Name="CallsGoal" ColumnName="CallsGoal" />
+                <ScalarProperty Name="Month" ColumnName="Month" />
+                <ScalarProperty Name="Year" ColumnName="Year" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
