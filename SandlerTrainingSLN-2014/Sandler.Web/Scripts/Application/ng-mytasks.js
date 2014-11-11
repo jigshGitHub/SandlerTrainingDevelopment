@@ -1,5 +1,60 @@
 ﻿
 var taskF;
+var frpersons = jsonDataCaller.syncCall(baseUrl + "/api/GetFranchiseePersonnel", null);
+
+function archivemyTaskD(e) {
+    e.preventDefault();
+    var dataItem = $("#MyTasksSearchgrid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
+    //Let us block the Div while we wait for User response
+    $('#myDayCalendar').block({ message: null });
+    showNoti_.confirm("Are you sure to Archive this Task - " + dataItem.Topic + "?",
+          function () {
+              showNoti_.progress(NOTIFICMSG.ARCHIVING, false);
+              //Proceed with the Archive 
+              $.ajax({
+                  url: "api/MyTask/ArchiveDTask",
+                  type: 'POST',
+                  data: ko.toJSON(dataItem),
+                  contentType: 'application/json',
+                  success: function (result) {
+                      if (!result.success) {
+                          showNoti_.error(result.message, true);
+                          $("#myDayCalendar").unblock();
+                      }
+                      else {
+                          $("#scheduler").html('');
+                          var SchedularData = get_SchedularData();
+                          $("#scheduler").kendoScheduler(SchedularData);
+                          var selDte = dataItem.TaskDate;
+                          $("#MyTasksSearchgrid").html('');
+                          //Now bind the Kendo Grid
+                          var kendoGridData = get_kendoGridData(selDte);
+                          $("#MyTasksSearchgrid").kendoGrid(kendoGridData);
+                          showNoti_.hide();
+                          $("#myDayCalendar").unblock();
+                      }
+                  },
+                  error: function (xhr, ajaxOptions, thrownError) {
+                      showNoti_.error("There is some issue in Archiving the Task. Please try again later.", true);
+                      $("#myDayCalendar").unblock();
+                  }
+              });
+          },
+          function () {
+              //user said no
+              showNoti_.hide();
+              $("#myDayCalendar").unblock();
+          });//confirm ends here
+}
+
+function showTaskDInfo(e) {
+    e.preventDefault();
+    var dataItem = $("#MyTasksSearchgrid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
+    //console.log(dataItem);
+    var path = "navi?url=" + baseUrl + "/MyDay/Home/ViewMyTask?id=" + dataItem.UniqueID + "%26Loc=1";
+    //alert("before Navi");
+    showModal_.html(path, null, '45%');
+}
 
 function get_kendoGridData(selDte) {
     var dataSource = get_gridDataSource(selDte)
@@ -18,19 +73,25 @@ function get_kendoGridData(selDte) {
         navigatable: true,
         selectable: true,
         columns: [
-            
+
+            {
+                command: [
+                            { template: "<button title='View/Edit' class='btn btn-success btn-sm editsa' onclick='showTaskDInfo(event)'><span class='glyphicon glyphicon-search'></span></button>" },
+                            { template: "&nbsp;<button title='Archive Task' class='btn btn-warning btn-sm deletesa' onclick='archivemyTaskD(event)'><span class='glyphicon glyphicon-remove'></span></button>" }
+                ],
+                title: " ", width: "65px"
+            },
+            { field: "AssignTo", title: "Assign To", width: 70, attributes: { "class": "sptablecell" } },
+            { field: "StartTime", title: "Start Time", width: 70, format: "{0:hh:mm tt}", attributes: { "class": "sptablecell" } },
             { field: "Topic", title: "Topic", width: 80, attributes: { "class": "sptablecell" } },
-            { field: "Description", title: "Description", width: 80, attributes: { "class": "sptablecell" } },
-            { field: "Phone", title: "Phone", width: 60, attributes: { "class": "sptablecell" } },
-            { field: "StartTime", title: "Start Time", width: 60, format: "{0:hh:mm tt}", attributes: { "class": "sptablecell" } }
-            
-        ]
+            { field: "Description", title: "Description", width: 90, attributes: { "class": "sptablecell" } },
+            { field: "Phone", title: "Phone", width: 60, attributes: { "class": "sptablecell" } }
+         ]
     }
     return kendoGridData;
 }
 
 function get_gridDataSource(selDte) {
-
     var dataSource = {
         type: "json",
         transport: {
@@ -46,6 +107,8 @@ function get_gridDataSource(selDte) {
             total: "__count",
             model: {
                 fields: {
+
+                    AssignTo: { type: 'string' },
                     Topic: { type: 'string' },
                     Description: { type: 'string' },
                     Phone: { type: 'string' },
@@ -123,7 +186,6 @@ function scheduler_edit(e) {
  }
 
  function initialize_taskF() {
-
      var selDte = kendo.toString(new Date(taskF.FollowUpDatec()), "d");
      taskF.TaskLabel("To do List for : " + selDte);
      $("#MyTasksSearchgrid").html('');
@@ -136,10 +198,17 @@ function scheduler_edit(e) {
      taskF.Description('');
      taskF.Topic('');
      taskF.Phone('');
-     taskF.dirtyFlag.reset();
      taskF.IsJustAdded(true);
-
  }
+
+ function initialize_BackGtaskF() {
+     var selDte = kendo.toString(new Date(myDtaskF.FollowUpDatec()), "d");
+     taskF.TaskLabel("To do List for : " + selDte);
+     $("#MyTasksSearchgrid").html('');
+     //Now bind the Kendo Grid
+     var kendoGridData = get_kendoGridData(selDte);
+     $("#MyTasksSearchgrid").kendoGrid(kendoGridData);
+}
 
  //Tracking whether there is unsaved change(s). 
  ko.dirtyFlag_addtask = function (root, isInitiallyDirty) {
@@ -179,32 +248,31 @@ function scheduler_edit(e) {
  };
 
  /*Task Model*/
- function taskF_viewModel() {
+ function taskF_viewModel(currentUserId) {
+
+     //console.log(currentUserId);
 
      var self = this;
-
      //This is for TimePicker Max and Min time settings : 8 am to 6 pm
      self.minTime = new Date(1950, 0, 1, 8, 0, 0);
      self.maxTime = new Date(2049, 11, 31, 18, 0, 0);
-
+     self.FRPERSONS = ko.observableArray(frpersons.results);
      self.IsJustAdded = ko.observable(false);
-     
      //Follow Up Date 
      self.FollowUpDatec = ko.observable().extend({ required: "" });
      self.FollowUpDate = ko.computed(function () {
          return dateUtil_.toNoTimeZone(self.FollowUpDatec());
      });
-
      self.StartTimec = ko.observable();
      self.StartTime = ko.computed(function () {
          return dateUtil_.toNoTimeZone(self.StartTimec());
      });
-          
      self.Description = ko.observable().extend({ required: "" });
      self.Topic = ko.observable().extend({ required: "" });
-
      self.Phone = ko.observable();
+     self.UserId = ko.observable(currentUserId);
 
+     //Continue to Save...
      self.continueWithSave = function () {
 
          self.dirtyFlag.reset();
@@ -221,9 +289,9 @@ function scheduler_edit(e) {
                      $("#add_task").unblock();
                      showNoti_.hide();
                      initialize_taskF();
-                     
                  }
-                 else {
+                 else
+                 {
                      $("#add_task").unblock();
                      showNoti_.hide();
                      showNoti_.error(result.message, false);
@@ -235,12 +303,8 @@ function scheduler_edit(e) {
              });
 
      };
-
-
-
      //This is for to save Task item
      self.Save = function () {
-         
          //For Last Contact Date
          var dte = $('#task_followUpdate').val();
          if (!dte == "") {
@@ -273,29 +337,24 @@ function scheduler_edit(e) {
          //Now Continue
          self.continueWithSave();
      };
-
+     //Dirty flag setting...
      self.dirtyFlag = new ko.dirtyFlag_addtask(self);
-
      self.isDirty = ko.computed(function () {
          return self.dirtyFlag.isDirty()
      }, this);
-
      //This is Label for View Task Kendo Grid
      self.TaskLabel = ko.observable();
-
- }
+}
 
 function ng_mytasksCtrl($scope, $http) {
     angular.element(document).ready(function () {
-
         //Let us fill up the Schedular Data first
         var SchedularData = get_SchedularData();
         $("#scheduler").kendoScheduler(SchedularData);
-
         //Now bind the Client side model for Add New Follow-up Item
-        taskF = new taskF_viewModel();
+        taskF = new taskF_viewModel(jsonDataCaller.syncCall(baseUrl + "/api/GetCurrentUserId", null));
         ko.applyBindings(taskF, document.getElementById("add_task"));
-
+                
     });
 
 };

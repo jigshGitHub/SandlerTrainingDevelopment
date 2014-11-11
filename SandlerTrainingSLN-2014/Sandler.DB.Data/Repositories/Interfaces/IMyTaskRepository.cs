@@ -15,6 +15,9 @@ namespace Sandler.DB.Data.Repositories.Interfaces
         IEnumerable<MyTaskView> GetmyAppointmentsList(string orderBy, int? pageSize, int? pageNo, string UserId, int? FranchiseeId, int? CoachId);
         IEnumerable<MyTaskView> GetmyOpportunityList(string orderBy, int? pageSize, int? pageNo, string UserId, int? FranchiseeId, int? CoachId);
         int AddTask (Tbl_FollowUpItemsList _followupItem);
+        int UpdateTask(Tbl_FollowUpItemsList _followupItem);
+        bool ArchiveDTask(int Id);
+        IEnumerable<FranchiseePersonnel> GetFranchiseePersonnel(int FranchiseeId);
 
 
     }

@@ -36,6 +36,16 @@ namespace Sandler.Web.Areas.MyDay.Controllers
         {
             return PartialView();
         }
+
+        public ActionResult ViewMyTask(int id, string Loc)
+        {
+            dynamic model = new System.Dynamic.ExpandoObject();
+            model.id = id;
+            //this defines from where the page is being opened...
+            model.Loc = Loc;
+            //back
+            return PartialView("ViewMyTask", model);
+        }
                 
     }
 }
