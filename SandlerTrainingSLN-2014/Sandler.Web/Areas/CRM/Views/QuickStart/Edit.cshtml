@@ -242,7 +242,7 @@
                                     </div>
                                     <!-- ko foreach: opportunity.notesHistory -->
                                     <div class="row">
-                                        <div class="col-sm-2"><button title='View/Edit' class='btn btn-success btn-sm editsa' data-bind='click:$root.showNotesDetail'><span class='glyphicon glyphicon-search'></span></button>&nbsp;<button title='Archive Opportunity' class='btn btn-warning btn-sm deletesa' onclick='archiveTaskD(event)'><span class='glyphicon glyphicon-remove'></span></button></div>
+                                        <div class="col-sm-2"><button title='View/Edit' class='btn btn-success btn-sm editsa' data-bind='click: $root.showNotesDetail'><span class='glyphicon glyphicon-search'></span></button>&nbsp;<button title='Archive Opportunity' class='btn btn-warning btn-sm deletesa' data-bind='click: $root.showNotesDelete'><span class='glyphicon glyphicon-remove'></span></button></div>
                                         <div class="col-sm-6 sptablecell" data-bind="text: Notes">Previous Notes</div>
                                         <div class="col-sm-2 sptablecell" data-bind="text: CreatedBy">Created By</div>
                                         <div class="col-sm-2 sptablecell" data-bind="text: CreatedDate">Created Date</div>
@@ -254,54 +254,27 @@
                     </div>            
                 </div>
             </div>
-            <div class="modal" id="notesDetailContainer">
+            <div class="modal" id="notesConainer">
 	            <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
                             <button class="close" aria-hidden="true" type="button" data-dismiss="modal">×</button>
                             <h3 id="modal-headerLabel"></h3>
                         </div>
-                        <div id="noteDetailBody" class="modal-body">
-                            <div class="row">
-
-                                 <div class="col-md-3 no-margin">
-
-                                     <!--<div class="col-title"><span>Edit Note:</span></div>-->
-
-                                     <div class="row">
-                                         <div class="col-sm-12 no-margin">
-                                                <form role="form">
-                                                    <div class="form-group" >
-
-                                                        <label>Note</label>
-                                                        <div class="controls">
-                                                            <textarea id="Qs_editNotes" maxlength="100" type="text" class="form-control col-md-12" rows="5" data-bind="value:selectedNote.Notes" />
-                                                        </div>
-                                                        
-                                                     </div>
-
-                                                </form>
-
-                                            </div>
-                                     </div>
-                                     <br />
-                                     @* Page Footer *@
-                                     <div class="row page-footer">
-                                        <div class="pull-left">
-                                            <button id="bt_save_task" class="btn btn-primary btn-save" type="button" data-bind="enable: isDirty, click: saveNote">Save</button>
-                                        </div>
-                                     </div>
-                                     @*For some space at the end*@
-                                     <div style="height:40px"></div>
-             
-                                 </div>
-
-                                 @*For space between Add Item and View Item section*@
-                                 <div class="col-md-1 no-margin"></div>
-
-         
-
+                        <div id="noteDetailBody" class="modal-body" data-bind="if: showDetailNoteContainer()">
+                            <label>Note</label>
+                            <div class="controls">
+                                <textarea id="Qs_editNotes" cols="65" rows="5" />
                             </div>
+                        </div>
+                        <div id="noteDeleteBody" class="modal-body" data-bind="if: !showDetailNoteContainer()">
+                            <h3>Are you sure to delete this note?</h3>
+                        </div>
+                        <div class="modal-footer" data-bind="if: showDetailNoteContainer()">
+                            <a href="#" class="btn btn-primary" data-bind="click: saveNote">Save</a>                            
+                        </div>
+                        <div class="modal-footer" data-bind="if: !showDetailNoteContainer()">
+                            <a href="#" class="btn btn-primary" data-bind="click: deleteNote">Delete</a>                            
                         </div>
                     </div>
                 </div>

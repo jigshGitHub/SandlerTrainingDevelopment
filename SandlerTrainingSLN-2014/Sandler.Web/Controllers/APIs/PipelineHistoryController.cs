@@ -28,7 +28,7 @@ namespace Sandler.Web.Controllers.API
         public HttpResponseMessage GetPipelineHistory(int opportunityId)
         {
             var data = from history in uow.Repository<TBL_OpportunitiesHistory>().GetAll().Where(r => r.OpportunityID == opportunityId && r.CreatedBy == CurrentUser.UserId)
-                       select new { ID=history.ID, Notes = history.Notes, CreatedBy = CurrentUser.UserName, CreatedDate = history.CreatedDate };
+                       select new { ID=history.ID, Notes = history.Notes, CreatedBy = CurrentUser.UserName, CreatedDate = history.CreatedDate.Value.ToShortDateString() };
             return Request.CreateResponse(data);
 
         }
@@ -53,15 +53,41 @@ namespace Sandler.Web.Controllers.API
                     tmpHistory.Notes = opportunitiesHistory.Notes;
                     tmpHistory.UpdatedBy = CurrentUser.UserId;
                     tmpHistory.UpdatedDate = DateTime.Now;
+                    opportunitiesHistory = tmpHistory;
                     uow.Repository<TBL_OpportunitiesHistory>().Update(opportunitiesHistory);
+
+                    uow.Save();
                 }
 
-                uow.Save();
                 return Request.CreateResponse(opportunitiesHistory);
             }
             catch (Exception ex)
             {
                 throw new Exception("There is a problem in Saving Notes History. Please try again later.", ex);
+            }
+        }
+           
+        [HttpGet()]   
+        public HttpResponseMessage Delete(string id)
+        {
+            TBL_OpportunitiesHistory tmpHistory;
+            int opportunitiesHistoryId;
+            try
+            {
+                opportunitiesHistoryId  = int.Parse(id);
+                if (opportunitiesHistoryId > 0)
+                {
+                    tmpHistory = uow.Repository<TBL_OpportunitiesHistory>().GetById(opportunitiesHistoryId);
+                    uow.Repository<TBL_OpportunitiesHistory>().Delete(tmpHistory);
+
+                    uow.Save();
+                }
+
+                return Request.CreateResponse(HttpStatusCode.OK);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("There is a problem in delete Notes History. Please try again later.", ex);
             }
         }
        

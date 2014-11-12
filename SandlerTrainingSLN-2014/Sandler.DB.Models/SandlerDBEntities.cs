@@ -340,6 +340,16 @@ namespace Sandler.DB.Models
             return q.ToList();
         }
 
+        public List<FranchiseePersonnel> GetFranchiseePersonnel(int FrId)
+        {
+            string query = string.Format("exec [sp_GetFranchiseePersonnel] @FranchiseeId={0}", FrId);
+
+            var q = Database.SqlQuery<FranchiseePersonnel>(query);
+
+            return q.ToList();
+        }
+
+
         #region [[ For Email related by Bhavesh ]]
 
         public List<EmailAddressInfo> GetAllCoachAddresses()
