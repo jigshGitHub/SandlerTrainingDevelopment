@@ -228,6 +228,7 @@
     <Compile Include="Controllers\APIs\ChartController.cs" />
     <Compile Include="Controllers\APIs\CompanyController.cs" />
     <Compile Include="Controllers\APIs\ContactController.cs" />
+    <Compile Include="Controllers\APIs\PipelineHistoryController.cs" />
     <Compile Include="Controllers\APIs\EmailController.cs" />
     <Compile Include="Controllers\APIs\FranchiseeUserController.cs" />
     <Compile Include="Controllers\APIs\GlobalSearchController.cs" />

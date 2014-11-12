@@ -105,6 +105,13 @@ function initialize_quickStartF(type) {
 }
 var startModule = sandler.appStart.module;
 var modalOptions;
+var noteObj = function (id, note, createdDt, createdBy) {
+    var self = this;
+    self.ID = id;
+    self.Notes = ko.observable(note);
+    self.CreatedBy = createdBy;
+    self.CreatedDate = createdDt;
+};
 //First time display the data
 function quickStartDataVM(opportunityObservable, scenario) {
     var self = this;
@@ -184,6 +191,7 @@ function quickStartDataVM(opportunityObservable, scenario) {
 
     self.selectedCompanyId = ko.observable();
     self.selectedOpportunity = ko.observable();
+    self.selectedNote = ko.observable();
     self.opportunities = ko.observableArray([]);
 
     self.selectedCompanyId.subscribe(function (newValue) {
@@ -278,6 +286,24 @@ function quickStartDataVM(opportunityObservable, scenario) {
                 },
                 error: function () { }
             });
+            self.loadNotes();
+            //$.ajax({
+            //    url: 'api/PipelineHistoryView',
+            //    type: "GET",
+            //    data: { opportunityId: self.opportunity.ID() },
+            //    dataType: "json",
+            //    contentType: "application/json; charset=utf-8",
+            //    async: false,
+            //    success: function (response) {
+            //        //console.log(response);
+            //        $.each(response, function (i, item) {
+            //            self.opportunity.notesHistory.push(new noteObj(item.ID, item.Notes, kendo.parseDate(item.CreatedDate), item.CreatedBy));
+            //        });
+            //        //self.opportunity.notesHistory(response);
+            //    },
+            //    error: function () { }
+            //});
+            console.log(self.opportunity.notesHistory());
             $.ajax({
                 url: 'api/contact',
                 type: "GET",
@@ -310,8 +336,6 @@ function quickStartDataVM(opportunityObservable, scenario) {
         }
     });
     self.opportunity = opportunityObservable;
-
-
 
     self.IsSaved = ko.observable(false);
 
@@ -389,8 +413,26 @@ function quickStartDataVM(opportunityObservable, scenario) {
     else {
         self.opportunity.OppCloseDatec = ko.observable('').extend({ required: "" });
     }
+    self.opportunity.notesHistory = ko.observableArray([]);
 
-
+    self.loadNotes = function () {
+        self.opportunity.notesHistory([]);
+        $.ajax({
+            url: 'api/PipelineHistoryView',
+            type: "GET",
+            data: { opportunityId: self.opportunity.ID() },
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            async: false,
+            success: function (response) {
+                //console.log(response);
+                $.each(response, function (i, item) {
+                    self.opportunity.notesHistory.push(new noteObj(item.ID, item.Notes, new Date(item.CreatedDate), item.CreatedBy));
+                });
+            },
+            error: function () { }
+        });
+    };
     //Set some defaults...remove once testing done
     //self.companyObservable.COMPANYNAME('BitSoft Inc');
     //self.companyObservable.POCLastName('BSPocLn');
@@ -413,7 +455,59 @@ function quickStartDataVM(opportunityObservable, scenario) {
 
     //For Notes
     self.Notes = ko.observable(self.opportunity.Notes());
+    self.showDetailNoteContainer = ko.observable(true);
+    self.showNotesDetail = function (item) {
+        //console.log(item);
+        self.showDetailNoteContainer(true);
+        modalOptions = { backdrop: 'static', show: true };
+        var modalHeader = 'Edit Notes';
+        $('#modal-headerLabel').text(modalHeader);
+        $('#notesConainer').modal(modalOptions);
+        $.ajax({
+            url: 'api/PipelineHistory',
+            type: "GET",
+            data: { id: item.ID },
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            async: false,
+            success: function (response) {
+                //console.log(response);
+                self.selectedNote(response);
+                //console.log(self.selectedNote());
+                $('#Qs_editNotes').val(self.selectedNote().Notes);//(item.Notes());
+            },
+            error: function () { }
+        });
+        
+    };
+    self.showNotesDelete = function (item) {
+        //console.log(item);
+        self.showDetailNoteContainer(false);
+        modalOptions = { backdrop: 'static', show: true };
+        var modalHeader = 'Delete Notes';
+        $('#modal-headerLabel').text(modalHeader);
+        $('#notesConainer').modal(modalOptions);
+        //$.ajax({
+        //    url: 'api/PipelineHistory',
+        //    type: "GET",
+        //    data: { id: item.ID },
+        //    dataType: "json",
+        //    contentType: "application/json; charset=utf-8",
+        //    async: false,
+        //    success: function (response) {
+        //        //console.log(response);
+        //        self.selectedNote(response);
+        //        //console.log(self.selectedNote());
+        //        $('#Qs_editNotes').val(self.selectedNote().Notes);//(item.Notes());
+        //    },
+        //    error: function () { }
+        //});
 
+        self.selectedNote(item);
+        console.log(self.selectedNote().ID);
+    };
+
+   
     self.pageTitle = ko.computed(function () {
         if (self.scenario != undefined && self.scenario == 'add')
             return 'Add New Opportunity';
@@ -436,6 +530,51 @@ function quickStartDataVM(opportunityObservable, scenario) {
         self.companyObservable.COMPANIESID('');
         self.contactObservable.COMPANYID('');
         self.dirtyFlag.reset();
+    };
+
+    self.deleteNote = function () {
+        console.log('delete note');
+        $.ajax({
+            url: 'api/PipelineHistory/Delete',
+            type: "GET",
+            data: { id: self.selectedNote().ID },
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            async: false,
+            success: function (response) {
+                $('#notesConainer').modal('hide');
+                $('#quickStart_body').unblock();
+                self.loadNotes();
+            },
+            error: function (response, errorText) {
+                showNoti_.error('Unable to save note, server error occures.', true);
+                $('#quickStart_body').unblock();
+                return false;
+            }
+        });
+    };
+    self.saveNote = function () {
+        //console.log('save note');
+        self.selectedNote().Notes = $('#Qs_editNotes').val();
+        console.log(self.selectedNote().Notes);
+        $.ajax({
+            url: 'api/PipelineHistorySave',
+            type: "POST",
+            data: ko.toJSON(self.selectedNote),
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            async: false,
+            success: function (response) {
+                $('#notesConainer').modal('hide');
+                $('#quickStart_body').unblock();
+                self.loadNotes();
+            },
+            error: function (response, errorText) {
+                showNoti_.error('Unable to save note, server error occures.', true);
+                $('#quickStart_body').unblock();
+                return false;
+            }
+        });
     };
 
     self.editSave = function () {
@@ -746,6 +885,7 @@ function quickStartDataVM(opportunityObservable, scenario) {
                 showNoti_.info('Opportunity added successfully.', true);
                 modalOptions = { backdrop: 'static', show: true };
                 $('#meetingInviteContainer').modal(modalOptions);
+                self.loadNotes();
             },
             error: function (response, errorText) {
                 showNoti_.error('Unable to save pipeline, server error occures.', true);

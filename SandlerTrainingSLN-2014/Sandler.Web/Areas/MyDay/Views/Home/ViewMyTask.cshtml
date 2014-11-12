@@ -1,0 +1,327 @@
+﻿@model dynamic
+<script src="~/Scripts/Application/ng-dashboard.js" type="text/javascript"></script>
+<script src="~/contents/knockout/knockout.mapping-latest.js" type="text/javascript"></script>
+
+<div id="myTask_body" style="background-color:white">
+
+    @*Page Header*@
+    <div class="row page-header">
+        <div class="col-sm-8">
+            <div class="row">
+                <div class='page-title'><span>Follow Up Activities</span></div>
+            </div>
+            <div class="row sub-heading">
+                <div class='page-subtitle' data-bind="text: pageTitle"></div>
+            </div>
+        </div>
+        <div class="col-sm-4"></div>
+    </div>
+
+    <hr />
+
+    @* Task Details *@
+    <div class="container">
+        <div class="row">
+
+            <div class="col-md-6 no-margin">
+                <div class="row">
+                    <div class="col-sm-12 no-margin">
+                        <form role="form">
+                            <div class="form-group" >
+                                
+                                <label>Assigned To</label>
+                                <div class="controls">
+                                     <input id="Dtask_assgnto" type="text"  data-bind="kendoDropDownList: { dataTextField: 'UserName', dataValueField: 'ASPUserId', data: FRPERSONS, value: UserId }"/>
+                                </div>
+                                     
+                                @*Dummy Row*@
+                                <div class="row" style="height:5px"></div>
+                                                           
+                                <label>Follow up Date&nbsp;<span class="label label-danger" data-bind='visible: FollowUpDatec.hasError, text: FollowUpDatec.validationMessage'></span></label>
+                                <div class="controls">
+                                     <input id="Dtask_followUpdate" style="max-width:180px;" maxlength="12" type="text" class="form-control" data-bind="kendoDatePicker: FollowUpDatec"/>
+                                </div>
+
+                                @*Dummy Row*@
+                                <div class="row" style="height:5px"></div>
+
+
+                                <label>Start Time</label>
+                                <div class="controls">
+                                    <input id="Dtask_starttime" style="max-width:200px;" data-bind="kendoTimePicker: { value: StartTimec, min: minTime, max: maxTime } "/>
+                                </div>
+                                                                
+                                <span data-bind="visible: IsJustAdded" style="color:red">Task Updated Successfully!</span>
+                                
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 no-margin">
+                <div class="row">
+                    <div class="col-sm-12 no-margin">
+                        <form role="form">
+                            <div class="form-group" >
+                                
+                                                                
+                                <label>Topic&nbsp;<span class="label label-danger" data-bind='visible: Topic.hasError, text: Topic.validationMessage'></span></label>                  
+                                <div class="controls">
+                                     <input id="Dtask_topic" maxlength="50" type="text"  class="form-control" data-bind="value: Topic"/>
+                                </div>
+
+                                @*Dummy Row*@
+                                <div class="row" style="height:5px"></div>
+
+                                <label>Description&nbsp;<span class="label label-danger" data-bind='visible: Description.hasError, text: Description.validationMessage'></span></label>                  
+                                <div class="controls">
+                                     <input id="Dtask_description" maxlength="50" type="text"  class="form-control" data-bind="value: Description"/>
+                                </div>
+
+                                @*Dummy Row*@
+                                <div class="row" style="height:5px"></div>
+
+                                <label>Phone</label>                  
+                                <div class="controls">
+                                     <input id="Dtask_Phone" maxlength="50" type="text"  class="form-control" data-bind="value: Phone"/>
+                                </div>
+                                                               
+                                
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        @* Page Footer *@
+        <div class="row page-footer" style="margin-top:10px">
+            <div class="pull-right">
+                <button id="bt_cancel_evt" class="btn btn-danger btn-cancel" type="button">Cancel</button>
+                <button id="bt_save_evt" class="btn btn-primary btn-save" type="button" data-bind="enable: isDirty, click: Save">Save</button>
+            </div>
+        </div>
+
+     </div>
+    
+</div>
+
+@*Custom extender for Last Name-required *@
+<script>
+    var myDtaskF;
+    var frDpersons = jsonDataCaller.syncCall(baseUrl + "/api/GetFranchiseePersonnel", null);
+    //required or not...
+    ko.extenders.required = function (target, overrideMessage) {
+        //add some sub-observables to our observable
+        target.hasError = ko.observable();
+        target.validationMessage = ko.observable();
+
+        //define a function to do validation
+        function validate(newValue) {
+            target.hasError(newValue ? false : true);
+            target.validationMessage(newValue ? "" : overrideMessage || "*");
+        }
+        //initial validation
+        validate(target());
+        //validate whenever the value changes
+        target.subscribe(validate);
+        //return the original observable
+        return target;
+    };
+
+    ko.dirtyFlag_addtask = function (root, isInitiallyDirty) {
+
+        var result = function () { },
+            _initialState = ko.observable(ko.toJSON(root)),
+            _isInitiallyDirty = ko.observable(isInitiallyDirty);
+
+        result.isDirty = ko.computed(function () {
+            return _isInitiallyDirty() || _initialState() !== ko.toJSON(root);
+        });
+
+        result.reset = function () {
+            _initialState(ko.toJSON(root));
+            _isInitiallyDirty(false);
+        };
+
+        return result;
+    };
+
+</script>
+
+<script>
+    /*Task Model*/
+    function myDtaskF_viewModel(mytaskInfo) {
+        var self = this;
+        self.Id = ko.observable(mytaskInfo.Id);
+        
+        //This is for TimePicker Max and Min time settings : 8 am to 6 pm
+        self.minTime = new Date(1950, 0, 1, 8, 0, 0);
+        self.maxTime = new Date(2049, 11, 31, 18, 0, 0);
+        self.FRPERSONS = ko.observableArray(frDpersons.results);
+        self.IsJustAdded = ko.observable(false);
+        self.Loc = ko.observable('@Model.Loc');
+
+        //Follow Up Date.. 
+        if (mytaskInfo.FollowUpDate != null && mytaskInfo.FollowUpDate != "") {
+            self.FollowUpDatec = ko.observable(kendo.parseDate(mytaskInfo.FollowUpDate));
+        }
+        else {
+            self.FollowUpDatec = ko.observable();
+        }
+        self.FollowUpDate = ko.computed(function () {
+            return dateUtil_.toNoTimeZone(self.FollowUpDatec());
+        });
+              
+        //CreatedOn
+        if (mytaskInfo.CreatedOn != null && mytaskInfo.CreatedOn != "") {
+            self.CreatedOnc = ko.observable(kendo.parseDate(mytaskInfo.CreatedOn));
+        }
+        else {
+            self.CreatedOnc = ko.observable();
+        }
+        self.CreatedOn = ko.computed(function () {
+            return dateUtil_.toNoTimeZone(self.CreatedOnc());
+        });
+        self.IsActive = ko.observable(true);
+
+        //Start Time.. 
+        if (mytaskInfo.StartTime != null && mytaskInfo.StartTime != "") {
+            self.StartTimec = ko.observable(kendo.parseDate(mytaskInfo.StartTime));
+        }
+        else {
+            self.StartTimec = ko.observable();
+        }
+        self.StartTime = ko.computed(function () {
+            return dateUtil_.toNoTimeZone(self.StartTimec());
+        });
+        self.pageTitle = ko.observable("Edit Activity");
+        self.Description = ko.observable(mytaskInfo.Description).extend({ required: "" });
+        self.Topic = ko.observable(mytaskInfo.Topic).extend({ required: "" });
+        self.Phone = ko.observable(mytaskInfo.Phone);
+        self.UserId = ko.observable(mytaskInfo.UserId.toUpperCase());
+        //Continue to Save...
+        self.continueWithSave = function () {
+            self.dirtyFlag.reset();
+            $('#myTask_body').block({ message: null });
+            dao_.save("api/MyTask/Update", ko.toJSON(self),
+                function (result) {
+                    if (result.success) {
+                        if (self.Loc() != "" && self.Loc() != null) {
+                            //First clear the Bottom page Calendar Control and then Rebind 
+                            $("#scheduler").html('');
+                            var SchedularData = get_SchedularData();
+                            $("#scheduler").kendoScheduler(SchedularData);
+                            //Take care of unblock
+                            $("#myTask_body").unblock();
+                            initialize_BackGtaskF();
+                        }
+                        else {
+                            LoadmyAppointmentListGrid();
+                            LoadmyTaskListGrid();
+                        }
+                        showNoti_.hide();
+                        navi_.closeModal();
+                    }
+                    else {
+                        $("#myTask_body").unblock();
+                        showNoti_.hide();
+                        showNoti_.error(result.message, false);
+                    }
+                },
+                function () {
+                    $("#myTask_body").unblock();
+                    showNoti_.hide();
+                });
+
+        };
+        //This is for to save Task item
+        self.Save = function () {
+            //For Last Contact Date
+            var dte = $('#Dtask_followUpdate').val();
+            if (!dte == "") {
+                var d = kendo.parseDate(dte, "MM/dd/yyyy");
+                if (d == null) {
+                    showNoti_.error('Follow-up Date is NOT a valid date.', false);
+                    $('#Dtask_followUpdate').focus();
+                    return;
+                }
+            }
+            else {
+                showNoti_.error('Follow-up Date is required.', false);
+                $('#Dtask_followUpdate').focus();
+                return;
+            }
+
+            if (!self.Topic()) {
+                showNoti_.error('Topic is Required!!', false);
+                $('#Dtask_topic').focus();
+                return;
+            }
+
+            if (!self.Description()) {
+                showNoti_.error('Description is Required!!', false);
+                $('#Dtask_description').focus();
+                return;
+            }
+            //Now Continue
+            self.continueWithSave();
+        };
+        //Dirty flag setting...
+        self.dirtyFlag = new ko.dirtyFlag_addtask(self);
+        self.isDirty = ko.computed(function () {
+            return self.dirtyFlag.isDirty()
+        }, this);
+        //This is Label for View Task Kendo Grid
+        self.TaskLabel = ko.observable();
+    }
+
+</script>
+
+<script type="text/javascript">
+
+    @* Tracking whether there is unsaved change(s). *@
+    ko.dirtyFlag_myTaskInfo = function (root, isInitiallyDirty) {
+
+        var result = function () { },
+            _initialState = ko.observable(ko.toJSON(root)),
+            _isInitiallyDirty = ko.observable(isInitiallyDirty);
+
+        result.isDirty = ko.computed(function () {
+            return _isInitiallyDirty() || _initialState() !== ko.toJSON(root);
+        });
+
+        result.reset = function () {
+            _initialState(ko.toJSON(root));
+            _isInitiallyDirty(false);
+        };
+
+        return result;
+    };
+    //Document Ready function....
+    $(document).ready(function () {
+        @* Cancel (Close) Button *@
+        $("#bt_cancel_evt").click(function () {
+            @* Opened from Application Main Page in a Modal Window *@
+            if (navi_.singlePageInModal('myTask_body'))
+                navi_.closeModal();
+            @* Opened from other page inside Navigator Page > Close this page *@
+            else if (navi_.totalPages() > 1)
+                navi_.closeCurrentPage();
+                @* Otherwise, redirect to Home Page *@
+            else {
+                navi_.closeModal();
+            }
+        });
+        //Bind the VM        
+        myDtaskF = new myDtaskF_viewModel(jsonDataCaller.syncCall(baseUrl + "/api/MyDay/Get?id=@Model.id", null));
+        //console.log("Here");
+        ko.applyBindings(myDtaskF, document.getElementById("myTask_body"));
+        //console.log("Here done");
+        
+    });
+    
+</script>

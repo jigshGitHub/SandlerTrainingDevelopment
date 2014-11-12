@@ -227,6 +227,58 @@
                 </div>
             </div>
             
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="panel panel-default blue" style="min-height:210px">
+                        <div class="panel-heading panel-sm">Notes history:</div>
+                        <div class="panel-body">
+                                <div class="row" style="margin-top: 10px">
+                                <div id="notesHistoryGridContainer" class="k-content">
+                                    <div class="row">
+                                        <div class="col-sm-2"></div>
+                                        <div class="col-sm-6">Previous Notes</div>
+                                        <div class="col-sm-2">Created By</div>
+                                        <div class="col-sm-2">Created Date</div>
+                                    </div>
+                                    <!-- ko foreach: opportunity.notesHistory -->
+                                    <div class="row">
+                                        <div class="col-sm-2"><button title='View/Edit' class='btn btn-success btn-sm editsa' data-bind='click: $root.showNotesDetail'><span class='glyphicon glyphicon-search'></span></button>&nbsp;<button title='Archive Opportunity' class='btn btn-warning btn-sm deletesa' data-bind='click: $root.showNotesDelete'><span class='glyphicon glyphicon-remove'></span></button></div>
+                                        <div class="col-sm-6 sptablecell" data-bind="text: Notes">Previous Notes</div>
+                                        <div class="col-sm-2 sptablecell" data-bind="text: CreatedBy">Created By</div>
+                                        <div class="col-sm-2 sptablecell" data-bind="text: CreatedDate">Created Date</div>
+                                    </div>
+                                    <!-- /ko -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>            
+                </div>
+            </div>
+            <div class="modal" id="notesConainer">
+	            <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button class="close" aria-hidden="true" type="button" data-dismiss="modal">×</button>
+                            <h3 id="modal-headerLabel"></h3>
+                        </div>
+                        <div id="noteDetailBody" class="modal-body" data-bind="if: showDetailNoteContainer()">
+                            <label>Note</label>
+                            <div class="controls">
+                                <textarea id="Qs_editNotes" cols="65" rows="5" />
+                            </div>
+                        </div>
+                        <div id="noteDeleteBody" class="modal-body" data-bind="if: !showDetailNoteContainer()">
+                            <h3>Are you sure to delete this note?</h3>
+                        </div>
+                        <div class="modal-footer" data-bind="if: showDetailNoteContainer()">
+                            <a href="#" class="btn btn-primary" data-bind="click: saveNote">Save</a>                            
+                        </div>
+                        <div class="modal-footer" data-bind="if: !showDetailNoteContainer()">
+                            <a href="#" class="btn btn-primary" data-bind="click: deleteNote">Delete</a>                            
+                        </div>
+                    </div>
+                </div>
+            </div>
             
             @* Page Footer *@
             <div class="row page-footer">

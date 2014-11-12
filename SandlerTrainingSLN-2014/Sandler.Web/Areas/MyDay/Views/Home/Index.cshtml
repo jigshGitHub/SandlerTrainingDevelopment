@@ -24,6 +24,11 @@
                         <form role="form">
                             <div class="form-group" >
 
+                                <label>Assigned To</label>
+                                <div class="controls">
+                                     <input id="task_assgnto" type="text"  data-bind="kendoDropDownList: { dataTextField: 'UserName', dataValueField: 'ASPUserId', data: FRPERSONS, value: UserId }"/>
+                                </div>
+                                                                
                                 <label>Follow up Date&nbsp;<span class="label label-danger" data-bind='visible: FollowUpDatec.hasError, text: FollowUpDatec.validationMessage'></span></label>
                                 <div class="controls">
                                      <input id="task_followUpdate" style="max-width:180px;" maxlength="12" type="text" class="form-control" data-bind="kendoDatePicker: FollowUpDatec"/>
@@ -33,8 +38,7 @@
                                 <div class="controls">
                                     <input id="task_starttime" style="max-width:200px;" data-bind="kendoTimePicker: { value: StartTimec, min: minTime, max: maxTime } "/>
                                 </div>
-
-
+                                
                                 <label>Topic&nbsp;<span class="label label-danger" data-bind='visible: Topic.hasError, text: Topic.validationMessage'></span></label>                  
                                 <div class="controls">
                                      <input id="task_topic" maxlength="50" type="text"  class="form-control" data-bind="value: Topic"/>

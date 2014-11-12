@@ -40,6 +40,8 @@ namespace Sandler.DB.Models
 
         public string Phone { get; set; }
 
+        public string AssignTo { get; set; }
+
         public int UniqueID { get; set; }
 
         public Nullable<DateTime> NextDay { get; set; }
@@ -61,6 +63,14 @@ namespace Sandler.DB.Models
         public Nullable<DateTime> NEXT_CONTACT_DATE { get; set; }
         public string ActionStep { get; set; }
         public string Status { get; set; }
+
+    }
+
+    public partial class FranchiseePersonnel
+    {
+        public string UserName { get; set; }
+
+        public string ASPUserId { get; set; }
 
     }
     

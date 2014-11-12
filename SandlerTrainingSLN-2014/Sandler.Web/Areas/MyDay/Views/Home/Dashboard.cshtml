@@ -20,27 +20,67 @@
         margin-bottom: 3px;
     }
     .col-title { margin-left: 25px; }
+      .k-grid999 tbody .k-button {
+        min-width: 12px;
+        width: 50px;
+        height: 25px;
+        vertical-align: middle;
+    }
+	
+	    
+ .panel.blue .panel-heading
+    {
+	    background-color: #25a0da;
+	    border-color: #25a0da;
+	    color: white;
+	    border-radius: 0px;
+    }
+
 </style>
+<script src="~/Scripts/Application/ng-dashboard.js" type="text/javascript"></script>
+<div id="myDayCalendar" class="container" ng-controller="ng_dashboardCtrl">
 
 <div id="dashboard_body">
 
     <div class="row">
 
-     <div class="col-sm-4">
-           <div class="panel panel-default" style="min-height:230px">
-                <div class="panel-heading panel-sm">My Task</div>
+     <div class="col-sm-6">
+           <div class="panel panel-default blue" style="min-height:410px">
+                <div class="panel-heading panel-sm">My Tasks This Month</div>
                 <div class="panel-body">
-                    
+                     <div class="row" style="margin-top: 10px">
+                        <div id="TaskListgridGrid" class="k-content">
+                            <div id="myTaskListgrid"></div>
+                        </div>
+                    </div>
+                    @*Subject, Due Date , Company, Contact *@
+
+                   @* Next contact date in company module
+                    Next contact date in contact module
+                    list of the logged in user from tbl_followuplist*@
+
+
+
                 </div>
             </div>
             
         </div>
             
-     <div class="col-sm-8">
-           <div class="panel panel-default" style="min-height:230px">
-                <div class="panel-heading panel-sm">My Appointments</div>
+     <div class="col-sm-6">
+           <div class="panel panel-default blue" style="min-height:410px">
+                <div class="panel-heading panel-sm">My Calls for Today</div>
                 <div class="panel-body">
-                    
+                     <div class="row" style="margin-top: 10px">
+                        <div id="AppointmentListgrid" class="k-content">
+                            <div id="myAppointmentListgrid"></div>
+                        </div>
+                    </div>
+                    @*Date, Time, Company, Contact, Location, Attendees, Discussion, Attachment *@
+
+
+                    @*Mostly will come from tbl_contact. FrOwner can see for complete Fr, coach can see for all Fr  he has access to and Fruser can see his own stuff*@
+
+
                 </div>
             </div>
             
@@ -52,37 +92,57 @@
 
     <div class="row">
 
-     <div class="col-sm-4">
-           <div class="panel panel-default" style="min-height:230px">
+     <div class="col-sm-8">
+           <div class="panel panel-default blue" style="min-height:230px">
                 <div class="panel-heading panel-sm">My Pipeline</div>
                 <div class="panel-body">
-                    
+                     <div class="panel-body">
+                     <div class="row" style="margin-top: 10px">
+                        <div id="PipelineListgrid" class="k-content">
+                            <div id="myPipelineListgrid"></div>
+                        </div>
+                    </div>
+                   @* Pipeline – This will be a display in a table grid of the pipeline data that is for open opportunities only.  The data to include are:
+                    a.       Company name
+                    b.      Opportunity name
+                    c.       Opportunity Value
+                    d.      Opportunity Close Date*@
+
+                    @*Same from Pipeline module...security logic remains the same*@
+
                 </div>
             </div>
             
         </div>
             
-     <div class="col-sm-4">
-           <div class="panel panel-default" style="min-height:230px">
-                <div class="panel-heading panel-sm">My Progress</div>
-                <div class="panel-body">
-                    
-                </div>
-            </div>
-            
-        </div>
-        
-     <div class="col-sm-4">
-           <div class="panel panel-default" style="min-height:230px">
-                <div class="panel-heading panel-sm">My Assignments</div>
-                <div class="panel-body">
-                    
-                </div>
-            </div>
-            
-        </div>
+    
 
       
   </div>
+  
+    <div class="col-sm-4">
+	<div class="panel panel-default blue" style="min-height:136px">
+         <div class="panel-heading panel-sm"><a href="http://minedsystemsassetmanagement.com/SPM2/#/RDL/Home/Performance" target="_blank" style="color:white">My Progress</a></div>
+			
+<a href="http://minedsystemsassetmanagement.com/SPM2/#/RDL/Home/Performance" target="_blank">			
+		<img src="~/Images/Speedometer.png" class="col-sm-12" style="height:136px"/> 
+		</a>
+		
+     </div>
+	 
+	 <div class="panel panel-default blue" style="min-height:180px">
+         <div class="panel-heading panel-sm"><a href="http://minedsystemsassetmanagement.com/SPM2/Areas/RDL/Report.aspx?rpt=SPM 2 - My Assignments_WithPara" target="_blank" style="color:white">My Assignments</a></div>
+				  	<a href="http://minedsystemsassetmanagement.com/SPM2/Areas/RDL/Report.aspx?rpt=SPM 2 - My Assignments_WithPara" target="_blank">
+		<img src="~/Images/SPMAssignments.png" class="col-sm-12" style="height:180px"/>
+		</a> 
+		
+     </div>
+	 
+	 
+			
+	</div>
     
+</div>
+</div>
+
 </div>

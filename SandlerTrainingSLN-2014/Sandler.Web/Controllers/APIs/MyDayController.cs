@@ -15,13 +15,15 @@ namespace Sandler.Web.Controllers.API
     [Authorize]
     public class MyDayController : BaseApiController
     {
-        
-        public MyDayController(IUnitOfWork uow) : base(uow)
+
+        public MyDayController(IUnitOfWork uow)
+            : base(uow)
         {
-            
+
         }
 
-        public MyDayController() : base()
+        public MyDayController()
+            : base()
         {
 
         }
@@ -35,7 +37,7 @@ namespace Sandler.Web.Controllers.API
 
             //string orderBy = "CompanyName ASC";
             string orderBy = "FollowUpDate ASC";
-                 
+
             if (!string.IsNullOrEmpty(sortField))
                 orderBy = sortField;
             if (!string.IsNullOrEmpty(sortField) && !string.IsNullOrEmpty(sortDir))
@@ -88,7 +90,7 @@ namespace Sandler.Web.Controllers.API
             return Request.CreateResponse(returnObject);
 
         }
-       
+
         [Route("api/MyOpportunityListView/")]
         public HttpResponseMessage GetMyOpportunityListView(int? page, int? pageSize)
         {
@@ -144,6 +146,22 @@ namespace Sandler.Web.Controllers.API
 
         }
 
+        [Route("api/GetFranchiseePersonnel")]
+        [HttpGet()]
+        public HttpResponseMessage GetFranchiseePersonnel()
+        {
+            List<FranchiseePersonnel> frPersonnels = null;
+            frPersonnels = uow.MyTaskRepository().GetFranchiseePersonnel(CurrentUser.FranchiseeID).ToList();
+            var returnObject = new { success = true, results = frPersonnels.ToList() };
+            return Request.CreateResponse(returnObject);
+        }
+
+        [Route("api/GetCurrentUserId")]
+        [HttpGet()]
+        public string GetCurrentUserId()
+        {
+            return CurrentUser.UserId.ToString().ToUpper();
+        }
 
         [HttpPost]
         [Route("api/MyTask/Save")]
@@ -153,14 +171,13 @@ namespace Sandler.Web.Controllers.API
             try
             {
                 int Id = 0;
-                
                 //Add Operation
                 _followupItem.IsActive = true;
-                _followupItem.UserId = CurrentUser.UserId;
+                //_followupItem.UserId = CurrentUser.UserId;
+                _followupItem.UserId = _followupItem.UserId;
                 _followupItem.CreatedOn = DateTime.Now;
-
+                //get Id
                 Id = uow.MyTaskRepository().AddTask(_followupItem);
-
                 //We will send back the Id for the Newly created Task
                 _response = new genericResponse() { success = true, UniqueId = Id };
                 return _response;
@@ -172,9 +189,70 @@ namespace Sandler.Web.Controllers.API
             }
         }
 
-        
+        [HttpPost]
+        [Route("api/MyTask/Update")]
+        public genericResponse Update(Tbl_FollowUpItemsList _followupItem)
+        {
+            genericResponse _response;
+            try
+            {
+                int updId = 0;
+                //Now Update...
+                updId = uow.MyTaskRepository().UpdateTask(_followupItem);
+                _response = new genericResponse() { success = true, UniqueId = updId };
+                return _response;
+            }
+            catch (Exception ex)
+            {
+                _response = new genericResponse() { success = false, message = "There is a problem in Updating Task Information. Please try again later." };
+                return _response;
+            }
+        }
+
+        public class TaskDInfo
+        {
+            public int UniqueID { get; set; }
+        }
+
+        [HttpPost]
+        [Route("api/MyTask/ArchiveDTask")]
+        public genericResponse ArchiveDTask(TaskDInfo _tskInfo)
+        {
+            genericResponse _response;
+            try
+            {
+                if (uow.MyTaskRepository().ArchiveDTask(_tskInfo.UniqueID))
+                {
+                    _response = new genericResponse() { success = true };
+                    return _response;
+                }
+                else
+                {
+                    _response = new genericResponse() { success = false, message = "There is a problem Archiving this Task Record. Please try again later." };
+                    return _response;
+                }
+
+            }
+            catch
+            {
+                _response = new genericResponse() { success = false, message = "There is a problem Archiving this Task Record. Please try again later." };
+                return _response;
+            }
+        }
+
+        public HttpResponseMessage Get(int id)
+        {
+            //Let us get task Info
+            var data = new Tbl_FollowUpItemsList() { Id = 0 };
+            if (id > 0)
+            {
+                data = uow.Repository<Tbl_FollowUpItemsList>().GetById(id);
+            }
+            return Request.CreateResponse(data);
+
+        }
 
 
-        
+
     }
 }
