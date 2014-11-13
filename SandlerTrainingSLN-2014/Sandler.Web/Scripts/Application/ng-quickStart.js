@@ -142,18 +142,21 @@ function quickStartDataVM(opportunityObservable, scenario) {
             self.companies([]);
             if (newValue == '1') {
                 if (self.initialCountOfCompanyOpportunties == 0) {
-                    console.log('getting companies that has opportunties');
-                    var data = jsonDataCaller.syncCall(baseUrl + "/api/CompanyOpportuntiesView?searchText=&page=0&pageSize=0&selectForExcel=false", null)
-                    self.initialCountOfCompanyOpportunties = data.__count;
-                    $.each(data.results, function (i, companyRecord) {
-                        self.companies.push({ 'name': companyRecord.COMPANYNAME, 'id': companyRecord.COMPANIESID });
+                    //console.log('getting companies that has opportunties');
+                    showNoti_.progress('Loading companies...', false);                    
+                    $.getJSON(baseUrl + '/api/CompanyOpportuntiesView?searchText=&page=0&pageSize=0&selectForExcel=false').done( function (data) {
+                        self.initialCountOfCompanyOpportunties = data.__count;
+                        $.each(data.results, function (i, companyRecord) {
+                            self.companies.push({ 'name': companyRecord.COMPANYNAME, 'id': companyRecord.COMPANIESID });
+                        });
+                        showNoti_.hide();
                     });
                 }
             }
             else {
                 self.companies(startModule.getUserCompanies());
             }
-            console.log(self.companies().length)
+            //console.log(self.companies().length)
         }
     });
 
@@ -197,53 +200,49 @@ function quickStartDataVM(opportunityObservable, scenario) {
     self.selectedCompanyId.subscribe(function (newValue) {
         if (newValue != '') {
             self.companyObservable.COMPANIESID(newValue);
-            if (self.scenario == 'edit') {
-                self.selectOppsVisible((self.opportunityModeSelectionId() == 1));
-                $.ajax({
-                    url: 'api/company',
-                    type: "GET",
-                    data: { id: newValue },
-                    dataType: "json",
-                    contentType: "application/json; charset=utf-8",
-                    async: false,
-                    success: function (response) {
-                        //console.log(response);
-                        self.companyObservable.COMPANYNAME(response.COMPANYNAME);
-                        self.companyObservable.POCLastName(response.POCLastName);
-                        self.companyObservable.POCFirstName(response.POCFirstName);
-                        self.companyObservable.POCPhone(response.POCPhone);
-                        self.companyObservable.POCEmail(response.POCEmail);
-                        self.companyObservable.IndustryId(response.IndustryId);
-                    },
-                    error: function () { }
-                });
-                self.POCs(startModule.getUserContactsByCompany(newValue))
-                $.each(self.POCs(), function (i, item) {
-                    //console.log(item.lastName + '-' + self.companyObservable.POCLastName());
-                    //console.log(item.firstName + '-' + self.companyObservable.POCFirstName());
-                    if (item.lastName == self.companyObservable.POCLastName() && item.firstName == self.companyObservable.POCFirstName()) {
-                        //console.log(item.contactsId);
-                        self.selectedPOC(item.contactsId);
-                        return;
+            if (self.scenario == 'edit') {               
+                showNoti_.progress('Loading opportunities...', false);
+                $.getJSON(baseUrl + '/api/company?id=' + newValue).done(function (response) {
+                    self.companyObservable.COMPANYNAME(response.COMPANYNAME);
+                    self.companyObservable.POCLastName(response.POCLastName);
+                    self.companyObservable.POCFirstName(response.POCFirstName);
+                    self.companyObservable.POCPhone(response.POCPhone);
+                    self.companyObservable.POCEmail(response.POCEmail);
+                    self.companyObservable.IndustryId(response.IndustryId);
+
+                    self.POCs(startModule.getUserContactsByCompany(newValue))
+
+                    $.each(self.POCs(), function (i, item) {
+                        //console.log(item.lastName + '-' + self.companyObservable.POCLastName());
+                        //console.log(item.firstName + '-' + self.companyObservable.POCFirstName());
+                        if (item.lastName == self.companyObservable.POCLastName() && item.firstName == self.companyObservable.POCFirstName()) {
+                            //console.log(item.contactsId);
+                            self.selectedPOC(item.contactsId);
+                            return;
+                        }
+                    });                    
+
+                    if (self.opportunityModeSelectionId() == 1) {
+                        self.selectOppsVisible(true);
+                        $.ajax({
+                            url: 'api/PipelineViewForCompany',
+                            type: "GET",
+                            data: { companyId: newValue },
+                            dataType: "json",
+                            contentType: "application/json; charset=utf-8",
+                            async: false,
+                            success: function (response) {
+                                self.opportunities(response.results);
+                                //if (self.opportunities().length == 1)
+                                //    self.selectedOpportunity(self.opportunities()[0].ID);
+                                //console.log(self.opportunities());
+                            },
+                            error: function () { }
+                        });
                     }
+                    showNoti_.hide();
                 });
-                if( self.opportunityModeSelectionId() == 1){
-                    $.ajax({
-                        url: 'api/PipelineViewForCompany',
-                        type: "GET",
-                        data: { companyId: newValue },
-                        dataType: "json",
-                        contentType: "application/json; charset=utf-8",
-                        async: false,
-                        success: function (response) {
-                            self.opportunities(response.results);
-                            if (self.opportunities().length == 1)
-                                self.selectedOpportunity(self.opportunities()[0].ID);
-                            //console.log(self.opportunities());
-                        },
-                        error: function () { }
-                    });
-                }
+                
             }
         }
     });
@@ -251,67 +250,34 @@ function quickStartDataVM(opportunityObservable, scenario) {
     self.selectedOpportunity.subscribe(function (newValue) {
         if (newValue != '') {
             self.opportunity.ID(newValue);
-            $.ajax({
-                url: 'api/Pipeline',
-                type: "GET",
-                data: { id: newValue },
-                dataType: "json",
-                contentType: "application/json; charset=utf-8",
-                async: false,
-                success: function (response) {
-                    self.opportunity.STATUSID(response.STATUSID);
-                    self.opportunity.NAME(response.NAME);
-                    self.opportunity.Pain(response.Pain);
-                    self.opportunity.ProductID(response.ProductID);
-                    console.log('self.opportunity.ProductID()'+self.opportunity.ProductID());
-                    self.opportunity.SourceID(response.SourceID);
-                    self.opportunity.TypeID(response.TypeID);
-                    self.opportunity.VALUE(response.VALUE);
-                    self.opportunity.CONTACTID(response.CONTACTID);
-                    self.opportunity.SALESREPFIRSTNAME(response.SALESREPFIRSTNAME);
-                    self.opportunity.SALESREPLASTNAME(response.SALESREPLASTNAME);
-                    self.opportunity.LengthOfProblem(response.LengthOfProblem);
-                    self.opportunity.Alternatives(response.Alternatives);
-                    self.opportunity.CostToFix(response.CostToFix);
+            showNoti_.progress('Loading opportunity...', false);
+            $.getJSON(baseUrl + '/api/Pipeline?id=' + newValue).done(function (response) {
+                self.opportunity.STATUSID(response.STATUSID);
+                self.opportunity.NAME(response.NAME);
+                self.opportunity.Pain(response.Pain);
+                self.opportunity.ProductID(response.ProductID);
+                self.opportunity.SourceID(response.SourceID);
+                self.opportunity.TypeID(response.TypeID);
+                self.opportunity.VALUE(response.VALUE);
+                self.opportunity.CONTACTID(response.CONTACTID);
+                self.opportunity.SALESREPFIRSTNAME(response.SALESREPFIRSTNAME);
+                self.opportunity.SALESREPLASTNAME(response.SALESREPLASTNAME);
+                self.opportunity.LengthOfProblem(response.LengthOfProblem);
+                self.opportunity.Alternatives(response.Alternatives);
+                self.opportunity.CostToFix(response.CostToFix);
 
-                    self.opportunity.Notes(response.Notes);
-                    self.opportunity.IsBudgeIdentified(response.IsBudgeIdentified?1:0);
-                    self.opportunity.IsMoveForward(response.IsMoveForward?1:0);
-                    self.opportunity.VALUE(response.VALUE);
-                    self.opportunity.CostToFix(response.CostToFix);
-                    self.opportunity.IsActive(true);
-                    if (response.CLOSEDATE != null && response.CLOSEDATE != "") {
-                        self.opportunity.OppCloseDatec(kendo.parseDate(response.CLOSEDATE));
-                    }
-                },
-                error: function () { }
-            });
-            self.loadNotes();
-            //$.ajax({
-            //    url: 'api/PipelineHistoryView',
-            //    type: "GET",
-            //    data: { opportunityId: self.opportunity.ID() },
-            //    dataType: "json",
-            //    contentType: "application/json; charset=utf-8",
-            //    async: false,
-            //    success: function (response) {
-            //        //console.log(response);
-            //        $.each(response, function (i, item) {
-            //            self.opportunity.notesHistory.push(new noteObj(item.ID, item.Notes, kendo.parseDate(item.CreatedDate), item.CreatedBy));
-            //        });
-            //        //self.opportunity.notesHistory(response);
-            //    },
-            //    error: function () { }
-            //});
-            console.log(self.opportunity.notesHistory());
-            $.ajax({
-                url: 'api/contact',
-                type: "GET",
-                data: { id: self.opportunity.CONTACTID() },
-                dataType: "json",
-                contentType: "application/json; charset=utf-8",
-                async: false,
-                success: function (response) {
+                self.opportunity.Notes(response.Notes);
+                self.opportunity.IsBudgeIdentified(response.IsBudgeIdentified ? 1 : 0);
+                self.opportunity.IsMoveForward(response.IsMoveForward ? 1 : 0);
+                self.opportunity.VALUE(response.VALUE);
+                self.opportunity.CostToFix(response.CostToFix);
+                self.opportunity.IsActive(true);
+                if (response.CLOSEDATE != null && response.CLOSEDATE != "") {
+                    self.opportunity.OppCloseDatec(kendo.parseDate(response.CLOSEDATE));
+                }
+                self.loadNotes();
+
+                $.getJSON(baseUrl + '/api/contact?id=' + self.opportunity.CONTACTID()).done(function (response) {
                     console.log(response.IsRegisteredForTraining);
 
                     self.contactObservable.CONTACTSID(self.opportunity.CONTACTID());
@@ -322,16 +288,16 @@ function quickStartDataVM(opportunityObservable, scenario) {
                         self.contactObservable.NextContactDatec(kendo.parseDate(response.NEXT_CONTACT_DATE));
                     }
                     self.contactObservable.ApptSourceId(response.ApptSourceId);
-                    self.contactObservable.IsNewAppointment(response.IsNewAppointment?1:0);
-                    self.contactObservable.IsRegisteredForTraining(response.IsRegisteredForTraining ? 1:0);
+                    self.contactObservable.IsNewAppointment(response.IsNewAppointment ? 1 : 0);
+                    self.contactObservable.IsRegisteredForTraining(response.IsRegisteredForTraining ? 1 : 0);
                     self.contactObservable.CourseId(response.CourseId);
                     self.contactObservable.TrainingCourseName(response.TrainingCourseName);
                     self.contactObservable.HowManyAttended(response.HowManyAttended);
                     self.contactObservable.ACTIONSTEP(response.ACTIONSTEP);
 
                     self.selectedPOC(self.opportunity.CONTACTID());
-                },
-                error: function () { }
+                });
+                showNoti_.hide();
             });
         }
     });
@@ -455,16 +421,14 @@ function quickStartDataVM(opportunityObservable, scenario) {
 
     //For Notes
     self.Notes = ko.observable(self.opportunity.Notes());
-    self.showDetailNoteContainer = ko.observable(true);
     self.showNotesDetail = function (item) {
         //console.log(item);
-        self.showDetailNoteContainer(true);
         modalOptions = { backdrop: 'static', show: true };
         var modalHeader = 'Edit Notes';
         $('#modal-headerLabel').text(modalHeader);
         $('#notesConainer').modal(modalOptions);
         $.ajax({
-            url: 'api/PipelineHistory',
+            url: 'api/PipelineHistory/Get',
             type: "GET",
             data: { id: item.ID },
             dataType: "json",
@@ -481,30 +445,34 @@ function quickStartDataVM(opportunityObservable, scenario) {
         
     };
     self.showNotesDelete = function (item) {
-        //console.log(item);
-        self.showDetailNoteContainer(false);
-        modalOptions = { backdrop: 'static', show: true };
-        var modalHeader = 'Delete Notes';
-        $('#modal-headerLabel').text(modalHeader);
-        $('#notesConainer').modal(modalOptions);
-        //$.ajax({
-        //    url: 'api/PipelineHistory',
-        //    type: "GET",
-        //    data: { id: item.ID },
-        //    dataType: "json",
-        //    contentType: "application/json; charset=utf-8",
-        //    async: false,
-        //    success: function (response) {
-        //        //console.log(response);
-        //        self.selectedNote(response);
-        //        //console.log(self.selectedNote());
-        //        $('#Qs_editNotes').val(self.selectedNote().Notes);//(item.Notes());
-        //    },
-        //    error: function () { }
-        //});
-
         self.selectedNote(item);
-        console.log(self.selectedNote().ID);
+        //console.log(self.selectedNote().ID);
+
+        showNoti_.confirm("Are you sure to delete this note?",function () {
+              showNoti_.progress(NOTIFICMSG.PROCESSING, false);
+              $.ajax({
+                  url: 'api/PipelineHistory/Delete',
+                  type: "GET",
+                  data: { id: self.selectedNote().ID },
+                  dataType: "json",
+                  contentType: "application/json; charset=utf-8",
+                  async: false,
+                  success: function (response) {
+                      self.loadNotes();
+                      $('#quickStart_body').unblock();
+                      showNoti_.hide();
+                  },
+                  error: function (response, errorText) {
+                      showNoti_.error('Unable to delete note, server error occures.', true);
+                      $('#quickStart_body').unblock();
+                      return false;
+                  }
+              });
+          },
+          function () {
+              showNoti_.hide();
+              $('#quickStart_body').unblock();
+        });//confirm ends here
     };
 
    
@@ -532,27 +500,6 @@ function quickStartDataVM(opportunityObservable, scenario) {
         self.dirtyFlag.reset();
     };
 
-    self.deleteNote = function () {
-        console.log('delete note');
-        $.ajax({
-            url: 'api/PipelineHistory/Delete',
-            type: "GET",
-            data: { id: self.selectedNote().ID },
-            dataType: "json",
-            contentType: "application/json; charset=utf-8",
-            async: false,
-            success: function (response) {
-                $('#notesConainer').modal('hide');
-                $('#quickStart_body').unblock();
-                self.loadNotes();
-            },
-            error: function (response, errorText) {
-                showNoti_.error('Unable to save note, server error occures.', true);
-                $('#quickStart_body').unblock();
-                return false;
-            }
-        });
-    };
     self.saveNote = function () {
         //console.log('save note');
         self.selectedNote().Notes = $('#Qs_editNotes').val();
@@ -895,7 +842,8 @@ function quickStartDataVM(opportunityObservable, scenario) {
     };
 
     self.reset = function (type) {
-
+        reload();
+        /*
         self.companyObservable.COMPANYNAME('');
         self.companyObservable.POCFirstName('');
         self.companyObservable.POCLastName('');
@@ -958,6 +906,7 @@ function quickStartDataVM(opportunityObservable, scenario) {
         else {
             self.IsSaved(false);
         }
+        */
     }
 
     self.sendInvite = function () {

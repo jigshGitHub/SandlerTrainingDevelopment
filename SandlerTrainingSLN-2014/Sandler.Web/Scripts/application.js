@@ -26,6 +26,8 @@ var sandler = {
 
 };
 
+var reload = function () { window.location.reload();};
+
 sandler.namespace("appStart").module= (function () {
     var getProductTypes = function () {
         return $(document).data("sandler.appStart.productTypes");
