@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="SandlerDBModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="SandlerDBModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityContainer Name="SandlerDBModelStoreContainer">
           <EntitySet Name="module" EntityType="SandlerDBModel.Store.module" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="pageMenu" EntityType="SandlerDBModel.Store.pageMenu" store:Type="Tables" Schema="dbo" />
@@ -56,212 +56,218 @@
           <EntitySet Name="Tbl_SandlerRole" EntityType="SandlerDBModel.Store.Tbl_SandlerRole" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="TBL_State" EntityType="SandlerDBModel.Store.TBL_State" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="TBL_Trng_Expenditure" EntityType="SandlerDBModel.Store.TBL_Trng_Expenditure" store:Type="Tables" store:Schema="dbo" store:Name="TBL_Trng_Expenditure">
-            <DefiningQuery>SELECT 
-      [TBL_Trng_Expenditure].[Id] AS [Id], 
-      [TBL_Trng_Expenditure].[Range] AS [Range], 
+            <DefiningQuery>SELECT
+      [TBL_Trng_Expenditure].[Id] AS [Id],
+      [TBL_Trng_Expenditure].[Range] AS [Range],
       [TBL_Trng_Expenditure].[Factor] AS [Factor]
       FROM [dbo].[TBL_Trng_Expenditure] AS [TBL_Trng_Expenditure]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="TBL_UserEmailGroup" EntityType="SandlerDBModel.Store.TBL_UserEmailGroup" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Tbl_YesNoOptions" EntityType="SandlerDBModel.Store.Tbl_YesNoOptions" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="vw_Companies" EntityType="SandlerDBModel.Store.vw_Companies" store:Type="Views" store:Schema="dbo" store:Name="vw_Companies">
-            <DefiningQuery>SELECT 
-      [vw_Companies].[RegionID] AS [RegionID], 
-      [vw_Companies].[Region] AS [Region], 
-      [vw_Companies].[CoachID] AS [CoachID], 
-      [vw_Companies].[CoachName] AS [CoachName], 
-      [vw_Companies].[FranchiseeName] AS [FranchiseeName], 
-      [vw_Companies].[COMPANIESID] AS [COMPANIESID], 
-      [vw_Companies].[COMPANYNAME] AS [COMPANYNAME], 
-      [vw_Companies].[CITY] AS [CITY], 
-      [vw_Companies].[STATE] AS [STATE], 
-      [vw_Companies].[POCLastName] AS [POCLastName], 
-      [vw_Companies].[POCFirstName] AS [POCFirstName], 
-      [vw_Companies].[POCPhone] AS [POCPhone], 
-      [vw_Companies].[IsNewCompany] AS [IsNewCompany], 
-      [vw_Companies].[COMPANYVALUEGOAL] AS [COMPANYVALUEGOAL], 
-      [vw_Companies].[IndustryId] AS [IndustryId], 
-      [vw_Companies].[RepLastName] AS [RepLastName], 
-      [vw_Companies].[RepFirstName] AS [RepFirstName], 
-      [vw_Companies].[DiscussionTopic] AS [DiscussionTopic], 
-      [vw_Companies].[ACTIONSTEP] AS [ACTIONSTEP], 
-      [vw_Companies].[LASTCONTACT_DATE] AS [LASTCONTACT_DATE], 
-      [vw_Companies].[NEXTCONTACT_DATE] AS [NEXTCONTACT_DATE], 
-      [vw_Companies].[CreationDate] AS [CreationDate], 
-      [vw_Companies].[FranchiseeId] AS [FranchiseeId], 
-      [vw_Companies].[IsActive] AS [IsActive], 
-      [vw_Companies].[CreatedDate] AS [CreatedDate], 
-      [vw_Companies].[CreatedBy] AS [CreatedBy], 
-      [vw_Companies].[UpdatedDate] AS [UpdatedDate], 
-      [vw_Companies].[UpdatedBy] AS [UpdatedBy], 
-      [vw_Companies].[Address] AS [Address], 
-      [vw_Companies].[Zip] AS [Zip], 
-      [vw_Companies].[CompanyOwnership] AS [CompanyOwnership], 
-      [vw_Companies].[CompanyDescription] AS [CompanyDescription], 
-      [vw_Companies].[BillingAddress] AS [BillingAddress], 
-      [vw_Companies].[BillingState] AS [BillingState], 
-      [vw_Companies].[BillingCity] AS [BillingCity], 
-      [vw_Companies].[BillingZip] AS [BillingZip], 
-      [vw_Companies].[BillingCountry] AS [BillingCountry], 
-      [vw_Companies].[POCDepartment] AS [POCDepartment], 
-      [vw_Companies].[POCEmail] AS [POCEmail], 
-      [vw_Companies].[POCFax] AS [POCFax], 
-      [vw_Companies].[AssistantLastName] AS [AssistantLastName], 
-      [vw_Companies].[AssistantFirstName] AS [AssistantFirstName], 
-      [vw_Companies].[AssistantPhone] AS [AssistantPhone], 
-      [vw_Companies].[Website] AS [Website], 
-      [vw_Companies].[EmpQuantity] AS [EmpQuantity], 
-      [vw_Companies].[Notes] AS [Notes], 
-      [vw_Companies].[IsSameBillingAddress] AS [IsSameBillingAddress], 
+            <DefiningQuery>
+              SELECT
+      [vw_Companies].[RegionID] AS [RegionID],
+      [vw_Companies].[Region] AS [Region],
+      [vw_Companies].[CoachID] AS [CoachID],
+      [vw_Companies].[CoachName] AS [CoachName],
+      [vw_Companies].[FranchiseeName] AS [FranchiseeName],
+      [vw_Companies].[COMPANIESID] AS [COMPANIESID],
+      [vw_Companies].[COMPANYNAME] AS [COMPANYNAME],
+      [vw_Companies].[CITY] AS [CITY],
+      [vw_Companies].[STATE] AS [STATE],
+      [vw_Companies].[POCLastName] AS [POCLastName],
+      [vw_Companies].[POCFirstName] AS [POCFirstName],
+      [vw_Companies].[POCPhone] AS [POCPhone],
+      [vw_Companies].[IsNewCompany] AS [IsNewCompany],
+      [vw_Companies].[COMPANYVALUEGOAL] AS [COMPANYVALUEGOAL],
+      [vw_Companies].[IndustryId] AS [IndustryId],
+      [vw_Companies].[RepLastName] AS [RepLastName],
+      [vw_Companies].[RepFirstName] AS [RepFirstName],
+      [vw_Companies].[DiscussionTopic] AS [DiscussionTopic],
+      [vw_Companies].[ACTIONSTEP] AS [ACTIONSTEP],
+      [vw_Companies].[LASTCONTACT_DATE] AS [LASTCONTACT_DATE],
+      [vw_Companies].[NEXTCONTACT_DATE] AS [NEXTCONTACT_DATE],
+      [vw_Companies].[CreationDate] AS [CreationDate],
+      [vw_Companies].[FranchiseeId] AS [FranchiseeId],
+      [vw_Companies].[IsActive] AS [IsActive],
+      [vw_Companies].[CreatedDate] AS [CreatedDate],
+      [vw_Companies].[CreatedBy] AS [CreatedBy],
+      [vw_Companies].[UpdatedDate] AS [UpdatedDate],
+      [vw_Companies].[UpdatedBy] AS [UpdatedBy],
+      [vw_Companies].[Address] AS [Address],
+      [vw_Companies].[Zip] AS [Zip],
+      [vw_Companies].[CompanyOwnership] AS [CompanyOwnership],
+      [vw_Companies].[CompanyDescription] AS [CompanyDescription],
+      [vw_Companies].[BillingAddress] AS [BillingAddress],
+      [vw_Companies].[BillingState] AS [BillingState],
+      [vw_Companies].[BillingCity] AS [BillingCity],
+      [vw_Companies].[BillingZip] AS [BillingZip],
+      [vw_Companies].[BillingCountry] AS [BillingCountry],
+      [vw_Companies].[POCDepartment] AS [POCDepartment],
+      [vw_Companies].[POCEmail] AS [POCEmail],
+      [vw_Companies].[POCFax] AS [POCFax],
+      [vw_Companies].[AssistantLastName] AS [AssistantLastName],
+      [vw_Companies].[AssistantFirstName] AS [AssistantFirstName],
+      [vw_Companies].[AssistantPhone] AS [AssistantPhone],
+      [vw_Companies].[Website] AS [Website],
+      [vw_Companies].[EmpQuantity] AS [EmpQuantity],
+      [vw_Companies].[Notes] AS [Notes],
+      [vw_Companies].[IsSameBillingAddress] AS [IsSameBillingAddress],
       [vw_Companies].[Country] AS [Country]
-      FROM [dbo].[vw_Companies] AS [vw_Companies]</DefiningQuery>
+              FROM [dbo].[vw_Companies] AS [vw_Companies]
+            </DefiningQuery>
           </EntitySet>
           <EntitySet Name="vw_Contacts" EntityType="SandlerDBModel.Store.vw_Contacts" store:Type="Views" store:Schema="dbo" store:Name="vw_Contacts">
-            <DefiningQuery>SELECT 
-      [vw_Contacts].[RegionID] AS [RegionID], 
-      [vw_Contacts].[Region] AS [Region], 
-      [vw_Contacts].[CoachID] AS [CoachID], 
-      [vw_Contacts].[CoachName] AS [CoachName], 
-      [vw_Contacts].[FranchiseeId] AS [FranchiseeId], 
-      [vw_Contacts].[FranchiseeName] AS [FranchiseeName], 
-      [vw_Contacts].[COMPANYNAME] AS [COMPANYNAME], 
-      [vw_Contacts].[IsNewCompany] AS [IsNewCompany], 
-      [vw_Contacts].[CreationDate] AS [CreationDate], 
-      [vw_Contacts].[IndustryId] AS [IndustryId], 
-      [vw_Contacts].[FullName] AS [FullName], 
-      [vw_Contacts].[ApptSourceName] AS [ApptSourceName], 
-      [vw_Contacts].[CourseName] AS [CourseName], 
-      [vw_Contacts].[NewApptDespDesc] AS [NewApptDespDesc], 
-      [vw_Contacts].[IsRegisteredForTrainingDesc] AS [IsRegisteredForTrainingDesc], 
-      [vw_Contacts].[IsEmailSubscriptionDesc] AS [IsEmailSubscriptionDesc], 
-      [vw_Contacts].[NeedCallBackDesc] AS [NeedCallBackDesc], 
-      [vw_Contacts].[CONTACTSID] AS [CONTACTSID], 
-      [vw_Contacts].[COMPANYID] AS [COMPANYID], 
-      [vw_Contacts].[LASTNAME] AS [LASTNAME], 
-      [vw_Contacts].[FIRSTNAME] AS [FIRSTNAME], 
-      [vw_Contacts].[PHONE] AS [PHONE], 
-      [vw_Contacts].[EMAIL] AS [EMAIL], 
-      [vw_Contacts].[IsNewAppointment] AS [IsNewAppointment], 
-      [vw_Contacts].[ApptSourceId] AS [ApptSourceId], 
-      [vw_Contacts].[IsRegisteredForTraining] AS [IsRegisteredForTraining], 
-      [vw_Contacts].[CourseId] AS [CourseId], 
-      [vw_Contacts].[CourseTrainingDate] AS [CourseTrainingDate], 
-      [vw_Contacts].[DiscussionTopic] AS [DiscussionTopic], 
-      [vw_Contacts].[ACTIONSTEP] AS [ACTIONSTEP], 
-      [vw_Contacts].[LAST_CONTACT_DATE] AS [LAST_CONTACT_DATE], 
-      [vw_Contacts].[NEXT_CONTACT_DATE] AS [NEXT_CONTACT_DATE], 
-      [vw_Contacts].[IsActive] AS [IsActive], 
-      [vw_Contacts].[UpdatedDate] AS [UpdatedDate], 
-      [vw_Contacts].[UpdatedBy] AS [UpdatedBy], 
-      [vw_Contacts].[CreatedDate] AS [CreatedDate], 
-      [vw_Contacts].[CreatedBy] AS [CreatedBy], 
-      [vw_Contacts].[IsEmailSubscription] AS [IsEmailSubscription], 
-      [vw_Contacts].[Birthday] AS [Birthday], 
-      [vw_Contacts].[Anniversary] AS [Anniversary], 
-      [vw_Contacts].[CompanyYears] AS [CompanyYears], 
-      [vw_Contacts].[BossName] AS [BossName], 
-      [vw_Contacts].[IsNeedCallBack] AS [IsNeedCallBack], 
-      [vw_Contacts].[CallBackCreatedDate] AS [CallBackCreatedDate], 
-      [vw_Contacts].[Title] AS [Title], 
-      [vw_Contacts].[ContactsDepartment] AS [ContactsDepartment], 
-      [vw_Contacts].[ContactsRole] AS [ContactsRole], 
-      [vw_Contacts].[MobilePhone] AS [MobilePhone], 
-      [vw_Contacts].[HomePhone] AS [HomePhone], 
-      [vw_Contacts].[Fax] AS [Fax], 
-      [vw_Contacts].[PersonalEmail] AS [PersonalEmail], 
-      [vw_Contacts].[Address] AS [Address], 
-      [vw_Contacts].[City] AS [City], 
-      [vw_Contacts].[State] AS [State], 
-      [vw_Contacts].[Zip] AS [Zip], 
-      [vw_Contacts].[LastAttemptedDate] AS [LastAttemptedDate], 
-      [vw_Contacts].[LastEmailedDate] AS [LastEmailedDate], 
-      [vw_Contacts].[LastMeetingDate] AS [LastMeetingDate], 
-      [vw_Contacts].[LetterSentDate] AS [LetterSentDate], 
-      [vw_Contacts].[SpouseName] AS [SpouseName], 
-      [vw_Contacts].[ReferredBy] AS [ReferredBy], 
-      [vw_Contacts].[Notes] AS [Notes], 
-      [vw_Contacts].[Country] AS [Country], 
-      [vw_Contacts].[TrainingCourseName] AS [TrainingCourseName], 
-      [vw_Contacts].[HowManyAttended] AS [HowManyAttended], 
-      [vw_Contacts].[CompanyNameWhereTrainingConducted] AS [CompanyNameWhereTrainingConducted], 
-      [vw_Contacts].[StartTime] AS [StartTime]
-      FROM [dbo].[vw_Contacts] AS [vw_Contacts]</DefiningQuery>
+            <DefiningQuery>
+              SELECT
+              [vw_Contacts].[RegionID] AS [RegionID],
+              [vw_Contacts].[Region] AS [Region],
+              [vw_Contacts].[CoachID] AS [CoachID],
+              [vw_Contacts].[CoachName] AS [CoachName],
+              [vw_Contacts].[FranchiseeId] AS [FranchiseeId],
+              [vw_Contacts].[FranchiseeName] AS [FranchiseeName],
+              [vw_Contacts].[COMPANYNAME] AS [COMPANYNAME],
+              [vw_Contacts].[IsNewCompany] AS [IsNewCompany],
+              [vw_Contacts].[CreationDate] AS [CreationDate],
+              [vw_Contacts].[IndustryId] AS [IndustryId],
+              [vw_Contacts].[FullName] AS [FullName],
+              [vw_Contacts].[ApptSourceName] AS [ApptSourceName],
+              [vw_Contacts].[CourseName] AS [CourseName],
+              [vw_Contacts].[NewApptDespDesc] AS [NewApptDespDesc],
+              [vw_Contacts].[IsRegisteredForTrainingDesc] AS [IsRegisteredForTrainingDesc],
+              [vw_Contacts].[IsEmailSubscriptionDesc] AS [IsEmailSubscriptionDesc],
+              [vw_Contacts].[NeedCallBackDesc] AS [NeedCallBackDesc],
+              [vw_Contacts].[CONTACTSID] AS [CONTACTSID],
+              [vw_Contacts].[COMPANYID] AS [COMPANYID],
+              [vw_Contacts].[LASTNAME] AS [LASTNAME],
+              [vw_Contacts].[FIRSTNAME] AS [FIRSTNAME],
+              [vw_Contacts].[PHONE] AS [PHONE],
+              [vw_Contacts].[EMAIL] AS [EMAIL],
+              [vw_Contacts].[IsNewAppointment] AS [IsNewAppointment],
+              [vw_Contacts].[ApptSourceId] AS [ApptSourceId],
+              [vw_Contacts].[IsRegisteredForTraining] AS [IsRegisteredForTraining],
+              [vw_Contacts].[CourseId] AS [CourseId],
+              [vw_Contacts].[CourseTrainingDate] AS [CourseTrainingDate],
+              [vw_Contacts].[DiscussionTopic] AS [DiscussionTopic],
+              [vw_Contacts].[ACTIONSTEP] AS [ACTIONSTEP],
+              [vw_Contacts].[LAST_CONTACT_DATE] AS [LAST_CONTACT_DATE],
+              [vw_Contacts].[NEXT_CONTACT_DATE] AS [NEXT_CONTACT_DATE],
+              [vw_Contacts].[IsActive] AS [IsActive],
+              [vw_Contacts].[UpdatedDate] AS [UpdatedDate],
+              [vw_Contacts].[UpdatedBy] AS [UpdatedBy],
+              [vw_Contacts].[CreatedDate] AS [CreatedDate],
+              [vw_Contacts].[CreatedBy] AS [CreatedBy],
+              [vw_Contacts].[IsEmailSubscription] AS [IsEmailSubscription],
+              [vw_Contacts].[Birthday] AS [Birthday],
+              [vw_Contacts].[Anniversary] AS [Anniversary],
+              [vw_Contacts].[CompanyYears] AS [CompanyYears],
+              [vw_Contacts].[BossName] AS [BossName],
+              [vw_Contacts].[IsNeedCallBack] AS [IsNeedCallBack],
+              [vw_Contacts].[CallBackCreatedDate] AS [CallBackCreatedDate],
+              [vw_Contacts].[Title] AS [Title],
+              [vw_Contacts].[ContactsDepartment] AS [ContactsDepartment],
+              [vw_Contacts].[ContactsRole] AS [ContactsRole],
+              [vw_Contacts].[MobilePhone] AS [MobilePhone],
+              [vw_Contacts].[HomePhone] AS [HomePhone],
+              [vw_Contacts].[Fax] AS [Fax],
+              [vw_Contacts].[PersonalEmail] AS [PersonalEmail],
+              [vw_Contacts].[Address] AS [Address],
+              [vw_Contacts].[City] AS [City],
+              [vw_Contacts].[State] AS [State],
+              [vw_Contacts].[Zip] AS [Zip],
+              [vw_Contacts].[LastAttemptedDate] AS [LastAttemptedDate],
+              [vw_Contacts].[LastEmailedDate] AS [LastEmailedDate],
+              [vw_Contacts].[LastMeetingDate] AS [LastMeetingDate],
+              [vw_Contacts].[LetterSentDate] AS [LetterSentDate],
+              [vw_Contacts].[SpouseName] AS [SpouseName],
+              [vw_Contacts].[ReferredBy] AS [ReferredBy],
+              [vw_Contacts].[Notes] AS [Notes],
+              [vw_Contacts].[Country] AS [Country],
+              [vw_Contacts].[TrainingCourseName] AS [TrainingCourseName],
+              [vw_Contacts].[HowManyAttended] AS [HowManyAttended],
+              [vw_Contacts].[CompanyNameWhereTrainingConducted] AS [CompanyNameWhereTrainingConducted],
+              [vw_Contacts].[StartTime] AS [StartTime]
+              FROM [dbo].[vw_Contacts] AS [vw_Contacts]
+            </DefiningQuery>
           </EntitySet>
           <EntitySet Name="vw_Opportunities" EntityType="SandlerDBModel.Store.vw_Opportunities" store:Type="Views" store:Schema="dbo" store:Name="vw_Opportunities">
-            <DefiningQuery>SELECT 
-      [vw_Opportunities].[RegionID] AS [RegionID], 
-      [vw_Opportunities].[Region] AS [Region], 
-      [vw_Opportunities].[CoachID] AS [CoachID], 
-      [vw_Opportunities].[CoachName] AS [CoachName], 
-      [vw_Opportunities].[FranchiseeId] AS [FranchiseeId], 
-      [vw_Opportunities].[FranchiseeName] AS [FranchiseeName], 
-      [vw_Opportunities].[ContactName] AS [ContactName], 
-      [vw_Opportunities].[IsNewAppointment] AS [IsNewAppointment], 
-      [vw_Opportunities].[IsRegisteredForTraining] AS [IsRegisteredForTraining], 
-      [vw_Opportunities].[ApptSourceId] AS [ApptSourceId], 
-      [vw_Opportunities].[CourseId] AS [CourseId], 
-      [vw_Opportunities].[CourseTrainingDate] AS [CourseTrainingDate], 
-      [vw_Opportunities].[CourseName] AS [CourseName], 
-      [vw_Opportunities].[HowManyAttended] AS [HowManyAttended], 
-      [vw_Opportunities].[PrimaryContactFirstName] AS [PrimaryContactFirstName], 
-      [vw_Opportunities].[PrimaryContactLastName] AS [PrimaryContactLastName], 
-      [vw_Opportunities].[PrimaryContactEmail] AS [PrimaryContactEmail], 
-      [vw_Opportunities].[PrimaryContactPhone] AS [PrimaryContactPhone], 
-      [vw_Opportunities].[ActionStep] AS [ActionStep], 
-      [vw_Opportunities].[NEXT_CONTACT_DATE] AS [NEXT_CONTACT_DATE], 
-      [vw_Opportunities].[SeconadryContact1FirstName] AS [SeconadryContact1FirstName], 
-      [vw_Opportunities].[SeconadryContact1LastName] AS [SeconadryContact1LastName], 
-      [vw_Opportunities].[SeconadryContact1Email] AS [SeconadryContact1Email], 
-      [vw_Opportunities].[SeconadryContact2FirstName] AS [SeconadryContact2FirstName], 
-      [vw_Opportunities].[SeconadryContact2LastName] AS [SeconadryContact2LastName], 
-      [vw_Opportunities].[SeconadryContact2Email] AS [SeconadryContact2Email], 
-      [vw_Opportunities].[COMPANYNAME] AS [COMPANYNAME], 
-      [vw_Opportunities].[IsNewCompany] AS [IsNewCompany], 
-      [vw_Opportunities].[CreationDate] AS [CreationDate], 
-      [vw_Opportunities].[IndustryId] AS [IndustryId], 
-      [vw_Opportunities].[WhyLost] AS [WhyLost], 
-      [vw_Opportunities].[Type] AS [Type], 
-      [vw_Opportunities].[Status] AS [Status], 
-      [vw_Opportunities].[ProductTypeName] AS [ProductTypeName], 
-      [vw_Opportunities].[Source] AS [Source], 
-      [vw_Opportunities].[ID] AS [ID], 
-      [vw_Opportunities].[COMPANYID] AS [COMPANYID], 
-      [vw_Opportunities].[CONTACTID] AS [CONTACTID], 
-      [vw_Opportunities].[NAME] AS [NAME], 
-      [vw_Opportunities].[ProductID] AS [ProductID], 
-      [vw_Opportunities].[SALESREPLASTNAME] AS [SALESREPLASTNAME], 
-      [vw_Opportunities].[SALESREPFIRSTNAME] AS [SALESREPFIRSTNAME], 
-      [vw_Opportunities].[SALESREPPHONE] AS [SALESREPPHONE], 
-      [vw_Opportunities].[STATUSID] AS [STATUSID], 
-      [vw_Opportunities].[VALUE] AS [VALUE], 
-      [vw_Opportunities].[WINPROBABILITY] AS [WINPROBABILITY], 
-      [vw_Opportunities].[WEIGHTEDVALUE] AS [WEIGHTEDVALUE], 
-      [vw_Opportunities].[CLOSEDATE] AS [CLOSEDATE], 
-      [vw_Opportunities].[IsActive] AS [IsActive], 
-      [vw_Opportunities].[UpdatedDate] AS [UpdatedDate], 
-      [vw_Opportunities].[CreatedDate] AS [CreatedDate], 
-      [vw_Opportunities].[OpportunityID] AS [OpportunityID], 
-      [vw_Opportunities].[SourceID] AS [SourceID], 
-      [vw_Opportunities].[TypeID] AS [TypeID], 
-      [vw_Opportunities].[WhyLostID] AS [WhyLostID], 
-      [vw_Opportunities].[Description] AS [Description], 
-      [vw_Opportunities].[Notes] AS [Notes], 
-      [vw_Opportunities].[ActualValue] AS [ActualValue], 
-      [vw_Opportunities].[SeconadryContactId1] AS [SeconadryContactId1], 
-      [vw_Opportunities].[SeconadryContactId2] AS [SeconadryContactId2], 
-      [vw_Opportunities].[ProductCost] AS [ProductCost], 
-      [vw_Opportunities].[OppCreationDate] AS [OppCreationDate], 
-      [vw_Opportunities].[Pain] AS [Pain], 
-      [vw_Opportunities].[LengthofProblem] AS [LengthofProblem], 
-      [vw_Opportunities].[CostToFix] AS [CostToFix], 
-      [vw_Opportunities].[Alternatives] AS [Alternatives], 
-      [vw_Opportunities].[IsBudgeIdentified] AS [IsBudgeIdentified], 
-      [vw_Opportunities].[IsMoveForward] AS [IsMoveForward], 
-      [vw_Opportunities].[CreatedBy] AS [CreatedBy], 
-      [vw_Opportunities].[UpdatedBy] AS [UpdatedBy], 
-      [vw_Opportunities].[CreatedByUserName] AS [CreatedByUserName], 
-      [vw_Opportunities].[UpdatedByUserName] AS [UpdatedByUserName]
-      FROM [dbo].[vw_Opportunities] AS [vw_Opportunities]</DefiningQuery>
+            <DefiningQuery>
+              SELECT
+              [vw_Opportunities].[RegionID] AS [RegionID],
+              [vw_Opportunities].[Region] AS [Region],
+              [vw_Opportunities].[CoachID] AS [CoachID],
+              [vw_Opportunities].[CoachName] AS [CoachName],
+              [vw_Opportunities].[FranchiseeId] AS [FranchiseeId],
+              [vw_Opportunities].[FranchiseeName] AS [FranchiseeName],
+              [vw_Opportunities].[ContactName] AS [ContactName],
+              [vw_Opportunities].[IsNewAppointment] AS [IsNewAppointment],
+              [vw_Opportunities].[IsRegisteredForTraining] AS [IsRegisteredForTraining],
+              [vw_Opportunities].[ApptSourceId] AS [ApptSourceId],
+              [vw_Opportunities].[CourseId] AS [CourseId],
+              [vw_Opportunities].[CourseTrainingDate] AS [CourseTrainingDate],
+              [vw_Opportunities].[CourseName] AS [CourseName],
+              [vw_Opportunities].[HowManyAttended] AS [HowManyAttended],
+              [vw_Opportunities].[PrimaryContactFirstName] AS [PrimaryContactFirstName],
+              [vw_Opportunities].[PrimaryContactLastName] AS [PrimaryContactLastName],
+              [vw_Opportunities].[PrimaryContactEmail] AS [PrimaryContactEmail],
+              [vw_Opportunities].[PrimaryContactPhone] AS [PrimaryContactPhone],
+              [vw_Opportunities].[ActionStep] AS [ActionStep],
+              [vw_Opportunities].[NEXT_CONTACT_DATE] AS [NEXT_CONTACT_DATE],
+              [vw_Opportunities].[SeconadryContact1FirstName] AS [SeconadryContact1FirstName],
+              [vw_Opportunities].[SeconadryContact1LastName] AS [SeconadryContact1LastName],
+              [vw_Opportunities].[SeconadryContact1Email] AS [SeconadryContact1Email],
+              [vw_Opportunities].[SeconadryContact2FirstName] AS [SeconadryContact2FirstName],
+              [vw_Opportunities].[SeconadryContact2LastName] AS [SeconadryContact2LastName],
+              [vw_Opportunities].[SeconadryContact2Email] AS [SeconadryContact2Email],
+              [vw_Opportunities].[COMPANYNAME] AS [COMPANYNAME],
+              [vw_Opportunities].[IsNewCompany] AS [IsNewCompany],
+              [vw_Opportunities].[CreationDate] AS [CreationDate],
+              [vw_Opportunities].[IndustryId] AS [IndustryId],
+              [vw_Opportunities].[WhyLost] AS [WhyLost],
+              [vw_Opportunities].[Type] AS [Type],
+              [vw_Opportunities].[Status] AS [Status],
+              [vw_Opportunities].[ProductTypeName] AS [ProductTypeName],
+              [vw_Opportunities].[Source] AS [Source],
+              [vw_Opportunities].[ID] AS [ID],
+              [vw_Opportunities].[COMPANYID] AS [COMPANYID],
+              [vw_Opportunities].[CONTACTID] AS [CONTACTID],
+              [vw_Opportunities].[NAME] AS [NAME],
+              [vw_Opportunities].[ProductID] AS [ProductID],
+              [vw_Opportunities].[SALESREPLASTNAME] AS [SALESREPLASTNAME],
+              [vw_Opportunities].[SALESREPFIRSTNAME] AS [SALESREPFIRSTNAME],
+              [vw_Opportunities].[SALESREPPHONE] AS [SALESREPPHONE],
+              [vw_Opportunities].[STATUSID] AS [STATUSID],
+              [vw_Opportunities].[VALUE] AS [VALUE],
+              [vw_Opportunities].[WINPROBABILITY] AS [WINPROBABILITY],
+              [vw_Opportunities].[WEIGHTEDVALUE] AS [WEIGHTEDVALUE],
+              [vw_Opportunities].[CLOSEDATE] AS [CLOSEDATE],
+              [vw_Opportunities].[IsActive] AS [IsActive],
+              [vw_Opportunities].[UpdatedDate] AS [UpdatedDate],
+              [vw_Opportunities].[CreatedDate] AS [CreatedDate],
+              [vw_Opportunities].[OpportunityID] AS [OpportunityID],
+              [vw_Opportunities].[SourceID] AS [SourceID],
+              [vw_Opportunities].[TypeID] AS [TypeID],
+              [vw_Opportunities].[WhyLostID] AS [WhyLostID],
+              [vw_Opportunities].[Description] AS [Description],
+              [vw_Opportunities].[Notes] AS [Notes],
+              [vw_Opportunities].[ActualValue] AS [ActualValue],
+              [vw_Opportunities].[SeconadryContactId1] AS [SeconadryContactId1],
+              [vw_Opportunities].[SeconadryContactId2] AS [SeconadryContactId2],
+              [vw_Opportunities].[ProductCost] AS [ProductCost],
+              [vw_Opportunities].[OppCreationDate] AS [OppCreationDate],
+              [vw_Opportunities].[Pain] AS [Pain],
+              [vw_Opportunities].[LengthofProblem] AS [LengthofProblem],
+              [vw_Opportunities].[CostToFix] AS [CostToFix],
+              [vw_Opportunities].[Alternatives] AS [Alternatives],
+              [vw_Opportunities].[IsBudgeIdentified] AS [IsBudgeIdentified],
+              [vw_Opportunities].[IsMoveForward] AS [IsMoveForward],
+              [vw_Opportunities].[CreatedBy] AS [CreatedBy],
+              [vw_Opportunities].[UpdatedBy] AS [UpdatedBy],
+              [vw_Opportunities].[CreatedByUserName] AS [CreatedByUserName],
+              [vw_Opportunities].[UpdatedByUserName] AS [UpdatedByUserName]
+              FROM [dbo].[vw_Opportunities] AS [vw_Opportunities]
+            </DefiningQuery>
           </EntitySet>
           <AssociationSet Name="FK_TBL_COACH_TBL_REGION" Association="SandlerDBModel.Store.FK_TBL_COACH_TBL_REGION">
             <End Role="TBL_REGION" EntitySet="TBL_REGION" />
@@ -1141,6 +1147,7 @@
           <Property Name="ActivityDate" Type="date" />
           <Property Name="CallsMade" Type="int" />
           <Property Name="MeetingsHeld" Type="int" />
+          <Property Name="IsActive" Type="bit" />
         </EntityType>
         <EntityType Name="TBL_PerformanceGoals">
           <Key>
@@ -1153,6 +1160,7 @@
           <Property Name="CallsGoal" Type="int" />
           <Property Name="MeetingsGoal" Type="int" />
           <Property Name="SalesGoal" Type="money" />
+          <Property Name="IsActive" Type="bit" />
         </EntityType>
         <EntityType Name="Tbl_PrimaryBusiness">
           <Key>
@@ -2036,7 +2044,8 @@
           <Parameter Name="searchNewCompany" Type="bit" Mode="In" />
           <Parameter Name="companyIds" Type="varchar" Mode="In" />
         </Function>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="SandlerDBModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -2214,15 +2223,15 @@
             <End Role="TBL_OpportunitiesHistory" EntitySet="TBL_OpportunitiesHistory" />
           </AssociationSet>
           <FunctionImport Name="GetCompaniesByUser">
-          <Parameter Name="userId" Mode="In" Type="Guid" />
+            <Parameter Name="userId" Mode="In" Type="Guid" />
           </FunctionImport>
           <EntitySet Name="vw_Contacts" EntityType="SandlerDBModel.vw_Contacts" />
           <FunctionImport Name="GetContactsByUser" EntitySet="vw_Contacts" ReturnType="Collection(SandlerDBModel.vw_Contacts)">
-          <Parameter Name="userId" Mode="In" Type="Guid" />
+            <Parameter Name="userId" Mode="In" Type="Guid" />
           </FunctionImport>
           <EntitySet Name="vw_Opportunities" EntityType="SandlerDBModel.vw_Opportunities" />
           <FunctionImport Name="GetOpportunitiesByUser" EntitySet="vw_Opportunities" ReturnType="Collection(SandlerDBModel.vw_Opportunities)">
-          <Parameter Name="userId" Mode="In" Type="Guid" />
+            <Parameter Name="userId" Mode="In" Type="Guid" />
           </FunctionImport>
           <FunctionImport Name="GetNewAppointmentsWithAppointmentSource" ReturnType="Collection(SandlerDBModel.GetNewAppointmentsWithAppointmentSource)">
             <Parameter Name="month" Mode="In" Type="Int32" />
@@ -2230,7 +2239,7 @@
             <Parameter Name="userId" Mode="In" Type="Guid" />
           </FunctionImport>
           <FunctionImport Name="ClientsAvgLengthWithIndustries" ReturnType="Collection(SandlerDBModel.ClientsAvgLengthWithIndustries)">
-          <Parameter Name="userId" Mode="In" Type="Guid" />
+            <Parameter Name="userId" Mode="In" Type="Guid" />
           </FunctionImport>
           <FunctionImport Name="GetBenchMarkCountryAll" ReturnType="Collection(SandlerDBModel.GetBenchMarkCountry)">
             <Parameter Name="month" Mode="In" Type="Int32" />
@@ -2265,7 +2274,7 @@
             <Parameter Name="userId" Mode="In" Type="Guid" />
           </FunctionImport>
           <FunctionImport Name="GetSalesCyclePortfolioData" ReturnType="Collection(SandlerDBModel.GetSalesCyclePortfolio)">
-          <Parameter Name="userId" Mode="In" Type="Guid" />
+            <Parameter Name="userId" Mode="In" Type="Guid" />
           </FunctionImport>
           <FunctionImport Name="PipelineOpportunityAnalysis">
             <Parameter Name="month" Mode="In" Type="Int32" />
@@ -2313,11 +2322,11 @@
           <EntitySet Name="pageMenuGroups" EntityType="SandlerDBModel.pageMenuGroup" />
           <EntitySet Name="Tbl_ModulesForRoles" EntityType="SandlerDBModel.Tbl_ModulesForRoles" />
           <FunctionImport Name="GetMenuForARole" EntitySet="modules" ReturnType="Collection(SandlerDBModel.module)">
-          <Parameter Name="roleName" Mode="In" Type="String" />
+            <Parameter Name="roleName" Mode="In" Type="String" />
             <Parameter Name="userId" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="GetMenuDetail" ReturnType="Collection(SandlerDBModel.MenuDetail)">
-          <Parameter Name="appId" Mode="In" Type="Int32" />
+            <Parameter Name="appId" Mode="In" Type="Int32" />
           </FunctionImport>
           <EntitySet Name="vw_Companies" EntityType="SandlerDBModel.vw_Companies" />
           <EntitySet Name="Tbl_ModulesForUserIds" EntityType="SandlerDBModel.Tbl_ModulesForUserIds" />
@@ -3970,6 +3979,7 @@
           <Property Type="DateTime" Name="ActivityDate" Precision="0" />
           <Property Type="Int32" Name="CallsMade" />
           <Property Type="Int32" Name="MeetingsHeld" />
+          <Property Type="Boolean" Name="IsActive" />
         </EntityType>
         <EntityType Name="TBL_PerformanceGoals">
           <Key>
@@ -3982,6 +3992,7 @@
           <Property Type="Int32" Name="CallsGoal" />
           <Property Type="Int32" Name="MeetingsGoal" />
           <Property Type="Decimal" Name="SalesGoal" Precision="19" Scale="4" />
+          <Property Type="Boolean" Name="IsActive" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -4887,7 +4898,7 @@
           <FunctionImportMapping FunctionImportName="GetOpportunitiesByUser" FunctionName="SandlerDBModel.Store.sp_GetOpportunitiesByUser">
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="GetNewAppointmentsWithAppointmentSource" FunctionName="SandlerDBModel.Store.sp_GetNewAppointmentsWithAppointmentSource">
-          <ResultMapping>
+            <ResultMapping>
               <ComplexTypeMapping TypeName="SandlerDBModel.GetNewAppointmentsWithAppointmentSource">
                 <ScalarProperty Name="ContactsCount" ColumnName="ContactsCount" />
                 <ScalarProperty Name="ApptSourceName" ColumnName="ApptSourceName" />
@@ -4903,7 +4914,7 @@
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="GetBenchMarkCountryAll" FunctionName="SandlerDBModel.Store.sp_GetBenchMarkCountryAll">
-          <ResultMapping>
+            <ResultMapping>
               <ComplexTypeMapping TypeName="SandlerDBModel.GetBenchMarkCountry">
                 <ScalarProperty Name="TotalValue" ColumnName="TotalValue" />
                 <ScalarProperty Name="TotalQty" ColumnName="TotalQty" />
@@ -4912,7 +4923,7 @@
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="GetBenchMarkFranchiseeRegions" FunctionName="SandlerDBModel.Store.sp_GetBenchMarkFranchiseeRegions">
-          <ResultMapping>
+            <ResultMapping>
               <ComplexTypeMapping TypeName="SandlerDBModel.GetBenchMarkFranchiseeRegion">
                 <ScalarProperty Name="TotalValue" ColumnName="TotalValue" />
                 <ScalarProperty Name="TotalQty" ColumnName="TotalQty" />
@@ -4921,7 +4932,7 @@
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="GetBenchMarkRegionCountry" FunctionName="SandlerDBModel.Store.sp_GetBenchMarkRegionCountry">
-          <ResultMapping>
+            <ResultMapping>
               <ComplexTypeMapping TypeName="SandlerDBModel.GetBenchMarkRegionCountry">
                 <ScalarProperty Name="TotalValue" ColumnName="TotalValue" />
                 <ScalarProperty Name="TotalQty" ColumnName="TotalQty" />
@@ -4930,7 +4941,7 @@
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="GetBenchMarkSalesFranchisee" FunctionName="SandlerDBModel.Store.sp_GetBenchMarkSalesFranchisee">
-          <ResultMapping>
+            <ResultMapping>
               <ComplexTypeMapping TypeName="SandlerDBModel.GetBenchMarkSalesFranchisee">
                 <ScalarProperty Name="TotalValue" ColumnName="TotalValue" />
                 <ScalarProperty Name="TotalQty" ColumnName="TotalQty" />
@@ -4941,7 +4952,7 @@
           <FunctionImportMapping FunctionImportName="GetClosedSalesAnalysis" FunctionName="SandlerDBModel.Store.sp_GetClosedSalesAnalysis" >
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="GetNewClientsWithProducts" FunctionName="SandlerDBModel.Store.sp_GetNewClientsWithProducts">
-          <ResultMapping>
+            <ResultMapping>
               <ComplexTypeMapping TypeName="SandlerDBModel.GetNewClientsWithProducts">
                 <ScalarProperty Name="CompaniesCount" ColumnName="CompaniesCount" />
                 <ScalarProperty Name="ProductTypeName" ColumnName="ProductTypeName" />
@@ -4950,7 +4961,7 @@
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="GetSalesCyclePortfolioData" FunctionName="SandlerDBModel.Store.sp_GetSalesCyclePortfolioData">
-          <ResultMapping>
+            <ResultMapping>
               <ComplexTypeMapping TypeName="SandlerDBModel.GetSalesCyclePortfolio">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="OppCreationDate" ColumnName="OppCreationDate" />
@@ -5145,6 +5156,7 @@
           <EntitySetMapping Name="TBL_PerformanceActuals">
             <EntityTypeMapping TypeName="SandlerDBModel.TBL_PerformanceActuals">
               <MappingFragment StoreEntitySet="TBL_PerformanceActuals">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
                 <ScalarProperty Name="MeetingsHeld" ColumnName="MeetingsHeld" />
                 <ScalarProperty Name="CallsMade" ColumnName="CallsMade" />
                 <ScalarProperty Name="ActivityDate" ColumnName="ActivityDate" />
@@ -5156,6 +5168,7 @@
           <EntitySetMapping Name="TBL_PerformanceGoals">
             <EntityTypeMapping TypeName="SandlerDBModel.TBL_PerformanceGoals">
               <MappingFragment StoreEntitySet="TBL_PerformanceGoals">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
                 <ScalarProperty Name="SalesGoal" ColumnName="SalesGoal" />
                 <ScalarProperty Name="MeetingsGoal" ColumnName="MeetingsGoal" />
                 <ScalarProperty Name="CallsGoal" ColumnName="CallsGoal" />
@@ -5166,7 +5179,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          </EntityContainerMapping>
+        </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
   </edmx:Runtime>

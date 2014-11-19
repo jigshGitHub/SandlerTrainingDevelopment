@@ -21,5 +21,6 @@ namespace Sandler.DB.Models
         public Nullable<int> CallsGoal { get; set; }
         public Nullable<int> MeetingsGoal { get; set; }
         public Nullable<decimal> SalesGoal { get; set; }
+        public Nullable<bool> IsActive { get; set; }
     }
 }

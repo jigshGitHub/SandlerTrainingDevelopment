@@ -19,5 +19,6 @@ namespace Sandler.DB.Models
         public Nullable<System.DateTime> ActivityDate { get; set; }
         public Nullable<int> CallsMade { get; set; }
         public Nullable<int> MeetingsHeld { get; set; }
+        public Nullable<bool> IsActive { get; set; }
     }
 }
