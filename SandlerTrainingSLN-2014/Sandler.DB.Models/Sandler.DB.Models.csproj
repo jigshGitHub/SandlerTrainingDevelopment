@@ -116,6 +116,33 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>SandlerEDM.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Tbl_ACE.cs">
+      <DependentUpon>SandlerEDM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Tbl_AceCallToActionType.cs">
+      <DependentUpon>SandlerEDM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Tbl_AceCampaignType.cs">
+      <DependentUpon>SandlerEDM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TBL_ACEEmails.cs">
+      <DependentUpon>SandlerEDM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Tbl_ACEGroups.cs">
+      <DependentUpon>SandlerEDM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Tbl_ACE_Campaign.cs">
+      <DependentUpon>SandlerEDM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Tbl_ACE_CampaignType.cs">
+      <DependentUpon>SandlerEDM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Tbl_ACE_Documents.cs">
+      <DependentUpon>SandlerEDM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Tbl_ACE_Messages.cs">
+      <DependentUpon>SandlerEDM.tt</DependentUpon>
+    </Compile>
     <Compile Include="Tbl_AppointmentsSource.cs">
       <DependentUpon>SandlerEDM.tt</DependentUpon>
     </Compile>

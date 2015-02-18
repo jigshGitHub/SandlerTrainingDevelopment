@@ -98,6 +98,18 @@
         <EntityTypeShape EntityType="SandlerDBModel.Tbl_ModulesForRoles" Width="1.5" PointX="4.614406839299205" PointY="12.790893188114694" />
         <EntityTypeShape EntityType="SandlerDBModel.vw_Companies" Width="1.5" PointX="6.5012650091672626" PointY="20.986581201193193" />
         <EntityTypeShape EntityType="SandlerDBModel.Tbl_ModulesForUserIds" Width="1.5" PointX="4.2121842560415086" PointY="11.142766287151149" />
+        <EntityTypeShape EntityType="SandlerDBModel.Tbl_ACE" Width="1.5" PointX="9.1109918584632652" PointY="14.139646119503139" />
+        <EntityTypeShape EntityType="SandlerDBModel.Tbl_ACE_Campaign" Width="1.5" PointX="0.050047198333799468" PointY="25.202734809928916" />
+        <EntityTypeShape EntityType="SandlerDBModel.Tbl_ACE_CampaignType" Width="1.5" PointX="10.754364368857054" PointY="19.527728730592749" />
+        <EntityTypeShape EntityType="SandlerDBModel.Tbl_ACE_Documents" Width="1.5" PointX="6.5878302709142824" PointY="2.0691468725302942" />
+        <EntityTypeShape EntityType="SandlerDBModel.Tbl_ACE_Messages" Width="1.5" PointX="2.5435838320029824" PointY="17.255551837969364" />
+        <EntityTypeShape EntityType="SandlerDBModel.Tbl_AceCallToActionType" Width="1.5" PointX="2.4250886321184639" PointY="20.85002280252521" />
+        <EntityTypeShape EntityType="SandlerDBModel.Tbl_AceCampaignType" Width="1.5" PointX="11.108587296264521" PointY="9.6285844937100009" />
+        <EntityTypeShape EntityType="SandlerDBModel.TBL_ACEEmails" Width="1.5" PointX="7.1752438299242609" PointY="22.36650272755255" />
+        <EntityTypeShape EntityType="SandlerDBModel.Tbl_ACEGroups" Width="1.5" PointX="4.5204118306377961" PointY="0.59233148423597748" />
+        <AssociationConnector Association="SandlerDBModel.Ace_fk" />
+        <AssociationConnector Association="SandlerDBModel.FK_Tbl_ACE_Campaign_Tbl_ACE_Campaign" />
+        <AssociationConnector Association="SandlerDBModel.FK_Tbl_ACE_Campaign_Tbl_ACE_Campaign1" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
