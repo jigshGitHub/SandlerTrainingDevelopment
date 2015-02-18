@@ -79,11 +79,24 @@ namespace Sandler.Web.Controllers
         //[ValidateAntiForgeryToken]
         public ActionResult LogOn(LogOnModel model, string returnUrl)
         {
+            bool userValid = false;
              if (ModelState.IsValid)
             {
                 MembershipUser loggedInUser = Membership.GetUser(model.UserName);
                     
                 if (Membership.ValidateUser(model.UserName, model.Password))
+                {
+                    userValid = true;                    
+                }
+                else if (loggedInUser != null && LDAPValidation(System.Configuration.ConfigurationManager.AppSettings["ldapDomainAddress"], model.UserName, model.Password))
+                {
+                    userValid = true;
+                }
+                else
+                {
+                    ModelState.AddModelError("", "The user name or password provided is incorrect.");
+                }
+                if (userValid)
                 {
                     FormsAuthentication.SetAuthCookie(model.UserName, model.RememberMe);
                     if (Url.IsLocalUrl(returnUrl))
@@ -94,14 +107,6 @@ namespace Sandler.Web.Controllers
                     {
                         return RedirectToAction("Index", "Home");
                     }
-                }
-                else if (loggedInUser != null && LDAPValidation(System.Configuration.ConfigurationManager.AppSettings["ldapDomainAddress"], model.UserName, model.Password))
-                {
-                    //Process anything after LDAP validation
-                }
-                else
-                {
-                    ModelState.AddModelError("", "The user name or password provided is incorrect.");
                 }
             }
 

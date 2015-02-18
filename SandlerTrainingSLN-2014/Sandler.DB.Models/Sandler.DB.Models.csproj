@@ -131,6 +131,9 @@
     <Compile Include="Tbl_ACEGroups.cs">
       <DependentUpon>SandlerEDM.tt</DependentUpon>
     </Compile>
+    <Compile Include="Tbl_AceMainInfo.cs">
+      <DependentUpon>SandlerEDM.tt</DependentUpon>
+    </Compile>
     <Compile Include="Tbl_ACE_Campaign.cs">
       <DependentUpon>SandlerEDM.tt</DependentUpon>
     </Compile>

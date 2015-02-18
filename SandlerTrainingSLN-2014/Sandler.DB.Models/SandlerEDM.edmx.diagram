@@ -110,6 +110,7 @@
         <AssociationConnector Association="SandlerDBModel.Ace_fk" />
         <AssociationConnector Association="SandlerDBModel.FK_Tbl_ACE_Campaign_Tbl_ACE_Campaign" />
         <AssociationConnector Association="SandlerDBModel.FK_Tbl_ACE_Campaign_Tbl_ACE_Campaign1" />
+        <EntityTypeShape EntityType="SandlerDBModel.Tbl_AceMainInfo" Width="1.5" PointX="5.3061463149758739" PointY="6.3434232800935506" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

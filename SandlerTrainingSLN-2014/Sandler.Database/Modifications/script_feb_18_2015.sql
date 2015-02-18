@@ -1,10 +1,18 @@
 USE [SandlerDBV2014]
 GO
 
-ALTER TABLE [dbo].[Tbl_ACE_CampaignType] DROP CONSTRAINT [FK_Tbl_ACE_CampaignType_Tbl_ACE_CampaignType1]
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[FK_Tbl_ACE_CampaignType_Tbl_ACE_CampaignType1]') AND type = 'F')
+BEGIN
+	ALTER TABLE [dbo].[Tbl_ACE_CampaignType] DROP CONSTRAINT [FK_Tbl_ACE_CampaignType_Tbl_ACE_CampaignType1]
+END
+
+
 GO
 
-ALTER TABLE [dbo].[Tbl_ACE_CampaignType] DROP CONSTRAINT [PK_Tbl_ACE_CampaignType]
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[PK_Tbl_ACE_CampaignType]') AND type = 'PK')
+BEGIN
+	ALTER TABLE [dbo].[Tbl_ACE_CampaignType] DROP CONSTRAINT [PK_Tbl_ACE_CampaignType]
+END
 GO
 
 
@@ -30,7 +38,7 @@ DROP TABLE [dbo].[Tbl_AceMainInfo]
 GO
 
 CREATE TABLE [dbo].[Tbl_AceMainInfo](
-	[AceId] [int] NULL,
+	[AceId] [int] NOT NULL,
 	[CampaignName] [varchar](150) NULL,
 	[CampaignTypeId] [smallint] NULL,
 	[EventDate] [datetime] NULL,
@@ -49,8 +57,12 @@ CREATE TABLE [dbo].[Tbl_AceMainInfo](
 	[CreatedDate] [datetime] NULL,
 	[CreatedBy] [varchar](150) NULL,
 	[UpdatedDate] [datetime] NULL,
-	[UpdatedBy] [varchar](150) NULL
-) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+	[UpdatedBy] [varchar](150) NULL,
+ CONSTRAINT [PK_Tbl_AceMainInfo] PRIMARY KEY CLUSTERED 
+(
+	[AceId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
 
 GO
 

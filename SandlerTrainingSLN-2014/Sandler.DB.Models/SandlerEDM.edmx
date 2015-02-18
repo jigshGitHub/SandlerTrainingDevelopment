@@ -23,6 +23,7 @@
           <EntitySet Name="Tbl_AceCampaignType" EntityType="SandlerDBModel.Store.Tbl_AceCampaignType" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="TBL_ACEEmails" EntityType="SandlerDBModel.Store.TBL_ACEEmails" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Tbl_ACEGroups" EntityType="SandlerDBModel.Store.Tbl_ACEGroups" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Tbl_AceMainInfo" EntityType="SandlerDBModel.Store.Tbl_AceMainInfo" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Tbl_AppointmentsSource" EntityType="SandlerDBModel.Store.Tbl_AppointmentsSource" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Tbl_AwardLevel" EntityType="SandlerDBModel.Store.Tbl_AwardLevel" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Tbl_BehindAmount" EntityType="SandlerDBModel.Store.Tbl_BehindAmount" store:Type="Tables" Schema="dbo" />
@@ -601,6 +602,31 @@
           <Property Name="AceGroupId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="AceId" Type="int" Nullable="false" />
           <Property Name="GroupID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tbl_AceMainInfo">
+          <Key>
+            <PropertyRef Name="AceId" />
+          </Key>
+          <Property Name="AceId" Type="int" Nullable="false" />
+          <Property Name="CampaignName" Type="varchar" MaxLength="150" />
+          <Property Name="CampaignTypeId" Type="smallint" />
+          <Property Name="EventDate" Type="datetime" />
+          <Property Name="CampaignPurpose" Type="varchar" MaxLength="150" />
+          <Property Name="MessageNumber" Type="smallint" />
+          <Property Name="DaysFromEvent" Type="int" />
+          <Property Name="MessageSubject" Type="varchar" MaxLength="50" />
+          <Property Name="Recipients" Type="varchar(max)" />
+          <Property Name="EmailGroupIds" Type="varchar" MaxLength="150" />
+          <Property Name="ResponseTo" Type="varchar" MaxLength="150" />
+          <Property Name="CallToActionId" Type="smallint" />
+          <Property Name="MessageText" Type="varchar(max)" />
+          <Property Name="AttachFileId" Type="int" />
+          <Property Name="MessageSentDate" Type="datetime" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="CreatedBy" Type="varchar" MaxLength="150" />
+          <Property Name="UpdatedDate" Type="datetime" />
+          <Property Name="UpdatedBy" Type="varchar" MaxLength="150" />
         </EntityType>
         <EntityType Name="Tbl_AppointmentsSource">
           <Key>
@@ -2213,31 +2239,6 @@
           <Parameter Name="searchNewCompany" Type="bit" Mode="In" />
           <Parameter Name="companyIds" Type="varchar" Mode="In" />
         </Function>
-        <!--Errors Found During Generation:
-      warning 6013: The table/view 'SandlerDBV2014.dbo.Tbl_AceMainInfo' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
-      
-      <EntityType Name="Tbl_AceMainInfo">
-        <Property Name="AceId" Type="int" />
-        <Property Name="CampaignName" Type="varchar" MaxLength="150" />
-        <Property Name="CampaignTypeId" Type="smallint" />
-        <Property Name="EventDate" Type="datetime" />
-        <Property Name="CampaignPurpose" Type="varchar" MaxLength="150" />
-        <Property Name="MessageNumber" Type="smallint" />
-        <Property Name="DaysFromEvent" Type="int" />
-        <Property Name="MessageSubject" Type="varchar" MaxLength="50" />
-        <Property Name="Recipients" Type="varchar(max)" />
-        <Property Name="EmailGroupIds" Type="varchar" MaxLength="150" />
-        <Property Name="ResponseTo" Type="varchar" MaxLength="150" />
-        <Property Name="CallToActionId" Type="smallint" />
-        <Property Name="MessageText" Type="varchar(max)" />
-        <Property Name="AttachFileId" Type="int" />
-        <Property Name="MessageSentDate" Type="datetime" />
-        <Property Name="IsActive" Type="bit" />
-        <Property Name="CreatedDate" Type="datetime" />
-        <Property Name="CreatedBy" Type="varchar" MaxLength="150" />
-        <Property Name="UpdatedDate" Type="datetime" />
-        <Property Name="UpdatedBy" Type="varchar" MaxLength="150" />
-      </EntityType>-->
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
@@ -2546,6 +2547,7 @@
             <End Role="Tbl_ACE_Campaign" EntitySet="Tbl_ACE_Campaign" />
             <End Role="Tbl_ACE_Campaign1" EntitySet="Tbl_ACE_Campaign" />
           </AssociationSet>
+          <EntitySet Name="Tbl_AceMainInfo" EntityType="SandlerDBModel.Tbl_AceMainInfo" />
         </EntityContainer>
         <EntityType Name="Tbl_AppointmentsSource">
           <Key>
@@ -4356,6 +4358,31 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Tbl_AceMainInfo">
+          <Key>
+            <PropertyRef Name="AceId" />
+          </Key>
+          <Property Type="Int32" Name="AceId" Nullable="false" />
+          <Property Type="String" Name="CampaignName" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Type="Int16" Name="CampaignTypeId" />
+          <Property Type="DateTime" Name="EventDate" Precision="3" />
+          <Property Type="String" Name="CampaignPurpose" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Type="Int16" Name="MessageNumber" />
+          <Property Type="Int32" Name="DaysFromEvent" />
+          <Property Type="String" Name="MessageSubject" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Recipients" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="EmailGroupIds" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="ResponseTo" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Type="Int16" Name="CallToActionId" />
+          <Property Type="String" Name="MessageText" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="AttachFileId" />
+          <Property Type="DateTime" Name="MessageSentDate" Precision="3" />
+          <Property Type="Boolean" Name="IsActive" />
+          <Property Type="DateTime" Name="CreatedDate" Precision="3" />
+          <Property Type="String" Name="CreatedBy" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="UpdatedDate" Precision="3" />
+          <Property Type="String" Name="UpdatedBy" MaxLength="150" FixedLength="false" Unicode="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -5657,6 +5684,32 @@
                 <ScalarProperty Name="GroupID" ColumnName="GroupID" />
                 <ScalarProperty Name="AceId" ColumnName="AceId" />
                 <ScalarProperty Name="AceGroupId" ColumnName="AceGroupId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_AceMainInfo">
+            <EntityTypeMapping TypeName="SandlerDBModel.Tbl_AceMainInfo">
+              <MappingFragment StoreEntitySet="Tbl_AceMainInfo">
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="MessageSentDate" ColumnName="MessageSentDate" />
+                <ScalarProperty Name="AttachFileId" ColumnName="AttachFileId" />
+                <ScalarProperty Name="MessageText" ColumnName="MessageText" />
+                <ScalarProperty Name="CallToActionId" ColumnName="CallToActionId" />
+                <ScalarProperty Name="ResponseTo" ColumnName="ResponseTo" />
+                <ScalarProperty Name="EmailGroupIds" ColumnName="EmailGroupIds" />
+                <ScalarProperty Name="Recipients" ColumnName="Recipients" />
+                <ScalarProperty Name="MessageSubject" ColumnName="MessageSubject" />
+                <ScalarProperty Name="DaysFromEvent" ColumnName="DaysFromEvent" />
+                <ScalarProperty Name="MessageNumber" ColumnName="MessageNumber" />
+                <ScalarProperty Name="CampaignPurpose" ColumnName="CampaignPurpose" />
+                <ScalarProperty Name="EventDate" ColumnName="EventDate" />
+                <ScalarProperty Name="CampaignTypeId" ColumnName="CampaignTypeId" />
+                <ScalarProperty Name="CampaignName" ColumnName="CampaignName" />
+                <ScalarProperty Name="AceId" ColumnName="AceId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
