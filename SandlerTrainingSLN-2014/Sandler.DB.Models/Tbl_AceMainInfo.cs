@@ -34,5 +34,6 @@ namespace Sandler.DB.Models
         public string CreatedBy { get; set; }
         public Nullable<System.DateTime> UpdatedDate { get; set; }
         public string UpdatedBy { get; set; }
+        public Nullable<int> FranchiseeId { get; set; }
     }
 }

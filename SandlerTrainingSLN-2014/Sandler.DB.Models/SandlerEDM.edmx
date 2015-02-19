@@ -627,6 +627,7 @@
           <Property Name="CreatedBy" Type="varchar" MaxLength="150" />
           <Property Name="UpdatedDate" Type="datetime" />
           <Property Name="UpdatedBy" Type="varchar" MaxLength="150" />
+          <Property Name="FranchiseeId" Type="int" />
         </EntityType>
         <EntityType Name="Tbl_AppointmentsSource">
           <Key>
@@ -4382,6 +4383,7 @@
           <Property Type="String" Name="CreatedBy" MaxLength="150" FixedLength="false" Unicode="false" />
           <Property Type="DateTime" Name="UpdatedDate" Precision="3" />
           <Property Type="String" Name="UpdatedBy" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="FranchiseeId" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -5690,6 +5692,7 @@
           <EntitySetMapping Name="Tbl_AceMainInfo">
             <EntityTypeMapping TypeName="SandlerDBModel.Tbl_AceMainInfo">
               <MappingFragment StoreEntitySet="Tbl_AceMainInfo">
+                <ScalarProperty Name="FranchiseeId" ColumnName="FranchiseeId" />
                 <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
                 <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
