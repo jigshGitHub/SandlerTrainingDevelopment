@@ -58,13 +58,15 @@ CREATE TABLE [dbo].[Tbl_AceMainInfo](
 	[CreatedBy] [varchar](150) NULL,
 	[UpdatedDate] [datetime] NULL,
 	[UpdatedBy] [varchar](150) NULL,
- CONSTRAINT [PK_Tbl_AceMainInfo] PRIMARY KEY CLUSTERED 
+	[FranchiseeId] [int] NULL,
+PRIMARY KEY CLUSTERED 
 (
 	[AceId] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 
 GO
+
 
 IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Tbl_AceCallToActionType]') AND type in (N'U'))
 DROP TABLE [dbo].[Tbl_AceCallToActionType]
