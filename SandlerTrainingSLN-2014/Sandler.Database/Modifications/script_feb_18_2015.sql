@@ -38,7 +38,7 @@ DROP TABLE [dbo].[Tbl_AceMainInfo]
 GO
 
 CREATE TABLE [dbo].[Tbl_AceMainInfo](
-	[AceId] [int] NOT NULL,
+	[AceId] [int] NOT NULL IDENTITY(1,1),
 	[CampaignName] [varchar](150) NULL,
 	[CampaignTypeId] [smallint] NULL,
 	[EventDate] [datetime] NULL,
@@ -59,6 +59,8 @@ CREATE TABLE [dbo].[Tbl_AceMainInfo](
 	[UpdatedDate] [datetime] NULL,
 	[UpdatedBy] [varchar](150) NULL,
 	[FranchiseeId] [int] NULL,
+	[TotalCountOutBound] [int] NULL,
+	[TotalCountConfirm] [int] NULL,
 PRIMARY KEY CLUSTERED 
 (
 	[AceId] ASC

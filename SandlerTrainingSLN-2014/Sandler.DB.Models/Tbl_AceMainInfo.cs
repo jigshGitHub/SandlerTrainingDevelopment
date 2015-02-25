@@ -35,5 +35,7 @@ namespace Sandler.DB.Models
         public Nullable<System.DateTime> UpdatedDate { get; set; }
         public string UpdatedBy { get; set; }
         public Nullable<int> FranchiseeId { get; set; }
+        public Nullable<int> TotalCountOutBound { get; set; }
+        public Nullable<int> TotalCountConfirm { get; set; }
     }
 }
