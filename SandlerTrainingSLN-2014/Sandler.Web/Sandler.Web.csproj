@@ -202,6 +202,8 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Areas\ACE\ACEAreaRegistration.cs" />
+    <Compile Include="Areas\ACE\Controllers\HomeController.cs" />
     <Compile Include="Areas\CRM\Controllers\CompaniesController.cs" />
     <Compile Include="Areas\CRM\Controllers\ContactsController.cs" />
     <Compile Include="Areas\CRM\Controllers\GlobalSearchController.cs" />
@@ -224,6 +226,7 @@
       <DependentUpon>Report.aspx</DependentUpon>
     </Compile>
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\APIs\AceMainController.cs" />
     <Compile Include="Controllers\APIs\BaseAPIController.cs" />
     <Compile Include="Controllers\APIs\ChartController.cs" />
     <Compile Include="Controllers\APIs\CompanyController.cs" />
@@ -1115,6 +1118,16 @@
     <Content Include="Areas\RDL\Views\Home\SendMail.cshtml" />
     <Content Include="Areas\RDL\Views\Home\NewFunctionality2.cshtml" />
     <Content Include="Areas\RDL\Views\Home\NewFunctionality3.cshtml" />
+    <Content Include="Areas\ACE\Views\Home\Create.cshtml" />
+    <Content Include="Areas\ACE\Views\Home\Index.cshtml" />
+    <Content Include="Areas\ACE\Views\Home\ViewArchived.cshtml" />
+    <Content Include="Areas\ACE\Views\Web.config" />
+    <Content Include="Areas\RDL\Views\Home\SendInvite.cshtml" />
+    <Content Include="Areas\CRM\Views\Contacts\ViewCallList.cshtml" />
+    <Content Include="Areas\MyDay\Views\Home\OurCalendar.cshtml" />
+    <Content Include="Areas\RDL\Views\Home\EditPG.cshtml" />
+    <Content Include="Areas\RDL\Views\Home\PerformanceGoals.cshtml" />
+    <Content Include="Areas\RDL\Views\Home\ViewArchivedPG.cshtml" />
     <None Include="Properties\PublishProfiles\WebDeploy-DevEnvt.pubxml" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="Images\bg-capitol.png" />
@@ -1159,6 +1172,8 @@
     <Content Include="Images\washington.png" />
     <Content Include="Scripts\application.js" />
     <Content Include="Scripts\Application\koExtenders.js" />
+    <Content Include="Scripts\Application\ng-acemain.js" />
+    <Content Include="Scripts\Application\ng-createCampaign.js" />
     <Content Include="Scripts\Application\ng-CreateGroup.js" />
     <Content Include="Scripts\Application\ng-dashboard.js" />
     <Content Include="Scripts\Application\ng-franchisees.js" />
@@ -1169,6 +1184,8 @@
     <Content Include="Scripts\Application\ng-opportunities.js" />
     <Content Include="Scripts\Application\ng-contacts.js" />
     <Content Include="Scripts\Application\ng-companies.js" />
+    <Content Include="Scripts\Application\ng-ourtasks.js" />
+    <Content Include="Scripts\Application\ng-PerformanceGoals.js" />
     <Content Include="Scripts\Application\ng-quickStart.js" />
     <Content Include="Scripts\Application\ng-SendEmail.js" />
     <Content Include="Scripts\Application\ng-SendInvite.js" />
@@ -1253,6 +1270,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\ACE\Models\" />
+    <Folder Include="Areas\ACE\Views\Shared\" />
     <Folder Include="Areas\CRM\Models\" />
     <Folder Include="Areas\CRM\Views\Shared\" />
     <Folder Include="Areas\Dashboard\Models\" />

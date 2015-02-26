@@ -10,7 +10,31 @@ namespace Sandler.Web.Models
     {
     }
 
+    public class genericResponseForUI
+    {
+        public bool success { get; set; }
+        public string message { get; set; }
+        public int UniqueId { get; set; }
+        public string orgfilename { get; set; }
+        public string serverfilename { get; set; }
+
+        public int __count { get; set; }
+        public List<iItemType> results { get; set; }
+    }
+
     public class genericResponse
+    {
+        public bool success { get; set; }
+        public string message { get; set; }
+        public int UniqueId { get; set; }
+        public string orgfilename { get; set; }
+        public string serverfilename { get; set; }
+
+        public int __count { get; set; }
+        public List<iItemType> results { get; set; }
+    }
+
+    public class genericResponseSpl
     {
         public bool success { get; set; }
         public string message { get; set; }
@@ -31,6 +55,30 @@ namespace Sandler.Web.Models
         public string RCPNTS { get; set; }
         public string MESSAGE { get; set; }
         public List<EmailGroups> blastEmailGroups { get; set; }
+        public List<EmailGroups> userEmailGroups { get; set; }
+
+    }
+    
+    public class CampaignInformation
+    {
+        public int AceId { get; set; }
+        public string FILEINFO { get; set; }
+        public string FILENAME { get; set; }
+        public string FILENAMES { get; set; }
+        public string RCPNTS { get; set; }
+        public string MESSAGE { get; set; }
+        public string Editor { get; set; }
+        public string formdata { get; set; }
+        public string UserId { get; set; }
+        public string CAMPGNAME { get; set; }
+        public string CAMPGPURPOSE { get; set; }
+        public string MSGSUBJECT { get; set; }
+        public short? MSGNO { get; set; }
+        public short? CampaignTypeId { get; set; }
+        public short? CallToActionId { get; set; }
+        public int? DAYSFROMEVENT { get; set; }
+        public DateTime? EVENTDATE { get; set; }
+        public DateTime? MessageSentDate { get; set; }
         public List<EmailGroups> userEmailGroups { get; set; }
 
     }

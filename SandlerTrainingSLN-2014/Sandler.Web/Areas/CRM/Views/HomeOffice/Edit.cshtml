@@ -703,6 +703,12 @@
 
 <script>
 
+    var coachregion = function (CoachRegionName, coachId) {
+        this.Name = CoachRegionName;
+        this.Id = coachId;
+    };
+    
+    
     @* Tracking whether there is unsaved change(s). *@
     ko.dirtyFlag_franchisee = function (root, isInitiallyDirty) {
 
@@ -726,18 +732,28 @@
     function franchiseeDataVM(franchiseeData) {
 
         //Get Lookup Data
-        yesNoData = startModule.getYesNoOptions();
-        sandlerRoles = startModule.getSandlerRoles();
-        sandlerCoachRegions = startModule.getSandlerCoachRegions();
-        masterFranchisees = startModule.getMasterFranchisees();
-        costplusamts = startModule.getCostPlusAmt();
-        behindamts = startModule.getBehindAmount();
-        certifiedlevels = startModule.getCertifiedLevel();
-        purchaselevels = startModule.getPurchaseLevel();
-        awardlevels = startModule.getAwardLevel();
-        primarybusinesses = startModule.getPrimaryBusiness();
-        states = startModule.getStates();
-        countries = startModule.getCountries();
+        yesNoData = jsonDataCaller.syncCall(baseUrl + "/api/YesNoOptions/", null); //startModule.getYesNoOptions();
+        sandlerRoles = jsonDataCaller.syncCall(baseUrl + "/api/SandlerRoles/", null); //startModule.getSandlerRoles();
+        //For Coaches
+        var coaches = jsonDataCaller.syncCall(baseUrl + "/api/Coaches/", null);
+        var _sandlercoachregions = new Array();
+        $.each(coaches, function (i, coachregionRecord) {
+            _sandlercoachregions.push(new coachregion(coachregionRecord.FirstName + ' ' + coachregionRecord.LastName + " - Region " + coachregionRecord.RegionID, coachregionRecord.ID));
+        });
+        sandlerCoachRegions = _sandlercoachregions;
+        //Done...
+        
+        masterFranchisees = jsonDataCaller.syncCall(baseUrl + "/api/MasterFranchisees/", null); //startModule.getMasterFranchisees();
+        costplusamts = jsonDataCaller.syncCall(baseUrl + "/api/CostPlusAmount/", null); //startModule.getCostPlusAmt();
+        behindamts = jsonDataCaller.syncCall(baseUrl + "/api/BehindAmount/", null); //startModule.getBehindAmount();
+
+        certifiedlevels = jsonDataCaller.syncCall(baseUrl + "/api/CertifiedLevel/", null); //startModule.getCertifiedLevel();
+        purchaselevels = jsonDataCaller.syncCall(baseUrl + "/api/PurchaseLevel/", null); //startModule.getPurchaseLevel();
+
+        awardlevels = jsonDataCaller.syncCall(baseUrl + "/api/AwardLevel/", null); //startModule.getAwardLevel();
+        primarybusinesses = jsonDataCaller.syncCall(baseUrl + "/api/PrimaryBusiness/", null); //startModule.getPrimaryBusiness();
+        states = jsonDataCaller.syncCall(baseUrl + "/api/States/", null); //startModule.getStates();
+        countries = jsonDataCaller.syncCall(baseUrl + "/api/Countries/", null); //startModule.getCountries();
                 
         var self = this;
         //Process Look up Data

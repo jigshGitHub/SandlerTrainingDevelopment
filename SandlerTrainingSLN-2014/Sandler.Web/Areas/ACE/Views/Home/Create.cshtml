@@ -1,0 +1,301 @@
+﻿
+<style>
+
+ .form-group {
+    display: inline-block;
+    vertical-align: top;
+}
+
+ .keep-on-line {
+    white-space: nowrap;
+}
+  .panel.blue .panel-heading
+ {
+	background-color: #25a0da;
+	border-color: #25a0da;
+	color: white;
+	border-radius: 0px;
+ }
+ /*This is for Multiselect background blue color and font white*/
+ .k-multiselect-wrap li
+ {
+    background-color: #25a0da;
+    color: white;
+ }
+ .splfont
+ {
+    font-size:12px;
+ }
+  /*This is for Multiselect background other than bluee color and font white : Used for main counter*/
+ .msmain .k-multiselect-wrap li
+ {
+   background-color: #b200ff;
+   color: white;
+ }
+ /*For all MS we need red background when user mouse hover over it*/
+ .k-multiselect-wrap li:hover{
+    background: red;
+    border-color: red;
+ }
+ /*Let us remove border for all MS*/
+ .k-multiselect.k-header
+ {
+   border: 0px;
+ }
+ </style>
+
+
+<script src="~/Scripts/Application/ng-createCampaign.js" type="text/javascript"></script>
+
+ 
+<div id="campaignMainDiv" class="container" ng-controller="ng_createCampaignCtrl">
+
+   @* Page Header: Title and Buttons *@
+   <div class="row page-header">
+        <div class="row">
+            <div class='page-title'>Create<span> Campaign</span></div>
+        </div> 
+   </div>
+   <div class="row" style="height:12px"></div> @*This is for some space*@
+            
+   <div class="row">
+       @*Column 1 here*@
+       <div class="col-md-6 no-margin">
+                  <div class="row">
+                      <div class="panel-group" id="accordion">
+            
+                            <div class="panel panel-default blue">
+                      <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" target="_self">
+                       <div class="panel-heading">
+                           <h4 class="panel-title">
+                              Name, Date, Type and Purpose
+                                <i data-bind="css: Div1Hideshow"></i>
+                          </h4>
+                       </div>
+                      </a>
+                      <div id="collapseOne" class="panel-collapse collapse in">
+
+                          <div class="panel-body" style="overflow:scroll"> 
+                          
+                              <label style="font-size:small">Campaign Name&nbsp;<span class="label label-danger" data-bind='visible: CAMPGNAME.hasError, text: CAMPGNAME.validationMessage'></span></label>                  
+                              <div class="controls">
+                                   <input id="ace_cmpname" maxlength="80" type="text" class="form-control" data-bind="value: CAMPGNAME" placeholder="Type Campaign Name.."/>
+                              </div>
+
+                              @*Dummy Row*@
+                              <div class="row" style="height:8px"></div>
+
+                              @*Event Date and Campaign Type*@
+                              <div class="row no-margin">
+                               @*Column 1 here*@
+                               <div class="col-md-6 no-margin">
+                                     <label>Event Date&nbsp;<span class="label label-danger" data-bind='visible: EVENTDATEc.hasError, text: EVENTDATEc.validationMessage'></span></label>
+                                     <div class="controls"> 
+                                         <input id="ace_eventdte" data-bind="kendoDatePicker: { value: EVENTDATEc, format: 'MM/dd/yyyy' } "/>
+                                     </div>
+                               </div>
+                               @*Column 2 here*@
+                               <div class="col-md-6 no-margin">
+                                    <label>Campaign Type&nbsp;<span class="label label-danger" data-bind='visible: CampaignTypeId.hasError, text: CampaignTypeId.validationMessage'></span></label>
+                                    <div class="controls">
+                                        <input id="ace_cmpgtype" type="text"  data-bind="kendoDropDownList: { dataTextField: 'TypeDescription', dataValueField: 'CampaignTypeId', data: CMPGTYPEDATA, value: CampaignTypeId, optionLabel : 'Please Select..' }"/>
+                                    </div>
+                               </div>
+                               
+                              </div>
+
+                              @*Dummy Row*@
+                              <div class="row" style="height:8px"></div>
+
+                              <label style="font-size:small">Campaign Purpose&nbsp;<span class="label label-danger" data-bind='visible: CAMPGPURPOSE.hasError, text: CAMPGPURPOSE.validationMessage'></span></label>                  
+                              <div class="controls">
+                                   <input id="ace_cmppurpose" maxlength="120" type="text" class="form-control" data-bind="value: CAMPGPURPOSE" placeholder="Type Campaign Purpose.."/>
+                              </div>
+                              
+                          </div>
+
+
+                      </div>
+                  </div>
+                                                    
+                            <div class="panel panel-default blue">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" target="_self">
+                      <div class="panel-heading">
+                      <h4 class="panel-title">
+                          Message Number and Details
+                          <i data-bind="css: Div2Hideshow"></i>
+                      </h4>
+                    </div>
+                    </a>
+                    <div id="collapseTwo" class="panel-collapse collapse in">
+
+                        <div class="panel-body" style="overflow:scroll"> 
+
+                              @*Message # and Days from Event*@
+                              <div class="row no-margin">
+                               @*Column 1 here*@
+                               <div class="col-md-6 no-margin">
+                                     <label>Message #&nbsp;<span class="label label-danger" data-bind='visible: MSGNO.hasError, text: MSGNO.validationMessage'></span></label>
+                                     <div class="controls"> 
+                                         <input id="ace_msgno" maxlength="80" type="text" class="form-control" data-bind="value: MSGNO" onkeypress="EnterOnlyNumeric()" />
+                                     </div>
+                               </div>
+                               @*Column 2 here*@
+                               <div class="col-md-6 no-margin">
+                                    <label>Days from Event&nbsp;<span class="label label-danger" data-bind='visible: DAYSFROMEVENT.hasError, text: DAYSFROMEVENT.validationMessage'></span></label>
+                                    <div class="controls">
+                                        <input id="ace_daysfromevent" maxlength="80" type="text" class="form-control" data-bind="value: DAYSFROMEVENT" onkeypress="EnterOnlyNumeric()" />
+                                    </div>
+                               </div>
+                               
+                              </div>
+                            
+                              @*Dummy Row*@
+                              <div class="row" style="height:8px"></div>
+                                                        
+                              <label style="font-size:small">Message Subject&nbsp;<span class="label label-danger" data-bind='visible: MSGSUBJECT.hasError, text: MSGSUBJECT.validationMessage'></span></label>                  
+                              <div class="controls">
+                                   <input id="ace_msgsubject" maxlength="80" type="text" class="form-control" data-bind="value: MSGSUBJECT" placeholder="Message Subject.."/>
+                              </div>
+
+                              @*Dummy Row*@
+                              <div class="row" style="height:8px"></div>
+                                                        
+                              <label>Send Response To</label>
+                              <div class="controls">
+                                 <input id="ace_assgnto" type="text"  data-bind="kendoDropDownList: { dataTextField: 'UserName', dataValueField: 'ASPUserId', data: FRPERSONS, value: UserId  }"/>
+                              </div>
+                            
+
+                              @*Dummy Row*@
+                              <div class="row" style="height:8px"></div>
+                                                        
+                              <label>Call-to-Action&nbsp;<span class="label label-danger" data-bind='visible: CallToActionId.hasError, text: CallToActionId.validationMessage'></span></label>
+                              <div class="controls">
+                                 <input id="ace_calltoaction" type="text"  data-bind="kendoDropDownList: { dataTextField: 'CallToActionText', dataValueField: 'CallToActionId', data: CALLTOACTIONTYPEDATA, value: CallToActionId, optionLabel : 'Please Select..'  }"/>
+                              </div>
+
+                              @*Dummy Row*@
+                              <div class="row" style="height:8px"></div>
+                              @*Attach Document Here*@
+                              <div class="row">
+                                <span id="bt_attach" class="btn btn-sm fileinput-button">
+                                    <span class="glyphicon glyphicon-cloud-upload"></span>
+                                    <span>Attach File</span>
+                                    <!-- The file input field used as target for the file upload widget -->
+                                    <input id="fileupload_ace" type="file" name="file">
+                                </span>
+                             </div>
+                           
+                             @*Dummy Row*@
+                             <div class="row" style="height:5px"></div>
+                             <label style="font-size:small; color:green" data-bind="visible: FILEINFO().length > 0, text: FILEINFO"></label>
+
+
+                            
+                        </div>
+                                              
+                    </div>
+                  </div>
+                                   
+                       </div>
+                  </div>
+            </div>
+       @*Column 2 here*@
+       <div class="col-md-6 no-margin">
+                  <div class="row">
+                      <div class="panel-group" id="accordion1">
+            
+                            <div class="panel panel-default blue">
+                    <a data-toggle="collapse" data-parent="#accordion1" href="#collapseThree" target="_self">
+                      <div class="panel-heading">
+                      <h4 class="panel-title">
+                          Campaign Recipient(s) 
+                          <i data-bind="css: Div3Hideshow"></i>
+                       </h4>
+                      </div>
+                   </a>
+                    <div id="collapseThree" class="panel-collapse collapse in">
+
+                        <div class="panel-body" style="overflow:scroll; height:230px">
+
+                          @*Dummy Row*@
+                          <div class="row" style="height:8px"></div>
+                          <label style="font-size:small">Recipient(s)&nbsp;<span class="label label-danger" data-bind='visible: RCPNTS.hasError, text: RCPNTS.validationMessage'></span></label>                  
+                          <div class="controls">
+                               <input id="ace_receipient" maxlength="150" type="text" class="form-control" data-bind="value: RCPNTS" placeholder="Type Recipient.."/>
+                          </div>
+                          <label style="font-size:small">Note: Please use comma (,) seperator for multiple addresses.</label>
+
+                          @*Dummy Row*@
+                          <div class="row" style="height:8px"></div>
+                                                                                
+                          <input type="checkbox" data-bind="checked: IsAllUserGroup" />&nbsp;<b>Check/Uncheck All</b>
+                          <div style="height:10px"></div>
+                          <table id="UserGroupTable">
+                                <tbody data-bind="foreach: userEmailGroups">
+                                    <tr data-bind="css: {selected: IsSelected}">
+                                        <td>
+                                            <input type="checkbox" data-bind="checked: IsSelected" />&nbsp;
+                                        </td>
+                                        <td data-bind="text: name"></td>
+                                    </tr>
+                                </tbody>
+                          </table>
+                          
+                      
+
+
+
+
+                          </div>
+
+
+                      
+                    </div>
+                  </div>
+                          
+                            <div class="panel panel-default blue">
+                    <a data-toggle="collapse" data-parent="#accordion1" href="#collapseFour" target="_self">
+                      <div class="panel-heading">
+                      <h4 class="panel-title">
+                          Message
+                          <i data-bind="css: Div4Hideshow"></i>
+                       </h4>
+                      </div>
+                   </a>
+                    <div id="collapseFour" class="panel-collapse collapse in">
+
+                        <div class="panel-body" style="overflow:scroll">
+                         
+                         @*Dummy Row*@
+                         <div class="row" style="height:4px"></div>
+
+                         <label style="font-size:small">Message&nbsp;<span class="label label-danger" data-bind='visible: MESSAGE.hasError, text: MESSAGE.validationMessage'></span></label>
+                         <div class="controls">
+                              <textarea id="ace_message" class="form-control" data-bind="value: MESSAGE" rows="14" placeholder="Type Message here.."></textarea>
+                         </div>
+                                                                                                     
+                      </div>
+                      
+                    </div>
+                  </div>
+                                      
+                       </div>
+                  </div>
+            </div>
+   </div>
+   
+    <div class="row" style="height:6px"></div> @*This is for some space*@
+    
+    @* Page Footer *@
+    <div class="row page-footer">
+        <div class="pull-right">
+             <button id="bt_save_ace" class="btn btn-primary btn-save" type="button" data-bind="enable: isDirty, click: Send">Send Email</button>
+            
+        </div>
+    </div>
+             
+</div>
+     
+  

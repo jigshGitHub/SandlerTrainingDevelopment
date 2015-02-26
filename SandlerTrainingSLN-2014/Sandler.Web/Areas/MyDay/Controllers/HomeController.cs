@@ -31,6 +31,11 @@ namespace Sandler.Web.Areas.MyDay.Controllers
             return PartialView();
         }
 
+        public ActionResult OurCalendar()
+        {
+            return PartialView();
+        }
+
 
         public ActionResult Dashboard()
         {

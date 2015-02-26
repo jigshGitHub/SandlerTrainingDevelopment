@@ -56,7 +56,113 @@ namespace Sandler.Web.Controllers.API
             return Request.CreateResponse(returnObject);
 
         }
-                        
+
+        #region [[ Performance Goal ]]
+        
+        [Route("api/PerformanceGoalView/")]
+        public HttpResponseMessage GetPerformanceGoalView(string searchText, int? page, int? pageSize, bool selectForExcel, int? coachId = null, int? franchiseeId = null)
+        {
+            List<PerformanceGoalView> perfGoals = null;
+
+            string sortField = HttpContext.Current.Request.QueryString["sort[0][field]"];
+            string sortDir = HttpContext.Current.Request.QueryString["sort[0][dir]"];
+
+            string orderBy = "UserName ASC";
+            if (!string.IsNullOrEmpty(sortField))
+                orderBy = sortField;
+            if (!string.IsNullOrEmpty(sortField) && !string.IsNullOrEmpty(sortDir))
+                orderBy = orderBy + " " + sortDir;
+
+            if (!coachId.HasValue && !franchiseeId.HasValue && CurrentUser.Role == SandlerRoles.Coach)
+                coachId = CurrentUser.CoachID;
+            if (!coachId.HasValue && !franchiseeId.HasValue && (CurrentUser.Role == SandlerRoles.FranchiseeOwner || CurrentUser.Role == SandlerRoles.FranchiseeUser))
+                franchiseeId = CurrentUser.FranchiseeID;
+
+            perfGoals = uow.CompanyRepository().GetPerformanceGoalView(searchText, orderBy, pageSize.Value, page.Value, coachId, franchiseeId, selectForExcel).ToList();
+            var returnObject = new { success = true, __count = (perfGoals.Count > 0) ? perfGoals.FirstOrDefault().TotalCount : 0, results = perfGoals };
+            return Request.CreateResponse(returnObject);
+        }
+        
+        [Route("api/ArchivePerformanceGoalView/")]
+        public HttpResponseMessage GetArchivePerformanceGoalView(string searchText, int? page, int? pageSize, bool selectForExcel, int? coachId = null, int? franchiseeId = null)
+        {
+            List<PerformanceGoalView> perfGoals = null;
+
+            string sortField = HttpContext.Current.Request.QueryString["sort[0][field]"];
+            string sortDir = HttpContext.Current.Request.QueryString["sort[0][dir]"];
+
+            string orderBy = "UserName ASC";
+            if (!string.IsNullOrEmpty(sortField))
+                orderBy = sortField;
+            if (!string.IsNullOrEmpty(sortField) && !string.IsNullOrEmpty(sortDir))
+                orderBy = orderBy + " " + sortDir;
+
+            if (!coachId.HasValue && !franchiseeId.HasValue && CurrentUser.Role == SandlerRoles.Coach)
+                coachId = CurrentUser.CoachID;
+            if (!coachId.HasValue && !franchiseeId.HasValue && (CurrentUser.Role == SandlerRoles.FranchiseeOwner || CurrentUser.Role == SandlerRoles.FranchiseeUser))
+                franchiseeId = CurrentUser.FranchiseeID;
+
+            perfGoals = uow.CompanyRepository().GetArchivePerformanceGoalView(searchText, orderBy, pageSize.Value, page.Value, coachId, franchiseeId, selectForExcel).ToList();
+            var returnObject = new { success = true, __count = (perfGoals.Count > 0) ? perfGoals.FirstOrDefault().TotalCount : 0, results = perfGoals };
+            return Request.CreateResponse(returnObject);
+        }
+
+        [HttpPost]
+        [Route("api/Company/ArchivePG")]
+        public genericResponse ArchivePG(TBL_PerformanceGoals _pgd)
+        {
+            genericResponse _response;
+            try
+            {
+                if (uow.CompanyRepository().ArchivePerformanceGoal(_pgd.Id))
+                {
+                    _response = new genericResponse() { success = true };
+                    return _response;
+                }
+                else
+                {
+                    _response = new genericResponse() { success = false, message = "There is a problem Archiving this Performance Goal. Please try again later." };
+                    return _response;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                _response = new genericResponse() { success = false, message = "There is a problem Archiving this Performance Goal. Please try again later." };
+                return _response;
+            }
+
+        }
+        
+        [HttpPost]
+        [Route("api/Company/UnArchivePG")]
+        public genericResponse UnArchivePG(TBL_PerformanceGoals _pgd)
+        {
+            genericResponse _response;
+            try
+            {
+                if (uow.CompanyRepository().UnArchivePerformanceGoal(_pgd.Id))
+                {
+                    _response = new genericResponse() { success = true };
+                    return _response;
+                }
+                else
+                {
+                    _response = new genericResponse() { success = false, message = "There is a problem Un-archiving this Performance Goal. Please try again later." };
+                    return _response;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                _response = new genericResponse() { success = false, message = "There is a problem Un-archiving this Performance Goal. Please try again later." };
+                return _response;
+            }
+
+        }
+
+        #endregion
+        
         [Route("api/CompanyView/")]
         public HttpResponseMessage GetCompanyView(string searchText, int? page, int? pageSize, bool selectForExcel, int? coachId = null, int? franchiseeId = null)
         {
@@ -172,8 +278,7 @@ namespace Sandler.Web.Controllers.API
             }
 
         }
-
-
+                      
         [HttpPost]
         [Route("api/Company/UnArchive")]
         public genericResponse UnArchiveCompany(TBL_COMPANIES _company)
@@ -200,8 +305,7 @@ namespace Sandler.Web.Controllers.API
             }
 
         }
-
-
+        
         [HttpPost]
         [Route("api/Company/Save")]
         public genericResponse Save(TBL_COMPANIES _company)

@@ -1,0 +1,40 @@
+﻿<script src="~/Scripts/Application/ng-ourtasks.js" type="text/javascript"></script>
+<div id="OurDayCalendar" class="container" ng-controller="ng_ourtasksCtrl">
+    
+    @* Page Header: Title and Buttons *@
+   <div class="row page-header">
+        <div class="row">
+            <div class='page-title'>Our<span> Calendar</span></div>
+        </div> 
+   </div>
+        
+    @*This is where the Schedular resides*@
+    <div class="row">
+       <div id="ourscheduler"></div>
+        
+    </div>
+
+    <br />
+
+     <div class="row" id="add_Ourtask">
+
+         @*For space between Add Item and View Item section*@
+         <div class="col-md-4 no-margin"></div>
+         
+         @*View Items Div - Kendo Grid Here as per user selection of date in the Calendar*@
+         <div class="col-md-8 no-margin">
+             
+             <div class="col-title"><span data-bind="text: TaskLabel"></span></div>
+             @*This is My Tasks Search Grid*@
+             <div class="row" style="margin-top: 10px">
+                <div id="searchGrid" class="k-content">
+                   <div id="MyTasksSearchgrid"></div>
+                </div>
+             </div>
+             
+
+         </div>
+
+    </div>
+
+</div>

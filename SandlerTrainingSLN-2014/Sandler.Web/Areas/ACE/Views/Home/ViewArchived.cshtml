@@ -11,55 +11,57 @@
         
 </style>
 
-<div id="ArchivedCompanyMain" class="container">
+<div id="ArchivedCaimpaignMain" class="container">
     @*Search button*@
     <div class="row">
-        <div class='page-title'>Archived Companies</div>
+        <div class='page-title'>Archived Campaigns</div>
     </div>
     
     <br />
 
-    <div class="row" style="margin-top:10px">
+     <div class="row" style="margin-top:10px">
         <div class="col-md-6 input-group">
-            <input class="form-control" id="ArcsearchBox" size="100" type="text" placeholder="Company Name or City or Sandler Rep Last/First Name" onkeyup="triggerSearchArc(event);">
+            <input class="form-control" id="ArcsearchBox" size="100" type="text" placeholder="Campaign Name or Event Date or Message Subject" onkeyup="triggerSearchArc(event);">
             <span class="input-group-btn"> 
                   <button id="btnArchiveSearch" class="btn btn-primary" type="button"><span class="glyphicon glyphicon-search" title="Quick Search" data-toggle="tooltip"></span></button>
             </span>
         </div>
          @*For Export To Excel*@
         <div class="pull-right">
-            <a title="Download a List in Excel" class="btn btn-default btn-xs fileinput-button" href="@Url.Action("ExportArchivedCompany","Companies")"><span class="glyphicon glyphicon-cloud-download"></span> Download</a>
+            <a title="Download a List in Excel" class="btn btn-default btn-xs fileinput-button" href="@Url.Action("ExportArchivedCampaigns","Home")"><span class="glyphicon glyphicon-cloud-download"></span> Download</a>
         </div>
     </div>
     
     <div class="row" style="margin-top: 10px">
         <div id="searchGrid" class="k-content">
-            <div id="ArchCompaniesSearchgrid"></div>
+            <div id="ArchCampaignsSearchgrid"></div>
         </div>
     </div>
 </div>
 
 
+
+
 <script>
 
-    function UnarchiveCompany(e) {
+    function UnarchiveCampaign(e) {
         e.preventDefault();
-        var dataItem = $("#ArchCompaniesSearchgrid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
+        var dataItem = $("#ArchCampaignsSearchgrid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
         //Let us block the Div while we wait for User response
-        $('#ArchivedCompanyMain').block({ message: null });
-        showNoti_.confirm("Are you sure to UnArchive this Company - " + dataItem.COMPANYNAME + "?",
+        $('#ArchivedCaimpaignMain').block({ message: null });
+        showNoti_.confirm("Are you sure to UnArchive this Campaign - " + dataItem.CampaignName + "?",
               function () {
                   showNoti_.progress(NOTIFICMSG.ARCHIVING, false);
                   //Proceed with the Archive 
                   $.ajax({
-                      url: "api/Company/UnArchive",
+                      url: "api/AceMain/UnArchive",
                       type: 'POST',
                       data: ko.toJSON(dataItem),
                       contentType: 'application/json',
                       success: function (result) {
                           if (!result.success) {
                               showNoti_.error(result.message, true);
-                              $("#ArchivedCompanyMain").unblock();
+                              $("#ArchivedCaimpaignMain").unblock();
                           }
                           else {
                               showNoti_.hide();
@@ -67,19 +69,19 @@
                               RefreshGridArc();
                               //also refresh the Index page
                               RefreshGrid();
-                              $("#ArchivedCompanyMain").unblock();
+                              $("#ArchivedCaimpaignMain").unblock();
                           }
                       },
                       error: function (xhr, ajaxOptions, thrownError) {
-                          showNoti_.error("There is some issue in Archiving the Company. Please try again later.", true);
-                          $("#ArchivedCompanyMain").unblock();
+                          showNoti_.error("There is some issue in Archiving the Campaign. Please try again later.", true);
+                          $("#ArchivedCaimpaignMain").unblock();
                       }
                   });
               },
               function () {
                   //user said no
                   showNoti_.hide();
-                  $("#ArchivedCompanyMain").unblock();
+                  $("#ArchivedCaimpaignMain").unblock();
               });//confirm ends here
 
     }
@@ -87,7 +89,8 @@
     function RefreshGridArc() {
         $("#btnArchiveSearch").click();
     }//end refresh grid function
-    
+
+
     function triggerSearchArc(e) {
         var unicode = e.keyCode ? e.keyCode : e.charCode;
         if (unicode == 13) {
@@ -116,15 +119,16 @@
             columns: [
                 {
                     command: [
-                            { template: "&nbsp;<button title='UnArchive Company' class='btn btn-danger btn-sm deletesa' onclick='UnarchiveCompany(event)'><span class='glyphicon glyphicon-ok'></span></button>" }
+                            { template: "&nbsp;<button title='UnArchive Campaign' class='btn btn-danger btn-sm deletesa' onclick='UnarchiveCampaign(event)'><span class='glyphicon glyphicon-ok'></span></button>" }
                     ],
                     title: " ", width: "20px"
                 },
-                { field: "COMPANYNAME", title: "Company Name", width: 80 },
-                { field: "IndustryTypeName", title: "Industry", width: 80 },
-                { field: "ProductTypeName", title: "Product", width: 60 },
-                { field: "Representative", title: "Sandler Rep Name", width: 60 },
-                { field: "TotalCompanyValue", title: "Total Company Value", width: 80, format: "{0:c2}" }
+                { field: "CampaignName", title: "Campaign Name", width: 80, attributes: { "class": "sptablecell" } },
+            { field: "EventDate", title: "Event Date", width: 60, format: "{0:MM/dd/yyyy}", attributes: { "class": "sptablecell" } },
+            { field: "MessageNumber", title: "Message #", width: 80, format: "{0:N0}", attributes: { "class": "sptablecell" } },
+            { field: "MessageSubject", title: "Subject", width: 80, attributes: { "class": "sptablecell" } },
+            { field: "ResponseRate", title: "Response Rate%", width: 100, format: "{0:p2}" },
+            { field: "MessageSentDate", title: "Send Date", width: 60, format: "{0:MM/dd/yyyy}", attributes: { "class": "sptablecell" } }
 
             ]
         }
@@ -136,7 +140,7 @@
             type: "json",
             transport: {
                 read: {
-                    url: "api/ArchiveCompanyView/",
+                    url: "api/ArchiveCampaignView/",
                     dataType: "json",
                     data: { searchText: searchText, selectForExcel: false },
                     cache: false //This is required othewise grid does not refresh after Edit operation in IE
@@ -147,11 +151,12 @@
                 total: "__count",
                 model: {
                     fields: {
-                        COMPANYNAME: { type: 'string' },
-                        IndustryTypeName: { type: 'string' },
-                        ProductTypeName: { type: 'string' },
-                        Representative: { type: 'string' },
-                        TotalCompanyValue: { type: 'number' }
+                        CampaignName: { type: 'string' },
+                        EventDate: { type: 'date' },
+                        MessageNumber: { type: 'number' },
+                        MessageSubject: { type: 'string' },
+                        ResponseRate: { type: "number" },
+                        MessageSentDate: { type: 'date' }
                     }
                 }
             },
@@ -165,21 +170,21 @@
 
 </script>
 
+
+
 @*Document Ready *@
 <script>
     $(document).ready(function () {
         @*When Page Loads*@
 
-        //showNoti_.progress(NOTIFICMSG.PROCESSING, false);
-
         var kendoGridData = get_kendoGridDataArc("", false);
-        $("#ArchCompaniesSearchgrid").kendoGrid(kendoGridData);
+        $("#ArchCampaignsSearchgrid").kendoGrid(kendoGridData);
         showNoti_.hide();
 
         //When Search Button is clicked 
         $("#btnArchiveSearch").click(function () {
             var searchText = $("#ArcsearchBox").attr('value');
-            var grid = $("#ArchCompaniesSearchgrid").data("kendoGrid");
+            var grid = $("#ArchCampaignsSearchgrid").data("kendoGrid");
             var dataSource = get_gridDataSourceArc(searchText, false);
             grid.dataSource.transport.options.read.data = { searchText: searchText, selectForExcel: false };
             grid.dataSource.page(1);
@@ -187,9 +192,6 @@
 
         /* Tooltip */
         $('[data-toggle=tooltip]').tooltip({ placement: 'bottom' });
-
-        //Hide any Pines Notify 
-        //showNoti_.hide();
-
+        
     });
 </script>

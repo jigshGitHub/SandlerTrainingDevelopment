@@ -66,6 +66,7 @@ namespace Sandler.Web.Controllers.API
             catch (Exception ex)
             {
                 _response = new genericResponse() { success = false, message = "There is a problem in Saving Franchisee Information. Please try again later." };
+                //_response = new genericResponse() { success = false, message = "Problem : " + ex.InnerException.Message };
                 return _response;
             }
         }

@@ -297,13 +297,13 @@
         }, self);
 
         //self.companies = startModule.getUserCompanies();
-        self.products = startModule.getProductTypes();
-        self.whyLosts = startModule.getOpportunityWhyLosts();
-        self.oppStatus = startModule.getOpportunityStatus();
-        self.oppSources = startModule.getOpportunitySources();
-        self.oppTypes = startModule.getOpportunityTypes();
-        self.budgetIdentified = startModule.getYesNoOptions();
-        self.moveForward = startModule.getYesNoOptions();
+        self.products = jsonDataCaller.syncCall(baseUrl + "/api/Products/", null);  //startModule.getProductTypes();
+        self.whyLosts = jsonDataCaller.syncCall(baseUrl + "/api/OpportunityWhyLosts/", null);  //startModule.getOpportunityWhyLosts();
+        self.oppStatus = jsonDataCaller.syncCall(baseUrl + "/api/OpportunityStatus/", null);  //startModule.getOpportunityStatus();
+        self.oppSources = jsonDataCaller.syncCall(baseUrl + "/api/OpportunitySources/", null);  //startModule.getOpportunitySources();
+        self.oppTypes = jsonDataCaller.syncCall(baseUrl + "/api/OpportunityTypes/", null);  //startModule.getOpportunityTypes();
+        self.budgetIdentified = jsonDataCaller.syncCall(baseUrl + "/api/YesNoOptions/", null);  //startModule.getYesNoOptions();
+        self.moveForward = jsonDataCaller.syncCall(baseUrl + "/api/YesNoOptions/", null);  //startModule.getYesNoOptions();
 
         self.contactsSelected = ko.observableArray([]);
         self.resetContactSelection = function () {

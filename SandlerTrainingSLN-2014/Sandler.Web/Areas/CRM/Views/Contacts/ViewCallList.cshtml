@@ -1,0 +1,116 @@
+﻿@{
+    Layout = "";
+ }
+<style type="text/css">
+    .k-grid999 tbody .k-button {
+        min-width: 12px;
+        width: 50px;
+        height: 25px;
+        vertical-align: middle;
+    }
+        
+</style>
+
+<div id="ViewCallListMain" class="container">
+    @*Search button*@
+    <div class="row">
+        <div class='page-title'>View Call List</div>
+    </div>
+    
+    <br />
+
+    <div class="row" style="margin-top:10px">
+        <div class="col-md-6 input-group">
+            
+        </div>
+        
+        <div class="pull-right">
+            <a id="excelDownload" title="Download a List in Excel" class="btn btn-default btn-xs fileinput-button" href="@Url.Action("ExportMyCallList", "Contacts", new { bringArchiveRecords = false })"><span class="glyphicon glyphicon-cloud-download"></span> Download</a>
+        </div>
+    </div>
+    
+    <div class="row" style="margin-top: 10px">
+        <div id="searchGrid" class="k-content">
+            <div id="ViewCallListSearchgrid"></div>
+        </div>
+    </div>
+    
+</div>
+
+<script>
+
+    function get_kendoGridDataCallList() {
+        var dataSource = get_DataSource()
+        var TaskListData = {
+            dataSource: dataSource,
+            height: 560,
+            filterable: false,
+            sortable: true,
+            pageable: {
+                refresh: true,
+                pageSizes: true
+            },
+            resizable: true,
+            columnMenu: true,
+            scrollable: true,
+            navigatable: true,
+            selectable: true,
+            columns: [
+
+                { field: "Topic", title: "Topic", width: 120, attributes: { "class": "sptablecell" } },
+                { field: "Description", title: "Description", width: 120, attributes: { "class": "sptablecell" } },
+                { field: "TaskDate", title: "Follow up Date", width: 120, format: "{0:MM/dd/yyyy}", attributes: { "class": "sptablecell" } },
+                { field: "Phone", title: "Phone", width: 90, attributes: { "class": "sptablecell" } }
+
+            ]
+        }
+        return TaskListData;
+     }
+
+    function get_DataSource() {
+
+        var dataSource =
+              {
+                  type: "json",
+                  transport: {
+                      read: {
+                          url: "api/GetMyCallList/",
+                          dataType: "json",
+                          cache: false
+                      }
+                  },
+                  schema: {
+                      data: "results",
+                      total: "__count",
+                      model: {
+                          fields: {
+
+                              Topic: { type: 'string' },
+                              Description: { type: 'string' },
+                              TaskDate: { type: 'date' },
+                              Phone: { type: 'string' },
+                          }
+                      }
+                  },
+                  pageSize: 20,
+                  serverPaging: true,
+                  serverFiltering: true,
+                  serverSorting: true
+
+              };
+        return dataSource;
+    }
+    
+</script>
+
+@*Document Ready *@
+<script>
+    $(document).ready(function () {
+        @*When Page Loads*@
+        var kendoGridData = get_kendoGridDataCallList();
+        $("#ViewCallListSearchgrid").kendoGrid(kendoGridData);
+        showNoti_.hide();
+        /* Tooltip */
+        $('[data-toggle=tooltip]').tooltip({ placement: 'bottom' });
+    });
+</script>

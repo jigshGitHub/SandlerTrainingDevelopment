@@ -1,0 +1,256 @@
+﻿@model dynamic
+
+<div id="perfGoal_body" style="background-color:white">
+
+    @*Page Header*@
+    <div class="row page-header">
+        <div class="col-sm-8">
+            <div class="row">
+                <div class='page-title'><span>Performance Goal</span></div>
+            </div>
+            <div class="row sub-heading">
+                <div class='page-subtitle' data-bind="text: pageTitle"></div>
+            </div>
+        </div>
+        <div class="col-sm-4"></div>
+    </div>
+
+    <hr />
+
+     @* Performance Goal Details *@
+    <div class="container">
+        <div class="row">
+
+            <div class="col-md-6 no-margin">
+                <div class="row">
+                    <div class="col-sm-12 no-margin">
+                        <form role="form">
+                            <div class="form-group" >
+                                
+                                <label>User Name</label>
+                                <div class="controls">
+                                     <input id="Dtask_assgnto" type="text"  data-bind="kendoDropDownList: { dataTextField: 'UserName', dataValueField: 'ASPUserId', data: FRPERSONS, value: UserId }"/>
+                                </div>
+                                     
+                                <label>Year</label>
+                                <div class="controls">
+                                     <input id="Dtask_year" type="text"  data-bind="kendoDropDownList: { dataTextField: 'name', dataValueField: 'Id', data: YEARS, value: YearId }"/>
+                                </div>
+
+                                <label>Month</label>
+                                <div class="controls">
+                                     <input id="Dtask_month" type="text"  data-bind="kendoDropDownList: { dataTextField: 'name', dataValueField: 'Id', data: MONTHS, value: MonthId }"/>
+                                </div>
+                                                                
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 no-margin">
+                <div class="row">
+                    <div class="col-sm-12 no-margin">
+                        <form role="form">
+                            <div class="form-group">
+                                
+                                <label>Calls Goal</label>
+                                <div class="controls">
+                                    <input id="pg_callq" class="form-control"  maxlength="4" type="text"  data-bind="value: CallsGoal">
+                                </div>
+                                
+                                <label>Meetings Goal</label>
+                                <div class="controls">
+                                    <input id="pg_mtgcallq" class="form-control"  maxlength="4" type="text"  data-bind="value: MeetingsGoal">
+                                </div>
+                                                                
+                                <label>Sales Value</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon">$</span>
+                                    <input id="evt_goal" type="text" data-bind="kendoNumericTextBox: {spinners: false, decimals: 2, format: '{0:n2}',value: SalesGoal}"/>
+                                </div>
+                                
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        @* Page Footer *@
+        <div class="row page-footer" style="margin-top:10px">
+            <div class="pull-right">
+                <button id="bt_cancel_evt" class="btn btn-danger btn-cancel" type="button">Cancel</button>
+                <button id="bt_save_evt" class="btn btn-primary btn-save" type="button" data-bind="enable: isDirty, click: Save">Save</button>
+            </div>
+        </div>
+
+     </div>
+
+
+</div>
+
+
+@*Custom extender for Last Name-required *@
+<script>
+    var perfGoalF;
+    @*Data for DDL...*@
+    var frDpersons = jsonDataCaller.syncCall(baseUrl + "/api/GetFranchiseePersonnel", null);
+    console.log(frDpersons.results[0].ASPUserId);
+    var yearOptionsList = ["2014", "2015", "2016"]
+    var monthOptionsList = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+    @*Data for DDL Done Here....*@
+
+    //required or not...
+    ko.extenders.required = function (target, overrideMessage) {
+        //add some sub-observables to our observable
+        target.hasError = ko.observable();
+        target.validationMessage = ko.observable();
+
+        //define a function to do validation
+        function validate(newValue) {
+            target.hasError(newValue ? false : true);
+            target.validationMessage(newValue ? "" : overrideMessage || "*");
+        }
+        //initial validation
+        validate(target());
+        //validate whenever the value changes
+        target.subscribe(validate);
+        //return the original observable
+        return target;
+    };
+
+    ko.dirtyFlag_EditPG = function (root, isInitiallyDirty) {
+        var result = function () { },
+            _initialState = ko.observable(ko.toJSON(root)),
+            _isInitiallyDirty = ko.observable(isInitiallyDirty);
+
+        result.isDirty = ko.computed(function () {
+            return _isInitiallyDirty() || _initialState() !== ko.toJSON(root);
+        });
+
+        result.reset = function () {
+            _initialState(ko.toJSON(root));
+            _isInitiallyDirty(false);
+        };
+
+        return result;
+    };
+    
+    function Temp_ViewModel(data, idx) {
+        //console.log(data);
+        self = this;
+        self.id = ko.observable(idx);
+        self.Id = ko.observable(data);
+        self.name = ko.observable(data);
+    }
+    
+</script>
+
+<script>
+    /*Task Model*/
+    function perfGoalF_viewModel(pgInfo) {
+        var self = this;
+        self.Id = ko.observable(pgInfo.Id);
+        @*Observable Arrays*@
+        self.FRPERSONS = ko.observableArray(frDpersons.results);
+        self.MONTHS = ko.observableArray([]);
+        self.YEARS = ko.observableArray([]);
+
+        self.UserId = ko.observable(pgInfo.UserId != null ? pgInfo.UserId.toUpperCase() : frDpersons.results[0].ASPUserId.toUpperCase());
+        self.pageTitle = ko.observable("Edit Performance Goal");
+        
+        /*Faster Code For Year*/
+        underlyingArray = self.YEARS();
+        for (var i = 0, j = yearOptionsList.length; i < j; i++) {
+            var yrdm = new Temp_ViewModel(yearOptionsList[i], i);
+            underlyingArray.push(yrdm);
+        }
+        self.YEARS.valueHasMutated();
+
+        //console.log(yearOptionsList[0]);
+        //console.log(monthOptionsList[0]);
+        
+        self.YearId = ko.observable(pgInfo.Year != null ? pgInfo.Year : yearOptionsList[0]);
+        /*Year done here*/
+                
+        /*Faster Code For Month...*/
+        underlyingArray = self.MONTHS();
+        for (var i = 0, j = monthOptionsList.length; i < j; i++) {
+            var yrdm = new Temp_ViewModel(monthOptionsList[i], i);
+            underlyingArray.push(yrdm);
+        }
+        self.MONTHS.valueHasMutated();
+        self.MonthId = ko.observable(pgInfo.MonthText != null ? pgInfo.MonthText : monthOptionsList[0]);
+        /*Month done here...*/
+
+        self.SalesGoal = ko.observable(pgInfo.SalesGoal);
+        self.MeetingsGoal = ko.observable(pgInfo.MeetingsGoal);
+        self.CallsGoal = ko.observable(pgInfo.CallsGoal);
+
+        @*Complete Save Part after client side validation is Ok*@
+        self.continueWithSave = function () {
+            @*Go Ahead with save*@
+            self.dirtyFlag.reset();
+            $('#perfGoal_body').block({ message: null });
+            dao_.save(baseUrl + "/api/MyTask/UpdatePG", ko.toJSON(self),
+                function (result) {
+                    if (result.success) {
+                        $("#perfGoal_body").unblock();
+                        showNoti_.hide();
+                        @*This will refresh the PG view*@
+                        RefreshGrid();
+                        $("#bt_cancel_evt").click();
+                    }
+                    else {
+                        $("#perfGoal_body").unblock();
+                        showNoti_.hide();
+                        showNoti_.error(result.message, false);
+                    }
+                },
+                function () {
+                    $("#perfGoal_body").unblock();
+                    showNoti_.hide();
+                });
+        };
+        //This is for to save Task item
+        self.Save = function () {
+            //Now Continue
+            self.continueWithSave();
+        };
+        //Dirty Flag setting...
+        self.dirtyFlag = new ko.dirtyFlag_EditPG(self);
+        self.isDirty = ko.computed(function () {
+            return self.dirtyFlag.isDirty()
+        }, this);
+        
+    }
+
+</script>
+
+<script type="text/javascript">
+
+    //Document Ready function....
+    $(document).ready(function () {
+        @* Cancel (Close) Button *@
+        $("#bt_cancel_evt").click(function () {
+            @* Opened from Application Main Page in a Modal Window *@
+            if (navi_.singlePageInModal('perfGoal_body'))
+                navi_.closeModal();
+            @* Opened from other page inside Navigator Page > Close this page *@
+            else if (navi_.totalPages() > 1)
+                navi_.closeCurrentPage();
+                @* Otherwise, redirect to Home Page *@
+            else {
+                navi_.closeModal();
+            }
+        });
+        //Bind the VM        
+        perfGoalF = new perfGoalF_viewModel(jsonDataCaller.syncCall(baseUrl + "/api/MyDay/GetPerfGoal?id=@Model.GoalId", null));
+        //console.log(perfGoalF);
+        ko.applyBindings(perfGoalF, document.getElementById("perfGoal_body"));
+   });
+    
+</script>

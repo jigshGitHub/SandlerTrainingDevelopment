@@ -11,55 +11,58 @@
         
 </style>
 
-<div id="ArchivedCompanyMain" class="container">
+<div id="ArchivedGoalsMain" class="container">
     @*Search button*@
     <div class="row">
-        <div class='page-title'>Archived Companies</div>
+        <div class='page-title'>Archived Goals</div>
     </div>
     
     <br />
 
     <div class="row" style="margin-top:10px">
         <div class="col-md-6 input-group">
-            <input class="form-control" id="ArcsearchBox" size="100" type="text" placeholder="Company Name or City or Sandler Rep Last/First Name" onkeyup="triggerSearchArc(event);">
+            <input class="form-control" id="ArcsearchBox" size="100" type="text" placeholder="User Name or Year" onkeyup="triggerSearchArc(event);">
             <span class="input-group-btn"> 
                   <button id="btnArchiveSearch" class="btn btn-primary" type="button"><span class="glyphicon glyphicon-search" title="Quick Search" data-toggle="tooltip"></span></button>
             </span>
         </div>
          @*For Export To Excel*@
         <div class="pull-right">
-            <a title="Download a List in Excel" class="btn btn-default btn-xs fileinput-button" href="@Url.Action("ExportArchivedCompany","Companies")"><span class="glyphicon glyphicon-cloud-download"></span> Download</a>
+            <a title="Download a List in Excel" class="btn btn-default btn-xs fileinput-button" href="@Url.Action("ExportArchivedGoals","Home")"><span class="glyphicon glyphicon-cloud-download"></span> Download</a>
         </div>
     </div>
     
     <div class="row" style="margin-top: 10px">
         <div id="searchGrid" class="k-content">
-            <div id="ArchCompaniesSearchgrid"></div>
+            <div id="ArchGoalsSearchgrid"></div>
         </div>
     </div>
+
 </div>
+
+
 
 
 <script>
 
-    function UnarchiveCompany(e) {
+    function UnarchivePG(e) {
         e.preventDefault();
-        var dataItem = $("#ArchCompaniesSearchgrid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
+        var dataItem = $("#ArchGoalsSearchgrid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
         //Let us block the Div while we wait for User response
-        $('#ArchivedCompanyMain').block({ message: null });
-        showNoti_.confirm("Are you sure to UnArchive this Company - " + dataItem.COMPANYNAME + "?",
+        $('#ArchivedGoalsMain').block({ message: null });
+        showNoti_.confirm("Are you sure to UnArchive this Goal for - " + dataItem.UserName + "?",
               function () {
                   showNoti_.progress(NOTIFICMSG.ARCHIVING, false);
                   //Proceed with the Archive 
                   $.ajax({
-                      url: "api/Company/UnArchive",
+                      url: "api/Company/UnArchivePG",
                       type: 'POST',
                       data: ko.toJSON(dataItem),
                       contentType: 'application/json',
                       success: function (result) {
                           if (!result.success) {
                               showNoti_.error(result.message, true);
-                              $("#ArchivedCompanyMain").unblock();
+                              $("#ArchivedGoalsMain").unblock();
                           }
                           else {
                               showNoti_.hide();
@@ -67,19 +70,19 @@
                               RefreshGridArc();
                               //also refresh the Index page
                               RefreshGrid();
-                              $("#ArchivedCompanyMain").unblock();
+                              $("#ArchivedGoalsMain").unblock();
                           }
                       },
                       error: function (xhr, ajaxOptions, thrownError) {
-                          showNoti_.error("There is some issue in Archiving the Company. Please try again later.", true);
-                          $("#ArchivedCompanyMain").unblock();
+                          showNoti_.error("There is some issue in un-Archiving the Performance Goal. Please try again later.", true);
+                          $("#ArchivedGoalsMain").unblock();
                       }
                   });
               },
               function () {
                   //user said no
                   showNoti_.hide();
-                  $("#ArchivedCompanyMain").unblock();
+                  $("#ArchivedGoalsMain").unblock();
               });//confirm ends here
 
     }
@@ -94,14 +97,13 @@
             $("#btnArchiveSearch").click();
         }
     }
-
-    //To do
+    
     //Remove sorting for TotalCompanyValue
     function get_kendoGridDataArc(searchText, selectForExcel) {
         var dataSource = get_gridDataSourceArc(searchText, selectForExcel)
         var kendoGridData = {
             dataSource: dataSource,
-            height: 480,
+            height: 560,
             filterable: false,
             sortable: true,
             pageable: {
@@ -115,16 +117,19 @@
             selectable: true,
             columns: [
                 {
-                    command: [
-                            { template: "&nbsp;<button title='UnArchive Company' class='btn btn-danger btn-sm deletesa' onclick='UnarchiveCompany(event)'><span class='glyphicon glyphicon-ok'></span></button>" }
+                  command: [
+                       { template: "&nbsp;<button title='UnArchive Goal' class='btn btn-danger btn-sm deletesa' onclick='UnarchivePG(event)'><span class='glyphicon glyphicon-ok'></span></button>" }
                     ],
-                    title: " ", width: "20px"
+                    title: " ", width: "65px"
                 },
-                { field: "COMPANYNAME", title: "Company Name", width: 80 },
-                { field: "IndustryTypeName", title: "Industry", width: 80 },
-                { field: "ProductTypeName", title: "Product", width: 60 },
-                { field: "Representative", title: "Sandler Rep Name", width: 60 },
-                { field: "TotalCompanyValue", title: "Total Company Value", width: 80, format: "{0:c2}" }
+                { field: "UserName", title: "User Name", width: 80, attributes: { "class": "sptablecell" } },
+                { field: "FirstName", title: "First Name", width: 80, attributes: { "class": "sptablecell" } },
+                { field: "LastName", title: "Last Name", width: 80, attributes: { "class": "sptablecell" } },
+                { field: "Year", title: "Year", width: 60, attributes: { "class": "sptablecell" } },
+                { field: "MonthAsText", title: "Month", width: 80, attributes: { "class": "sptablecell" } },
+                { field: "CallsGoal", title: "Calls", width: 40, attributes: { "class": "sptablecell" } },
+                { field: "MeetingsGoal", title: "Meetings", width: 40, attributes: { "class": "sptablecell" } },
+                { field: "SalesGoal", title: "Sales Value", width: 80, format: "{0:c2}", attributes: { "class": "sptablecell" } }
 
             ]
         }
@@ -136,7 +141,7 @@
             type: "json",
             transport: {
                 read: {
-                    url: "api/ArchiveCompanyView/",
+                    url: "api/ArchivePerformanceGoalView/",
                     dataType: "json",
                     data: { searchText: searchText, selectForExcel: false },
                     cache: false //This is required othewise grid does not refresh after Edit operation in IE
@@ -147,11 +152,15 @@
                 total: "__count",
                 model: {
                     fields: {
-                        COMPANYNAME: { type: 'string' },
-                        IndustryTypeName: { type: 'string' },
-                        ProductTypeName: { type: 'string' },
-                        Representative: { type: 'string' },
-                        TotalCompanyValue: { type: 'number' }
+                        UserName: { type: 'string' },
+                        FirstName: { type: 'string' },
+                        LastName: { type: 'string' },
+                        Year: { type: 'number' },
+                        MonthAsText: { type: 'string' },
+                        CallsGoal: { type: 'number' },
+                        MeetingsGoal: { type: 'number' },
+                        SalesGoal: { type: 'number' }
+
                     }
                 }
             },
@@ -163,23 +172,23 @@
         return dataSource;
     }
 
+
+
 </script>
 
 @*Document Ready *@
 <script>
     $(document).ready(function () {
+        
         @*When Page Loads*@
-
-        //showNoti_.progress(NOTIFICMSG.PROCESSING, false);
-
         var kendoGridData = get_kendoGridDataArc("", false);
-        $("#ArchCompaniesSearchgrid").kendoGrid(kendoGridData);
+        $("#ArchGoalsSearchgrid").kendoGrid(kendoGridData);
         showNoti_.hide();
 
-        //When Search Button is clicked 
+        /* When Search Button is clicked */
         $("#btnArchiveSearch").click(function () {
             var searchText = $("#ArcsearchBox").attr('value');
-            var grid = $("#ArchCompaniesSearchgrid").data("kendoGrid");
+            var grid = $("#ArchGoalsSearchgrid").data("kendoGrid");
             var dataSource = get_gridDataSourceArc(searchText, false);
             grid.dataSource.transport.options.read.data = { searchText: searchText, selectForExcel: false };
             grid.dataSource.page(1);
@@ -187,9 +196,6 @@
 
         /* Tooltip */
         $('[data-toggle=tooltip]').tooltip({ placement: 'bottom' });
-
-        //Hide any Pines Notify 
-        //showNoti_.hide();
 
     });
 </script>
