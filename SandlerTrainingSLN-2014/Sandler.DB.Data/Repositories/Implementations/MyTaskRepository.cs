@@ -12,9 +12,7 @@ namespace Sandler.DB.Data.Repositories.Implementations
 {
     public class MyTaskRepository : RepositoryBase<Tbl_FollowUpItemsList>, IMyTaskRepository
     {
-
-        public MyTaskRepository(IDBContext dbContext)
-            : base(dbContext)
+        public MyTaskRepository(IDBContext dbContext) : base(dbContext)
         {
         }
 
@@ -24,12 +22,24 @@ namespace Sandler.DB.Data.Repositories.Implementations
 
         }
 
+        public IEnumerable<MyTaskView> GetOurTasks(string Role, string UserId, int? FranchiseeId, int? RegionId)
+        {
+            return (DBContext.Get() as SandlerDBEntities).GetOurTaskView(Role, UserId, FranchiseeId, RegionId);
+
+        }
+
         public IEnumerable<FranchiseePersonnel> GetFranchiseePersonnel(int FranchiseeId)
         {
             return (DBContext.Get() as SandlerDBEntities).GetFranchiseePersonnel(FranchiseeId);
 
         }
 
+        public IEnumerable<MyTaskView> GetMyCallList(string Sql, string OrderBy, int? pageSize, int? pageNo)
+        {
+            return (DBContext.Get() as SandlerDBEntities).GetMyCallList(Sql, OrderBy, pageSize, pageNo);
+
+        }
+        
         public bool ArchiveDTask(int Id)
         {
             string _sql = string.Format("UPDATE Tbl_FollowUpItemsList Set IsActive = 0 where Id = {0} Select 1 as responseId", Id);
@@ -68,8 +78,7 @@ namespace Sandler.DB.Data.Repositories.Implementations
             return (DBContext.Get() as SandlerDBEntities).GetmyOpportunityList(orderBy, pageSize, pageNo, UserId, FranchiseeId, CoachId);
 
         }
-
-
+        
         public int AddTask(Tbl_FollowUpItemsList _followupItem)
         {
             Add(_followupItem);
@@ -83,6 +92,30 @@ namespace Sandler.DB.Data.Repositories.Implementations
             DBContext.SaveChanges();
             return _followupItem.Id;
         }
-
+        
     }
+        
+    public class MyPGRepository : RepositoryBase<TBL_PerformanceGoals>, IMyPGRepository
+    {
+        public MyPGRepository(IDBContext dbContext) : base(dbContext)
+        {
+        }
+
+        public int UpdatePG(TBL_PerformanceGoals _pgItem)
+        {
+            Update(_pgItem);
+            DBContext.SaveChanges();
+            return _pgItem.Id;
+        }
+
+        public int AddPG(TBL_PerformanceGoals _pgItem)
+        {
+            Add(_pgItem);
+            DBContext.SaveChanges();
+            return _pgItem.Id;
+        }
+        
+    }
+
+
 }

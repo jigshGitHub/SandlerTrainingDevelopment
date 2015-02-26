@@ -38,6 +38,8 @@ namespace Sandler.DB.Models
 
         public string Topic { get; set; }
 
+        public int count_ { get; set; }
+
         public string Phone { get; set; }
 
         public string AssignTo { get; set; }

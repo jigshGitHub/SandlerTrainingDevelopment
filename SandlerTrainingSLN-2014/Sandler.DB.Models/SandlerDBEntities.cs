@@ -39,6 +39,147 @@ namespace Sandler.DB.Models
             return q.ToList();
         }
 
+        #region [[ For ACE ]]
+
+        public List<AceMainView> GetAceMainView(string searchText, string orderBy, int? pageSize, int? pageNo, int? coachId, int? franchiseeId, bool selectForExcel)
+        {
+            if (string.IsNullOrEmpty(searchText))
+                searchText = "";
+
+            string whereClause = "";
+            if (coachId.HasValue)
+                whereClause = whereClause + ",@coachId=" + coachId.Value;
+            if (franchiseeId.HasValue)
+                whereClause = whereClause + ",@franchiseeId=" + franchiseeId.Value;
+            if (selectForExcel)
+                whereClause = whereClause + ",@selectForExcel=1";
+
+            //Now Check if SearchText is Date or Not....
+            DateTime temp;
+            bool isDateSearch = false;
+            if (!string.IsNullOrEmpty(searchText) && DateTime.TryParse(searchText, out temp))
+            {
+                isDateSearch = true;
+            }
+
+            //Prepare Query..
+            string query = string.Format("exec [sp_AceMainView] @orderBy='{0}' ,@pageSize={1},@pageNo={2}{3},@searchText='{4}'"
+                , orderBy, pageSize, pageNo, whereClause, searchText);
+
+            //Add condition if necessary...
+            if (!string.IsNullOrEmpty(searchText) && isDateSearch)
+                query = query + ",@IsDateSearch=1";
+
+            //Get the Data now...
+            var q = Database.SqlQuery<AceMainView>(query).DistinctBy(r => r.AceId);
+
+            return q.ToList();
+        }
+
+        public List<AceMainView> GetArchiveAceMainView(string searchText, string orderBy, int? pageSize, int? pageNo, int? coachId, int? franchiseeId, bool selectForExcel)
+        {
+            if (string.IsNullOrEmpty(searchText))
+                searchText = "";
+
+            string whereClause = "";
+            if (coachId.HasValue)
+                whereClause = whereClause + ",@coachId=" + coachId.Value;
+            if (franchiseeId.HasValue)
+                whereClause = whereClause + ",@franchiseeId=" + franchiseeId.Value;
+            if (selectForExcel)
+                whereClause = whereClause + ",@selectForExcel=1";
+
+            //Now Check if SearchText is Date or Not....
+            DateTime temp;
+            bool isDateSearch = false;
+            if (!string.IsNullOrEmpty(searchText) && DateTime.TryParse(searchText, out temp))
+            {
+                isDateSearch = true;
+            }
+
+            string query = string.Format("exec [sp_ArchiveAceMainView] @orderBy='{0}' ,@pageSize={1},@pageNo={2}{3},@searchText='{4}'"
+                , orderBy, pageSize, pageNo, whereClause, searchText);
+
+            //Add condition if necessary...
+            if (!string.IsNullOrEmpty(searchText) && isDateSearch)
+                query = query + ",@IsDateSearch=1";
+
+            var q = Database.SqlQuery<AceMainView>(query);
+
+            return q.ToList();
+        }
+
+        public List<Tbl_AceCampaignType> GetCampaignTypeOptions()
+        {
+            string query = string.Format("exec [sp_GetAceCampaignTypeOptions]");
+
+            var q = Database.SqlQuery<Tbl_AceCampaignType>(query);
+
+            return q.ToList();
+        }
+
+        public List<Tbl_AceCallToActionType> GetCallToActionTypeOptions()
+        {
+            string query = string.Format("exec [sp_GetAceCallToActionTypeOptions]");
+
+            var q = Database.SqlQuery<Tbl_AceCallToActionType>(query);
+
+            return q.ToList();
+        }
+
+
+        #endregion
+
+
+        public List<MyTaskView> GetMyCallList(string Sql, string OrderBy, int? pageSize, int? pageNo)
+        {
+            string query = String.Format("EXEC dbo.get_pagedDataSet '{0}', '{1}', {2}, {3}", Sql, OrderBy, pageSize, pageNo);
+            var q = Database.SqlQuery<MyTaskView>(query);
+            return q.ToList();
+        }
+
+        public List<PerformanceGoalView> GetPerformanceGoalView(string searchText, string orderBy, int? pageSize, int? pageNo, int? coachId, int? franchiseeId, bool selectForExcel)
+        {
+            if (string.IsNullOrEmpty(searchText))
+                searchText = "";
+
+            string whereClause = "";
+            if (coachId.HasValue)
+                whereClause = whereClause + ",@coachId=" + coachId.Value;
+            if (franchiseeId.HasValue)
+                whereClause = whereClause + ",@franchiseeId=" + franchiseeId.Value;
+            if (selectForExcel)
+                whereClause = whereClause + ",@selectForExcel=1";
+
+            string query = string.Format("exec [sp_PerformanceGoalView] @orderBy='{0}' ,@pageSize={1},@pageNo={2}{3},@searchText='{4}'"
+                , orderBy, pageSize, pageNo, whereClause, searchText);
+
+            var q = Database.SqlQuery<PerformanceGoalView>(query); //We are getting them all.....
+
+            return q.ToList();
+        }
+
+        public List<PerformanceGoalView> GetArchivePerformanceGoalView(string searchText, string orderBy, int? pageSize, int? pageNo, int? coachId, int? franchiseeId, bool selectForExcel)
+        {
+            if (string.IsNullOrEmpty(searchText))
+                searchText = "";
+
+            string whereClause = "";
+            if (coachId.HasValue)
+                whereClause = whereClause + ",@coachId=" + coachId.Value;
+            if (franchiseeId.HasValue)
+                whereClause = whereClause + ",@franchiseeId=" + franchiseeId.Value;
+            if (selectForExcel)
+                whereClause = whereClause + ",@selectForExcel=1";
+
+            string query = string.Format("exec [sp_ArchivePerformanceGoalView] @orderBy='{0}' ,@pageSize={1},@pageNo={2}{3},@searchText='{4}'"
+                , orderBy, pageSize, pageNo, whereClause, searchText);
+
+            var q = Database.SqlQuery<PerformanceGoalView>(query); //We are getting them all.....
+
+            return q.ToList();
+        }
+
         public List<CompanyView> GetCompanyOpportunitiesView(string searchText, string orderBy, int? pageSize, int? pageNo, int? coachId, int? franchiseeId, bool selectForExcel)
         {
             if (string.IsNullOrEmpty(searchText))
@@ -84,6 +225,16 @@ namespace Sandler.DB.Models
         public List<MyTaskView> GetMyTaskView(string Role, string UserId, int? FranchiseeId, int? RegionId)
         {
             string query = string.Format("exec [sp_GetAllTasks] @Role='{0}',@UserId= '{1}',@FranchiseeId={2},@RegionId={3} ", Role, UserId, FranchiseeId, RegionId);
+
+            var q = Database.SqlQuery<MyTaskView>(query);
+
+            return q.ToList();
+        }
+
+
+        public List<MyTaskView> GetOurTaskView(string Role, string UserId, int? FranchiseeId, int? RegionId)
+        {
+            string query = string.Format("exec [sp_GetAllOurTasks] @Role='{0}',@UserId= '{1}',@FranchiseeId={2},@RegionId={3} ", Role, UserId, FranchiseeId, RegionId);
 
             var q = Database.SqlQuery<MyTaskView>(query);
 

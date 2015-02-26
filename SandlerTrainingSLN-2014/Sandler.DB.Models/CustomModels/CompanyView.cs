@@ -60,4 +60,20 @@ namespace Sandler.DB.Models
         public Nullable<DateTime> StartTime { get; set; }
         public string BillingDescription { get; set; }
     }
+
+    public partial class PerformanceGoalView
+    {
+        public int Id { get; set; }
+        public int TotalCount { get; set; }
+        public string UserName { get; set; }
+        public Nullable<int> Year { get; set; }
+        public Nullable<int> Month { get; set; }
+        public string MonthAsText { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public Nullable<int> CallsGoal { get; set; }
+        public Nullable<int> MeetingsGoal { get; set; }
+        public Nullable<int> SalesGoal { get; set; }
+
+    }
 }

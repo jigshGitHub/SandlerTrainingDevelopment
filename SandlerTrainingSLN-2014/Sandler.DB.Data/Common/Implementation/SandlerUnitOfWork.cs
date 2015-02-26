@@ -21,6 +21,8 @@ namespace Sandler.DB.Data.Common.Implementation
 
         // Repositories
         public ICompanyRepository CompanyRepository() { return new CompanyRepository(RepositoryProvider.dbContext); }
+        public IAceMainRepository AceMainRepository() { return new AceMainRepository(RepositoryProvider.dbContext); }
+        public IMyPGRepository MyPGRepository() { return new MyPGRepository(RepositoryProvider.dbContext); }
         public IEmailRepository EmailRepository() { return new EmailRepository(RepositoryProvider.dbContext); }
         public IFranchiseeRepository FranchiseeRepository() { return new FranchiseeRepository(RepositoryProvider.dbContext); }
         public IFranchiseeUsersRepository FranchiseeUsersRepository() { return new FranchiseeUsersRepository(RepositoryProvider.dbContext); }

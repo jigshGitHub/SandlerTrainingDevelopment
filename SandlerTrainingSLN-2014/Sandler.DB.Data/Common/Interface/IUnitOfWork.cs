@@ -22,5 +22,7 @@ namespace Sandler.DB.Data.Common.Interface
         IFranchiseeUsersRepository FranchiseeUsersRepository();
         IMyTaskRepository MyTaskRepository();
         IKendoChartsRepository KendoChartsRepository();
+        IMyPGRepository MyPGRepository();
+        IAceMainRepository AceMainRepository();
     }
 }

@@ -41,6 +41,16 @@ namespace Sandler.DB.Data.Repositories.Implementations
             return (DBContext.Get() as SandlerDBEntities).GetCompanyView(searchText, orderBy, pageSize, pageNo, coachId, franchiseeId,selectForExcel);
         }
 
+        public IEnumerable<PerformanceGoalView> GetPerformanceGoalView(string searchText, string orderBy, int? pageSize, int? pageNo, int? coachId, int? franchiseeId, bool selectForExcel)
+        {
+            return (DBContext.Get() as SandlerDBEntities).GetPerformanceGoalView(searchText, orderBy, pageSize, pageNo, coachId, franchiseeId, selectForExcel);
+        }
+
+        public IEnumerable<PerformanceGoalView> GetArchivePerformanceGoalView(string searchText, string orderBy, int? pageSize, int? pageNo, int? coachId, int? franchiseeId, bool selectForExcel)
+        {
+            return (DBContext.Get() as SandlerDBEntities).GetArchivePerformanceGoalView(searchText, orderBy, pageSize, pageNo, coachId, franchiseeId, selectForExcel);
+        }
+        
         //Get all company that has opportunities
         public IEnumerable<CompanyView> GetCompanyOpportunities(string searchText, string orderBy, int? pageSize, int? pageNo, int? coachId, int? franchiseeId, bool selectForExcel)
         {            
@@ -88,6 +98,40 @@ namespace Sandler.DB.Data.Repositories.Implementations
             }
         }
 
+        public bool ArchivePerformanceGoal(int goalId)
+        {
+            string _sql = string.Format("UPDATE TBL_PerformanceGoals Set IsActive = 0 where Id = {0} Select 1 as responseId", goalId);
+            var _message = (DBContext.Get() as SandlerDBEntities).Database.SqlQuery<ReponseMessage>(_sql).FirstOrDefault();
+            //Now return the response
+            if (_message.responseId > 0)
+            {
+                //All Ok - Record is marked as Archived
+                return true;
+            }
+            else
+            {
+                //something went wrong
+                return false;
+            }
+        }
+
+        public bool UnArchivePerformanceGoal(int goalId)
+        {
+            string _sql = string.Format("UPDATE TBL_PerformanceGoals Set IsActive = 1 where Id = {0} Select 1 as responseId", goalId);
+            var _message = (DBContext.Get() as SandlerDBEntities).Database.SqlQuery<ReponseMessage>(_sql).FirstOrDefault();
+            //Now return the response
+            if (_message.responseId > 0)
+            {
+                //All Ok - Record is marked as Archived
+                return true;
+            }
+            else
+            {
+                //something went wrong
+                return false;
+            }
+        }
+        
         //To UnArchive Company - Contact and Opps within Comapny
         public bool UnArchiveCompany(int companyId, string userId)
         {

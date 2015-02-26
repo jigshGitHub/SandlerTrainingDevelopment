@@ -53,6 +53,7 @@
     <Compile Include="ClientsAvgLengthWithIndustries.cs">
       <DependentUpon>SandlerEDM.tt</DependentUpon>
     </Compile>
+    <Compile Include="CustomModels\AceMainView.cs" />
     <Compile Include="CustomModels\ClosedSalesAnalysis.cs" />
     <Compile Include="CustomModels\CompanyView.cs" />
     <Compile Include="CustomModels\ContactView.cs" />

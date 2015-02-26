@@ -48,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common\Implementation\SandlerRepositoryProvider.cs" />
+    <Compile Include="Repositories\Implementations\AceMainRepository.cs" />
     <Compile Include="Repositories\Implementations\CompanyRepository.cs" />
     <Compile Include="Repositories\Implementations\ContactRepository.cs" />
     <Compile Include="Repositories\Implementations\EmailRepository.cs" />
@@ -57,6 +58,7 @@
     <Compile Include="Repositories\Implementations\MenuRepository.cs" />
     <Compile Include="Repositories\Implementations\MyTaskRepository.cs" />
     <Compile Include="Repositories\Implementations\OpportunityRepository.cs" />
+    <Compile Include="Repositories\Interfaces\IAceMainRepository.cs" />
     <Compile Include="Repositories\Interfaces\IEmailRepository.cs" />
     <Compile Include="Repositories\Interfaces\IFranchiseeUsersRepository.cs" />
     <Compile Include="Repositories\Interfaces\IFranchiseeRepository.cs" />

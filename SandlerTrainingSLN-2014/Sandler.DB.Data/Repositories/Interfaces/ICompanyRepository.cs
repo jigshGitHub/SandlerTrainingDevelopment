@@ -21,8 +21,15 @@ namespace Sandler.DB.Data.Repositories.Interfaces
         //For Archive Feature
         bool ArchiveCompany(int companyId, string userId);
         bool UnArchiveCompany(int companyId, string userId);
+
         int AddCompany(TBL_COMPANIES _company);
         int UpdateCompany(TBL_COMPANIES _company);
+
+        IEnumerable<PerformanceGoalView> GetPerformanceGoalView(string searchText, string orderBy, int? pageSize, int? pageNo, int? coachId, int? franchiseeId, bool selectForExcel);
+        IEnumerable<PerformanceGoalView> GetArchivePerformanceGoalView(string searchText, string orderBy, int? pageSize, int? pageNo, int? coachId, int? franchiseeId, bool selectForExcel);
+
+        bool ArchivePerformanceGoal (int goalId);
+        bool UnArchivePerformanceGoal (int goalId);
 
     }
 }
