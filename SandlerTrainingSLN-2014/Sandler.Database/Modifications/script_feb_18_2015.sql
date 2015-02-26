@@ -51,7 +51,7 @@ CREATE TABLE [dbo].[Tbl_AceMainInfo](
 	[ResponseTo] [varchar](150) NULL,
 	[CallToActionId] [smallint] NULL,
 	[MessageText] [varchar](max) NULL,
-	[AttachFileId] [int] NULL,
+	[AttachFileName] [varchar](500) NULL,
 	[MessageSentDate] [datetime] NULL,
 	[IsActive] [bit] NULL,
 	[CreatedDate] [datetime] NULL,

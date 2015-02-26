@@ -620,7 +620,7 @@
           <Property Name="ResponseTo" Type="varchar" MaxLength="150" />
           <Property Name="CallToActionId" Type="smallint" />
           <Property Name="MessageText" Type="varchar(max)" />
-          <Property Name="AttachFileId" Type="int" />
+          <Property Name="AttachFileName" Type="varchar" MaxLength="500" />
           <Property Name="MessageSentDate" Type="datetime" />
           <Property Name="IsActive" Type="bit" />
           <Property Name="CreatedDate" Type="datetime" />
@@ -4378,7 +4378,6 @@
           <Property Type="String" Name="ResponseTo" MaxLength="150" FixedLength="false" Unicode="false" />
           <Property Type="Int16" Name="CallToActionId" />
           <Property Type="String" Name="MessageText" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Type="Int32" Name="AttachFileId" />
           <Property Type="DateTime" Name="MessageSentDate" Precision="3" />
           <Property Type="Boolean" Name="IsActive" />
           <Property Type="DateTime" Name="CreatedDate" Precision="3" />
@@ -4388,6 +4387,7 @@
           <Property Type="Int32" Name="FranchiseeId" />
           <Property Type="Int32" Name="TotalCountOutBound" />
           <Property Type="Int32" Name="TotalCountConfirm" />
+          <Property Type="String" Name="AttachFileName" MaxLength="500" FixedLength="false" Unicode="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -5696,6 +5696,7 @@
           <EntitySetMapping Name="Tbl_AceMainInfo">
             <EntityTypeMapping TypeName="SandlerDBModel.Tbl_AceMainInfo">
               <MappingFragment StoreEntitySet="Tbl_AceMainInfo">
+                <ScalarProperty Name="AttachFileName" ColumnName="AttachFileName" />
                 <ScalarProperty Name="TotalCountConfirm" ColumnName="TotalCountConfirm" />
                 <ScalarProperty Name="TotalCountOutBound" ColumnName="TotalCountOutBound" />
                 <ScalarProperty Name="FranchiseeId" ColumnName="FranchiseeId" />
@@ -5705,7 +5706,6 @@
                 <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />
                 <ScalarProperty Name="MessageSentDate" ColumnName="MessageSentDate" />
-                <ScalarProperty Name="AttachFileId" ColumnName="AttachFileId" />
                 <ScalarProperty Name="MessageText" ColumnName="MessageText" />
                 <ScalarProperty Name="CallToActionId" ColumnName="CallToActionId" />
                 <ScalarProperty Name="ResponseTo" ColumnName="ResponseTo" />
