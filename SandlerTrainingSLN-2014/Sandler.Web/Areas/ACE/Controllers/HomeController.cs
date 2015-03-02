@@ -47,6 +47,15 @@ namespace Sandler.Web.Areas.ACE.Controllers
             return PartialView("Create", model);
         }
 
+        public ActionResult Edit(int? id)
+        {
+            dynamic model = new System.Dynamic.ExpandoObject();
+            model.AceId = id != null ? id : 0;
+
+            return PartialView("Edit", model);
+        }
+
+
         public ActionResult ViewArchived()
         {
             return PartialView("ViewArchived");

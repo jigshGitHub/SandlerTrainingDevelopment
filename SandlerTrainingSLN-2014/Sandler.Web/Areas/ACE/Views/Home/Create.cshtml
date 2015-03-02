@@ -273,9 +273,11 @@
 
                          <label style="font-size:small">Message&nbsp;<span class="label label-danger" data-bind='visible: MESSAGE.hasError, text: MESSAGE.validationMessage'></span></label>
                          <div class="controls">
-                              <textarea id="ace_message" class="form-control" data-bind="value: MESSAGE" rows="14" placeholder="Type Message here.."></textarea>
+                             @*<textarea id="ace_message" class="form-control" data-bind="value: MESSAGE" rows="14" placeholder="Type Message here.."></textarea>*@
+                             <textarea id="ace_message" data-bind="richText: MESSAGE, valueUpdate: 'afterkeydown'"></textarea>
+                             
                          </div>
-                                                                                                     
+                                                                                                                                 
                       </div>
                       
                     </div>
@@ -291,7 +293,7 @@
     @* Page Footer *@
     <div class="row page-footer">
         <div class="pull-right">
-             <button id="bt_save_ace" class="btn btn-primary btn-save" type="button" data-bind="enable: isDirty, click: Send">Send Email</button>
+             <button id="bt_save_ace" style="width:160px" class="btn btn-primary btn-save" type="button" data-bind="enable: isDirty, click: Send">Create Campaign</button>
             
         </div>
     </div>

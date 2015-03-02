@@ -23,6 +23,46 @@ ko.extenders.required = function (target, overrideMessage) {
     return target;
 };
 
+ko.bindingHandlers.richText = {
+    init: function (element, valueAccessor) {
+
+        var modelValue = valueAccessor();
+        var value = ko.utils.unwrapObservable(valueAccessor());
+        var element$ = $(element);
+
+        // Set initial value and create the CKEditor
+        element$.html(value);
+        var editor = element$.ckeditor().editor;
+
+        // bind to change events and link it to the observable
+        editor.on('change', function (e) {
+            var self = this;
+            if (ko.isWriteableObservable(self)) {
+                self($(e.listenerData).val());
+            }
+        }, modelValue, element);
+
+
+        /* Handle disposal if KO removes an editor 
+         * through template binding */
+        ko.utils.domNodeDisposal.addDisposeCallback(element,
+            function () {
+                editor.updateElement();
+                editor.destroy();
+            });
+    },
+
+    /* Hook and handle the binding updating so we write 
+     * back to the observable */
+    update: function (element, valueAccessor) {
+        var element$ = $(element);
+        var newValue = ko.utils.unwrapObservable(valueAccessor());
+        if (element$.ckeditorGet().getData() != newValue) {
+            element$.ckeditorGet().setData(newValue);
+        }
+    }
+}
+
 ko.dirtyFlag_ace = function (root, isInitiallyDirty) {
 
     var result = function () { },
@@ -241,7 +281,7 @@ function createCampaignF_viewModel() {
                     self.ResetForm();
             },
             error: function (xhr, ajaxOptions, thrownError) {
-                showNoti_.error("There is some issue in sending Email message.", true);
+                showNoti_.error("There is some issue in saving Campaign Information.", true);
             }
         });
         
@@ -299,6 +339,9 @@ function ng_createCampaignCtrl($scope, $http) {
             //Down Arrow as we are showing
             createCampaignF.Div4Hideshow("pull-right glyphicon glyphicon-chevron-down");
         });
+
+        //Converto to ckEditor...
+        $('#ace_message').ckeditor();
 
         //This is for Attachment File Upload...
         $('#fileupload_ace').fileupload(

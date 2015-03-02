@@ -129,8 +129,7 @@ namespace Sandler.Web.Controllers.API
             }
 
         }
-
-
+        
         [Route("api/GetCampaignTypeOptions")]
         [HttpGet()]
         public HttpResponseMessage GetCampaignTypeOptions()
@@ -151,6 +150,19 @@ namespace Sandler.Web.Controllers.API
             return Request.CreateResponse(returnObject);
         }
 
+        public HttpResponseMessage Get(int id)
+        {
+            //Let us Initiate the model with UniqueId and the Franchisee Id
+            var data = new Tbl_AceMainInfo() { AceId = 0, FranchiseeId = CurrentUser.FranchiseeID };
+            if (id > 0)
+            {
+                data = uow.Repository<Tbl_AceMainInfo>().GetById(id);
+            }
+            return Request.CreateResponse(data);
+        }
+
+        #region [[ Support Methods ]]
+        
         public bool CheckRecipientsExist(List<EmailGroups> grps)
         {
             bool rExists = false;
@@ -183,6 +195,7 @@ namespace Sandler.Web.Controllers.API
             }
             //return the list for this Checkbox list
             return _listAddresses;
+           
         }
 
         public static class Validation
@@ -248,16 +261,15 @@ namespace Sandler.Web.Controllers.API
             return totalCount;
         }
 
+        #endregion
 
         [HttpPost]
         [Route("api/AceMain/SaveCampaign")]
         public genericResponse Save(CampaignInformation cmpgInfo)
         {
             genericResponse _response;
-
-            int aceId = 0;
-            //string userGroupInfo = "";
-            
+            int aceId = cmpgInfo.AceId;
+                        
             try
             {
                 if (cmpgInfo != null
@@ -274,6 +286,8 @@ namespace Sandler.Web.Controllers.API
                     
                     //Crate object for Ace Main Info and Save it first....
                     Tbl_AceMainInfo aceMain = new Tbl_AceMainInfo();
+                    if(cmpgInfo.AceId > 0 )
+                        aceMain.AceId = cmpgInfo.AceId;
                     aceMain.CampaignName = cmpgInfo.CAMPGNAME;
                     aceMain.EventDate = cmpgInfo.EVENTDATE;
                     aceMain.CampaignTypeId = cmpgInfo.CampaignTypeId;
@@ -295,7 +309,10 @@ namespace Sandler.Web.Controllers.API
                     aceMain.TotalCountOutBound = CountOutBoundNumber(cmpgInfo);
                     aceMain.TotalCountConfirm = 0;//as we are creating new campaign..
                     //Now Save it...and get the unique Id back...
-                    aceId = uow.AceMainRepository().AddCampaign(aceMain);
+                    if (cmpgInfo.AceId > 0)
+                        aceId = uow.AceMainRepository().UpdateCampaign(aceMain);
+                    else
+                        aceId = uow.AceMainRepository().AddCampaign(aceMain);
                     //create Response...
                     _response = new genericResponse() { success = true, UniqueId = aceId };
                 }
@@ -309,10 +326,10 @@ namespace Sandler.Web.Controllers.API
             }
             catch (Exception ex)
             {
-                _response = new genericResponse() { success = false, message = "There is a problem in sending the Email message. Please try again later. " + ex.Message };
+                _response = new genericResponse() { success = false, message = "There is a problem in Saving Camopaign. Please try again later. " + ex.Message };
                 return _response;
             }
         }
-
+                
     }
 }

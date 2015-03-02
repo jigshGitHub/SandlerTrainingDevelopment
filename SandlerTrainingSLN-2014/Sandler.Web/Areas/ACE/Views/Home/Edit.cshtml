@@ -1,0 +1,721 @@
+﻿
+<style>
+
+ .form-group {
+    display: inline-block;
+    vertical-align: top;
+}
+
+ .keep-on-line {
+    white-space: nowrap;
+}
+  .panel.blue .panel-heading
+ {
+	background-color: #25a0da;
+	border-color: #25a0da;
+	color: white;
+	border-radius: 0px;
+ }
+ /*This is for Multiselect background blue color and font white*/
+ .k-multiselect-wrap li
+ {
+    background-color: #25a0da;
+    color: white;
+ }
+ .splfont
+ {
+    font-size:12px;
+ }
+  /*This is for Multiselect background other than bluee color and font white : Used for main counter*/
+ .msmain .k-multiselect-wrap li
+ {
+   background-color: #b200ff;
+   color: white;
+ }
+ /*For all MS we need red background when user mouse hover over it*/
+ .k-multiselect-wrap li:hover{
+    background: red;
+    border-color: red;
+ }
+ /*Let us remove border for all MS*/
+ .k-multiselect.k-header
+ {
+   border: 0px;
+ }
+ 
+ </style>
+
+ 
+<div id="campaignEditDiv" class="container">
+   
+    @* Page Header: Title and Buttons *@
+   <div class="row page-header">
+        <div class="row">
+            <div class='page-title'>Edit<span> Campaign</span></div>
+        </div> 
+   </div>
+   <div class="row" style="height:12px"></div> @*This is for some space*@
+            
+   <div class="row">
+       @*Column 1 here*@
+       <div class="col-md-6 no-margin">
+                  <div class="row">
+                      <div class="panel-group" id="accordion">
+            
+                            <div class="panel panel-default blue">
+                      <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" target="_self">
+                       <div class="panel-heading">
+                           <h4 class="panel-title">
+                              Name, Date, Type and Purpose
+                                <i data-bind="css: Div1Hideshow"></i>
+                          </h4>
+                       </div>
+                      </a>
+                      <div id="collapseOne" class="panel-collapse collapse in">
+
+                          <div class="panel-body" style="overflow:scroll"> 
+                          
+                              <label style="font-size:small">Campaign Name&nbsp;<span class="label label-danger" data-bind='visible: CAMPGNAME.hasError, text: CAMPGNAME.validationMessage'></span></label>                  
+                              <div class="controls">
+                                   <input id="ace_cmpname" maxlength="80" type="text" class="form-control" data-bind="value: CAMPGNAME" placeholder="Type Campaign Name.."/>
+                              </div>
+
+                              @*Dummy Row*@
+                              <div class="row" style="height:8px"></div>
+
+                              @*Event Date and Campaign Type*@
+                              <div class="row no-margin">
+                               @*Column 1 here*@
+                               <div class="col-md-6 no-margin">
+                                     <label>Event Date&nbsp;<span class="label label-danger" data-bind='visible: EVENTDATEc.hasError, text: EVENTDATEc.validationMessage'></span></label>
+                                     <div class="controls"> 
+                                         <input id="ace_eventdte" data-bind="kendoDatePicker: { value: EVENTDATEc, format: 'MM/dd/yyyy' } "/>
+                                     </div>
+                               </div>
+                               @*Column 2 here*@
+                               <div class="col-md-6 no-margin">
+                                    <label>Campaign Type&nbsp;<span class="label label-danger" data-bind='visible: CampaignTypeId.hasError, text: CampaignTypeId.validationMessage'></span></label>
+                                    <div class="controls">
+                                        <input id="ace_cmpgtype" type="text"  data-bind="kendoDropDownList: { dataTextField: 'TypeDescription', dataValueField: 'CampaignTypeId', data: CMPGTYPEDATA, value: CampaignTypeId, optionLabel : 'Please Select..' }"/>
+                                    </div>
+                               </div>
+                               
+                              </div>
+
+                              @*Dummy Row*@
+                              <div class="row" style="height:8px"></div>
+
+                              <label style="font-size:small">Campaign Purpose&nbsp;<span class="label label-danger" data-bind='visible: CAMPGPURPOSE.hasError, text: CAMPGPURPOSE.validationMessage'></span></label>                  
+                              <div class="controls">
+                                   <input id="ace_cmppurpose" maxlength="120" type="text" class="form-control" data-bind="value: CAMPGPURPOSE" placeholder="Type Campaign Purpose.."/>
+                              </div>
+                              
+                          </div>
+
+
+                      </div>
+                  </div>
+                                                    
+                            <div class="panel panel-default blue">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" target="_self">
+                      <div class="panel-heading">
+                      <h4 class="panel-title">
+                          Message Number and Details
+                          <i data-bind="css: Div2Hideshow"></i>
+                      </h4>
+                    </div>
+                    </a>
+                    <div id="collapseTwo" class="panel-collapse collapse in">
+
+                        <div class="panel-body" style="overflow:scroll"> 
+
+                              @*Message # and Days from Event*@
+                              <div class="row no-margin">
+                               @*Column 1 here*@
+                               <div class="col-md-6 no-margin">
+                                     <label>Message #&nbsp;<span class="label label-danger" data-bind='visible: MSGNO.hasError, text: MSGNO.validationMessage'></span></label>
+                                     <div class="controls"> 
+                                         <input id="ace_msgno" maxlength="80" type="text" class="form-control" data-bind="value: MSGNO" onkeypress="EnterOnlyNumeric()" />
+                                     </div>
+                               </div>
+                               @*Column 2 here*@
+                               <div class="col-md-6 no-margin">
+                                    <label>Days from Event&nbsp;<span class="label label-danger" data-bind='visible: DAYSFROMEVENT.hasError, text: DAYSFROMEVENT.validationMessage'></span></label>
+                                    <div class="controls">
+                                        <input id="ace_daysfromevent" maxlength="80" type="text" class="form-control" data-bind="value: DAYSFROMEVENT" onkeypress="EnterOnlyNumeric()" />
+                                    </div>
+                               </div>
+                               
+                              </div>
+                            
+                              @*Dummy Row*@
+                              <div class="row" style="height:8px"></div>
+                                                        
+                              <label style="font-size:small">Message Subject&nbsp;<span class="label label-danger" data-bind='visible: MSGSUBJECT.hasError, text: MSGSUBJECT.validationMessage'></span></label>                  
+                              <div class="controls">
+                                   <input id="ace_msgsubject" maxlength="80" type="text" class="form-control" data-bind="value: MSGSUBJECT" placeholder="Message Subject.."/>
+                              </div>
+
+                              @*Dummy Row*@
+                              <div class="row" style="height:8px"></div>
+                                                        
+                              <label>Send Response To</label>
+                              <div class="controls">
+                                 <input id="ace_assgnto" type="text"  data-bind="kendoDropDownList: { dataTextField: 'UserName', dataValueField: 'ASPUserId', data: FRPERSONS, value: UserId  }"/>
+                              </div>
+                            
+
+                              @*Dummy Row*@
+                              <div class="row" style="height:8px"></div>
+                                                        
+                              <label>Call-to-Action&nbsp;<span class="label label-danger" data-bind='visible: CallToActionId.hasError, text: CallToActionId.validationMessage'></span></label>
+                              <div class="controls">
+                                 <input id="ace_calltoaction" type="text"  data-bind="kendoDropDownList: { dataTextField: 'CallToActionText', dataValueField: 'CallToActionId', data: CALLTOACTIONTYPEDATA, value: CallToActionId, optionLabel : 'Please Select..'  }"/>
+                              </div>
+
+                              @*Dummy Row*@
+                              <div class="row" style="height:8px"></div>
+                              @*Attach Document Here*@
+                              <div class="row">
+                                <span id="bt_attach" class="btn btn-sm fileinput-button">
+                                    <span class="glyphicon glyphicon-cloud-upload"></span>
+                                    <span>Attach File</span>
+                                    <!-- The file input field used as target for the file upload widget -->
+                                    <input id="fileupload_ace" type="file" name="file">
+                                </span>
+                             </div>
+                           
+                             @*Dummy Row*@
+                             <div class="row" style="height:5px"></div>
+                             <label style="font-size:small; color:green" data-bind="visible: FILEINFO().length > 0, text: FILEINFO"></label>
+
+
+                            
+                        </div>
+                                              
+                    </div>
+                  </div>
+                                   
+                       </div>
+                  </div>
+            </div>
+       @*Column 2 here*@
+       <div class="col-md-6 no-margin">
+                  <div class="row">
+                      <div class="panel-group" id="accordion1">
+            
+                            <div class="panel panel-default blue">
+                    <a data-toggle="collapse" data-parent="#accordion1" href="#collapseThree" target="_self">
+                      <div class="panel-heading">
+                      <h4 class="panel-title">
+                          Campaign Recipient(s) 
+                          <i data-bind="css: Div3Hideshow"></i>
+                       </h4>
+                      </div>
+                   </a>
+                    <div id="collapseThree" class="panel-collapse collapse in">
+
+                        <div class="panel-body" style="overflow:scroll; height:230px">
+
+                          @*Dummy Row*@
+                          <div class="row" style="height:8px"></div>
+                          <label style="font-size:small">Recipient(s)&nbsp;<span class="label label-danger" data-bind='visible: RCPNTS.hasError, text: RCPNTS.validationMessage'></span></label>                  
+                          <div class="controls">
+                               <input id="ace_receipient" maxlength="150" type="text" class="form-control" data-bind="value: RCPNTS" placeholder="Type Recipient.."/>
+                          </div>
+                          <label style="font-size:small">Note: Please use comma (,) seperator for multiple addresses.</label>
+
+                          @*Dummy Row*@
+                          <div class="row" style="height:8px"></div>
+                                                                                
+                          <input type="checkbox" data-bind="checked: IsAllUserGroup" />&nbsp;<b>Check/Uncheck All</b>
+                          <div style="height:10px"></div>
+                          <table id="UserGroupTable">
+                                <tbody data-bind="foreach: userEmailGroups">
+                                    <tr data-bind="css: {selected: IsSelected}">
+                                        <td>
+                                            <input type="checkbox" data-bind="checked: IsSelected" />&nbsp;
+                                        </td>
+                                        <td data-bind="text: name"></td>
+                                    </tr>
+                                </tbody>
+                          </table>
+                          
+                      
+
+
+
+
+                          </div>
+
+
+                      
+                    </div>
+                  </div>
+                          
+                            <div class="panel panel-default blue">
+                    <a data-toggle="collapse" data-parent="#accordion1" href="#collapseFour" target="_self">
+                      <div class="panel-heading">
+                      <h4 class="panel-title">
+                          Message
+                          <i data-bind="css: Div4Hideshow"></i>
+                       </h4>
+                      </div>
+                   </a>
+                    <div id="collapseFour" class="panel-collapse collapse in">
+
+                        <div class="panel-body" style="overflow:scroll">
+                         
+                         @*Dummy Row*@
+                         <div class="row" style="height:4px"></div>
+
+                         <label style="font-size:small">Message Body&nbsp;<span class="label label-danger" data-bind='visible: MESSAGE.hasError, text: MESSAGE.validationMessage'></span></label>
+                         <div class="controls">
+                             <textarea id="ace_message" data-bind="richText: MESSAGE, valueUpdate: 'afterkeydown'"></textarea>
+                         </div>
+                                                                                                                                 
+                      </div>
+                      
+                    </div>
+                  </div>
+                                      
+                       </div>
+                  </div>
+            </div>
+   </div>
+   
+    <div class="row" style="height:6px"></div> @*This is for some space*@
+    
+    @* Page Footer *@
+    <div class="row page-footer">
+        <div class="pull-right">
+             <button id="bt_save_ace" style="width:160px" class="btn btn-primary btn-save" type="button" data-bind="enable: isDirty, click: Send">Save Campaign</button>
+            
+        </div>
+    </div>
+                 
+</div>
+
+@*https://www.leapinggorilla.com/Blog/Read/1030/knockout-ckeditor*@
+
+<script type="text/javascript">
+
+    var createCampaignVM;
+    var campaignData;
+    var usrgdata = jsonDataCaller.syncCall(baseUrl + "/api/GetUserEmailGroups", null);
+    var cmpgTypeData = jsonDataCaller.syncCall(baseUrl + "/api/GetCampaignTypeOptions", null);
+    var callToActionTypeData = jsonDataCaller.syncCall(baseUrl + "/api/GetCallToActionTypeOptions", null);
+    var frpersons = jsonDataCaller.syncCall(baseUrl + "/api/GetFranchiseePersonnel", null);
+
+    ko.extenders.required = function (target, overrideMessage) {
+        //add some sub-observables to our observable
+        target.hasError = ko.observable();
+        target.validationMessage = ko.observable();
+
+        //define a function to do validation
+        function validate(newValue) {
+            target.hasError(newValue ? false : true);
+            target.validationMessage(newValue ? "" : overrideMessage || "*");
+        }
+        //initial validation
+        validate(target());
+        //validate whenever the value changes
+        target.subscribe(validate);
+        //return the original observable
+        return target;
+    };
+    
+    ko.bindingHandlers.richText = {
+        init: function (element, valueAccessor) {
+
+            var modelValue = valueAccessor();
+            var value = ko.utils.unwrapObservable(valueAccessor());
+            var element$ = $(element);
+
+            // Set initial value and create the CKEditor
+            element$.html(value);
+            var editor = element$.ckeditor().editor;
+
+            // bind to change events and link it to the observable
+            editor.on('change', function (e) {
+                var self = this;
+                if (ko.isWriteableObservable(self)) {
+                    self($(e.listenerData).val());
+                }
+            }, modelValue, element);
+
+
+            /* Handle disposal if KO removes an editor 
+             * through template binding */
+            ko.utils.domNodeDisposal.addDisposeCallback(element,
+                function () {
+                    editor.updateElement();
+                    editor.destroy();
+                });
+        },
+
+        /* Hook and handle the binding updating so we write 
+         * back to the observable */
+        update: function (element, valueAccessor) {
+            var element$ = $(element);
+            var newValue = ko.utils.unwrapObservable(valueAccessor());
+            if (element$.ckeditorGet().getData() != newValue) {
+                element$.ckeditorGet().setData(newValue);
+            }
+        }
+    }
+
+    ko.dirtyFlag_ace = function (root, isInitiallyDirty) {
+
+        var result = function () { },
+            _initialState = ko.observable(ko.toJSON(root)),
+            _isInitiallyDirty = ko.observable(isInitiallyDirty);
+
+        result.isDirty = ko.computed(function () {
+            return _isInitiallyDirty() || _initialState() !== ko.toJSON(root);
+        });
+
+        result.reset = function () {
+            _initialState(ko.toJSON(root));
+            _isInitiallyDirty(false);
+        };
+
+        return result;
+    };
+
+    function FrGroup_viewModel(data, idx) {
+        self = this;
+        self.id = ko.observable(idx);
+        self.Id = ko.observable(data.Id);
+        self.name = ko.observable(data.BlastGroupName);
+        self.IsSelected = ko.observable(false);
+    }
+
+    function UserGroup_viewModel(data, idx, EmailGroupInfo) {
+                
+        self = this;
+        self.id = ko.observable(idx);
+        self.Id = ko.observable(data.Id);
+        self.name = ko.observable(data.GroupName);
+        self.IsSelected = ko.observable(false);
+
+        //if group preselected then let us mark as selected...
+        for (var i = 0; i < EmailGroupInfo.length; i++) {
+            if (EmailGroupInfo[i] == data.Id) {
+                //console.log(EmailGroupInfo[i]);
+                self.IsSelected = ko.observable(true);
+            }
+        }
+                       
+    }
+
+</script>
+
+<script type="text/javascript">
+        
+    function createCampaignDataVM(data) {
+
+        var self = this;
+
+        self.AceId = ko.observable(data.AceId);
+        self.CAMPGNAME = ko.observable(data.CampaignName).extend({ required: "" });
+        self.CAMPGPURPOSE = ko.observable(data.CampaignPurpose).extend({ required: "" });
+
+        self.FranchiseeId = ko.observable(data.FranchiseeId);
+        self.IsActive = ko.observable(data.IsActive);
+        self.CreatedBy = ko.observable(data.CreatedBy);
+        self.UpdatedBy = ko.observable(data.UpdatedBy);
+
+        //Email Group Ids...in string..
+        self.EmailGroupIds = ko.observable(data.EmailGroupIds);
+        //Email Group Ids in Array...                
+        if (self.EmailGroupIds() != null && self.EmailGroupIds() != "") {
+            self.theEmailGroupArray = ko.observableArray(self.EmailGroupIds().split(","));
+        }
+        else {
+            self.theEmailGroupArray = ko.observableArray([]);
+        }
+        //Event Date 
+        if (data.EventDate != null && data.EventDate != "") {
+            self.EVENTDATEc = ko.observable(kendo.parseDate(data.EventDate));
+        }
+        else {
+            self.EVENTDATEc = ko.observable();
+        }
+        self.EVENTDATE = ko.computed(function () {
+            return dateUtil_.toNoTimeZone(self.EVENTDATEc());
+        });
+        //Event Date
+
+        //Created Date
+        if (data.CreatedDate != null && data.CreatedDate != "") {
+            self.CreatedDatec = ko.observable(kendo.parseDate(data.CreatedDate));
+        }
+        else {
+            self.CreatedDatec = ko.observable();
+        }
+        self.CreatedDate = ko.computed(function () {
+            return dateUtil_.toNoTimeZone(self.CreatedDatec());
+        });
+        //Created Date
+
+        //Updated Date
+        if (data.UpdatedDate != null && data.UpdatedDate != "") {
+            self.UpdatedDatec = ko.observable(kendo.parseDate(data.UpdatedDate));
+        }
+        else {
+            self.UpdatedDatec = ko.observable();
+        }
+        self.UpdatedDate = ko.computed(function () {
+            return dateUtil_.toNoTimeZone(self.UpdatedDatec());
+        });
+        //Updated Date
+
+        //Message Sent Date
+        if (data.MessageSentDate != null && data.MessageSentDate != "") {
+            self.MessageSentDatec = ko.observable(kendo.parseDate(data.MessageSentDate));
+        }
+        else {
+            self.MessageSentDatec = ko.observable();
+        }
+        self.MessageSentDate = ko.computed(function () {
+            return dateUtil_.toNoTimeZone(self.MessageSentDatec());
+        });
+        //Message Sent Date
+
+        self.MSGSUBJECT = ko.observable(data.MessageSubject).extend({ required: "" });
+        self.MSGNO = ko.observable(data.MessageNumber).extend({ required: "" });
+        self.TotalCountOutBound = ko.observable(data.TotalCountOutBound);
+        self.TotalCountConfirm = ko.observable(data.TotalCountConfirm);
+        self.DAYSFROMEVENT = ko.observable(data.DaysFromEvent).extend({ required: "" });
+        self.MESSAGE = ko.observable(data.MessageText).extend({ required: "" });
+
+        //For Meeting Type
+        self.CampaignTypeId = ko.observable(data.CampaignTypeId).extend({ required: "" });
+        self.CMPGTYPEDATA = ko.observableArray(cmpgTypeData.results);
+        //call to ActionId..
+        self.CallToActionId = ko.observable(data.CallToActionId).extend({ required: "" });
+        self.CALLTOACTIONTYPEDATA = ko.observableArray(callToActionTypeData.results);
+        //UserId and Franchisee Persons...
+        self.UserId = ko.observable(data.ResponseTo);
+        self.FRPERSONS = ko.observableArray(frpersons.results);
+        //Email Recipients...
+        self.RCPNTS = ko.observable(data.Recipients).extend({ required: "" });
+        //Uploaded file Info...
+        self.FILENAME = ko.observable(data.AttachFileName);
+        self.FILENAMES = ko.observable(data.AttachFileName);
+        self.FILEINFO = ko.computed(function () {
+            if (self.FILENAME() != "" && self.FILENAME() != null) {
+                return "Attachment: " + self.FILENAME();
+            }
+            else {
+                return "";
+            }
+        });
+        //For User Own Groups....
+        self.userEmailGroups = ko.observableArray([]);
+        self.ProcessUserEmailGroups = function () {
+            /*Faster Code*/
+            underlyingArray = self.userEmailGroups();
+            for (var i = 0, j = usrgdata.results.length; i < j; i++) {
+                var usrgvm = new UserGroup_viewModel(usrgdata.results[i], i, self.theEmailGroupArray());
+                underlyingArray.push(usrgvm);
+            }
+            self.userEmailGroups.valueHasMutated();
+        }
+
+        /*For User Email Groups*/
+        self.ProcessUserEmailGroups();
+        self.IsAllUserGroup = ko.computed({
+            read: function () {
+                var isAllSelected = true;
+                ko.utils.arrayForEach(self.userEmailGroups(), function (item) {
+                    isAllSelected = isAllSelected && item.IsSelected()
+                });
+                return isAllSelected;
+            },
+            write: function (value) {
+                ko.utils.arrayForEach(self.userEmailGroups(), function (item) {
+                    if (value) item.IsSelected(true);
+                    else item.IsSelected(false);
+                });
+            }
+        });
+        /*End For User Email Groups*/
+
+        //To track Dirty flag on page
+        self.dirtyFlag = new ko.dirtyFlag_ace(self);
+        self.isDirty = ko.computed(function () {
+            return self.dirtyFlag.isDirty()
+        }, this);
+
+        //We do not want div collapse and hide change IsDirty Flag so this will come after the dirty flag declaration
+        self.Div1Hideshow = ko.observable("pull-right glyphicon glyphicon-chevron-down");
+        self.Div2Hideshow = ko.observable("pull-right glyphicon glyphicon-chevron-down");
+        self.Div3Hideshow = ko.observable("pull-right glyphicon glyphicon-chevron-down");
+        self.Div4Hideshow = ko.observable("pull-right glyphicon glyphicon-chevron-down");
+
+        self.Send = function () {
+
+            //Client side Validation 
+            if (!self.CAMPGNAME()) {
+                showNoti_.error('Campaign Name is Required!!', false);
+                $('#ace_cmpname').focus();
+                return;
+            }
+
+            //Event Date
+            var dte = $('#ace_eventdte').val();
+            if (dte == "") {
+                showNoti_.error('Event Date is required.', false);
+                $('#ace_eventdte').focus();
+                return;
+            }
+            if (!dte == "") {
+                var d = kendo.parseDate(dte, "MM/dd/yyyy");
+                if (d == null) {
+                    showNoti_.error('Event Date is NOT a valid date.', false);
+                    $('#ace_eventdte').focus();
+                    return;
+                }
+            }
+            //Done for Event Date
+
+            if (!self.CampaignTypeId()) {
+                showNoti_.error('Campaign Type is required', false);
+                $('#ace_cmpgtype').focus();
+                return;
+            }
+
+            if (!self.CAMPGPURPOSE()) {
+                showNoti_.error('Campaign Purpose is Required!!', false);
+                $('#ace_cmppurpose').focus();
+                return;
+            }
+            
+            if (!self.MSGNO()) {
+                showNoti_.error('Message # is Required!!', false);
+                $('#ace_msgno').focus();
+                return;
+            }
+
+            if (!self.DAYSFROMEVENT()) {
+                showNoti_.error('Message # is Required!!', false);
+                $('#ace_daysfromevent').focus();
+                return;
+            }
+
+            if (!self.CallToActionId()) {
+                showNoti_.error('Call-To-Action is required', false);
+                $('#ace_calltoaction').focus();
+                return;
+            }
+
+            if (!self.MESSAGE()) {
+                showNoti_.error('Message is Required!!', false);
+                $('#ace_message').focus();
+                return;
+            }
+            
+            $('#campaignEditDiv').block({ message: null });
+            //Now Save the Campaign Details...
+            $.ajax({
+                url: "api/AceMain/SaveCampaign",
+                type: 'POST',
+                data: ko.toJSON(self),
+                contentType: 'application/json',
+                success: function (result) {
+                    if (!result.success)
+                        showNoti_.error(result.message, false);
+                    else {
+                        $("#campaignEditDiv").unblock();
+                        showNoti_.hide();
+                        @*This will refresh the Campaignview*@
+                        RefreshGrid();
+                        showNoti_.info("Campagin updated Successfully !!", false);
+                    }
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    showNoti_.error("There is some issue in Updating Campaign Information.", true);
+                }
+            });
+            
+        }
+
+    }
+     
+    //Document Ready Block
+    $(document).ready(function () {
+               
+        //GET Method call here...
+        campaignData = jsonDataCaller.syncCall(baseUrl + "/api/ACEMain/Get?id=@Model.AceId", null);
+        
+        createCampaignVM = new createCampaignDataVM(campaignData);
+        ko.applyBindings(createCampaignVM, document.getElementById("campaignEditDiv"));
+
+        //Below section is for collapsible panels > (Right) and Down arrow show and hide options
+        $('#collapseOne').on('hidden.bs.collapse', function () {
+            //Right Arrow as we are closing
+            createCampaignVM.Div1Hideshow("pull-right glyphicon glyphicon-chevron-right");
+        })
+
+        $('#collapseOne').on('show.bs.collapse', function () {
+            //Down Arrow as we are showing
+            createCampaignVM.Div1Hideshow("pull-right glyphicon glyphicon-chevron-down");
+        });
+
+        $('#collapseTwo').on('hidden.bs.collapse', function () {
+            //Right Arrow as we are closing
+            createCampaignVM.Div2Hideshow("pull-right glyphicon glyphicon-chevron-right");
+        });
+
+        $('#collapseTwo').on('show.bs.collapse', function () {
+            //Down Arrow as we are showing
+            createCampaignVM.Div2Hideshow("pull-right glyphicon glyphicon-chevron-down");
+        });
+
+        $('#collapseThree').on('hidden.bs.collapse', function () {
+            //Right Arrow as we are closing
+            createCampaignVM.Div3Hideshow("pull-right glyphicon glyphicon-chevron-right");
+        });
+
+        $('#collapseThree').on('show.bs.collapse', function () {
+            //Down Arrow as we are showing
+            createCampaignVM.Div3Hideshow("pull-right glyphicon glyphicon-chevron-down");
+        });
+
+        $('#collapseFour').on('hidden.bs.collapse', function () {
+            //Right Arrow as we are closing
+            createCampaignVM.Div4Hideshow("pull-right glyphicon glyphicon-chevron-right");
+        });
+
+        $('#collapseFour').on('show.bs.collapse', function () {
+            //Down Arrow as we are showing
+            createCampaignVM.Div4Hideshow("pull-right glyphicon glyphicon-chevron-down");
+        });
+
+        //Converto to ckEditor...
+        $('#ace_message').ckeditor();
+        
+        //This is for Attachment File Upload...
+        $('#fileupload_ace').fileupload(
+            {
+                url: '/ACE/Home/UploadEmailDocument',
+                dataType: 'json',
+                pasteZone: null,
+                success: function (data) {
+                    //console.log(data);
+                    if (data.success) {
+                        createCampaignVM.FILENAME(data.orgfilename);
+                        createCampaignVM.FILENAMES(data.serverfilename);
+                    }
+                    else {
+                        showNoti_.error(data.message, true);
+                    }
+                }
+       });
+        
+    });
+    
+</script>
+
