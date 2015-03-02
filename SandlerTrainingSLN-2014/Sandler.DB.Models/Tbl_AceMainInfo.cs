@@ -14,6 +14,11 @@ namespace Sandler.DB.Models
     
     public partial class Tbl_AceMainInfo
     {
+        public Tbl_AceMainInfo()
+        {
+            this.Tbl_AceEmailTracker = new HashSet<Tbl_AceEmailTracker>();
+        }
+    
         public int AceId { get; set; }
         public string CampaignName { get; set; }
         public Nullable<short> CampaignTypeId { get; set; }
@@ -37,5 +42,7 @@ namespace Sandler.DB.Models
         public Nullable<int> TotalCountOutBound { get; set; }
         public Nullable<int> TotalCountConfirm { get; set; }
         public string AttachFileName { get; set; }
+    
+        public virtual ICollection<Tbl_AceEmailTracker> Tbl_AceEmailTracker { get; set; }
     }
 }

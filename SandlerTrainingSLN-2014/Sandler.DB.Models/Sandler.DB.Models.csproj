@@ -129,6 +129,9 @@
     <Compile Include="TBL_ACEEmails.cs">
       <DependentUpon>SandlerEDM.tt</DependentUpon>
     </Compile>
+    <Compile Include="Tbl_AceEmailTracker.cs">
+      <DependentUpon>SandlerEDM.tt</DependentUpon>
+    </Compile>
     <Compile Include="Tbl_ACEGroups.cs">
       <DependentUpon>SandlerEDM.tt</DependentUpon>
     </Compile>

@@ -22,6 +22,7 @@
           <EntitySet Name="Tbl_AceCallToActionType" EntityType="SandlerDBModel.Store.Tbl_AceCallToActionType" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Tbl_AceCampaignType" EntityType="SandlerDBModel.Store.Tbl_AceCampaignType" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="TBL_ACEEmails" EntityType="SandlerDBModel.Store.TBL_ACEEmails" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Tbl_AceEmailTracker" EntityType="SandlerDBModel.Store.Tbl_AceEmailTracker" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Tbl_ACEGroups" EntityType="SandlerDBModel.Store.Tbl_ACEGroups" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Tbl_AceMainInfo" EntityType="SandlerDBModel.Store.Tbl_AceMainInfo" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Tbl_AppointmentsSource" EntityType="SandlerDBModel.Store.Tbl_AppointmentsSource" store:Type="Tables" Schema="dbo" />
@@ -289,6 +290,10 @@
           <AssociationSet Name="FK_Tbl_ACE_Campaign_Tbl_ACE_Campaign1" Association="SandlerDBModel.Store.FK_Tbl_ACE_Campaign_Tbl_ACE_Campaign1">
             <End Role="Tbl_ACE_Campaign" EntitySet="Tbl_ACE_Campaign" />
             <End Role="Tbl_ACE_Campaign1" EntitySet="Tbl_ACE_Campaign" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_AceEmailTracker_Tbl_AceMainInfo" Association="SandlerDBModel.Store.FK_Tbl_AceEmailTracker_Tbl_AceMainInfo">
+            <End Role="Tbl_AceMainInfo" EntitySet="Tbl_AceMainInfo" />
+            <End Role="Tbl_AceEmailTracker" EntitySet="Tbl_AceEmailTracker" />
           </AssociationSet>
           <AssociationSet Name="FK_TBL_COACH_TBL_REGION" Association="SandlerDBModel.Store.FK_TBL_COACH_TBL_REGION">
             <End Role="TBL_REGION" EntitySet="TBL_REGION" />
@@ -594,6 +599,15 @@
           <Property Name="IsSent" Type="bit" />
           <Property Name="ScheduledBy" Type="uniqueidentifier" />
           <Property Name="ScheduleDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tbl_AceEmailTracker">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="AceId" Type="int" Nullable="false" />
+          <Property Name="EmailAddress" Type="varchar" Nullable="false" MaxLength="100" />
+          <Property Name="IsViewed" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Tbl_ACEGroups">
           <Key>
@@ -1692,6 +1706,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Tbl_AceEmailTracker_Tbl_AceMainInfo">
+          <End Role="Tbl_AceMainInfo" Type="SandlerDBModel.Store.Tbl_AceMainInfo" Multiplicity="1" />
+          <End Role="Tbl_AceEmailTracker" Type="SandlerDBModel.Store.Tbl_AceEmailTracker" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_AceMainInfo">
+              <PropertyRef Name="AceId" />
+            </Principal>
+            <Dependent Role="Tbl_AceEmailTracker">
+              <PropertyRef Name="AceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_TBL_COACH_TBL_REGION">
           <End Role="TBL_REGION" Type="SandlerDBModel.Store.TBL_REGION" Multiplicity="1" />
           <End Role="TBL_COACH" Type="SandlerDBModel.Store.TBL_COACH" Multiplicity="*" />
@@ -2551,6 +2577,11 @@
             <End Role="Tbl_ACE_Campaign1" EntitySet="Tbl_ACE_Campaign" />
           </AssociationSet>
           <EntitySet Name="Tbl_AceMainInfo" EntityType="SandlerDBModel.Tbl_AceMainInfo" />
+          <EntitySet Name="Tbl_AceEmailTracker" EntityType="SandlerDBModel.Tbl_AceEmailTracker" />
+          <AssociationSet Name="FK_Tbl_AceEmailTracker_Tbl_AceMainInfo" Association="SandlerDBModel.FK_Tbl_AceEmailTracker_Tbl_AceMainInfo">
+            <End Role="Tbl_AceMainInfo" EntitySet="Tbl_AceMainInfo" />
+            <End Role="Tbl_AceEmailTracker" EntitySet="Tbl_AceEmailTracker" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Tbl_AppointmentsSource">
           <Key>
@@ -4388,7 +4419,30 @@
           <Property Type="Int32" Name="TotalCountOutBound" />
           <Property Type="Int32" Name="TotalCountConfirm" />
           <Property Type="String" Name="AttachFileName" MaxLength="500" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Tbl_AceEmailTracker" Relationship="SandlerDBModel.FK_Tbl_AceEmailTracker_Tbl_AceMainInfo" FromRole="Tbl_AceMainInfo" ToRole="Tbl_AceEmailTracker" />
         </EntityType>
+        <EntityType Name="Tbl_AceEmailTracker">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Guid" Name="ID" Nullable="false" />
+          <Property Type="Int32" Name="AceId" Nullable="false" />
+          <Property Type="String" Name="EmailAddress" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="Boolean" Name="IsViewed" Nullable="false" />
+          <NavigationProperty Name="Tbl_AceMainInfo" Relationship="SandlerDBModel.FK_Tbl_AceEmailTracker_Tbl_AceMainInfo" FromRole="Tbl_AceEmailTracker" ToRole="Tbl_AceMainInfo" />
+        </EntityType>
+        <Association Name="FK_Tbl_AceEmailTracker_Tbl_AceMainInfo">
+          <End Type="SandlerDBModel.Tbl_AceMainInfo" Role="Tbl_AceMainInfo" Multiplicity="1" />
+          <End Type="SandlerDBModel.Tbl_AceEmailTracker" Role="Tbl_AceEmailTracker" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_AceMainInfo">
+              <PropertyRef Name="AceId" />
+            </Principal>
+            <Dependent Role="Tbl_AceEmailTracker">
+              <PropertyRef Name="AceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -5719,6 +5773,16 @@
                 <ScalarProperty Name="CampaignTypeId" ColumnName="CampaignTypeId" />
                 <ScalarProperty Name="CampaignName" ColumnName="CampaignName" />
                 <ScalarProperty Name="AceId" ColumnName="AceId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_AceEmailTracker">
+            <EntityTypeMapping TypeName="SandlerDBModel.Tbl_AceEmailTracker">
+              <MappingFragment StoreEntitySet="Tbl_AceEmailTracker">
+                <ScalarProperty Name="IsViewed" ColumnName="IsViewed" />
+                <ScalarProperty Name="EmailAddress" ColumnName="EmailAddress" />
+                <ScalarProperty Name="AceId" ColumnName="AceId" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

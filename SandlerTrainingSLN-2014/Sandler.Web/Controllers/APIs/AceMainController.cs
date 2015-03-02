@@ -263,6 +263,53 @@ namespace Sandler.Web.Controllers.API
 
         #endregion
 
+        #region [[ Tracking Receipients]]
+        private IEnumerable<Tbl_AceEmailTracker> CreateReceipeints(Tbl_AceMainInfo cmpgInfo)
+        {
+            List<Tbl_AceEmailTracker> receipeints = new List<Tbl_AceEmailTracker>();
+            try
+            {
+                if (cmpgInfo.AceId > 0)
+                {
+                    if (!string.IsNullOrEmpty(cmpgInfo.Recipients))
+                    {
+                        string[] receiverAddress = cmpgInfo.Recipients.Trim().Split(',');
+                        foreach (string address in receiverAddress)
+                        {
+                            //Add Address as To
+                            if (Validation.ValidateEmail(address.Trim()))
+                                receipeints.Add(new Tbl_AceEmailTracker() { AceId = cmpgInfo.AceId, ID = System.Guid.NewGuid(), EmailAddress = address.Trim() });
+                        }
+                    }
+                    if (!string.IsNullOrEmpty(cmpgInfo.EmailGroupIds))
+                    {
+                        string[] userEmailGroups = cmpgInfo.EmailGroupIds.Trim().Split(',');
+                        foreach (string usrgId in userEmailGroups)
+                        {
+                            List<EmailAddressInfo> emailAdrsInfo = null;
+                            emailAdrsInfo = uow.EmailRepository().GetUserEmailGroupAddresses(Convert.ToInt32(usrgId)).ToList();
+
+                            if (emailAdrsInfo.Count > 0)
+                            {
+                                foreach (EmailAddressInfo em in emailAdrsInfo)
+                                {
+                                    if (Validation.ValidateEmail(em.Email.ToString().Trim()))
+                                        receipeints.Add(new Tbl_AceEmailTracker() { AceId = cmpgInfo.AceId, ID =System.Guid.NewGuid(), EmailAddress = em.Email.ToString().Trim() });
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return receipeints;
+        }
+
+        #endregion
+
         [HttpPost]
         [Route("api/AceMain/SaveCampaign")]
         public genericResponse Save(CampaignInformation cmpgInfo)
@@ -312,7 +359,10 @@ namespace Sandler.Web.Controllers.API
                     if (cmpgInfo.AceId > 0)
                         aceId = uow.AceMainRepository().UpdateCampaign(aceMain);
                     else
+                    {
                         aceId = uow.AceMainRepository().AddCampaign(aceMain);
+                        uow.AceEmailTrackerRepository().AddRecipients(CreateReceipeints(aceMain));
+                    }
                     //create Response...
                     _response = new genericResponse() { success = true, UniqueId = aceId };
                 }

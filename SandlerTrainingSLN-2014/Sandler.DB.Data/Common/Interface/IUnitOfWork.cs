@@ -24,5 +24,6 @@ namespace Sandler.DB.Data.Common.Interface
         IKendoChartsRepository KendoChartsRepository();
         IMyPGRepository MyPGRepository();
         IAceMainRepository AceMainRepository();
+        IAceEmailTrackerRepository AceEmailTrackerRepository();
     }
 }

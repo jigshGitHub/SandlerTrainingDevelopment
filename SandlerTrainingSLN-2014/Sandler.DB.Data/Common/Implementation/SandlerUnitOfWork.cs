@@ -31,6 +31,7 @@ namespace Sandler.DB.Data.Common.Implementation
         public IContactRepository ContactRepository() { return new ContactRepository(RepositoryProvider.dbContext); }
         public IOpportunityRepository OpportunityRepository() { return new OpportunityRepository(RepositoryProvider.dbContext); }
         public IMenuRepository MenuRepository() { return new MenuRepository(RepositoryProvider.dbContext); }
+        public IAceEmailTrackerRepository AceEmailTrackerRepository() { return new AceEmailTrackerRepository(RepositoryProvider.dbContext); }
         public IRepository<T> Repository<T>() where T : class
         {
             return GetStandardRepo<T>();

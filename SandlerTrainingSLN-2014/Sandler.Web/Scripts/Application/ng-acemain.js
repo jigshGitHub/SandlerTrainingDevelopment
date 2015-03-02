@@ -3,7 +3,7 @@ function showCampaignDetails(e) {
     e.preventDefault();
     var dataItem = $("#AceDetailsGrid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
     //console.log(dataItem);
-    var path = "navi?url=" + baseUrl + "/ACE/Home/Create?id=" + dataItem.AceId;
+    var path = "navi?url=" + baseUrl + "/ACE/Home/Edit?id=" + dataItem.AceId;
     //alert("before Navi");
     showModal_.html(path, null, '95%');
 }

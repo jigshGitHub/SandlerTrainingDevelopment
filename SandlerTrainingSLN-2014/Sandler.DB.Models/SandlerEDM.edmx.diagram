@@ -111,6 +111,8 @@
         <AssociationConnector Association="SandlerDBModel.FK_Tbl_ACE_Campaign_Tbl_ACE_Campaign" />
         <AssociationConnector Association="SandlerDBModel.FK_Tbl_ACE_Campaign_Tbl_ACE_Campaign1" />
         <EntityTypeShape EntityType="SandlerDBModel.Tbl_AceMainInfo" Width="1.5" PointX="5.3061463149758739" PointY="6.3434232800935506" />
+        <EntityTypeShape EntityType="SandlerDBModel.Tbl_AceEmailTracker" Width="1.5" PointX="3.8568651712764357" PointY="13.250332495779885" />
+        <AssociationConnector Association="SandlerDBModel.FK_Tbl_AceEmailTracker_Tbl_AceMainInfo" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
