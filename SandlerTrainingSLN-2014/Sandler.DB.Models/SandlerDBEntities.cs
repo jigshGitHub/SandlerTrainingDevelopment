@@ -76,6 +76,16 @@ namespace Sandler.DB.Models
             return q.ToList();
         }
 
+        public List<AceMainView> GetACECampaignsForCampaignType(Nullable<int> campaignTypeId)
+        {
+
+            string query = string.Format("exec [sp_GetACECampaignsForCampaignType] @campaignTypeId='{0}'", campaignTypeId.ToString());
+
+            var q = Database.SqlQuery<AceMainView>(query).DistinctBy(r => r.AceId);
+
+            return q.ToList();
+        }
+
         public List<AceMainView> GetArchiveAceMainView(string searchText, string orderBy, int? pageSize, int? pageNo, int? coachId, int? franchiseeId, bool selectForExcel)
         {
             if (string.IsNullOrEmpty(searchText))

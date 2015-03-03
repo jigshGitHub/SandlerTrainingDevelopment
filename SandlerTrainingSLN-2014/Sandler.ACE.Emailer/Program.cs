@@ -34,9 +34,9 @@ namespace Sandler.ACE.Emailer
         public ACEmailer()
         {
             uow = new SandlerUnitOfWork(new SandlerRepositoryProvider(new RepositoryFactories()), new SandlerDBContext());
-            DateTime ? dt =  new Nullable <DateTime>();
-            preCampaigns = uow.AceMainRepository().GetByCampaignType(1,dt).ToList<AceMainView>();
-            postCampaigns = uow.AceMainRepository().GetByCampaignType(2, new DateTime(2015,3,20)).ToList<AceMainView>();
+            
+            preCampaigns = uow.AceMainRepository().GetByCampaignType(1).ToList<AceMainView>();
+            postCampaigns = uow.AceMainRepository().GetByCampaignType(2).ToList<AceMainView>();
         }
 
         public MailAddress GetFromAddress()
