@@ -26,7 +26,7 @@ namespace Sandler.DB.Models
         public string ResponseTo { get; set; }
         public Nullable<short> CallToActionId { get; set; }
         public string MessageText { get; set; }
-        public Nullable<int> AttachFileId { get; set; }
+        public string AttachFileName{ get; set; }
         public Nullable<System.DateTime> MessageSentDate { get; set; }
         public Nullable<bool> IsActive { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }

@@ -27,6 +27,12 @@ namespace Sandler.DB.Data.Repositories.Implementations
 
             DBContext.SaveChanges();
         }
+
+        public List<Tbl_AceEmailTracker> GetForCampaign(int aceId)
+        {
+            var receipients = base.GetAll().Where(r => r.AceId == aceId && r.IsViewed == false).ToList<Tbl_AceEmailTracker>();
+            return receipients;
+        }
         
     }
 

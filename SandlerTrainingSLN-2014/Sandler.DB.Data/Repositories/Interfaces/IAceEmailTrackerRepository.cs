@@ -10,6 +10,6 @@ namespace Sandler.DB.Data.Repositories.Interfaces
     public interface IAceEmailTrackerRepository
     {
         void AddRecipients(IEnumerable<Tbl_AceEmailTracker> receipients);
-
+        List<Tbl_AceEmailTracker> GetForCampaign(int aceId);
     }
 }

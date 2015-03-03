@@ -93,7 +93,12 @@ namespace Sandler.DB.Data.Repositories.Implementations
         {
             return (DBContext.Get() as SandlerDBEntities).GetCallToActionTypeOptions();
         }
-        
+
+
+        public Tbl_AceMainInfo GetById(int aceId)
+        {
+            return base.GetById(aceId);
+        }
     }
 
 }

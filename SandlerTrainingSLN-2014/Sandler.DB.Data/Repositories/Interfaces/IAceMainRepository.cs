@@ -21,6 +21,6 @@ namespace Sandler.DB.Data.Repositories.Interfaces
         bool UnArchiveCampaign(int aceId, string userId);
         int AddCampaign(Tbl_AceMainInfo _campaign);
         int UpdateCampaign(Tbl_AceMainInfo _campaign);
-
+        Tbl_AceMainInfo GetById(int aceId);
     }
 }

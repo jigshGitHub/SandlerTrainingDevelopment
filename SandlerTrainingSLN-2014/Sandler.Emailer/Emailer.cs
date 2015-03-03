@@ -16,6 +16,7 @@ namespace Sandler.Emailer
         string GetSubject();
         string PrepareHTMLMessageBody();
         List<MailAddress> GetToAddresses();
+        void PrepareAttachments(MailMessage message);
     }
     public class EMailer
     {
@@ -32,7 +33,7 @@ namespace Sandler.Emailer
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.ToString());
+                throw ex;
             }
 
         }
@@ -47,7 +48,7 @@ namespace Sandler.Emailer
                 message.From = mailer.GetFromAddress();
                 message.Subject = mailer.GetSubject();
                 message.Body = mailer.PrepareHTMLMessageBody();// emailInfo.MESSAGE.Trim().Replace("\r\n", "<br/>").Replace(" ", "&nbsp;");
-
+                mailer.PrepareAttachments(message);
                 foreach (MailAddress address in mailer.GetToAddresses())
                 {
                     if (ValidateEmail(address.Address.Trim()))

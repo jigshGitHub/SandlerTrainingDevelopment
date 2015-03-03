@@ -68,7 +68,7 @@ BEGIN
 	FROM [dbo].[Tbl_AceMainInfo] i 
 	INNER JOIN [dbo].[Tbl_AceCallToActionType] a ON i.CallToActionId = a.CallToActionId 
 	INNER JOIN [dbo].[Tbl_AceCampaignType] t ON i.CampaignTypeId = t.CampaignTypeId 
-	WHERE i.CampaignTypeId = @campaignTypeId AND DATEDIFF(day, @eventCompareDate,i.EventDate) = i.DaysFromEvent;
+	WHERE i.MessageSentDate IS NULL AND i.CampaignTypeId = @campaignTypeId AND DATEDIFF(day, @eventCompareDate,i.EventDate) = i.DaysFromEvent;
 END
 ELSE
 BEGIN
@@ -76,7 +76,7 @@ BEGIN
 	FROM [dbo].[Tbl_AceMainInfo] i 
 	INNER JOIN [dbo].[Tbl_AceCallToActionType] a ON i.CallToActionId = a.CallToActionId 
 	INNER JOIN [dbo].[Tbl_AceCampaignType] t ON i.CampaignTypeId = t.CampaignTypeId 
-	WHERE i.CampaignTypeId = @campaignTypeId AND DATEDIFF(day,i.EventDate,@eventCompareDate) = i.DaysFromEvent;;
+	WHERE i.MessageSentDate IS NULL AND i.CampaignTypeId = @campaignTypeId AND DATEDIFF(day,i.EventDate,@eventCompareDate) = i.DaysFromEvent;
 END
 
 Return 0;
