@@ -47,4 +47,47 @@ GO
 ALTER TABLE [dbo].[Tbl_AceEmailTracker] CHECK CONSTRAINT [FK_Tbl_AceEmailTracker_Tbl_AceMainInfo]
 GO
 
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[sp_GetACECampaignsForCampaignType]') AND type in (N'P', N'PC'))
+/****** Object:  StoredProcedure [dbo].[sp_GetACECampaignsForCampaignType]    Script Date: 3/3/2015 10:12:36 AM ******/
+DROP PROCEDURE [dbo].[sp_GetACECampaignsForCampaignType]
+GO
 
+CREATE Procedure [dbo].[sp_GetACECampaignsForCampaignType] 
+(
+@campaignTypeId INT,
+@eventCompareDate DATETIME = NULL
+)AS
+
+SET @eventCompareDate = ISNULL(@eventCompareDate,GetDate());
+PRINT CAST(@eventCompareDate AS VARCHAR(30));
+
+
+IF @campaignTypeId = 1 
+BEGIN
+	SELECT a.CallToActionText,t.TypeDescription, i.* 
+	FROM [dbo].[Tbl_AceMainInfo] i 
+	INNER JOIN [dbo].[Tbl_AceCallToActionType] a ON i.CallToActionId = a.CallToActionId 
+	INNER JOIN [dbo].[Tbl_AceCampaignType] t ON i.CampaignTypeId = t.CampaignTypeId 
+	WHERE i.CampaignTypeId = @campaignTypeId AND DATEDIFF(day, @eventCompareDate,i.EventDate) = i.DaysFromEvent;
+END
+ELSE
+BEGIN
+	SELECT a.CallToActionText,t.TypeDescription, i.* 
+	FROM [dbo].[Tbl_AceMainInfo] i 
+	INNER JOIN [dbo].[Tbl_AceCallToActionType] a ON i.CallToActionId = a.CallToActionId 
+	INNER JOIN [dbo].[Tbl_AceCampaignType] t ON i.CampaignTypeId = t.CampaignTypeId 
+	WHERE i.CampaignTypeId = @campaignTypeId AND DATEDIFF(day,i.EventDate,@eventCompareDate) = i.DaysFromEvent;;
+END
+
+Return 0;
+/*
+Test area
+exec sp_GetACECampaignsForCampaignType 1;
+exec sp_GetACECampaignsForCampaignType 1,'03/09/2015';
+exec sp_GetACECampaignsForCampaignType 1,'03/12/2015';
+exec sp_GetACECampaignsForCampaignType 2,'03/20/2015';
+*/
+GO
+
+ALTER TABLE [dbo].[Tbl_AceMainInfo] ADD TimeSent DATETIME NULL;
+GO

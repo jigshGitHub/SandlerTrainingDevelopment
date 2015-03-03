@@ -22,6 +22,11 @@ namespace Sandler.DB.Data.Repositories.Implementations
             return (DBContext.Get() as SandlerDBEntities).GetAceMainView(searchText, orderBy, pageSize, pageNo, coachId, franchiseeId, selectForExcel);
         }
 
+        public IEnumerable<AceMainView> GetByCampaignType(int campaignTypeId, Nullable<System.DateTime> eventCompareDate)
+        {
+            return null;// (DBContext.Get() as SandlerDBEntities).GetACECampaignsForCampaignType(campaignTypeId, eventCompareDate);
+        }
+
         public IEnumerable<AceMainView> GetArchive(string searchText, string orderBy, int? pageSize, int? pageNo, int? coachId, int? franchiseeId, bool selectForExcel)
         {
             return (DBContext.Get() as SandlerDBEntities).GetArchiveAceMainView(searchText, orderBy, pageSize, pageNo, coachId, franchiseeId, selectForExcel);

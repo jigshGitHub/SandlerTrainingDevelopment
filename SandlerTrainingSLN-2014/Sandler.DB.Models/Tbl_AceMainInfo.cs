@@ -42,6 +42,7 @@ namespace Sandler.DB.Models
         public Nullable<int> TotalCountOutBound { get; set; }
         public Nullable<int> TotalCountConfirm { get; set; }
         public string AttachFileName { get; set; }
+        public Nullable<System.DateTime> TimeSent { get; set; }
     
         public virtual ICollection<Tbl_AceEmailTracker> Tbl_AceEmailTracker { get; set; }
     }

@@ -35,6 +35,7 @@ namespace Sandler.DB.Models
         public string UpdatedBy { get; set; }
         public Nullable<int> FranchiseeId { get; set; }
         public Nullable<double> ResponseRate { get; set; }
-
+        public string CallToActionText;
+        public string TypeDescription;
     }
 }

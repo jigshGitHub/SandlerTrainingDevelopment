@@ -644,6 +644,7 @@
           <Property Name="FranchiseeId" Type="int" />
           <Property Name="TotalCountOutBound" Type="int" />
           <Property Name="TotalCountConfirm" Type="int" />
+          <Property Name="TimeSent" Type="datetime" />
         </EntityType>
         <EntityType Name="Tbl_AppointmentsSource">
           <Key>
@@ -2211,6 +2212,10 @@
         <Function Name="sp_ClientsAvgLengthWithIndustries" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="userId" Type="uniqueidentifier" Mode="In" />
         </Function>
+        <Function Name="sp_GetACECampaignsForCampaignType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="campaignTypeId" Type="int" Mode="In" />
+          <Parameter Name="eventCompareDate" Type="datetime" Mode="In" />
+        </Function>
         <Function Name="sp_GetBenchMarkCountryAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="month" Type="int" Mode="In" />
           <Parameter Name="year" Type="int" Mode="In" />
@@ -2582,6 +2587,10 @@
             <End Role="Tbl_AceMainInfo" EntitySet="Tbl_AceMainInfo" />
             <End Role="Tbl_AceEmailTracker" EntitySet="Tbl_AceEmailTracker" />
           </AssociationSet>
+          <FunctionImport Name="GetACECampaignsForCampaignType">
+            <Parameter Name="campaignTypeId" Mode="In" Type="Int32" />
+            <Parameter Name="eventCompareDate" Mode="In" Type="DateTime" />
+          </FunctionImport>
         </EntityContainer>
         <EntityType Name="Tbl_AppointmentsSource">
           <Key>
@@ -4420,6 +4429,7 @@
           <Property Type="Int32" Name="TotalCountConfirm" />
           <Property Type="String" Name="AttachFileName" MaxLength="500" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Tbl_AceEmailTracker" Relationship="SandlerDBModel.FK_Tbl_AceEmailTracker_Tbl_AceMainInfo" FromRole="Tbl_AceMainInfo" ToRole="Tbl_AceEmailTracker" />
+          <Property Type="DateTime" Name="TimeSent" Precision="3" />
         </EntityType>
         <EntityType Name="Tbl_AceEmailTracker">
           <Key>
@@ -5750,6 +5760,7 @@
           <EntitySetMapping Name="Tbl_AceMainInfo">
             <EntityTypeMapping TypeName="SandlerDBModel.Tbl_AceMainInfo">
               <MappingFragment StoreEntitySet="Tbl_AceMainInfo">
+                <ScalarProperty Name="TimeSent" ColumnName="TimeSent" />
                 <ScalarProperty Name="AttachFileName" ColumnName="AttachFileName" />
                 <ScalarProperty Name="TotalCountConfirm" ColumnName="TotalCountConfirm" />
                 <ScalarProperty Name="TotalCountOutBound" ColumnName="TotalCountOutBound" />
@@ -5786,6 +5797,8 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="GetACECampaignsForCampaignType" FunctionName="SandlerDBModel.Store.sp_GetACECampaignsForCampaignType">
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

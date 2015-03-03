@@ -4,16 +4,15 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{8D598219-7EFE-4839-8B79-4A0A4AC65EA2}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <ProjectGuid>{7FC4B205-381D-4C38-A365-752AB45B823E}</ProjectGuid>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Sandler.ACE.Emailer</RootNamespace>
-    <AssemblyName>Sandler.ACE.Emailer</AssemblyName>
+    <RootNamespace>Sandler.Emailer</RootNamespace>
+    <AssemblyName>Sandler.Emailer</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -23,7 +22,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -42,29 +40,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Program.cs" />
+    <Compile Include="Emailer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Sandler.DB.Data\Sandler.DB.Data.csproj">
-      <Project>{f7d2577c-90be-4e28-a999-14b2a357f9b9}</Project>
-      <Name>Sandler.DB.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Sandler.DB.Models\Sandler.DB.Models.csproj">
-      <Project>{28b54c0a-ceba-42f3-a45c-4d51c5e4d5e3}</Project>
-      <Name>Sandler.DB.Models</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Sandler.Emailer\Sandler.Emailer.csproj">
-      <Project>{7fc4b205-381d-4c38-a365-752ab45b823e}</Project>
-      <Name>Sandler.Emailer</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Solution.Common\Solution.Common.csproj">
-      <Project>{73ebd20c-ed77-4266-8d54-2bc50e1149b9}</Project>
-      <Name>Solution.Common</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
