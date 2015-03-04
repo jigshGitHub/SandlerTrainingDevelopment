@@ -1,7 +1,8 @@
 --delete from [dbo].[TBL_ACEEmails];
 --delete from [dbo].[Tbl_ACEGroups];
 --delete from [dbo].[Tbl_AceMainInfo];
-
+--delete from tbl_aceemailtracker where aceid in (1,2,3);
+--delete from [Tbl_AceMainInfo] where aceid in (1,2,3);
 --update tbl_aceemailtracker set isviewed = 1 where emailaddress <> 'jigsh@hotmail.com';
 --update Tbl_EmailGroup set groupccemails = 'thakkar' where groupid=1
 --update Tbl_EmailBank set emailBody = '
@@ -23,7 +24,11 @@ exec [sp_GetUserEmailGroupAddresses] 33
 --update [Tbl_AceMainInfo] set messagenumber=2, eventdate = '03/13/2015', messagesubject = 'Test Msg 4 days before event subject', messagetext = '<p>Test Msg 4 days before test with email tracker</p>' where aceid=4
 --update [Tbl_AceMainInfo] set messagenumber=3, eventdate = '03/13/2015', messagesubject = 'Test Msg 1 day1 before event subject', messagetext = '<p>Test Msg 1 day before test with email tracker</p>' where aceid=5
 --update Tbl_AceMainInfo set MessageSentDate = NULL;
-SELECT a.CallToActionText,t.TypeDescription, i.* FROM [dbo].[Tbl_AceMainInfo] i INNER JOIN [dbo].[Tbl_AceCallToActionType] a ON i.CallToActionId = a.CallToActionId INNER JOIN [dbo].[Tbl_AceCampaignType] t ON i.CampaignTypeId = t.CampaignTypeId WHERE i.CampaignTypeId = 1 AND DATEDIFF(day,GetDate(),i.EventDate) = i.DaysFromEvent;
+--update Tbl_AceMainInfo set EventDate = '03/08/2015'
+--update Tbl_AceMainInfo set timesent = '2015-03-03 22:00:00.000' where aceid=4
+SELECT CAST(SUBSTRING(CONVERT(VARCHAR(8),GETDATE(),108),1,2) as int),CAST(SUBSTRING(CONVERT(VARCHAR(8),TimeSent,108),1,2) as int),DATEDIFF(day,GetDate(),i.EventDate),DateAdd(mi,CAST(SUBSTRING(CONVERT(VARCHAR(8),TimeSent,108),4,2) as int),DateAdd(hh,CAST(SUBSTRING(CONVERT(VARCHAR(8),TimeSent,108),1,2) as int),i.EventDate)),a.CallToActionText,t.TypeDescription, i.* FROM [dbo].[Tbl_AceMainInfo] i INNER JOIN [dbo].[Tbl_AceCallToActionType] a ON i.CallToActionId = a.CallToActionId INNER JOIN [dbo].[Tbl_AceCampaignType] t ON i.CampaignTypeId = t.CampaignTypeId 
+WHERE i.CampaignTypeId = 1 AND DATEDIFF(day,GetDate(),i.EventDate) = i.DaysFromEvent;
+
 SELECT i.* FROM [dbo].[Tbl_AceMainInfo] i WHERE i.CampaignTypeId = 1 AND DATEDIFF(day,'03/09/2015',i.EventDate) = i.DaysFromEvent;
 SELECT i.* FROM [dbo].[Tbl_AceMainInfo] i WHERE i.CampaignTypeId = 1 AND DATEDIFF(day,'03/12/2015',i.EventDate) = i.DaysFromEvent;
 SELECT i.* FROM [dbo].[Tbl_AceMainInfo] i WHERE i.CampaignTypeId = 2 AND DATEDIFF(day,i.EventDate,'03/20/2015') = i.DaysFromEvent;
