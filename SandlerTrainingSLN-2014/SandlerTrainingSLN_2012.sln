@@ -18,6 +18,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sandler.ACE.Emailer", "Sand
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sandler.Emailer", "Sandler.Emailer\Sandler.Emailer.csproj", "{7FC4B205-381D-4C38-A365-752AB45B823E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sandler.ACE.Emailer.Service", "Sandler.ACE.Emailer.Service\Sandler.ACE.Emailer.Service.csproj", "{A1CED925-CDF9-46EF-8A01-9ACB5D3C48FD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -48,6 +50,10 @@ Global
 		{7FC4B205-381D-4C38-A365-752AB45B823E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7FC4B205-381D-4C38-A365-752AB45B823E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7FC4B205-381D-4C38-A365-752AB45B823E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A1CED925-CDF9-46EF-8A01-9ACB5D3C48FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A1CED925-CDF9-46EF-8A01-9ACB5D3C48FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A1CED925-CDF9-46EF-8A01-9ACB5D3C48FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A1CED925-CDF9-46EF-8A01-9ACB5D3C48FD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

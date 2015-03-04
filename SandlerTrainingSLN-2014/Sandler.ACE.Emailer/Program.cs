@@ -16,15 +16,6 @@ using Sandler.DB.Models;
 using System.Configuration;
 namespace Sandler.ACE.Emailer
 {
-    class Program
-    {
-        static void Main(string[] args)
-        {
-            ACEmailer aceMailer = new ACEmailer();
-            aceMailer.ProcessPreCampaigns();
-            aceMailer.ProcessPostCampaigns();
-        }
-    }
 
     public class ACEmailer : IMailer 
     {
@@ -140,7 +131,7 @@ namespace Sandler.ACE.Emailer
             ProcessCampaigns(2);
         }
 
-        public void ProcessCampaigns(int campaignTypeId)
+        private void ProcessCampaigns(int campaignTypeId)
         {
             try
             {

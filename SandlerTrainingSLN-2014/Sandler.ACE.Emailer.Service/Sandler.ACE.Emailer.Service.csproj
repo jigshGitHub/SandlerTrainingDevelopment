@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{8D598219-7EFE-4839-8B79-4A0A4AC65EA2}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <ProjectGuid>{A1CED925-CDF9-46EF-8A01-9ACB5D3C48FD}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Sandler.ACE.Emailer</RootNamespace>
-    <AssemblyName>Sandler.ACE.Emailer</AssemblyName>
+    <RootNamespace>Sandler.ACE.Emailer.Service</RootNamespace>
+    <AssemblyName>Sandler.ACE.Emailer.Service</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -31,39 +31,55 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-  <PropertyGroup>
-    <StartupObject />
-  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
+    <Reference Include="System.Configuration.Install" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Management" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
+    <Reference Include="System.ServiceProcess" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ProjectInstaller.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ProjectInstaller.Designer.cs">
+      <DependentUpon>ProjectInstaller.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceMain.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ServiceMain.Designer.cs">
+      <DependentUpon>ServiceMain.cs</DependentUpon>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Sandler.DB.Data\Sandler.DB.Data.csproj">
-      <Project>{f7d2577c-90be-4e28-a999-14b2a357f9b9}</Project>
-      <Name>Sandler.DB.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Sandler.DB.Models\Sandler.DB.Models.csproj">
-      <Project>{28b54c0a-ceba-42f3-a45c-4d51c5e4d5e3}</Project>
-      <Name>Sandler.DB.Models</Name>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ProjectInstaller.resx">
+      <DependentUpon>ProjectInstaller.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ServiceMain.resx">
+      <DependentUpon>ServiceMain.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Sandler.ACE.Emailer\Sandler.ACE.Emailer.csproj">
+      <Project>{8d598219-7efe-4839-8b79-4a0a4ac65ea2}</Project>
+      <Name>Sandler.ACE.Emailer</Name>
     </ProjectReference>
     <ProjectReference Include="..\Sandler.Emailer\Sandler.Emailer.csproj">
       <Project>{7fc4b205-381d-4c38-a365-752ab45b823e}</Project>
       <Name>Sandler.Emailer</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Solution.Common\Solution.Common.csproj">
-      <Project>{73ebd20c-ed77-4266-8d54-2bc50e1149b9}</Project>
-      <Name>Solution.Common</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
