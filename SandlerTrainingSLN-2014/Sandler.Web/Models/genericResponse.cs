@@ -78,6 +78,7 @@ namespace Sandler.Web.Models
         public short? CallToActionId { get; set; }
         public int? DAYSFROMEVENT { get; set; }
         public DateTime? EVENTDATE { get; set; }
+        public DateTime? TimeSent { get; set; }
         public DateTime? MessageSentDate { get; set; }
         public List<EmailGroups> userEmailGroups { get; set; }
 

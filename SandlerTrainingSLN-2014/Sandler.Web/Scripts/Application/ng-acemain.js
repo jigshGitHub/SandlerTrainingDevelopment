@@ -67,6 +67,14 @@ function onDataBound(arg) {
             $(this).remove();
         }
     })
+
+    $("#AceDetailsGrid tbody tr .editsa").each(function () {
+        var currentDataItem = $("#AceDetailsGrid").data("kendoGrid").dataItem($(this).closest("tr"));
+        if (currentDataItem.MessageSentDate != null) {
+            $(this).remove();
+        }
+    })
+
 }
 
 function get_kendoGridData(searchText, selectForExcel) {

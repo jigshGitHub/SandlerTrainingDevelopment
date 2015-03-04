@@ -46,7 +46,6 @@
 
 
 <script src="~/Scripts/Application/ng-createCampaign.js" type="text/javascript"></script>
-
  
 <div id="campaignMainDiv" class="container" ng-controller="ng_createCampaignCtrl">
 
@@ -131,6 +130,14 @@
 
                         <div class="panel-body" style="overflow:scroll"> 
 
+                             <label>Sent Time&nbsp;<span class="label label-danger" data-bind='visible: TimeSentc.hasError, text: TimeSentc.validationMessage'></span></label>
+                             <div class="controls">
+                                 <input id="ace_sentTime" style="max-width:200px;" data-bind="kendoTimePicker: { value: TimeSentc, min: minTime, max: maxTime } "/>
+                             </div>
+                            
+                             @*Dummy Row*@
+                             <div class="row" style="height:8px"></div>
+                            
                               @*Message # and Days from Event*@
                               <div class="row no-margin">
                                @*Column 1 here*@
@@ -242,16 +249,8 @@
                                     </tr>
                                 </tbody>
                           </table>
-                          
-                      
-
-
-
-
                           </div>
-
-
-                      
+                                              
                     </div>
                   </div>
                           
@@ -273,7 +272,7 @@
 
                          <label style="font-size:small">Message&nbsp;<span class="label label-danger" data-bind='visible: MESSAGE.hasError, text: MESSAGE.validationMessage'></span></label>
                          <div class="controls">
-                             @*<textarea id="ace_message" class="form-control" data-bind="value: MESSAGE" rows="14" placeholder="Type Message here.."></textarea>*@
+                             
                              <textarea id="ace_message" data-bind="richText: MESSAGE, valueUpdate: 'afterkeydown'"></textarea>
                              
                          </div>
@@ -293,7 +292,10 @@
     @* Page Footer *@
     <div class="row page-footer">
         <div class="pull-right">
-             <button id="bt_save_ace" style="width:160px" class="btn btn-primary btn-save" type="button" data-bind="enable: isDirty, click: Send">Create Campaign</button>
+             
+            <button id="bt_save_ace" style="width:95px" class="btn btn-primary btn-save" type="button" data-bind="enable: isDirty, click: Send">Save & Exit</button>
+
+            <button id="bt_saveadd_ace" style="width:95px" class="btn btn-primary btn-save" type="button" data-bind="enable: isDirty, click: SendAndAdd">Save & Add</button>
             
         </div>
     </div>

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Sandler.DB.Models
 {
-    
+
     public partial class AceMainView
     {
         public int TotalCount { get; set; }
@@ -26,12 +26,13 @@ namespace Sandler.DB.Models
         public string ResponseTo { get; set; }
         public Nullable<short> CallToActionId { get; set; }
         public string MessageText { get; set; }
-        public string AttachFileName{ get; set; }
+        public string AttachFileName { get; set; }
         public Nullable<System.DateTime> MessageSentDate { get; set; }
         public Nullable<bool> IsActive { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }
         public string CreatedBy { get; set; }
         public Nullable<System.DateTime> UpdatedDate { get; set; }
+        public Nullable<System.DateTime> TimeSent { get; set; }
         public string UpdatedBy { get; set; }
         public Nullable<int> FranchiseeId { get; set; }
         public Nullable<double> ResponseRate { get; set; }

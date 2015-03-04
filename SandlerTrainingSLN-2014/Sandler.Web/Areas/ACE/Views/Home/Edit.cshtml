@@ -129,6 +129,15 @@
 
                         <div class="panel-body" style="overflow:scroll"> 
 
+                              
+                             <label>Sent Time&nbsp;<span class="label label-danger" data-bind='visible: TimeSentc.hasError, text: TimeSentc.validationMessage'></span></label>
+                             <div class="controls">
+                                 <input id="ace_sentTime" style="max-width:200px;" data-bind="kendoTimePicker: { value: TimeSentc, min: minTime, max: maxTime } "/>
+                             </div>
+                            
+                              @*Dummy Row*@
+                              <div class="row" style="height:8px"></div>
+                            
                               @*Message # and Days from Event*@
                               <div class="row no-margin">
                                @*Column 1 here*@
@@ -241,10 +250,6 @@
                                 </tbody>
                           </table>
                           
-                      
-
-
-
 
                           </div>
 
@@ -417,6 +422,10 @@
 
         var self = this;
 
+        self.minTime = new Date(1950, 0, 1, 8, 0, 0);
+        self.maxTime = new Date(2049, 11, 31, 18, 0, 0);
+
+
         self.AceId = ko.observable(data.AceId);
         self.CAMPGNAME = ko.observable(data.CampaignName).extend({ required: "" });
         self.CAMPGPURPOSE = ko.observable(data.CampaignPurpose).extend({ required: "" });
@@ -447,6 +456,18 @@
         });
         //Event Date
 
+        //For Send Time
+        if (data.TimeSent != null && data.TimeSent != "") {
+            self.TimeSentc = ko.observable(kendo.parseDate(data.TimeSent));
+        }
+        else {
+            self.TimeSentc = ko.observable();
+        }
+        self.TimeSent = ko.computed(function () {
+            return dateUtil_.toNoTimeZone(self.TimeSentc());
+        });
+        //For Send Time
+        
         //Created Date
         if (data.CreatedDate != null && data.CreatedDate != "") {
             self.CreatedDatec = ko.observable(kendo.parseDate(data.CreatedDate));
@@ -580,7 +601,24 @@
                 }
             }
             //Done for Event Date
-
+            
+            //Sent Time
+            var stme = $('#ace_sentTime').val();
+            if (stme == "") {
+                showNoti_.error('Sent Time is required.', false);
+                $('#ace_sentTime').focus();
+                return false;
+            }
+            if (!stme == "") {
+                var d = kendo.parseDate(stme, "HH:mm");
+                if (d == null) {
+                    showNoti_.error('Sent Time is NOT a valid.', false);
+                    $('#ace_sentTime').focus();
+                    return false;
+                }
+            }
+            //Sent Time
+            
             if (!self.CampaignTypeId()) {
                 showNoti_.error('Campaign Type is required', false);
                 $('#ace_cmpgtype').focus();

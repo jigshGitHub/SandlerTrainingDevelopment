@@ -17,12 +17,14 @@ namespace Sandler.Web.Controllers.API
     public class AceMainController : BaseApiController
     {
         List<EmailAddressInfo> emailAdrsInfo = null;
-        public AceMainController(IUnitOfWork uow) :base(uow)
+        public AceMainController(IUnitOfWork uow)
+            : base(uow)
         {
-            
+
         }
 
-        public AceMainController() : base()
+        public AceMainController()
+            : base()
         {
         }
 
@@ -75,7 +77,7 @@ namespace Sandler.Web.Controllers.API
             return Request.CreateResponse(returnObject);
 
         }
-        
+
         [HttpPost]
         [Route("api/AceMain/Archive")]
         public genericResponse ArchiveCampaign(Tbl_AceMainInfo _campaign)
@@ -129,7 +131,7 @@ namespace Sandler.Web.Controllers.API
             }
 
         }
-        
+
         [Route("api/GetCampaignTypeOptions")]
         [HttpGet()]
         public HttpResponseMessage GetCampaignTypeOptions()
@@ -162,7 +164,7 @@ namespace Sandler.Web.Controllers.API
         }
 
         #region [[ Support Methods ]]
-        
+
         public bool CheckRecipientsExist(List<EmailGroups> grps)
         {
             bool rExists = false;
@@ -195,7 +197,7 @@ namespace Sandler.Web.Controllers.API
             }
             //return the list for this Checkbox list
             return _listAddresses;
-           
+
         }
 
         public static class Validation
@@ -294,7 +296,7 @@ namespace Sandler.Web.Controllers.API
                                 foreach (EmailAddressInfo em in emailAdrsInfo)
                                 {
                                     if (Validation.ValidateEmail(em.Email.ToString().Trim()))
-                                        receipeints.Add(new Tbl_AceEmailTracker() { AceId = cmpgInfo.AceId, ID =System.Guid.NewGuid(), EmailAddress = em.Email.ToString().Trim() });
+                                        receipeints.Add(new Tbl_AceEmailTracker() { AceId = cmpgInfo.AceId, ID = System.Guid.NewGuid(), EmailAddress = em.Email.ToString().Trim() });
                                 }
                             }
                         }
@@ -316,7 +318,7 @@ namespace Sandler.Web.Controllers.API
         {
             genericResponse _response;
             int aceId = cmpgInfo.AceId;
-                        
+
             try
             {
                 if (cmpgInfo != null
@@ -326,14 +328,15 @@ namespace Sandler.Web.Controllers.API
                     && !string.IsNullOrEmpty(cmpgInfo.MESSAGE)
                     && cmpgInfo.MSGNO != null
                     && cmpgInfo.EVENTDATE != null
+                    && cmpgInfo.TimeSent != null
                     && cmpgInfo.DAYSFROMEVENT != null
                     //To Address Option....
                     && (!string.IsNullOrEmpty(cmpgInfo.RCPNTS) || CheckRecipientsExist(cmpgInfo.userEmailGroups)))
                 {
-                    
+
                     //Crate object for Ace Main Info and Save it first....
                     Tbl_AceMainInfo aceMain = new Tbl_AceMainInfo();
-                    if(cmpgInfo.AceId > 0 )
+                    if (cmpgInfo.AceId > 0)
                         aceMain.AceId = cmpgInfo.AceId;
                     aceMain.CampaignName = cmpgInfo.CAMPGNAME;
                     aceMain.EventDate = cmpgInfo.EVENTDATE;
@@ -349,6 +352,7 @@ namespace Sandler.Web.Controllers.API
                     aceMain.Recipients = cmpgInfo.RCPNTS;
                     aceMain.FranchiseeId = CurrentUser.FranchiseeID;
                     aceMain.IsActive = true;
+                    aceMain.TimeSent = cmpgInfo.TimeSent;
                     aceMain.EmailGroupIds = GetSelectedListSpl(cmpgInfo.userEmailGroups);
                     aceMain.CallToActionId = cmpgInfo.CallToActionId;
                     aceMain.MessageSentDate = null;//as we are creating new campaign..
@@ -370,7 +374,7 @@ namespace Sandler.Web.Controllers.API
                 {
                     _response = new genericResponse() { success = false, message = "Recipient is missing. Either enter email address or select group from the list to proceed." };
                 }
-                
+
                 //Back
                 return _response;
             }
@@ -380,6 +384,6 @@ namespace Sandler.Web.Controllers.API
                 return _response;
             }
         }
-                
+
     }
 }

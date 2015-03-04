@@ -45,15 +45,6 @@ namespace Sandler.ACE.Emailer
         {
             MailAddress mailAddress = null;
             mailAddress = new MailAddress("donotreply@gmail.com");
-            //From Address
-            //if (Convert.ToBoolean(ConfigurationManager.AppSettings["Server.CredentialsRequired"].ToString()))
-            //{
-            //    address = new MailAddress("donotreply@gmail.com");
-            //}
-            //else
-            //{
-            //    return new MailAddress(CurrentUser.EmailAdress);
-            //}
             return mailAddress;
         }
 
