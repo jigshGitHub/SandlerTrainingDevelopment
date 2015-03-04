@@ -95,7 +95,7 @@ namespace Sandler.DB.Data.Repositories.Implementations
         }
 
 
-        public Tbl_AceMainInfo GetById(int aceId)
+        public Tbl_AceMainInfo Get(int aceId)
         {
             return base.GetById(aceId);
         }

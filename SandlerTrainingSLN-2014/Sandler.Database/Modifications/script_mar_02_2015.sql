@@ -69,7 +69,8 @@ BEGIN
 	INNER JOIN [dbo].[Tbl_AceCallToActionType] a ON i.CallToActionId = a.CallToActionId 
 	INNER JOIN [dbo].[Tbl_AceCampaignType] t ON i.CampaignTypeId = t.CampaignTypeId 
 	WHERE i.MessageSentDate IS NULL AND i.CampaignTypeId = @campaignTypeId AND DATEDIFF(day, @eventCompareDate,i.EventDate) = i.DaysFromEvent
-	AND CAST(SUBSTRING(CONVERT(VARCHAR(8),GETDATE(),108),1,2) as int) >= CAST(SUBSTRING(CONVERT(VARCHAR(8),TimeSent,108),1,2) as int);
+	AND( (CAST(SUBSTRING(CONVERT(VARCHAR(8),@eventCompareDate,108),1,2) as int) >= CAST(SUBSTRING(CONVERT(VARCHAR(8),TimeSent,108),1,2) as int) AND CAST(SUBSTRING(CONVERT(VARCHAR(8),@eventCompareDate,108),4,2) as int) >= CAST(SUBSTRING(CONVERT(VARCHAR(8),TimeSent,108),4,2) as int)) 
+	OR CAST(SUBSTRING(CONVERT(VARCHAR(8),@eventCompareDate,108),1,2) as int) > CAST(SUBSTRING(CONVERT(VARCHAR(8),TimeSent,108),1,2) as int));
 END
 ELSE
 BEGIN
@@ -78,7 +79,8 @@ BEGIN
 	INNER JOIN [dbo].[Tbl_AceCallToActionType] a ON i.CallToActionId = a.CallToActionId 
 	INNER JOIN [dbo].[Tbl_AceCampaignType] t ON i.CampaignTypeId = t.CampaignTypeId 
 	WHERE i.MessageSentDate IS NULL AND i.CampaignTypeId = @campaignTypeId AND DATEDIFF(day,i.EventDate,@eventCompareDate) = i.DaysFromEvent 
-	AND CAST(SUBSTRING(CONVERT(VARCHAR(8),GETDATE(),108),1,2) as int) >= CAST(SUBSTRING(CONVERT(VARCHAR(8),TimeSent,108),1,2) as int);
+	AND( (CAST(SUBSTRING(CONVERT(VARCHAR(8),@eventCompareDate,108),1,2) as int) >= CAST(SUBSTRING(CONVERT(VARCHAR(8),TimeSent,108),1,2) as int) AND CAST(SUBSTRING(CONVERT(VARCHAR(8),@eventCompareDate,108),4,2) as int) >= CAST(SUBSTRING(CONVERT(VARCHAR(8),TimeSent,108),4,2) as int)) 
+	OR CAST(SUBSTRING(CONVERT(VARCHAR(8),@eventCompareDate,108),1,2) as int) > CAST(SUBSTRING(CONVERT(VARCHAR(8),TimeSent,108),1,2) as int));
 END
 
 Return 0;

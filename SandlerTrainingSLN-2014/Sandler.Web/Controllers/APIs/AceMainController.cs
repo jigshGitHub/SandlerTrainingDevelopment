@@ -360,12 +360,29 @@ namespace Sandler.Web.Controllers.API
                     aceMain.TotalCountOutBound = CountOutBoundNumber(cmpgInfo);
                     aceMain.TotalCountConfirm = 0;//as we are creating new campaign..
                     //Now Save it...and get the unique Id back...
-                    if (cmpgInfo.AceId > 0)
-                        aceId = uow.AceMainRepository().UpdateCampaign(aceMain);
-                    else
+                    try
                     {
-                        aceId = uow.AceMainRepository().AddCampaign(aceMain);
-                        uow.AceEmailTrackerRepository().AddRecipients(CreateReceipeints(aceMain));
+                        if (cmpgInfo.AceId > 0)
+                            aceId = uow.AceMainRepository().UpdateCampaign(aceMain);
+                        else
+                        {
+                            aceId = uow.AceMainRepository().AddCampaign(aceMain);
+                            uow.AceEmailTrackerRepository().AddRecipients(CreateReceipeints(aceMain));
+                        }
+                    }
+                    catch (System.Data.Entity.Validation.DbEntityValidationException dbEnEx)
+                    {
+                        foreach (var validationErrors in dbEnEx.EntityValidationErrors)
+                        {
+                            foreach (var validationError in validationErrors.ValidationErrors)
+                            {
+                                System.Diagnostics.Debug.WriteLine( string.Format("Property: {0} Error: {1}", validationError.PropertyName, validationError.ErrorMessage));
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        throw ex;
                     }
                     //create Response...
                     _response = new genericResponse() { success = true, UniqueId = aceId };

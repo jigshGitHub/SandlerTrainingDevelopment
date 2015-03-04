@@ -34,6 +34,7 @@ namespace Sandler.ACE.Emailer
         EMailer emailer = new EMailer();
         private string emailBackgroundImagePath;
         private string campaignEmailResponseURL;
+        private Tbl_AceEmailTracker receipient;
         public ACEmailer()
         {
             uow = new SandlerUnitOfWork(new SandlerRepositoryProvider(new RepositoryFactories()), new SandlerDBContext());
@@ -97,7 +98,7 @@ namespace Sandler.ACE.Emailer
                 messageBuilder.Append("</td>");
                 messageBuilder.Append("</tr>");
                 messageBuilder.Append("<tr>");
-                messageBuilder.Append("<td align='centre'><a href='" + this.campaignEmailResponseURL + "' target='_blank'>" + campaign.CallToActionText + "</a>");
+                messageBuilder.Append("<td align='centre'><a href='" + this.campaignEmailResponseURL + "?id=" + this.receipient.ID.ToString() + "' target='_blank'>" + campaign.CallToActionText + "</a>");
                 messageBuilder.Append("</tr>");
                 messageBuilder.Append("</table>");
                 messageBuilder.Append("</td>");
@@ -120,11 +121,7 @@ namespace Sandler.ACE.Emailer
             {
                 toAddresses = new List<MailAddress>();
 
-                List<Tbl_AceEmailTracker> recipients = uow.AceEmailTrackerRepository().GetForCampaign(campaign.AceId);
-                foreach (Tbl_AceEmailTracker recipient in recipients)
-                {
-                    toAddresses.Add(new MailAddress(recipient.EmailAddress));
-                }
+                toAddresses.Add(new MailAddress(receipient.EmailAddress));
             }
             catch (Exception ex)
             {
@@ -135,42 +132,32 @@ namespace Sandler.ACE.Emailer
 
         public void ProcessPreCampaigns()
         {
-            try
-            {
-                campaigns = uow.AceMainRepository().GetByCampaignType(1).ToList<AceMainView>();
-                foreach (AceMainView _campaign in campaigns)
-                {
-                    try
-                    {
-                        this.campaign = _campaign;
-                        this.campaign.CallToActionText = uow.AceMainRepository().GetCallToActionTypeOptions().Where(r => r.CallToActionId == int.Parse(_campaign.CallToActionId.ToString())).FirstOrDefault().CallToActionText;
-                        emailer.SendEmail(this);
-                        PostUpdateProcess(this.campaign.AceId);
-                    }
-                    catch (Exception ex)
-                    {
-                        Console.WriteLine("Error processing each individual AceId: " + ex.Message);
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Error processing pre campaigns: " + ex.Message);
-            }
+            ProcessCampaigns(1);
         }
 
         public void ProcessPostCampaigns()
         {
+            ProcessCampaigns(2);
+        }
+
+        public void ProcessCampaigns(int campaignTypeId)
+        {
             try
             {
-                campaigns = uow.AceMainRepository().GetByCampaignType(2).ToList<AceMainView>();
+                campaigns = uow.AceMainRepository().GetByCampaignType(campaignTypeId).ToList<AceMainView>();
                 foreach (AceMainView _campaign in campaigns)
                 {
                     try
                     {
                         this.campaign = _campaign;
                         this.campaign.CallToActionText = uow.AceMainRepository().GetCallToActionTypeOptions().Where(r => r.CallToActionId == int.Parse(_campaign.CallToActionId.ToString())).FirstOrDefault().CallToActionText;
-                        emailer.SendEmail(this);
+                        List<Tbl_AceEmailTracker> recipients = uow.AceEmailTrackerRepository().GetForCampaign(campaign.AceId);
+                        foreach (Tbl_AceEmailTracker recipient in recipients)
+                        {
+                            this.receipient = recipient;
+                            emailer.SendEmail(this);
+                        }
+
                         PostUpdateProcess(this.campaign.AceId);
                     }
                     catch (Exception ex)
@@ -181,13 +168,13 @@ namespace Sandler.ACE.Emailer
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Error processing post campaigns: " + ex.Message);
+                Console.WriteLine("Error processing campaigns: " + ex.Message);
             }
         }
 
         private void PostUpdateProcess(int aceId)
         {
-            Tbl_AceMainInfo _campaign = uow.AceMainRepository().GetById(aceId);
+            Tbl_AceMainInfo _campaign = uow.AceMainRepository().Get(aceId);
             _campaign.MessageSentDate = DateTime.Now;
             uow.AceMainRepository().UpdateCampaign(_campaign);
         }

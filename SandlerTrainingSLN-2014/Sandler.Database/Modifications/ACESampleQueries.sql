@@ -1,8 +1,8 @@
 --delete from [dbo].[TBL_ACEEmails];
 --delete from [dbo].[Tbl_ACEGroups];
 --delete from [dbo].[Tbl_AceMainInfo];
---delete from tbl_aceemailtracker where aceid in (1,2,3);
---delete from [Tbl_AceMainInfo] where aceid in (1,2,3);
+--delete from tbl_aceemailtracker where aceid in (11,12,13);
+--delete from [Tbl_AceMainInfo] where aceid in (11,12,13);
 --update tbl_aceemailtracker set isviewed = 1 where emailaddress <> 'jigsh@hotmail.com';
 --update Tbl_EmailGroup set groupccemails = 'thakkar' where groupid=1
 --update Tbl_EmailBank set emailBody = '
@@ -29,14 +29,25 @@ exec [sp_GetUserEmailGroupAddresses] 33
 SELECT CAST(SUBSTRING(CONVERT(VARCHAR(8),GETDATE(),108),1,2) as int),CAST(SUBSTRING(CONVERT(VARCHAR(8),TimeSent,108),1,2) as int),DATEDIFF(day,GetDate(),i.EventDate),DateAdd(mi,CAST(SUBSTRING(CONVERT(VARCHAR(8),TimeSent,108),4,2) as int),DateAdd(hh,CAST(SUBSTRING(CONVERT(VARCHAR(8),TimeSent,108),1,2) as int),i.EventDate)),a.CallToActionText,t.TypeDescription, i.* FROM [dbo].[Tbl_AceMainInfo] i INNER JOIN [dbo].[Tbl_AceCallToActionType] a ON i.CallToActionId = a.CallToActionId INNER JOIN [dbo].[Tbl_AceCampaignType] t ON i.CampaignTypeId = t.CampaignTypeId 
 WHERE i.CampaignTypeId = 1 AND DATEDIFF(day,GetDate(),i.EventDate) = i.DaysFromEvent;
 
-SELECT i.* FROM [dbo].[Tbl_AceMainInfo] i WHERE i.CampaignTypeId = 1 AND DATEDIFF(day,'03/09/2015',i.EventDate) = i.DaysFromEvent;
+
+SELECT  CAST(SUBSTRING(CONVERT(VARCHAR(8),GETDATE(),108),1,2) as int) , CAST(SUBSTRING(CONVERT(VARCHAR(8),GETDATE(),108),4,2) as int) as [currenttime], CAST(SUBSTRING(CONVERT(VARCHAR(8),TimeSent,108),1,2) as int), CAST(SUBSTRING(CONVERT(VARCHAR(8),TimeSent,108),4,2) as int) as [timesent],a.CallToActionText,t.TypeDescription, i.* FROM [dbo].[Tbl_AceMainInfo] i INNER JOIN [dbo].[Tbl_AceCallToActionType] a ON i.CallToActionId = a.CallToActionId INNER JOIN [dbo].[Tbl_AceCampaignType] t ON i.CampaignTypeId = t.CampaignTypeId 
+WHERE i.CampaignTypeId = 1 AND DATEDIFF(day,GetDate(),i.EventDate) = i.DaysFromEvent;
+
+SELECT CAST(SUBSTRING(CONVERT(VARCHAR(8),GETDATE(),108),1,2) as int) , CAST(SUBSTRING(CONVERT(VARCHAR(8),GETDATE(),108),4,2) as int) as [currenttime], CAST(SUBSTRING(CONVERT(VARCHAR(8),TimeSent,108),1,2) as int), CAST(SUBSTRING(CONVERT(VARCHAR(8),TimeSent,108),4,2) as int) as [timesent],i.* FROM [dbo].[Tbl_AceMainInfo] i 
+WHERE i.CampaignTypeId = 1 AND DATEDIFF(day,'03/09/2015',i.EventDate) = i.DaysFromEvent;
+
 SELECT i.* FROM [dbo].[Tbl_AceMainInfo] i WHERE i.CampaignTypeId = 1 AND DATEDIFF(day,'03/12/2015',i.EventDate) = i.DaysFromEvent;
 SELECT i.* FROM [dbo].[Tbl_AceMainInfo] i WHERE i.CampaignTypeId = 2 AND DATEDIFF(day,i.EventDate,'03/20/2015') = i.DaysFromEvent;
 
 
 exec sp_GetACECampaignsForCampaignType 1;
-exec sp_GetACECampaignsForCampaignType 1,'03/09/2015';
-exec sp_GetACECampaignsForCampaignType 1,'03/12/2015';
-exec sp_GetACECampaignsForCampaignType 2,'03/20/2015';
+
+declare @futureDate datetime;
+set @futureDate = CAST('03/13/2015 09:00:00' as DATETIME);
+exec sp_GetACECampaignsForCampaignType 1,@futureDate;
+
+declare @futureDate datetime;
+set @futureDate = CAST('03/15/2015 09:30:00' as DATETIME);
+exec sp_GetACECampaignsForCampaignType 2,@futureDate;
 
 exec [sp_AceMainView] @orderBy='CampaignName ASC' ,@pageSize=50,@pageNo=1,@franchiseeId=10008,@searchText=''

@@ -33,7 +33,18 @@ namespace Sandler.DB.Data.Repositories.Implementations
             var receipients = base.GetAll().Where(r => r.AceId == aceId && r.IsViewed == false).ToList<Tbl_AceEmailTracker>();
             return receipients;
         }
-        
+
+        public Tbl_AceEmailTracker Get(string id)
+        {
+            return base.GetById(id);
+        }
+
+
+        public void Update(Tbl_AceEmailTracker entity)
+        {
+            Update(entity);
+            DBContext.SaveChanges();
+        }
     }
 
 }
