@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{8D598219-7EFE-4839-8B79-4A0A4AC65EA2}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <ProjectGuid>{7E6EB1E4-4650-4F8E-9059-8C724D26F167}</ProjectGuid>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Sandler.ACE.Emailer</RootNamespace>
-    <AssemblyName>Sandler.ACE.Emailer</AssemblyName>
+    <RootNamespace>Sandler.ACE.Emailer.Service.Console.Test</RootNamespace>
+    <AssemblyName>Sandler.ACE.Emailer.Service.Console.Test</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -31,12 +31,8 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-  <PropertyGroup>
-    <StartupObject />
-  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -49,11 +45,16 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config">
-      <SubType>Designer</SubType>
-    </None>
+    <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Sandler.ACE.Emailer\Sandler.ACE.Emailer.csproj">
+      <Project>{8d598219-7efe-4839-8b79-4a0a4ac65ea2}</Project>
+      <Name>Sandler.ACE.Emailer</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Sandler.DB.Data\Sandler.DB.Data.csproj">
       <Project>{f7d2577c-90be-4e28-a999-14b2a357f9b9}</Project>
       <Name>Sandler.DB.Data</Name>
@@ -70,9 +71,6 @@
       <Project>{73ebd20c-ed77-4266-8d54-2bc50e1149b9}</Project>
       <Name>Solution.Common</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

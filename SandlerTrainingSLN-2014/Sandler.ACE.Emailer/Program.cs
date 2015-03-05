@@ -26,11 +26,23 @@ namespace Sandler.ACE.Emailer
         private string emailBackgroundImagePath;
         private string campaignEmailResponseURL;
         private Tbl_AceEmailTracker receipient;
+        private System.Diagnostics.EventLog eventLog;
+        
         public ACEmailer()
         {
-            uow = new SandlerUnitOfWork(new SandlerRepositoryProvider(new RepositoryFactories()), new SandlerDBContext());
-            emailBackgroundImagePath = ConfigurationManager.AppSettings["EmailBackgroundImagePath"].ToString();
-            campaignEmailResponseURL = ConfigurationManager.AppSettings["CampaignEmailResponseURL"].ToString();
+            try
+            {
+                eventLog = new System.Diagnostics.EventLog();
+                eventLog.Source = "SandlerAppEventSource";
+                eventLog.Log = "SandlerAppEventLog";
+                uow = new SandlerUnitOfWork(new SandlerRepositoryProvider(new RepositoryFactories()), new SandlerDBContext());
+                emailBackgroundImagePath = ConfigurationManager.AppSettings["EmailBackgroundImagePath"].ToString();
+                campaignEmailResponseURL = ConfigurationManager.AppSettings["CampaignEmailResponseURL"].ToString();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception ("Exception in Sandler.ACE.Emailer.ACEmailer():" + ex.Message);
+            }
         }
 
         public MailAddress GetFromAddress()
@@ -47,21 +59,28 @@ namespace Sandler.ACE.Emailer
 
         public void PrepareAttachments(MailMessage message)
         {
-            if (!string.IsNullOrEmpty(campaign.AttachFileName))
+            try
             {
-                string filePath = ConfigurationManager.AppSettings["Server.Host.UploadDirectoryPath"].ToString() + "\\" + campaign.AttachFileName;
-
-                using (System.IO.FileStream fileStream = new System.IO.FileStream(filePath, System.IO.FileMode.Open, System.IO.FileAccess.Read, System.IO.FileShare.ReadWrite))
+                if (!string.IsNullOrEmpty(campaign.AttachFileName))
                 {
-                    System.Net.Mail.Attachment _attachment = new System.Net.Mail.Attachment(fileStream, campaign.AttachFileName, MediaTypeNames.Application.Octet);
-                    // Add time stamp information for the file.
-                    ContentDisposition disposition = _attachment.ContentDisposition;
-                    disposition.CreationDate = System.IO.File.GetCreationTime(filePath);
-                    disposition.ModificationDate = System.IO.File.GetLastWriteTime(filePath);
-                    disposition.ReadDate = System.IO.File.GetLastAccessTime(filePath);
-                    // Add the file attachment to this e-mail message.
-                    message.Attachments.Add(_attachment);
+                    string filePath = ConfigurationManager.AppSettings["Server.Host.UploadDirectoryPath"].ToString() + "\\" + campaign.AttachFileName;
+
+                    using (System.IO.FileStream fileStream = new System.IO.FileStream(filePath, System.IO.FileMode.Open, System.IO.FileAccess.Read, System.IO.FileShare.ReadWrite))
+                    {
+                        System.Net.Mail.Attachment _attachment = new System.Net.Mail.Attachment(fileStream, campaign.AttachFileName, MediaTypeNames.Application.Octet);
+                        // Add time stamp information for the file.
+                        ContentDisposition disposition = _attachment.ContentDisposition;
+                        disposition.CreationDate = System.IO.File.GetCreationTime(filePath);
+                        disposition.ModificationDate = System.IO.File.GetLastWriteTime(filePath);
+                        disposition.ReadDate = System.IO.File.GetLastAccessTime(filePath);
+                        // Add the file attachment to this e-mail message.
+                        message.Attachments.Add(_attachment);
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                eventLog.WriteEntry("Exception in Sandler.ACE.Emailer.PrepareAttachments():" + ex.Message, System.Diagnostics.EventLogEntryType.Error);
             }
         }
 
@@ -100,7 +119,7 @@ namespace Sandler.ACE.Emailer
             }
             catch (Exception ex)
             {
-                throw ex;
+                eventLog.WriteEntry("Exception in Sandler.ACE.Emailer.PrepareHTMLMessageBody():" + ex.Message, System.Diagnostics.EventLogEntryType.Error);
             }
             return messageBuilder.ToString();
         }
@@ -111,12 +130,11 @@ namespace Sandler.ACE.Emailer
             try
             {
                 toAddresses = new List<MailAddress>();
-
                 toAddresses.Add(new MailAddress(receipient.EmailAddress));
             }
             catch (Exception ex)
             {
-                throw ex;
+                eventLog.WriteEntry("Exception in Sandler.ACE.Emailer.GetToAddresses():" + ex.Message, System.Diagnostics.EventLogEntryType.Error);
             }
             return toAddresses;
         }
@@ -136,38 +154,74 @@ namespace Sandler.ACE.Emailer
             try
             {
                 campaigns = uow.AceMainRepository().GetByCampaignType(campaignTypeId).ToList<AceMainView>();
-                foreach (AceMainView _campaign in campaigns)
+                if (campaigns != null)
                 {
-                    try
+                    foreach (AceMainView _campaign in campaigns)
                     {
-                        this.campaign = _campaign;
-                        this.campaign.CallToActionText = uow.AceMainRepository().GetCallToActionTypeOptions().Where(r => r.CallToActionId == int.Parse(_campaign.CallToActionId.ToString())).FirstOrDefault().CallToActionText;
-                        List<Tbl_AceEmailTracker> recipients = uow.AceEmailTrackerRepository().GetForCampaign(campaign.AceId);
-                        foreach (Tbl_AceEmailTracker recipient in recipients)
+                        try
                         {
-                            this.receipient = recipient;
-                            emailer.SendEmail(this);
-                        }
+                            this.campaign = _campaign;
+                            this.campaign.CallToActionText = uow.AceMainRepository().GetCallToActionTypeOptions().Where(r => r.CallToActionId == int.Parse(_campaign.CallToActionId.ToString())).FirstOrDefault().CallToActionText;
+                            
+                            List<Tbl_AceEmailTracker> recipients = uow.AceEmailTrackerRepository().GetForCampaign(campaign.AceId);
+                            if (recipients == null)
+                            {
+                                eventLog.WriteEntry("recipients are NULL", System.Diagnostics.EventLogEntryType.Information);
+                                eventLog.WriteEntry("receipient is NULL", System.Diagnostics.EventLogEntryType.Information);
+                            }
+                            else
+                            {
+                                foreach (Tbl_AceEmailTracker recipient in recipients)
+                                {
+                                    this.receipient = recipient;
+                                    emailer.SendEmail(this);
+                                }
 
-                        PostUpdateProcess(this.campaign.AceId);
+                                PostUpdateProcess(this.campaign.AceId);
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            eventLog.WriteEntry("Error in Sandler.ACE.Emailer.GetToAddresses() processing each individual AceId: " + this.campaign.AceId.ToString() + ex.Message, System.Diagnostics.EventLogEntryType.Error);
+                        }
                     }
-                    catch (Exception ex)
-                    {
-                        Console.WriteLine("Error processing each individual AceId: " + ex.Message);
-                    }
+                }
+                else
+                {
+                    eventLog.WriteEntry("Sandler.ACE.Emailer.ProcessCampaigns() campaigns are null", System.Diagnostics.EventLogEntryType.Information);
+                    eventLog.WriteEntry("Sandler.ACE.Emailer.ProcessCampaigns() this.campaign is null", System.Diagnostics.EventLogEntryType.Information);
+                    throw new Exception("Sandler.ACE.Emailer.ProcessCampaigns() this.campaign is null");
                 }
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Error processing campaigns: " + ex.Message);
+                eventLog.WriteEntry("Exception in Sandler.ACE.Emailer.ProcessCampaigns():" + ex.Message, System.Diagnostics.EventLogEntryType.Error);
+                throw ex;
             }
         }
 
         private void PostUpdateProcess(int aceId)
         {
-            Tbl_AceMainInfo _campaign = uow.AceMainRepository().Get(aceId);
-            _campaign.MessageSentDate = DateTime.Now;
-            uow.AceMainRepository().UpdateCampaign(_campaign);
+            Tbl_AceMainInfo _campaign;
+            try
+            {
+                if (aceId == 0)
+                {
+                    eventLog.WriteEntry("Sandler.ACE.Emailer.PostUpdateProcess() aceId is zero", System.Diagnostics.EventLogEntryType.Information);
+                    throw new Exception("Sandler.ACE.Emailer.PostUpdateProcess() aceId is zero");
+                }
+                else
+                {
+                    _campaign = uow.AceMainRepository().Get(aceId);
+                    _campaign.MessageSentDate = DateTime.Now;
+                    uow.AceMainRepository().UpdateCampaign(_campaign);
+                }
+            }
+            catch (Exception ex)
+            {
+                eventLog.WriteEntry("Exception in Sandler.ACE.Emailer.PostUpdateProcess():" + ex.Message, System.Diagnostics.EventLogEntryType.Error);
+                throw ex;
+            }
         }
     }
     

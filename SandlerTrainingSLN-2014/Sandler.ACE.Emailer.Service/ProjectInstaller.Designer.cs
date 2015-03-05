@@ -42,7 +42,6 @@
             this.serviceInstaller1.Description = "ACE Emailer service to message campaign information.";
             this.serviceInstaller1.DisplayName = "SandlerACEEmailerService";
             this.serviceInstaller1.ServiceName = "SandlerACEEmailer";
-            this.serviceInstaller1.StartType = System.ServiceProcess.ServiceStartMode.Automatic;
             this.serviceInstaller1.AfterInstall += new System.Configuration.Install.InstallEventHandler(this.serviceInstaller1_AfterInstall);
             // 
             // ProjectInstaller

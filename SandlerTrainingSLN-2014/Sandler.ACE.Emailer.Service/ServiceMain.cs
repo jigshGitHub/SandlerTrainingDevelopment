@@ -17,6 +17,8 @@ namespace Sandler.ACE.Emailer.Service
         public ServiceMain()
         {
             InitializeComponent();
+
+            this.AutoLog = false;
             eventLog = new System.Diagnostics.EventLog();
             if (!System.Diagnostics.EventLog.SourceExists("SandlerAppEventSource"))
             {
@@ -39,10 +41,17 @@ namespace Sandler.ACE.Emailer.Service
 
         public void OnTimer(object sender, System.Timers.ElapsedEventArgs args)
         {
-            eventLog.WriteEntry("Calling Logic", EventLogEntryType.Information);
-            ACEmailer aceEmailer = new ACEmailer();
-            aceEmailer.ProcessPreCampaigns();
-            aceEmailer.ProcessPostCampaigns();
+            eventLog.WriteEntry("Calling ACEEmailer Process|" + DateTime.Now.ToShortTimeString(), EventLogEntryType.Information);
+            ACEmailer aceEmailer;
+            try{
+                aceEmailer = new ACEmailer();
+                aceEmailer.ProcessPreCampaigns();
+                aceEmailer.ProcessPostCampaigns();
+            }
+            catch(Exception ex){
+                eventLog.WriteEntry("Error in ACEEmailer Process|" + DateTime.Now.ToShortTimeString() + "|" + ex.Message , EventLogEntryType.Error);
+            }
+            eventLog.WriteEntry("ACEEmailer Complete|" + DateTime.Now.ToShortTimeString(), EventLogEntryType.Information);
         }
 
         protected override void OnStop()

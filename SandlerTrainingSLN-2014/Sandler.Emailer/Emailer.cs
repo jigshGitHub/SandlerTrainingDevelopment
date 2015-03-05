@@ -20,6 +20,14 @@ namespace Sandler.Emailer
     }
     public class EMailer
     {
+
+        private System.Diagnostics.EventLog eventLog;
+        public EMailer()
+        {
+            eventLog = new System.Diagnostics.EventLog();
+            eventLog.Source = "SandlerAppEventSource";
+            eventLog.Log = "SandlerAppEventLog";
+        }
         public const string EmailStandard = @"^[a-zA-Z0-9._-]+@([a-zA-Z0-9.-]+\.)+[a-zA-Z0-9.-]{2,4}$";
         public void SendEmail(IMailer mailer)
         {
@@ -33,6 +41,7 @@ namespace Sandler.Emailer
             }
             catch (Exception ex)
             {
+                eventLog.WriteEntry("Exception in Sandler.Emailer.Emailer.SendEmail():" + ex.Message, System.Diagnostics.EventLogEntryType.Error);
                 throw ex;
             }
 
@@ -57,6 +66,7 @@ namespace Sandler.Emailer
             }
             catch (Exception ex)
             {
+                eventLog.WriteEntry("Exception in Sandler.Emailer.Emailer.GetMailMessage():" + ex.Message, System.Diagnostics.EventLogEntryType.Error); 
                 throw ex;
             }
             return message;
@@ -80,6 +90,7 @@ namespace Sandler.Emailer
             }
             catch (Exception ex)
             {
+                eventLog.WriteEntry("Exception in Sandler.Emailer.Emailer.GetSMTPClient():" + ex.Message, System.Diagnostics.EventLogEntryType.Error);
                 throw ex;
             }
             return client;

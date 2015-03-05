@@ -18,8 +18,8 @@ namespace Sandler.ACE.Emailer.Service
 
         private void serviceInstaller1_AfterInstall(object sender, InstallEventArgs e)
         {
-            System.ServiceProcess.ServiceController controller = new System.ServiceProcess.ServiceController("SandlerACEEmailer");
-            controller.Start();
+            //System.ServiceProcess.ServiceController controller = new System.ServiceProcess.ServiceController("SandlerACEEmailer");
+            //controller.Start();
         }
     }
 }
