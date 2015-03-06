@@ -11,7 +11,7 @@ namespace Sandler.DB.Data.Repositories.Interfaces
     {
         void AddRecipients(IEnumerable<Tbl_AceEmailTracker> receipients);
         List<Tbl_AceEmailTracker> GetForCampaign(int aceId);
-        Tbl_AceEmailTracker Get(string id);
+        Tbl_AceEmailTracker Get(Guid id);
         void Update(Tbl_AceEmailTracker entity);
     }
 }

@@ -34,7 +34,7 @@ namespace Sandler.DB.Data.Repositories.Implementations
             return receipients;
         }
 
-        public Tbl_AceEmailTracker Get(string id)
+        public Tbl_AceEmailTracker Get(Guid id)
         {
             return base.GetById(id);
         }
