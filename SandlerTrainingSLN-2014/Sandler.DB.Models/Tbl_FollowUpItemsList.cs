@@ -23,5 +23,7 @@ namespace Sandler.DB.Models
         public string Phone { get; set; }
         public string Topic { get; set; }
         public Nullable<System.DateTime> StartTime { get; set; }
+    
+        public virtual aspnet_Users aspnet_Users { get; set; }
     }
 }

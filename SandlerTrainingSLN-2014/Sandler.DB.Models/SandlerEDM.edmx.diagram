@@ -113,6 +113,18 @@
         <EntityTypeShape EntityType="SandlerDBModel.Tbl_AceMainInfo" Width="1.5" PointX="5.3061463149758739" PointY="6.3434232800935506" />
         <EntityTypeShape EntityType="SandlerDBModel.Tbl_AceEmailTracker" Width="1.5" PointX="3.8568651712764357" PointY="13.250332495779885" />
         <AssociationConnector Association="SandlerDBModel.FK_Tbl_AceEmailTracker_Tbl_AceMainInfo" />
+        <EntityTypeShape EntityType="SandlerDBModel.aspnet_Membership" Width="1.5" PointX="8.42437376474234" PointY="24.758436691369134" />
+        <EntityTypeShape EntityType="SandlerDBModel.aspnet_Users" Width="1.5" PointX="9.9576767431375" PointY="10.421241780007836" />
+        <AssociationConnector Association="SandlerDBModel.FK__aspnet_Me__UserI__15660868" />
+        <AssociationConnector Association="SandlerDBModel.FK_TBL_COACH_aspnet_Users" />
+        <AssociationConnector Association="SandlerDBModel.FK_Tbl_FollowUpItemsList_aspnet_Users" />
+        <AssociationConnector Association="SandlerDBModel.FK_TBL_FRANCHISEE_USERS_aspnet_Users" />
+        <AssociationConnector Association="SandlerDBModel.FK_TBL_UserEmailGroup_aspnet_Users" />
+        <AssociationConnector Association="SandlerDBModel.FK__aspnet_Me__UserI__15660868" />
+        <AssociationConnector Association="SandlerDBModel.FK_TBL_COACH_aspnet_Users" />
+        <AssociationConnector Association="SandlerDBModel.FK_Tbl_FollowUpItemsList_aspnet_Users" />
+        <AssociationConnector Association="SandlerDBModel.FK_TBL_FRANCHISEE_USERS_aspnet_Users" />
+        <AssociationConnector Association="SandlerDBModel.FK_TBL_UserEmailGroup_aspnet_Users" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -27,7 +27,7 @@ namespace Sandler.ACE.Emailer
         private string campaignEmailResponseURL;
         private Tbl_AceEmailTracker receipient;
         private System.Diagnostics.EventLog eventLog;
-        
+        private aspnet_Membership CampainCreatedBy;
         public ACEmailer()
         {
             try
@@ -48,7 +48,10 @@ namespace Sandler.ACE.Emailer
         public MailAddress GetFromAddress()
         {
             MailAddress mailAddress = null;
-            mailAddress = new MailAddress("donotreply@gmail.com");
+            if (CampainCreatedBy == null)
+                mailAddress = new MailAddress("donotreply@gmail.com");
+            else
+                mailAddress = new MailAddress(CampainCreatedBy.Email);
             return mailAddress;
         }
 
@@ -162,7 +165,7 @@ namespace Sandler.ACE.Emailer
                         {
                             this.campaign = _campaign;
                             this.campaign.CallToActionText = uow.AceMainRepository().GetCallToActionTypeOptions().Where(r => r.CallToActionId == int.Parse(_campaign.CallToActionId.ToString())).FirstOrDefault().CallToActionText;
-                            
+                            this.CampainCreatedBy = uow.MembershipRepository().Get(new Guid(this.campaign.CreatedBy));
                             List<Tbl_AceEmailTracker> recipients = uow.AceEmailTrackerRepository().GetForCampaign(campaign.AceId);
                             if (recipients == null)
                             {

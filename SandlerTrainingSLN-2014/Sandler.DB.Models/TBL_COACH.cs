@@ -38,5 +38,6 @@ namespace Sandler.DB.Models
     
         public virtual TBL_REGION TBL_REGION { get; set; }
         public virtual ICollection<TBL_FRANCHISEE> TBL_FRANCHISEE { get; set; }
+        public virtual aspnet_Users aspnet_Users { get; set; }
     }
 }

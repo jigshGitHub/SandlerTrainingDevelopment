@@ -6,17 +6,13 @@
     <edmx:StorageModels>
     <Schema Namespace="SandlerDBModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityContainer Name="SandlerDBModelStoreContainer">
+          <EntitySet Name="aspnet_Membership" EntityType="SandlerDBModel.Store.aspnet_Membership" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="aspnet_Users" EntityType="SandlerDBModel.Store.aspnet_Users" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="module" EntityType="SandlerDBModel.Store.module" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="pageMenu" EntityType="SandlerDBModel.Store.pageMenu" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="pageMenuGroup" EntityType="SandlerDBModel.Store.pageMenuGroup" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Tbl_ACE" EntityType="SandlerDBModel.Store.Tbl_ACE" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Tbl_ACE_Campaign" EntityType="SandlerDBModel.Store.Tbl_ACE_Campaign" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="Tbl_ACE_CampaignType" EntityType="SandlerDBModel.Store.Tbl_ACE_CampaignType" store:Type="Tables" store:Schema="dbo" store:Name="Tbl_ACE_CampaignType">
-            <DefiningQuery>SELECT 
-      [Tbl_ACE_CampaignType].[ID] AS [ID], 
-      [Tbl_ACE_CampaignType].[CampaignTypeDesc] AS [CampaignTypeDesc]
-      FROM [dbo].[Tbl_ACE_CampaignType] AS [Tbl_ACE_CampaignType]</DefiningQuery>
-          </EntitySet>
           <EntitySet Name="Tbl_ACE_Documents" EntityType="SandlerDBModel.Store.Tbl_ACE_Documents" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Tbl_ACE_Messages" EntityType="SandlerDBModel.Store.Tbl_ACE_Messages" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Tbl_AceCallToActionType" EntityType="SandlerDBModel.Store.Tbl_AceCallToActionType" store:Type="Tables" Schema="dbo" />
@@ -283,6 +279,10 @@
             <End Role="Tbl_ACE" EntitySet="Tbl_ACE" />
             <End Role="Tbl_ACEGroups" EntitySet="Tbl_ACEGroups" />
           </AssociationSet>
+          <AssociationSet Name="FK__aspnet_Me__UserI__15660868" Association="SandlerDBModel.Store.FK__aspnet_Me__UserI__15660868">
+            <End Role="aspnet_Users" EntitySet="aspnet_Users" />
+            <End Role="aspnet_Membership" EntitySet="aspnet_Membership" />
+          </AssociationSet>
           <AssociationSet Name="FK_Tbl_ACE_Campaign_Tbl_ACE_Campaign" Association="SandlerDBModel.Store.FK_Tbl_ACE_Campaign_Tbl_ACE_Campaign">
             <End Role="Tbl_ACE_Campaign" EntitySet="Tbl_ACE_Campaign" />
             <End Role="Tbl_ACE_Campaign1" EntitySet="Tbl_ACE_Campaign" />
@@ -294,6 +294,10 @@
           <AssociationSet Name="FK_Tbl_AceEmailTracker_Tbl_AceMainInfo" Association="SandlerDBModel.Store.FK_Tbl_AceEmailTracker_Tbl_AceMainInfo">
             <End Role="Tbl_AceMainInfo" EntitySet="Tbl_AceMainInfo" />
             <End Role="Tbl_AceEmailTracker" EntitySet="Tbl_AceEmailTracker" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_COACH_aspnet_Users" Association="SandlerDBModel.Store.FK_TBL_COACH_aspnet_Users">
+            <End Role="aspnet_Users" EntitySet="aspnet_Users" />
+            <End Role="TBL_COACH" EntitySet="TBL_COACH" />
           </AssociationSet>
           <AssociationSet Name="FK_TBL_COACH_TBL_REGION" Association="SandlerDBModel.Store.FK_TBL_COACH_TBL_REGION">
             <End Role="TBL_REGION" EntitySet="TBL_REGION" />
@@ -331,6 +335,10 @@
             <End Role="TBL_OPPORTUNITIES" EntitySet="TBL_OPPORTUNITIES" />
             <End Role="TBL_DOCS" EntitySet="TBL_DOCS" />
           </AssociationSet>
+          <AssociationSet Name="FK_Tbl_FollowUpItemsList_aspnet_Users" Association="SandlerDBModel.Store.FK_Tbl_FollowUpItemsList_aspnet_Users">
+            <End Role="aspnet_Users" EntitySet="aspnet_Users" />
+            <End Role="Tbl_FollowUpItemsList" EntitySet="Tbl_FollowUpItemsList" />
+          </AssociationSet>
           <AssociationSet Name="FK_TBL_FRANCHISEE_TBL_COACH" Association="SandlerDBModel.Store.FK_TBL_FRANCHISEE_TBL_COACH">
             <End Role="TBL_COACH" EntitySet="TBL_COACH" />
             <End Role="TBL_FRANCHISEE" EntitySet="TBL_FRANCHISEE" />
@@ -338,6 +346,10 @@
           <AssociationSet Name="FK_TBL_FRANCHISEE_TBL_COUNTRY" Association="SandlerDBModel.Store.FK_TBL_FRANCHISEE_TBL_COUNTRY">
             <End Role="TBL_COUNTRY" EntitySet="TBL_COUNTRY" />
             <End Role="TBL_FRANCHISEE" EntitySet="TBL_FRANCHISEE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_FRANCHISEE_USERS_aspnet_Users" Association="SandlerDBModel.Store.FK_TBL_FRANCHISEE_USERS_aspnet_Users">
+            <End Role="aspnet_Users" EntitySet="aspnet_Users" />
+            <End Role="TBL_FRANCHISEE_USERS" EntitySet="TBL_FRANCHISEE_USERS" />
           </AssociationSet>
           <AssociationSet Name="FK_TBL_FRANCHISEE_USERS_TBL_COUNTRY" Association="SandlerDBModel.Store.FK_TBL_FRANCHISEE_USERS_TBL_COUNTRY">
             <End Role="TBL_COUNTRY" EntitySet="TBL_COUNTRY" />
@@ -455,7 +467,49 @@
             <End Role="TBL_COUNTRY" EntitySet="TBL_COUNTRY" />
             <End Role="TBL_REGION" EntitySet="TBL_REGION" />
           </AssociationSet>
+          <AssociationSet Name="FK_TBL_UserEmailGroup_aspnet_Users" Association="SandlerDBModel.Store.FK_TBL_UserEmailGroup_aspnet_Users">
+            <End Role="aspnet_Users" EntitySet="aspnet_Users" />
+            <End Role="TBL_UserEmailGroup" EntitySet="TBL_UserEmailGroup" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="aspnet_Membership">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="ApplicationId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" Nullable="false" MaxLength="128" />
+          <Property Name="PasswordFormat" Type="int" Nullable="false" />
+          <Property Name="PasswordSalt" Type="nvarchar" Nullable="false" MaxLength="128" />
+          <Property Name="MobilePIN" Type="nvarchar" MaxLength="16" />
+          <Property Name="Email" Type="nvarchar" MaxLength="256" />
+          <Property Name="LoweredEmail" Type="nvarchar" MaxLength="256" />
+          <Property Name="PasswordQuestion" Type="nvarchar" MaxLength="256" />
+          <Property Name="PasswordAnswer" Type="nvarchar" MaxLength="128" />
+          <Property Name="IsApproved" Type="bit" Nullable="false" />
+          <Property Name="IsLockedOut" Type="bit" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="LastLoginDate" Type="datetime" Nullable="false" />
+          <Property Name="LastPasswordChangedDate" Type="datetime" Nullable="false" />
+          <Property Name="LastLockoutDate" Type="datetime" Nullable="false" />
+          <Property Name="FailedPasswordAttemptCount" Type="int" Nullable="false" />
+          <Property Name="FailedPasswordAttemptWindowStart" Type="datetime" Nullable="false" />
+          <Property Name="FailedPasswordAnswerAttemptCount" Type="int" Nullable="false" />
+          <Property Name="FailedPasswordAnswerAttemptWindowStart" Type="datetime" Nullable="false" />
+          <Property Name="Comment" Type="ntext" />
+        </EntityType>
+        <EntityType Name="aspnet_Users">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="ApplicationId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" Nullable="false" MaxLength="256" />
+          <Property Name="LoweredUserName" Type="nvarchar" Nullable="false" MaxLength="256" />
+          <Property Name="MobileAlias" Type="nvarchar" MaxLength="16" />
+          <Property Name="IsAnonymous" Type="bit" Nullable="false" />
+          <Property Name="LastActivityDate" Type="datetime" Nullable="false" />
+        </EntityType>
         <EntityType Name="module">
           <Key>
             <PropertyRef Name="moduleId" />
@@ -527,16 +581,6 @@
           <Property Name="UpdatedOn" Type="datetime" />
           <Property Name="UpdatedBy" Type="uniqueidentifier" />
           <Property Name="EmailGroup" Type="nvarchar" MaxLength="400" />
-        </EntityType>
-        <!--Errors Found During Generation:
-      warning 6002: The table/view 'SandlerDBV2014.dbo.Tbl_ACE_CampaignType' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
-      -->
-        <EntityType Name="Tbl_ACE_CampaignType">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="CampaignTypeDesc" Type="nchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Tbl_ACE_Documents">
           <Key>
@@ -1683,6 +1727,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__aspnet_Me__UserI__15660868">
+          <End Role="aspnet_Users" Type="SandlerDBModel.Store.aspnet_Users" Multiplicity="1" />
+          <End Role="aspnet_Membership" Type="SandlerDBModel.Store.aspnet_Membership" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="aspnet_Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="aspnet_Membership">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Tbl_ACE_Campaign_Tbl_ACE_Campaign">
           <End Role="Tbl_ACE_Campaign" Type="SandlerDBModel.Store.Tbl_ACE_Campaign" Multiplicity="1" />
           <End Role="Tbl_ACE_Campaign1" Type="SandlerDBModel.Store.Tbl_ACE_Campaign" Multiplicity="0..1" />
@@ -1716,6 +1772,18 @@
             </Principal>
             <Dependent Role="Tbl_AceEmailTracker">
               <PropertyRef Name="AceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_COACH_aspnet_Users">
+          <End Role="aspnet_Users" Type="SandlerDBModel.Store.aspnet_Users" Multiplicity="1" />
+          <End Role="TBL_COACH" Type="SandlerDBModel.Store.TBL_COACH" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="aspnet_Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="TBL_COACH">
+              <PropertyRef Name="UserID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1827,6 +1895,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Tbl_FollowUpItemsList_aspnet_Users">
+          <End Role="aspnet_Users" Type="SandlerDBModel.Store.aspnet_Users" Multiplicity="0..1" />
+          <End Role="Tbl_FollowUpItemsList" Type="SandlerDBModel.Store.Tbl_FollowUpItemsList" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="aspnet_Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Tbl_FollowUpItemsList">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_TBL_FRANCHISEE_TBL_COACH">
           <End Role="TBL_COACH" Type="SandlerDBModel.Store.TBL_COACH" Multiplicity="1" />
           <End Role="TBL_FRANCHISEE" Type="SandlerDBModel.Store.TBL_FRANCHISEE" Multiplicity="*" />
@@ -1848,6 +1928,18 @@
             </Principal>
             <Dependent Role="TBL_FRANCHISEE">
               <PropertyRef Name="CountryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_FRANCHISEE_USERS_aspnet_Users">
+          <End Role="aspnet_Users" Type="SandlerDBModel.Store.aspnet_Users" Multiplicity="1" />
+          <End Role="TBL_FRANCHISEE_USERS" Type="SandlerDBModel.Store.TBL_FRANCHISEE_USERS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="aspnet_Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="TBL_FRANCHISEE_USERS">
+              <PropertyRef Name="UserID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2196,6 +2288,18 @@
             </Principal>
             <Dependent Role="TBL_REGION">
               <PropertyRef Name="CountryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_UserEmailGroup_aspnet_Users">
+          <End Role="aspnet_Users" Type="SandlerDBModel.Store.aspnet_Users" Multiplicity="0..1" />
+          <End Role="TBL_UserEmailGroup" Type="SandlerDBModel.Store.TBL_UserEmailGroup" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="aspnet_Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="TBL_UserEmailGroup">
+              <PropertyRef Name="UserId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2562,7 +2666,6 @@
           <EntitySet Name="TBL_PerformanceGoals" EntityType="SandlerDBModel.TBL_PerformanceGoals" />
           <EntitySet Name="Tbl_ACE" EntityType="SandlerDBModel.Tbl_ACE" />
           <EntitySet Name="Tbl_ACE_Campaign" EntityType="SandlerDBModel.Tbl_ACE_Campaign" />
-          <EntitySet Name="Tbl_ACE_CampaignType" EntityType="SandlerDBModel.Tbl_ACE_CampaignType" />
           <EntitySet Name="Tbl_ACE_Documents" EntityType="SandlerDBModel.Tbl_ACE_Documents" />
           <EntitySet Name="Tbl_ACE_Messages" EntityType="SandlerDBModel.Tbl_ACE_Messages" />
           <EntitySet Name="Tbl_AceCallToActionType" EntityType="SandlerDBModel.Tbl_AceCallToActionType" />
@@ -2591,6 +2694,28 @@
             <Parameter Name="campaignTypeId" Mode="In" Type="Int32" />
             <Parameter Name="eventCompareDate" Mode="In" Type="DateTime" />
           </FunctionImport>
+          <EntitySet Name="aspnet_Membership" EntityType="SandlerDBModel.aspnet_Membership" />
+          <EntitySet Name="aspnet_Users" EntityType="SandlerDBModel.aspnet_Users" />
+          <AssociationSet Name="FK__aspnet_Me__UserI__15660868" Association="SandlerDBModel.FK__aspnet_Me__UserI__15660868">
+            <End Role="aspnet_Users" EntitySet="aspnet_Users" />
+            <End Role="aspnet_Membership" EntitySet="aspnet_Membership" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_COACH_aspnet_Users" Association="SandlerDBModel.FK_TBL_COACH_aspnet_Users">
+            <End Role="aspnet_Users" EntitySet="aspnet_Users" />
+            <End Role="TBL_COACH" EntitySet="TBL_COACH" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_FollowUpItemsList_aspnet_Users" Association="SandlerDBModel.FK_Tbl_FollowUpItemsList_aspnet_Users">
+            <End Role="aspnet_Users" EntitySet="aspnet_Users" />
+            <End Role="Tbl_FollowUpItemsList" EntitySet="Tbl_FollowUpItemsList" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_FRANCHISEE_USERS_aspnet_Users" Association="SandlerDBModel.FK_TBL_FRANCHISEE_USERS_aspnet_Users">
+            <End Role="aspnet_Users" EntitySet="aspnet_Users" />
+            <End Role="TBL_FRANCHISEE_USERS" EntitySet="TBL_FRANCHISEE_USERS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_UserEmailGroup_aspnet_Users" Association="SandlerDBModel.FK_TBL_UserEmailGroup_aspnet_Users">
+            <End Role="aspnet_Users" EntitySet="aspnet_Users" />
+            <End Role="TBL_UserEmailGroup" EntitySet="TBL_UserEmailGroup" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Tbl_AppointmentsSource">
           <Key>
@@ -2709,6 +2834,7 @@
           <Property Name="IsEmailSubscription" Type="Boolean" />
           <NavigationProperty Name="TBL_REGION" Relationship="SandlerDBModel.FK_TBL_COACH_TBL_REGION" FromRole="TBL_COACH" ToRole="TBL_REGION" />
           <NavigationProperty Name="TBL_FRANCHISEE" Relationship="SandlerDBModel.FK_TBL_FRANCHISEE_TBL_COACH" FromRole="TBL_COACH" ToRole="TBL_FRANCHISEE" />
+          <NavigationProperty Name="aspnet_Users" Relationship="SandlerDBModel.FK_TBL_COACH_aspnet_Users" FromRole="TBL_COACH" ToRole="aspnet_Users" />
         </EntityType>
         <EntityType Name="TBL_COMPANIES">
           <Key>
@@ -2855,6 +2981,7 @@
           <Property Name="Phone" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
           <Property Name="Topic" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
           <Property Name="StartTime" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="aspnet_Users" Relationship="SandlerDBModel.FK_Tbl_FollowUpItemsList_aspnet_Users" FromRole="Tbl_FollowUpItemsList" ToRole="aspnet_Users" />
         </EntityType>
         <EntityType Name="TBL_FRANCHISEE">
           <Key>
@@ -2967,6 +3094,7 @@
           <Property Type="Int32" Name="OctRevenueGoal" />
           <Property Type="Int32" Name="NovRevenueGoal" />
           <Property Type="Int32" Name="DecRevenueGoal" />
+          <NavigationProperty Name="aspnet_Users" Relationship="SandlerDBModel.FK_TBL_FRANCHISEE_USERS_aspnet_Users" FromRole="TBL_FRANCHISEE_USERS" ToRole="aspnet_Users" />
         </EntityType>
         <EntityType Name="TBL_GA_EstBenefitsGained">
           <Key>
@@ -3351,6 +3479,7 @@
           <Property Name="FrContactsIds" Type="String" MaxLength="4000" Unicode="false" FixedLength="false" />
           <Property Name="CreatedDate" Type="DateTime" Precision="3" />
           <Property Name="IsActive" Type="Boolean" />
+          <NavigationProperty Name="aspnet_Users" Relationship="SandlerDBModel.FK_TBL_UserEmailGroup_aspnet_Users" FromRole="TBL_UserEmailGroup" ToRole="aspnet_Users" />
         </EntityType>
         <EntityType Name="Tbl_YesNoOptions">
           <Key>
@@ -4287,13 +4416,6 @@
           <NavigationProperty Name="Tbl_ACE_Campaign11" Relationship="SandlerDBModel.FK_Tbl_ACE_Campaign_Tbl_ACE_Campaign1" FromRole="Tbl_ACE_Campaign" ToRole="Tbl_ACE_Campaign1" />
           <NavigationProperty Name="Tbl_ACE_Campaign3" Relationship="SandlerDBModel.FK_Tbl_ACE_Campaign_Tbl_ACE_Campaign1" FromRole="Tbl_ACE_Campaign1" ToRole="Tbl_ACE_Campaign" />
         </EntityType>
-        <EntityType Name="Tbl_ACE_CampaignType">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Type="Int32" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="String" Name="CampaignTypeDesc" MaxLength="50" FixedLength="true" Unicode="true" />
-        </EntityType>
         <EntityType Name="Tbl_ACE_Documents">
           <Key>
             <PropertyRef Name="ID" />
@@ -4450,6 +4572,110 @@
             </Principal>
             <Dependent Role="Tbl_AceEmailTracker">
               <PropertyRef Name="AceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="aspnet_Membership">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Type="Guid" Name="ApplicationId" Nullable="false" />
+          <Property Type="Guid" Name="UserId" Nullable="false" />
+          <Property Type="String" Name="Password" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="PasswordFormat" Nullable="false" />
+          <Property Type="String" Name="PasswordSalt" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="MobilePIN" MaxLength="16" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Email" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="LoweredEmail" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="PasswordQuestion" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="PasswordAnswer" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Type="Boolean" Name="IsApproved" Nullable="false" />
+          <Property Type="Boolean" Name="IsLockedOut" Nullable="false" />
+          <Property Type="DateTime" Name="CreateDate" Nullable="false" Precision="3" />
+          <Property Type="DateTime" Name="LastLoginDate" Nullable="false" Precision="3" />
+          <Property Type="DateTime" Name="LastPasswordChangedDate" Nullable="false" Precision="3" />
+          <Property Type="DateTime" Name="LastLockoutDate" Nullable="false" Precision="3" />
+          <Property Type="Int32" Name="FailedPasswordAttemptCount" Nullable="false" />
+          <Property Type="DateTime" Name="FailedPasswordAttemptWindowStart" Nullable="false" Precision="3" />
+          <Property Type="Int32" Name="FailedPasswordAnswerAttemptCount" Nullable="false" />
+          <Property Type="DateTime" Name="FailedPasswordAnswerAttemptWindowStart" Nullable="false" Precision="3" />
+          <Property Type="String" Name="Comment" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="aspnet_Users" Relationship="SandlerDBModel.FK__aspnet_Me__UserI__15660868" FromRole="aspnet_Membership" ToRole="aspnet_Users" />
+        </EntityType>
+        <EntityType Name="aspnet_Users">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Type="Guid" Name="ApplicationId" Nullable="false" />
+          <Property Type="Guid" Name="UserId" Nullable="false" />
+          <Property Type="String" Name="UserName" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="LoweredUserName" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="MobileAlias" MaxLength="16" FixedLength="false" Unicode="true" />
+          <Property Type="Boolean" Name="IsAnonymous" Nullable="false" />
+          <Property Type="DateTime" Name="LastActivityDate" Nullable="false" Precision="3" />
+          <NavigationProperty Name="aspnet_Membership" Relationship="SandlerDBModel.FK__aspnet_Me__UserI__15660868" FromRole="aspnet_Users" ToRole="aspnet_Membership" />
+          <NavigationProperty Name="TBL_COACH" Relationship="SandlerDBModel.FK_TBL_COACH_aspnet_Users" FromRole="aspnet_Users" ToRole="TBL_COACH" />
+          <NavigationProperty Name="Tbl_FollowUpItemsList" Relationship="SandlerDBModel.FK_Tbl_FollowUpItemsList_aspnet_Users" FromRole="aspnet_Users" ToRole="Tbl_FollowUpItemsList" />
+          <NavigationProperty Name="TBL_FRANCHISEE_USERS" Relationship="SandlerDBModel.FK_TBL_FRANCHISEE_USERS_aspnet_Users" FromRole="aspnet_Users" ToRole="TBL_FRANCHISEE_USERS" />
+          <NavigationProperty Name="TBL_UserEmailGroup" Relationship="SandlerDBModel.FK_TBL_UserEmailGroup_aspnet_Users" FromRole="aspnet_Users" ToRole="TBL_UserEmailGroup" />
+        </EntityType>
+        <Association Name="FK__aspnet_Me__UserI__15660868">
+          <End Type="SandlerDBModel.aspnet_Users" Role="aspnet_Users" Multiplicity="1" />
+          <End Type="SandlerDBModel.aspnet_Membership" Role="aspnet_Membership" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="aspnet_Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="aspnet_Membership">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_COACH_aspnet_Users">
+          <End Type="SandlerDBModel.aspnet_Users" Role="aspnet_Users" Multiplicity="1" />
+          <End Type="SandlerDBModel.TBL_COACH" Role="TBL_COACH" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="aspnet_Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="TBL_COACH">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_FollowUpItemsList_aspnet_Users">
+          <End Type="SandlerDBModel.aspnet_Users" Role="aspnet_Users" Multiplicity="0..1" />
+          <End Type="SandlerDBModel.Tbl_FollowUpItemsList" Role="Tbl_FollowUpItemsList" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="aspnet_Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Tbl_FollowUpItemsList">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_FRANCHISEE_USERS_aspnet_Users">
+          <End Type="SandlerDBModel.aspnet_Users" Role="aspnet_Users" Multiplicity="1" />
+          <End Type="SandlerDBModel.TBL_FRANCHISEE_USERS" Role="TBL_FRANCHISEE_USERS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="aspnet_Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="TBL_FRANCHISEE_USERS">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_UserEmailGroup_aspnet_Users">
+          <End Type="SandlerDBModel.aspnet_Users" Role="aspnet_Users" Multiplicity="0..1" />
+          <End Type="SandlerDBModel.TBL_UserEmailGroup" Role="TBL_UserEmailGroup" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="aspnet_Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="TBL_UserEmailGroup">
+              <PropertyRef Name="UserId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -5673,14 +5899,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Tbl_ACE_CampaignType">
-            <EntityTypeMapping TypeName="SandlerDBModel.Tbl_ACE_CampaignType">
-              <MappingFragment StoreEntitySet="Tbl_ACE_CampaignType">
-                <ScalarProperty Name="CampaignTypeDesc" ColumnName="CampaignTypeDesc" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Tbl_ACE_Documents">
             <EntityTypeMapping TypeName="SandlerDBModel.Tbl_ACE_Documents">
               <MappingFragment StoreEntitySet="Tbl_ACE_Documents">
@@ -5799,6 +6017,46 @@
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="GetACECampaignsForCampaignType" FunctionName="SandlerDBModel.Store.sp_GetACECampaignsForCampaignType">
           </FunctionImportMapping>
+          <EntitySetMapping Name="aspnet_Membership">
+            <EntityTypeMapping TypeName="SandlerDBModel.aspnet_Membership">
+              <MappingFragment StoreEntitySet="aspnet_Membership">
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="FailedPasswordAnswerAttemptWindowStart" ColumnName="FailedPasswordAnswerAttemptWindowStart" />
+                <ScalarProperty Name="FailedPasswordAnswerAttemptCount" ColumnName="FailedPasswordAnswerAttemptCount" />
+                <ScalarProperty Name="FailedPasswordAttemptWindowStart" ColumnName="FailedPasswordAttemptWindowStart" />
+                <ScalarProperty Name="FailedPasswordAttemptCount" ColumnName="FailedPasswordAttemptCount" />
+                <ScalarProperty Name="LastLockoutDate" ColumnName="LastLockoutDate" />
+                <ScalarProperty Name="LastPasswordChangedDate" ColumnName="LastPasswordChangedDate" />
+                <ScalarProperty Name="LastLoginDate" ColumnName="LastLoginDate" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="IsLockedOut" ColumnName="IsLockedOut" />
+                <ScalarProperty Name="IsApproved" ColumnName="IsApproved" />
+                <ScalarProperty Name="PasswordAnswer" ColumnName="PasswordAnswer" />
+                <ScalarProperty Name="PasswordQuestion" ColumnName="PasswordQuestion" />
+                <ScalarProperty Name="LoweredEmail" ColumnName="LoweredEmail" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="MobilePIN" ColumnName="MobilePIN" />
+                <ScalarProperty Name="PasswordSalt" ColumnName="PasswordSalt" />
+                <ScalarProperty Name="PasswordFormat" ColumnName="PasswordFormat" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ApplicationId" ColumnName="ApplicationId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="aspnet_Users">
+            <EntityTypeMapping TypeName="SandlerDBModel.aspnet_Users">
+              <MappingFragment StoreEntitySet="aspnet_Users">
+                <ScalarProperty Name="LastActivityDate" ColumnName="LastActivityDate" />
+                <ScalarProperty Name="IsAnonymous" ColumnName="IsAnonymous" />
+                <ScalarProperty Name="MobileAlias" ColumnName="MobileAlias" />
+                <ScalarProperty Name="LoweredUserName" ColumnName="LoweredUserName" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ApplicationId" ColumnName="ApplicationId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

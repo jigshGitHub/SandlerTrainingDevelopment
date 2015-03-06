@@ -50,6 +50,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="aspnet_Membership.cs">
+      <DependentUpon>SandlerEDM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="aspnet_Users.cs">
+      <DependentUpon>SandlerEDM.tt</DependentUpon>
+    </Compile>
     <Compile Include="ClientsAvgLengthWithIndustries.cs">
       <DependentUpon>SandlerEDM.tt</DependentUpon>
     </Compile>

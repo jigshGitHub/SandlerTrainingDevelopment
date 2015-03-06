@@ -41,5 +41,6 @@ namespace Sandler.DB.Models
     
         public virtual TBL_COUNTRY TBL_COUNTRY { get; set; }
         public virtual TBL_FRANCHISEE TBL_FRANCHISEE { get; set; }
+        public virtual aspnet_Users aspnet_Users { get; set; }
     }
 }

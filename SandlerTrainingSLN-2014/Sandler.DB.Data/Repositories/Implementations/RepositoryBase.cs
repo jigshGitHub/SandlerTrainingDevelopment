@@ -67,6 +67,10 @@ namespace Sandler.DB.Data.Repositories.Implementations
         {
             return dbset.Find(id);
         }
+        public T GetById(Guid id)
+        {
+            return dbset.Find(id);
+        }
         public IEnumerable<T> GetAll()
         {
             return dbset.ToList();

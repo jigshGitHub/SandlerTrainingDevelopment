@@ -25,5 +25,7 @@ namespace Sandler.DB.Data.Common.Interface
         IMyPGRepository MyPGRepository();
         IAceMainRepository AceMainRepository();
         IAceEmailTrackerRepository AceEmailTrackerRepository();
+        IASPNetMembershipRepository MembershipRepository();
+        IASPNetUsersRepository UserRepository();
     }
 }

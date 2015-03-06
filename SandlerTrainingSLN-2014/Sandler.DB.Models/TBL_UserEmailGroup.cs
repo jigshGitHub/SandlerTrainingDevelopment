@@ -23,5 +23,7 @@ namespace Sandler.DB.Models
         public string FrContactsIds { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }
         public Nullable<bool> IsActive { get; set; }
+    
+        public virtual aspnet_Users aspnet_Users { get; set; }
     }
 }
