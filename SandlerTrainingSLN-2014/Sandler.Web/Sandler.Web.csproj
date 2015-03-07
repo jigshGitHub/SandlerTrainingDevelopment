@@ -203,7 +203,6 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\ACE\ACEAreaRegistration.cs" />
-    <Compile Include="Controllers\FeedBackController.cs" />
     <Compile Include="Areas\ACE\Controllers\HomeController.cs" />
     <Compile Include="Areas\CRM\Controllers\CompaniesController.cs" />
     <Compile Include="Areas\CRM\Controllers\ContactsController.cs" />
@@ -1268,7 +1267,6 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Navi\Index.cshtml" />
     <Content Include="Views\Shared\_CRMMenu.cshtml" />
-    <Content Include="Views\FeedBack\Update.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

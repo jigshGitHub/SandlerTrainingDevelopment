@@ -28,6 +28,7 @@ namespace Sandler.ACE.Emailer
         private Tbl_AceEmailTracker receipient;
         private System.Diagnostics.EventLog eventLog;
         private aspnet_Membership CampainCreatedBy;
+        System.IO.FileStream fileStream;
         public ACEmailer()
         {
             try
@@ -68,17 +69,15 @@ namespace Sandler.ACE.Emailer
                 {
                     string filePath = ConfigurationManager.AppSettings["Server.Host.UploadDirectoryPath"].ToString() + "\\" + campaign.AttachFileName;
 
-                    using (System.IO.FileStream fileStream = new System.IO.FileStream(filePath, System.IO.FileMode.Open, System.IO.FileAccess.Read, System.IO.FileShare.ReadWrite))
-                    {
-                        System.Net.Mail.Attachment _attachment = new System.Net.Mail.Attachment(fileStream, campaign.AttachFileName, MediaTypeNames.Application.Octet);
-                        // Add time stamp information for the file.
-                        ContentDisposition disposition = _attachment.ContentDisposition;
-                        disposition.CreationDate = System.IO.File.GetCreationTime(filePath);
-                        disposition.ModificationDate = System.IO.File.GetLastWriteTime(filePath);
-                        disposition.ReadDate = System.IO.File.GetLastAccessTime(filePath);
-                        // Add the file attachment to this e-mail message.
-                        message.Attachments.Add(_attachment);
-                    }
+                    fileStream = new System.IO.FileStream(filePath, System.IO.FileMode.Open, System.IO.FileAccess.Read, System.IO.FileShare.ReadWrite);
+                    System.Net.Mail.Attachment _attachment = new System.Net.Mail.Attachment(fileStream, campaign.AttachFileName, MediaTypeNames.Application.Octet);
+                    // Add time stamp information for the file.
+                    ContentDisposition disposition = _attachment.ContentDisposition;
+                    disposition.CreationDate = System.IO.File.GetCreationTime(filePath);
+                    disposition.ModificationDate = System.IO.File.GetLastWriteTime(filePath);
+                    disposition.ReadDate = System.IO.File.GetLastAccessTime(filePath);
+                    // Add the file attachment to this e-mail message.
+                    message.Attachments.Add(_attachment);
                 }
             }
             catch (Exception ex)
@@ -178,6 +177,7 @@ namespace Sandler.ACE.Emailer
                                 {
                                     this.receipient = recipient;
                                     emailer.SendEmail(this);
+                                    fileStream.Dispose();
                                 }
 
                                 PostUpdateProcess(this.campaign.AceId);

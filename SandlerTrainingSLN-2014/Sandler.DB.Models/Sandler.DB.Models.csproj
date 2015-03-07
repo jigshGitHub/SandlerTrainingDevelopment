@@ -147,9 +147,6 @@
     <Compile Include="Tbl_ACE_Campaign.cs">
       <DependentUpon>SandlerEDM.tt</DependentUpon>
     </Compile>
-    <Compile Include="Tbl_ACE_CampaignType.cs">
-      <DependentUpon>SandlerEDM.tt</DependentUpon>
-    </Compile>
     <Compile Include="Tbl_ACE_Documents.cs">
       <DependentUpon>SandlerEDM.tt</DependentUpon>
     </Compile>
