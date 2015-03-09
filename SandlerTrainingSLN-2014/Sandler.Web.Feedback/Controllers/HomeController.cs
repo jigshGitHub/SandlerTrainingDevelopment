@@ -28,6 +28,7 @@ namespace Sandler.Web.Feedback.Controllers
         {
             Tbl_AceEmailTracker receipient = null;
             Tbl_AceMainInfo campaign = null;
+            string callToActionText ="";
             try
             {
                 receipient = this.uow.AceEmailTrackerRepository().Get(new Guid(id));
@@ -39,14 +40,16 @@ namespace Sandler.Web.Feedback.Controllers
 
                     if (campaign != null)
                     {
+                        callToActionText= uow.AceMainRepository().GetCallToActionTypeOptions().Where(r => r.CallToActionId == int.Parse(campaign.CallToActionId.ToString())).FirstOrDefault().CallToActionText;
                         campaign.TotalCountConfirm = ++campaign.TotalCountConfirm;
                         this.uow.AceMainRepository().UpdateCampaign(campaign);
 
                         aspnet_Membership  responseTo = this.uow.MembershipRepository().Get(new Guid(campaign.ResponseTo));
+                        string receiver = this.uow.AceEmailTrackerRepository().Get(new Guid(id)).EmailAddress;
                         FeedbackEmailer emailer = new FeedbackEmailer();
                         emailer.Subject = campaign.MessageSubject;
                         emailer.ToAddress = responseTo.Email;
-                        emailer.BodyMessage = System.Configuration.ConfigurationManager.AppSettings["responseToMessage"].ToString();
+                        emailer.BodyMessage = string.Format("\"{0}\" has responded to the \"{1}\" campaign by clicking the \"{2}\" call-to-action item.",receiver, campaign.CampaignName, callToActionText) ;//System.Configuration.ConfigurationManager.AppSettings["responseToMessage"].ToString();
                         emailer.FromAddress = System.Configuration.ConfigurationManager.AppSettings["Server.EmailSender"].ToString();
                         Sandler.Emailer.EMailer mailer = new Emailer.EMailer();
                         mailer.SendEmail(emailer);

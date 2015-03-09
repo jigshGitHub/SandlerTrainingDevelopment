@@ -177,7 +177,8 @@ namespace Sandler.ACE.Emailer
                                 {
                                     this.receipient = recipient;
                                     emailer.SendEmail(this);
-                                    fileStream.Dispose();
+                                    if(fileStream != null)
+                                        fileStream.Dispose();
                                 }
 
                                 PostUpdateProcess(this.campaign.AceId);
@@ -185,7 +186,7 @@ namespace Sandler.ACE.Emailer
                         }
                         catch (Exception ex)
                         {
-                            eventLog.WriteEntry("Error in Sandler.ACE.Emailer.GetToAddresses() processing each individual AceId: " + this.campaign.AceId.ToString() + ex.Message, System.Diagnostics.EventLogEntryType.Error);
+                            eventLog.WriteEntry("Error in Sandler.ACE.Emailer.ProcessCampaigns() processing each individual AceId: " + this.campaign.AceId.ToString() + ex.Message, System.Diagnostics.EventLogEntryType.Error);
                         }
                     }
                 }
