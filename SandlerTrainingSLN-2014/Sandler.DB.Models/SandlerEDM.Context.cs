@@ -15,19 +15,19 @@ namespace Sandler.DB.Models
     using System.Data.Objects;
     using System.Data.Objects.DataClasses;
     using System.Linq;
-    
+
     public partial class SandlerDBEntities : DbContext
     {
         public SandlerDBEntities()
             : base("name=SandlerDBEntities")
         {
         }
-    
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             throw new UnintentionalCodeFirstException();
         }
-    
+
         public DbSet<Tbl_AppointmentsSource> Tbl_AppointmentsSource { get; set; }
         public DbSet<Tbl_AwardLevel> Tbl_AwardLevel { get; set; }
         public DbSet<Tbl_BehindAmount> Tbl_BehindAmount { get; set; }
@@ -83,232 +83,269 @@ namespace Sandler.DB.Models
         public DbSet<Tbl_ModulesForUserIds> Tbl_ModulesForUserIds { get; set; }
         public DbSet<TBL_PerformanceActuals> TBL_PerformanceActuals { get; set; }
         public DbSet<TBL_PerformanceGoals> TBL_PerformanceGoals { get; set; }
-    
+        public DbSet<Tbl_ACE> Tbl_ACE { get; set; }
+        public DbSet<Tbl_ACE_Campaign> Tbl_ACE_Campaign { get; set; }
+        public DbSet<Tbl_ACE_Documents> Tbl_ACE_Documents { get; set; }
+        public DbSet<Tbl_ACE_Messages> Tbl_ACE_Messages { get; set; }
+        public DbSet<Tbl_AceCallToActionType> Tbl_AceCallToActionType { get; set; }
+        public DbSet<Tbl_AceCampaignType> Tbl_AceCampaignType { get; set; }
+        public DbSet<TBL_ACEEmails> TBL_ACEEmails { get; set; }
+        public DbSet<Tbl_ACEGroups> Tbl_ACEGroups { get; set; }
+        public DbSet<Tbl_AceMainInfo> Tbl_AceMainInfo { get; set; }
+        public DbSet<Tbl_AceEmailTracker> Tbl_AceEmailTracker { get; set; }
+        public DbSet<aspnet_Membership> aspnet_Membership { get; set; }
+        public DbSet<aspnet_Users> aspnet_Users { get; set; }
+        public DbSet<LU_BillingState> LU_BillingState { get; set; }
+        public DbSet<LU_CompanySource> LU_CompanySource { get; set; }
+        public DbSet<LU_CompanyStatus> LU_CompanyStatus { get; set; }
+        public DbSet<LU_ContactStatus> LU_ContactStatus { get; set; }
+        public DbSet<LU_ExecBriefingTopic> LU_ExecBriefingTopic { get; set; }
+        public DbSet<LU_IndustrySubCategory> LU_IndustrySubCategory { get; set; }
+        public DbSet<LU_KAREDesignation> LU_KAREDesignation { get; set; }
+        public DbSet<LU_NextActionStep> LU_NextActionStep { get; set; }
+        public DbSet<LU_POC1ApptSource> LU_POC1ApptSource { get; set; }
+        public DbSet<LU_POC1CompanyRole> LU_POC1CompanyRole { get; set; }
+        public DbSet<LU_POC1NextActionStep> LU_POC1NextActionStep { get; set; }
+        public DbSet<LU_POC1OpportunityRole> LU_POC1OpportunityRole { get; set; }
+        public DbSet<LU_POC2ApptSource> LU_POC2ApptSource { get; set; }
+        public DbSet<LU_POC2CompanyRole> LU_POC2CompanyRole { get; set; }
+        public DbSet<LU_POC2NextActionStep> LU_POC2NextActionStep { get; set; }
+        public DbSet<LU_POC2OpportunityRole> LU_POC2OpportunityRole { get; set; }
+        public DbSet<LU_POC3ApptSource> LU_POC3ApptSource { get; set; }
+        public DbSet<LU_POC3CompanyRole> LU_POC3CompanyRole { get; set; }
+        public DbSet<LU_POC3NextActionStep> LU_POC3NextActionStep { get; set; }
+        public DbSet<LU_POC3OpportunityRole> LU_POC3OpportunityRole { get; set; }
+        public DbSet<LU_POCCertificationLevel> LU_POCCertificationLevel { get; set; }
+        public DbSet<LU_POCCompanyRole> LU_POCCompanyRole { get; set; }
+        public DbSet<LU_ProductService> LU_ProductService { get; set; }
+        public DbSet<LU_State> LU_State { get; set; }
+        public DbSet<LU_WorkshopTopic> LU_WorkshopTopic { get; set; }
+
         public virtual ObjectResult<vw_Companies> GetCompaniesByUser(Nullable<System.Guid> userId)
         {
             var userIdParameter = userId.HasValue ?
                 new ObjectParameter("userId", userId) :
                 new ObjectParameter("userId", typeof(System.Guid));
-    
+
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<vw_Companies>("GetCompaniesByUser", userIdParameter);
         }
-    
+
         public virtual ObjectResult<vw_Companies> GetCompaniesByUser(Nullable<System.Guid> userId, MergeOption mergeOption)
         {
             var userIdParameter = userId.HasValue ?
                 new ObjectParameter("userId", userId) :
                 new ObjectParameter("userId", typeof(System.Guid));
-    
+
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<vw_Companies>("GetCompaniesByUser", mergeOption, userIdParameter);
         }
-    
+
         public virtual ObjectResult<vw_Contacts> GetContactsByUser(Nullable<System.Guid> userId)
         {
             var userIdParameter = userId.HasValue ?
                 new ObjectParameter("userId", userId) :
                 new ObjectParameter("userId", typeof(System.Guid));
-    
+
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<vw_Contacts>("GetContactsByUser", userIdParameter);
         }
-    
+
         public virtual ObjectResult<vw_Contacts> GetContactsByUser(Nullable<System.Guid> userId, MergeOption mergeOption)
         {
             var userIdParameter = userId.HasValue ?
                 new ObjectParameter("userId", userId) :
                 new ObjectParameter("userId", typeof(System.Guid));
-    
+
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<vw_Contacts>("GetContactsByUser", mergeOption, userIdParameter);
         }
-    
+
         public virtual ObjectResult<vw_Opportunities> GetOpportunitiesByUser(Nullable<System.Guid> userId)
         {
             var userIdParameter = userId.HasValue ?
                 new ObjectParameter("userId", userId) :
                 new ObjectParameter("userId", typeof(System.Guid));
-    
+
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<vw_Opportunities>("GetOpportunitiesByUser", userIdParameter);
         }
-    
+
         public virtual ObjectResult<vw_Opportunities> GetOpportunitiesByUser(Nullable<System.Guid> userId, MergeOption mergeOption)
         {
             var userIdParameter = userId.HasValue ?
                 new ObjectParameter("userId", userId) :
                 new ObjectParameter("userId", typeof(System.Guid));
-    
+
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<vw_Opportunities>("GetOpportunitiesByUser", mergeOption, userIdParameter);
         }
-    
+
         public virtual ObjectResult<GetNewAppointmentsWithAppointmentSource> GetNewAppointmentsWithAppointmentSource(Nullable<int> month, Nullable<int> year, Nullable<System.Guid> userId)
         {
             var monthParameter = month.HasValue ?
                 new ObjectParameter("month", month) :
                 new ObjectParameter("month", typeof(int));
-    
+
             var yearParameter = year.HasValue ?
                 new ObjectParameter("year", year) :
                 new ObjectParameter("year", typeof(int));
-    
+
             var userIdParameter = userId.HasValue ?
                 new ObjectParameter("userId", userId) :
                 new ObjectParameter("userId", typeof(System.Guid));
-    
+
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetNewAppointmentsWithAppointmentSource>("GetNewAppointmentsWithAppointmentSource", monthParameter, yearParameter, userIdParameter);
         }
-    
+
         public virtual ObjectResult<ClientsAvgLengthWithIndustries> ClientsAvgLengthWithIndustries(Nullable<System.Guid> userId)
         {
             var userIdParameter = userId.HasValue ?
                 new ObjectParameter("userId", userId) :
                 new ObjectParameter("userId", typeof(System.Guid));
-    
+
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ClientsAvgLengthWithIndustries>("ClientsAvgLengthWithIndustries", userIdParameter);
         }
-    
+
         public virtual ObjectResult<GetBenchMarkCountry> GetBenchMarkCountryAll(Nullable<int> month, Nullable<int> year)
         {
             var monthParameter = month.HasValue ?
                 new ObjectParameter("month", month) :
                 new ObjectParameter("month", typeof(int));
-    
+
             var yearParameter = year.HasValue ?
                 new ObjectParameter("year", year) :
                 new ObjectParameter("year", typeof(int));
-    
+
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetBenchMarkCountry>("GetBenchMarkCountryAll", monthParameter, yearParameter);
         }
-    
+
         public virtual ObjectResult<GetBenchMarkFranchiseeRegion> GetBenchMarkFranchiseeRegions(Nullable<int> month, Nullable<int> year, Nullable<int> franchiseeId)
         {
             var monthParameter = month.HasValue ?
                 new ObjectParameter("month", month) :
                 new ObjectParameter("month", typeof(int));
-    
+
             var yearParameter = year.HasValue ?
                 new ObjectParameter("year", year) :
                 new ObjectParameter("year", typeof(int));
-    
+
             var franchiseeIdParameter = franchiseeId.HasValue ?
                 new ObjectParameter("franchiseeId", franchiseeId) :
                 new ObjectParameter("franchiseeId", typeof(int));
-    
+
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetBenchMarkFranchiseeRegion>("GetBenchMarkFranchiseeRegions", monthParameter, yearParameter, franchiseeIdParameter);
         }
-    
+
         public virtual ObjectResult<GetBenchMarkRegionCountry> GetBenchMarkRegionCountry(Nullable<int> month, Nullable<int> year, Nullable<int> regionId)
         {
             var monthParameter = month.HasValue ?
                 new ObjectParameter("month", month) :
                 new ObjectParameter("month", typeof(int));
-    
+
             var yearParameter = year.HasValue ?
                 new ObjectParameter("year", year) :
                 new ObjectParameter("year", typeof(int));
-    
+
             var regionIdParameter = regionId.HasValue ?
                 new ObjectParameter("regionId", regionId) :
                 new ObjectParameter("regionId", typeof(int));
-    
+
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetBenchMarkRegionCountry>("GetBenchMarkRegionCountry", monthParameter, yearParameter, regionIdParameter);
         }
-    
+
         public virtual ObjectResult<GetBenchMarkSalesFranchisee> GetBenchMarkSalesFranchisee(Nullable<int> month, Nullable<int> year, Nullable<int> franchiseeId)
         {
             var monthParameter = month.HasValue ?
                 new ObjectParameter("month", month) :
                 new ObjectParameter("month", typeof(int));
-    
+
             var yearParameter = year.HasValue ?
                 new ObjectParameter("year", year) :
                 new ObjectParameter("year", typeof(int));
-    
+
             var franchiseeIdParameter = franchiseeId.HasValue ?
                 new ObjectParameter("franchiseeId", franchiseeId) :
                 new ObjectParameter("franchiseeId", typeof(int));
-    
+
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetBenchMarkSalesFranchisee>("GetBenchMarkSalesFranchisee", monthParameter, yearParameter, franchiseeIdParameter);
         }
-    
+
         public virtual int GetClosedSalesAnalysis(Nullable<int> month, Nullable<int> year, Nullable<System.Guid> userId, string analysisType, Nullable<bool> searchNewCompany, string companyIds)
         {
             var monthParameter = month.HasValue ?
                 new ObjectParameter("month", month) :
                 new ObjectParameter("month", typeof(int));
-    
+
             var yearParameter = year.HasValue ?
                 new ObjectParameter("year", year) :
                 new ObjectParameter("year", typeof(int));
-    
+
             var userIdParameter = userId.HasValue ?
                 new ObjectParameter("userId", userId) :
                 new ObjectParameter("userId", typeof(System.Guid));
-    
+
             var analysisTypeParameter = analysisType != null ?
                 new ObjectParameter("analysisType", analysisType) :
                 new ObjectParameter("analysisType", typeof(string));
-    
+
             var searchNewCompanyParameter = searchNewCompany.HasValue ?
                 new ObjectParameter("searchNewCompany", searchNewCompany) :
                 new ObjectParameter("searchNewCompany", typeof(bool));
-    
+
             var companyIdsParameter = companyIds != null ?
                 new ObjectParameter("companyIds", companyIds) :
                 new ObjectParameter("companyIds", typeof(string));
-    
+
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("GetClosedSalesAnalysis", monthParameter, yearParameter, userIdParameter, analysisTypeParameter, searchNewCompanyParameter, companyIdsParameter);
         }
-    
+
         public virtual ObjectResult<GetNewClientsWithProducts> GetNewClientsWithProducts(Nullable<int> month, Nullable<int> year, Nullable<System.Guid> userId)
         {
             var monthParameter = month.HasValue ?
                 new ObjectParameter("month", month) :
                 new ObjectParameter("month", typeof(int));
-    
+
             var yearParameter = year.HasValue ?
                 new ObjectParameter("year", year) :
                 new ObjectParameter("year", typeof(int));
-    
+
             var userIdParameter = userId.HasValue ?
                 new ObjectParameter("userId", userId) :
                 new ObjectParameter("userId", typeof(System.Guid));
-    
+
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetNewClientsWithProducts>("GetNewClientsWithProducts", monthParameter, yearParameter, userIdParameter);
         }
-    
+
         public virtual ObjectResult<GetSalesCyclePortfolio> GetSalesCyclePortfolioData(Nullable<System.Guid> userId)
         {
             var userIdParameter = userId.HasValue ?
                 new ObjectParameter("userId", userId) :
                 new ObjectParameter("userId", typeof(System.Guid));
-    
+
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetSalesCyclePortfolio>("GetSalesCyclePortfolioData", userIdParameter);
         }
-    
+
         public virtual int PipelineOpportunityAnalysis(Nullable<int> month, Nullable<int> year, Nullable<System.Guid> userId, string analysisType, Nullable<bool> searchNewCompany, string companyIds)
         {
             var monthParameter = month.HasValue ?
                 new ObjectParameter("month", month) :
                 new ObjectParameter("month", typeof(int));
-    
+
             var yearParameter = year.HasValue ?
                 new ObjectParameter("year", year) :
                 new ObjectParameter("year", typeof(int));
-    
+
             var userIdParameter = userId.HasValue ?
                 new ObjectParameter("userId", userId) :
                 new ObjectParameter("userId", typeof(System.Guid));
-    
+
             var analysisTypeParameter = analysisType != null ?
                 new ObjectParameter("analysisType", analysisType) :
                 new ObjectParameter("analysisType", typeof(string));
-    
+
             var searchNewCompanyParameter = searchNewCompany.HasValue ?
                 new ObjectParameter("searchNewCompany", searchNewCompany) :
                 new ObjectParameter("searchNewCompany", typeof(bool));
-    
+
             var companyIdsParameter = companyIds != null ?
                 new ObjectParameter("companyIds", companyIds) :
                 new ObjectParameter("companyIds", typeof(string));
-    
+
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("PipelineOpportunityAnalysis", monthParameter, yearParameter, userIdParameter, analysisTypeParameter, searchNewCompanyParameter, companyIdsParameter);
         }
 
@@ -337,14 +374,27 @@ namespace Sandler.DB.Models
 
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<module>("GetMenuForARole", mergeOption, roleNameParameter, userIdParameter);
         }
-    
+
         public virtual ObjectResult<MenuDetail> GetMenuDetail(Nullable<int> appId)
         {
             var appIdParameter = appId.HasValue ?
                 new ObjectParameter("appId", appId) :
                 new ObjectParameter("appId", typeof(int));
-    
+
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<MenuDetail>("GetMenuDetail", appIdParameter);
+        }
+
+        public virtual int GetACECampaignsForCampaignType(Nullable<int> campaignTypeId, Nullable<System.DateTime> eventCompareDate)
+        {
+            var campaignTypeIdParameter = campaignTypeId.HasValue ?
+                new ObjectParameter("campaignTypeId", campaignTypeId) :
+                new ObjectParameter("campaignTypeId", typeof(int));
+
+            var eventCompareDateParameter = eventCompareDate.HasValue ?
+                new ObjectParameter("eventCompareDate", eventCompareDate) :
+                new ObjectParameter("eventCompareDate", typeof(System.DateTime));
+
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("GetACECampaignsForCampaignType", campaignTypeIdParameter, eventCompareDateParameter);
         }
     }
 }
