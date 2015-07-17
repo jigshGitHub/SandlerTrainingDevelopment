@@ -70,6 +70,35 @@ namespace Sandler.DB.Models
         public string FACEBOOKID { get; set; }
         public string TWITTERID { get; set; }
         public string LINKEDINID { get; set; }
+        public Nullable<int> ApptSourceId { get; set; }
+        public string AssistantEmail { get; set; }
+        public Nullable<int> LU_BillingStateId { get; set; }
+        public Nullable<int> LU_CompanySourceId { get; set; }
+        public Nullable<int> LU_CompanyStatusId { get; set; }
+        public Nullable<int> LU_ContactStatusId { get; set; }
+        public Nullable<int> LU_IndustrySubCategoryId { get; set; }
+        public Nullable<int> LU_KAREDesignationId { get; set; }
+        public Nullable<int> LU_NextActionStepId { get; set; }
+        public Nullable<int> LU_POCCompanyRoleId { get; set; }
+        public Nullable<int> LU_StateId { get; set; }
+        public string POCMobilePhone { get; set; }
+        public Nullable<bool> YN_EmailOptOut { get; set; }
+        public Nullable<bool> IsEmailSubscription { get; set; }
+        public string column_a { get; set; }
+        public string column_b { get; set; }
+        public string column_c { get; set; }
+        public string column_d { get; set; }
+        public string column_e { get; set; }
+        public Nullable<int> column_f { get; set; }
+        public Nullable<int> column_g { get; set; }
+        public Nullable<int> column_h { get; set; }
+        public Nullable<int> column_i { get; set; }
+        public Nullable<int> column_j { get; set; }
+        public Nullable<System.DateTime> column_k { get; set; }
+        public Nullable<System.DateTime> column_l { get; set; }
+        public Nullable<System.DateTime> column_m { get; set; }
+        public Nullable<System.DateTime> column_n { get; set; }
+        public Nullable<System.DateTime> column_o { get; set; }
     
         public virtual TBL_FRANCHISEE TBL_FRANCHISEE { get; set; }
         public virtual Tbl_IndustryType Tbl_IndustryType { get; set; }
@@ -78,5 +107,14 @@ namespace Sandler.DB.Models
         public virtual ICollection<TBL_OPPORTUNITIES> TBL_OPPORTUNITIES { get; set; }
         public virtual ICollection<TBL_OpportunitiesHistory> TBL_OpportunitiesHistory { get; set; }
         public virtual ICollection<TBL_CONTACTS> TBL_CONTACTS { get; set; }
+        public virtual LU_BillingState LU_BillingState { get; set; }
+        public virtual LU_CompanySource LU_CompanySource { get; set; }
+        public virtual LU_CompanyStatus LU_CompanyStatus { get; set; }
+        public virtual LU_ContactStatus LU_ContactStatus { get; set; }
+        public virtual LU_IndustrySubCategory LU_IndustrySubCategory { get; set; }
+        public virtual LU_KAREDesignation LU_KAREDesignation { get; set; }
+        public virtual LU_NextActionStep LU_NextActionStep { get; set; }
+        public virtual LU_POCCompanyRole LU_POCCompanyRole { get; set; }
+        public virtual LU_State LU_State { get; set; }
     }
 }

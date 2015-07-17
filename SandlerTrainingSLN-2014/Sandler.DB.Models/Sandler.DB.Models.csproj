@@ -93,6 +93,81 @@
     <Compile Include="GetSalesCyclePortfolio.cs">
       <DependentUpon>SandlerEDM.tt</DependentUpon>
     </Compile>
+    <Compile Include="LU_BillingState.cs">
+      <DependentUpon>SandlerEDM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="LU_CompanySource.cs">
+      <DependentUpon>SandlerEDM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="LU_CompanyStatus.cs">
+      <DependentUpon>SandlerEDM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="LU_ContactStatus.cs">
+      <DependentUpon>SandlerEDM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="LU_ExecBriefingTopic.cs">
+      <DependentUpon>SandlerEDM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="LU_IndustrySubCategory.cs">
+      <DependentUpon>SandlerEDM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="LU_KAREDesignation.cs">
+      <DependentUpon>SandlerEDM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="LU_NextActionStep.cs">
+      <DependentUpon>SandlerEDM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="LU_POC1ApptSource.cs">
+      <DependentUpon>SandlerEDM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="LU_POC1CompanyRole.cs">
+      <DependentUpon>SandlerEDM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="LU_POC1NextActionStep.cs">
+      <DependentUpon>SandlerEDM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="LU_POC1OpportunityRole.cs">
+      <DependentUpon>SandlerEDM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="LU_POC2ApptSource.cs">
+      <DependentUpon>SandlerEDM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="LU_POC2CompanyRole.cs">
+      <DependentUpon>SandlerEDM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="LU_POC2NextActionStep.cs">
+      <DependentUpon>SandlerEDM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="LU_POC2OpportunityRole.cs">
+      <DependentUpon>SandlerEDM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="LU_POC3ApptSource.cs">
+      <DependentUpon>SandlerEDM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="LU_POC3CompanyRole.cs">
+      <DependentUpon>SandlerEDM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="LU_POC3NextActionStep.cs">
+      <DependentUpon>SandlerEDM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="LU_POC3OpportunityRole.cs">
+      <DependentUpon>SandlerEDM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="LU_POCCertificationLevel.cs">
+      <DependentUpon>SandlerEDM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="LU_POCCompanyRole.cs">
+      <DependentUpon>SandlerEDM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="LU_ProductService.cs">
+      <DependentUpon>SandlerEDM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="LU_State.cs">
+      <DependentUpon>SandlerEDM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="LU_WorkshopTopic.cs">
+      <DependentUpon>SandlerEDM.tt</DependentUpon>
+    </Compile>
     <Compile Include="MenuDetail.cs">
       <DependentUpon>SandlerEDM.tt</DependentUpon>
     </Compile>

@@ -8,6 +8,31 @@
         <EntityContainer Name="SandlerDBModelStoreContainer">
           <EntitySet Name="aspnet_Membership" EntityType="SandlerDBModel.Store.aspnet_Membership" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="aspnet_Users" EntityType="SandlerDBModel.Store.aspnet_Users" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="LU_BillingState" EntityType="SandlerDBModel.Store.LU_BillingState" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="LU_CompanySource" EntityType="SandlerDBModel.Store.LU_CompanySource" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="LU_CompanyStatus" EntityType="SandlerDBModel.Store.LU_CompanyStatus" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="LU_ContactStatus" EntityType="SandlerDBModel.Store.LU_ContactStatus" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="LU_ExecBriefingTopic" EntityType="SandlerDBModel.Store.LU_ExecBriefingTopic" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="LU_IndustrySubCategory" EntityType="SandlerDBModel.Store.LU_IndustrySubCategory" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="LU_KAREDesignation" EntityType="SandlerDBModel.Store.LU_KAREDesignation" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="LU_NextActionStep" EntityType="SandlerDBModel.Store.LU_NextActionStep" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="LU_POC1ApptSource" EntityType="SandlerDBModel.Store.LU_POC1ApptSource" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="LU_POC1CompanyRole" EntityType="SandlerDBModel.Store.LU_POC1CompanyRole" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="LU_POC1NextActionStep" EntityType="SandlerDBModel.Store.LU_POC1NextActionStep" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="LU_POC1OpportunityRole" EntityType="SandlerDBModel.Store.LU_POC1OpportunityRole" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="LU_POC2ApptSource" EntityType="SandlerDBModel.Store.LU_POC2ApptSource" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="LU_POC2CompanyRole" EntityType="SandlerDBModel.Store.LU_POC2CompanyRole" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="LU_POC2NextActionStep" EntityType="SandlerDBModel.Store.LU_POC2NextActionStep" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="LU_POC2OpportunityRole" EntityType="SandlerDBModel.Store.LU_POC2OpportunityRole" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="LU_POC3ApptSource" EntityType="SandlerDBModel.Store.LU_POC3ApptSource" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="LU_POC3CompanyRole" EntityType="SandlerDBModel.Store.LU_POC3CompanyRole" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="LU_POC3NextActionStep" EntityType="SandlerDBModel.Store.LU_POC3NextActionStep" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="LU_POC3OpportunityRole" EntityType="SandlerDBModel.Store.LU_POC3OpportunityRole" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="LU_POCCertificationLevel" EntityType="SandlerDBModel.Store.LU_POCCertificationLevel" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="LU_POCCompanyRole" EntityType="SandlerDBModel.Store.LU_POCCompanyRole" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="LU_ProductService" EntityType="SandlerDBModel.Store.LU_ProductService" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="LU_State" EntityType="SandlerDBModel.Store.LU_State" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="LU_WorkshopTopic" EntityType="SandlerDBModel.Store.LU_WorkshopTopic" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="module" EntityType="SandlerDBModel.Store.module" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="pageMenu" EntityType="SandlerDBModel.Store.pageMenu" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="pageMenuGroup" EntityType="SandlerDBModel.Store.pageMenuGroup" store:Type="Tables" Schema="dbo" />
@@ -303,6 +328,42 @@
             <End Role="TBL_REGION" EntitySet="TBL_REGION" />
             <End Role="TBL_COACH" EntitySet="TBL_COACH" />
           </AssociationSet>
+          <AssociationSet Name="FK_TBL_COMPANIES_LU_BillingStateId" Association="SandlerDBModel.Store.FK_TBL_COMPANIES_LU_BillingStateId">
+            <End Role="LU_BillingState" EntitySet="LU_BillingState" />
+            <End Role="TBL_COMPANIES" EntitySet="TBL_COMPANIES" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_COMPANIES_LU_CompanySourceId" Association="SandlerDBModel.Store.FK_TBL_COMPANIES_LU_CompanySourceId">
+            <End Role="LU_CompanySource" EntitySet="LU_CompanySource" />
+            <End Role="TBL_COMPANIES" EntitySet="TBL_COMPANIES" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_COMPANIES_LU_CompanyStatusId" Association="SandlerDBModel.Store.FK_TBL_COMPANIES_LU_CompanyStatusId">
+            <End Role="LU_CompanyStatus" EntitySet="LU_CompanyStatus" />
+            <End Role="TBL_COMPANIES" EntitySet="TBL_COMPANIES" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_COMPANIES_LU_ContactStatusId" Association="SandlerDBModel.Store.FK_TBL_COMPANIES_LU_ContactStatusId">
+            <End Role="LU_ContactStatus" EntitySet="LU_ContactStatus" />
+            <End Role="TBL_COMPANIES" EntitySet="TBL_COMPANIES" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_COMPANIES_LU_IndustrySubCategoryId" Association="SandlerDBModel.Store.FK_TBL_COMPANIES_LU_IndustrySubCategoryId">
+            <End Role="LU_IndustrySubCategory" EntitySet="LU_IndustrySubCategory" />
+            <End Role="TBL_COMPANIES" EntitySet="TBL_COMPANIES" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_COMPANIES_LU_KAREDesignationId" Association="SandlerDBModel.Store.FK_TBL_COMPANIES_LU_KAREDesignationId">
+            <End Role="LU_KAREDesignation" EntitySet="LU_KAREDesignation" />
+            <End Role="TBL_COMPANIES" EntitySet="TBL_COMPANIES" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_COMPANIES_LU_NextActionStepId" Association="SandlerDBModel.Store.FK_TBL_COMPANIES_LU_NextActionStepId">
+            <End Role="LU_NextActionStep" EntitySet="LU_NextActionStep" />
+            <End Role="TBL_COMPANIES" EntitySet="TBL_COMPANIES" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_COMPANIES_LU_POCCompanyRoleId" Association="SandlerDBModel.Store.FK_TBL_COMPANIES_LU_POCCompanyRoleId">
+            <End Role="LU_POCCompanyRole" EntitySet="LU_POCCompanyRole" />
+            <End Role="TBL_COMPANIES" EntitySet="TBL_COMPANIES" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_COMPANIES_LU_StateId" Association="SandlerDBModel.Store.FK_TBL_COMPANIES_LU_StateId">
+            <End Role="LU_State" EntitySet="LU_State" />
+            <End Role="TBL_COMPANIES" EntitySet="TBL_COMPANIES" />
+          </AssociationSet>
           <AssociationSet Name="FK_TBL_COMPANIES_TBL_FRANCHISEE" Association="SandlerDBModel.Store.FK_TBL_COMPANIES_TBL_FRANCHISEE">
             <End Role="TBL_FRANCHISEE" EntitySet="TBL_FRANCHISEE" />
             <End Role="TBL_COMPANIES" EntitySet="TBL_COMPANIES" />
@@ -310,6 +371,46 @@
           <AssociationSet Name="FK_TBL_COMPANIES_Tbl_IndustryType" Association="SandlerDBModel.Store.FK_TBL_COMPANIES_Tbl_IndustryType">
             <End Role="Tbl_IndustryType" EntitySet="Tbl_IndustryType" />
             <End Role="TBL_COMPANIES" EntitySet="TBL_COMPANIES" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_CONTACTS_LU_CompanySourceId" Association="SandlerDBModel.Store.FK_TBL_CONTACTS_LU_CompanySourceId">
+            <End Role="LU_CompanySource" EntitySet="LU_CompanySource" />
+            <End Role="TBL_CONTACTS" EntitySet="TBL_CONTACTS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_CONTACTS_LU_CompanyStatusId" Association="SandlerDBModel.Store.FK_TBL_CONTACTS_LU_CompanyStatusId">
+            <End Role="LU_CompanyStatus" EntitySet="LU_CompanyStatus" />
+            <End Role="TBL_CONTACTS" EntitySet="TBL_CONTACTS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_CONTACTS_LU_ContactStatusId" Association="SandlerDBModel.Store.FK_TBL_CONTACTS_LU_ContactStatusId">
+            <End Role="LU_ContactStatus" EntitySet="LU_ContactStatus" />
+            <End Role="TBL_CONTACTS" EntitySet="TBL_CONTACTS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_CONTACTS_LU_ExecBriefingTopicId" Association="SandlerDBModel.Store.FK_TBL_CONTACTS_LU_ExecBriefingTopicId">
+            <End Role="LU_ExecBriefingTopic" EntitySet="LU_ExecBriefingTopic" />
+            <End Role="TBL_CONTACTS" EntitySet="TBL_CONTACTS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_CONTACTS_LU_KAREDesignationId" Association="SandlerDBModel.Store.FK_TBL_CONTACTS_LU_KAREDesignationId">
+            <End Role="LU_KAREDesignation" EntitySet="LU_KAREDesignation" />
+            <End Role="TBL_CONTACTS" EntitySet="TBL_CONTACTS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_CONTACTS_LU_NextActionStepId" Association="SandlerDBModel.Store.FK_TBL_CONTACTS_LU_NextActionStepId">
+            <End Role="LU_NextActionStep" EntitySet="LU_NextActionStep" />
+            <End Role="TBL_CONTACTS" EntitySet="TBL_CONTACTS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_CONTACTS_LU_POCCertificationLevelId" Association="SandlerDBModel.Store.FK_TBL_CONTACTS_LU_POCCertificationLevelId">
+            <End Role="LU_POCCertificationLevel" EntitySet="LU_POCCertificationLevel" />
+            <End Role="TBL_CONTACTS" EntitySet="TBL_CONTACTS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_CONTACTS_LU_POCCompanyRoleId" Association="SandlerDBModel.Store.FK_TBL_CONTACTS_LU_POCCompanyRoleId">
+            <End Role="LU_POCCompanyRole" EntitySet="LU_POCCompanyRole" />
+            <End Role="TBL_CONTACTS" EntitySet="TBL_CONTACTS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_CONTACTS_LU_StateId" Association="SandlerDBModel.Store.FK_TBL_CONTACTS_LU_StateId">
+            <End Role="LU_State" EntitySet="LU_State" />
+            <End Role="TBL_CONTACTS" EntitySet="TBL_CONTACTS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_CONTACTS_LU_WorkshopTopicId" Association="SandlerDBModel.Store.FK_TBL_CONTACTS_LU_WorkshopTopicId">
+            <End Role="LU_WorkshopTopic" EntitySet="LU_WorkshopTopic" />
+            <End Role="TBL_CONTACTS" EntitySet="TBL_CONTACTS" />
           </AssociationSet>
           <AssociationSet Name="FK_TBL_CONTACTS_Tbl_AppointmentsSource" Association="SandlerDBModel.Store.FK_TBL_CONTACTS_Tbl_AppointmentsSource">
             <End Role="Tbl_AppointmentsSource" EntitySet="Tbl_AppointmentsSource" />
@@ -415,6 +516,70 @@
             <End Role="TBL_GA_TrngBenefits" EntitySet="TBL_GA_TrngBenefits" />
             <End Role="TBL_GA_Tracker" EntitySet="TBL_GA_Tracker" />
           </AssociationSet>
+          <AssociationSet Name="FK_TBL_OPPORTUNITIES_LU_CompanyStatusId" Association="SandlerDBModel.Store.FK_TBL_OPPORTUNITIES_LU_CompanyStatusId">
+            <End Role="LU_CompanyStatus" EntitySet="LU_CompanyStatus" />
+            <End Role="TBL_OPPORTUNITIES" EntitySet="TBL_OPPORTUNITIES" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_OPPORTUNITIES_LU_IndustrySubCategoryId" Association="SandlerDBModel.Store.FK_TBL_OPPORTUNITIES_LU_IndustrySubCategoryId">
+            <End Role="LU_IndustrySubCategory" EntitySet="LU_IndustrySubCategory" />
+            <End Role="TBL_OPPORTUNITIES" EntitySet="TBL_OPPORTUNITIES" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_OPPORTUNITIES_LU_KAREDesignationId" Association="SandlerDBModel.Store.FK_TBL_OPPORTUNITIES_LU_KAREDesignationId">
+            <End Role="LU_KAREDesignation" EntitySet="LU_KAREDesignation" />
+            <End Role="TBL_OPPORTUNITIES" EntitySet="TBL_OPPORTUNITIES" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_OPPORTUNITIES_LU_POC1ApptSourceId" Association="SandlerDBModel.Store.FK_TBL_OPPORTUNITIES_LU_POC1ApptSourceId">
+            <End Role="LU_POC1ApptSource" EntitySet="LU_POC1ApptSource" />
+            <End Role="TBL_OPPORTUNITIES" EntitySet="TBL_OPPORTUNITIES" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_OPPORTUNITIES_LU_POC1CompanyRoleId" Association="SandlerDBModel.Store.FK_TBL_OPPORTUNITIES_LU_POC1CompanyRoleId">
+            <End Role="LU_POC1CompanyRole" EntitySet="LU_POC1CompanyRole" />
+            <End Role="TBL_OPPORTUNITIES" EntitySet="TBL_OPPORTUNITIES" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_OPPORTUNITIES_LU_POC1NextActionStepId" Association="SandlerDBModel.Store.FK_TBL_OPPORTUNITIES_LU_POC1NextActionStepId">
+            <End Role="LU_POC1NextActionStep" EntitySet="LU_POC1NextActionStep" />
+            <End Role="TBL_OPPORTUNITIES" EntitySet="TBL_OPPORTUNITIES" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_OPPORTUNITIES_LU_POC1OpportunityRoleId" Association="SandlerDBModel.Store.FK_TBL_OPPORTUNITIES_LU_POC1OpportunityRoleId">
+            <End Role="LU_POC1OpportunityRole" EntitySet="LU_POC1OpportunityRole" />
+            <End Role="TBL_OPPORTUNITIES" EntitySet="TBL_OPPORTUNITIES" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_OPPORTUNITIES_LU_POC2ApptSourceId" Association="SandlerDBModel.Store.FK_TBL_OPPORTUNITIES_LU_POC2ApptSourceId">
+            <End Role="LU_POC2ApptSource" EntitySet="LU_POC2ApptSource" />
+            <End Role="TBL_OPPORTUNITIES" EntitySet="TBL_OPPORTUNITIES" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_OPPORTUNITIES_LU_POC2CompanyRoleId" Association="SandlerDBModel.Store.FK_TBL_OPPORTUNITIES_LU_POC2CompanyRoleId">
+            <End Role="LU_POC2CompanyRole" EntitySet="LU_POC2CompanyRole" />
+            <End Role="TBL_OPPORTUNITIES" EntitySet="TBL_OPPORTUNITIES" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_OPPORTUNITIES_LU_POC2NextActionStepId" Association="SandlerDBModel.Store.FK_TBL_OPPORTUNITIES_LU_POC2NextActionStepId">
+            <End Role="LU_POC2NextActionStep" EntitySet="LU_POC2NextActionStep" />
+            <End Role="TBL_OPPORTUNITIES" EntitySet="TBL_OPPORTUNITIES" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_OPPORTUNITIES_LU_POC2OpportunityRoleId" Association="SandlerDBModel.Store.FK_TBL_OPPORTUNITIES_LU_POC2OpportunityRoleId">
+            <End Role="LU_POC2OpportunityRole" EntitySet="LU_POC2OpportunityRole" />
+            <End Role="TBL_OPPORTUNITIES" EntitySet="TBL_OPPORTUNITIES" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_OPPORTUNITIES_LU_POC3ApptSourceId" Association="SandlerDBModel.Store.FK_TBL_OPPORTUNITIES_LU_POC3ApptSourceId">
+            <End Role="LU_POC3ApptSource" EntitySet="LU_POC3ApptSource" />
+            <End Role="TBL_OPPORTUNITIES" EntitySet="TBL_OPPORTUNITIES" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_OPPORTUNITIES_LU_POC3CompanyRoleId" Association="SandlerDBModel.Store.FK_TBL_OPPORTUNITIES_LU_POC3CompanyRoleId">
+            <End Role="LU_POC3CompanyRole" EntitySet="LU_POC3CompanyRole" />
+            <End Role="TBL_OPPORTUNITIES" EntitySet="TBL_OPPORTUNITIES" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_OPPORTUNITIES_LU_POC3NextActionStepId" Association="SandlerDBModel.Store.FK_TBL_OPPORTUNITIES_LU_POC3NextActionStepId">
+            <End Role="LU_POC3NextActionStep" EntitySet="LU_POC3NextActionStep" />
+            <End Role="TBL_OPPORTUNITIES" EntitySet="TBL_OPPORTUNITIES" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_OPPORTUNITIES_LU_POC3OpportunityRoleId" Association="SandlerDBModel.Store.FK_TBL_OPPORTUNITIES_LU_POC3OpportunityRoleId">
+            <End Role="LU_POC3OpportunityRole" EntitySet="LU_POC3OpportunityRole" />
+            <End Role="TBL_OPPORTUNITIES" EntitySet="TBL_OPPORTUNITIES" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_OPPORTUNITIES_LU_ProductServiceId" Association="SandlerDBModel.Store.FK_TBL_OPPORTUNITIES_LU_ProductServiceId">
+            <End Role="LU_ProductService" EntitySet="LU_ProductService" />
+            <End Role="TBL_OPPORTUNITIES" EntitySet="TBL_OPPORTUNITIES" />
+          </AssociationSet>
           <AssociationSet Name="FK_TBL_OPPORTUNITIES_TBL_COMPANIES" Association="SandlerDBModel.Store.FK_TBL_OPPORTUNITIES_TBL_COMPANIES">
             <End Role="TBL_COMPANIES" EntitySet="TBL_COMPANIES" />
             <End Role="TBL_OPPORTUNITIES" EntitySet="TBL_OPPORTUNITIES" />
@@ -509,6 +674,183 @@
           <Property Name="MobileAlias" Type="nvarchar" MaxLength="16" />
           <Property Name="IsAnonymous" Type="bit" Nullable="false" />
           <Property Name="LastActivityDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="LU_BillingState">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" Nullable="false" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="LU_CompanySource">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" Nullable="false" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="LU_CompanyStatus">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" Nullable="false" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="LU_ContactStatus">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" Nullable="false" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="LU_ExecBriefingTopic">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="FranchiseeID" Type="int" />
+          <Property Name="BriefingName" Type="varchar" Nullable="false" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="LU_IndustrySubCategory">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" Nullable="false" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="LU_KAREDesignation">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" Nullable="false" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="LU_NextActionStep">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" Nullable="false" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="LU_POC1ApptSource">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" Nullable="false" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="LU_POC1CompanyRole">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" Nullable="false" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="LU_POC1NextActionStep">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" Nullable="false" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="LU_POC1OpportunityRole">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" Nullable="false" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="LU_POC2ApptSource">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" Nullable="false" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="LU_POC2CompanyRole">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" Nullable="false" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="LU_POC2NextActionStep">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" Nullable="false" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="LU_POC2OpportunityRole">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" Nullable="false" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="LU_POC3ApptSource">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" Nullable="false" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="LU_POC3CompanyRole">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" Nullable="false" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="LU_POC3NextActionStep">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" Nullable="false" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="LU_POC3OpportunityRole">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" Nullable="false" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="LU_POCCertificationLevel">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" Nullable="false" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="LU_POCCompanyRole">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" Nullable="false" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="LU_ProductService">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" Nullable="false" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="LU_State">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" Nullable="false" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="LU_WorkshopTopic">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="FranchiseeId" Type="int" />
+          <Property Name="WorkshopName" Type="varchar" Nullable="false" MaxLength="100" />
         </EntityType>
         <EntityType Name="module">
           <Key>
@@ -856,6 +1198,35 @@
           <Property Name="FACEBOOKID" Type="varchar" MaxLength="50" />
           <Property Name="TWITTERID" Type="varchar" MaxLength="50" />
           <Property Name="LINKEDINID" Type="varchar" MaxLength="50" />
+          <Property Name="ApptSourceId" Type="int" />
+          <Property Name="AssistantEmail" Type="varchar" MaxLength="100" />
+          <Property Name="LU_BillingStateId" Type="int" />
+          <Property Name="LU_CompanySourceId" Type="int" />
+          <Property Name="LU_CompanyStatusId" Type="int" />
+          <Property Name="LU_ContactStatusId" Type="int" />
+          <Property Name="LU_IndustrySubCategoryId" Type="int" />
+          <Property Name="LU_KAREDesignationId" Type="int" />
+          <Property Name="LU_NextActionStepId" Type="int" />
+          <Property Name="LU_POCCompanyRoleId" Type="int" />
+          <Property Name="LU_StateId" Type="int" />
+          <Property Name="POCMobilePhone" Type="varchar" MaxLength="50" />
+          <Property Name="YN_EmailOptOut" Type="bit" />
+          <Property Name="IsEmailSubscription" Type="bit" />
+          <Property Name="column_a" Type="varchar" MaxLength="100" />
+          <Property Name="column_b" Type="varchar" MaxLength="100" />
+          <Property Name="column_c" Type="varchar" MaxLength="100" />
+          <Property Name="column_d" Type="varchar" MaxLength="100" />
+          <Property Name="column_e" Type="varchar" MaxLength="100" />
+          <Property Name="column_f" Type="int" />
+          <Property Name="column_g" Type="int" />
+          <Property Name="column_h" Type="int" />
+          <Property Name="column_i" Type="int" />
+          <Property Name="column_j" Type="int" />
+          <Property Name="column_k" Type="datetime" />
+          <Property Name="column_l" Type="datetime" />
+          <Property Name="column_m" Type="datetime" />
+          <Property Name="column_n" Type="datetime" />
+          <Property Name="column_o" Type="datetime" />
         </EntityType>
         <EntityType Name="TBL_CONTACTS">
           <Key>
@@ -914,6 +1285,53 @@
           <Property Name="FACEBOOKID" Type="varchar" MaxLength="150" />
           <Property Name="TWITTERID" Type="varchar" MaxLength="150" />
           <Property Name="LINKEDINID" Type="varchar" MaxLength="150" />
+          <Property Name="Date_BootcampTraining" Type="datetime" />
+          <Property Name="Date_CoachingTraining" Type="datetime" />
+          <Property Name="Date_CoachingTrainingRenewal" Type="datetime" />
+          <Property Name="Date_ExecutiveBriefing" Type="datetime" />
+          <Property Name="Date_FoundationsTraining" Type="datetime" />
+          <Property Name="Date_LeadershipTraining" Type="datetime" />
+          <Property Name="Date_ManagementTraining" Type="datetime" />
+          <Property Name="Date_ManagementTrainingRenewal" Type="datetime" />
+          <Property Name="Date_PCTraining" Type="datetime" />
+          <Property Name="Date_PCTrainingRenewal" Type="datetime" />
+          <Property Name="Date_SCCTraining" Type="datetime" />
+          <Property Name="Date_SCCTrainingRenewal" Type="datetime" />
+          <Property Name="Date_SESTraining" Type="datetime" />
+          <Property Name="Date_SESTrainingRenewal" Type="datetime" />
+          <Property Name="Date_Workshop" Type="datetime" />
+          <Property Name="DISC_ConscientiousnessValue" Type="int" />
+          <Property Name="DISC_DominanceValue" Type="int" />
+          <Property Name="DISC_InfluenceValue" Type="int" />
+          <Property Name="DISC_SteadinessValue" Type="int" />
+          <Property Name="DISCDesignation" Type="varchar" MaxLength="100" />
+          <Property Name="LU_CompanySourceId" Type="int" />
+          <Property Name="LU_CompanyStatusId" Type="int" />
+          <Property Name="LU_ContactStatusId" Type="int" />
+          <Property Name="LU_ExecBriefingTopicId" Type="int" />
+          <Property Name="LU_KAREDesignationId" Type="int" />
+          <Property Name="LU_NextActionStepId" Type="int" />
+          <Property Name="LU_POCCertificationLevelId" Type="int" />
+          <Property Name="LU_POCCompanyRoleId" Type="int" />
+          <Property Name="LU_StateId" Type="int" />
+          <Property Name="LU_WorkshopTopicId" Type="int" />
+          <Property Name="YN_EmailOptOut" Type="bit" />
+          <Property Name="YN_IsAlumnus" Type="bit" />
+          <Property Name="column_a" Type="varchar" MaxLength="100" />
+          <Property Name="column_b" Type="varchar" MaxLength="100" />
+          <Property Name="column_c" Type="varchar" MaxLength="100" />
+          <Property Name="column_d" Type="varchar" MaxLength="100" />
+          <Property Name="column_e" Type="varchar" MaxLength="100" />
+          <Property Name="column_f" Type="int" />
+          <Property Name="column_g" Type="int" />
+          <Property Name="column_h" Type="int" />
+          <Property Name="column_i" Type="int" />
+          <Property Name="column_j" Type="int" />
+          <Property Name="column_k" Type="datetime" />
+          <Property Name="column_l" Type="datetime" />
+          <Property Name="column_m" Type="datetime" />
+          <Property Name="column_n" Type="datetime" />
+          <Property Name="column_o" Type="datetime" />
         </EntityType>
         <EntityType Name="Tbl_CostPlusAmount">
           <Key>
@@ -1292,6 +1710,67 @@
           <Property Name="CostToFix" Type="varchar" MaxLength="30" />
           <Property Name="IsBudgeIdentified" Type="bit" />
           <Property Name="IsMoveForward" Type="bit" />
+          <Property Name="LU_CompanyStatusId" Type="int" />
+          <Property Name="LU_IndustrySubCategoryId" Type="int" />
+          <Property Name="LU_KAREDesignationId" Type="int" />
+          <Property Name="LU_POC1ApptSourceId" Type="int" />
+          <Property Name="LU_POC1CompanyRoleId" Type="int" />
+          <Property Name="LU_POC1NextActionStepId" Type="int" />
+          <Property Name="LU_POC1OpportunityRoleId" Type="int" />
+          <Property Name="LU_POC2ApptSourceId" Type="int" />
+          <Property Name="LU_POC2CompanyRoleId" Type="int" />
+          <Property Name="LU_POC2NextActionStepId" Type="int" />
+          <Property Name="LU_POC2OpportunityRoleId" Type="int" />
+          <Property Name="LU_POC3ApptSourceId" Type="int" />
+          <Property Name="LU_POC3CompanyRoleId" Type="int" />
+          <Property Name="LU_POC3NextActionStepId" Type="int" />
+          <Property Name="LU_POC3OpportunityRoleId" Type="int" />
+          <Property Name="LU_ProductServiceId" Type="int" />
+          <Property Name="POC1DISCDesignation" Type="varchar" MaxLength="100" />
+          <Property Name="POC1DiscussionTopic" Type="varchar" MaxLength="100" />
+          <Property Name="POC1Email" Type="varchar" MaxLength="50" />
+          <Property Name="POC1FirstName" Type="varchar" MaxLength="50" />
+          <Property Name="POC1LastContactDate" Type="datetime" />
+          <Property Name="POC1LastName" Type="varchar" MaxLength="50" />
+          <Property Name="POC1MobilePhone" Type="varchar" MaxLength="50" />
+          <Property Name="POC1NextContactDate" Type="datetime" />
+          <Property Name="POC1Notes" Type="varchar" MaxLength="1000" />
+          <Property Name="POC1Phone" Type="varchar" MaxLength="50" />
+          <Property Name="POC2DISCDesignation" Type="varchar" MaxLength="100" />
+          <Property Name="POC2DiscussionTopic" Type="varchar" MaxLength="100" />
+          <Property Name="POC2Email" Type="varchar" MaxLength="50" />
+          <Property Name="POC2FirstName" Type="varchar" MaxLength="50" />
+          <Property Name="POC2LastContactDate" Type="datetime" />
+          <Property Name="POC2LastName" Type="varchar" MaxLength="50" />
+          <Property Name="POC2MobilePhone" Type="varchar" MaxLength="50" />
+          <Property Name="POC2NextContactDate" Type="datetime" />
+          <Property Name="POC2Notes" Type="varchar" MaxLength="1000" />
+          <Property Name="POC2Phone" Type="varchar" MaxLength="50" />
+          <Property Name="POC3DISCDesignation" Type="varchar" MaxLength="100" />
+          <Property Name="POC3DiscussionTopic" Type="varchar" MaxLength="100" />
+          <Property Name="POC3Email" Type="varchar" MaxLength="50" />
+          <Property Name="POC3FirstName" Type="varchar" MaxLength="50" />
+          <Property Name="POC3LastContactDate" Type="datetime" />
+          <Property Name="POC3LastName" Type="varchar" MaxLength="50" />
+          <Property Name="POC3MobilePhone" Type="varchar" MaxLength="50" />
+          <Property Name="POC3NextContactDate" Type="datetime" />
+          <Property Name="POC3Notes" Type="varchar" MaxLength="1000" />
+          <Property Name="POC3Phone" Type="varchar" MaxLength="50" />
+          <Property Name="column_a" Type="varchar" MaxLength="100" />
+          <Property Name="column_b" Type="varchar" MaxLength="100" />
+          <Property Name="column_c" Type="varchar" MaxLength="100" />
+          <Property Name="column_d" Type="varchar" MaxLength="100" />
+          <Property Name="column_e" Type="varchar" MaxLength="100" />
+          <Property Name="column_f" Type="int" />
+          <Property Name="column_g" Type="int" />
+          <Property Name="column_h" Type="int" />
+          <Property Name="column_i" Type="int" />
+          <Property Name="column_j" Type="int" />
+          <Property Name="column_k" Type="datetime" />
+          <Property Name="column_l" Type="datetime" />
+          <Property Name="column_m" Type="datetime" />
+          <Property Name="column_n" Type="datetime" />
+          <Property Name="column_o" Type="datetime" />
         </EntityType>
         <EntityType Name="TBL_OpportunitiesHistory">
           <Key>
@@ -1799,6 +2278,114 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_TBL_COMPANIES_LU_BillingStateId">
+          <End Role="LU_BillingState" Type="SandlerDBModel.Store.LU_BillingState" Multiplicity="0..1" />
+          <End Role="TBL_COMPANIES" Type="SandlerDBModel.Store.TBL_COMPANIES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LU_BillingState">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TBL_COMPANIES">
+              <PropertyRef Name="LU_BillingStateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_COMPANIES_LU_CompanySourceId">
+          <End Role="LU_CompanySource" Type="SandlerDBModel.Store.LU_CompanySource" Multiplicity="0..1" />
+          <End Role="TBL_COMPANIES" Type="SandlerDBModel.Store.TBL_COMPANIES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LU_CompanySource">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TBL_COMPANIES">
+              <PropertyRef Name="LU_CompanySourceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_COMPANIES_LU_CompanyStatusId">
+          <End Role="LU_CompanyStatus" Type="SandlerDBModel.Store.LU_CompanyStatus" Multiplicity="0..1" />
+          <End Role="TBL_COMPANIES" Type="SandlerDBModel.Store.TBL_COMPANIES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LU_CompanyStatus">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TBL_COMPANIES">
+              <PropertyRef Name="LU_CompanyStatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_COMPANIES_LU_ContactStatusId">
+          <End Role="LU_ContactStatus" Type="SandlerDBModel.Store.LU_ContactStatus" Multiplicity="0..1" />
+          <End Role="TBL_COMPANIES" Type="SandlerDBModel.Store.TBL_COMPANIES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LU_ContactStatus">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TBL_COMPANIES">
+              <PropertyRef Name="LU_ContactStatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_COMPANIES_LU_IndustrySubCategoryId">
+          <End Role="LU_IndustrySubCategory" Type="SandlerDBModel.Store.LU_IndustrySubCategory" Multiplicity="0..1" />
+          <End Role="TBL_COMPANIES" Type="SandlerDBModel.Store.TBL_COMPANIES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LU_IndustrySubCategory">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TBL_COMPANIES">
+              <PropertyRef Name="LU_IndustrySubCategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_COMPANIES_LU_KAREDesignationId">
+          <End Role="LU_KAREDesignation" Type="SandlerDBModel.Store.LU_KAREDesignation" Multiplicity="0..1" />
+          <End Role="TBL_COMPANIES" Type="SandlerDBModel.Store.TBL_COMPANIES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LU_KAREDesignation">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TBL_COMPANIES">
+              <PropertyRef Name="LU_KAREDesignationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_COMPANIES_LU_NextActionStepId">
+          <End Role="LU_NextActionStep" Type="SandlerDBModel.Store.LU_NextActionStep" Multiplicity="0..1" />
+          <End Role="TBL_COMPANIES" Type="SandlerDBModel.Store.TBL_COMPANIES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LU_NextActionStep">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TBL_COMPANIES">
+              <PropertyRef Name="LU_NextActionStepId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_COMPANIES_LU_POCCompanyRoleId">
+          <End Role="LU_POCCompanyRole" Type="SandlerDBModel.Store.LU_POCCompanyRole" Multiplicity="0..1" />
+          <End Role="TBL_COMPANIES" Type="SandlerDBModel.Store.TBL_COMPANIES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LU_POCCompanyRole">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TBL_COMPANIES">
+              <PropertyRef Name="LU_POCCompanyRoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_COMPANIES_LU_StateId">
+          <End Role="LU_State" Type="SandlerDBModel.Store.LU_State" Multiplicity="0..1" />
+          <End Role="TBL_COMPANIES" Type="SandlerDBModel.Store.TBL_COMPANIES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LU_State">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TBL_COMPANIES">
+              <PropertyRef Name="LU_StateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_TBL_COMPANIES_TBL_FRANCHISEE">
           <End Role="TBL_FRANCHISEE" Type="SandlerDBModel.Store.TBL_FRANCHISEE" Multiplicity="0..1" />
           <End Role="TBL_COMPANIES" Type="SandlerDBModel.Store.TBL_COMPANIES" Multiplicity="*" />
@@ -1820,6 +2407,126 @@
             </Principal>
             <Dependent Role="TBL_COMPANIES">
               <PropertyRef Name="IndustryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_CONTACTS_LU_CompanySourceId">
+          <End Role="LU_CompanySource" Type="SandlerDBModel.Store.LU_CompanySource" Multiplicity="0..1" />
+          <End Role="TBL_CONTACTS" Type="SandlerDBModel.Store.TBL_CONTACTS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LU_CompanySource">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TBL_CONTACTS">
+              <PropertyRef Name="LU_CompanySourceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_CONTACTS_LU_CompanyStatusId">
+          <End Role="LU_CompanyStatus" Type="SandlerDBModel.Store.LU_CompanyStatus" Multiplicity="0..1" />
+          <End Role="TBL_CONTACTS" Type="SandlerDBModel.Store.TBL_CONTACTS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LU_CompanyStatus">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TBL_CONTACTS">
+              <PropertyRef Name="LU_CompanyStatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_CONTACTS_LU_ContactStatusId">
+          <End Role="LU_ContactStatus" Type="SandlerDBModel.Store.LU_ContactStatus" Multiplicity="0..1" />
+          <End Role="TBL_CONTACTS" Type="SandlerDBModel.Store.TBL_CONTACTS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LU_ContactStatus">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TBL_CONTACTS">
+              <PropertyRef Name="LU_ContactStatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_CONTACTS_LU_ExecBriefingTopicId">
+          <End Role="LU_ExecBriefingTopic" Type="SandlerDBModel.Store.LU_ExecBriefingTopic" Multiplicity="0..1" />
+          <End Role="TBL_CONTACTS" Type="SandlerDBModel.Store.TBL_CONTACTS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LU_ExecBriefingTopic">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TBL_CONTACTS">
+              <PropertyRef Name="LU_ExecBriefingTopicId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_CONTACTS_LU_KAREDesignationId">
+          <End Role="LU_KAREDesignation" Type="SandlerDBModel.Store.LU_KAREDesignation" Multiplicity="0..1" />
+          <End Role="TBL_CONTACTS" Type="SandlerDBModel.Store.TBL_CONTACTS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LU_KAREDesignation">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TBL_CONTACTS">
+              <PropertyRef Name="LU_KAREDesignationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_CONTACTS_LU_NextActionStepId">
+          <End Role="LU_NextActionStep" Type="SandlerDBModel.Store.LU_NextActionStep" Multiplicity="0..1" />
+          <End Role="TBL_CONTACTS" Type="SandlerDBModel.Store.TBL_CONTACTS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LU_NextActionStep">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TBL_CONTACTS">
+              <PropertyRef Name="LU_NextActionStepId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_CONTACTS_LU_POCCertificationLevelId">
+          <End Role="LU_POCCertificationLevel" Type="SandlerDBModel.Store.LU_POCCertificationLevel" Multiplicity="0..1" />
+          <End Role="TBL_CONTACTS" Type="SandlerDBModel.Store.TBL_CONTACTS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LU_POCCertificationLevel">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TBL_CONTACTS">
+              <PropertyRef Name="LU_POCCertificationLevelId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_CONTACTS_LU_POCCompanyRoleId">
+          <End Role="LU_POCCompanyRole" Type="SandlerDBModel.Store.LU_POCCompanyRole" Multiplicity="0..1" />
+          <End Role="TBL_CONTACTS" Type="SandlerDBModel.Store.TBL_CONTACTS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LU_POCCompanyRole">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TBL_CONTACTS">
+              <PropertyRef Name="LU_POCCompanyRoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_CONTACTS_LU_StateId">
+          <End Role="LU_State" Type="SandlerDBModel.Store.LU_State" Multiplicity="0..1" />
+          <End Role="TBL_CONTACTS" Type="SandlerDBModel.Store.TBL_CONTACTS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LU_State">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TBL_CONTACTS">
+              <PropertyRef Name="LU_StateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_CONTACTS_LU_WorkshopTopicId">
+          <End Role="LU_WorkshopTopic" Type="SandlerDBModel.Store.LU_WorkshopTopic" Multiplicity="0..1" />
+          <End Role="TBL_CONTACTS" Type="SandlerDBModel.Store.TBL_CONTACTS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LU_WorkshopTopic">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TBL_CONTACTS">
+              <PropertyRef Name="LU_WorkshopTopicId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2132,6 +2839,198 @@
             </Principal>
             <Dependent Role="TBL_GA_Tracker">
               <PropertyRef Name="ToBeTrngBenefitsId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_OPPORTUNITIES_LU_CompanyStatusId">
+          <End Role="LU_CompanyStatus" Type="SandlerDBModel.Store.LU_CompanyStatus" Multiplicity="0..1" />
+          <End Role="TBL_OPPORTUNITIES" Type="SandlerDBModel.Store.TBL_OPPORTUNITIES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LU_CompanyStatus">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TBL_OPPORTUNITIES">
+              <PropertyRef Name="LU_CompanyStatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_OPPORTUNITIES_LU_IndustrySubCategoryId">
+          <End Role="LU_IndustrySubCategory" Type="SandlerDBModel.Store.LU_IndustrySubCategory" Multiplicity="0..1" />
+          <End Role="TBL_OPPORTUNITIES" Type="SandlerDBModel.Store.TBL_OPPORTUNITIES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LU_IndustrySubCategory">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TBL_OPPORTUNITIES">
+              <PropertyRef Name="LU_IndustrySubCategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_OPPORTUNITIES_LU_KAREDesignationId">
+          <End Role="LU_KAREDesignation" Type="SandlerDBModel.Store.LU_KAREDesignation" Multiplicity="0..1" />
+          <End Role="TBL_OPPORTUNITIES" Type="SandlerDBModel.Store.TBL_OPPORTUNITIES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LU_KAREDesignation">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TBL_OPPORTUNITIES">
+              <PropertyRef Name="LU_KAREDesignationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_OPPORTUNITIES_LU_POC1ApptSourceId">
+          <End Role="LU_POC1ApptSource" Type="SandlerDBModel.Store.LU_POC1ApptSource" Multiplicity="0..1" />
+          <End Role="TBL_OPPORTUNITIES" Type="SandlerDBModel.Store.TBL_OPPORTUNITIES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LU_POC1ApptSource">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TBL_OPPORTUNITIES">
+              <PropertyRef Name="LU_POC1ApptSourceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_OPPORTUNITIES_LU_POC1CompanyRoleId">
+          <End Role="LU_POC1CompanyRole" Type="SandlerDBModel.Store.LU_POC1CompanyRole" Multiplicity="0..1" />
+          <End Role="TBL_OPPORTUNITIES" Type="SandlerDBModel.Store.TBL_OPPORTUNITIES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LU_POC1CompanyRole">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TBL_OPPORTUNITIES">
+              <PropertyRef Name="LU_POC1CompanyRoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_OPPORTUNITIES_LU_POC1NextActionStepId">
+          <End Role="LU_POC1NextActionStep" Type="SandlerDBModel.Store.LU_POC1NextActionStep" Multiplicity="0..1" />
+          <End Role="TBL_OPPORTUNITIES" Type="SandlerDBModel.Store.TBL_OPPORTUNITIES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LU_POC1NextActionStep">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TBL_OPPORTUNITIES">
+              <PropertyRef Name="LU_POC1NextActionStepId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_OPPORTUNITIES_LU_POC1OpportunityRoleId">
+          <End Role="LU_POC1OpportunityRole" Type="SandlerDBModel.Store.LU_POC1OpportunityRole" Multiplicity="0..1" />
+          <End Role="TBL_OPPORTUNITIES" Type="SandlerDBModel.Store.TBL_OPPORTUNITIES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LU_POC1OpportunityRole">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TBL_OPPORTUNITIES">
+              <PropertyRef Name="LU_POC1OpportunityRoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_OPPORTUNITIES_LU_POC2ApptSourceId">
+          <End Role="LU_POC2ApptSource" Type="SandlerDBModel.Store.LU_POC2ApptSource" Multiplicity="0..1" />
+          <End Role="TBL_OPPORTUNITIES" Type="SandlerDBModel.Store.TBL_OPPORTUNITIES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LU_POC2ApptSource">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TBL_OPPORTUNITIES">
+              <PropertyRef Name="LU_POC2ApptSourceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_OPPORTUNITIES_LU_POC2CompanyRoleId">
+          <End Role="LU_POC2CompanyRole" Type="SandlerDBModel.Store.LU_POC2CompanyRole" Multiplicity="0..1" />
+          <End Role="TBL_OPPORTUNITIES" Type="SandlerDBModel.Store.TBL_OPPORTUNITIES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LU_POC2CompanyRole">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TBL_OPPORTUNITIES">
+              <PropertyRef Name="LU_POC2CompanyRoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_OPPORTUNITIES_LU_POC2NextActionStepId">
+          <End Role="LU_POC2NextActionStep" Type="SandlerDBModel.Store.LU_POC2NextActionStep" Multiplicity="0..1" />
+          <End Role="TBL_OPPORTUNITIES" Type="SandlerDBModel.Store.TBL_OPPORTUNITIES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LU_POC2NextActionStep">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TBL_OPPORTUNITIES">
+              <PropertyRef Name="LU_POC2NextActionStepId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_OPPORTUNITIES_LU_POC2OpportunityRoleId">
+          <End Role="LU_POC2OpportunityRole" Type="SandlerDBModel.Store.LU_POC2OpportunityRole" Multiplicity="0..1" />
+          <End Role="TBL_OPPORTUNITIES" Type="SandlerDBModel.Store.TBL_OPPORTUNITIES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LU_POC2OpportunityRole">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TBL_OPPORTUNITIES">
+              <PropertyRef Name="LU_POC2OpportunityRoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_OPPORTUNITIES_LU_POC3ApptSourceId">
+          <End Role="LU_POC3ApptSource" Type="SandlerDBModel.Store.LU_POC3ApptSource" Multiplicity="0..1" />
+          <End Role="TBL_OPPORTUNITIES" Type="SandlerDBModel.Store.TBL_OPPORTUNITIES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LU_POC3ApptSource">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TBL_OPPORTUNITIES">
+              <PropertyRef Name="LU_POC3ApptSourceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_OPPORTUNITIES_LU_POC3CompanyRoleId">
+          <End Role="LU_POC3CompanyRole" Type="SandlerDBModel.Store.LU_POC3CompanyRole" Multiplicity="0..1" />
+          <End Role="TBL_OPPORTUNITIES" Type="SandlerDBModel.Store.TBL_OPPORTUNITIES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LU_POC3CompanyRole">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TBL_OPPORTUNITIES">
+              <PropertyRef Name="LU_POC3CompanyRoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_OPPORTUNITIES_LU_POC3NextActionStepId">
+          <End Role="LU_POC3NextActionStep" Type="SandlerDBModel.Store.LU_POC3NextActionStep" Multiplicity="0..1" />
+          <End Role="TBL_OPPORTUNITIES" Type="SandlerDBModel.Store.TBL_OPPORTUNITIES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LU_POC3NextActionStep">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TBL_OPPORTUNITIES">
+              <PropertyRef Name="LU_POC3NextActionStepId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_OPPORTUNITIES_LU_POC3OpportunityRoleId">
+          <End Role="LU_POC3OpportunityRole" Type="SandlerDBModel.Store.LU_POC3OpportunityRole" Multiplicity="0..1" />
+          <End Role="TBL_OPPORTUNITIES" Type="SandlerDBModel.Store.TBL_OPPORTUNITIES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LU_POC3OpportunityRole">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TBL_OPPORTUNITIES">
+              <PropertyRef Name="LU_POC3OpportunityRoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_OPPORTUNITIES_LU_ProductServiceId">
+          <End Role="LU_ProductService" Type="SandlerDBModel.Store.LU_ProductService" Multiplicity="0..1" />
+          <End Role="TBL_OPPORTUNITIES" Type="SandlerDBModel.Store.TBL_OPPORTUNITIES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LU_ProductService">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TBL_OPPORTUNITIES">
+              <PropertyRef Name="LU_ProductServiceId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2716,6 +3615,171 @@
             <End Role="aspnet_Users" EntitySet="aspnet_Users" />
             <End Role="TBL_UserEmailGroup" EntitySet="TBL_UserEmailGroup" />
           </AssociationSet>
+          <EntitySet Name="LU_BillingState" EntityType="SandlerDBModel.LU_BillingState" />
+          <EntitySet Name="LU_CompanySource" EntityType="SandlerDBModel.LU_CompanySource" />
+          <EntitySet Name="LU_CompanyStatus" EntityType="SandlerDBModel.LU_CompanyStatus" />
+          <EntitySet Name="LU_ContactStatus" EntityType="SandlerDBModel.LU_ContactStatus" />
+          <EntitySet Name="LU_ExecBriefingTopic" EntityType="SandlerDBModel.LU_ExecBriefingTopic" />
+          <EntitySet Name="LU_IndustrySubCategory" EntityType="SandlerDBModel.LU_IndustrySubCategory" />
+          <EntitySet Name="LU_KAREDesignation" EntityType="SandlerDBModel.LU_KAREDesignation" />
+          <EntitySet Name="LU_NextActionStep" EntityType="SandlerDBModel.LU_NextActionStep" />
+          <EntitySet Name="LU_POC1ApptSource" EntityType="SandlerDBModel.LU_POC1ApptSource" />
+          <EntitySet Name="LU_POC1CompanyRole" EntityType="SandlerDBModel.LU_POC1CompanyRole" />
+          <EntitySet Name="LU_POC1NextActionStep" EntityType="SandlerDBModel.LU_POC1NextActionStep" />
+          <EntitySet Name="LU_POC1OpportunityRole" EntityType="SandlerDBModel.LU_POC1OpportunityRole" />
+          <EntitySet Name="LU_POC2ApptSource" EntityType="SandlerDBModel.LU_POC2ApptSource" />
+          <EntitySet Name="LU_POC2CompanyRole" EntityType="SandlerDBModel.LU_POC2CompanyRole" />
+          <EntitySet Name="LU_POC2NextActionStep" EntityType="SandlerDBModel.LU_POC2NextActionStep" />
+          <EntitySet Name="LU_POC2OpportunityRole" EntityType="SandlerDBModel.LU_POC2OpportunityRole" />
+          <EntitySet Name="LU_POC3ApptSource" EntityType="SandlerDBModel.LU_POC3ApptSource" />
+          <EntitySet Name="LU_POC3CompanyRole" EntityType="SandlerDBModel.LU_POC3CompanyRole" />
+          <EntitySet Name="LU_POC3NextActionStep" EntityType="SandlerDBModel.LU_POC3NextActionStep" />
+          <EntitySet Name="LU_POC3OpportunityRole" EntityType="SandlerDBModel.LU_POC3OpportunityRole" />
+          <EntitySet Name="LU_POCCertificationLevel" EntityType="SandlerDBModel.LU_POCCertificationLevel" />
+          <EntitySet Name="LU_POCCompanyRole" EntityType="SandlerDBModel.LU_POCCompanyRole" />
+          <EntitySet Name="LU_ProductService" EntityType="SandlerDBModel.LU_ProductService" />
+          <EntitySet Name="LU_State" EntityType="SandlerDBModel.LU_State" />
+          <EntitySet Name="LU_WorkshopTopic" EntityType="SandlerDBModel.LU_WorkshopTopic" />
+          <AssociationSet Name="FK_TBL_COMPANIES_LU_BillingStateId" Association="SandlerDBModel.FK_TBL_COMPANIES_LU_BillingStateId">
+            <End Role="LU_BillingState" EntitySet="LU_BillingState" />
+            <End Role="TBL_COMPANIES" EntitySet="TBL_COMPANIES" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_COMPANIES_LU_CompanySourceId" Association="SandlerDBModel.FK_TBL_COMPANIES_LU_CompanySourceId">
+            <End Role="LU_CompanySource" EntitySet="LU_CompanySource" />
+            <End Role="TBL_COMPANIES" EntitySet="TBL_COMPANIES" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_CONTACTS_LU_CompanySourceId" Association="SandlerDBModel.FK_TBL_CONTACTS_LU_CompanySourceId">
+            <End Role="LU_CompanySource" EntitySet="LU_CompanySource" />
+            <End Role="TBL_CONTACTS" EntitySet="TBL_CONTACTS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_COMPANIES_LU_CompanyStatusId" Association="SandlerDBModel.FK_TBL_COMPANIES_LU_CompanyStatusId">
+            <End Role="LU_CompanyStatus" EntitySet="LU_CompanyStatus" />
+            <End Role="TBL_COMPANIES" EntitySet="TBL_COMPANIES" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_CONTACTS_LU_CompanyStatusId" Association="SandlerDBModel.FK_TBL_CONTACTS_LU_CompanyStatusId">
+            <End Role="LU_CompanyStatus" EntitySet="LU_CompanyStatus" />
+            <End Role="TBL_CONTACTS" EntitySet="TBL_CONTACTS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_OPPORTUNITIES_LU_CompanyStatusId" Association="SandlerDBModel.FK_TBL_OPPORTUNITIES_LU_CompanyStatusId">
+            <End Role="LU_CompanyStatus" EntitySet="LU_CompanyStatus" />
+            <End Role="TBL_OPPORTUNITIES" EntitySet="TBL_OPPORTUNITIES" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_COMPANIES_LU_ContactStatusId" Association="SandlerDBModel.FK_TBL_COMPANIES_LU_ContactStatusId">
+            <End Role="LU_ContactStatus" EntitySet="LU_ContactStatus" />
+            <End Role="TBL_COMPANIES" EntitySet="TBL_COMPANIES" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_CONTACTS_LU_ContactStatusId" Association="SandlerDBModel.FK_TBL_CONTACTS_LU_ContactStatusId">
+            <End Role="LU_ContactStatus" EntitySet="LU_ContactStatus" />
+            <End Role="TBL_CONTACTS" EntitySet="TBL_CONTACTS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_CONTACTS_LU_ExecBriefingTopicId" Association="SandlerDBModel.FK_TBL_CONTACTS_LU_ExecBriefingTopicId">
+            <End Role="LU_ExecBriefingTopic" EntitySet="LU_ExecBriefingTopic" />
+            <End Role="TBL_CONTACTS" EntitySet="TBL_CONTACTS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_COMPANIES_LU_IndustrySubCategoryId" Association="SandlerDBModel.FK_TBL_COMPANIES_LU_IndustrySubCategoryId">
+            <End Role="LU_IndustrySubCategory" EntitySet="LU_IndustrySubCategory" />
+            <End Role="TBL_COMPANIES" EntitySet="TBL_COMPANIES" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_OPPORTUNITIES_LU_IndustrySubCategoryId" Association="SandlerDBModel.FK_TBL_OPPORTUNITIES_LU_IndustrySubCategoryId">
+            <End Role="LU_IndustrySubCategory" EntitySet="LU_IndustrySubCategory" />
+            <End Role="TBL_OPPORTUNITIES" EntitySet="TBL_OPPORTUNITIES" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_COMPANIES_LU_KAREDesignationId" Association="SandlerDBModel.FK_TBL_COMPANIES_LU_KAREDesignationId">
+            <End Role="LU_KAREDesignation" EntitySet="LU_KAREDesignation" />
+            <End Role="TBL_COMPANIES" EntitySet="TBL_COMPANIES" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_CONTACTS_LU_KAREDesignationId" Association="SandlerDBModel.FK_TBL_CONTACTS_LU_KAREDesignationId">
+            <End Role="LU_KAREDesignation" EntitySet="LU_KAREDesignation" />
+            <End Role="TBL_CONTACTS" EntitySet="TBL_CONTACTS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_OPPORTUNITIES_LU_KAREDesignationId" Association="SandlerDBModel.FK_TBL_OPPORTUNITIES_LU_KAREDesignationId">
+            <End Role="LU_KAREDesignation" EntitySet="LU_KAREDesignation" />
+            <End Role="TBL_OPPORTUNITIES" EntitySet="TBL_OPPORTUNITIES" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_COMPANIES_LU_NextActionStepId" Association="SandlerDBModel.FK_TBL_COMPANIES_LU_NextActionStepId">
+            <End Role="LU_NextActionStep" EntitySet="LU_NextActionStep" />
+            <End Role="TBL_COMPANIES" EntitySet="TBL_COMPANIES" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_CONTACTS_LU_NextActionStepId" Association="SandlerDBModel.FK_TBL_CONTACTS_LU_NextActionStepId">
+            <End Role="LU_NextActionStep" EntitySet="LU_NextActionStep" />
+            <End Role="TBL_CONTACTS" EntitySet="TBL_CONTACTS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_OPPORTUNITIES_LU_POC1ApptSourceId" Association="SandlerDBModel.FK_TBL_OPPORTUNITIES_LU_POC1ApptSourceId">
+            <End Role="LU_POC1ApptSource" EntitySet="LU_POC1ApptSource" />
+            <End Role="TBL_OPPORTUNITIES" EntitySet="TBL_OPPORTUNITIES" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_OPPORTUNITIES_LU_POC1CompanyRoleId" Association="SandlerDBModel.FK_TBL_OPPORTUNITIES_LU_POC1CompanyRoleId">
+            <End Role="LU_POC1CompanyRole" EntitySet="LU_POC1CompanyRole" />
+            <End Role="TBL_OPPORTUNITIES" EntitySet="TBL_OPPORTUNITIES" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_OPPORTUNITIES_LU_POC1NextActionStepId" Association="SandlerDBModel.FK_TBL_OPPORTUNITIES_LU_POC1NextActionStepId">
+            <End Role="LU_POC1NextActionStep" EntitySet="LU_POC1NextActionStep" />
+            <End Role="TBL_OPPORTUNITIES" EntitySet="TBL_OPPORTUNITIES" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_OPPORTUNITIES_LU_POC1OpportunityRoleId" Association="SandlerDBModel.FK_TBL_OPPORTUNITIES_LU_POC1OpportunityRoleId">
+            <End Role="LU_POC1OpportunityRole" EntitySet="LU_POC1OpportunityRole" />
+            <End Role="TBL_OPPORTUNITIES" EntitySet="TBL_OPPORTUNITIES" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_OPPORTUNITIES_LU_POC2ApptSourceId" Association="SandlerDBModel.FK_TBL_OPPORTUNITIES_LU_POC2ApptSourceId">
+            <End Role="LU_POC2ApptSource" EntitySet="LU_POC2ApptSource" />
+            <End Role="TBL_OPPORTUNITIES" EntitySet="TBL_OPPORTUNITIES" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_OPPORTUNITIES_LU_POC2CompanyRoleId" Association="SandlerDBModel.FK_TBL_OPPORTUNITIES_LU_POC2CompanyRoleId">
+            <End Role="LU_POC2CompanyRole" EntitySet="LU_POC2CompanyRole" />
+            <End Role="TBL_OPPORTUNITIES" EntitySet="TBL_OPPORTUNITIES" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_OPPORTUNITIES_LU_POC2NextActionStepId" Association="SandlerDBModel.FK_TBL_OPPORTUNITIES_LU_POC2NextActionStepId">
+            <End Role="LU_POC2NextActionStep" EntitySet="LU_POC2NextActionStep" />
+            <End Role="TBL_OPPORTUNITIES" EntitySet="TBL_OPPORTUNITIES" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_OPPORTUNITIES_LU_POC2OpportunityRoleId" Association="SandlerDBModel.FK_TBL_OPPORTUNITIES_LU_POC2OpportunityRoleId">
+            <End Role="LU_POC2OpportunityRole" EntitySet="LU_POC2OpportunityRole" />
+            <End Role="TBL_OPPORTUNITIES" EntitySet="TBL_OPPORTUNITIES" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_OPPORTUNITIES_LU_POC3ApptSourceId" Association="SandlerDBModel.FK_TBL_OPPORTUNITIES_LU_POC3ApptSourceId">
+            <End Role="LU_POC3ApptSource" EntitySet="LU_POC3ApptSource" />
+            <End Role="TBL_OPPORTUNITIES" EntitySet="TBL_OPPORTUNITIES" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_OPPORTUNITIES_LU_POC3CompanyRoleId" Association="SandlerDBModel.FK_TBL_OPPORTUNITIES_LU_POC3CompanyRoleId">
+            <End Role="LU_POC3CompanyRole" EntitySet="LU_POC3CompanyRole" />
+            <End Role="TBL_OPPORTUNITIES" EntitySet="TBL_OPPORTUNITIES" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_OPPORTUNITIES_LU_POC3NextActionStepId" Association="SandlerDBModel.FK_TBL_OPPORTUNITIES_LU_POC3NextActionStepId">
+            <End Role="LU_POC3NextActionStep" EntitySet="LU_POC3NextActionStep" />
+            <End Role="TBL_OPPORTUNITIES" EntitySet="TBL_OPPORTUNITIES" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_OPPORTUNITIES_LU_POC3OpportunityRoleId" Association="SandlerDBModel.FK_TBL_OPPORTUNITIES_LU_POC3OpportunityRoleId">
+            <End Role="LU_POC3OpportunityRole" EntitySet="LU_POC3OpportunityRole" />
+            <End Role="TBL_OPPORTUNITIES" EntitySet="TBL_OPPORTUNITIES" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_CONTACTS_LU_POCCertificationLevelId" Association="SandlerDBModel.FK_TBL_CONTACTS_LU_POCCertificationLevelId">
+            <End Role="LU_POCCertificationLevel" EntitySet="LU_POCCertificationLevel" />
+            <End Role="TBL_CONTACTS" EntitySet="TBL_CONTACTS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_COMPANIES_LU_POCCompanyRoleId" Association="SandlerDBModel.FK_TBL_COMPANIES_LU_POCCompanyRoleId">
+            <End Role="LU_POCCompanyRole" EntitySet="LU_POCCompanyRole" />
+            <End Role="TBL_COMPANIES" EntitySet="TBL_COMPANIES" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_CONTACTS_LU_POCCompanyRoleId" Association="SandlerDBModel.FK_TBL_CONTACTS_LU_POCCompanyRoleId">
+            <End Role="LU_POCCompanyRole" EntitySet="LU_POCCompanyRole" />
+            <End Role="TBL_CONTACTS" EntitySet="TBL_CONTACTS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_OPPORTUNITIES_LU_ProductServiceId" Association="SandlerDBModel.FK_TBL_OPPORTUNITIES_LU_ProductServiceId">
+            <End Role="LU_ProductService" EntitySet="LU_ProductService" />
+            <End Role="TBL_OPPORTUNITIES" EntitySet="TBL_OPPORTUNITIES" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_COMPANIES_LU_StateId" Association="SandlerDBModel.FK_TBL_COMPANIES_LU_StateId">
+            <End Role="LU_State" EntitySet="LU_State" />
+            <End Role="TBL_COMPANIES" EntitySet="TBL_COMPANIES" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_CONTACTS_LU_StateId" Association="SandlerDBModel.FK_TBL_CONTACTS_LU_StateId">
+            <End Role="LU_State" EntitySet="LU_State" />
+            <End Role="TBL_CONTACTS" EntitySet="TBL_CONTACTS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_CONTACTS_LU_WorkshopTopicId" Association="SandlerDBModel.FK_TBL_CONTACTS_LU_WorkshopTopicId">
+            <End Role="LU_WorkshopTopic" EntitySet="LU_WorkshopTopic" />
+            <End Role="TBL_CONTACTS" EntitySet="TBL_CONTACTS" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Tbl_AppointmentsSource">
           <Key>
@@ -2894,6 +3958,44 @@
           <Property Type="String" Name="FACEBOOKID" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="TWITTERID" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="LINKEDINID" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="ApptSourceId" />
+          <Property Type="String" Name="AssistantEmail" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="LU_BillingStateId" />
+          <Property Type="Int32" Name="LU_CompanySourceId" />
+          <Property Type="Int32" Name="LU_CompanyStatusId" />
+          <Property Type="Int32" Name="LU_ContactStatusId" />
+          <Property Type="Int32" Name="LU_IndustrySubCategoryId" />
+          <Property Type="Int32" Name="LU_KAREDesignationId" />
+          <Property Type="Int32" Name="LU_NextActionStepId" />
+          <Property Type="Int32" Name="LU_POCCompanyRoleId" />
+          <Property Type="Int32" Name="LU_StateId" />
+          <Property Type="String" Name="POCMobilePhone" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Boolean" Name="YN_EmailOptOut" />
+          <Property Type="Boolean" Name="IsEmailSubscription" />
+          <Property Type="String" Name="column_a" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="column_b" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="column_c" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="column_d" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="column_e" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="column_f" />
+          <Property Type="Int32" Name="column_g" />
+          <Property Type="Int32" Name="column_h" />
+          <Property Type="Int32" Name="column_i" />
+          <Property Type="Int32" Name="column_j" />
+          <Property Type="DateTime" Name="column_k" Precision="3" />
+          <Property Type="DateTime" Name="column_l" Precision="3" />
+          <Property Type="DateTime" Name="column_m" Precision="3" />
+          <Property Type="DateTime" Name="column_n" Precision="3" />
+          <Property Type="DateTime" Name="column_o" Precision="3" />
+          <NavigationProperty Name="LU_BillingState" Relationship="SandlerDBModel.FK_TBL_COMPANIES_LU_BillingStateId" FromRole="TBL_COMPANIES" ToRole="LU_BillingState" />
+          <NavigationProperty Name="LU_CompanySource" Relationship="SandlerDBModel.FK_TBL_COMPANIES_LU_CompanySourceId" FromRole="TBL_COMPANIES" ToRole="LU_CompanySource" />
+          <NavigationProperty Name="LU_CompanyStatus" Relationship="SandlerDBModel.FK_TBL_COMPANIES_LU_CompanyStatusId" FromRole="TBL_COMPANIES" ToRole="LU_CompanyStatus" />
+          <NavigationProperty Name="LU_ContactStatus" Relationship="SandlerDBModel.FK_TBL_COMPANIES_LU_ContactStatusId" FromRole="TBL_COMPANIES" ToRole="LU_ContactStatus" />
+          <NavigationProperty Name="LU_IndustrySubCategory" Relationship="SandlerDBModel.FK_TBL_COMPANIES_LU_IndustrySubCategoryId" FromRole="TBL_COMPANIES" ToRole="LU_IndustrySubCategory" />
+          <NavigationProperty Name="LU_KAREDesignation" Relationship="SandlerDBModel.FK_TBL_COMPANIES_LU_KAREDesignationId" FromRole="TBL_COMPANIES" ToRole="LU_KAREDesignation" />
+          <NavigationProperty Name="LU_NextActionStep" Relationship="SandlerDBModel.FK_TBL_COMPANIES_LU_NextActionStepId" FromRole="TBL_COMPANIES" ToRole="LU_NextActionStep" />
+          <NavigationProperty Name="LU_POCCompanyRole" Relationship="SandlerDBModel.FK_TBL_COMPANIES_LU_POCCompanyRoleId" FromRole="TBL_COMPANIES" ToRole="LU_POCCompanyRole" />
+          <NavigationProperty Name="LU_State" Relationship="SandlerDBModel.FK_TBL_COMPANIES_LU_StateId" FromRole="TBL_COMPANIES" ToRole="LU_State" />
         </EntityType>
         <EntityType Name="Tbl_CostPlusAmount">
           <Key>
@@ -3310,6 +4412,83 @@
           <NavigationProperty Name="TBL_CONTACTS" Relationship="SandlerDBModel.FK_TBL_OPPORTUNITIES_TBL_CONTACTS" FromRole="TBL_OPPORTUNITIES" ToRole="TBL_CONTACTS" />
           <NavigationProperty Name="TBL_CONTACTS1" Relationship="SandlerDBModel.FK_TBL_OPPORTUNITIES_TBL_CONTACTS1" FromRole="TBL_OPPORTUNITIES" ToRole="TBL_CONTACTS" />
           <NavigationProperty Name="TBL_CONTACTS2" Relationship="SandlerDBModel.FK_TBL_OPPORTUNITIES_TBL_CONTACTS2" FromRole="TBL_OPPORTUNITIES" ToRole="TBL_CONTACTS" />
+          <Property Type="Int32" Name="LU_CompanyStatusId" />
+          <Property Type="Int32" Name="LU_IndustrySubCategoryId" />
+          <Property Type="Int32" Name="LU_KAREDesignationId" />
+          <Property Type="Int32" Name="LU_POC1ApptSourceId" />
+          <Property Type="Int32" Name="LU_POC1CompanyRoleId" />
+          <Property Type="Int32" Name="LU_POC1NextActionStepId" />
+          <Property Type="Int32" Name="LU_POC1OpportunityRoleId" />
+          <Property Type="Int32" Name="LU_POC2ApptSourceId" />
+          <Property Type="Int32" Name="LU_POC2CompanyRoleId" />
+          <Property Type="Int32" Name="LU_POC2NextActionStepId" />
+          <Property Type="Int32" Name="LU_POC2OpportunityRoleId" />
+          <Property Type="Int32" Name="LU_POC3ApptSourceId" />
+          <Property Type="Int32" Name="LU_POC3CompanyRoleId" />
+          <Property Type="Int32" Name="LU_POC3NextActionStepId" />
+          <Property Type="Int32" Name="LU_POC3OpportunityRoleId" />
+          <Property Type="Int32" Name="LU_ProductServiceId" />
+          <Property Type="String" Name="POC1DISCDesignation" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="POC1DiscussionTopic" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="POC1Email" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="POC1FirstName" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="POC1LastContactDate" Precision="3" />
+          <Property Type="String" Name="POC1LastName" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="POC1MobilePhone" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="POC1NextContactDate" Precision="3" />
+          <Property Type="String" Name="POC1Notes" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="POC1Phone" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="POC2DISCDesignation" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="POC2DiscussionTopic" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="POC2Email" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="POC2FirstName" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="POC2LastContactDate" Precision="3" />
+          <Property Type="String" Name="POC2LastName" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="POC2MobilePhone" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="POC2NextContactDate" Precision="3" />
+          <Property Type="String" Name="POC2Notes" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="POC2Phone" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="POC3DISCDesignation" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="POC3DiscussionTopic" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="POC3Email" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="POC3FirstName" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="POC3LastContactDate" Precision="3" />
+          <Property Type="String" Name="POC3LastName" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="POC3MobilePhone" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="POC3NextContactDate" Precision="3" />
+          <Property Type="String" Name="POC3Notes" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="POC3Phone" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="column_a" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="column_b" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="column_c" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="column_d" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="column_e" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="column_f" />
+          <Property Type="Int32" Name="column_g" />
+          <Property Type="Int32" Name="column_h" />
+          <Property Type="Int32" Name="column_i" />
+          <Property Type="Int32" Name="column_j" />
+          <Property Type="DateTime" Name="column_k" Precision="3" />
+          <Property Type="DateTime" Name="column_l" Precision="3" />
+          <Property Type="DateTime" Name="column_m" Precision="3" />
+          <Property Type="DateTime" Name="column_n" Precision="3" />
+          <Property Type="DateTime" Name="column_o" Precision="3" />
+          <NavigationProperty Name="LU_CompanyStatus" Relationship="SandlerDBModel.FK_TBL_OPPORTUNITIES_LU_CompanyStatusId" FromRole="TBL_OPPORTUNITIES" ToRole="LU_CompanyStatus" />
+          <NavigationProperty Name="LU_IndustrySubCategory" Relationship="SandlerDBModel.FK_TBL_OPPORTUNITIES_LU_IndustrySubCategoryId" FromRole="TBL_OPPORTUNITIES" ToRole="LU_IndustrySubCategory" />
+          <NavigationProperty Name="LU_KAREDesignation" Relationship="SandlerDBModel.FK_TBL_OPPORTUNITIES_LU_KAREDesignationId" FromRole="TBL_OPPORTUNITIES" ToRole="LU_KAREDesignation" />
+          <NavigationProperty Name="LU_POC1ApptSource" Relationship="SandlerDBModel.FK_TBL_OPPORTUNITIES_LU_POC1ApptSourceId" FromRole="TBL_OPPORTUNITIES" ToRole="LU_POC1ApptSource" />
+          <NavigationProperty Name="LU_POC1CompanyRole" Relationship="SandlerDBModel.FK_TBL_OPPORTUNITIES_LU_POC1CompanyRoleId" FromRole="TBL_OPPORTUNITIES" ToRole="LU_POC1CompanyRole" />
+          <NavigationProperty Name="LU_POC1NextActionStep" Relationship="SandlerDBModel.FK_TBL_OPPORTUNITIES_LU_POC1NextActionStepId" FromRole="TBL_OPPORTUNITIES" ToRole="LU_POC1NextActionStep" />
+          <NavigationProperty Name="LU_POC1OpportunityRole" Relationship="SandlerDBModel.FK_TBL_OPPORTUNITIES_LU_POC1OpportunityRoleId" FromRole="TBL_OPPORTUNITIES" ToRole="LU_POC1OpportunityRole" />
+          <NavigationProperty Name="LU_POC2ApptSource" Relationship="SandlerDBModel.FK_TBL_OPPORTUNITIES_LU_POC2ApptSourceId" FromRole="TBL_OPPORTUNITIES" ToRole="LU_POC2ApptSource" />
+          <NavigationProperty Name="LU_POC2CompanyRole" Relationship="SandlerDBModel.FK_TBL_OPPORTUNITIES_LU_POC2CompanyRoleId" FromRole="TBL_OPPORTUNITIES" ToRole="LU_POC2CompanyRole" />
+          <NavigationProperty Name="LU_POC2NextActionStep" Relationship="SandlerDBModel.FK_TBL_OPPORTUNITIES_LU_POC2NextActionStepId" FromRole="TBL_OPPORTUNITIES" ToRole="LU_POC2NextActionStep" />
+          <NavigationProperty Name="LU_POC2OpportunityRole" Relationship="SandlerDBModel.FK_TBL_OPPORTUNITIES_LU_POC2OpportunityRoleId" FromRole="TBL_OPPORTUNITIES" ToRole="LU_POC2OpportunityRole" />
+          <NavigationProperty Name="LU_POC3ApptSource" Relationship="SandlerDBModel.FK_TBL_OPPORTUNITIES_LU_POC3ApptSourceId" FromRole="TBL_OPPORTUNITIES" ToRole="LU_POC3ApptSource" />
+          <NavigationProperty Name="LU_POC3CompanyRole" Relationship="SandlerDBModel.FK_TBL_OPPORTUNITIES_LU_POC3CompanyRoleId" FromRole="TBL_OPPORTUNITIES" ToRole="LU_POC3CompanyRole" />
+          <NavigationProperty Name="LU_POC3NextActionStep" Relationship="SandlerDBModel.FK_TBL_OPPORTUNITIES_LU_POC3NextActionStepId" FromRole="TBL_OPPORTUNITIES" ToRole="LU_POC3NextActionStep" />
+          <NavigationProperty Name="LU_POC3OpportunityRole" Relationship="SandlerDBModel.FK_TBL_OPPORTUNITIES_LU_POC3OpportunityRoleId" FromRole="TBL_OPPORTUNITIES" ToRole="LU_POC3OpportunityRole" />
+          <NavigationProperty Name="LU_ProductService" Relationship="SandlerDBModel.FK_TBL_OPPORTUNITIES_LU_ProductServiceId" FromRole="TBL_OPPORTUNITIES" ToRole="LU_ProductService" />
         </EntityType>
         <EntityType Name="TBL_OpportunitiesHistory">
           <Key>
@@ -4136,6 +5315,63 @@
           <Property Type="String" Name="FACEBOOKID" MaxLength="150" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="TWITTERID" MaxLength="150" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="LINKEDINID" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="Date_BootcampTraining" Precision="3" />
+          <Property Type="DateTime" Name="Date_CoachingTraining" Precision="3" />
+          <Property Type="DateTime" Name="Date_CoachingTrainingRenewal" Precision="3" />
+          <Property Type="DateTime" Name="Date_ExecutiveBriefing" Precision="3" />
+          <Property Type="DateTime" Name="Date_FoundationsTraining" Precision="3" />
+          <Property Type="DateTime" Name="Date_LeadershipTraining" Precision="3" />
+          <Property Type="DateTime" Name="Date_ManagementTraining" Precision="3" />
+          <Property Type="DateTime" Name="Date_ManagementTrainingRenewal" Precision="3" />
+          <Property Type="DateTime" Name="Date_PCTraining" Precision="3" />
+          <Property Type="DateTime" Name="Date_PCTrainingRenewal" Precision="3" />
+          <Property Type="DateTime" Name="Date_SCCTraining" Precision="3" />
+          <Property Type="DateTime" Name="Date_SCCTrainingRenewal" Precision="3" />
+          <Property Type="DateTime" Name="Date_SESTraining" Precision="3" />
+          <Property Type="DateTime" Name="Date_SESTrainingRenewal" Precision="3" />
+          <Property Type="DateTime" Name="Date_Workshop" Precision="3" />
+          <Property Type="Int32" Name="DISC_ConscientiousnessValue" />
+          <Property Type="Int32" Name="DISC_DominanceValue" />
+          <Property Type="Int32" Name="DISC_InfluenceValue" />
+          <Property Type="Int32" Name="DISC_SteadinessValue" />
+          <Property Type="String" Name="DISCDesignation" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="LU_CompanySourceId" />
+          <Property Type="Int32" Name="LU_CompanyStatusId" />
+          <Property Type="Int32" Name="LU_ContactStatusId" />
+          <Property Type="Int32" Name="LU_ExecBriefingTopicId" />
+          <Property Type="Int32" Name="LU_KAREDesignationId" />
+          <Property Type="Int32" Name="LU_NextActionStepId" />
+          <Property Type="Int32" Name="LU_POCCertificationLevelId" />
+          <Property Type="Int32" Name="LU_POCCompanyRoleId" />
+          <Property Type="Int32" Name="LU_StateId" />
+          <Property Type="Int32" Name="LU_WorkshopTopicId" />
+          <Property Type="Boolean" Name="YN_EmailOptOut" />
+          <Property Type="Boolean" Name="YN_IsAlumnus" />
+          <Property Type="String" Name="column_a" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="column_b" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="column_c" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="column_d" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="column_e" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="column_f" />
+          <Property Type="Int32" Name="column_g" />
+          <Property Type="Int32" Name="column_h" />
+          <Property Type="Int32" Name="column_i" />
+          <Property Type="Int32" Name="column_j" />
+          <Property Type="DateTime" Name="column_k" Precision="3" />
+          <Property Type="DateTime" Name="column_l" Precision="3" />
+          <Property Type="DateTime" Name="column_m" Precision="3" />
+          <Property Type="DateTime" Name="column_n" Precision="3" />
+          <Property Type="DateTime" Name="column_o" Precision="3" />
+          <NavigationProperty Name="LU_CompanySource" Relationship="SandlerDBModel.FK_TBL_CONTACTS_LU_CompanySourceId" FromRole="TBL_CONTACTS" ToRole="LU_CompanySource" />
+          <NavigationProperty Name="LU_CompanyStatus" Relationship="SandlerDBModel.FK_TBL_CONTACTS_LU_CompanyStatusId" FromRole="TBL_CONTACTS" ToRole="LU_CompanyStatus" />
+          <NavigationProperty Name="LU_ContactStatus" Relationship="SandlerDBModel.FK_TBL_CONTACTS_LU_ContactStatusId" FromRole="TBL_CONTACTS" ToRole="LU_ContactStatus" />
+          <NavigationProperty Name="LU_ExecBriefingTopic" Relationship="SandlerDBModel.FK_TBL_CONTACTS_LU_ExecBriefingTopicId" FromRole="TBL_CONTACTS" ToRole="LU_ExecBriefingTopic" />
+          <NavigationProperty Name="LU_KAREDesignation" Relationship="SandlerDBModel.FK_TBL_CONTACTS_LU_KAREDesignationId" FromRole="TBL_CONTACTS" ToRole="LU_KAREDesignation" />
+          <NavigationProperty Name="LU_NextActionStep" Relationship="SandlerDBModel.FK_TBL_CONTACTS_LU_NextActionStepId" FromRole="TBL_CONTACTS" ToRole="LU_NextActionStep" />
+          <NavigationProperty Name="LU_POCCertificationLevel" Relationship="SandlerDBModel.FK_TBL_CONTACTS_LU_POCCertificationLevelId" FromRole="TBL_CONTACTS" ToRole="LU_POCCertificationLevel" />
+          <NavigationProperty Name="LU_POCCompanyRole" Relationship="SandlerDBModel.FK_TBL_CONTACTS_LU_POCCompanyRoleId" FromRole="TBL_CONTACTS" ToRole="LU_POCCompanyRole" />
+          <NavigationProperty Name="LU_State" Relationship="SandlerDBModel.FK_TBL_CONTACTS_LU_StateId" FromRole="TBL_CONTACTS" ToRole="LU_State" />
+          <NavigationProperty Name="LU_WorkshopTopic" Relationship="SandlerDBModel.FK_TBL_CONTACTS_LU_WorkshopTopicId" FromRole="TBL_CONTACTS" ToRole="LU_WorkshopTopic" />
         </EntityType>
         <Association Name="FK_TBL_CONTACTS_Tbl_AppointmentsSource">
           <End Type="SandlerDBModel.Tbl_AppointmentsSource" Role="Tbl_AppointmentsSource" Multiplicity="0..1" />
@@ -4679,6 +5915,638 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="LU_BillingState">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="TBL_COMPANIES" Relationship="SandlerDBModel.FK_TBL_COMPANIES_LU_BillingStateId" FromRole="LU_BillingState" ToRole="TBL_COMPANIES" />
+        </EntityType>
+        <EntityType Name="LU_CompanySource">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="TBL_COMPANIES" Relationship="SandlerDBModel.FK_TBL_COMPANIES_LU_CompanySourceId" FromRole="LU_CompanySource" ToRole="TBL_COMPANIES" />
+          <NavigationProperty Name="TBL_CONTACTS" Relationship="SandlerDBModel.FK_TBL_CONTACTS_LU_CompanySourceId" FromRole="LU_CompanySource" ToRole="TBL_CONTACTS" />
+        </EntityType>
+        <EntityType Name="LU_CompanyStatus">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="TBL_COMPANIES" Relationship="SandlerDBModel.FK_TBL_COMPANIES_LU_CompanyStatusId" FromRole="LU_CompanyStatus" ToRole="TBL_COMPANIES" />
+          <NavigationProperty Name="TBL_CONTACTS" Relationship="SandlerDBModel.FK_TBL_CONTACTS_LU_CompanyStatusId" FromRole="LU_CompanyStatus" ToRole="TBL_CONTACTS" />
+          <NavigationProperty Name="TBL_OPPORTUNITIES" Relationship="SandlerDBModel.FK_TBL_OPPORTUNITIES_LU_CompanyStatusId" FromRole="LU_CompanyStatus" ToRole="TBL_OPPORTUNITIES" />
+        </EntityType>
+        <EntityType Name="LU_ContactStatus">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="TBL_COMPANIES" Relationship="SandlerDBModel.FK_TBL_COMPANIES_LU_ContactStatusId" FromRole="LU_ContactStatus" ToRole="TBL_COMPANIES" />
+          <NavigationProperty Name="TBL_CONTACTS" Relationship="SandlerDBModel.FK_TBL_CONTACTS_LU_ContactStatusId" FromRole="LU_ContactStatus" ToRole="TBL_CONTACTS" />
+        </EntityType>
+        <EntityType Name="LU_ExecBriefingTopic">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="Int32" Name="FranchiseeID" />
+          <Property Type="String" Name="BriefingName" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="TBL_CONTACTS" Relationship="SandlerDBModel.FK_TBL_CONTACTS_LU_ExecBriefingTopicId" FromRole="LU_ExecBriefingTopic" ToRole="TBL_CONTACTS" />
+        </EntityType>
+        <EntityType Name="LU_IndustrySubCategory">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="TBL_COMPANIES" Relationship="SandlerDBModel.FK_TBL_COMPANIES_LU_IndustrySubCategoryId" FromRole="LU_IndustrySubCategory" ToRole="TBL_COMPANIES" />
+          <NavigationProperty Name="TBL_OPPORTUNITIES" Relationship="SandlerDBModel.FK_TBL_OPPORTUNITIES_LU_IndustrySubCategoryId" FromRole="LU_IndustrySubCategory" ToRole="TBL_OPPORTUNITIES" />
+        </EntityType>
+        <EntityType Name="LU_KAREDesignation">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="TBL_COMPANIES" Relationship="SandlerDBModel.FK_TBL_COMPANIES_LU_KAREDesignationId" FromRole="LU_KAREDesignation" ToRole="TBL_COMPANIES" />
+          <NavigationProperty Name="TBL_CONTACTS" Relationship="SandlerDBModel.FK_TBL_CONTACTS_LU_KAREDesignationId" FromRole="LU_KAREDesignation" ToRole="TBL_CONTACTS" />
+          <NavigationProperty Name="TBL_OPPORTUNITIES" Relationship="SandlerDBModel.FK_TBL_OPPORTUNITIES_LU_KAREDesignationId" FromRole="LU_KAREDesignation" ToRole="TBL_OPPORTUNITIES" />
+        </EntityType>
+        <EntityType Name="LU_NextActionStep">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="TBL_COMPANIES" Relationship="SandlerDBModel.FK_TBL_COMPANIES_LU_NextActionStepId" FromRole="LU_NextActionStep" ToRole="TBL_COMPANIES" />
+          <NavigationProperty Name="TBL_CONTACTS" Relationship="SandlerDBModel.FK_TBL_CONTACTS_LU_NextActionStepId" FromRole="LU_NextActionStep" ToRole="TBL_CONTACTS" />
+        </EntityType>
+        <EntityType Name="LU_POC1ApptSource">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="TBL_OPPORTUNITIES" Relationship="SandlerDBModel.FK_TBL_OPPORTUNITIES_LU_POC1ApptSourceId" FromRole="LU_POC1ApptSource" ToRole="TBL_OPPORTUNITIES" />
+        </EntityType>
+        <EntityType Name="LU_POC1CompanyRole">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="TBL_OPPORTUNITIES" Relationship="SandlerDBModel.FK_TBL_OPPORTUNITIES_LU_POC1CompanyRoleId" FromRole="LU_POC1CompanyRole" ToRole="TBL_OPPORTUNITIES" />
+        </EntityType>
+        <EntityType Name="LU_POC1NextActionStep">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="TBL_OPPORTUNITIES" Relationship="SandlerDBModel.FK_TBL_OPPORTUNITIES_LU_POC1NextActionStepId" FromRole="LU_POC1NextActionStep" ToRole="TBL_OPPORTUNITIES" />
+        </EntityType>
+        <EntityType Name="LU_POC1OpportunityRole">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="TBL_OPPORTUNITIES" Relationship="SandlerDBModel.FK_TBL_OPPORTUNITIES_LU_POC1OpportunityRoleId" FromRole="LU_POC1OpportunityRole" ToRole="TBL_OPPORTUNITIES" />
+        </EntityType>
+        <EntityType Name="LU_POC2ApptSource">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="TBL_OPPORTUNITIES" Relationship="SandlerDBModel.FK_TBL_OPPORTUNITIES_LU_POC2ApptSourceId" FromRole="LU_POC2ApptSource" ToRole="TBL_OPPORTUNITIES" />
+        </EntityType>
+        <EntityType Name="LU_POC2CompanyRole">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="TBL_OPPORTUNITIES" Relationship="SandlerDBModel.FK_TBL_OPPORTUNITIES_LU_POC2CompanyRoleId" FromRole="LU_POC2CompanyRole" ToRole="TBL_OPPORTUNITIES" />
+        </EntityType>
+        <EntityType Name="LU_POC2NextActionStep">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="TBL_OPPORTUNITIES" Relationship="SandlerDBModel.FK_TBL_OPPORTUNITIES_LU_POC2NextActionStepId" FromRole="LU_POC2NextActionStep" ToRole="TBL_OPPORTUNITIES" />
+        </EntityType>
+        <EntityType Name="LU_POC2OpportunityRole">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="TBL_OPPORTUNITIES" Relationship="SandlerDBModel.FK_TBL_OPPORTUNITIES_LU_POC2OpportunityRoleId" FromRole="LU_POC2OpportunityRole" ToRole="TBL_OPPORTUNITIES" />
+        </EntityType>
+        <EntityType Name="LU_POC3ApptSource">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="TBL_OPPORTUNITIES" Relationship="SandlerDBModel.FK_TBL_OPPORTUNITIES_LU_POC3ApptSourceId" FromRole="LU_POC3ApptSource" ToRole="TBL_OPPORTUNITIES" />
+        </EntityType>
+        <EntityType Name="LU_POC3CompanyRole">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="TBL_OPPORTUNITIES" Relationship="SandlerDBModel.FK_TBL_OPPORTUNITIES_LU_POC3CompanyRoleId" FromRole="LU_POC3CompanyRole" ToRole="TBL_OPPORTUNITIES" />
+        </EntityType>
+        <EntityType Name="LU_POC3NextActionStep">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="TBL_OPPORTUNITIES" Relationship="SandlerDBModel.FK_TBL_OPPORTUNITIES_LU_POC3NextActionStepId" FromRole="LU_POC3NextActionStep" ToRole="TBL_OPPORTUNITIES" />
+        </EntityType>
+        <EntityType Name="LU_POC3OpportunityRole">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="TBL_OPPORTUNITIES" Relationship="SandlerDBModel.FK_TBL_OPPORTUNITIES_LU_POC3OpportunityRoleId" FromRole="LU_POC3OpportunityRole" ToRole="TBL_OPPORTUNITIES" />
+        </EntityType>
+        <EntityType Name="LU_POCCertificationLevel">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="TBL_CONTACTS" Relationship="SandlerDBModel.FK_TBL_CONTACTS_LU_POCCertificationLevelId" FromRole="LU_POCCertificationLevel" ToRole="TBL_CONTACTS" />
+        </EntityType>
+        <EntityType Name="LU_POCCompanyRole">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="TBL_COMPANIES" Relationship="SandlerDBModel.FK_TBL_COMPANIES_LU_POCCompanyRoleId" FromRole="LU_POCCompanyRole" ToRole="TBL_COMPANIES" />
+          <NavigationProperty Name="TBL_CONTACTS" Relationship="SandlerDBModel.FK_TBL_CONTACTS_LU_POCCompanyRoleId" FromRole="LU_POCCompanyRole" ToRole="TBL_CONTACTS" />
+        </EntityType>
+        <EntityType Name="LU_ProductService">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="TBL_OPPORTUNITIES" Relationship="SandlerDBModel.FK_TBL_OPPORTUNITIES_LU_ProductServiceId" FromRole="LU_ProductService" ToRole="TBL_OPPORTUNITIES" />
+        </EntityType>
+        <EntityType Name="LU_State">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="TBL_COMPANIES" Relationship="SandlerDBModel.FK_TBL_COMPANIES_LU_StateId" FromRole="LU_State" ToRole="TBL_COMPANIES" />
+          <NavigationProperty Name="TBL_CONTACTS" Relationship="SandlerDBModel.FK_TBL_CONTACTS_LU_StateId" FromRole="LU_State" ToRole="TBL_CONTACTS" />
+        </EntityType>
+        <EntityType Name="LU_WorkshopTopic">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="Int32" Name="FranchiseeId" />
+          <Property Type="String" Name="WorkshopName" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="TBL_CONTACTS" Relationship="SandlerDBModel.FK_TBL_CONTACTS_LU_WorkshopTopicId" FromRole="LU_WorkshopTopic" ToRole="TBL_CONTACTS" />
+        </EntityType>
+        <Association Name="FK_TBL_COMPANIES_LU_BillingStateId">
+          <End Type="SandlerDBModel.LU_BillingState" Role="LU_BillingState" Multiplicity="0..1" />
+          <End Type="SandlerDBModel.TBL_COMPANIES" Role="TBL_COMPANIES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LU_BillingState">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TBL_COMPANIES">
+              <PropertyRef Name="LU_BillingStateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_COMPANIES_LU_CompanySourceId">
+          <End Type="SandlerDBModel.LU_CompanySource" Role="LU_CompanySource" Multiplicity="0..1" />
+          <End Type="SandlerDBModel.TBL_COMPANIES" Role="TBL_COMPANIES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LU_CompanySource">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TBL_COMPANIES">
+              <PropertyRef Name="LU_CompanySourceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_CONTACTS_LU_CompanySourceId">
+          <End Type="SandlerDBModel.LU_CompanySource" Role="LU_CompanySource" Multiplicity="0..1" />
+          <End Type="SandlerDBModel.TBL_CONTACTS" Role="TBL_CONTACTS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LU_CompanySource">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TBL_CONTACTS">
+              <PropertyRef Name="LU_CompanySourceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_COMPANIES_LU_CompanyStatusId">
+          <End Type="SandlerDBModel.LU_CompanyStatus" Role="LU_CompanyStatus" Multiplicity="0..1" />
+          <End Type="SandlerDBModel.TBL_COMPANIES" Role="TBL_COMPANIES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LU_CompanyStatus">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TBL_COMPANIES">
+              <PropertyRef Name="LU_CompanyStatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_CONTACTS_LU_CompanyStatusId">
+          <End Type="SandlerDBModel.LU_CompanyStatus" Role="LU_CompanyStatus" Multiplicity="0..1" />
+          <End Type="SandlerDBModel.TBL_CONTACTS" Role="TBL_CONTACTS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LU_CompanyStatus">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TBL_CONTACTS">
+              <PropertyRef Name="LU_CompanyStatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_OPPORTUNITIES_LU_CompanyStatusId">
+          <End Type="SandlerDBModel.LU_CompanyStatus" Role="LU_CompanyStatus" Multiplicity="0..1" />
+          <End Type="SandlerDBModel.TBL_OPPORTUNITIES" Role="TBL_OPPORTUNITIES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LU_CompanyStatus">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TBL_OPPORTUNITIES">
+              <PropertyRef Name="LU_CompanyStatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_COMPANIES_LU_ContactStatusId">
+          <End Type="SandlerDBModel.LU_ContactStatus" Role="LU_ContactStatus" Multiplicity="0..1" />
+          <End Type="SandlerDBModel.TBL_COMPANIES" Role="TBL_COMPANIES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LU_ContactStatus">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TBL_COMPANIES">
+              <PropertyRef Name="LU_ContactStatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_CONTACTS_LU_ContactStatusId">
+          <End Type="SandlerDBModel.LU_ContactStatus" Role="LU_ContactStatus" Multiplicity="0..1" />
+          <End Type="SandlerDBModel.TBL_CONTACTS" Role="TBL_CONTACTS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LU_ContactStatus">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TBL_CONTACTS">
+              <PropertyRef Name="LU_ContactStatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_CONTACTS_LU_ExecBriefingTopicId">
+          <End Type="SandlerDBModel.LU_ExecBriefingTopic" Role="LU_ExecBriefingTopic" Multiplicity="0..1" />
+          <End Type="SandlerDBModel.TBL_CONTACTS" Role="TBL_CONTACTS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LU_ExecBriefingTopic">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TBL_CONTACTS">
+              <PropertyRef Name="LU_ExecBriefingTopicId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_COMPANIES_LU_IndustrySubCategoryId">
+          <End Type="SandlerDBModel.LU_IndustrySubCategory" Role="LU_IndustrySubCategory" Multiplicity="0..1" />
+          <End Type="SandlerDBModel.TBL_COMPANIES" Role="TBL_COMPANIES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LU_IndustrySubCategory">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TBL_COMPANIES">
+              <PropertyRef Name="LU_IndustrySubCategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_OPPORTUNITIES_LU_IndustrySubCategoryId">
+          <End Type="SandlerDBModel.LU_IndustrySubCategory" Role="LU_IndustrySubCategory" Multiplicity="0..1" />
+          <End Type="SandlerDBModel.TBL_OPPORTUNITIES" Role="TBL_OPPORTUNITIES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LU_IndustrySubCategory">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TBL_OPPORTUNITIES">
+              <PropertyRef Name="LU_IndustrySubCategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_COMPANIES_LU_KAREDesignationId">
+          <End Type="SandlerDBModel.LU_KAREDesignation" Role="LU_KAREDesignation" Multiplicity="0..1" />
+          <End Type="SandlerDBModel.TBL_COMPANIES" Role="TBL_COMPANIES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LU_KAREDesignation">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TBL_COMPANIES">
+              <PropertyRef Name="LU_KAREDesignationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_CONTACTS_LU_KAREDesignationId">
+          <End Type="SandlerDBModel.LU_KAREDesignation" Role="LU_KAREDesignation" Multiplicity="0..1" />
+          <End Type="SandlerDBModel.TBL_CONTACTS" Role="TBL_CONTACTS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LU_KAREDesignation">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TBL_CONTACTS">
+              <PropertyRef Name="LU_KAREDesignationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_OPPORTUNITIES_LU_KAREDesignationId">
+          <End Type="SandlerDBModel.LU_KAREDesignation" Role="LU_KAREDesignation" Multiplicity="0..1" />
+          <End Type="SandlerDBModel.TBL_OPPORTUNITIES" Role="TBL_OPPORTUNITIES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LU_KAREDesignation">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TBL_OPPORTUNITIES">
+              <PropertyRef Name="LU_KAREDesignationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_COMPANIES_LU_NextActionStepId">
+          <End Type="SandlerDBModel.LU_NextActionStep" Role="LU_NextActionStep" Multiplicity="0..1" />
+          <End Type="SandlerDBModel.TBL_COMPANIES" Role="TBL_COMPANIES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LU_NextActionStep">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TBL_COMPANIES">
+              <PropertyRef Name="LU_NextActionStepId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_CONTACTS_LU_NextActionStepId">
+          <End Type="SandlerDBModel.LU_NextActionStep" Role="LU_NextActionStep" Multiplicity="0..1" />
+          <End Type="SandlerDBModel.TBL_CONTACTS" Role="TBL_CONTACTS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LU_NextActionStep">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TBL_CONTACTS">
+              <PropertyRef Name="LU_NextActionStepId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_OPPORTUNITIES_LU_POC1ApptSourceId">
+          <End Type="SandlerDBModel.LU_POC1ApptSource" Role="LU_POC1ApptSource" Multiplicity="0..1" />
+          <End Type="SandlerDBModel.TBL_OPPORTUNITIES" Role="TBL_OPPORTUNITIES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LU_POC1ApptSource">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TBL_OPPORTUNITIES">
+              <PropertyRef Name="LU_POC1ApptSourceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_OPPORTUNITIES_LU_POC1CompanyRoleId">
+          <End Type="SandlerDBModel.LU_POC1CompanyRole" Role="LU_POC1CompanyRole" Multiplicity="0..1" />
+          <End Type="SandlerDBModel.TBL_OPPORTUNITIES" Role="TBL_OPPORTUNITIES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LU_POC1CompanyRole">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TBL_OPPORTUNITIES">
+              <PropertyRef Name="LU_POC1CompanyRoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_OPPORTUNITIES_LU_POC1NextActionStepId">
+          <End Type="SandlerDBModel.LU_POC1NextActionStep" Role="LU_POC1NextActionStep" Multiplicity="0..1" />
+          <End Type="SandlerDBModel.TBL_OPPORTUNITIES" Role="TBL_OPPORTUNITIES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LU_POC1NextActionStep">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TBL_OPPORTUNITIES">
+              <PropertyRef Name="LU_POC1NextActionStepId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_OPPORTUNITIES_LU_POC1OpportunityRoleId">
+          <End Type="SandlerDBModel.LU_POC1OpportunityRole" Role="LU_POC1OpportunityRole" Multiplicity="0..1" />
+          <End Type="SandlerDBModel.TBL_OPPORTUNITIES" Role="TBL_OPPORTUNITIES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LU_POC1OpportunityRole">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TBL_OPPORTUNITIES">
+              <PropertyRef Name="LU_POC1OpportunityRoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_OPPORTUNITIES_LU_POC2ApptSourceId">
+          <End Type="SandlerDBModel.LU_POC2ApptSource" Role="LU_POC2ApptSource" Multiplicity="0..1" />
+          <End Type="SandlerDBModel.TBL_OPPORTUNITIES" Role="TBL_OPPORTUNITIES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LU_POC2ApptSource">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TBL_OPPORTUNITIES">
+              <PropertyRef Name="LU_POC2ApptSourceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_OPPORTUNITIES_LU_POC2CompanyRoleId">
+          <End Type="SandlerDBModel.LU_POC2CompanyRole" Role="LU_POC2CompanyRole" Multiplicity="0..1" />
+          <End Type="SandlerDBModel.TBL_OPPORTUNITIES" Role="TBL_OPPORTUNITIES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LU_POC2CompanyRole">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TBL_OPPORTUNITIES">
+              <PropertyRef Name="LU_POC2CompanyRoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_OPPORTUNITIES_LU_POC2NextActionStepId">
+          <End Type="SandlerDBModel.LU_POC2NextActionStep" Role="LU_POC2NextActionStep" Multiplicity="0..1" />
+          <End Type="SandlerDBModel.TBL_OPPORTUNITIES" Role="TBL_OPPORTUNITIES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LU_POC2NextActionStep">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TBL_OPPORTUNITIES">
+              <PropertyRef Name="LU_POC2NextActionStepId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_OPPORTUNITIES_LU_POC2OpportunityRoleId">
+          <End Type="SandlerDBModel.LU_POC2OpportunityRole" Role="LU_POC2OpportunityRole" Multiplicity="0..1" />
+          <End Type="SandlerDBModel.TBL_OPPORTUNITIES" Role="TBL_OPPORTUNITIES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LU_POC2OpportunityRole">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TBL_OPPORTUNITIES">
+              <PropertyRef Name="LU_POC2OpportunityRoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_OPPORTUNITIES_LU_POC3ApptSourceId">
+          <End Type="SandlerDBModel.LU_POC3ApptSource" Role="LU_POC3ApptSource" Multiplicity="0..1" />
+          <End Type="SandlerDBModel.TBL_OPPORTUNITIES" Role="TBL_OPPORTUNITIES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LU_POC3ApptSource">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TBL_OPPORTUNITIES">
+              <PropertyRef Name="LU_POC3ApptSourceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_OPPORTUNITIES_LU_POC3CompanyRoleId">
+          <End Type="SandlerDBModel.LU_POC3CompanyRole" Role="LU_POC3CompanyRole" Multiplicity="0..1" />
+          <End Type="SandlerDBModel.TBL_OPPORTUNITIES" Role="TBL_OPPORTUNITIES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LU_POC3CompanyRole">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TBL_OPPORTUNITIES">
+              <PropertyRef Name="LU_POC3CompanyRoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_OPPORTUNITIES_LU_POC3NextActionStepId">
+          <End Type="SandlerDBModel.LU_POC3NextActionStep" Role="LU_POC3NextActionStep" Multiplicity="0..1" />
+          <End Type="SandlerDBModel.TBL_OPPORTUNITIES" Role="TBL_OPPORTUNITIES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LU_POC3NextActionStep">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TBL_OPPORTUNITIES">
+              <PropertyRef Name="LU_POC3NextActionStepId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_OPPORTUNITIES_LU_POC3OpportunityRoleId">
+          <End Type="SandlerDBModel.LU_POC3OpportunityRole" Role="LU_POC3OpportunityRole" Multiplicity="0..1" />
+          <End Type="SandlerDBModel.TBL_OPPORTUNITIES" Role="TBL_OPPORTUNITIES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LU_POC3OpportunityRole">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TBL_OPPORTUNITIES">
+              <PropertyRef Name="LU_POC3OpportunityRoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_CONTACTS_LU_POCCertificationLevelId">
+          <End Type="SandlerDBModel.LU_POCCertificationLevel" Role="LU_POCCertificationLevel" Multiplicity="0..1" />
+          <End Type="SandlerDBModel.TBL_CONTACTS" Role="TBL_CONTACTS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LU_POCCertificationLevel">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TBL_CONTACTS">
+              <PropertyRef Name="LU_POCCertificationLevelId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_COMPANIES_LU_POCCompanyRoleId">
+          <End Type="SandlerDBModel.LU_POCCompanyRole" Role="LU_POCCompanyRole" Multiplicity="0..1" />
+          <End Type="SandlerDBModel.TBL_COMPANIES" Role="TBL_COMPANIES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LU_POCCompanyRole">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TBL_COMPANIES">
+              <PropertyRef Name="LU_POCCompanyRoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_CONTACTS_LU_POCCompanyRoleId">
+          <End Type="SandlerDBModel.LU_POCCompanyRole" Role="LU_POCCompanyRole" Multiplicity="0..1" />
+          <End Type="SandlerDBModel.TBL_CONTACTS" Role="TBL_CONTACTS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LU_POCCompanyRole">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TBL_CONTACTS">
+              <PropertyRef Name="LU_POCCompanyRoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_OPPORTUNITIES_LU_ProductServiceId">
+          <End Type="SandlerDBModel.LU_ProductService" Role="LU_ProductService" Multiplicity="0..1" />
+          <End Type="SandlerDBModel.TBL_OPPORTUNITIES" Role="TBL_OPPORTUNITIES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LU_ProductService">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TBL_OPPORTUNITIES">
+              <PropertyRef Name="LU_ProductServiceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_COMPANIES_LU_StateId">
+          <End Type="SandlerDBModel.LU_State" Role="LU_State" Multiplicity="0..1" />
+          <End Type="SandlerDBModel.TBL_COMPANIES" Role="TBL_COMPANIES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LU_State">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TBL_COMPANIES">
+              <PropertyRef Name="LU_StateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_CONTACTS_LU_StateId">
+          <End Type="SandlerDBModel.LU_State" Role="LU_State" Multiplicity="0..1" />
+          <End Type="SandlerDBModel.TBL_CONTACTS" Role="TBL_CONTACTS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LU_State">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TBL_CONTACTS">
+              <PropertyRef Name="LU_StateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_CONTACTS_LU_WorkshopTopicId">
+          <End Type="SandlerDBModel.LU_WorkshopTopic" Role="LU_WorkshopTopic" Multiplicity="0..1" />
+          <End Type="SandlerDBModel.TBL_CONTACTS" Role="TBL_CONTACTS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LU_WorkshopTopic">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TBL_CONTACTS">
+              <PropertyRef Name="LU_WorkshopTopicId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -4810,6 +6678,35 @@
           <EntitySetMapping Name="TBL_COMPANIES">
             <EntityTypeMapping TypeName="SandlerDBModel.TBL_COMPANIES">
               <MappingFragment StoreEntitySet="TBL_COMPANIES">
+                <ScalarProperty Name="column_o" ColumnName="column_o" />
+                <ScalarProperty Name="column_n" ColumnName="column_n" />
+                <ScalarProperty Name="column_m" ColumnName="column_m" />
+                <ScalarProperty Name="column_l" ColumnName="column_l" />
+                <ScalarProperty Name="column_k" ColumnName="column_k" />
+                <ScalarProperty Name="column_j" ColumnName="column_j" />
+                <ScalarProperty Name="column_i" ColumnName="column_i" />
+                <ScalarProperty Name="column_h" ColumnName="column_h" />
+                <ScalarProperty Name="column_g" ColumnName="column_g" />
+                <ScalarProperty Name="column_f" ColumnName="column_f" />
+                <ScalarProperty Name="column_e" ColumnName="column_e" />
+                <ScalarProperty Name="column_d" ColumnName="column_d" />
+                <ScalarProperty Name="column_c" ColumnName="column_c" />
+                <ScalarProperty Name="column_b" ColumnName="column_b" />
+                <ScalarProperty Name="column_a" ColumnName="column_a" />
+                <ScalarProperty Name="IsEmailSubscription" ColumnName="IsEmailSubscription" />
+                <ScalarProperty Name="YN_EmailOptOut" ColumnName="YN_EmailOptOut" />
+                <ScalarProperty Name="POCMobilePhone" ColumnName="POCMobilePhone" />
+                <ScalarProperty Name="LU_StateId" ColumnName="LU_StateId" />
+                <ScalarProperty Name="LU_POCCompanyRoleId" ColumnName="LU_POCCompanyRoleId" />
+                <ScalarProperty Name="LU_NextActionStepId" ColumnName="LU_NextActionStepId" />
+                <ScalarProperty Name="LU_KAREDesignationId" ColumnName="LU_KAREDesignationId" />
+                <ScalarProperty Name="LU_IndustrySubCategoryId" ColumnName="LU_IndustrySubCategoryId" />
+                <ScalarProperty Name="LU_ContactStatusId" ColumnName="LU_ContactStatusId" />
+                <ScalarProperty Name="LU_CompanyStatusId" ColumnName="LU_CompanyStatusId" />
+                <ScalarProperty Name="LU_CompanySourceId" ColumnName="LU_CompanySourceId" />
+                <ScalarProperty Name="LU_BillingStateId" ColumnName="LU_BillingStateId" />
+                <ScalarProperty Name="AssistantEmail" ColumnName="AssistantEmail" />
+                <ScalarProperty Name="ApptSourceId" ColumnName="ApptSourceId" />
                 <ScalarProperty Name="LINKEDINID" ColumnName="LINKEDINID" />
                 <ScalarProperty Name="TWITTERID" ColumnName="TWITTERID" />
                 <ScalarProperty Name="FACEBOOKID" ColumnName="FACEBOOKID" />
@@ -5206,6 +7103,67 @@
           <EntitySetMapping Name="TBL_OPPORTUNITIES">
             <EntityTypeMapping TypeName="SandlerDBModel.TBL_OPPORTUNITIES">
               <MappingFragment StoreEntitySet="TBL_OPPORTUNITIES">
+                <ScalarProperty Name="column_o" ColumnName="column_o" />
+                <ScalarProperty Name="column_n" ColumnName="column_n" />
+                <ScalarProperty Name="column_m" ColumnName="column_m" />
+                <ScalarProperty Name="column_l" ColumnName="column_l" />
+                <ScalarProperty Name="column_k" ColumnName="column_k" />
+                <ScalarProperty Name="column_j" ColumnName="column_j" />
+                <ScalarProperty Name="column_i" ColumnName="column_i" />
+                <ScalarProperty Name="column_h" ColumnName="column_h" />
+                <ScalarProperty Name="column_g" ColumnName="column_g" />
+                <ScalarProperty Name="column_f" ColumnName="column_f" />
+                <ScalarProperty Name="column_e" ColumnName="column_e" />
+                <ScalarProperty Name="column_d" ColumnName="column_d" />
+                <ScalarProperty Name="column_c" ColumnName="column_c" />
+                <ScalarProperty Name="column_b" ColumnName="column_b" />
+                <ScalarProperty Name="column_a" ColumnName="column_a" />
+                <ScalarProperty Name="POC3Phone" ColumnName="POC3Phone" />
+                <ScalarProperty Name="POC3Notes" ColumnName="POC3Notes" />
+                <ScalarProperty Name="POC3NextContactDate" ColumnName="POC3NextContactDate" />
+                <ScalarProperty Name="POC3MobilePhone" ColumnName="POC3MobilePhone" />
+                <ScalarProperty Name="POC3LastName" ColumnName="POC3LastName" />
+                <ScalarProperty Name="POC3LastContactDate" ColumnName="POC3LastContactDate" />
+                <ScalarProperty Name="POC3FirstName" ColumnName="POC3FirstName" />
+                <ScalarProperty Name="POC3Email" ColumnName="POC3Email" />
+                <ScalarProperty Name="POC3DiscussionTopic" ColumnName="POC3DiscussionTopic" />
+                <ScalarProperty Name="POC3DISCDesignation" ColumnName="POC3DISCDesignation" />
+                <ScalarProperty Name="POC2Phone" ColumnName="POC2Phone" />
+                <ScalarProperty Name="POC2Notes" ColumnName="POC2Notes" />
+                <ScalarProperty Name="POC2NextContactDate" ColumnName="POC2NextContactDate" />
+                <ScalarProperty Name="POC2MobilePhone" ColumnName="POC2MobilePhone" />
+                <ScalarProperty Name="POC2LastName" ColumnName="POC2LastName" />
+                <ScalarProperty Name="POC2LastContactDate" ColumnName="POC2LastContactDate" />
+                <ScalarProperty Name="POC2FirstName" ColumnName="POC2FirstName" />
+                <ScalarProperty Name="POC2Email" ColumnName="POC2Email" />
+                <ScalarProperty Name="POC2DiscussionTopic" ColumnName="POC2DiscussionTopic" />
+                <ScalarProperty Name="POC2DISCDesignation" ColumnName="POC2DISCDesignation" />
+                <ScalarProperty Name="POC1Phone" ColumnName="POC1Phone" />
+                <ScalarProperty Name="POC1Notes" ColumnName="POC1Notes" />
+                <ScalarProperty Name="POC1NextContactDate" ColumnName="POC1NextContactDate" />
+                <ScalarProperty Name="POC1MobilePhone" ColumnName="POC1MobilePhone" />
+                <ScalarProperty Name="POC1LastName" ColumnName="POC1LastName" />
+                <ScalarProperty Name="POC1LastContactDate" ColumnName="POC1LastContactDate" />
+                <ScalarProperty Name="POC1FirstName" ColumnName="POC1FirstName" />
+                <ScalarProperty Name="POC1Email" ColumnName="POC1Email" />
+                <ScalarProperty Name="POC1DiscussionTopic" ColumnName="POC1DiscussionTopic" />
+                <ScalarProperty Name="POC1DISCDesignation" ColumnName="POC1DISCDesignation" />
+                <ScalarProperty Name="LU_ProductServiceId" ColumnName="LU_ProductServiceId" />
+                <ScalarProperty Name="LU_POC3OpportunityRoleId" ColumnName="LU_POC3OpportunityRoleId" />
+                <ScalarProperty Name="LU_POC3NextActionStepId" ColumnName="LU_POC3NextActionStepId" />
+                <ScalarProperty Name="LU_POC3CompanyRoleId" ColumnName="LU_POC3CompanyRoleId" />
+                <ScalarProperty Name="LU_POC3ApptSourceId" ColumnName="LU_POC3ApptSourceId" />
+                <ScalarProperty Name="LU_POC2OpportunityRoleId" ColumnName="LU_POC2OpportunityRoleId" />
+                <ScalarProperty Name="LU_POC2NextActionStepId" ColumnName="LU_POC2NextActionStepId" />
+                <ScalarProperty Name="LU_POC2CompanyRoleId" ColumnName="LU_POC2CompanyRoleId" />
+                <ScalarProperty Name="LU_POC2ApptSourceId" ColumnName="LU_POC2ApptSourceId" />
+                <ScalarProperty Name="LU_POC1OpportunityRoleId" ColumnName="LU_POC1OpportunityRoleId" />
+                <ScalarProperty Name="LU_POC1NextActionStepId" ColumnName="LU_POC1NextActionStepId" />
+                <ScalarProperty Name="LU_POC1CompanyRoleId" ColumnName="LU_POC1CompanyRoleId" />
+                <ScalarProperty Name="LU_POC1ApptSourceId" ColumnName="LU_POC1ApptSourceId" />
+                <ScalarProperty Name="LU_KAREDesignationId" ColumnName="LU_KAREDesignationId" />
+                <ScalarProperty Name="LU_IndustrySubCategoryId" ColumnName="LU_IndustrySubCategoryId" />
+                <ScalarProperty Name="LU_CompanyStatusId" ColumnName="LU_CompanyStatusId" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="COMPANYID" ColumnName="COMPANYID" />
                 <ScalarProperty Name="CONTACTID" ColumnName="CONTACTID" />
@@ -5660,6 +7618,53 @@
           <EntitySetMapping Name="TBL_CONTACTS">
             <EntityTypeMapping TypeName="SandlerDBModel.TBL_CONTACTS">
               <MappingFragment StoreEntitySet="TBL_CONTACTS">
+                <ScalarProperty Name="column_o" ColumnName="column_o" />
+                <ScalarProperty Name="column_n" ColumnName="column_n" />
+                <ScalarProperty Name="column_m" ColumnName="column_m" />
+                <ScalarProperty Name="column_l" ColumnName="column_l" />
+                <ScalarProperty Name="column_k" ColumnName="column_k" />
+                <ScalarProperty Name="column_j" ColumnName="column_j" />
+                <ScalarProperty Name="column_i" ColumnName="column_i" />
+                <ScalarProperty Name="column_h" ColumnName="column_h" />
+                <ScalarProperty Name="column_g" ColumnName="column_g" />
+                <ScalarProperty Name="column_f" ColumnName="column_f" />
+                <ScalarProperty Name="column_e" ColumnName="column_e" />
+                <ScalarProperty Name="column_d" ColumnName="column_d" />
+                <ScalarProperty Name="column_c" ColumnName="column_c" />
+                <ScalarProperty Name="column_b" ColumnName="column_b" />
+                <ScalarProperty Name="column_a" ColumnName="column_a" />
+                <ScalarProperty Name="YN_IsAlumnus" ColumnName="YN_IsAlumnus" />
+                <ScalarProperty Name="YN_EmailOptOut" ColumnName="YN_EmailOptOut" />
+                <ScalarProperty Name="LU_WorkshopTopicId" ColumnName="LU_WorkshopTopicId" />
+                <ScalarProperty Name="LU_StateId" ColumnName="LU_StateId" />
+                <ScalarProperty Name="LU_POCCompanyRoleId" ColumnName="LU_POCCompanyRoleId" />
+                <ScalarProperty Name="LU_POCCertificationLevelId" ColumnName="LU_POCCertificationLevelId" />
+                <ScalarProperty Name="LU_NextActionStepId" ColumnName="LU_NextActionStepId" />
+                <ScalarProperty Name="LU_KAREDesignationId" ColumnName="LU_KAREDesignationId" />
+                <ScalarProperty Name="LU_ExecBriefingTopicId" ColumnName="LU_ExecBriefingTopicId" />
+                <ScalarProperty Name="LU_ContactStatusId" ColumnName="LU_ContactStatusId" />
+                <ScalarProperty Name="LU_CompanyStatusId" ColumnName="LU_CompanyStatusId" />
+                <ScalarProperty Name="LU_CompanySourceId" ColumnName="LU_CompanySourceId" />
+                <ScalarProperty Name="DISCDesignation" ColumnName="DISCDesignation" />
+                <ScalarProperty Name="DISC_SteadinessValue" ColumnName="DISC_SteadinessValue" />
+                <ScalarProperty Name="DISC_InfluenceValue" ColumnName="DISC_InfluenceValue" />
+                <ScalarProperty Name="DISC_DominanceValue" ColumnName="DISC_DominanceValue" />
+                <ScalarProperty Name="DISC_ConscientiousnessValue" ColumnName="DISC_ConscientiousnessValue" />
+                <ScalarProperty Name="Date_Workshop" ColumnName="Date_Workshop" />
+                <ScalarProperty Name="Date_SESTrainingRenewal" ColumnName="Date_SESTrainingRenewal" />
+                <ScalarProperty Name="Date_SESTraining" ColumnName="Date_SESTraining" />
+                <ScalarProperty Name="Date_SCCTrainingRenewal" ColumnName="Date_SCCTrainingRenewal" />
+                <ScalarProperty Name="Date_SCCTraining" ColumnName="Date_SCCTraining" />
+                <ScalarProperty Name="Date_PCTrainingRenewal" ColumnName="Date_PCTrainingRenewal" />
+                <ScalarProperty Name="Date_PCTraining" ColumnName="Date_PCTraining" />
+                <ScalarProperty Name="Date_ManagementTrainingRenewal" ColumnName="Date_ManagementTrainingRenewal" />
+                <ScalarProperty Name="Date_ManagementTraining" ColumnName="Date_ManagementTraining" />
+                <ScalarProperty Name="Date_LeadershipTraining" ColumnName="Date_LeadershipTraining" />
+                <ScalarProperty Name="Date_FoundationsTraining" ColumnName="Date_FoundationsTraining" />
+                <ScalarProperty Name="Date_ExecutiveBriefing" ColumnName="Date_ExecutiveBriefing" />
+                <ScalarProperty Name="Date_CoachingTrainingRenewal" ColumnName="Date_CoachingTrainingRenewal" />
+                <ScalarProperty Name="Date_CoachingTraining" ColumnName="Date_CoachingTraining" />
+                <ScalarProperty Name="Date_BootcampTraining" ColumnName="Date_BootcampTraining" />
                 <ScalarProperty Name="LINKEDINID" ColumnName="LINKEDINID" />
                 <ScalarProperty Name="TWITTERID" ColumnName="TWITTERID" />
                 <ScalarProperty Name="FACEBOOKID" ColumnName="FACEBOOKID" />
@@ -6054,6 +8059,208 @@
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="ApplicationId" ColumnName="ApplicationId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LU_BillingState">
+            <EntityTypeMapping TypeName="SandlerDBModel.LU_BillingState">
+              <MappingFragment StoreEntitySet="LU_BillingState">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LU_CompanySource">
+            <EntityTypeMapping TypeName="SandlerDBModel.LU_CompanySource">
+              <MappingFragment StoreEntitySet="LU_CompanySource">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LU_CompanyStatus">
+            <EntityTypeMapping TypeName="SandlerDBModel.LU_CompanyStatus">
+              <MappingFragment StoreEntitySet="LU_CompanyStatus">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LU_ContactStatus">
+            <EntityTypeMapping TypeName="SandlerDBModel.LU_ContactStatus">
+              <MappingFragment StoreEntitySet="LU_ContactStatus">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LU_ExecBriefingTopic">
+            <EntityTypeMapping TypeName="SandlerDBModel.LU_ExecBriefingTopic">
+              <MappingFragment StoreEntitySet="LU_ExecBriefingTopic">
+                <ScalarProperty Name="BriefingName" ColumnName="BriefingName" />
+                <ScalarProperty Name="FranchiseeID" ColumnName="FranchiseeID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LU_IndustrySubCategory">
+            <EntityTypeMapping TypeName="SandlerDBModel.LU_IndustrySubCategory">
+              <MappingFragment StoreEntitySet="LU_IndustrySubCategory">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LU_KAREDesignation">
+            <EntityTypeMapping TypeName="SandlerDBModel.LU_KAREDesignation">
+              <MappingFragment StoreEntitySet="LU_KAREDesignation">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LU_NextActionStep">
+            <EntityTypeMapping TypeName="SandlerDBModel.LU_NextActionStep">
+              <MappingFragment StoreEntitySet="LU_NextActionStep">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LU_POC1ApptSource">
+            <EntityTypeMapping TypeName="SandlerDBModel.LU_POC1ApptSource">
+              <MappingFragment StoreEntitySet="LU_POC1ApptSource">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LU_POC1CompanyRole">
+            <EntityTypeMapping TypeName="SandlerDBModel.LU_POC1CompanyRole">
+              <MappingFragment StoreEntitySet="LU_POC1CompanyRole">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LU_POC1NextActionStep">
+            <EntityTypeMapping TypeName="SandlerDBModel.LU_POC1NextActionStep">
+              <MappingFragment StoreEntitySet="LU_POC1NextActionStep">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LU_POC1OpportunityRole">
+            <EntityTypeMapping TypeName="SandlerDBModel.LU_POC1OpportunityRole">
+              <MappingFragment StoreEntitySet="LU_POC1OpportunityRole">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LU_POC2ApptSource">
+            <EntityTypeMapping TypeName="SandlerDBModel.LU_POC2ApptSource">
+              <MappingFragment StoreEntitySet="LU_POC2ApptSource">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LU_POC2CompanyRole">
+            <EntityTypeMapping TypeName="SandlerDBModel.LU_POC2CompanyRole">
+              <MappingFragment StoreEntitySet="LU_POC2CompanyRole">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LU_POC2NextActionStep">
+            <EntityTypeMapping TypeName="SandlerDBModel.LU_POC2NextActionStep">
+              <MappingFragment StoreEntitySet="LU_POC2NextActionStep">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LU_POC2OpportunityRole">
+            <EntityTypeMapping TypeName="SandlerDBModel.LU_POC2OpportunityRole">
+              <MappingFragment StoreEntitySet="LU_POC2OpportunityRole">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LU_POC3ApptSource">
+            <EntityTypeMapping TypeName="SandlerDBModel.LU_POC3ApptSource">
+              <MappingFragment StoreEntitySet="LU_POC3ApptSource">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LU_POC3CompanyRole">
+            <EntityTypeMapping TypeName="SandlerDBModel.LU_POC3CompanyRole">
+              <MappingFragment StoreEntitySet="LU_POC3CompanyRole">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LU_POC3NextActionStep">
+            <EntityTypeMapping TypeName="SandlerDBModel.LU_POC3NextActionStep">
+              <MappingFragment StoreEntitySet="LU_POC3NextActionStep">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LU_POC3OpportunityRole">
+            <EntityTypeMapping TypeName="SandlerDBModel.LU_POC3OpportunityRole">
+              <MappingFragment StoreEntitySet="LU_POC3OpportunityRole">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LU_POCCertificationLevel">
+            <EntityTypeMapping TypeName="SandlerDBModel.LU_POCCertificationLevel">
+              <MappingFragment StoreEntitySet="LU_POCCertificationLevel">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LU_POCCompanyRole">
+            <EntityTypeMapping TypeName="SandlerDBModel.LU_POCCompanyRole">
+              <MappingFragment StoreEntitySet="LU_POCCompanyRole">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LU_ProductService">
+            <EntityTypeMapping TypeName="SandlerDBModel.LU_ProductService">
+              <MappingFragment StoreEntitySet="LU_ProductService">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LU_State">
+            <EntityTypeMapping TypeName="SandlerDBModel.LU_State">
+              <MappingFragment StoreEntitySet="LU_State">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LU_WorkshopTopic">
+            <EntityTypeMapping TypeName="SandlerDBModel.LU_WorkshopTopic">
+              <MappingFragment StoreEntitySet="LU_WorkshopTopic">
+                <ScalarProperty Name="WorkshopName" ColumnName="WorkshopName" />
+                <ScalarProperty Name="FranchiseeId" ColumnName="FranchiseeId" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -120,12 +120,67 @@
         <AssociationConnector Association="SandlerDBModel.FK_Tbl_FollowUpItemsList_aspnet_Users" />
         <AssociationConnector Association="SandlerDBModel.FK_TBL_FRANCHISEE_USERS_aspnet_Users" />
         <AssociationConnector Association="SandlerDBModel.FK_TBL_UserEmailGroup_aspnet_Users" />
-        <AssociationConnector Association="SandlerDBModel.FK__aspnet_Me__UserI__15660868" />
-        <AssociationConnector Association="SandlerDBModel.FK_TBL_COACH_aspnet_Users" />
-        <AssociationConnector Association="SandlerDBModel.FK_Tbl_FollowUpItemsList_aspnet_Users" />
-        <AssociationConnector Association="SandlerDBModel.FK_TBL_FRANCHISEE_USERS_aspnet_Users" />
-        <AssociationConnector Association="SandlerDBModel.FK_TBL_UserEmailGroup_aspnet_Users" />
-      </Diagram>
+        <EntityTypeShape EntityType="SandlerDBModel.LU_BillingState" Width="1.5" PointX="7.64923585003672" PointY="13.319429001453997" />
+        <EntityTypeShape EntityType="SandlerDBModel.LU_CompanySource" Width="1.5" PointX="8.8266859058414973" PointY="25.489956867643613" />
+        <EntityTypeShape EntityType="SandlerDBModel.LU_CompanyStatus" Width="1.5" PointX="3.0948580834524977" PointY="4.9002479486634245" />
+        <EntityTypeShape EntityType="SandlerDBModel.LU_ContactStatus" Width="1.5" PointX="6.2795749410426129" PointY="22.369865353391443" />
+        <EntityTypeShape EntityType="SandlerDBModel.LU_ExecBriefingTopic" Width="1.5" PointX="11.097767561253983" PointY="10.445386101699148" />
+        <EntityTypeShape EntityType="SandlerDBModel.LU_IndustrySubCategory" Width="1.5" PointX="10.65863029968861" PointY="28.057165769886769" />
+        <EntityTypeShape EntityType="SandlerDBModel.LU_KAREDesignation" Width="1.5" PointX="3.3726774879604005" PointY="30.580598219568188" />
+        <EntityTypeShape EntityType="SandlerDBModel.LU_NextActionStep" Width="1.5" PointX="0.424854051519583" PointY="10.006990660916545" />
+        <EntityTypeShape EntityType="SandlerDBModel.LU_POC1ApptSource" Width="1.5" PointX="1.0160308783017242" PointY="7.2863803986862212" />
+        <EntityTypeShape EntityType="SandlerDBModel.LU_POC1CompanyRole" Width="1.5" PointX="4.778145021190003" PointY="25.632531952873119" />
+        <EntityTypeShape EntityType="SandlerDBModel.LU_POC1NextActionStep" Width="1.5" PointX="11.122260292583267" PointY="29.106575234377093" />
+        <EntityTypeShape EntityType="SandlerDBModel.LU_POC1OpportunityRole" Width="1.5" PointX="9.7387745798280339" PointY="17.078543477262624" />
+        <EntityTypeShape EntityType="SandlerDBModel.LU_POC2ApptSource" Width="1.5" PointX="7.93568813425288" PointY="25.475744944753007" />
+        <EntityTypeShape EntityType="SandlerDBModel.LU_POC2CompanyRole" Width="1.5" PointX="9.3898082400624681" PointY="17.1925594588707" />
+        <EntityTypeShape EntityType="SandlerDBModel.LU_POC2NextActionStep" Width="1.5" PointX="10.244522518592198" PointY="4.3163868805004224" />
+        <EntityTypeShape EntityType="SandlerDBModel.LU_POC2OpportunityRole" Width="1.5" PointX="10.43526238130185" PointY="1.8402407326922943" />
+        <EntityTypeShape EntityType="SandlerDBModel.LU_POC3ApptSource" Width="1.5" PointX="4.1857195758194283" PointY="25.6689759463393" />
+        <EntityTypeShape EntityType="SandlerDBModel.LU_POC3CompanyRole" Width="1.5" PointX="11.16752603983857" PointY="5.18681465330851" />
+        <EntityTypeShape EntityType="SandlerDBModel.LU_POC3NextActionStep" Width="1.5" PointX="2.056085006360004" PointY="26.575097975588914" />
+        <EntityTypeShape EntityType="SandlerDBModel.LU_POC3OpportunityRole" Width="1.5" PointX="0.18848183387354103" PointY="1.162362799589691" />
+        <EntityTypeShape EntityType="SandlerDBModel.LU_POCCertificationLevel" Width="1.5" PointX="8.8382634096025789" PointY="16.4071455376256" />
+        <EntityTypeShape EntityType="SandlerDBModel.LU_POCCompanyRole" Width="1.5" PointX="8.0933611765938629" PointY="1.8007076838057059" />
+        <EntityTypeShape EntityType="SandlerDBModel.LU_ProductService" Width="1.5" PointX="7.1959836814533844" PointY="14.426223851007514" />
+        <EntityTypeShape EntityType="SandlerDBModel.LU_State" Width="1.5" PointX="7.4631927197162025" PointY="26.249834683840085" />
+        <EntityTypeShape EntityType="SandlerDBModel.LU_WorkshopTopic" Width="1.5" PointX="7.7413004784571484" PointY="12.465795627080741" />
+        <AssociationConnector Association="SandlerDBModel.FK_TBL_COMPANIES_LU_BillingStateId" />
+        <AssociationConnector Association="SandlerDBModel.FK_TBL_COMPANIES_LU_CompanySourceId" />
+        <AssociationConnector Association="SandlerDBModel.FK_TBL_CONTACTS_LU_CompanySourceId" />
+        <AssociationConnector Association="SandlerDBModel.FK_TBL_COMPANIES_LU_CompanyStatusId" />
+        <AssociationConnector Association="SandlerDBModel.FK_TBL_CONTACTS_LU_CompanyStatusId" />
+        <AssociationConnector Association="SandlerDBModel.FK_TBL_OPPORTUNITIES_LU_CompanyStatusId" />
+        <AssociationConnector Association="SandlerDBModel.FK_TBL_COMPANIES_LU_ContactStatusId" />
+        <AssociationConnector Association="SandlerDBModel.FK_TBL_CONTACTS_LU_ContactStatusId" />
+        <AssociationConnector Association="SandlerDBModel.FK_TBL_CONTACTS_LU_ExecBriefingTopicId" />
+        <AssociationConnector Association="SandlerDBModel.FK_TBL_COMPANIES_LU_IndustrySubCategoryId" />
+        <AssociationConnector Association="SandlerDBModel.FK_TBL_OPPORTUNITIES_LU_IndustrySubCategoryId" />
+        <AssociationConnector Association="SandlerDBModel.FK_TBL_COMPANIES_LU_KAREDesignationId" />
+        <AssociationConnector Association="SandlerDBModel.FK_TBL_CONTACTS_LU_KAREDesignationId" />
+        <AssociationConnector Association="SandlerDBModel.FK_TBL_OPPORTUNITIES_LU_KAREDesignationId" />
+        <AssociationConnector Association="SandlerDBModel.FK_TBL_COMPANIES_LU_NextActionStepId" />
+        <AssociationConnector Association="SandlerDBModel.FK_TBL_CONTACTS_LU_NextActionStepId" />
+        <AssociationConnector Association="SandlerDBModel.FK_TBL_OPPORTUNITIES_LU_POC1ApptSourceId" />
+        <AssociationConnector Association="SandlerDBModel.FK_TBL_OPPORTUNITIES_LU_POC1CompanyRoleId" />
+        <AssociationConnector Association="SandlerDBModel.FK_TBL_OPPORTUNITIES_LU_POC1NextActionStepId" />
+        <AssociationConnector Association="SandlerDBModel.FK_TBL_OPPORTUNITIES_LU_POC1OpportunityRoleId" />
+        <AssociationConnector Association="SandlerDBModel.FK_TBL_OPPORTUNITIES_LU_POC2ApptSourceId" />
+        <AssociationConnector Association="SandlerDBModel.FK_TBL_OPPORTUNITIES_LU_POC2CompanyRoleId" />
+        <AssociationConnector Association="SandlerDBModel.FK_TBL_OPPORTUNITIES_LU_POC2NextActionStepId" />
+        <AssociationConnector Association="SandlerDBModel.FK_TBL_OPPORTUNITIES_LU_POC2OpportunityRoleId" />
+        <AssociationConnector Association="SandlerDBModel.FK_TBL_OPPORTUNITIES_LU_POC3ApptSourceId" />
+        <AssociationConnector Association="SandlerDBModel.FK_TBL_OPPORTUNITIES_LU_POC3CompanyRoleId" />
+        <AssociationConnector Association="SandlerDBModel.FK_TBL_OPPORTUNITIES_LU_POC3NextActionStepId" />
+        <AssociationConnector Association="SandlerDBModel.FK_TBL_OPPORTUNITIES_LU_POC3OpportunityRoleId" />
+        <AssociationConnector Association="SandlerDBModel.FK_TBL_CONTACTS_LU_POCCertificationLevelId" />
+        <AssociationConnector Association="SandlerDBModel.FK_TBL_COMPANIES_LU_POCCompanyRoleId" />
+        <AssociationConnector Association="SandlerDBModel.FK_TBL_CONTACTS_LU_POCCompanyRoleId" />
+        <AssociationConnector Association="SandlerDBModel.FK_TBL_OPPORTUNITIES_LU_ProductServiceId" />
+        <AssociationConnector Association="SandlerDBModel.FK_TBL_COMPANIES_LU_StateId" />
+        <AssociationConnector Association="SandlerDBModel.FK_TBL_CONTACTS_LU_StateId" />
+        <AssociationConnector Association="SandlerDBModel.FK_TBL_CONTACTS_LU_WorkshopTopicId" />
+        </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>

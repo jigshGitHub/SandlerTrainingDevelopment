@@ -55,6 +55,67 @@ namespace Sandler.DB.Models
         public string CostToFix { get; set; }
         public Nullable<bool> IsBudgeIdentified { get; set; }
         public Nullable<bool> IsMoveForward { get; set; }
+        public Nullable<int> LU_CompanyStatusId { get; set; }
+        public Nullable<int> LU_IndustrySubCategoryId { get; set; }
+        public Nullable<int> LU_KAREDesignationId { get; set; }
+        public Nullable<int> LU_POC1ApptSourceId { get; set; }
+        public Nullable<int> LU_POC1CompanyRoleId { get; set; }
+        public Nullable<int> LU_POC1NextActionStepId { get; set; }
+        public Nullable<int> LU_POC1OpportunityRoleId { get; set; }
+        public Nullable<int> LU_POC2ApptSourceId { get; set; }
+        public Nullable<int> LU_POC2CompanyRoleId { get; set; }
+        public Nullable<int> LU_POC2NextActionStepId { get; set; }
+        public Nullable<int> LU_POC2OpportunityRoleId { get; set; }
+        public Nullable<int> LU_POC3ApptSourceId { get; set; }
+        public Nullable<int> LU_POC3CompanyRoleId { get; set; }
+        public Nullable<int> LU_POC3NextActionStepId { get; set; }
+        public Nullable<int> LU_POC3OpportunityRoleId { get; set; }
+        public Nullable<int> LU_ProductServiceId { get; set; }
+        public string POC1DISCDesignation { get; set; }
+        public string POC1DiscussionTopic { get; set; }
+        public string POC1Email { get; set; }
+        public string POC1FirstName { get; set; }
+        public Nullable<System.DateTime> POC1LastContactDate { get; set; }
+        public string POC1LastName { get; set; }
+        public string POC1MobilePhone { get; set; }
+        public Nullable<System.DateTime> POC1NextContactDate { get; set; }
+        public string POC1Notes { get; set; }
+        public string POC1Phone { get; set; }
+        public string POC2DISCDesignation { get; set; }
+        public string POC2DiscussionTopic { get; set; }
+        public string POC2Email { get; set; }
+        public string POC2FirstName { get; set; }
+        public Nullable<System.DateTime> POC2LastContactDate { get; set; }
+        public string POC2LastName { get; set; }
+        public string POC2MobilePhone { get; set; }
+        public Nullable<System.DateTime> POC2NextContactDate { get; set; }
+        public string POC2Notes { get; set; }
+        public string POC2Phone { get; set; }
+        public string POC3DISCDesignation { get; set; }
+        public string POC3DiscussionTopic { get; set; }
+        public string POC3Email { get; set; }
+        public string POC3FirstName { get; set; }
+        public Nullable<System.DateTime> POC3LastContactDate { get; set; }
+        public string POC3LastName { get; set; }
+        public string POC3MobilePhone { get; set; }
+        public Nullable<System.DateTime> POC3NextContactDate { get; set; }
+        public string POC3Notes { get; set; }
+        public string POC3Phone { get; set; }
+        public string column_a { get; set; }
+        public string column_b { get; set; }
+        public string column_c { get; set; }
+        public string column_d { get; set; }
+        public string column_e { get; set; }
+        public Nullable<int> column_f { get; set; }
+        public Nullable<int> column_g { get; set; }
+        public Nullable<int> column_h { get; set; }
+        public Nullable<int> column_i { get; set; }
+        public Nullable<int> column_j { get; set; }
+        public Nullable<System.DateTime> column_k { get; set; }
+        public Nullable<System.DateTime> column_l { get; set; }
+        public Nullable<System.DateTime> column_m { get; set; }
+        public Nullable<System.DateTime> column_n { get; set; }
+        public Nullable<System.DateTime> column_o { get; set; }
     
         public virtual TBL_COMPANIES TBL_COMPANIES { get; set; }
         public virtual ICollection<TBL_DOCS> TBL_DOCS { get; set; }
@@ -67,5 +128,21 @@ namespace Sandler.DB.Models
         public virtual TBL_CONTACTS TBL_CONTACTS { get; set; }
         public virtual TBL_CONTACTS TBL_CONTACTS1 { get; set; }
         public virtual TBL_CONTACTS TBL_CONTACTS2 { get; set; }
+        public virtual LU_CompanyStatus LU_CompanyStatus { get; set; }
+        public virtual LU_IndustrySubCategory LU_IndustrySubCategory { get; set; }
+        public virtual LU_KAREDesignation LU_KAREDesignation { get; set; }
+        public virtual LU_POC1ApptSource LU_POC1ApptSource { get; set; }
+        public virtual LU_POC1CompanyRole LU_POC1CompanyRole { get; set; }
+        public virtual LU_POC1NextActionStep LU_POC1NextActionStep { get; set; }
+        public virtual LU_POC1OpportunityRole LU_POC1OpportunityRole { get; set; }
+        public virtual LU_POC2ApptSource LU_POC2ApptSource { get; set; }
+        public virtual LU_POC2CompanyRole LU_POC2CompanyRole { get; set; }
+        public virtual LU_POC2NextActionStep LU_POC2NextActionStep { get; set; }
+        public virtual LU_POC2OpportunityRole LU_POC2OpportunityRole { get; set; }
+        public virtual LU_POC3ApptSource LU_POC3ApptSource { get; set; }
+        public virtual LU_POC3CompanyRole LU_POC3CompanyRole { get; set; }
+        public virtual LU_POC3NextActionStep LU_POC3NextActionStep { get; set; }
+        public virtual LU_POC3OpportunityRole LU_POC3OpportunityRole { get; set; }
+        public virtual LU_ProductService LU_ProductService { get; set; }
     }
 }
